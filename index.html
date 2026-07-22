@@ -159,7 +159,15 @@
   .tag.soon{background:#f3f0e6;color:#8a7a4a}
 
   /* preview */
-  .thumbs{display:flex;flex-direction:column;gap:15px;margin-top:8px}
+  /* pack preview: swipe carousel on phones, 2-col grid on desktop — kills the
+     six-full-pages scroll wall */
+  .thumbs{display:grid;grid-auto-flow:column;grid-auto-columns:80%;gap:12px;margin-top:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;-webkit-overflow-scrolling:touch}
+  .thumb{scroll-snap-align:center}
+  .thumbs-hint{margin-top:2px}
+  @media(min-width:900px){
+    .thumbs{grid-auto-flow:row;grid-template-columns:1fr 1fr;grid-auto-columns:auto;overflow-x:visible;scroll-snap-type:none}
+    .thumbs-hint{display:none}
+  }
   .thumb{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--white);transition:transform .3s var(--ease-out),box-shadow .3s}
   .thumb:hover{transform:translateY(-3px) scale(1.008);box-shadow:0 10px 26px rgba(27,42,74,.14)}
   .thumb .cap{padding:10px 13px;font-size:13px;font-weight:800;color:var(--navy);background:#f4f1e7;border-top:1px solid var(--line)}
@@ -233,6 +241,9 @@
   .prx-rec.rec{border-color:#b3452f;color:#b3452f}
   .prx-rec-note{font-size:11.5px;color:var(--muted);margin-bottom:8px}
   .prc-cite{font-size:11.5px;font-weight:700;color:#8a7a4a;margin:-6px 0 14px}
+  .prx-heard{font-size:12.5px;color:var(--ink);background:var(--white);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-top:8px;line-height:1.5}
+  .prx-chip{display:inline-block;font-size:11.5px;font-weight:800;border:1px solid var(--line);border-radius:999px;padding:2px 8px;color:var(--muted);margin:2px 2px 0 0}
+  .prx-chip.hit{background:#eef7f0;border-color:#bcd8c2;color:#1d4a2c}
   .ab-card{background:var(--cream);border-radius:20px;max-width:460px;width:100%;max-height:88vh;overflow:auto;box-shadow:0 30px 80px rgba(0,0,0,.5)}
   .ab-top{position:sticky;top:0;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:15px 18px}
   .ab-title{font-weight:900;font-size:16px}
@@ -990,7 +1001,11 @@ const T = {
     prx_pace:"Calm and steady beats fast.",
     prx_rec:"\ud83c\udf99 Hear yourself", prx_rec_stop:"\u25a0 Stop & play back",
     prx_rec_note:"Recorded on your phone only \u2014 played back once, never saved or uploaded.",
+    prx_rec_note_sr:"Plays back once and shows what you said. Voice is transcribed by your browser's speech service and may leave your device \u2014 optional; Amparo stores nothing.",
     prx_rec_denied:"Mic blocked \u2014 no problem. Your own ears work fine.",
+    prx_heard:"You said:", prx_heard_none:"Didn't catch that \u2014 try again a little closer to the phone, or just trust your ears.",
+    prx_heard_good:"You hit the key words.", prx_heard_retry:"Close \u2014 the highlighted key words are the ones to land.",
+    v_swipe:"\u2194\ufe0f Swipe to flip through your pages",
     next:"Continue", tagline:"Know your rights", pdf_hint:"No printer? In the print window, choose “Save as PDF” as the printer.", pdf_backup:"Save the PDF — it’s your backup. Reprint anytime without redoing anything.",
     tc_reviewed:"Attorney-reviewed", tc_private:"Photos stay on your device", tc_by:"By",
     ab_title:"Who's behind Amparo", ab_close:"Close",
@@ -1162,7 +1177,11 @@ const T = {
     prx_pace:"Con calma y firmeza — mejor que rápido.",
     prx_rec:"🎙 Escúchate", prx_rec_stop:"■ Detener y reproducir",
     prx_rec_note:"Se graba solo en tu teléfono — se reproduce una vez, nunca se guarda ni se sube.",
+    prx_rec_note_sr:"Se reproduce una vez y muestra lo que dijiste. Tu voz se transcribe con el servicio de voz de tu navegador y puede salir de tu dispositivo — opcional; Amparo no guarda nada.",
     prx_rec_denied:"Micrófono bloqueado — no pasa nada. Tus propios oídos funcionan.",
+    prx_heard:"Dijiste:", prx_heard_none:"No se escuchó — inténtalo un poco más cerca del teléfono, o confía en tus oídos.",
+    prx_heard_good:"Dijiste las palabras clave.", prx_heard_retry:"Casi — las palabras clave resaltadas son las que hay que decir.",
+    v_swipe:"↔️ Desliza para pasar tus páginas",
     next:"Continuar", tagline:"Conoce tus derechos", pdf_hint:"¿Sin impresora? En la ventana de impresión, elige “Guardar como PDF” como impresora.", pdf_backup:"Guarda el PDF — es tu respaldo. Reimprime cuando quieras sin rehacer nada.",
     tc_reviewed:"Revisado por abogado", tc_private:"Tus fotos quedan en tu dispositivo", tc_by:"Por",
     ab_title:"Qui\u00e9n est\u00e1 detr\u00e1s de Amparo", ab_close:"Cerrar",
@@ -1832,6 +1851,7 @@ function render(){
       <div class="thumbs stagger">
         ${[1,2,3,4,5,6].map(n=>`<div class="thumb"><div class="mini-wrap" id="mw${n}"></div><div class="cap">${_t['v_pg'+n]}</div></div>`).join('')}
       </div>
+      <p class="soon thumbs-hint">${_t.v_swipe}</p>
       </div>
       <div class="split-right">
       <div class="compare">
@@ -2801,7 +2821,29 @@ function prxSpeak(){
    Nothing is stored, nothing is uploaded, no transcript exists — the user's
    own ears are the judge. Key phrases get highlighted so they can self-check. */
 let prxRec=null; // {rec, stream, discard}
-function prxRecFinish(){ if(prxRec){ try{ prxRec.rec.stop(); }catch(e){} } }        // stop → plays back
+/* Transcript layer: browser SpeechRecognition alongside the recorder. The
+   transcript is compared to the card's quoted key phrases — matched words go
+   green, and the outcome is "you hit it" or "close, try again". Never "failed":
+   accents, stutters and quiet voices are the audience, not an error state. */
+const PRX_SR=window.SpeechRecognition||window.webkitSpeechRecognition||null;
+let prxHeard='';
+function prxCompareShow(){
+  const el=document.getElementById('prxCompare'); if(!el) return;
+  const _t=t(), card=prxCard(PRX_LEVELS[prLevel].ids[prIdx]);
+  const heard=prxHeard.trim();
+  if(!heard){ el.innerHTML=`<div class="prx-heard">${_t.prx_heard_none}</div>`; return; }
+  const norm=s=>(' '+s.toLowerCase().replace(/[^a-z0-9áéíóúñü' ]/gi,' ')+' ');
+  const h=norm(heard);
+  const phrases=(card.y.match(/“([^”]+)”/g)||[]).map(s=>s.replace(/[“”]/g,''));
+  const words=[...new Set(phrases.join(' ').toLowerCase().replace(/[^a-z0-9áéíóúñü' ]/gi,' ').split(/\s+/).filter(w=>w.length>3))];
+  const hits=words.filter(w=>h.includes(w));
+  const good=words.length>0&&hits.length>=Math.ceil(words.length/2);
+  el.innerHTML=`<div class="prx-heard"><b>${_t.prx_heard}</b> “${esc(heard)}”</div>
+    ${words.length?`<div style="margin:6px 0 2px">${words.map(w=>`<span class="prx-chip${h.includes(w)?' hit':''}">${esc(w)}</span>`).join('')}</div>`:''}
+    <div class="prx-heard" style="border:0;background:none;padding:4px 0 0;font-weight:800;color:${good?'#2f8f5b':'#8a7a4a'}">${good?_t.prx_heard_good:_t.prx_heard_retry}</div>`;
+  if(good) ph('sr_practice_keywords_hit',{level:prLevel+1,state:data.state,lang:lang});
+}
+function prxRecFinish(){ if(prxRec){ try{ prxRec.rec.stop(); }catch(e){} } }        // stop → plays back + transcript
 function prxRecCancel(){ if(prxRec){ prxRec.discard=true; prxRecFinish(); } }        // stop → silent discard
 async function prxRecToggle(){
   const _t=t(), btn=document.getElementById('prxRecBtn'), note=document.getElementById('prxRecNote');
@@ -2810,11 +2852,24 @@ async function prxRecToggle(){
   try{
     const stream=await navigator.mediaDevices.getUserMedia({audio:true});
     const rec=new MediaRecorder(stream), chunks=[];
+    let sr=null;
+    prxHeard='';
+    if(PRX_SR){
+      try{
+        sr=new PRX_SR();
+        sr.lang=lang==='es'?'es-US':'en-US';
+        sr.continuous=true; sr.interimResults=false;
+        sr.onresult=e=>{ for(let i=e.resultIndex;i<e.results.length;i++) prxHeard+=' '+e.results[i][0].transcript; };
+        sr.onend=()=>prxCompareShow();
+        sr.start();
+      }catch(e){ sr=null; }
+    }
     prxRec={rec,stream,discard:false};
     rec.ondataavailable=e=>{ if(e.data&&e.data.size) chunks.push(e.data); };
     rec.onstop=()=>{
       stream.getTracks().forEach(tr=>tr.stop());
       const discard=prxRec&&prxRec.discard; prxRec=null;
+      if(sr){ try{ discard?sr.abort():sr.stop(); }catch(e){} }
       const b2=document.getElementById('prxRecBtn');
       if(b2){ b2.textContent=_t.prx_rec; b2.classList.remove('rec'); }
       if(discard||!chunks.length) return;
@@ -2825,7 +2880,7 @@ async function prxRecToggle(){
     };
     rec.start();
     if(btn){ btn.textContent=_t.prx_rec_stop; btn.classList.add('rec'); }
-    ph('sr_practice_self_record',{level:prLevel+1,state:data.state,lang:lang});
+    ph('sr_practice_self_record',{level:prLevel+1,state:data.state,lang:lang,transcript:!!sr});
   }catch(e){ if(note) note.textContent=_t.prx_rec_denied; }
 }
 function prxKeys(s){ return s.replace(/“([^”]+)”/g,'“<span class="prx-key">$1</span>”'); }
@@ -2886,7 +2941,8 @@ function practiceRender(){
         <div class="prx-pace" aria-hidden="true"><i></i></div>
         <div class="prx-pace-lbl">${_t.prx_pace}</div>
         ${(navigator.mediaDevices&&window.MediaRecorder&&!isDo)?`<button class="prx-rec" id="prxRecBtn" onclick="prxRecToggle()">${_t.prx_rec}</button>
-        <div class="prx-rec-note" id="prxRecNote">${_t.prx_rec_note}</div>`:''}
+        <div class="prx-rec-note" id="prxRecNote">${PRX_SR?_t.prx_rec_note_sr:_t.prx_rec_note}</div>
+        <div id="prxCompare"></div>`:''}
         <button class="btn gold" onclick="prxRecFinish();prRevealed=true;practiceRender()">${_t.prx_reveal}</button>`}
     </div>
   </div>`;
