@@ -232,6 +232,7 @@
   .prx-rec{background:transparent;border:1.5px solid var(--line);border-radius:9px;padding:7px 11px;font-size:12.5px;font-weight:800;color:var(--navy);cursor:pointer;font-family:inherit;margin:2px 0 4px}
   .prx-rec.rec{border-color:#b3452f;color:#b3452f}
   .prx-rec-note{font-size:11.5px;color:var(--muted);margin-bottom:8px}
+  .prc-cite{font-size:11.5px;font-weight:700;color:#8a7a4a;margin:-6px 0 14px}
   .ab-card{background:var(--cream);border-radius:20px;max-width:460px;width:100%;max-height:88vh;overflow:auto;box-shadow:0 30px 80px rgba(0,0,0,.5)}
   .ab-top{position:sticky;top:0;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:15px 18px}
   .ab-title{font-weight:900;font-size:16px}
@@ -2747,6 +2748,31 @@ const PRACTICE={
 const PRX_LEVELS=[{ids:[0,1,2,6],rate:0.95},{ids:[0,1,2,4,5],rate:1.12},{ids:[3,7],rate:1.28}];
 const PRX_DO=new Set([3,5]); // comply/sign cards — an action, not a spoken line
 const PRX_COP=`<svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#e9ecf3"/><path d="M22 106c5-22 20-31 38-31s33 9 38 31" fill="#1B2A4A"/><circle cx="60" cy="55" r="21" fill="#31425f"/><path d="M38 47c2-12 10-19 22-19s20 7 22 19H38z" fill="#1B2A4A"/><rect x="36" y="45" width="48" height="6" rx="3" fill="#121e38"/><circle cx="44" cy="88" r="5" fill="#E8B84B"/></svg>`;
+/* Card 5 ("Sign here") is the one card where blanket advice is wrong-by-state:
+   TX refusal = arrestable (Transp. Code §543.005); GA/NY differ. Overrides keyed
+   by data.state; unknown states fall back to the cautious base card. */
+const PRX_SIGN={
+  en:{
+    TX:{o:"“Sign here.”", y:"Sign it. In Texas, signing is only a promise to appear — not an admission of guilt (Transp. Code §543.005). Refusing to sign is one of the few traffic offenses you can be arrested for."},
+    GA:{o:"“Sign here.”", y:"If asked, sign it. Signing is a receipt and a promise to appear — not an admission of guilt. Refusing helps nothing and can escalate the stop."},
+    NY:{o:"“Sign here.”", y:"In New York you usually won't be asked to sign a roadside ticket — you answer it by mail or in court. If you are asked, signing is not an admission of guilt."}
+  },
+  es:{
+    TX:{o:"“Firma aquí.”", y:"Fírmala. En Texas, firmar es solo una promesa de comparecer — no una admisión de culpa (Transp. Code §543.005). Negarse a firmar es una de las pocas infracciones de tráfico por las que pueden arrestarte."},
+    GA:{o:"“Firma aquí.”", y:"Si te lo piden, fírmala. Firmar es un recibo y una promesa de comparecer — no una admisión de culpa. Negarse no ayuda en nada y puede escalar la parada."},
+    NY:{o:"“Firma aquí.”", y:"En Nueva York normalmente no te piden firmar una multa en la carretera — se responde por correo o en la corte. Si te lo piden, firmar no es una admisión de culpa."}
+  }
+};
+/* "Why you can" anchors — constitutional / Supreme Court only (state-independent
+   and verifiable); state-statute cites live on the printed rules pages. */
+const PRX_CITES={
+  en:{1:"Why you can: 5th Amendment — the right to remain silent.",2:"Why you can: 4th Amendment — you may refuse consent to searches.",3:"Why you comply: Pennsylvania v. Mimms (1977) — officers may order a driver out.",4:"Why you can: 5th Amendment — the right to remain silent.",6:"Why you ask: 4th Amendment — a stop must end when its reason ends.",7:"Why it works: 5th & 6th Amendments — silence, and counsel."},
+  es:{1:"Por qué puedes: 5ª Enmienda — el derecho a guardar silencio.",2:"Por qué puedes: 4ª Enmienda — puedes negar el consentimiento a registros.",3:"Por qué cumples: Pennsylvania v. Mimms (1977) — pueden ordenar al conductor salir.",4:"Por qué puedes: 5ª Enmienda — el derecho a guardar silencio.",6:"Por qué preguntas: 4ª Enmienda — la parada debe terminar cuando termina su motivo.",7:"Por qué funciona: 5ª y 6ª Enmiendas — silencio y abogado."}
+};
+function prxCard(ci){
+  if(ci===5){ const ov=(PRX_SIGN[lang]||{})[data.state]; if(ov) return ov; }
+  return PRACTICE[lang][ci];
+}
 let prLevel=0, prIdx=0, prRevealed=false, prWarnOk=false;
 let prxDone={};
 try{ prxDone=JSON.parse(localStorage.getItem('amparo_prx')||'{}')||{}; }catch(e){ prxDone={}; }
@@ -2839,7 +2865,7 @@ function practiceRender(){
       <button class="btn ghost" onclick="practiceClose()">${_t.prx_close}</button>`;
     return;
   }
-  const ci=L.ids[prIdx], card=deck[ci], isDo=PRX_DO.has(ci);
+  const ci=L.ids[prIdx], card=prxCard(ci), isDo=PRX_DO.has(ci);
   b.innerHTML=tabs+`<div class="prx-grid">
     <div class="prx-cop">
       ${PRX_COP}
@@ -2854,6 +2880,7 @@ function practiceRender(){
       <div class="prc-officer">${card.o}</div>
       ${prRevealed?`<div class="prc-role">${_t.prx_you}</div>
         <div class="prc-you">${prxKeys(card.y)}</div>
+        ${PRX_CITES[lang][ci]?`<div class="prc-cite">⚖️ ${PRX_CITES[lang][ci]}</div>`:''}
         <button class="btn" onclick="prIdx++;prRevealed=false;practiceRender();prxSpeak()">${isDo?_t.prx_got:_t.prx_say}</button>`
       :`<p class="prc-intro" style="margin-bottom:6px">${_t.prx_your_turn}</p>
         <div class="prx-pace" aria-hidden="true"><i></i></div>
