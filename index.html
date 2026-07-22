@@ -166,6 +166,22 @@
   .mini{transform-origin:top left;pointer-events:none}
   .mini-wrap{overflow:hidden}
 
+  /* post-print action rail: compact rows, one king CTA stays .btn.gold */
+  .arow{display:flex;align-items:center;gap:6px;width:100%;text-align:left;background:var(--white);border:1.5px solid var(--line);border-radius:12px;padding:11px 13px;margin-top:8px;cursor:pointer;font-family:inherit;transition:border-color .25s,background .25s,transform .25s var(--ease-spring)}
+  .arow:hover{border-color:var(--navy);background:rgba(27,42,74,.04);transform:translateY(-1px)}
+  .arow .at{flex:1;min-width:0}
+  .arow .at b{display:block;font-size:14.5px;font-weight:800;color:var(--navy);line-height:1.3}
+  .arow .at small{display:block;font-size:12px;color:var(--muted);margin-top:2px;line-height:1.45;font-weight:500}
+  .arow .ac{color:var(--muted);font-size:18px;font-weight:800;flex:none}
+  .rail-label{font-size:11.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:#8a7a4a;margin:16px 0 2px;text-align:left}
+
+  /* desktop split: pack preview left, sticky action rail right */
+  @media(min-width:900px){
+    .app.wide{max-width:1060px}
+    .split{display:grid;grid-template-columns:1.15fr 1fr;gap:28px;align-items:start}
+    .split-right{position:sticky;top:18px}
+  }
+
   .disclaimer{font-size:12px;color:var(--muted);margin-top:24px;text-align:center;line-height:1.5}
   .linkbtn{display:block;width:100%;background:none;border:0;color:var(--navy);font-size:13.5px;font-weight:800;cursor:pointer;margin-top:12px;padding:6px;text-decoration:underline;opacity:.82}
   .linkbtn:hover{opacity:1}
@@ -1010,6 +1026,7 @@ const T = {
     v_print:"Print my pack", v_family:"👪 Print for another family member", v_family_sub:"Same state, keeps your setup — just swap the name, contact and documents.", v_redo:"Make a pack for another driver or car",
     post_print_hint:"A reminder to reprint, printing for family, and starting over show up here once you print.",
     remind_btn:"🔔 Remind me to reprint", remind_sub:"Downloads a one-time calendar file for {date} (it holds your state and edition only, nothing else) — the file is created on your phone and never uploaded; we only count, anonymously, that a reminder was downloaded.",
+    rail_now:"Do now", rail_later:"For later",
     stale_h:"Your printed pack may be out of date", stale_expired:"This edition expired {date} — laws and lifeline numbers can change. Worth a reprint.", stale_soon:"This edition is due for a refresh by {date}.", stale_btn:"Update my pack",
     print_fb_q:"How did printing go?", print_fb_easy:"🙌 Easy", print_fb_trouble:"😕 Had trouble", print_fb_thanks:"Thanks — that helps.",
     usage_fb_h:"Has your Amparo pack come in handy?",
@@ -1168,6 +1185,7 @@ const T = {
     v_print:"Imprimir mi paquete", v_family:"👪 Imprimir para otro familiar", v_family_sub:"Mismo estado, se guarda tu configuración — solo cambia el nombre, el contacto y los documentos.", v_redo:"Crear un paquete para otro conductor u otro carro",
     post_print_hint:"Un recordatorio para reimprimir, imprimir para la familia, y empezar de nuevo aparecen aquí después de imprimir.",
     remind_btn:"🔔 Recuérdame reimprimir", remind_sub:"Descarga un archivo de calendario único para {date} (solo incluye tu estado y edición, nada más) — el archivo se crea en tu teléfono y nunca se sube; solo contamos, de forma anónima, que se descargó un recordatorio.",
+    rail_now:"Para ahora", rail_later:"Para después",
     stale_h:"Tu paquete impreso puede estar desactualizado", stale_expired:"Esta edición venció {date} — las leyes y los números de ayuda pueden cambiar. Vale la pena reimprimir.", stale_soon:"Esta edición debe renovarse antes de {date}.", stale_btn:"Actualizar mi paquete",
     print_fb_q:"¿Cómo te fue al imprimir?", print_fb_easy:"🙌 Fácil", print_fb_trouble:"😕 Tuve problemas", print_fb_thanks:"Gracias — eso ayuda.",
     usage_fb_h:"¿Te ha servido tu paquete de Amparo?",
@@ -1749,9 +1767,13 @@ function render(){
         <b>👀 ${_t.smp_banner}</b><br>
         <button class="btn gold" style="margin-top:10px" onclick="demoExit()">${_t.smp_make}</button>
       </div>`:''}
+      <div class="split">
+      <div class="split-left">
       <div class="thumbs stagger">
         ${[1,2,3,4,5,6].map(n=>`<div class="thumb"><div class="mini-wrap" id="mw${n}"></div><div class="cap">${_t['v_pg'+n]}</div></div>`).join('')}
       </div>
+      </div>
+      <div class="split-right">
       <div class="compare">
         <h3>${_t.cmp_title}</h3>
         <p class="cmp-note">${_t.cmp_note}</p>
@@ -1761,17 +1783,16 @@ function render(){
       <button class="btn gold" onclick="window.print()">🖨 ${_t.v_print}</button>
       <p class="soon" style="margin-top:8px">🖨 ${_t.pdf_hint}</p>
       <p class="soon" style="margin-top:4px">💾 ${_t.pdf_backup}</p>
-      <div id="printedBanner" style="display:none;background:#eef7f0;border:1.5px solid #bcd8c2;border-radius:12px;padding:12px 14px;margin-top:10px;font-size:14px;color:#1d4a2c;text-align:center"></div>
+      <div id="printedBanner" aria-live="polite" style="display:none;background:#eef7f0;border:1.5px solid #bcd8c2;border-radius:12px;padding:12px 14px;margin-top:10px;font-size:14px;color:#1d4a2c;text-align:center"></div>
       ${!hasPrinted&&!isDemo?`<p class="soon" id="postPrintHint" style="margin-top:10px;font-style:italic">${_t.post_print_hint}</p>`:''}
       <div id="postPrintActions" style="display:${hasPrinted&&!isDemo?'block':'none'}">
-        <button class="btn ghost" style="margin-top:10px" onclick="practiceOpen()">${_t.prx_open}</button>
-        <p class="soon" style="margin-top:6px">${_t.prx_open_sub}</p>
-        <button class="btn ghost" style="margin-top:10px" onclick="downloadReprintReminder()">${_t.remind_btn}</button>
-        <p class="soon" style="margin-top:6px">${_t.remind_sub.replace('{date}',edReplaceLabel())}</p>
-        ${REVIEW.emailEnabled?(data.email?`<button class="btn ghost" style="margin-top:10px" onclick="sendPackEmail()">${_t.em_btn}</button><p class="soon" id="emStatus" style="margin-top:6px"></p>`:`<p class="soon" style="margin-top:10px">✉️ ${_t.em_add}</p>`):''}
-        <button class="btn ghost" style="margin-top:10px" onclick="printForFamily()">${_t.v_family}</button>
-        <p class="soon" style="margin-top:6px">${_t.v_family_sub}</p>
-        <button class="btn ghost" onclick="restart()">${_t.v_redo}</button>
+        <p class="rail-label">${_t.rail_now}</p>
+        <button class="arow" onclick="practiceOpen()"><span class="at"><b>${_t.prx_open}</b><small>${_t.prx_open_sub}</small></span><span class="ac">›</span></button>
+        ${REVIEW.emailEnabled?(data.email?`<button class="arow" onclick="sendPackEmail()"><span class="at"><b>${_t.em_btn}</b></span><span class="ac">›</span></button><p class="soon" id="emStatus" style="margin-top:6px"></p>`:`<p class="soon" style="margin-top:10px">✉️ ${_t.em_add}</p>`):''}
+        <p class="rail-label">${_t.rail_later}</p>
+        <button class="arow" onclick="downloadReprintReminder()"><span class="at"><b>${_t.remind_btn}</b><small>${_t.remind_sub.replace('{date}',edReplaceLabel())}</small></span><span class="ac">›</span></button>
+        <button class="arow" onclick="printForFamily()"><span class="at"><b>${_t.v_family}</b><small>${_t.v_family_sub}</small></span><span class="ac">›</span></button>
+        <button class="arow" onclick="restart()"><span class="at"><b>${_t.v_redo}</b></span><span class="ac">›</span></button>
       </div>
       <div id="printFeedback" style="display:${hasPrinted&&!isDemo?'block':'none'};margin-top:14px" data-answered="${printFeedbackGiven?'1':'0'}">
         ${printFeedbackGiven?`<p class="soon">${_t.print_fb_thanks}</p>`:`
@@ -1780,6 +1801,8 @@ function render(){
           &nbsp;·&nbsp;
           <a href="#" class="fb-tap" onclick="printFeedback('trouble');return false">${_t.print_fb_trouble}</a>
         </p>`}
+      </div>
+      </div>
       </div>
     </div>`;
     setTimeout(()=>{
@@ -1799,6 +1822,9 @@ function render(){
       });
     },40);
   }
+  /* Preview step gets the wide two-column layout on desktop; every other
+     step stays at the narrow phone-first width. */
+  document.getElementById('appRoot').classList.toggle('wide',step===5);
   /* Same-step re-renders (state tap, camera close, photo added) must NOT
      replay the screen entrance — that's data patching, not navigation. */
   if(!stepChanged){
