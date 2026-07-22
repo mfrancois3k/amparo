@@ -223,6 +223,15 @@
   .prx-hear:hover{border-color:var(--navy)}
   @media(max-width:699px){.prx-hear{margin-top:0;flex:none}}
   .prx-warn{background:#fdf1e0;border:1.5px solid #e0b26a;border-radius:13px;padding:14px 15px;font-size:14px;line-height:1.55;color:#5c451a;text-align:left}
+  .prx-pace{height:6px;background:#eee7d4;border-radius:4px;overflow:hidden;margin:2px 0 4px}
+  .prx-pace i{display:block;height:100%;width:100%;background:var(--gold);border-radius:4px}
+  html:not(.sr-motion) .prx-pace i{width:0;animation:prxpace 5s linear forwards}
+  @keyframes prxpace{to{width:100%}}
+  .prx-pace-lbl{font-size:11.5px;color:var(--muted);margin-bottom:10px}
+  .prx-key{background:#fdf0cd;border-radius:4px;padding:0 3px}
+  .prx-rec{background:transparent;border:1.5px solid var(--line);border-radius:9px;padding:7px 11px;font-size:12.5px;font-weight:800;color:var(--navy);cursor:pointer;font-family:inherit;margin:2px 0 4px}
+  .prx-rec.rec{border-color:#b3452f;color:#b3452f}
+  .prx-rec-note{font-size:11.5px;color:var(--muted);margin-bottom:8px}
   .ab-card{background:var(--cream);border-radius:20px;max-width:460px;width:100%;max-height:88vh;overflow:auto;box-shadow:0 30px 80px rgba(0,0,0,.5)}
   .ab-top{position:sticky;top:0;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:15px 18px}
   .ab-title{font-weight:900;font-size:16px}
@@ -950,7 +959,7 @@ const T = {
     stepWord:"Step",
     w_title:"Get pulled over with a plan.",
     w_sub:"Too many of us have to think about this. Amparo builds your personal traffic-stop pack — a window card that speaks for you, so your hands stay on the wheel and your rights stay intact. Set it up once, print it, keep it in your car.",
-    w_b1:"Your documents never leave your phone", w_b2:"Rules & legal lifelines matched to your state", w_b3:"Print at home. In the car in minutes.",
+    w_b1:"Your documents never leave your phone", w_b2:"Rules & legal lifelines matched to your state", w_b3:"Print at home. In the car in minutes.", w_b4:"We rehearse the stop with you — out loud, before you ever need it.",
     w_btn:"Build my pack",
     about_link:"Who's behind Amparo? \u2192",
     scen_title:"Situations your pack covers",
@@ -977,6 +986,10 @@ const T = {
     prx_warn_go:"I'm ready",
     prx_done3_t:"You knew what to say.",
     prx_done3:"Even in the worst case: stay silent, ask for a lawyer, and don't sign anything except the ticket. Your legal lifelines are printed in your pack \u2014 keep it in the glovebox.",
+    prx_pace:"Calm and steady beats fast.",
+    prx_rec:"\ud83c\udf99 Hear yourself", prx_rec_stop:"\u25a0 Stop & play back",
+    prx_rec_note:"Recorded on your phone only \u2014 played back once, never saved or uploaded.",
+    prx_rec_denied:"Mic blocked \u2014 no problem. Your own ears work fine.",
     next:"Continue", tagline:"Know your rights", pdf_hint:"No printer? In the print window, choose “Save as PDF” as the printer.", pdf_backup:"Save the PDF — it’s your backup. Reprint anytime without redoing anything.",
     tc_reviewed:"Attorney-reviewed", tc_private:"Photos stay on your device", tc_by:"By",
     ab_title:"Who's behind Amparo", ab_close:"Close",
@@ -1118,7 +1131,7 @@ const T = {
     stepWord:"Paso",
     w_title:"Que la policía no te agarre sin un plan.",
     w_sub:"Demasiados de nosotros tenemos que pensar en esto. Amparo crea tu paquete personal para paradas de tráfico — una tarjeta de ventana que habla por ti, para que tus manos queden en el volante y tus derechos intactos. Configúralo una vez, imprímelo, guárdalo en tu carro.",
-    w_b1:"Tus documentos nunca salen de tu teléfono", w_b2:"Reglas y líneas de ayuda según tu estado", w_b3:"Imprime en casa. Listo en minutos.",
+    w_b1:"Tus documentos nunca salen de tu teléfono", w_b2:"Reglas y líneas de ayuda según tu estado", w_b3:"Imprime en casa. Listo en minutos.", w_b4:"Ensayamos la parada contigo — en voz alta, antes de que la necesites.",
     w_btn:"Crear mi paquete",
     about_link:"\u00bfQui\u00e9n est\u00e1 detr\u00e1s de Amparo? \u2192",
     scen_title:"Situaciones que cubre tu paquete",
@@ -1145,6 +1158,10 @@ const T = {
     prx_warn_go:"Estoy listo",
     prx_done3_t:"Supiste qué decir.",
     prx_done3:"Incluso en el peor caso: guarda silencio, pide un abogado y no firmes nada excepto la multa. Tus líneas de ayuda legal están impresas en tu paquete — mantenlo en la guantera.",
+    prx_pace:"Con calma y firmeza — mejor que rápido.",
+    prx_rec:"🎙 Escúchate", prx_rec_stop:"■ Detener y reproducir",
+    prx_rec_note:"Se graba solo en tu teléfono — se reproduce una vez, nunca se guarda ni se sube.",
+    prx_rec_denied:"Micrófono bloqueado — no pasa nada. Tus propios oídos funcionan.",
     next:"Continuar", tagline:"Conoce tus derechos", pdf_hint:"¿Sin impresora? En la ventana de impresión, elige “Guardar como PDF” como impresora.", pdf_backup:"Guarda el PDF — es tu respaldo. Reimprime cuando quieras sin rehacer nada.",
     tc_reviewed:"Revisado por abogado", tc_private:"Tus fotos quedan en tu dispositivo", tc_by:"Por",
     ab_title:"Qui\u00e9n est\u00e1 detr\u00e1s de Amparo", ab_close:"Cerrar",
@@ -1690,7 +1707,7 @@ function render(){
     S.innerHTML=`<div class="card stagger">
       <h1>${_t.w_title}</h1>
       <p class="sub">${_t.w_sub}</p>
-      ${[[_t.w_b1,'🔒'],[_t.w_b2,'📍'],[_t.w_b3,'🖨']].map(b=>`
+      ${[[_t.w_b1,'🔒'],[_t.w_b2,'📍'],[_t.w_b3,'🖨'],[_t.w_b4,'🗣']].map(b=>`
         <div class="feat"><span class="fi">${b[1]}</span>${b[0]}</div>`).join('')}
       <div class="trust-strip">${trustChips()}</div>
       <button class="btn gold" onclick="goM(1)">${_t.w_btn}</button>
@@ -2754,6 +2771,38 @@ function prxSpeak(){
     speechSynthesis.speak(u);
   }catch(e){}
 }
+/* Self-playback, not machine grading: record locally, play back once, discard.
+   Nothing is stored, nothing is uploaded, no transcript exists — the user's
+   own ears are the judge. Key phrases get highlighted so they can self-check. */
+let prxRec=null; // {rec, stream, discard}
+function prxRecFinish(){ if(prxRec){ try{ prxRec.rec.stop(); }catch(e){} } }        // stop → plays back
+function prxRecCancel(){ if(prxRec){ prxRec.discard=true; prxRecFinish(); } }        // stop → silent discard
+async function prxRecToggle(){
+  const _t=t(), btn=document.getElementById('prxRecBtn'), note=document.getElementById('prxRecNote');
+  if(prxRec){ prxRecFinish(); return; }
+  if(!navigator.mediaDevices||!window.MediaRecorder){ if(note) note.textContent=_t.prx_rec_denied; return; }
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+    const rec=new MediaRecorder(stream), chunks=[];
+    prxRec={rec,stream,discard:false};
+    rec.ondataavailable=e=>{ if(e.data&&e.data.size) chunks.push(e.data); };
+    rec.onstop=()=>{
+      stream.getTracks().forEach(tr=>tr.stop());
+      const discard=prxRec&&prxRec.discard; prxRec=null;
+      const b2=document.getElementById('prxRecBtn');
+      if(b2){ b2.textContent=_t.prx_rec; b2.classList.remove('rec'); }
+      if(discard||!chunks.length) return;
+      const url=URL.createObjectURL(new Blob(chunks,{type:rec.mimeType||'audio/webm'}));
+      const a=new Audio(url);
+      a.onended=()=>URL.revokeObjectURL(url);
+      a.play().catch(()=>URL.revokeObjectURL(url));
+    };
+    rec.start();
+    if(btn){ btn.textContent=_t.prx_rec_stop; btn.classList.add('rec'); }
+    ph('sr_practice_self_record',{level:prLevel+1,state:data.state,lang:lang});
+  }catch(e){ if(note) note.textContent=_t.prx_rec_denied; }
+}
+function prxKeys(s){ return s.replace(/“([^”]+)”/g,'“<span class="prx-key">$1</span>”'); }
 function practiceOpen(){
   prLevel=0; prIdx=0; prRevealed=false; prWarnOk=false;
   const _t=t();
@@ -2764,6 +2813,7 @@ function practiceOpen(){
   ph('sr_practice_opened',{state:data.state,lang:lang});
 }
 function prxTab(i){
+  prxRecCancel();
   prLevel=i; prIdx=0; prRevealed=false; if(i!==2) prWarnOk=false;
   practiceRender();
   if(!(i===2&&!prWarnOk)) prxSpeak();
@@ -2803,14 +2853,19 @@ function practiceRender(){
       <div class="prc-role">${_t.prx_officer}</div>
       <div class="prc-officer">${card.o}</div>
       ${prRevealed?`<div class="prc-role">${_t.prx_you}</div>
-        <div class="prc-you">${card.y}</div>
+        <div class="prc-you">${prxKeys(card.y)}</div>
         <button class="btn" onclick="prIdx++;prRevealed=false;practiceRender();prxSpeak()">${isDo?_t.prx_got:_t.prx_say}</button>`
-      :`<p class="prc-intro" style="margin-bottom:10px">${_t.prx_your_turn}</p>
-        <button class="btn gold" onclick="prRevealed=true;practiceRender()">${_t.prx_reveal}</button>`}
+      :`<p class="prc-intro" style="margin-bottom:6px">${_t.prx_your_turn}</p>
+        <div class="prx-pace" aria-hidden="true"><i></i></div>
+        <div class="prx-pace-lbl">${_t.prx_pace}</div>
+        ${(navigator.mediaDevices&&window.MediaRecorder&&!isDo)?`<button class="prx-rec" id="prxRecBtn" onclick="prxRecToggle()">${_t.prx_rec}</button>
+        <div class="prx-rec-note" id="prxRecNote">${_t.prx_rec_note}</div>`:''}
+        <button class="btn gold" onclick="prxRecFinish();prRevealed=true;practiceRender()">${_t.prx_reveal}</button>`}
     </div>
   </div>`;
 }
 function practiceClose(){
+  prxRecCancel();
   if(prxTTS){ try{ speechSynthesis.cancel(); }catch(e){} }
   document.getElementById('practiceOverlay').classList.remove('open');
 }
