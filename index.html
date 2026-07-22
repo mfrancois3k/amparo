@@ -244,6 +244,10 @@
   .prx-heard{font-size:12.5px;color:var(--ink);background:var(--white);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-top:8px;line-height:1.5}
   .prx-chip{display:inline-block;font-size:11.5px;font-weight:800;border:1px solid var(--line);border-radius:999px;padding:2px 8px;color:var(--muted);margin:2px 2px 0 0}
   .prx-chip.hit{background:#eef7f0;border-color:#bcd8c2;color:#1d4a2c}
+  .prx-vlang{font-size:11px;font-weight:800;color:var(--muted);margin-top:8px;display:flex;align-items:center;gap:4px;justify-content:center;flex-wrap:wrap}
+  @media(max-width:699px){.prx-vlang{margin-top:0;justify-content:flex-start}}
+  .prx-vbtn{border:1.5px solid var(--line);background:var(--white);border-radius:7px;padding:3px 8px;font-size:11px;font-weight:800;color:var(--navy);cursor:pointer;font-family:inherit}
+  .prx-vbtn.on{background:var(--navy);color:#fff;border-color:var(--navy)}
   .ab-card{background:var(--cream);border-radius:20px;max-width:460px;width:100%;max-height:88vh;overflow:auto;box-shadow:0 30px 80px rgba(0,0,0,.5)}
   .ab-top{position:sticky;top:0;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:15px 18px}
   .ab-title{font-weight:900;font-size:16px}
@@ -1005,7 +1009,9 @@ const T = {
     prx_rec_denied:"Mic blocked \u2014 no problem. Your own ears work fine.",
     prx_heard:"You said:", prx_heard_none:"Didn't catch that \u2014 try again a little closer to the phone, or just trust your ears.",
     prx_heard_good:"You hit the key words.", prx_heard_retry:"Close \u2014 the highlighted key words are the ones to land.",
+    prx_voice:"Officer voice:",
     v_swipe:"\u2194\ufe0f Swipe to flip through your pages",
+    w_share:"\ud83d\udce4 Send this to someone you love", w_shared:"\u2713 Link copied \u2014 paste it anywhere",
     next:"Continue", tagline:"Know your rights", pdf_hint:"No printer? In the print window, choose “Save as PDF” as the printer.", pdf_backup:"Save the PDF — it’s your backup. Reprint anytime without redoing anything.",
     tc_reviewed:"Attorney-reviewed", tc_private:"Photos stay on your device", tc_by:"By",
     ab_title:"Who's behind Amparo", ab_close:"Close",
@@ -1181,7 +1187,9 @@ const T = {
     prx_rec_denied:"Micrófono bloqueado — no pasa nada. Tus propios oídos funcionan.",
     prx_heard:"Dijiste:", prx_heard_none:"No se escuchó — inténtalo un poco más cerca del teléfono, o confía en tus oídos.",
     prx_heard_good:"Dijiste las palabras clave.", prx_heard_retry:"Casi — las palabras clave resaltadas son las que hay que decir.",
+    prx_voice:"Voz del oficial:",
     v_swipe:"↔️ Desliza para pasar tus páginas",
+    w_share:"📤 Envíaselo a alguien que quieres", w_shared:"✓ Enlace copiado — pégalo donde quieras",
     next:"Continuar", tagline:"Conoce tus derechos", pdf_hint:"¿Sin impresora? En la ventana de impresión, elige “Guardar como PDF” como impresora.", pdf_backup:"Guarda el PDF — es tu respaldo. Reimprime cuando quieras sin rehacer nada.",
     tc_reviewed:"Revisado por abogado", tc_private:"Tus fotos quedan en tu dispositivo", tc_by:"Por",
     ab_title:"Qui\u00e9n est\u00e1 detr\u00e1s de Amparo", ab_close:"Cerrar",
@@ -1732,6 +1740,7 @@ function render(){
       <div class="trust-strip">${trustChips()}</div>
       <button class="btn gold" onclick="goM(1)">${_t.w_btn}</button>
       <button class="linkbtn" onclick="viewSample()">👀 ${_t.w_sample}</button>
+      <button class="linkbtn" onclick="shareAmparo(this)">${_t.w_share}</button>
       <button class="linkbtn" onclick="showAbout()">${_t.about_link}</button>
     </div>`;
   }
@@ -1873,6 +1882,7 @@ function render(){
         <button class="arow" onclick="downloadReprintReminder()"><span class="at"><b>${_t.remind_btn}</b><small>${_t.remind_sub.replace('{date}',edReplaceLabel())}</small></span><span class="ac">›</span></button>
         <button class="arow" onclick="printForFamily()"><span class="at"><b>${_t.v_family}</b><small>${_t.v_family_sub}</small></span><span class="ac">›</span></button>
         <button class="arow" onclick="restart()"><span class="at"><b>${_t.v_redo}</b></span><span class="ac">›</span></button>
+        <button class="arow" onclick="shareAmparo(this.querySelector('b'))"><span class="at"><b>${_t.w_share}</b></span><span class="ac">›</span></button>
       </div>
       <div id="printFeedback" style="display:${hasPrinted&&!isDemo?'block':'none'};margin-top:14px" data-answered="${printFeedbackGiven?'1':'0'}">
         ${printFeedbackGiven?`<p class="soon">${_t.print_fb_thanks}</p>`:`
@@ -2799,8 +2809,14 @@ try{ prxDone=JSON.parse(localStorage.getItem('amparo_prx')||'{}')||{}; }catch(e)
 function prxSaveDone(){ try{ localStorage.setItem('amparo_prx',JSON.stringify(prxDone)); }catch(e){} }
 
 const prxTTS=('speechSynthesis' in window);
-let prxVoice=null;
-function prxPickVoice(){ try{ const vs=speechSynthesis.getVoices(); prxVoice=vs.find(v=>/en[-_]US/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null; }catch(e){} }
+let prxVoice=null, prxVoiceEs=null;
+/* Officer voice defaults to English even in Spanish mode — that's the realistic
+   stop. ES mode gets an in-drill toggle to hear the lines in Spanish while learning. */
+let prxVoiceLang='en';
+function prxPickVoice(){ try{ const vs=speechSynthesis.getVoices();
+  prxVoice=vs.find(v=>/en[-_]US/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null;
+  prxVoiceEs=vs.find(v=>/es[-_](US|MX|419)/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null;
+}catch(e){} }
 if(prxTTS){ prxPickVoice(); speechSynthesis.onvoiceschanged=prxPickVoice; }
 function prxSpeak(){
   if(!prxTTS) return;
@@ -2808,10 +2824,12 @@ function prxSpeak(){
     speechSynthesis.cancel();
     const L=PRX_LEVELS[prLevel];
     if(prIdx>=L.ids.length) return;
-    const u=new SpeechSynthesisUtterance(PRACTICE.en[L.ids[prIdx]].o.replace(/[“”"]/g,''));
+    const useEs=(lang==='es'&&prxVoiceLang==='es'&&prxVoiceEs);
+    const line=useEs?prxCard(L.ids[prIdx]).o:((L.ids[prIdx]===5?PRX_SIGN.en[data.state]:null)||PRACTICE.en[L.ids[prIdx]]).o;
+    const u=new SpeechSynthesisUtterance(line.replace(/[“”"]/g,''));
     if(!prxVoice) prxPickVoice();
-    if(prxVoice) u.voice=prxVoice;
-    u.lang='en-US'; u.rate=L.rate; u.pitch=prLevel===2?0.9:1;
+    if(useEs) u.voice=prxVoiceEs; else if(prxVoice) u.voice=prxVoice;
+    u.lang=useEs?'es-US':'en-US'; u.rate=L.rate; u.pitch=prLevel===2?0.9:1;
     const wave=on=>{ const el=document.getElementById('prxWave'); if(el) el.classList.toggle('speaking',on); };
     u.onstart=()=>wave(true); u.onend=()=>wave(false); u.onerror=()=>wave(false);
     speechSynthesis.speak(u);
@@ -2926,11 +2944,14 @@ function practiceRender(){
       ${PRX_COP}
       <div class="prx-wave" id="prxWave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
       ${prxTTS?`<button class="prx-hear" onclick="prxSpeak()">${_t.prx_hear}</button>`:''}
+      ${prxTTS&&lang==='es'&&prxVoiceEs?`<div class="prx-vlang">${_t.prx_voice}
+        <button class="prx-vbtn${prxVoiceLang==='en'?' on':''}" onclick="prxVoiceLang='en';practiceRender();prxSpeak()">EN</button>
+        <button class="prx-vbtn${prxVoiceLang==='es'?' on':''}" onclick="prxVoiceLang='es';practiceRender();prxSpeak()">ES</button></div>`:''}
     </div>
     <div>
       <div class="prc-count">${_t.prx_count.replace('{n}',prIdx+1).replace('{total}',L.ids.length)}</div>
       ${prIdx===0&&!prRevealed&&prLevel===0?`<p class="prc-intro">${_t.prx_intro}</p>`:''}
-      ${prxTTS&&lang==='es'&&prIdx===0?`<p class="prc-intro" style="margin-bottom:8px">${_t.prx_tts_note}</p>`:''}
+      ${prxTTS&&lang==='es'&&prxVoiceLang==='en'&&prIdx===0?`<p class="prc-intro" style="margin-bottom:8px">${_t.prx_tts_note}</p>`:''}
       <div class="prc-role">${_t.prx_officer}</div>
       <div class="prc-officer">${card.o}</div>
       ${prRevealed?`<div class="prc-role">${_t.prx_you}</div>
@@ -2967,6 +2988,18 @@ function printFeedback(sentiment){
   printFeedbackGiven=true; persist();
   const el=document.getElementById('printFeedback');
   if(el) el.innerHTML=`<p class="soon">${t().print_fb_thanks}</p>`;
+}
+/* Focus-group read: every "yes" is a purchase for a loved one — sharing is the
+   free-pilot version of gifting. Native share sheet where it exists, copy fallback. */
+async function shareAmparo(btn){
+  const _t=t(), url='https://www.amparohq.com';
+  const text=lang==='es'?'Un paquete gratis para paradas de tráfico — tarjeta, reglas de tu estado y práctica en voz alta.':'A free traffic-stop pack — window card, your state\'s rules, and out-loud practice.';
+  ph('sr_share_tapped',{state:data.state||'none',lang:lang});
+  try{
+    if(navigator.share){ await navigator.share({title:'Amparo',text,url}); return; }
+    await navigator.clipboard.writeText(url);
+    if(btn) btn.textContent=_t.w_shared;
+  }catch(e){}
 }
 function feedbackMailto(){
   const stName=(STATES[data.state]||{}).name||'';
