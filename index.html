@@ -288,6 +288,16 @@
   .prx-vbtn{border:1.5px solid var(--line);background:var(--white);border-radius:7px;padding:3px 8px;font-size:11px;font-weight:800;color:var(--navy);cursor:pointer;font-family:inherit}
   .prx-vbtn.on{background:var(--navy);color:#fff;border-color:var(--navy)}
   .prx-result{font-size:26px;letter-spacing:3px;margin:2px 0 8px}
+  .prx-score{font-size:56px;font-weight:900;color:var(--navy);line-height:1;margin-top:2px}
+  .prx-score span{font-size:26px;color:var(--muted);font-weight:800}
+  .prx-stats{display:flex;gap:10px;margin:10px 0}
+  .prx-stats div{flex:1;background:var(--white);border:1.5px solid var(--line);border-radius:12px;padding:10px 6px;text-align:center}
+  .prx-stats b{display:block;font-size:18px;color:var(--navy)}
+  .prx-stats small{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+  .prx-bd{margin:6px 0 10px;text-align:left}
+  .prx-bd-row{display:flex;gap:8px;font-size:13px;color:var(--ink);padding:5px 0;border-bottom:1px solid var(--line);align-items:center}
+  .prx-bd-row:last-child{border-bottom:0}
+  .prx-master{background:#fdf6e3;border:1.5px solid var(--gold);border-radius:13px;padding:12px 14px;font-weight:800;color:#5c451a;margin:10px 0 4px}
   .prx-userwave{display:flex;gap:3px;align-items:flex-end;height:24px;margin-top:8px}
   .prx-userwave i{width:4px;height:6px;background:var(--ok);border-radius:2px;opacity:.9;transition:height .06s linear}
   .prx-caption{font-size:13px;font-style:italic;color:var(--muted);min-height:18px;margin-top:4px}
@@ -1058,6 +1068,13 @@ const T = {
     prx_daily:"⚡ Today's curveball", prx_daily_done:"done ✓", prx_daily_live:"in this run",
     prx_share_btn:"📤 Challenge a friend", prx_share_taunt:"Do you know your rights at a traffic stop?",
     prx_streak:"{n} days of reps", prx_l3_perfect:"You stayed calm through the hardest one.",
+    prx_st_days:"day streak", prx_st_best:"best run", prx_st_lvls:"levels",
+    prx_tip_y:"Turn 🟨 into 🟩 — run it again with the mic on and land the highlighted words.",
+    prx_tip_all:"All green — that's the whole skill. Keep the reps going.",
+    prx_master:"You know your rights — all 3 scenarios practiced.",
+    prx_master_btn:"🏆 Share your badge",
+    cert_title:"I KNOW MY RIGHTS", cert_sub:"Traffic-stop ready · Amparo",
+    cert_saved:"✓ Badge saved — post it anywhere",
     v_swipe:"\u2194\ufe0f Swipe to flip through your pages",
     w_share:"\ud83d\udce4 Send this to someone you love", w_shared:"\u2713 Link copied \u2014 paste it anywhere",
     next:"Continue", tagline:"Know your rights", pdf_hint:"No printer? In the print window, choose “Save as PDF” as the printer.", pdf_backup:"Save the PDF — it’s your backup. Reprint anytime without redoing anything.",
@@ -1243,6 +1260,13 @@ const T = {
     prx_daily:"⚡ Trampa del día", prx_daily_done:"hecha ✓", prx_daily_live:"en esta ronda",
     prx_share_btn:"📤 Reta a un amigo", prx_share_taunt:"¿Conoces tus derechos en una parada de tráfico?",
     prx_streak:"{n} días de práctica", prx_l3_perfect:"Mantuviste la calma en el más difícil.",
+    prx_st_days:"días seguidos", prx_st_best:"mejor ronda", prx_st_lvls:"niveles",
+    prx_tip_y:"Convierte 🟨 en 🟩 — repítelo con el micrófono y di las palabras resaltadas.",
+    prx_tip_all:"Todo en verde — esa es la habilidad completa. Sigue practicando.",
+    prx_master:"Conoces tus derechos — los 3 escenarios practicados.",
+    prx_master_btn:"🏆 Comparte tu insignia",
+    cert_title:"CONOZCO MIS DERECHOS", cert_sub:"Listo para paradas · Amparo",
+    cert_saved:"✓ Insignia guardada — publícala donde quieras",
     v_swipe:"↔️ Desliza para pasar tus páginas",
     w_share:"📤 Envíaselo a alguien que quieres", w_shared:"✓ Enlace copiado — pégalo donde quieras",
     next:"Continuar", tagline:"Conoce tus derechos", pdf_hint:"¿Sin impresora? En la ventana de impresión, elige “Guardar como PDF” como impresora.", pdf_backup:"Guarda el PDF — es tu respaldo. Reimprime cuando quieras sin rehacer nada.",
@@ -3159,6 +3183,47 @@ function prxAdvance(){
   prRun.push(prCurTier==='g'?'g':'y'); prCurTier=null;
   prIdx++; prRevealed=false; practiceRender(); prxSpeak();
 }
+/* 🏆 badge: client-side canvas → shareable PNG. The share IS the marketing —
+   an image survives every platform (IG/WhatsApp/SMS) where text grids get mangled. */
+function prxCertCanvas(){
+  const _t=t(), c=document.createElement('canvas'); c.width=1080; c.height=1080;
+  const x=c.getContext('2d');
+  const g=x.createLinearGradient(0,0,0,1080); g.addColorStop(0,'#1B2A4A'); g.addColorStop(1,'#0b1020');
+  x.fillStyle=g; x.fillRect(0,0,1080,1080);
+  x.strokeStyle='#E8B84B'; x.lineWidth=8; x.strokeRect(44,44,992,992);
+  x.textAlign='center';
+  x.font='120px "Segoe UI Emoji","Apple Color Emoji",serif'; x.fillText('🏆',540,190);
+  x.fillStyle='#E8B84B'; x.font='900 60px "Segoe UI",Arial,sans-serif';
+  x.fillText(_t.cert_title,540,300);
+  x.fillStyle='#FAF6EE'; x.font='700 34px "Segoe UI",Arial,sans-serif';
+  x.fillText(_t.cert_sub,540,365);
+  [_t.prx_lvl1,_t.prx_lvl2,_t.prx_lvl3].forEach((l,i)=>{
+    const clean=l.split(' ').slice(1).join(' ');
+    x.fillStyle='#FAF6EE'; x.font='700 42px "Segoe UI",Arial,sans-serif';
+    x.fillText('✅  '+clean+'  ·  '+(prx.best[i]||'✓'),540,510+i*95);
+  });
+  x.fillStyle='#E8B84B'; x.font='900 46px "Segoe UI",Arial,sans-serif';
+  x.fillText('amparohq.com',540,920);
+  return c;
+}
+async function prxShareCert(btn){
+  const _t=t();
+  ph('sr_badge_shared',{state:data.state||'none',lang:lang});
+  const blob=await new Promise(r=>prxCertCanvas().toBlob(r,'image/png'));
+  if(!blob) return;
+  const file=new File([blob],'amparo-rights.png',{type:'image/png'});
+  try{
+    if(navigator.canShare&&navigator.canShare({files:[file]})){
+      await navigator.share({files:[file],text:_t.prx_share_taunt+' https://www.amparohq.com'});
+      return;
+    }
+  }catch(e){}
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download='amparo-rights.png';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>{ try{ URL.revokeObjectURL(url); }catch(e){} },4000);
+  if(btn) btn.textContent=_t.cert_saved;
+}
 async function prxShareRun(btn){
   const _t=t(), grid=prRun.map(x=>x==='g'?'🟩':'🟨').join('');
   const txt=`Amparo 🚔 ${_t['prx_lvl'+(prLevel+1)]}\n${grid} ${prRun.filter(x=>x==='g').length}/${prRun.length}\n${_t.prx_share_taunt}\nhttps://www.amparohq.com`;
@@ -3200,14 +3265,32 @@ function practiceRender(){
     }
     const sober=prLevel===2; // no celebration on the arrest level — deliberate
     const score=prRun.filter(x=>x==='g').length;
+    const yCount=prRun.length-score;
     const grid=prRun.map(x=>x==='g'?'🟩':'🟨').join('');
-    b.innerHTML=tabs+`<div class="prx-result">${grid}</div>
-      <div class="prc-count">${sober?_t.prx_done3_t:_t.prx_done_t} · ${score}/${prRun.length} ${_t.prx_verified}</div>
+    const master=prx.done[0]&&prx.done[1]&&prx.done[2];
+    /* Mobbin-patterned results: big score → grid → stats row → coach tip →
+       beat-by-beat breakdown → one primary share CTA */
+    const bdRows=prRun.map((t2,i)=>{
+      const ln=prDeck[i]?prDeck[i].officer[lang]:'';
+      return `<div class="prx-bd-row"><span>${t2==='g'?'🟩':'🟨'}</span><span>${esc(ln.length>56?ln.slice(0,56)+'…':ln)}</span></div>`;
+    }).join('');
+    b.innerHTML=tabs+`<div class="prx-score">${score}<span>/${prRun.length}</span></div>
+      <div class="prx-result">${grid}</div>
+      <div class="prc-count">${sober?_t.prx_done3_t:_t.prx_done_t} · ${_t.prx_verified}</div>
       ${sober&&score===prRun.length&&prRun.length?`<p class="prc-intro"><b>${_t.prx_l3_perfect}</b></p>`:''}
-      <p class="prc-intro">${sober?_t.prx_done3:_t.prx_done}</p>
-      ${prx.streak.n>1?`<p class="prc-intro">🔁 ${_t.prx_streak.replace('{n}',prx.streak.n)}</p>`:''}
-      <button class="btn gold" onclick="prxShareRun(this)">${_t.prx_share_btn}</button>
-      ${prLevel<2?`<button class="btn" onclick="prxTab(${prLevel+1})">${_t['prx_lvl'+(prLevel+2)]} →</button>`:''}
+      <div class="prx-stats">
+        <div><b>🔁 ${prx.streak.n||1}</b><small>${_t.prx_st_days}</small></div>
+        <div><b>${prx.best[prLevel]||(score+'/'+prRun.length)}</b><small>${_t.prx_st_best}</small></div>
+        <div><b>${[0,1,2].filter(i=>prx.done[i]).length}/3</b><small>${_t.prx_st_lvls}</small></div>
+      </div>
+      <p class="prc-intro">${yCount?_t.prx_tip_y:_t.prx_tip_all}</p>
+      ${sober?`<p class="prc-intro">${_t.prx_done3}</p>`:''}
+      <div class="prx-bd">${bdRows}</div>
+      ${master?`<div class="prx-master">🏆 ${_t.prx_master}</div>
+      <button class="btn gold" onclick="prxShareCert(this)">${_t.prx_master_btn}</button>
+      <button class="btn" onclick="prxShareRun(this)">${_t.prx_share_btn}</button>`
+      :`<button class="btn gold" onclick="prxShareRun(this)">${_t.prx_share_btn}</button>
+      ${prLevel<2?`<button class="btn" onclick="prxTab(${prLevel+1})">${_t['prx_lvl'+(prLevel+2)]} →</button>`:''}`}
       <button class="btn ghost" onclick="prxAgain()">${_t.prx_again}</button>
       <button class="btn ghost" onclick="practiceClose()">${_t.prx_close}</button>`;
     return;
