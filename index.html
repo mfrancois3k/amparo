@@ -224,7 +224,12 @@
   @keyframes tdot{0%,100%{opacity:.35;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
   .prc-rt{font-size:12px;font-weight:800;color:#ff9d8a;margin-left:8px}
   .prc-you{background:#eef7f0;border:1.5px solid #bcd8c2;border-radius:14px;padding:16px;font-size:16px;line-height:1.5;color:#1d4a2c;margin-bottom:14px}
-  .prc-said{background:var(--white);border:1.5px dashed var(--line);border-radius:14px;padding:13px 15px;font-size:15px;font-style:italic;color:#4b5563;margin-bottom:14px}
+  .prc-said{background:var(--white);border:1.5px dashed var(--line);border-radius:14px;padding:13px 15px;font-size:15px;font-style:italic;color:#4b5563;margin-bottom:8px}
+  .prx-match{display:flex;gap:4px;margin:0 0 6px}
+  .prx-match i{flex:1;height:8px;border-radius:4px;background:#e5e0d4;transition:background .4s}
+  .prx-match i.on{background:var(--ok)}
+  .prx-passline{font-size:13px;font-weight:800;color:#8a7a4a;margin-bottom:12px}
+  .prx-passline.ok{color:#2f8f5b}
   .prc-intro{font-size:13px;color:#6b6a63;line-height:1.5;margin-bottom:14px}
   /* practice drill: full-screen dusk stage — a place, not a popup. Static
      gradient scene only: never animated police lights (trauma-adjacent audience). */
@@ -1102,6 +1107,7 @@ const T = {
     prx_voice:"Officer voice:", prx_gender:"Officer:", prx_g_m:"♂ Male", prx_g_f:"♀ Female",
     prx_type_ph:"…or type your answer here", prx_type_btn:"Check",
     prx_said:"You said", prx_legal:"⚖️ Legally, you say",
+    prx_passed:"🏅 Passed — you hit {n} of {t} key words", prx_close_line:"Close — {n} of {t} key words. One more rep locks it in.",
     prx_curve:"⚡ Curveball", prx_verified:"voice-verified",
     prx_playback:"▶ Play back my voice",
     prx_daily:"⚡ Today's curveball", prx_daily_done:"done ✓", prx_daily_live:"in this run",
@@ -1300,6 +1306,7 @@ const T = {
     prx_voice:"Voz del oficial:", prx_gender:"Oficial:", prx_g_m:"♂ Hombre", prx_g_f:"♀ Mujer",
     prx_type_ph:"…o escribe tu respuesta aquí", prx_type_btn:"Comprobar",
     prx_said:"Dijiste", prx_legal:"⚖️ Legalmente, tú dices",
+    prx_passed:"🏅 Aprobado — dijiste {n} de {t} palabras clave", prx_close_line:"Casi — {n} de {t} palabras clave. Una repetición más y lo tienes.",
     prx_curve:"⚡ Pregunta trampa", prx_verified:"verificadas con voz",
     prx_playback:"▶ Escuchar mi voz",
     prx_daily:"⚡ Trampa del día", prx_daily_done:"hecha ✓", prx_daily_live:"en esta ronda",
@@ -3036,7 +3043,7 @@ function prxBuildDeck(){
 }
 let prLevel=0, prIdx=0, prRevealed=false, prWarnOk=false;
 let prDeck=[], prRun=[], prCurTier=null, prRunLogged=false;
-let prxBeatSeen='', prxTypeT=0, prxSaidTxt='', prxSaidKey='';
+let prxBeatSeen='', prxTypeT=0, prxSaidTxt='', prxSaidKey='', prxSaidHits=0, prxSaidTotal=0, prxSaidGood=false;
 let prx={done:{},runs:{},streak:{last:'',n:0}};
 try{
   const raw=JSON.parse(localStorage.getItem('amparo_prx')||'{}')||{};
@@ -3138,6 +3145,7 @@ function prxCompareShow(){
   const hit=w=>h.includes(' '+w+' ')||hw.some(x=>x.length>3&&x.slice(0,4)===w.slice(0,4)&&Math.abs(x.length-w.length)<=3);
   const hits=words.filter(hit);
   const good=words.length>0&&hits.length>=Math.ceil(words.length/2);
+  prxSaidHits=hits.length; prxSaidTotal=words.length; prxSaidGood=good;
   el.innerHTML=`<div class="prx-heard"><b>${_t.prx_heard}</b> “${esc(heard)}”</div>
     ${words.length?`<div style="margin:6px 0 2px">${words.map(w=>`<span class="prx-chip${hit(w)?' hit':''}">${esc(w)}</span>`).join('')}</div>`:''}
     <div class="prx-heard" style="border:0;background:none;padding:4px 0 0;font-weight:800;color:${good?'#2f8f5b':'#8a7a4a'}">${good?_t.prx_heard_good:_t.prx_heard_retry}</div>`;
@@ -3270,7 +3278,7 @@ function prxAgain(){
   prDeck=prxBuildDeck(); practiceRender(); prxSpeak();
 }
 function prxAdvance(){
-  prxDropLast(); prxIdleN=0; prxSaidTxt=''; prxSaidKey='';
+  prxDropLast(); prxIdleN=0; prxSaidTxt=''; prxSaidKey=''; prxSaidHits=0; prxSaidTotal=0; prxSaidGood=false;
   prRun.push(prCurTier==='g'?'g':'y'); prCurTier=null;
   prIdx++; prRevealed=false; practiceRender(); prxSpeak();
 }
@@ -3419,12 +3427,14 @@ function practiceRender(){
       <div class="prc-role">${_t.prx_officer}</div>
       <div class="prc-officer" id="prxBubble" onclick="prxSpeak()" title="🔊"><span class="tdots" aria-hidden="true"><i></i><i></i><i></i></span><span class="btxt">“${d.officer[lang]}”</span></div>
       ${prRevealed?`${prxSaidKey===prLevel+':'+prIdx&&prxSaidTxt?`<div class="prc-role">${_t.prx_said}</div>
-        <div class="prc-said">“${esc(prxSaidTxt)}”</div>`:''}
+        <div class="prc-said">“${esc(prxSaidTxt)}”</div>
+        ${prxSaidTotal?`<div class="prx-match" aria-hidden="true">${Array.from({length:prxSaidTotal},(x,i)=>`<i class="${i<prxSaidHits?'on':''}"></i>`).join('')}</div>
+        <div class="prx-passline${prxSaidGood?' ok':''}">${(prxSaidGood?_t.prx_passed:_t.prx_close_line).replace('{n}',prxSaidHits).replace('{t}',prxSaidTotal)}</div>`:''}`:''}
         <div class="prc-role">${_t.prx_legal}</div>
         <div class="prc-you">${prxKeys(card.y)}</div>
         ${d.curve?`<div class="prc-cite">🎯 ${d.curve['coach_'+lang]}</div>`:''}
         ${PRX_CITES[lang][ci]?`<div class="prc-cite">⚖️ ${PRX_CITES[lang][ci]}</div>`:''}
-        <button class="btn" onclick="prxAdvance()">${isDo?_t.prx_got:_t.prx_say}</button>`
+        <button class="btn" onclick="prxAdvance()">${prxSaidKey===prLevel+':'+prIdx&&prxSaidTxt?_t.prx_next:(isDo?_t.prx_got:_t.prx_say)}</button>`
       :`<p class="prc-intro" style="margin-bottom:6px">${_t.prx_your_turn}</p>
         <div class="prx-pace" aria-hidden="true"><i></i></div>
         <div class="prx-pace-lbl">${_t.prx_pace}</div>
