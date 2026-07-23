@@ -224,6 +224,7 @@
   @keyframes tdot{0%,100%{opacity:.35;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
   .prc-rt{font-size:12px;font-weight:800;color:#ff9d8a;margin-left:8px}
   .prc-you{background:#eef7f0;border:1.5px solid #bcd8c2;border-radius:14px;padding:16px;font-size:16px;line-height:1.5;color:#1d4a2c;margin-bottom:14px}
+  .prc-said{background:var(--white);border:1.5px dashed var(--line);border-radius:14px;padding:13px 15px;font-size:15px;font-style:italic;color:#4b5563;margin-bottom:14px}
   .prc-intro{font-size:13px;color:#6b6a63;line-height:1.5;margin-bottom:14px}
   /* practice drill: full-screen dusk stage — a place, not a popup. Static
      gradient scene only: never animated police lights (trauma-adjacent audience). */
@@ -1098,6 +1099,7 @@ const T = {
     prx_heard_good:"You hit the key words.", prx_heard_retry:"Close \u2014 the highlighted key words are the ones to land.",
     prx_voice:"Officer voice:", prx_gender:"Officer:", prx_g_m:"♂ Male", prx_g_f:"♀ Female",
     prx_type_ph:"…or type your answer here", prx_type_btn:"Check",
+    prx_said:"You said", prx_legal:"⚖️ Legally, you say",
     prx_curve:"⚡ Curveball", prx_verified:"voice-verified",
     prx_playback:"▶ Play back my voice",
     prx_daily:"⚡ Today's curveball", prx_daily_done:"done ✓", prx_daily_live:"in this run",
@@ -1295,6 +1297,7 @@ const T = {
     prx_heard_good:"Dijiste las palabras clave.", prx_heard_retry:"Casi — las palabras clave resaltadas son las que hay que decir.",
     prx_voice:"Voz del oficial:", prx_gender:"Oficial:", prx_g_m:"♂ Hombre", prx_g_f:"♀ Mujer",
     prx_type_ph:"…o escribe tu respuesta aquí", prx_type_btn:"Comprobar",
+    prx_said:"Dijiste", prx_legal:"⚖️ Legalmente, tú dices",
     prx_curve:"⚡ Pregunta trampa", prx_verified:"verificadas con voz",
     prx_playback:"▶ Escuchar mi voz",
     prx_daily:"⚡ Trampa del día", prx_daily_done:"hecha ✓", prx_daily_live:"en esta ronda",
@@ -3031,7 +3034,7 @@ function prxBuildDeck(){
 }
 let prLevel=0, prIdx=0, prRevealed=false, prWarnOk=false;
 let prDeck=[], prRun=[], prCurTier=null, prRunLogged=false;
-let prxBeatSeen='', prxTypeT=0;
+let prxBeatSeen='', prxTypeT=0, prxSaidTxt='', prxSaidKey='';
 let prx={done:{},runs:{},streak:{last:'',n:0}};
 try{
   const raw=JSON.parse(localStorage.getItem('amparo_prx')||'{}')||{};
@@ -3120,6 +3123,7 @@ function prxCompareShow(){
   const _t=t(), card=prxCard(prDeck[prIdx]?prDeck[prIdx].ci:0);
   const heard=prxHeard.trim();
   if(!heard){ el.innerHTML=`<div class="prx-heard">${_t.prx_heard_none}</div>`; return; }
+  prxSaidTxt=heard; prxSaidKey=prLevel+':'+prIdx; // carried into the reveal as the "You said" card
   /* accent-insensitive on both sides — a typed "registro" must match "registró"
      and vice versa; typos shouldn't feel like failure (panel constraint) */
   /* generous matching by design: accents stripped, apostrophes dropped, and a
@@ -3264,7 +3268,7 @@ function prxAgain(){
   prDeck=prxBuildDeck(); practiceRender(); prxSpeak();
 }
 function prxAdvance(){
-  prxDropLast(); prxIdleN=0;
+  prxDropLast(); prxIdleN=0; prxSaidTxt=''; prxSaidKey='';
   prRun.push(prCurTier==='g'?'g':'y'); prCurTier=null;
   prIdx++; prRevealed=false; practiceRender(); prxSpeak();
 }
@@ -3412,7 +3416,9 @@ function practiceRender(){
       ${prxTTS&&lang==='es'&&prxVoiceLang==='en'&&prIdx===0?`<p class="prc-intro" style="margin-bottom:8px">${_t.prx_tts_note}</p>`:''}
       <div class="prc-role">${_t.prx_officer}</div>
       <div class="prc-officer" id="prxBubble" onclick="prxSpeak()" title="🔊"><span class="tdots" aria-hidden="true"><i></i><i></i><i></i></span><span class="btxt">“${d.officer[lang]}”</span></div>
-      ${prRevealed?`<div class="prc-role">${_t.prx_you}</div>
+      ${prRevealed?`${prxSaidKey===prLevel+':'+prIdx&&prxSaidTxt?`<div class="prc-role">${_t.prx_said}</div>
+        <div class="prc-said">“${esc(prxSaidTxt)}”</div>`:''}
+        <div class="prc-role">${_t.prx_legal}</div>
         <div class="prc-you">${prxKeys(card.y)}</div>
         ${d.curve?`<div class="prc-cite">🎯 ${d.curve['coach_'+lang]}</div>`:''}
         ${PRX_CITES[lang][ci]?`<div class="prc-cite">⚖️ ${PRX_CITES[lang][ci]}</div>`:''}
