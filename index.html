@@ -1019,7 +1019,7 @@ const T = {
     prx_rec_denied:"Mic blocked \u2014 no problem. Your own ears work fine.",
     prx_heard:"You said:", prx_heard_none:"Didn't catch that \u2014 try again a little closer to the phone, or just trust your ears.",
     prx_heard_good:"You hit the key words.", prx_heard_retry:"Close \u2014 the highlighted key words are the ones to land.",
-    prx_voice:"Officer voice:",
+    prx_voice:"Officer voice:", prx_gender:"Officer:", prx_g_m:"♂ Male", prx_g_f:"♀ Female",
     prx_curve:"⚡ Curveball", prx_verified:"voice-verified",
     prx_share_btn:"📤 Challenge a friend", prx_share_taunt:"Do you know your rights at a traffic stop?",
     prx_streak:"{n} days of reps", prx_l3_perfect:"You stayed calm through the hardest one.",
@@ -1202,7 +1202,7 @@ const T = {
     prx_rec_denied:"Micrófono bloqueado — no pasa nada. Tus propios oídos funcionan.",
     prx_heard:"Dijiste:", prx_heard_none:"No se escuchó — inténtalo un poco más cerca del teléfono, o confía en tus oídos.",
     prx_heard_good:"Dijiste las palabras clave.", prx_heard_retry:"Casi — las palabras clave resaltadas son las que hay que decir.",
-    prx_voice:"Voz del oficial:",
+    prx_voice:"Voz del oficial:", prx_gender:"Oficial:", prx_g_m:"♂ Hombre", prx_g_f:"♀ Mujer",
     prx_curve:"⚡ Pregunta trampa", prx_verified:"verificadas con voz",
     prx_share_btn:"📤 Reta a un amigo", prx_share_taunt:"¿Conoces tus derechos en una parada de tráfico?",
     prx_streak:"{n} días de práctica", prx_l3_perfect:"Mantuviste la calma en el más difícil.",
@@ -2897,6 +2897,10 @@ const PRX_CURVE=[
  {en:"Why are you being so difficult? Most people just answer.",es:"¿Por qué se pone tan difícil? La mayoría simplemente contesta.",tone:"hostile",answerBeat:1,coach_en:"Silence is your right, not defiance. Hold the same calm line.",coach_es:"El silencio es su derecho, no una ofensa. Mantenga la misma frase con calma."},
  {en:"You been through here before? I've seen this car around.",es:"¿Ya ha pasado por aquí antes? He visto este carro por la zona.",tone:"calm",answerBeat:1,coach_en:"Baiting you into a story. Same reviewed line: not answering questions.",coach_es:"Quiere sacarle una historia. Misma frase revisada: no responde preguntas."}
 ];
+/* Stable clip ids: v<beat>_<index> / c<index> — must match the generated
+   audio filenames in /audio/<lang>/<gender>/. Regenerate clips if lines change. */
+Object.keys(PRX_VAR).forEach(b=>PRX_VAR[b].forEach((v,i)=>v.id='v'+b+'_'+i));
+PRX_CURVE.forEach((c,i)=>c.id='c'+i);
 function prxBuildDeck(){
   const L=PRX_LEVELS[prLevel];
   const tones=[['calm'],['curt'],['curt','hostile']][prLevel]; // hostile only behind L3's consent gate
@@ -2904,7 +2908,7 @@ function prxBuildDeck(){
   const deck=L.ids.map(ci=>{
     const pool=(PRX_VAR[ci]||[]).filter(v=>tones.includes(v.tone));
     const v=pool.length?pick(pool):null;
-    return v?{ci,officer:{en:v.en,es:v.es},tone:v.tone}
+    return v?{ci,officer:{en:v.en,es:v.es},tone:v.tone,id:v.id}
            :{ci,officer:{en:PRACTICE.en[ci].o,es:PRACTICE.es[ci].o},tone:tones[0]};
   });
   /* One curveball per run from the 2nd run of a level onward — first run learns
@@ -2914,7 +2918,7 @@ function prxBuildDeck(){
   if(runs>=1&&prLevel<2){
     const d=new Date(), seed=d.getFullYear()*372+(d.getMonth()+1)*31+d.getDate();
     const cb=PRX_CURVE[seed%PRX_CURVE.length];
-    deck.splice(1+(seed%(deck.length-1)),0,{ci:cb.answerBeat,officer:{en:cb.en,es:cb.es},tone:cb.tone,curve:cb});
+    deck.splice(1+(seed%(deck.length-1)),0,{ci:cb.answerBeat,officer:{en:cb.en,es:cb.es},tone:cb.tone,curve:cb,id:cb.id});
   }
   return deck;
 }
@@ -2940,21 +2944,42 @@ function prxPickVoice(){ try{ const vs=speechSynthesis.getVoices();
   prxVoiceEs=vs.filter(v=>/^es/i.test(v.lang)).sort((a,b)=>rank(b)-rank(a))[0]||null;
 }catch(e){} }
 if(prxTTS){ prxPickVoice(); speechSynthesis.onvoiceschanged=prxPickVoice; }
+/* Officer audio: pre-generated neural clips (authoring-time TTS, not runtime) —
+   human delivery, identical on every device, offline after first load, $0.
+   Browser speechSynthesis survives only as a fallback when a clip can't play. */
+let prxAudio=null, prxGender='m';
+try{ prxGender=localStorage.getItem('amparo_voice')||'m'; }catch(e){}
+function prxSetGender(g){ prxGender=g; try{ localStorage.setItem('amparo_voice',g); }catch(e){} practiceRender(); prxSpeak(); }
+function prxWaveTgl(on){
+  const el=document.getElementById('prxWave'); if(el) el.classList.toggle('speaking',on);
+  const cop=document.querySelector('.prx-cop'); if(cop) cop.classList.toggle('live',on);
+}
 function prxSpeak(){
+  if(prIdx>=prDeck.length) return;
+  const d=prDeck[prIdx];
+  const useEs=(lang==='es'&&prxVoiceLang==='es');
+  try{ if(prxAudio){ prxAudio.pause(); prxAudio=null; } if(prxTTS) speechSynthesis.cancel(); }catch(e){}
+  prxWaveTgl(false);
+  if(d.id){
+    const a=new Audio(`audio/${useEs?'es':'en'}/${prxGender}/${d.id}.mp3`);
+    prxAudio=a;
+    a.onplay=()=>prxWaveTgl(true);
+    a.onended=()=>prxWaveTgl(false);
+    a.onerror=()=>{ prxWaveTgl(false); prxSpeakTTS(d,useEs); };
+    a.play().catch(()=>prxSpeakTTS(d,useEs));
+  } else prxSpeakTTS(d,useEs);
+}
+function prxSpeakTTS(d,useEs){
   if(!prxTTS) return;
   try{
     speechSynthesis.cancel();
-    if(prIdx>=prDeck.length) return;
-    const d=prDeck[prIdx];
-    const useEs=(lang==='es'&&prxVoiceLang==='es'&&prxVoiceEs);
     const tn=PRX_TONE[d.tone]||PRX_TONE.calm;
-    const u=new SpeechSynthesisUtterance((useEs?d.officer.es:d.officer.en).replace(/[“”"]/g,''));
+    const es=useEs&&prxVoiceEs;
+    const u=new SpeechSynthesisUtterance((es?d.officer.es:d.officer.en).replace(/[“”"]/g,''));
     if(!prxVoice) prxPickVoice();
-    if(useEs) u.voice=prxVoiceEs; else if(prxVoice) u.voice=prxVoice;
-    u.lang=useEs?'es-US':'en-US'; u.rate=tn.rate; u.pitch=tn.pitch;
-    const wave=on=>{ const el=document.getElementById('prxWave'); if(el) el.classList.toggle('speaking',on);
-      const cop=document.querySelector('.prx-cop'); if(cop) cop.classList.toggle('live',on); };
-    u.onstart=()=>wave(true); u.onend=()=>wave(false); u.onerror=()=>wave(false);
+    if(es) u.voice=prxVoiceEs; else if(prxVoice) u.voice=prxVoice;
+    u.lang=es?'es-US':'en-US'; u.rate=tn.rate; u.pitch=tn.pitch;
+    u.onstart=()=>prxWaveTgl(true); u.onend=()=>prxWaveTgl(false); u.onerror=()=>prxWaveTgl(false);
     speechSynthesis.speak(u);
   }catch(e){}
 }
@@ -3141,8 +3166,11 @@ function practiceRender(){
     <div class="prx-cop">
       ${PRX_COP}
       <div class="prx-wave" id="prxWave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-      ${prxTTS?`<button class="prx-hear" onclick="prxSpeak()">${_t.prx_hear}</button>`:''}
-      ${prxTTS&&lang==='es'&&prxVoiceEs?`<div class="prx-vlang">${_t.prx_voice}
+      <button class="prx-hear" onclick="prxSpeak()">${_t.prx_hear}</button>
+      <div class="prx-vlang">${_t.prx_gender}
+        <button class="prx-vbtn${prxGender==='m'?' on':''}" onclick="prxSetGender('m')">${_t.prx_g_m}</button>
+        <button class="prx-vbtn${prxGender==='f'?' on':''}" onclick="prxSetGender('f')">${_t.prx_g_f}</button></div>
+      ${lang==='es'?`<div class="prx-vlang">${_t.prx_voice}
         <button class="prx-vbtn${prxVoiceLang==='en'?' on':''}" onclick="prxVoiceLang='en';practiceRender();prxSpeak()">EN</button>
         <button class="prx-vbtn${prxVoiceLang==='es'?' on':''}" onclick="prxVoiceLang='es';practiceRender();prxSpeak()">ES</button></div>`:''}
     </div>
@@ -3171,6 +3199,7 @@ function practiceRender(){
 }
 function practiceClose(){
   prxRecCancel();
+  if(prxAudio){ try{ prxAudio.pause(); }catch(e){} prxAudio=null; }
   if(prxTTS){ try{ speechSynthesis.cancel(); }catch(e){} }
   document.getElementById('practiceOverlay').classList.remove('open');
 }
