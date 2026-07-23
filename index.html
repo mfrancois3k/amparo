@@ -1047,7 +1047,10 @@ const T = {
     prx_done_t:"Level complete.",
     prx_done:"Run it again with someone playing the officer \u2014 and once with every new driver in the house.",
     prx_close:"Close",
-    prx_lvl1:"\ud83d\ude0c Calm stop", prx_lvl2:"\ud83d\ude20 Irritated officer", prx_lvl3:"\ud83d\udea8 Ordered out",
+    prx_lvl1:"\ud83d\ude0c Calm stop", prx_lvl2:"\ud83d\ude20 Irritated officer", prx_lvl3:"\ud83d\udea8 Ordered out", prx_lvl4:"\u26ab The hard stop",
+    prx_warn4:"In this one you do everything right \u2014 and the officer stays hostile anyway. Some stops are like that. The point: calm words protect your case even when they don't soften the officer.",
+    prx_done4_t:"You did everything right.",
+    prx_done4:"Some stops go badly anyway \u2014 that's not on you. That's why the pack, the lifelines, and a lawyer exist. What you said tonight is what protects you in court tomorrow.",
     prx_your_turn:"Your turn \u2014 say your answer out loud first.",
     prx_say:"\u2713 I said it out loud", prx_got:"\u2713 Got it",
     prx_hear:"\ud83d\udd0a Hear it again",
@@ -1240,7 +1243,10 @@ const T = {
     prx_done_t:"Nivel completado.",
     prx_done:"Repítelo con alguien haciendo de oficial \u2014 y una vez con cada conductor nuevo de la casa.",
     prx_close:"Cerrar",
-    prx_lvl1:"😌 Parada tranquila", prx_lvl2:"😠 Oficial irritado", prx_lvl3:"🚨 Te ordenan salir",
+    prx_lvl1:"😌 Parada tranquila", prx_lvl2:"😠 Oficial irritado", prx_lvl3:"🚨 Te ordenan salir", prx_lvl4:"⚫ La parada dura",
+    prx_warn4:"Aquí lo haces todo bien — y el oficial sigue hostil de todos modos. Algunas paradas son así. El punto: las palabras calmadas protegen tu caso aunque no ablanden al oficial.",
+    prx_done4_t:"Lo hiciste todo bien.",
+    prx_done4:"Algunas paradas salen mal de todos modos — no es tu culpa. Para eso existen el paquete, las líneas de ayuda y un abogado. Lo que dijiste hoy es lo que te protege mañana en la corte.",
     prx_your_turn:"Tu turno — di tu respuesta en voz alta primero.",
     prx_say:"✓ Lo dije en voz alta", prx_got:"✓ Entendido",
     prx_hear:"🔊 Escuchar de nuevo",
@@ -2877,7 +2883,10 @@ const PRACTICE={
    L3 ordered out: exit + arrest only. Officer audio is always the EN line
    (the realistic scenario for a Spanish-first driver: English officer,
    translated guidance on screen). No microphone anywhere — by design. */
-const PRX_LEVELS=[{ids:[0,1,2,6],rate:0.95},{ids:[0,1,2,4,5],rate:1.12},{ids:[3,7],rate:1.28}];
+/* Level 4 (index 3) = the Black Swan: user does everything right, officer stays
+   hostile anyway. Unlocks after all 3 levels — teaches that the tool manages
+   risk, it doesn't eliminate it. Opt-in behind its own warning, sober ending. */
+const PRX_LEVELS=[{ids:[0,1,2,6],rate:0.95},{ids:[0,1,2,4,5],rate:1.12},{ids:[3,7],rate:1.28},{ids:[0,1,2,3,7],rate:1.28}];
 const PRX_DO=new Set([3,5]); // comply/sign cards — an action, not a spoken line
 const PRX_COP=`<svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#e9ecf3"/><path d="M22 106c5-22 20-31 38-31s33 9 38 31" fill="#1B2A4A"/><circle cx="60" cy="55" r="21" fill="#31425f"/><path d="M38 47c2-12 10-19 22-19s20 7 22 19H38z" fill="#1B2A4A"/><rect x="36" y="45" width="48" height="6" rx="3" fill="#121e38"/><circle cx="44" cy="88" r="5" fill="#E8B84B"/></svg>`;
 /* Card 5 ("Sign here") is the one card where blanket advice is wrong-by-state:
@@ -2969,7 +2978,7 @@ Object.keys(PRX_VAR).forEach(b=>PRX_VAR[b].forEach((v,i)=>v.id='v'+b+'_'+i));
 PRX_CURVE.forEach((c,i)=>c.id='c'+i);
 function prxBuildDeck(){
   const L=PRX_LEVELS[prLevel];
-  const tones=[['calm'],['curt'],['curt','hostile']][prLevel]; // hostile only behind L3's consent gate
+  const tones=[['calm'],['curt'],['curt','hostile'],['hostile']][prLevel]; // hostile only behind consent gates
   const pick=a=>a[Math.floor(Math.random()*a.length)];
   const deck=L.ids.map(ci=>{
     const pool=(PRX_VAR[ci]||[]).filter(v=>tones.includes(v.tone));
@@ -3021,6 +3030,18 @@ function prxWaveTgl(on){
   const el=document.getElementById('prxWave'); if(el) el.classList.toggle('speaking',on);
   const cop=document.querySelector('.prx-cop'); if(cop) cop.classList.toggle('live',on);
 }
+/* Idle escalation (levels 2+, behind the consent gate): if the user freezes on
+   their turn, the officer repeats the line once — impatience through repetition,
+   never noise or sirens. One repeat max per beat. */
+let prxIdleT=0, prxIdleN=0;
+function prxIdleArm(){
+  clearTimeout(prxIdleT);
+  if(prLevel<2||prRevealed||prIdx>=prDeck.length||prxIdleN>=1) return;
+  prxIdleT=setTimeout(()=>{
+    const ov=document.getElementById('practiceOverlay');
+    if(ov&&ov.classList.contains('open')&&!prRevealed){ prxIdleN++; prxSpeak(); }
+  },12000);
+}
 function prxSpeak(){
   if(prIdx>=prDeck.length) return;
   const d=prDeck[prIdx];
@@ -3035,6 +3056,7 @@ function prxSpeak(){
     a.onerror=()=>{ prxWaveTgl(false); prxSpeakTTS(d,useEs); };
     a.play().catch(()=>prxSpeakTTS(d,useEs));
   } else prxSpeakTTS(d,useEs);
+  prxIdleArm();
 }
 function prxSpeakTTS(d,useEs){
   if(!prxTTS) return;
@@ -3171,20 +3193,20 @@ function practiceOpen(){
   ph('sr_practice_opened',{state:data.state,lang:lang});
 }
 function prxTab(i){
-  prxRecCancel(); prxDropLast();
+  prxRecCancel(); prxDropLast(); prxIdleN=0;
   prLevel=i; prIdx=0; prRevealed=false;
   prDeck=prxBuildDeck(); prRun=[]; prCurTier=null; prRunLogged=false;
   practiceRender();
-  if(!(i===2&&!prWarnOk)) prxSpeak();
+  if(!(i>=2&&!prWarnOk)) prxSpeak();
   ph('sr_practice_level_started',{level:i+1,state:data.state,lang:lang});
 }
 function prxAgain(){
-  prxDropLast();
+  prxDropLast(); prxIdleN=0;
   prIdx=0; prRevealed=false; prRun=[]; prCurTier=null; prRunLogged=false;
   prDeck=prxBuildDeck(); practiceRender(); prxSpeak();
 }
 function prxAdvance(){
-  prxDropLast();
+  prxDropLast(); prxIdleN=0;
   prRun.push(prCurTier==='g'?'g':'y'); prCurTier=null;
   prIdx++; prRevealed=false; practiceRender(); prxSpeak();
 }
@@ -3240,12 +3262,14 @@ async function prxShareRun(btn){
   }catch(e){}
 }
 function practiceRender(){
+  clearTimeout(prxIdleT); // any re-render cancels a pending officer re-prompt
   const _t=t(), b=document.getElementById('practiceBody');
   const L=PRX_LEVELS[prLevel], deck=PRACTICE[lang];
-  const tabs=`<div class="prx-tabs" role="tablist">${[0,1,2].map(i=>
+  const mUnlocked=prx.done[0]&&prx.done[1]&&prx.done[2];
+  const tabs=`<div class="prx-tabs" role="tablist">${(mUnlocked?[0,1,2,3]:[0,1,2]).map(i=>
     `<button class="prx-tab${i===prLevel?' on':''}" role="tab" aria-selected="${i===prLevel}" onclick="prxTab(${i})">${prx.best[i]?`🟩${parseInt(prx.best[i])} `:(prx.done[i]?'✓ ':'')}${_t['prx_lvl'+(i+1)]}</button>`).join('')}</div>`;
-  if(prLevel===2&&!prWarnOk){ // opt-in gate: escalation is chosen, never sprung
-    b.innerHTML=tabs+`<div class="prx-warn">${_t.prx_warn3}</div>
+  if(prLevel>=2&&!prWarnOk){ // opt-in gate: escalation is chosen, never sprung
+    b.innerHTML=tabs+`<div class="prx-warn">${prLevel===3?_t.prx_warn4:_t.prx_warn3}</div>
       <button class="btn gold" onclick="prWarnOk=true;practiceRender();prxSpeak()">${_t.prx_warn_go}</button>`;
     return;
   }
@@ -3268,11 +3292,12 @@ function practiceRender(){
       prxSave();
       ph('sr_practice_level_done',{level:prLevel+1,score:sc,total:prRun.length,state:data.state,lang:lang});
     }
-    const sober=prLevel===2; // no celebration on the arrest level — deliberate
+    const sober=prLevel>=2; // no celebration on the arrest/black-swan levels — deliberate
+    const swan=prLevel===3;
     const score=prRun.filter(x=>x==='g').length;
     const yCount=prRun.length-score;
     const grid=prRun.map(x=>x==='g'?'🟩':'🟨').join('');
-    const master=prx.done[0]&&prx.done[1]&&prx.done[2];
+    const master=(prx.done[0]&&prx.done[1]&&prx.done[2])&&!swan; // no trophy on the swan — wrong emotional register
     /* Mobbin-patterned results: big score → grid → stats row → coach tip →
        beat-by-beat breakdown → one primary share CTA */
     const bdRows=prRun.map((t2,i)=>{
@@ -3281,15 +3306,15 @@ function practiceRender(){
     }).join('');
     b.innerHTML=tabs+`<div class="prx-score">${score}<span>/${prRun.length}</span></div>
       <div class="prx-result">${grid}</div>
-      <div class="prc-count">${sober?_t.prx_done3_t:_t.prx_done_t} · ${_t.prx_verified}</div>
-      ${sober&&score===prRun.length&&prRun.length?`<p class="prc-intro"><b>${_t.prx_l3_perfect}</b></p>`:''}
+      <div class="prc-count">${swan?_t.prx_done4_t:(sober?_t.prx_done3_t:_t.prx_done_t)} · ${_t.prx_verified}</div>
+      ${sober&&!swan&&score===prRun.length&&prRun.length?`<p class="prc-intro"><b>${_t.prx_l3_perfect}</b></p>`:''}
       <div class="prx-stats">
         <div><b>🔁 ${prx.streak.n||1}</b><small>${_t.prx_st_days}</small></div>
         <div><b>${prx.best[prLevel]||(score+'/'+prRun.length)}</b><small>${_t.prx_st_best}</small></div>
         <div><b>${[0,1,2].filter(i=>prx.done[i]).length}/3</b><small>${_t.prx_st_lvls}</small></div>
       </div>
-      <p class="prc-intro">${yCount?_t.prx_tip_y:_t.prx_tip_all}</p>
-      ${sober?`<p class="prc-intro">${_t.prx_done3}</p>`:''}
+      <p class="prc-intro">${swan?'':(yCount?_t.prx_tip_y:_t.prx_tip_all)}</p>
+      ${sober?`<p class="prc-intro">${swan?_t.prx_done4:_t.prx_done3}</p>`:''}
       <div class="prx-bd">${bdRows}</div>
       ${master?`<div class="prx-master">🏆 ${_t.prx_master}</div>
       <button class="btn gold" onclick="prxShareCert(this)">${_t.prx_master_btn}</button>
@@ -3349,6 +3374,7 @@ function practiceRender(){
   </div>`;
 }
 function practiceClose(){
+  clearTimeout(prxIdleT); prxIdleN=0;
   prxRecCancel(); prxDropLast();
   if(prxAudio){ try{ prxAudio.pause(); }catch(e){} prxAudio=null; }
   if(prxTTS){ try{ speechSynthesis.cancel(); }catch(e){} }
