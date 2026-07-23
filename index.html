@@ -1067,7 +1067,7 @@ const T = {
     stepLabels:["State","You","Docs","Lifelines","Print"],
     stepWord:"Step",
     w_title:"Get pulled over with a plan.",
-    w_sub:"Too many of us have to think about this. Amparo builds your personal traffic-stop pack — a window card that speaks for you, so your hands stay on the wheel and your rights stay intact. Set it up once, print it, keep it in your car.",
+    w_sub:"Amparo builds your traffic-stop pack: a window card that speaks for you, your documents shown, your state's rules. Set it up once, print it, keep it in the car.",
     w_b1:"Your documents never leave your phone", w_b2:"Rules & legal lifelines matched to your state", w_b3:"Print at home. In the car in minutes.", w_b4:"We rehearse the stop with you — out loud, before you ever need it.",
     w_btn:"Build my pack",
     about_link:"Who's behind Amparo? \u2192",
@@ -1089,6 +1089,9 @@ const T = {
     prx_qx:"\u26a1 Quick exit",
     offline_ready:"\u2708\ufe0f Saved on this device \u2014 works without internet",
     pp_step2:"Step 2 of 2 \u2014 make it stick:",
+    pdf_q:"\ud83d\udda8 No printer, or want the PDF? \u25be",
+    resume_btn:"\u21a9 Continue where you left off",
+    i_skip_all:"Skip this \u2014 just use my state",
     prx_open_cta:"\ud83c\udfb4 Practice the script \u2014 2 minutes",
     prx_lvl1:"\ud83d\ude0c Calm stop", prx_lvl2:"\ud83d\ude20 Irritated officer", prx_lvl3:"\ud83d\udea8 Ordered out", prx_lvl4:"\u26ab The hard stop",
     prx_warn4:"In this one you do everything right \u2014 and the officer stays hostile anyway. Some stops are like that. The point: calm words protect your case even when they don't soften the officer.",
@@ -1211,7 +1214,7 @@ const T = {
     v_pg1:"Page 1 — Practice sheet: If you get pulled over", v_pg2:"Page 2 — Window card (faces the officer)", v_pg3:"Page 3 — Wallet card + your lifelines", v_pg4:"Page 4 — In the car: your script, their info, the incident log", v_pg5:"Page 5 — Family emergency plan + consulates (keep at home)", v_pg6:"Page 6 — After the ticket: court, tow, phone, crash (keep at home)",
     v_print:"Print my pack", v_family:"👪 Print for another family member", v_family_sub:"Same state, keeps your setup — just swap the name, contact and documents.", v_redo:"Make a pack for another driver or car",
     post_print_hint:"A reminder to reprint, printing for family, and starting over show up here once you print.",
-    remind_btn:"🔔 Remind me to reprint", remind_sub:"Downloads a one-time calendar file for {date} (it holds your state and edition only, nothing else) — the file is created on your phone and never uploaded; we only count, anonymously, that a reminder was downloaded.",
+    remind_btn:"🔔 Remind me to reprint", remind_sub:"Downloads a calendar reminder for {date} — made on your phone, never uploaded.",
     rail_now:"Do now", rail_later:"For later",
     stale_h:"Your printed pack may be out of date", stale_expired:"This edition expired {date} — laws and lifeline numbers can change. Worth a reprint.", stale_soon:"This edition is due for a refresh by {date}.", stale_btn:"Update my pack",
     print_fb_q:"How did printing go?", print_fb_easy:"🙌 Easy", print_fb_trouble:"😕 Had trouble", print_fb_thanks:"Thanks — that helps.",
@@ -1270,7 +1273,7 @@ const T = {
     stepLabels:["Estado","Tú","Docs","Líneas","Imprimir"],
     stepWord:"Paso",
     w_title:"Que la policía no te agarre sin un plan.",
-    w_sub:"Demasiados de nosotros tenemos que pensar en esto. Amparo crea tu paquete personal para paradas de tráfico — una tarjeta de ventana que habla por ti, para que tus manos queden en el volante y tus derechos intactos. Configúralo una vez, imprímelo, guárdalo en tu carro.",
+    w_sub:"Amparo crea tu paquete para paradas de tráfico: una tarjeta de ventana que habla por ti, tus documentos a la vista, las reglas de tu estado. Configúralo una vez, imprímelo, guárdalo en el carro.",
     w_b1:"Tus documentos nunca salen de tu teléfono", w_b2:"Reglas y líneas de ayuda según tu estado", w_b3:"Imprime en casa. Listo en minutos.", w_b4:"Ensayamos la parada contigo — en voz alta, antes de que la necesites.",
     w_btn:"Crear mi paquete",
     about_link:"\u00bfQui\u00e9n est\u00e1 detr\u00e1s de Amparo? \u2192",
@@ -1292,6 +1295,9 @@ const T = {
     prx_qx:"⚡ Salida rápida",
     offline_ready:"✈️ Guardado en este dispositivo — funciona sin internet",
     pp_step2:"Paso 2 de 2 — que se te quede:",
+    pdf_q:"🖨 ¿Sin impresora o quieres el PDF? ▾",
+    resume_btn:"↩ Continuar donde quedaste",
+    i_skip_all:"Omitir — solo usar mi estado",
     prx_open_cta:"🎴 Practica el guion — 2 minutos",
     prx_lvl1:"😌 Parada tranquila", prx_lvl2:"😠 Oficial irritado", prx_lvl3:"🚨 Te ordenan salir", prx_lvl4:"⚫ La parada dura",
     prx_warn4:"Aquí lo haces todo bien — y el oficial sigue hostil de todos modos. Algunas paradas son así. El punto: las palabras calmadas protegen tu caso aunque no ablanden al oficial.",
@@ -1414,7 +1420,7 @@ const T = {
     v_pg1:"Página 1 — Hoja de práctica: Si te detiene la policía", v_pg2:"Página 2 — Tarjeta de ventana (hacia el oficial)", v_pg3:"Página 3 — Tarjeta de cartera + tus líneas de ayuda", v_pg4:"Página 4 — En el carro: tu guion, los datos del oficial, el registro", v_pg5:"Página 5 — Plan familiar de emergencia + consulados (guarda en casa)", v_pg6:"Página 6 — Después de la multa: corte, grúa, teléfono, choque (guarda en casa)",
     v_print:"Imprimir mi paquete", v_family:"👪 Imprimir para otro familiar", v_family_sub:"Mismo estado, se guarda tu configuración — solo cambia el nombre, el contacto y los documentos.", v_redo:"Crear un paquete para otro conductor u otro carro",
     post_print_hint:"Un recordatorio para reimprimir, imprimir para la familia, y empezar de nuevo aparecen aquí después de imprimir.",
-    remind_btn:"🔔 Recuérdame reimprimir", remind_sub:"Descarga un archivo de calendario único para {date} (solo incluye tu estado y edición, nada más) — el archivo se crea en tu teléfono y nunca se sube; solo contamos, de forma anónima, que se descargó un recordatorio.",
+    remind_btn:"🔔 Recuérdame reimprimir", remind_sub:"Descarga un recordatorio de calendario para {date} — creado en tu teléfono, nunca se sube.",
     rail_now:"Para ahora", rail_later:"Para después",
     stale_h:"Tu paquete impreso puede estar desactualizado", stale_expired:"Esta edición venció {date} — las leyes y los números de ayuda pueden cambiar. Vale la pena reimprimir.", stale_soon:"Esta edición debe renovarse antes de {date}.", stale_btn:"Actualizar mi paquete",
     print_fb_q:"¿Cómo te fue al imprimir?", print_fb_easy:"🙌 Fácil", print_fb_trouble:"😕 Tuve problemas", print_fb_thanks:"Gracias — eso ayuda.",
@@ -1881,6 +1887,7 @@ function render(){
       ${[[_t.w_b1,'🔒'],[_t.w_b2,'📍'],[_t.w_b3,'🖨'],[_t.w_b4,'🗣']].map(b=>`
         <div class="feat"><span class="fi">${b[1]}</span>${b[0]}</div>`).join('')}
       <div class="trust-strip">${trustChips()}</div>
+      ${window.__resumeStep?`<button class="btn" onclick="goM(${window.__resumeStep});window.__resumeStep=0">${_t.resume_btn}</button>`:''}
       <button class="btn gold" onclick="goM(1)">${_t.w_btn}</button>
       <button class="btn" onclick="practiceOpen()">${_t.w_try}</button>
       <button class="linkbtn" onclick="viewSample()">👀 ${_t.w_sample}</button>
@@ -1926,6 +1933,7 @@ function render(){
         <p class="soon" style="text-align:left;margin-top:5px;font-size:12px">🔒 ${_t.i_email_note}</p></div>`:''}
       </div>
       <button class="btn" onclick="saveInfo()">${_t.next} →</button>
+      <button class="linkbtn" onclick="goM(3)">${_t.i_skip_all}</button>
     </div>`;
   }
 
@@ -2015,11 +2023,7 @@ function render(){
         <p class="cmp-foot">${_t.cmp_price}</p>
       </div>
       <button class="btn gold" onclick="window.print()">🖨 ${_t.v_print}</button>
-      <p class="soon" style="margin-top:8px">🖨 ${_t.pdf_hint}</p>
-      <p class="soon" style="margin-top:4px">💾 ${_t.pdf_backup}</p>
-      <p class="soon" style="margin-top:4px">📚 ${_t.pdf_where}</p>
       <div id="printedBanner" aria-live="polite" style="display:none;background:#eef7f0;border:1.5px solid #bcd8c2;border-radius:12px;padding:12px 14px;margin-top:10px;font-size:14px;color:#1d4a2c;text-align:center"></div>
-      ${!hasPrinted&&!isDemo?`<p class="soon" id="postPrintHint" style="margin-top:10px;font-style:italic">${_t.post_print_hint}</p>`:''}
       <div id="postPrintActions" style="display:${hasPrinted&&!isDemo?'block':'none'}">
         ${!(prx.done[0]||prx.done[1]||prx.done[2])?`
         <p class="rail-label" style="margin-top:14px">${_t.pp_step2}</p>
@@ -2033,6 +2037,12 @@ function render(){
           <button class="arow" onclick="printForFamily()"><span class="at"><b>${_t.v_family}</b></span><span class="ac">›</span></button>
           <button class="arow" onclick="restart()"><span class="at"><b>${_t.v_redo}</b></span><span class="ac">›</span></button>
         </div>`}
+      </div>
+      <button class="linkbtn" style="margin-top:10px" onclick="const m=document.getElementById('printHelp');m.style.display=m.style.display==='none'?'block':'none'">${_t.pdf_q}</button>
+      <div id="printHelp" style="display:none">
+        <p class="soon" style="margin-top:4px">🖨 ${_t.pdf_hint}</p>
+        <p class="soon" style="margin-top:4px">💾 ${_t.pdf_backup}</p>
+        <p class="soon" style="margin-top:4px">📚 ${_t.pdf_where}</p>
       </div>
       <div id="printFeedback" style="display:${hasPrinted&&!isDemo?'block':'none'};margin-top:14px" data-answered="${printFeedbackGiven?'1':'0'}">
         ${printFeedbackGiven?`<p class="soon">${_t.print_fb_thanks}</p>`:`
@@ -2116,6 +2126,9 @@ function restore(){
     if(s.printedAt) printedAt=s.printedAt;
     if(s.printFeedbackGiven) printFeedbackGiven=true;
     if(s.usageFeedbackGiven) usageFeedbackGiven=true;
+    /* returning users get a resume chip on the landing instead of silently
+       starting over (UX-research find: revisit landed on step 0, lost) */
+    if(s.step>=1&&s.step<=5&&s.state) window.__resumeStep=s.step;
     if((s.lang==='en'||s.lang==='es') && s.lang!==lang){ // whitelist — any other value would brick every render until site data is cleared
       lang=s.lang;
       try{document.documentElement.lang=lang;}catch(e){} // keeps screen readers speaking the right language on resumed sessions
