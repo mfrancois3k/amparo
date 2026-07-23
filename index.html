@@ -254,6 +254,10 @@
   @media(max-width:699px){.prx-vlang{margin-top:0;justify-content:flex-start}}
   .prx-vbtn{border:1.5px solid var(--line);background:var(--white);border-radius:7px;padding:3px 8px;font-size:11px;font-weight:800;color:var(--navy);cursor:pointer;font-family:inherit}
   .prx-vbtn.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .prx-result{font-size:26px;letter-spacing:3px;margin:2px 0 8px}
+  .prx-userwave{display:flex;gap:3px;align-items:flex-end;height:24px;margin-top:8px}
+  .prx-userwave i{width:4px;height:6px;background:var(--ok);border-radius:2px;opacity:.9;transition:height .06s linear}
+  .prx-caption{font-size:13px;font-style:italic;color:var(--muted);min-height:18px;margin-top:4px}
   .ab-card{background:var(--cream);border-radius:20px;max-width:460px;width:100%;max-height:88vh;overflow:auto;box-shadow:0 30px 80px rgba(0,0,0,.5)}
   .ab-top{position:sticky;top:0;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:15px 18px}
   .ab-title{font-weight:900;font-size:16px}
@@ -1016,6 +1020,9 @@ const T = {
     prx_heard:"You said:", prx_heard_none:"Didn't catch that \u2014 try again a little closer to the phone, or just trust your ears.",
     prx_heard_good:"You hit the key words.", prx_heard_retry:"Close \u2014 the highlighted key words are the ones to land.",
     prx_voice:"Officer voice:",
+    prx_curve:"⚡ Curveball", prx_verified:"voice-verified",
+    prx_share_btn:"📤 Challenge a friend", prx_share_taunt:"Do you know your rights at a traffic stop?",
+    prx_streak:"{n} days of reps", prx_l3_perfect:"You stayed calm through the hardest one.",
     v_swipe:"\u2194\ufe0f Swipe to flip through your pages",
     w_share:"\ud83d\udce4 Send this to someone you love", w_shared:"\u2713 Link copied \u2014 paste it anywhere",
     next:"Continue", tagline:"Know your rights", pdf_hint:"No printer? In the print window, choose “Save as PDF” as the printer.", pdf_backup:"Save the PDF — it’s your backup. Reprint anytime without redoing anything.",
@@ -1196,6 +1203,9 @@ const T = {
     prx_heard:"Dijiste:", prx_heard_none:"No se escuchó — inténtalo un poco más cerca del teléfono, o confía en tus oídos.",
     prx_heard_good:"Dijiste las palabras clave.", prx_heard_retry:"Casi — las palabras clave resaltadas son las que hay que decir.",
     prx_voice:"Voz del oficial:",
+    prx_curve:"⚡ Pregunta trampa", prx_verified:"verificadas con voz",
+    prx_share_btn:"📤 Reta a un amigo", prx_share_taunt:"¿Conoces tus derechos en una parada de tráfico?",
+    prx_streak:"{n} días de práctica", prx_l3_perfect:"Mantuviste la calma en el más difícil.",
     v_swipe:"↔️ Desliza para pasar tus páginas",
     w_share:"📤 Envíaselo a alguien que quieres", w_shared:"✓ Enlace copiado — pégalo donde quieras",
     next:"Continuar", tagline:"Conoce tus derechos", pdf_hint:"¿Sin impresora? En la ventana de impresión, elige “Guardar como PDF” como impresora.", pdf_backup:"Guarda el PDF — es tu respaldo. Reimprime cuando quieras sin rehacer nada.",
@@ -2829,10 +2839,94 @@ function prxCard(ci){
   if(ci===5){ const ov=(PRX_SIGN[lang]||{})[data.state]; if(ov) return ov; }
   return PRACTICE[lang][ci];
 }
+/* Officer line variants + curveballs. Authored once, reviewable line-by-line —
+   deliberately NOT runtime-generated: a lawyer can sign a static bank, never an
+   LLM improvising police dialogue. Curveballs change the QUESTION, never the
+   answer — every one resolves to an already-reviewed script line. */
+const PRX_TONE={calm:{rate:0.95,pitch:1},curt:{rate:1.12,pitch:1},hostile:{rate:1.22,pitch:0.9}};
+const PRX_VAR={
+ 0:[{en:"License and registration, please.",es:"Licencia y registro, por favor.",tone:"calm"},
+    {en:"Good evening. I'm going to need your license, registration, and proof of insurance.",es:"Buenas noches. Voy a necesitar su licencia, el registro y la prueba de seguro.",tone:"calm"},
+    {en:"License and registration.",es:"Licencia y registro.",tone:"curt"},
+    {en:"Documents. License, registration. Let's go.",es:"Documentos. Licencia, registro. Vamos.",tone:"curt"},
+    {en:"License. Registration. Now, please.",es:"Licencia. Registro. Ahora, por favor.",tone:"hostile"},
+    {en:"I've asked twice. License and registration. Hand them over.",es:"Ya se lo pedí dos veces. Licencia y registro. Entréguemelos.",tone:"hostile"}],
+ 1:[{en:"So, where are you coming from tonight?",es:"A ver, ¿de dónde viene esta noche?",tone:"calm"},
+    {en:"Where you headed? Coming from somewhere fun?",es:"¿Para dónde va? ¿Viene de algún lado divertido?",tone:"calm"},
+    {en:"Where are you coming from?",es:"¿De dónde viene?",tone:"curt"},
+    {en:"Coming from where? It's a simple question.",es:"¿Viene de dónde? Es una pregunta sencilla.",tone:"curt"},
+    {en:"Where were you tonight? Don't make this difficult.",es:"¿Dónde estuvo esta noche? No lo haga difícil.",tone:"hostile"},
+    {en:"I asked where you're coming from. Answer me.",es:"Le pregunté de dónde viene. Contésteme.",tone:"hostile"}],
+ 2:[{en:"You don't mind if I take a quick look in the car, right?",es:"No le molesta si le echo un vistazo rápido al carro, ¿verdad?",tone:"calm"},
+    {en:"Mind if I take a look inside? Just routine.",es:"¿Le importa si reviso adentro? Es pura rutina.",tone:"calm"},
+    {en:"I'm going to check the vehicle. That okay with you?",es:"Voy a revisar el vehículo. ¿Está de acuerdo?",tone:"curt"},
+    {en:"Pop the trunk for me. You're fine with that, right?",es:"Ábrame la cajuela. No hay problema, ¿verdad?",tone:"curt"},
+    {en:"If there's nothing in there, this takes two minutes. Can I search it or not?",es:"Si no hay nada ahí, esto toma dos minutos. ¿Puedo revisar o no?",tone:"hostile"}],
+ 3:[{en:"Sir, I need you to step out of the vehicle for me.",es:"Señor, necesito que se baje del vehículo, por favor.",tone:"calm"},
+    {en:"Go ahead and step out of the car, please.",es:"Bájese del carro, por favor.",tone:"calm"},
+    {en:"Step out of the vehicle.",es:"Bájese del vehículo.",tone:"curt"},
+    {en:"Out of the car. Keep your hands where I can see them.",es:"Fuera del carro. Mantenga las manos donde pueda verlas.",tone:"curt"},
+    {en:"Step out. Now. Hands visible.",es:"Bájese. Ya. Las manos a la vista.",tone:"hostile"}],
+ 4:[{en:"Have you had anything to drink tonight?",es:"¿Ha tomado algo esta noche?",tone:"calm"},
+    {en:"Just a couple beers, right? Be honest with me.",es:"Solo un par de cervezas, ¿verdad? Sea honesto conmigo.",tone:"calm"},
+    {en:"How much have you had to drink?",es:"¿Cuánto ha tomado?",tone:"curt"},
+    {en:"I can smell it. How many drinks?",es:"Se le siente el olor. ¿Cuántos tragos?",tone:"curt"},
+    {en:"How many. Give me a number.",es:"Cuántos. Deme un número.",tone:"hostile"}],
+ 5:[{en:"I need your signature here. It's not an admission of guilt.",es:"Necesito su firma aquí. No es una admisión de culpa.",tone:"calm"},
+    {en:"Sign at the bottom, please. It just means you received the citation.",es:"Firme abajo, por favor. Solo confirma que recibió la citación.",tone:"calm"},
+    {en:"Sign here.",es:"Firme aquí.",tone:"curt"},
+    {en:"Signature. Right there on the line.",es:"Su firma. Ahí en la línea.",tone:"curt"}],
+ 6:[{en:"Alright, here's your citation. Drive safe.",es:"Bueno, aquí tiene su citación. Maneje con cuidado.",tone:"calm"},
+    {en:"Okay, we're about done here.",es:"Bien, ya casi terminamos aquí.",tone:"calm"},
+    {en:"Here's your paperwork back.",es:"Aquí tiene sus documentos.",tone:"curt"},
+    {en:"We're done. For now.",es:"Terminamos. Por ahora.",tone:"curt"}],
+ 7:[{en:"You're under arrest. Turn around and put your hands behind your back.",es:"Queda bajo arresto. Voltéese y ponga las manos detrás de la espalda.",tone:"calm"},
+    {en:"At this point you're being placed under arrest.",es:"En este momento queda usted bajo arresto.",tone:"calm"},
+    {en:"You're under arrest. Hands behind your back.",es:"Está bajo arresto. Las manos atrás.",tone:"curt"},
+    {en:"Turn around. You're under arrest.",es:"Voltéese. Queda arrestado.",tone:"curt"}]
+};
+const PRX_CURVE=[
+ {en:"Where you headed in such a hurry?",es:"¿Para dónde va con tanta prisa?",tone:"calm",answerBeat:1,coach_en:"Small talk is still questioning. Same line: you're not answering questions.",coach_es:"La charla casual sigue siendo interrogatorio. Misma frase: no responde preguntas."},
+ {en:"You seem pretty nervous. Something wrong?",es:"Se le ve bastante nervioso. ¿Pasa algo?",tone:"calm",answerBeat:1,coach_en:"Nerves aren't a crime. Stay calm and decline questions, same as always.",coach_es:"Estar nervioso no es delito. Calma y no responda preguntas, como siempre."},
+ {en:"This your car? Whose car is this?",es:"¿Este carro es suyo? ¿De quién es este carro?",tone:"curt",answerBeat:1,coach_en:"Your documents already answer this. Beyond them, decline questions.",coach_es:"Sus documentos ya responden eso. Fuera de eso, no responda preguntas."},
+ {en:"If you've got nothing to hide, why not let me look?",es:"Si no tiene nada que esconder, ¿por qué no me deja revisar?",tone:"curt",answerBeat:2,coach_en:"Classic pressure. Consent is your choice; repeat: I don't consent to searches.",coach_es:"Presión clásica. Consentir es su decisión; repita: no consiento registros."},
+ {en:"It'll go a lot easier for you if you cooperate.",es:"Todo va a ser mucho más fácil si coopera.",tone:"hostile",answerBeat:1,coach_en:"Cooperating means documents and compliance, not answering questions. Same line wins.",coach_es:"Cooperar es entregar documentos y obedecer, no responder preguntas. La misma frase gana."},
+ {en:"Just level with me and we can wrap this up.",es:"Sea sincero conmigo y terminamos con esto rápido.",tone:"calm",answerBeat:1,coach_en:"Friendly tone, same trap. Anything you say can be used. Decline.",coach_es:"Tono amable, misma trampa. Todo lo que diga puede usarse. No responda."},
+ {en:"Mind opening the glovebox for me real quick?",es:"¿Me abre la guantera un segundito?",tone:"calm",answerBeat:2,coach_en:"That's a search request in disguise. Same answer: no consent to searches.",coach_es:"Es un registro disfrazado. Misma respuesta: no consiente registros."},
+ {en:"Got anything in the car I should know about?",es:"¿Trae algo en el carro que yo deba saber?",tone:"curt",answerBeat:2,coach_en:"A question fishing for consent. Decline searches, decline questions, stay calm.",coach_es:"Una pregunta buscando su consentimiento. No consienta registros, no responda, calma."},
+ {en:"Why are you being so difficult? Most people just answer.",es:"¿Por qué se pone tan difícil? La mayoría simplemente contesta.",tone:"hostile",answerBeat:1,coach_en:"Silence is your right, not defiance. Hold the same calm line.",coach_es:"El silencio es su derecho, no una ofensa. Mantenga la misma frase con calma."},
+ {en:"You been through here before? I've seen this car around.",es:"¿Ya ha pasado por aquí antes? He visto este carro por la zona.",tone:"calm",answerBeat:1,coach_en:"Baiting you into a story. Same reviewed line: not answering questions.",coach_es:"Quiere sacarle una historia. Misma frase revisada: no responde preguntas."}
+];
+function prxBuildDeck(){
+  const L=PRX_LEVELS[prLevel];
+  const tones=[['calm'],['curt'],['curt','hostile']][prLevel]; // hostile only behind L3's consent gate
+  const pick=a=>a[Math.floor(Math.random()*a.length)];
+  const deck=L.ids.map(ci=>{
+    const pool=(PRX_VAR[ci]||[]).filter(v=>tones.includes(v.tone));
+    const v=pool.length?pick(pool):null;
+    return v?{ci,officer:{en:v.en,es:v.es},tone:v.tone}
+           :{ci,officer:{en:PRACTICE.en[ci].o,es:PRACTICE.es[ci].o},tone:tones[0]};
+  });
+  /* One curveball per run from the 2nd run of a level onward — first run learns
+     the clean script, later runs get stressed. Date-seeded so everyone gets the
+     same daily curveball and shares are comparable. Never in L3 (stays canonical). */
+  const runs=(prx.runs[prLevel]||0);
+  if(runs>=1&&prLevel<2){
+    const d=new Date(), seed=d.getFullYear()*372+(d.getMonth()+1)*31+d.getDate();
+    const cb=PRX_CURVE[seed%PRX_CURVE.length];
+    deck.splice(1+(seed%(deck.length-1)),0,{ci:cb.answerBeat,officer:{en:cb.en,es:cb.es},tone:cb.tone,curve:cb});
+  }
+  return deck;
+}
 let prLevel=0, prIdx=0, prRevealed=false, prWarnOk=false;
-let prxDone={};
-try{ prxDone=JSON.parse(localStorage.getItem('amparo_prx')||'{}')||{}; }catch(e){ prxDone={}; }
-function prxSaveDone(){ try{ localStorage.setItem('amparo_prx',JSON.stringify(prxDone)); }catch(e){} }
+let prDeck=[], prRun=[], prCurTier=null, prRunLogged=false;
+let prx={done:{},runs:{},streak:{last:'',n:0}};
+try{
+  const raw=JSON.parse(localStorage.getItem('amparo_prx')||'{}')||{};
+  if(raw.done) prx=Object.assign(prx,raw);
+  else Object.keys(raw).forEach(k=>{ if(raw[k]) prx.done[k]=true; }); // migrate v1 flat {level:true} shape
+}catch(e){}
+function prxSave(){ try{ localStorage.setItem('amparo_prx',JSON.stringify(prx)); }catch(e){} }
 
 const prxTTS=('speechSynthesis' in window);
 let prxVoice=null, prxVoiceEs=null;
@@ -2840,23 +2934,26 @@ let prxVoice=null, prxVoiceEs=null;
    stop. ES mode gets an in-drill toggle to hear the lines in Spanish while learning. */
 let prxVoiceLang='en';
 function prxPickVoice(){ try{ const vs=speechSynthesis.getVoices();
-  prxVoice=vs.find(v=>/en[-_]US/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null;
-  prxVoiceEs=vs.find(v=>/es[-_](US|MX|419)/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null;
+  /* platforms ship one good neural voice among many robotic ones — rank, don't take first */
+  const rank=v=>(/(Google|Natural|Neural|Siri|Premium|Enhanced|Online)/i.test(v.name)?4:0)+(/en[-_]US|es[-_](US|MX|419)/i.test(v.lang)?1:0);
+  prxVoice=vs.filter(v=>/^en/i.test(v.lang)).sort((a,b)=>rank(b)-rank(a))[0]||null;
+  prxVoiceEs=vs.filter(v=>/^es/i.test(v.lang)).sort((a,b)=>rank(b)-rank(a))[0]||null;
 }catch(e){} }
 if(prxTTS){ prxPickVoice(); speechSynthesis.onvoiceschanged=prxPickVoice; }
 function prxSpeak(){
   if(!prxTTS) return;
   try{
     speechSynthesis.cancel();
-    const L=PRX_LEVELS[prLevel];
-    if(prIdx>=L.ids.length) return;
+    if(prIdx>=prDeck.length) return;
+    const d=prDeck[prIdx];
     const useEs=(lang==='es'&&prxVoiceLang==='es'&&prxVoiceEs);
-    const line=useEs?prxCard(L.ids[prIdx]).o:((L.ids[prIdx]===5?PRX_SIGN.en[data.state]:null)||PRACTICE.en[L.ids[prIdx]]).o;
-    const u=new SpeechSynthesisUtterance(line.replace(/[“”"]/g,''));
+    const tn=PRX_TONE[d.tone]||PRX_TONE.calm;
+    const u=new SpeechSynthesisUtterance((useEs?d.officer.es:d.officer.en).replace(/[“”"]/g,''));
     if(!prxVoice) prxPickVoice();
     if(useEs) u.voice=prxVoiceEs; else if(prxVoice) u.voice=prxVoice;
-    u.lang=useEs?'es-US':'en-US'; u.rate=L.rate; u.pitch=prLevel===2?0.9:1;
-    const wave=on=>{ const el=document.getElementById('prxWave'); if(el) el.classList.toggle('speaking',on); };
+    u.lang=useEs?'es-US':'en-US'; u.rate=tn.rate; u.pitch=tn.pitch;
+    const wave=on=>{ const el=document.getElementById('prxWave'); if(el) el.classList.toggle('speaking',on);
+      const cop=document.querySelector('.prx-cop'); if(cop) cop.classList.toggle('live',on); };
     u.onstart=()=>wave(true); u.onend=()=>wave(false); u.onerror=()=>wave(false);
     speechSynthesis.speak(u);
   }catch(e){}
@@ -2873,7 +2970,7 @@ const PRX_SR=window.SpeechRecognition||window.webkitSpeechRecognition||null;
 let prxHeard='';
 function prxCompareShow(){
   const el=document.getElementById('prxCompare'); if(!el) return;
-  const _t=t(), card=prxCard(PRX_LEVELS[prLevel].ids[prIdx]);
+  const _t=t(), card=prxCard(prDeck[prIdx]?prDeck[prIdx].ci:0);
   const heard=prxHeard.trim();
   if(!heard){ el.innerHTML=`<div class="prx-heard">${_t.prx_heard_none}</div>`; return; }
   const norm=s=>(' '+s.toLowerCase().replace(/[^a-z0-9áéíóúñü' ]/gi,' ')+' ');
@@ -2885,7 +2982,32 @@ function prxCompareShow(){
   el.innerHTML=`<div class="prx-heard"><b>${_t.prx_heard}</b> “${esc(heard)}”</div>
     ${words.length?`<div style="margin:6px 0 2px">${words.map(w=>`<span class="prx-chip${h.includes(w)?' hit':''}">${esc(w)}</span>`).join('')}</div>`:''}
     <div class="prx-heard" style="border:0;background:none;padding:4px 0 0;font-weight:800;color:${good?'#2f8f5b':'#8a7a4a'}">${good?_t.prx_heard_good:_t.prx_heard_retry}</div>`;
-  if(good) ph('sr_practice_keywords_hit',{level:prLevel+1,state:data.state,lang:lang});
+  if(good){ prCurTier='g'; ph('sr_practice_keywords_hit',{level:prLevel+1,state:data.state,lang:lang}); }
+}
+/* Real-amplitude user waveform: Web Audio analyser on the mic stream, driven by
+   rAF while recording. On-device, free, and honest — unlike the officer's bars. */
+let prxAud=null, prxRaf=0;
+function prxWaveStart(stream){
+  try{
+    prxAud=new (window.AudioContext||window.webkitAudioContext)();
+    const src=prxAud.createMediaStreamSource(stream), an=prxAud.createAnalyser();
+    an.fftSize=64; src.connect(an);
+    const buf=new Uint8Array(an.frequencyBinCount);
+    const tick=()=>{
+      an.getByteFrequencyData(buf);
+      document.querySelectorAll('#prxUserWave i').forEach((el,i)=>{
+        el.style.height=(6+((buf[i*3+2]||0)/255)*16)+'px';
+      });
+      prxRaf=requestAnimationFrame(tick);
+    };
+    tick();
+  }catch(e){}
+}
+function prxWaveStop(){
+  cancelAnimationFrame(prxRaf);
+  try{ if(prxAud) prxAud.close(); }catch(e){}
+  prxAud=null;
+  document.querySelectorAll('#prxUserWave i').forEach(el=>el.style.height='6px');
 }
 function prxRecFinish(){ if(prxRec){ try{ prxRec.rec.stop(); }catch(e){} } }        // stop → plays back + transcript
 function prxRecCancel(){ if(prxRec){ prxRec.discard=true; prxRecFinish(); } }        // stop → silent discard
@@ -2902,15 +3024,25 @@ async function prxRecToggle(){
       try{
         sr=new PRX_SR();
         sr.lang=lang==='es'?'es-US':'en-US';
-        sr.continuous=true; sr.interimResults=false;
-        sr.onresult=e=>{ for(let i=e.resultIndex;i<e.results.length;i++) prxHeard+=' '+e.results[i][0].transcript; };
+        sr.continuous=true; sr.interimResults=true;
+        sr.onresult=e=>{
+          let interim=''; prxHeard='';
+          for(let i=0;i<e.results.length;i++){
+            const tr=e.results[i][0].transcript;
+            if(e.results[i].isFinal) prxHeard+=' '+tr; else interim+=' '+tr;
+          }
+          const c=document.getElementById('prxCaption');
+          if(c) c.textContent=(prxHeard+' '+interim).trim();
+        };
         sr.onend=()=>prxCompareShow();
         sr.start();
       }catch(e){ sr=null; }
     }
     prxRec={rec,stream,discard:false};
+    prxWaveStart(stream);
     rec.ondataavailable=e=>{ if(e.data&&e.data.size) chunks.push(e.data); };
     rec.onstop=()=>{
+      prxWaveStop();
       stream.getTracks().forEach(tr=>tr.stop());
       const discard=prxRec&&prxRec.discard; prxRec=null;
       if(sr){ try{ discard?sr.abort():sr.stop(); }catch(e){} }
@@ -2930,6 +3062,7 @@ async function prxRecToggle(){
 function prxKeys(s){ return s.replace(/“([^”]+)”/g,'“<span class="prx-key">$1</span>”'); }
 function practiceOpen(){
   prLevel=0; prIdx=0; prRevealed=false; prWarnOk=false;
+  prDeck=prxBuildDeck(); prRun=[]; prCurTier=null; prRunLogged=false;
   const _t=t();
   document.getElementById('prcTitle').textContent=_t.prx_title;
   document.getElementById('prcX').textContent=_t.prx_close;
@@ -2940,31 +3073,70 @@ function practiceOpen(){
 function prxTab(i){
   prxRecCancel();
   prLevel=i; prIdx=0; prRevealed=false; if(i!==2) prWarnOk=false;
+  prDeck=prxBuildDeck(); prRun=[]; prCurTier=null; prRunLogged=false;
   practiceRender();
   if(!(i===2&&!prWarnOk)) prxSpeak();
   ph('sr_practice_level_started',{level:i+1,state:data.state,lang:lang});
+}
+function prxAgain(){
+  prIdx=0; prRevealed=false; prRun=[]; prCurTier=null; prRunLogged=false;
+  prDeck=prxBuildDeck(); practiceRender(); prxSpeak();
+}
+function prxAdvance(){
+  prRun.push(prCurTier==='g'?'g':'y'); prCurTier=null;
+  prIdx++; prRevealed=false; practiceRender(); prxSpeak();
+}
+async function prxShareRun(btn){
+  const _t=t(), grid=prRun.map(x=>x==='g'?'🟩':'🟨').join('');
+  const txt=`Amparo 🚔 ${_t['prx_lvl'+(prLevel+1)]}\n${grid} ${prRun.filter(x=>x==='g').length}/${prRun.length}\n${_t.prx_share_taunt}\nhttps://www.amparohq.com`;
+  ph('sr_drill_shared',{level:prLevel+1,state:data.state||'none',lang:lang});
+  try{
+    if(navigator.share){ await navigator.share({text:txt}); return; }
+    await navigator.clipboard.writeText(txt);
+    if(btn) btn.textContent=_t.w_shared;
+  }catch(e){}
 }
 function practiceRender(){
   const _t=t(), b=document.getElementById('practiceBody');
   const L=PRX_LEVELS[prLevel], deck=PRACTICE[lang];
   const tabs=`<div class="prx-tabs" role="tablist">${[0,1,2].map(i=>
-    `<button class="prx-tab${i===prLevel?' on':''}" role="tab" aria-selected="${i===prLevel}" onclick="prxTab(${i})">${prxDone[i]?'✓ ':''}${_t['prx_lvl'+(i+1)]}</button>`).join('')}</div>`;
+    `<button class="prx-tab${i===prLevel?' on':''}" role="tab" aria-selected="${i===prLevel}" onclick="prxTab(${i})">${prx.done[i]?'✓ ':''}${_t['prx_lvl'+(i+1)]}</button>`).join('')}</div>`;
   if(prLevel===2&&!prWarnOk){ // opt-in gate: escalation is chosen, never sprung
     b.innerHTML=tabs+`<div class="prx-warn">${_t.prx_warn3}</div>
       <button class="btn gold" onclick="prWarnOk=true;practiceRender();prxSpeak()">${_t.prx_warn_go}</button>`;
     return;
   }
-  if(prIdx>=L.ids.length){
-    if(!prxDone[prLevel]){ prxDone[prLevel]=true; prxSaveDone(); ph('sr_practice_level_done',{level:prLevel+1,state:data.state,lang:lang}); }
+  if(prIdx>=prDeck.length){
+    if(!prRunLogged){
+      prRunLogged=true;
+      prx.runs[prLevel]=(prx.runs[prLevel]||0)+1;
+      prx.done[prLevel]=true;
+      /* streak counts DAYS PRACTICED, never perfection — a lapsed day resets
+         quietly, no guilt screen (trauma-adjacent audience, by design) */
+      const today=new Date().toISOString().slice(0,10);
+      if(prx.streak.last!==today){
+        const yd=new Date(Date.now()-864e5).toISOString().slice(0,10);
+        prx.streak.n=(prx.streak.last===yd)?(prx.streak.n+1):1;
+        prx.streak.last=today;
+      }
+      prxSave();
+      ph('sr_practice_level_done',{level:prLevel+1,score:prRun.filter(x=>x==='g').length,total:prRun.length,state:data.state,lang:lang});
+    }
     const sober=prLevel===2; // no celebration on the arrest level — deliberate
-    b.innerHTML=tabs+`<div class="prc-count">${sober?_t.prx_done3_t:_t.prx_done_t}</div>
+    const score=prRun.filter(x=>x==='g').length;
+    const grid=prRun.map(x=>x==='g'?'🟩':'🟨').join('');
+    b.innerHTML=tabs+`<div class="prx-result">${grid}</div>
+      <div class="prc-count">${sober?_t.prx_done3_t:_t.prx_done_t} · ${score}/${prRun.length} ${_t.prx_verified}</div>
+      ${sober&&score===prRun.length&&prRun.length?`<p class="prc-intro"><b>${_t.prx_l3_perfect}</b></p>`:''}
       <p class="prc-intro">${sober?_t.prx_done3:_t.prx_done}</p>
+      ${prx.streak.n>1?`<p class="prc-intro">🔁 ${_t.prx_streak.replace('{n}',prx.streak.n)}</p>`:''}
+      <button class="btn gold" onclick="prxShareRun(this)">${_t.prx_share_btn}</button>
       ${prLevel<2?`<button class="btn" onclick="prxTab(${prLevel+1})">${_t['prx_lvl'+(prLevel+2)]} →</button>`:''}
-      <button class="btn ghost" onclick="prIdx=0;prRevealed=false;practiceRender();prxSpeak()">${_t.prx_again}</button>
+      <button class="btn ghost" onclick="prxAgain()">${_t.prx_again}</button>
       <button class="btn ghost" onclick="practiceClose()">${_t.prx_close}</button>`;
     return;
   }
-  const ci=L.ids[prIdx], card=prxCard(ci), isDo=PRX_DO.has(ci);
+  const d=prDeck[prIdx], ci=d.ci, card=prxCard(ci), isDo=PRX_DO.has(ci);
   b.innerHTML=tabs+`<div class="prx-grid">
     <div class="prx-cop">
       ${PRX_COP}
@@ -2975,19 +3147,22 @@ function practiceRender(){
         <button class="prx-vbtn${prxVoiceLang==='es'?' on':''}" onclick="prxVoiceLang='es';practiceRender();prxSpeak()">ES</button></div>`:''}
     </div>
     <div>
-      <div class="prc-count">${_t.prx_count.replace('{n}',prIdx+1).replace('{total}',L.ids.length)}</div>
+      <div class="prc-count">${_t.prx_count.replace('{n}',prIdx+1).replace('{total}',prDeck.length)}${d.curve?` · ${_t.prx_curve}`:''}</div>
       ${prIdx===0&&!prRevealed&&prLevel===0?`<p class="prc-intro">${_t.prx_intro}</p>`:''}
       ${prxTTS&&lang==='es'&&prxVoiceLang==='en'&&prIdx===0?`<p class="prc-intro" style="margin-bottom:8px">${_t.prx_tts_note}</p>`:''}
       <div class="prc-role">${_t.prx_officer}</div>
-      <div class="prc-officer">${card.o}</div>
+      <div class="prc-officer">“${d.officer[lang]}”</div>
       ${prRevealed?`<div class="prc-role">${_t.prx_you}</div>
         <div class="prc-you">${prxKeys(card.y)}</div>
+        ${d.curve?`<div class="prc-cite">🎯 ${d.curve['coach_'+lang]}</div>`:''}
         ${PRX_CITES[lang][ci]?`<div class="prc-cite">⚖️ ${PRX_CITES[lang][ci]}</div>`:''}
-        <button class="btn" onclick="prIdx++;prRevealed=false;practiceRender();prxSpeak()">${isDo?_t.prx_got:_t.prx_say}</button>`
+        <button class="btn" onclick="prxAdvance()">${isDo?_t.prx_got:_t.prx_say}</button>`
       :`<p class="prc-intro" style="margin-bottom:6px">${_t.prx_your_turn}</p>
         <div class="prx-pace" aria-hidden="true"><i></i></div>
         <div class="prx-pace-lbl">${_t.prx_pace}</div>
         ${(navigator.mediaDevices&&window.MediaRecorder&&!isDo)?`<button class="prx-rec" id="prxRecBtn" onclick="prxRecToggle()">${_t.prx_rec}</button>
+        <div class="prx-userwave" id="prxUserWave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        ${PRX_SR?`<div class="prx-caption" id="prxCaption" aria-live="polite"></div>`:''}
         <div class="prx-rec-note" id="prxRecNote">${PRX_SR?_t.prx_rec_note_sr:_t.prx_rec_note}</div>
         <div id="prxCompare"></div>`:''}
         <button class="btn gold" onclick="prxRecFinish();prRevealed=true;practiceRender()">${_t.prx_reveal}</button>`}
