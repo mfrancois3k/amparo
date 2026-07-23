@@ -16,6 +16,12 @@
 <meta property="og:title" content="Amparo — Get pulled over with a plan.">
 <meta property="og:description" content="A free bilingual traffic-stop pack: window card, your documents, your state's rules, and exactly what to say. Print it. Keep it in the car.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://www.amparohq.com/">
+<meta property="og:image" content="https://www.amparohq.com/og.png">
+<meta property="og:image:width" content="1500">
+<meta property="og:image:height" content="790">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.amparohq.com/og.png">
 <meta name="theme-color" content="#1B2A4A">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='72' r='28' fill='none' stroke='%23E8B84B' stroke-width='12'/%3E%3Crect x='48' y='56' width='24' height='32' rx='4' fill='%231B2A4A'/%3E%3Cpath d='M12 62 L60 18 L108 62' fill='none' stroke='%231B2A4A' stroke-width='13' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
@@ -1028,6 +1034,8 @@ const T = {
     s_title:"Which state do you drive in?", s_sub:"Your pack's rules and legal lifelines are matched to your state's laws.",
     s_soon:"More states coming — the pilot starts with these three.",
     i_title:"Who is this pack for?", i_sub:"This goes on the wallet card so someone you trust gets called if you're ever detained.",
+    i_opt:"Every field is optional — fill in what helps you, skip the rest.",
+    pdf_where:"No printer at home? Save the PDF, then print it free at most public libraries — or at FedEx/Staples, work, church, or a friend's.",
     i_name:"Your name", i_name_ph:"First & last name",
     i_ec:"Emergency contact name", i_ec_ph:"Someone who picks up",
     i_ecp:"Emergency contact phone", i_ecp_ph:"(555) 555-5555",
@@ -1206,6 +1214,8 @@ const T = {
     s_title:"¿En qué estado manejas?", s_sub:"Las reglas y líneas de ayuda de tu paquete corresponden a las leyes de tu estado.",
     s_soon:"Más estados pronto — el piloto empieza con estos tres.",
     i_title:"¿Para quién es este paquete?", i_sub:"Esto va en la tarjeta de cartera para que llamen a alguien de confianza si alguna vez te detienen.",
+    i_opt:"Todos los campos son opcionales — llena lo que te sirva y omite el resto.",
+    pdf_where:"¿Sin impresora en casa? Guarda el PDF y luego imprímelo gratis en la mayoría de las bibliotecas públicas — o en FedEx/Staples, el trabajo, la iglesia o con un amigo.",
     i_name:"Tu nombre", i_name_ph:"Nombre y apellido",
     i_ec:"Nombre del contacto de emergencia", i_ec_ph:"Alguien que conteste",
     i_ecp:"Teléfono del contacto de emergencia", i_ecp_ph:"(555) 555-5555",
@@ -1767,6 +1777,7 @@ function render(){
       <button class="back" aria-label="${_t.a11y_back}" onclick="goM(1)">←</button>
       ${eyebrow()}
       <h1>${_t.i_title}</h1><p class="sub">${_t.i_sub}</p>
+      <p class="soon" style="text-align:left;margin:-4px 0 10px">✳️ ${_t.i_opt}</p>
       <div class="stagger">
         <div><label>${_t.i_name}</label><input type="text" id="f_name" autocomplete="name" enterkeyhint="next" placeholder="${_t.i_name_ph}" value="${esc(data.name)}" oninput="data.name=this.value;persist()"></div>
         <div><label>${_t.i_ec}</label><input type="text" id="f_ec" autocomplete="off" enterkeyhint="next" placeholder="${_t.i_ec_ph}" value="${esc(data.ec)}" oninput="data.ec=this.value;persist()"></div>
@@ -1872,6 +1883,7 @@ function render(){
       <button class="btn gold" onclick="window.print()">🖨 ${_t.v_print}</button>
       <p class="soon" style="margin-top:8px">🖨 ${_t.pdf_hint}</p>
       <p class="soon" style="margin-top:4px">💾 ${_t.pdf_backup}</p>
+      <p class="soon" style="margin-top:4px">📚 ${_t.pdf_where}</p>
       <div id="printedBanner" aria-live="polite" style="display:none;background:#eef7f0;border:1.5px solid #bcd8c2;border-radius:12px;padding:12px 14px;margin-top:10px;font-size:14px;color:#1d4a2c;text-align:center"></div>
       ${!hasPrinted&&!isDemo?`<p class="soon" id="postPrintHint" style="margin-top:10px;font-style:italic">${_t.post_print_hint}</p>`:''}
       <div id="postPrintActions" style="display:${hasPrinted&&!isDemo?'block':'none'}">
@@ -1944,7 +1956,21 @@ function persist(){
 function restore(){
   try{
     const s=JSON.parse(localStorage.getItem('sr_save')||'null');
-    if(!s) return;
+    if(!s){
+      /* First visit ever: greet Spanish-dominant browsers in Spanish. The ES pill
+         is easy to miss top-right, and that cohort bounces before finding it. */
+      if((navigator.language||'').toLowerCase().startsWith('es')&&lang!=='es'){
+        lang='es';
+        try{document.documentElement.lang='es';}catch(e){}
+        document.getElementById('langEN').classList.toggle('on',false);
+        document.getElementById('langES').classList.toggle('on',true);
+        document.getElementById('langEN').setAttribute('aria-pressed','false');
+        document.getElementById('langES').setAttribute('aria-pressed','true');
+        const _pb=document.querySelector('.pilot'); if(_pb) _pb.textContent=t().pilotBanner;
+        const _dc=document.querySelector('.disclaimer'); if(_dc) _dc.textContent=t().disclaimer;
+      }
+      return;
+    }
     if(s.state && STATES[s.state]) data.state=s.state; // whitelist — a corrupt state would silently print the wrong state's pack
     data.name=s.name||""; data.ec=s.ec||""; data.ecp=s.ecp||""; data.ec2=s.ec2||""; data.ecp2=s.ecp2||""; data.att=s.att||""; data.email=s.email||"";
     if(s.skipped) data.skipped=s.skipped;
