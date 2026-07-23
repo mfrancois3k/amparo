@@ -1088,6 +1088,8 @@ const T = {
     prx_close:"Close",
     prx_qx:"\u26a1 Quick exit",
     offline_ready:"\u2708\ufe0f Saved on this device \u2014 works without internet",
+    pp_step2:"Step 2 of 2 \u2014 make it stick:",
+    prx_open_cta:"\ud83c\udfb4 Practice the script \u2014 2 minutes",
     prx_lvl1:"\ud83d\ude0c Calm stop", prx_lvl2:"\ud83d\ude20 Irritated officer", prx_lvl3:"\ud83d\udea8 Ordered out", prx_lvl4:"\u26ab The hard stop",
     prx_warn4:"In this one you do everything right \u2014 and the officer stays hostile anyway. Some stops are like that. The point: calm words protect your case even when they don't soften the officer.",
     prx_done4_t:"You did everything right.",
@@ -1289,6 +1291,8 @@ const T = {
     prx_close:"Cerrar",
     prx_qx:"⚡ Salida rápida",
     offline_ready:"✈️ Guardado en este dispositivo — funciona sin internet",
+    pp_step2:"Paso 2 de 2 — que se te quede:",
+    prx_open_cta:"🎴 Practica el guion — 2 minutos",
     prx_lvl1:"😌 Parada tranquila", prx_lvl2:"😠 Oficial irritado", prx_lvl3:"🚨 Te ordenan salir", prx_lvl4:"⚫ La parada dura",
     prx_warn4:"Aquí lo haces todo bien — y el oficial sigue hostil de todos modos. Algunas paradas son así. El punto: las palabras calmadas protegen tu caso aunque no ablanden al oficial.",
     prx_done4_t:"Lo hiciste todo bien.",
@@ -2017,15 +2021,18 @@ function render(){
       <div id="printedBanner" aria-live="polite" style="display:none;background:#eef7f0;border:1.5px solid #bcd8c2;border-radius:12px;padding:12px 14px;margin-top:10px;font-size:14px;color:#1d4a2c;text-align:center"></div>
       ${!hasPrinted&&!isDemo?`<p class="soon" id="postPrintHint" style="margin-top:10px;font-style:italic">${_t.post_print_hint}</p>`:''}
       <div id="postPrintActions" style="display:${hasPrinted&&!isDemo?'block':'none'}">
-        <button class="arow" onclick="practiceOpen()"><span class="at"><b>${_t.prx_open}</b><small>${_t.prx_open_sub}</small></span><span class="ac">›</span></button>
+        ${!(prx.done[0]||prx.done[1]||prx.done[2])?`
+        <p class="rail-label" style="margin-top:14px">${_t.pp_step2}</p>
+        <button class="btn gold" onclick="practiceOpen()">${_t.prx_open_cta}</button>`
+        :`<button class="arow" onclick="practiceOpen()"><span class="at"><b>${_t.prx_open}</b></span><span class="ac">›</span></button>
         <button class="arow" onclick="shareAmparo(this.querySelector('b'))"><span class="at"><b>${_t.w_share}</b></span><span class="ac">›</span></button>
         <button class="linkbtn" style="margin-top:8px" onclick="const m=document.getElementById('railMore');const on=m.style.display==='none';m.style.display=on?'block':'none';this.textContent=(on?'▴ ':'▾ ')+this.textContent.slice(2)">▾ ${_t.rail_more}</button>
         <div id="railMore" style="display:none">
-        ${REVIEW.emailEnabled?(data.email?`<button class="arow" onclick="sendPackEmail()"><span class="at"><b>${_t.em_btn}</b></span><span class="ac">›</span></button><p class="soon" id="emStatus" style="margin-top:6px"></p>`:`<p class="soon" style="margin-top:10px">✉️ ${_t.em_add}</p>`):''}
-        <button class="arow" onclick="downloadReprintReminder()"><span class="at"><b>${_t.remind_btn}</b><small>${_t.remind_sub.replace('{date}',edReplaceLabel())}</small></span><span class="ac">›</span></button>
-        <button class="arow" onclick="printForFamily()"><span class="at"><b>${_t.v_family}</b><small>${_t.v_family_sub}</small></span><span class="ac">›</span></button>
-        <button class="arow" onclick="restart()"><span class="at"><b>${_t.v_redo}</b></span><span class="ac">›</span></button>
-        </div>
+          ${REVIEW.emailEnabled&&data.email?`<button class="arow" onclick="sendPackEmail()"><span class="at"><b>${_t.em_btn}</b></span><span class="ac">›</span></button><p class="soon" id="emStatus" style="margin-top:6px"></p>`:''}
+          <button class="arow" onclick="downloadReprintReminder()"><span class="at"><b>${_t.remind_btn}</b></span><span class="ac">›</span></button>
+          <button class="arow" onclick="printForFamily()"><span class="at"><b>${_t.v_family}</b></span><span class="ac">›</span></button>
+          <button class="arow" onclick="restart()"><span class="at"><b>${_t.v_redo}</b></span><span class="ac">›</span></button>
+        </div>`}
       </div>
       <div id="printFeedback" style="display:${hasPrinted&&!isDemo?'block':'none'};margin-top:14px" data-answered="${printFeedbackGiven?'1':'0'}">
         ${printFeedbackGiven?`<p class="soon">${_t.print_fb_thanks}</p>`:`
@@ -3482,6 +3489,7 @@ function practiceClose(){
   if(prxAudio){ try{ prxAudio.pause(); }catch(e){} prxAudio=null; }
   if(prxTTS){ try{ speechSynthesis.cancel(); }catch(e){} }
   document.getElementById('practiceOverlay').classList.remove('open');
+  if(step===5) render(); // post-print rail is staged on practice progress — refresh it
 }
 
 /* ============ FEEDBACK ============
