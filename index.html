@@ -213,8 +213,35 @@
   .prc-officer{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:16px;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:14px}
   .prc-you{background:#eef7f0;border:1.5px solid #bcd8c2;border-radius:14px;padding:16px;font-size:16px;line-height:1.5;color:#1d4a2c;margin-bottom:14px}
   .prc-intro{font-size:13px;color:#6b6a63;line-height:1.5;margin-bottom:14px}
-  /* practice drill: hostility tabs + officer panel + fake-honest waveform (no mic) */
-  @media(min-width:700px){#practiceOverlay .ab-card{max-width:780px}}
+  /* practice drill: full-screen dusk stage — a place, not a popup. Static
+     gradient scene only: never animated police lights (trauma-adjacent audience). */
+  #practiceOverlay.open{background:linear-gradient(180deg,#0b1020 0%,#131b33 55%,#3a2b45 85%,#7a5236 100%)}
+  #practiceOverlay .ab-card{display:flex;flex-direction:column;max-height:94vh}
+  #practiceOverlay .ab-body{flex:1;overflow:auto}
+  @media(min-width:700px){#practiceOverlay .ab-card{max-width:900px;height:94vh}}
+  .prx-rail{display:flex;align-items:center;gap:5px;margin:0 0 12px}
+  .prx-rail .rd{width:12px;height:12px;border-radius:50%;background:#e5e0d4;flex:none;transition:transform .3s var(--ease-spring),background .3s}
+  .prx-rail .rd.g{background:var(--ok)}
+  .prx-rail .rd.y{background:var(--gold)}
+  .prx-rail .rd.cur{background:var(--gold);transform:scale(1.4);box-shadow:0 0 0 4px rgba(232,184,75,.28)}
+  .prx-rail .rl{flex:1;height:2px;background:#e5e0d4;min-width:6px}
+  .prx-rail .rg{font-size:16px;flex:none;line-height:1}
+  .prx-daily{font-size:11.5px;font-weight:800;color:#8a7a4a;margin:-6px 0 10px}
+  .prx-console{background:#10182b;border-radius:14px;padding:12px 14px;margin:6px 0 10px}
+  .prx-console .prx-rec{color:#F3D48A;border-color:rgba(243,212,138,.45);margin:0}
+  .prx-console .prx-rec.rec{color:#ff9d8a;border-color:#ff9d8a}
+  .prx-console .prx-userwave i{background:#4ade80}
+  .prx-console .prx-caption{color:#cbd5e1}
+  .prx-console .prx-rec-note{color:#8fa0bd;margin-bottom:0;margin-top:8px}
+  .prx-cbar{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .prx-cbar button{flex:1;min-width:130px;background:transparent;border:1.5px solid rgba(243,212,138,.35);border-radius:9px;padding:8px 10px;font-size:12.5px;font-weight:800;color:#F3D48A;cursor:pointer;font-family:inherit}
+  .prx-cbar button:disabled{opacity:.35;cursor:default}
+  .prx-cop{background:linear-gradient(180deg,#16223c 0%,#233450 62%,#54413a 100%);border-color:#31425f}
+  .prx-cop .prx-hear{color:#F3D48A;border-color:rgba(243,212,138,.4)}
+  .prx-cop .prx-vlang{color:#8fa0bd}
+  .prx-cop .prx-vbtn{background:transparent;color:#F3D48A;border-color:rgba(243,212,138,.4)}
+  .prx-cop .prx-vbtn.on{background:var(--gold);color:#1B2A4A;border-color:var(--gold)}
+  .prx-cop .prx-wave i{background:var(--gold)}
   .prx-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
   .prx-tab{flex:1;min-width:104px;border:1.5px solid var(--line);background:var(--white);border-radius:10px;padding:8px 6px;font-size:12.5px;font-weight:800;color:var(--navy);cursor:pointer;font-family:inherit;transition:background .25s,border-color .25s}
   .prx-tab.on{background:var(--navy);color:#fff;border-color:var(--navy)}
@@ -1021,6 +1048,8 @@ const T = {
     prx_heard_good:"You hit the key words.", prx_heard_retry:"Close \u2014 the highlighted key words are the ones to land.",
     prx_voice:"Officer voice:", prx_gender:"Officer:", prx_g_m:"♂ Male", prx_g_f:"♀ Female",
     prx_curve:"⚡ Curveball", prx_verified:"voice-verified",
+    prx_playback:"▶ Play back my voice",
+    prx_daily:"⚡ Today's curveball", prx_daily_done:"done ✓", prx_daily_live:"in this run",
     prx_share_btn:"📤 Challenge a friend", prx_share_taunt:"Do you know your rights at a traffic stop?",
     prx_streak:"{n} days of reps", prx_l3_perfect:"You stayed calm through the hardest one.",
     v_swipe:"\u2194\ufe0f Swipe to flip through your pages",
@@ -1204,6 +1233,8 @@ const T = {
     prx_heard_good:"Dijiste las palabras clave.", prx_heard_retry:"Casi — las palabras clave resaltadas son las que hay que decir.",
     prx_voice:"Voz del oficial:", prx_gender:"Oficial:", prx_g_m:"♂ Hombre", prx_g_f:"♀ Mujer",
     prx_curve:"⚡ Pregunta trampa", prx_verified:"verificadas con voz",
+    prx_playback:"▶ Escuchar mi voz",
+    prx_daily:"⚡ Trampa del día", prx_daily_done:"hecha ✓", prx_daily_live:"en esta ronda",
     prx_share_btn:"📤 Reta a un amigo", prx_share_taunt:"¿Conoces tus derechos en una parada de tráfico?",
     prx_streak:"{n} días de práctica", prx_l3_perfect:"Mantuviste la calma en el más difícil.",
     v_swipe:"↔️ Desliza para pasar tus páginas",
@@ -2930,6 +2961,7 @@ try{
   if(raw.done) prx=Object.assign(prx,raw);
   else Object.keys(raw).forEach(k=>{ if(raw[k]) prx.done[k]=true; }); // migrate v1 flat {level:true} shape
 }catch(e){}
+prx.best=prx.best||{}; prx.streak=prx.streak||{last:'',n:0};
 function prxSave(){ try{ localStorage.setItem('amparo_prx',JSON.stringify(prx)); }catch(e){} }
 
 const prxTTS=('speechSynthesis' in window);
@@ -3034,6 +3066,11 @@ function prxWaveStop(){
   prxAud=null;
   document.querySelectorAll('#prxUserWave i').forEach(el=>el.style.height='6px');
 }
+let prxLastUrl=null, prxTok=0;
+function prxPlayLast(){ if(prxLastUrl){ try{ new Audio(prxLastUrl).play().catch(()=>{}); }catch(e){} } }
+/* bumping the token invalidates any in-flight MediaRecorder onstop — a recording
+   finishing AFTER the user moved on must never attach to the next card */
+function prxDropLast(){ prxTok++; if(prxLastUrl){ try{ URL.revokeObjectURL(prxLastUrl); }catch(e){} prxLastUrl=null; } }
 function prxRecFinish(){ if(prxRec){ try{ prxRec.rec.stop(); }catch(e){} } }        // stop → plays back + transcript
 function prxRecCancel(){ if(prxRec){ prxRec.discard=true; prxRecFinish(); } }        // stop → silent discard
 async function prxRecToggle(){
@@ -3064,6 +3101,7 @@ async function prxRecToggle(){
       }catch(e){ sr=null; }
     }
     prxRec={rec,stream,discard:false};
+    const myTok=prxTok;
     prxWaveStart(stream);
     rec.ondataavailable=e=>{ if(e.data&&e.data.size) chunks.push(e.data); };
     rec.onstop=()=>{
@@ -3073,11 +3111,13 @@ async function prxRecToggle(){
       if(sr){ try{ discard?sr.abort():sr.stop(); }catch(e){} }
       const b2=document.getElementById('prxRecBtn');
       if(b2){ b2.textContent=_t.prx_rec; b2.classList.remove('rec'); }
-      if(discard||!chunks.length) return;
-      const url=URL.createObjectURL(new Blob(chunks,{type:rec.mimeType||'audio/webm'}));
-      const a=new Audio(url);
-      a.onended=()=>URL.revokeObjectURL(url);
-      a.play().catch(()=>URL.revokeObjectURL(url));
+      if(discard||!chunks.length||myTok!==prxTok) return; // stale: user already moved on
+      /* keep the clip in memory (only) until the user moves on — enables the
+         Play-back button; prxDropLast() destroys it on advance/tab/close */
+      if(prxLastUrl){ try{ URL.revokeObjectURL(prxLastUrl); }catch(e){} }
+      prxLastUrl=URL.createObjectURL(new Blob(chunks,{type:rec.mimeType||'audio/webm'}));
+      const pb=document.getElementById('prxPlayback'); if(pb) pb.removeAttribute('disabled');
+      try{ new Audio(prxLastUrl).play().catch(()=>{}); }catch(e){}
     };
     rec.start();
     if(btn){ btn.textContent=_t.prx_rec_stop; btn.classList.add('rec'); }
@@ -3096,7 +3136,7 @@ function practiceOpen(){
   ph('sr_practice_opened',{state:data.state,lang:lang});
 }
 function prxTab(i){
-  prxRecCancel();
+  prxRecCancel(); prxDropLast();
   prLevel=i; prIdx=0; prRevealed=false; if(i!==2) prWarnOk=false;
   prDeck=prxBuildDeck(); prRun=[]; prCurTier=null; prRunLogged=false;
   practiceRender();
@@ -3104,10 +3144,12 @@ function prxTab(i){
   ph('sr_practice_level_started',{level:i+1,state:data.state,lang:lang});
 }
 function prxAgain(){
+  prxDropLast();
   prIdx=0; prRevealed=false; prRun=[]; prCurTier=null; prRunLogged=false;
   prDeck=prxBuildDeck(); practiceRender(); prxSpeak();
 }
 function prxAdvance(){
+  prxDropLast();
   prRun.push(prCurTier==='g'?'g':'y'); prCurTier=null;
   prIdx++; prRevealed=false; practiceRender(); prxSpeak();
 }
@@ -3125,7 +3167,7 @@ function practiceRender(){
   const _t=t(), b=document.getElementById('practiceBody');
   const L=PRX_LEVELS[prLevel], deck=PRACTICE[lang];
   const tabs=`<div class="prx-tabs" role="tablist">${[0,1,2].map(i=>
-    `<button class="prx-tab${i===prLevel?' on':''}" role="tab" aria-selected="${i===prLevel}" onclick="prxTab(${i})">${prx.done[i]?'✓ ':''}${_t['prx_lvl'+(i+1)]}</button>`).join('')}</div>`;
+    `<button class="prx-tab${i===prLevel?' on':''}" role="tab" aria-selected="${i===prLevel}" onclick="prxTab(${i})">${prx.best[i]?`🟩${parseInt(prx.best[i])} `:(prx.done[i]?'✓ ':'')}${_t['prx_lvl'+(i+1)]}</button>`).join('')}</div>`;
   if(prLevel===2&&!prWarnOk){ // opt-in gate: escalation is chosen, never sprung
     b.innerHTML=tabs+`<div class="prx-warn">${_t.prx_warn3}</div>
       <button class="btn gold" onclick="prWarnOk=true;practiceRender();prxSpeak()">${_t.prx_warn_go}</button>`;
@@ -3144,8 +3186,11 @@ function practiceRender(){
         prx.streak.n=(prx.streak.last===yd)?(prx.streak.n+1):1;
         prx.streak.last=today;
       }
+      const sc=prRun.filter(x=>x==='g').length;
+      if(!prx.best[prLevel]||sc>parseInt(prx.best[prLevel])) prx.best[prLevel]=sc+'/'+prRun.length;
+      if(prDeck.some(x=>x.curve)) prx.cbDay=new Date().toISOString().slice(0,10);
       prxSave();
-      ph('sr_practice_level_done',{level:prLevel+1,score:prRun.filter(x=>x==='g').length,total:prRun.length,state:data.state,lang:lang});
+      ph('sr_practice_level_done',{level:prLevel+1,score:sc,total:prRun.length,state:data.state,lang:lang});
     }
     const sober=prLevel===2; // no celebration on the arrest level — deliberate
     const score=prRun.filter(x=>x==='g').length;
@@ -3162,11 +3207,17 @@ function practiceRender(){
     return;
   }
   const d=prDeck[prIdx], ci=d.ci, card=prxCard(ci), isDo=PRX_DO.has(ci);
-  b.innerHTML=tabs+`<div class="prx-grid">
+  const hasConsole=(navigator.mediaDevices&&window.MediaRecorder&&!isDo&&!prRevealed);
+  const rail=`<div class="prx-rail" aria-hidden="true">${prDeck.map((x,i)=>
+    `<span class="rd${i<prIdx?(prRun[i]==='g'?' g':' y'):(i===prIdx?' cur':'')}"></span>${i<prDeck.length-1?'<span class="rl"></span>':''}`).join('')}<span class="rl"></span><span class="rg">⚖️</span></div>`;
+  const _today=new Date().toISOString().slice(0,10);
+  const hasCb=prDeck.some(x=>x.curve);
+  const daily=(hasCb||prx.cbDay===_today)?`<div class="prx-daily">${_t.prx_daily}: ${prx.cbDay===_today?_t.prx_daily_done:_t.prx_daily_live}</div>`:'';
+  b.innerHTML=tabs+daily+rail+`<div class="prx-grid">
     <div class="prx-cop">
       ${PRX_COP}
       <div class="prx-wave" id="prxWave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-      <button class="prx-hear" onclick="prxSpeak()">${_t.prx_hear}</button>
+      ${hasConsole?'':`<button class="prx-hear" onclick="prxSpeak()">${_t.prx_hear}</button>`}
       <div class="prx-vlang">${_t.prx_gender}
         <button class="prx-vbtn${prxGender==='m'?' on':''}" onclick="prxSetGender('m')">${_t.prx_g_m}</button>
         <button class="prx-vbtn${prxGender==='f'?' on':''}" onclick="prxSetGender('f')">${_t.prx_g_f}</button></div>
@@ -3188,17 +3239,23 @@ function practiceRender(){
       :`<p class="prc-intro" style="margin-bottom:6px">${_t.prx_your_turn}</p>
         <div class="prx-pace" aria-hidden="true"><i></i></div>
         <div class="prx-pace-lbl">${_t.prx_pace}</div>
-        ${(navigator.mediaDevices&&window.MediaRecorder&&!isDo)?`<button class="prx-rec" id="prxRecBtn" onclick="prxRecToggle()">${_t.prx_rec}</button>
+        ${hasConsole?`<div class="prx-console">
+        <button class="prx-rec" id="prxRecBtn" onclick="prxRecToggle()">${_t.prx_rec}</button>
         <div class="prx-userwave" id="prxUserWave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
         ${PRX_SR?`<div class="prx-caption" id="prxCaption" aria-live="polite"></div>`:''}
+        <div class="prx-cbar">
+          <button onclick="prxSpeak()">${_t.prx_hear}</button>
+          <button id="prxPlayback" onclick="prxPlayLast()" ${prxLastUrl?'':'disabled'}>${_t.prx_playback}</button>
+        </div>
         <div class="prx-rec-note" id="prxRecNote">${PRX_SR?_t.prx_rec_note_sr:_t.prx_rec_note}</div>
-        <div id="prxCompare"></div>`:''}
+        <div id="prxCompare"></div>
+        </div>`:''}
         <button class="btn gold" onclick="prxRecFinish();prRevealed=true;practiceRender()">${_t.prx_reveal}</button>`}
     </div>
   </div>`;
 }
 function practiceClose(){
-  prxRecCancel();
+  prxRecCancel(); prxDropLast();
   if(prxAudio){ try{ prxAudio.pause(); }catch(e){} prxAudio=null; }
   if(prxTTS){ try{ speechSynthesis.cancel(); }catch(e){} }
   document.getElementById('practiceOverlay').classList.remove('open');
