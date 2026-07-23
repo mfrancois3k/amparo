@@ -244,8 +244,21 @@
   .prx-cop .prx-vbtn.on{background:var(--gold);color:#1B2A4A;border-color:var(--gold)}
   .prx-cop .prx-wave i{background:var(--gold)}
   .prx-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
-  .prx-tab{flex:1;min-width:104px;border:1.5px solid var(--line);background:var(--white);border-radius:10px;padding:8px 6px;font-size:12.5px;font-weight:800;color:var(--navy);cursor:pointer;font-family:inherit;transition:background .25s,border-color .25s}
+  .prx-tab{flex:1;min-width:104px;border:1.5px solid var(--line);background:var(--white);border-radius:10px;padding:8px 6px;font-size:12.5px;font-weight:800;color:var(--navy);cursor:pointer;font-family:inherit;transition:background .25s,border-color .25s,transform .25s var(--ease-spring)}
   .prx-tab.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+  /* desktop: scenario cards with semantic tone accents (calm/tense/high/swan) —
+     color codes the officer's energy, never a score */
+  @media(min-width:700px){
+    .prx-tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+    .prx-tab{position:relative;overflow:hidden;border-radius:14px;padding:16px 10px 12px;font-size:13.5px;border-width:2px}
+    .prx-tab::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:var(--tabc,#e5e0d4)}
+    .prx-tab:nth-child(1){--tabc:#2f8f5b}
+    .prx-tab:nth-child(2){--tabc:#ED6C02}
+    .prx-tab:nth-child(3){--tabc:#D32F2F}
+    .prx-tab:nth-child(4){--tabc:#22293a}
+    .prx-tab:hover{transform:translateY(-2px);border-color:var(--tabc)}
+    .prx-tab.on{border-color:var(--tabc);box-shadow:0 6px 16px rgba(27,42,74,.15)}
+  }
   .prx-grid{display:grid;gap:14px}
   @media(min-width:700px){.prx-grid{grid-template-columns:190px 1fr;align-items:start}}
   .prx-cop{background:var(--white);border:1.5px solid var(--line);border-radius:14px;padding:14px;text-align:center}
