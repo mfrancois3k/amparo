@@ -299,6 +299,10 @@
   .prx-bd-row{display:flex;gap:8px;font-size:13px;color:var(--ink);padding:5px 0;border-bottom:1px solid var(--line);align-items:center}
   .prx-bd-row:last-child{border-bottom:0}
   .prx-master{background:#fdf6e3;border:1.5px solid var(--gold);border-radius:13px;padding:12px 14px;font-weight:800;color:#5c451a;margin:10px 0 4px}
+  .prx-typerow{display:flex;gap:8px;margin:8px 0 4px}
+  .prx-typerow input{flex:1;border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;font-size:15px;font-family:inherit;background:var(--white);color:var(--ink);min-width:0}
+  .prx-typerow input:focus{outline:none;border-color:var(--navy)}
+  .prx-typerow button{background:var(--navy);color:#fff;border:0;border-radius:10px;padding:0 18px;font-size:13.5px;font-weight:800;cursor:pointer;font-family:inherit}
   .prx-userwave{display:flex;gap:3px;align-items:flex-end;height:24px;margin-top:8px}
   .prx-userwave i{width:4px;height:6px;background:var(--ok);border-radius:2px;opacity:.9;transition:height .06s linear}
   .prx-caption{font-size:13px;font-style:italic;color:var(--muted);min-height:18px;margin-top:4px}
@@ -1067,6 +1071,7 @@ const T = {
     prx_heard:"You said:", prx_heard_none:"Didn't catch that \u2014 try again a little closer to the phone, or just trust your ears.",
     prx_heard_good:"You hit the key words.", prx_heard_retry:"Close \u2014 the highlighted key words are the ones to land.",
     prx_voice:"Officer voice:", prx_gender:"Officer:", prx_g_m:"♂ Male", prx_g_f:"♀ Female",
+    prx_type_ph:"…or type your answer here", prx_type_btn:"Check",
     prx_curve:"⚡ Curveball", prx_verified:"voice-verified",
     prx_playback:"▶ Play back my voice",
     prx_daily:"⚡ Today's curveball", prx_daily_done:"done ✓", prx_daily_live:"in this run",
@@ -1263,6 +1268,7 @@ const T = {
     prx_heard:"Dijiste:", prx_heard_none:"No se escuchó — inténtalo un poco más cerca del teléfono, o confía en tus oídos.",
     prx_heard_good:"Dijiste las palabras clave.", prx_heard_retry:"Casi — las palabras clave resaltadas son las que hay que decir.",
     prx_voice:"Voz del oficial:", prx_gender:"Oficial:", prx_g_m:"♂ Hombre", prx_g_f:"♀ Mujer",
+    prx_type_ph:"…o escribe tu respuesta aquí", prx_type_btn:"Comprobar",
     prx_curve:"⚡ Pregunta trampa", prx_verified:"verificadas con voz",
     prx_playback:"▶ Escuchar mi voz",
     prx_daily:"⚡ Trampa del día", prx_daily_done:"hecha ✓", prx_daily_live:"en esta ronda",
@@ -3087,14 +3093,20 @@ function prxCompareShow(){
   const _t=t(), card=prxCard(prDeck[prIdx]?prDeck[prIdx].ci:0);
   const heard=prxHeard.trim();
   if(!heard){ el.innerHTML=`<div class="prx-heard">${_t.prx_heard_none}</div>`; return; }
-  const norm=s=>(' '+s.toLowerCase().replace(/[^a-z0-9áéíóúñü' ]/gi,' ')+' ');
-  const h=norm(heard);
+  /* accent-insensitive on both sides — a typed "registro" must match "registró"
+     and vice versa; typos shouldn't feel like failure (panel constraint) */
+  /* generous matching by design: accents stripped, apostrophes dropped, and a
+     shared 4-char prefix with similar length counts — "searchs" lands
+     "searches", "dont" lands "don't". Typos must never feel like failure. */
+  const norm=s=>(' '+s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/'/g,'').replace(/[^a-z0-9ñ ]/gi,' ')+' ');
+  const h=norm(heard), hw=h.trim().split(/\s+/);
   const phrases=(card.y.match(/“([^”]+)”/g)||[]).map(s=>s.replace(/[“”]/g,''));
-  const words=[...new Set(phrases.join(' ').toLowerCase().replace(/[^a-z0-9áéíóúñü' ]/gi,' ').split(/\s+/).filter(w=>w.length>3))];
-  const hits=words.filter(w=>h.includes(w));
+  const words=[...new Set(norm(phrases.join(' ')).split(/\s+/).filter(w=>w.length>3))];
+  const hit=w=>h.includes(' '+w+' ')||hw.some(x=>x.length>3&&x.slice(0,4)===w.slice(0,4)&&Math.abs(x.length-w.length)<=3);
+  const hits=words.filter(hit);
   const good=words.length>0&&hits.length>=Math.ceil(words.length/2);
   el.innerHTML=`<div class="prx-heard"><b>${_t.prx_heard}</b> “${esc(heard)}”</div>
-    ${words.length?`<div style="margin:6px 0 2px">${words.map(w=>`<span class="prx-chip${h.includes(w)?' hit':''}">${esc(w)}</span>`).join('')}</div>`:''}
+    ${words.length?`<div style="margin:6px 0 2px">${words.map(w=>`<span class="prx-chip${hit(w)?' hit':''}">${esc(w)}</span>`).join('')}</div>`:''}
     <div class="prx-heard" style="border:0;background:none;padding:4px 0 0;font-weight:800;color:${good?'#2f8f5b':'#8a7a4a'}">${good?_t.prx_heard_good:_t.prx_heard_retry}</div>`;
   if(good){ prCurTier='g'; ph('sr_practice_keywords_hit',{level:prLevel+1,state:data.state,lang:lang}); }
 }
@@ -3182,6 +3194,16 @@ async function prxRecToggle(){
   }catch(e){ if(note) note.textContent=_t.prx_rec_denied; }
 }
 function prxKeys(s){ return s.replace(/“([^”]+)”/g,'“<span class="prx-key">$1</span>”'); }
+/* Type mode: the no-mic on-ramp. Same matcher, same encourage/retry copy as
+   voice — typed answer is never graded differently. Blank input = no-op (skip
+   is always allowed and never penalized). */
+function prxTypeCheck(){
+  const el=document.getElementById('prxTypeIn');
+  if(!el||!el.value.trim()) return;
+  prxHeard=el.value;
+  prxCompareShow();
+  ph('sr_practice_typed',{level:prLevel+1,state:data.state,lang:lang});
+}
 function practiceOpen(){
   prLevel=0; prIdx=0; prRevealed=false; // prWarnOk deliberately NOT reset — L3 consent holds for the whole visit
   prDeck=prxBuildDeck(); prRun=[]; prCurTier=null; prRunLogged=false;
@@ -3367,8 +3389,12 @@ function practiceRender(){
           <button id="prxPlayback" onclick="prxPlayLast()" ${prxLastUrl?'':'disabled'}>${_t.prx_playback}</button>
         </div>
         <div class="prx-rec-note" id="prxRecNote">${PRX_SR?_t.prx_rec_note_sr:_t.prx_rec_note}</div>
-        <div id="prxCompare"></div>
         </div>`:''}
+        <div class="prx-typerow">
+          <input id="prxTypeIn" type="text" placeholder="${_t.prx_type_ph}" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="done" onkeydown="if(event.key==='Enter')prxTypeCheck()">
+          <button onclick="prxTypeCheck()">${_t.prx_type_btn}</button>
+        </div>
+        <div id="prxCompare"></div>
         <button class="btn gold" onclick="prxRecFinish();prRevealed=true;practiceRender()">${_t.prx_reveal}</button>`}
     </div>
   </div>`;
