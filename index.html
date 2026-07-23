@@ -976,6 +976,7 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
     <div class="lang"><button id="langEN" class="on" aria-pressed="true" aria-label="English" onclick="setLang('en')">EN</button><button id="langES" aria-pressed="false" aria-label="Español" onclick="setLang('es')">ES</button></div>
   </header>
   <div class="pilot" data-i="pilotBanner">Free during our community pilot — will be $19 after launch.</div>
+  <div id="offlineReady" class="soon" style="display:none;margin-top:6px"></div>
   <div id="staleBanner" style="display:none"></div>
   <div id="usageBanner" style="display:none"></div>
   <div class="stepper" id="stepper"></div>
@@ -1006,7 +1007,7 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
 
 <div id="practiceOverlay" role="dialog" aria-modal="true" aria-label="Practice / Práctica">
   <div class="ab-card">
-    <div class="ab-top"><div class="ab-title" id="prcTitle"></div><button class="ab-x" id="prcX" onclick="practiceClose()"></button></div>
+    <div class="ab-top"><div class="ab-title" id="prcTitle"></div><div style="display:flex;gap:8px"><button class="ab-x" id="prcQX" onclick="quickExit()" style="background:rgba(255,157,138,.25)"></button><button class="ab-x" id="prcX" onclick="practiceClose()"></button></div></div>
     <div class="ab-body" id="practiceBody"></div>
   </div>
 </div>
@@ -1085,6 +1086,8 @@ const T = {
     prx_done_t:"Level complete.",
     prx_done:"Run it again with someone playing the officer \u2014 and once with every new driver in the house.",
     prx_close:"Close",
+    prx_qx:"\u26a1 Quick exit",
+    offline_ready:"\u2708\ufe0f Saved on this device \u2014 works without internet",
     prx_lvl1:"\ud83d\ude0c Calm stop", prx_lvl2:"\ud83d\ude20 Irritated officer", prx_lvl3:"\ud83d\udea8 Ordered out", prx_lvl4:"\u26ab The hard stop",
     prx_warn4:"In this one you do everything right \u2014 and the officer stays hostile anyway. Some stops are like that. The point: calm words protect your case even when they don't soften the officer.",
     prx_done4_t:"You did everything right.",
@@ -1284,6 +1287,8 @@ const T = {
     prx_done_t:"Nivel completado.",
     prx_done:"Repítelo con alguien haciendo de oficial \u2014 y una vez con cada conductor nuevo de la casa.",
     prx_close:"Cerrar",
+    prx_qx:"⚡ Salida rápida",
+    offline_ready:"✈️ Guardado en este dispositivo — funciona sin internet",
     prx_lvl1:"😌 Parada tranquila", prx_lvl2:"😠 Oficial irritado", prx_lvl3:"🚨 Te ordenan salir", prx_lvl4:"⚫ La parada dura",
     prx_warn4:"Aquí lo haces todo bien — y el oficial sigue hostil de todos modos. Algunas paradas son así. El punto: las palabras calmadas protegen tu caso aunque no ablanden al oficial.",
     prx_done4_t:"Lo hiciste todo bien.",
@@ -3260,6 +3265,7 @@ function practiceOpen(){
   const _t=t();
   document.getElementById('prcTitle').textContent=_t.prx_title;
   document.getElementById('prcX').textContent=_t.prx_close;
+  document.getElementById('prcQX').textContent=_t.prx_qx;
   document.getElementById('practiceOverlay').classList.add('open');
   practiceRender(); prxSpeak();
   ph('sr_practice_opened',{state:data.state,lang:lang});
@@ -3467,6 +3473,9 @@ function practiceRender(){
   const ti=document.getElementById('prxTypeIn');
   if(ti){ const cb=ti.nextElementSibling; if(cb){ cb.disabled=!ti.value.trim(); ti.addEventListener('input',()=>{ cb.disabled=!ti.value.trim(); }); } }
 }
+/* Quick exit: one tap replaces this page with a neutral site and leaves no
+   drill on screen — for anyone who needs to not be seen practicing this. */
+function quickExit(){ try{ location.replace('https://www.google.com/search?q=weather'); }catch(e){ location.href='https://www.google.com'; } }
 function practiceClose(){
   clearTimeout(prxIdleT); prxIdleN=0;
   prxRecCancel(); prxDropLast();
@@ -3518,6 +3527,15 @@ function usageFeedback(sentiment){
    So the banner speaks honestly ("sent to your printer"), the receipt line
    appears only when an email actually went out, and email sending stays
    behind the explicit button — never auto-fired by a dialog closing. */
+/* Offline: service worker caches the page + any audio/images as encountered.
+   The chip appears only once the SW is actually controlling — a claim Luis can
+   verify with airplane mode, not marketing copy. */
+if('serviceWorker' in navigator&&location.protocol==='https:'){
+  navigator.serviceWorker.register('sw.js').then(()=>navigator.serviceWorker.ready).then(()=>{
+    const el=document.getElementById('offlineReady');
+    if(el){ el.textContent=t().offline_ready; el.style.display='block'; }
+  }).catch(()=>{});
+}
 window.addEventListener('afterprint',()=>{
   const _t=t();
   const b=document.getElementById('printedBanner');
