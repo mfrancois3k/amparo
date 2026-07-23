@@ -102,8 +102,9 @@
   .btn.gold{background:linear-gradient(135deg,var(--gold),#dfa93a);color:var(--navy-deep);box-shadow:0 4px 16px rgba(232,184,75,.45)}
   .btn.gold:hover{box-shadow:0 8px 26px rgba(232,184,75,.55)}
   .btn:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none}
-  .back{background:none;border:none;color:var(--muted);font-size:14px;cursor:pointer;margin-bottom:10px;padding:6px 8px 6px 0;font-weight:700;transition:color .25s,transform .25s}
-  .back:hover{color:var(--navy);transform:translateX(-3px)}
+  /* real-user feedback: the bare ← arrow was invisible — visible pill with label */
+  .back{background:var(--white);border:1.5px solid var(--line);border-radius:99px;color:var(--navy);font-size:13.5px;cursor:pointer;margin-bottom:12px;padding:7px 14px;font-weight:800;transition:color .25s,transform .25s,border-color .25s}
+  .back:hover{border-color:var(--navy);transform:translateX(-3px)}
 
   .feat{display:flex;gap:12px;align-items:center;margin:11px 0;font-size:15px;font-weight:700;color:var(--navy)}
   .feat .fi{width:34px;height:34px;border-radius:11px;background:#f4efe1;display:flex;align-items:center;justify-content:center;flex:none;transition:transform .35s var(--ease-spring),background .3s}
@@ -930,7 +931,7 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
 
 <div class="app" id="appRoot">
   <header>
-    <div class="brand">
+    <div class="brand" role="button" tabindex="0" style="cursor:pointer" title="Home" onclick="goM(0)" onkeydown="if(event.key==='Enter')goM(0)">
       <svg viewBox="0 0 120 120" fill="none" class="logoSm"></svg>
       <div><div class="bn">Amparo</div><div class="bt" id="brandTag">Know your rights</div></div>
     </div>
@@ -1077,6 +1078,7 @@ const T = {
     cert_saved:"✓ Badge saved — post it anywhere",
     v_swipe:"\u2194\ufe0f Swipe to flip through your pages",
     w_share:"\ud83d\udce4 Send this to someone you love", w_shared:"\u2713 Link copied \u2014 paste it anywhere",
+    w_try:"\ud83d\ude94 Hear the officer \u2014 practice 30 seconds", rail_more:"More options",
     next:"Continue", tagline:"Know your rights", pdf_hint:"No printer? In the print window, choose “Save as PDF” as the printer.", pdf_backup:"Save the PDF — it’s your backup. Reprint anytime without redoing anything.",
     tc_reviewed:"Attorney-reviewed", tc_private:"Photos stay on your device", tc_by:"By",
     ab_title:"Who's behind Amparo", ab_close:"Close",
@@ -1269,6 +1271,7 @@ const T = {
     cert_saved:"✓ Insignia guardada — publícala donde quieras",
     v_swipe:"↔️ Desliza para pasar tus páginas",
     w_share:"📤 Envíaselo a alguien que quieres", w_shared:"✓ Enlace copiado — pégalo donde quieras",
+    w_try:"🚔 Escucha al oficial — practica 30 segundos", rail_more:"Más opciones",
     next:"Continuar", tagline:"Conoce tus derechos", pdf_hint:"¿Sin impresora? En la ventana de impresión, elige “Guardar como PDF” como impresora.", pdf_backup:"Guarda el PDF — es tu respaldo. Reimprime cuando quieras sin rehacer nada.",
     tc_reviewed:"Revisado por abogado", tc_private:"Tus fotos quedan en tu dispositivo", tc_by:"Por",
     ab_title:"Qui\u00e9n est\u00e1 detr\u00e1s de Amparo", ab_close:"Cerrar",
@@ -1820,6 +1823,7 @@ function render(){
         <div class="feat"><span class="fi">${b[1]}</span>${b[0]}</div>`).join('')}
       <div class="trust-strip">${trustChips()}</div>
       <button class="btn gold" onclick="goM(1)">${_t.w_btn}</button>
+      <button class="btn" onclick="practiceOpen()">${_t.w_try}</button>
       <button class="linkbtn" onclick="viewSample()">👀 ${_t.w_sample}</button>
       <button class="linkbtn" onclick="shareAmparo(this)">${_t.w_share}</button>
       <button class="linkbtn" onclick="showAbout()">${_t.about_link}</button>
@@ -1828,7 +1832,7 @@ function render(){
 
   if(step===1){
     S.innerHTML=`<div class="card">
-      <button class="back" aria-label="${_t.a11y_back}" onclick="goM(0)">←</button>
+      <button class="back" aria-label="${_t.a11y_back}" onclick="goM(0)">← ${_t.a11y_back}</button>
       ${eyebrow()}
       <h1>${_t.s_title}</h1><p class="sub">${_t.s_sub}</p>
       <div class="state-grid stagger">
@@ -1845,7 +1849,7 @@ function render(){
 
   if(step===2){
     S.innerHTML=`<div class="card">
-      <button class="back" aria-label="${_t.a11y_back}" onclick="goM(1)">←</button>
+      <button class="back" aria-label="${_t.a11y_back}" onclick="goM(1)">← ${_t.a11y_back}</button>
       ${eyebrow()}
       <h1>${_t.i_title}</h1><p class="sub">${_t.i_sub}</p>
       <p class="soon" style="text-align:left;margin:-4px 0 10px">✳️ ${_t.i_opt}</p>
@@ -1884,7 +1888,7 @@ function render(){
       </div>`;
     };
     S.innerHTML=`<div class="card">
-      <button class="back" aria-label="${_t.a11y_back}" onclick="goM(2)">←</button>
+      <button class="back" aria-label="${_t.a11y_back}" onclick="goM(2)">← ${_t.a11y_back}</button>
       ${eyebrow()}
       <h1>${_t.d_title}</h1><p class="sub">${_t.d_sub}</p>
       <div class="privacy"><span class="psh">
@@ -1907,7 +1911,7 @@ function render(){
   if(step===4){
     const st=STATES[data.state||'NY'];
     S.innerHTML=`<div class="card">
-      <button class="back" aria-label="${_t.a11y_back}" onclick="goM(3)">←</button>
+      <button class="back" aria-label="${_t.a11y_back}" onclick="goM(3)">← ${_t.a11y_back}</button>
       ${eyebrow()}
       <h1>${_t.l_title}</h1><p class="sub">${_t.l_sub}</p>
       <div class="stagger">
@@ -1930,7 +1934,7 @@ function render(){
     buildPrint();
     ph('sr_pack_previewed',{state:data.state,lang:lang});
     S.innerHTML=`<div class="card">
-      <button class="back" aria-label="${_t.a11y_back}" onclick="goM(4)">←</button>
+      <button class="back" aria-label="${_t.a11y_back}" onclick="goM(4)">← ${_t.a11y_back}</button>
       ${eyebrow()}
       <h1>${_t.v_title}</h1><p class="sub">${_t.v_sub}</p>
       ${isDemo?`<div class="pilot" style="background:#eef6fb;border-color:#bcd7e8;text-align:left;display:block">
@@ -1958,14 +1962,15 @@ function render(){
       <div id="printedBanner" aria-live="polite" style="display:none;background:#eef7f0;border:1.5px solid #bcd8c2;border-radius:12px;padding:12px 14px;margin-top:10px;font-size:14px;color:#1d4a2c;text-align:center"></div>
       ${!hasPrinted&&!isDemo?`<p class="soon" id="postPrintHint" style="margin-top:10px;font-style:italic">${_t.post_print_hint}</p>`:''}
       <div id="postPrintActions" style="display:${hasPrinted&&!isDemo?'block':'none'}">
-        <p class="rail-label">${_t.rail_now}</p>
         <button class="arow" onclick="practiceOpen()"><span class="at"><b>${_t.prx_open}</b><small>${_t.prx_open_sub}</small></span><span class="ac">›</span></button>
+        <button class="arow" onclick="shareAmparo(this.querySelector('b'))"><span class="at"><b>${_t.w_share}</b></span><span class="ac">›</span></button>
+        <button class="linkbtn" style="margin-top:8px" onclick="const m=document.getElementById('railMore');const on=m.style.display==='none';m.style.display=on?'block':'none';this.textContent=(on?'▴ ':'▾ ')+this.textContent.slice(2)">▾ ${_t.rail_more}</button>
+        <div id="railMore" style="display:none">
         ${REVIEW.emailEnabled?(data.email?`<button class="arow" onclick="sendPackEmail()"><span class="at"><b>${_t.em_btn}</b></span><span class="ac">›</span></button><p class="soon" id="emStatus" style="margin-top:6px"></p>`:`<p class="soon" style="margin-top:10px">✉️ ${_t.em_add}</p>`):''}
-        <p class="rail-label">${_t.rail_later}</p>
         <button class="arow" onclick="downloadReprintReminder()"><span class="at"><b>${_t.remind_btn}</b><small>${_t.remind_sub.replace('{date}',edReplaceLabel())}</small></span><span class="ac">›</span></button>
         <button class="arow" onclick="printForFamily()"><span class="at"><b>${_t.v_family}</b><small>${_t.v_family_sub}</small></span><span class="ac">›</span></button>
         <button class="arow" onclick="restart()"><span class="at"><b>${_t.v_redo}</b></span><span class="ac">›</span></button>
-        <button class="arow" onclick="shareAmparo(this.querySelector('b'))"><span class="at"><b>${_t.w_share}</b></span><span class="ac">›</span></button>
+        </div>
       </div>
       <div id="printFeedback" style="display:${hasPrinted&&!isDemo?'block':'none'};margin-top:14px" data-answered="${printFeedbackGiven?'1':'0'}">
         ${printFeedbackGiven?`<p class="soon">${_t.print_fb_thanks}</p>`:`
@@ -3156,7 +3161,7 @@ async function prxRecToggle(){
 }
 function prxKeys(s){ return s.replace(/“([^”]+)”/g,'“<span class="prx-key">$1</span>”'); }
 function practiceOpen(){
-  prLevel=0; prIdx=0; prRevealed=false; prWarnOk=false;
+  prLevel=0; prIdx=0; prRevealed=false; // prWarnOk deliberately NOT reset — L3 consent holds for the whole visit
   prDeck=prxBuildDeck(); prRun=[]; prCurTier=null; prRunLogged=false;
   const _t=t();
   document.getElementById('prcTitle').textContent=_t.prx_title;
@@ -3167,7 +3172,7 @@ function practiceOpen(){
 }
 function prxTab(i){
   prxRecCancel(); prxDropLast();
-  prLevel=i; prIdx=0; prRevealed=false; if(i!==2) prWarnOk=false;
+  prLevel=i; prIdx=0; prRevealed=false;
   prDeck=prxBuildDeck(); prRun=[]; prCurTier=null; prRunLogged=false;
   practiceRender();
   if(!(i===2&&!prWarnOk)) prxSpeak();
@@ -3301,7 +3306,7 @@ function practiceRender(){
     `<span class="rd${i<prIdx?(prRun[i]==='g'?' g':' y'):(i===prIdx?' cur':'')}"></span>${i<prDeck.length-1?'<span class="rl"></span>':''}`).join('')}<span class="rl"></span><span class="rg">⚖️</span></div>`;
   const _today=new Date().toISOString().slice(0,10);
   const hasCb=prDeck.some(x=>x.curve);
-  const daily=(hasCb||prx.cbDay===_today)?`<div class="prx-daily">${_t.prx_daily}: ${prx.cbDay===_today?_t.prx_daily_done:_t.prx_daily_live}</div>`:'';
+  const daily=`${(hasCb||prx.cbDay===_today)?`<div class="prx-daily">${_t.prx_daily}: ${prx.cbDay===_today?_t.prx_daily_done:_t.prx_daily_live}</div>`:''}${prx.streak.n>1?`<div class="prx-daily">🔁 ${_t.prx_streak.replace('{n}',prx.streak.n)}</div>`:''}`;
   b.innerHTML=tabs+daily+rail+`<div class="prx-grid">
     <div class="prx-cop">
       <div class="prx-avatar">${PRX_COP}<img class="prx-face" src="img/officer-${prxGender}.jpg" alt="" onload="this.classList.add('ok')" onerror="this.remove()"></div>

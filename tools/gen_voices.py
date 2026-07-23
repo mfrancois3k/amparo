@@ -8,7 +8,7 @@ REPO = r"C:\Users\mfran\Ai-Foundations\Amparo"
 VOICES = {("en","m"):"en-US-GuyNeural", ("en","f"):"en-US-AriaNeural",
           ("es","m"):"es-US-AlonsoNeural", ("es","f"):"es-US-PalomaNeural"}
 # tone → delivery baked into the clip
-TONE = {"calm":("+0%","+0Hz"), "curt":("+12%","-2Hz"), "hostile":("+20%","-8Hz")}
+TONE = {"calm":("+0%","+0Hz"), "curt":("+12%","-2Hz"), "hostile":("+30%","-16Hz")}
 
 VAR = {
  0:[("License and registration, please.","Licencia y registro, por favor.","calm"),
