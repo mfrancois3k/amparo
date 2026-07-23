@@ -260,7 +260,9 @@
   .prx-tab.on{background:var(--navy);color:#fff;border-color:var(--navy)}
   /* desktop: scenario cards with semantic tone accents (calm/tense/high/swan) —
      color codes the officer's energy, never a score */
+  .prx-tab .tbg{display:none}
   @media(min-width:700px){
+    .prx-tab .tbg{display:block;height:56px;border-radius:8px;background-size:cover;background-position:center;margin:4px 0 8px}
     .prx-tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
     .prx-tab{position:relative;overflow:hidden;border-radius:14px;padding:16px 10px 12px;font-size:13.5px;border-width:2px}
     .prx-tab::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:var(--tabc,#e5e0d4)}
@@ -3329,7 +3331,7 @@ function practiceRender(){
   const L=PRX_LEVELS[prLevel], deck=PRACTICE[lang];
   const mUnlocked=prx.done[0]&&prx.done[1]&&prx.done[2];
   const tabs=`<div class="prx-tabs" role="tablist">${(mUnlocked?[0,1,2,3]:[0,1,2]).map(i=>
-    `<button class="prx-tab${i===prLevel?' on':''}" role="tab" aria-selected="${i===prLevel}" onclick="prxTab(${i})">${prx.best[i]?`🟩${parseInt(prx.best[i])} `:(prx.done[i]?'✓ ':'')}${_t['prx_lvl'+(i+1)]}</button>`).join('')}</div>`;
+    `<button class="prx-tab${i===prLevel?' on':''}" role="tab" aria-selected="${i===prLevel}" onclick="prxTab(${i})"><span class="tbg" aria-hidden="true" style="background-image:url('img/scene-${i+1}.jpg')"></span>${prx.best[i]?`🟩${parseInt(prx.best[i])} `:(prx.done[i]?'✓ ':'')}${_t['prx_lvl'+(i+1)]}</button>`).join('')}</div>`;
   if(prLevel>=2&&!prWarnOk){ // opt-in gate: escalation is chosen, never sprung
     b.innerHTML=tabs+`<div class="prx-warn">${prLevel===3?_t.prx_warn4:_t.prx_warn3}</div>
       <button class="btn gold" onclick="prWarnOk=true;practiceRender();prxSpeak()">${_t.prx_warn_go}</button>`;
