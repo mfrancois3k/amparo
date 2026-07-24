@@ -1074,7 +1074,7 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
 
 <div id="practiceOverlay" role="dialog" aria-modal="true" aria-label="Practice / Práctica">
   <div class="ab-card">
-    <div class="ab-top"><div style="display:flex;align-items:center;gap:9px;min-width:0"><button class="prc-home" onclick="practiceClose()" aria-label="Home" title="Home"><svg viewBox="0 0 120 120" fill="none"><path d="M14 61 L60 19 L106 61" stroke="#fff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><circle cx="60" cy="74" r="19" fill="none" stroke="#E8B84B" stroke-width="9"/></svg></button><div class="ab-title" id="prcTitle"></div></div><button class="ab-x" id="prcX" onclick="practiceClose()"></button></div>
+    <div class="ab-top"><div style="display:flex;align-items:center;gap:8px;min-width:0"><button class="prc-home" onclick="practiceClose()" aria-label="Home" title="Home"><svg viewBox="0 0 120 120" fill="none"><path d="M14 61 L60 19 L106 61" stroke="#fff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><circle cx="60" cy="74" r="19" fill="none" stroke="#E8B84B" stroke-width="9"/></svg></button><button class="ab-x" id="prcBack" onclick="prxBack()" style="display:none">← <span id="prcBackTxt"></span></button><div class="ab-title" id="prcTitle"></div></div><button class="ab-x" id="prcX" onclick="practiceClose()"></button></div>
     <div class="ab-body" id="practiceBody"></div>
   </div>
 </div>
@@ -3596,6 +3596,13 @@ function prxAdvance(){
   prRun.push(prCurTier==='g'?'g':'y'); prCurTier=null;
   prIdx++; prRevealed=false; practiceRender(); prxSpeak();
 }
+/* Back: step to the previous beat, dropping its recorded result so a re-do
+   re-scores cleanly. At the first beat, Back returns you to the level tabs (home). */
+function prxBack(){
+  if(prIdx<=0){ practiceClose(); return; }
+  prxDropLast(); prxIdleN=0; prxSaidTxt=''; prxSaidKey=''; prxSaidHits=0; prxSaidTotal=0; prxSaidGood=false;
+  prRun.pop(); prIdx--; prRevealed=false; practiceRender(); prxSpeak();
+}
 /* 🏆 badge: client-side canvas → shareable PNG. The share IS the marketing —
    an image survives every platform (IG/WhatsApp/SMS) where text grids get mangled. */
 function prxCertCanvas(){
@@ -3651,6 +3658,9 @@ function practiceRender(){
   clearTimeout(prxIdleT); // any re-render cancels a pending officer re-prompt
   const _t=t(), b=document.getElementById('practiceBody');
   const L=PRX_LEVELS[prLevel], deck=PRACTICE[lang];
+  /* Back button: only meaningful mid-run, past the first beat */
+  const _bk=document.getElementById('prcBack');
+  if(_bk){ const showBack=(prIdx>0&&prIdx<prDeck.length&&!(prLevel>=2&&!prWarnOk)); _bk.style.display=showBack?'inline-block':'none'; const _bt=document.getElementById('prcBackTxt'); if(_bt)_bt.textContent=_t.a11y_back; }
   const mUnlocked=prx.done[0]&&prx.done[1]&&prx.done[2];
   const tabs=`<div class="prx-tabs" role="tablist">${(mUnlocked?[0,1,2,3]:[0,1,2]).map(i=>
     `<button class="prx-tab${i===prLevel?' on':''}" role="tab" aria-selected="${i===prLevel}" onclick="prxTab(${i})"><span class="tbg" aria-hidden="true" style="background-image:url('img/scene-${i+1}.jpg')"></span>${prx.best[i]?`🟩${parseInt(prx.best[i])} `:(prx.done[i]?'✓ ':'')}${_t['prx_lvl'+(i+1)]}</button>`).join('')}</div>`;
