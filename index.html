@@ -207,8 +207,8 @@
   .scen .si{font-size:22px;flex:none;width:34px;text-align:center}
   .scen .sn{font-weight:800;color:var(--navy);font-size:14.5px}
   .scen .sd{font-size:13px;color:var(--muted);line-height:1.45;margin-top:2px}
-  #aboutOverlay,#practiceOverlay{position:fixed;inset:0;z-index:95;background:rgba(9,14,26,.6);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:20px}
-  #aboutOverlay.open,#practiceOverlay.open{display:flex;animation:camIn .35s var(--ease-out)}
+  #aboutOverlay,#practiceOverlay,#docOverlay,#prepOverlay,#pintroOverlay{position:fixed;inset:0;z-index:95;background:rgba(9,14,26,.6);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:20px}
+  #aboutOverlay.open,#practiceOverlay.open,#docOverlay.open,#prepOverlay.open,#pintroOverlay.open{display:flex;animation:camIn .35s var(--ease-out)}
   .prc-count{font-size:12px;font-weight:800;letter-spacing:1px;color:#8a7a4a;text-transform:uppercase;margin-bottom:10px}
   .prc-role{font-size:11px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:#8a7a4a;margin-bottom:6px}
   .prc-officer{position:relative;background:#fff;border:1.5px solid var(--line);border-radius:16px;border-top-left-radius:4px;padding:16px;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:14px;cursor:pointer}
@@ -224,8 +224,8 @@
   @keyframes tdot{0%,100%{opacity:.35;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
   .prc-rt{font-size:12px;font-weight:800;color:#ff9d8a;margin-left:8px}
   .prc-you{background:#eef7f0;border:1.5px solid #bcd8c2;border-radius:14px;padding:16px;font-size:16px;line-height:1.5;color:#1d4a2c;margin-bottom:14px}
-  /* "You said" = the user's own attempt, styled as a sent chat message (right) */
-  .prc-said{margin-left:auto;max-width:88%;background:var(--navy);color:#fff;border-radius:15px;border-bottom-right-radius:5px;padding:11px 14px;font-size:14.5px;line-height:1.45;margin-bottom:8px}
+  /* "You said" = the user's own attempt, styled as practice.html's green sent bubble (right) */
+  .prc-said{margin-left:auto;max-width:88%;background:var(--ok);color:#fff;border-radius:15px;border-bottom-right-radius:5px;padding:11px 14px;font-size:14.5px;line-height:1.45;margin-bottom:8px}
   .prc-role.right{text-align:right}
   .prc-home{background:rgba(255,255,255,.16);border:0;border-radius:9px;padding:5px 7px;cursor:pointer;display:flex;align-items:center;line-height:0;flex:none}
   .prc-home:hover{background:rgba(255,255,255,.28)}
@@ -1046,6 +1046,12 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
   </div>
 </div>
 
+<div id="pintroOverlay" role="dialog" aria-modal="true" aria-label="Practice a traffic stop">
+  <div class="ab-card" style="max-width:440px">
+    <div class="ab-body" id="pintroBody" style="text-align:center;padding:26px 22px"></div>
+  </div>
+</div>
+
 <div id="prepOverlay" role="dialog" aria-modal="true" aria-label="Practice before they arrive">
   <div class="ab-card" style="max-width:420px">
     <div class="ab-top"><div class="ab-title" id="prepTitle"></div><button class="ab-x" onclick="prepClose()" id="prepX"></button></div>
@@ -1153,6 +1159,10 @@ const T = {
     doc_close:"Close and take a breath",
     doc_sources:"Sources", doc_source:"Source",
     prep_link:"Skip to the conversation →",
+    pi_title:"Practice a traffic stop",
+    pi_body:"Two parts. <b>Part 1: the 30–60 seconds before the officer reaches you</b> — what to do with your hands and your car. <b>Part 2: what you say</b> once they're at your window.",
+    pi_disc:"This is practice, not legal advice, and laws vary by state. Doing your part lowers risk — it can't remove it. You're in control — pause or stop anytime.",
+    pi_start:"Start Part 1 — before they arrive →",
     prep_title:"Before the officer arrives",
     prep_step_of:"Step {n} of {t}", prep_try:"Now let me try →",
     prep_recall_hint:"Tap a step on the right to seat it. Tap a filled slot to undo.",
@@ -1386,6 +1396,10 @@ const T = {
     doc_close:"Cerrar y respirar",
     doc_sources:"Fuentes", doc_source:"Fuente",
     prep_link:"Saltar a la conversación →",
+    pi_title:"Practica una parada de tráfico",
+    pi_body:"Dos partes. <b>Parte 1: los 30–60 segundos antes de que el oficial llegue</b> — qué hacer con tus manos y tu auto. <b>Parte 2: qué dices</b> una vez que estén en tu ventanilla.",
+    pi_disc:"Esto es práctica, no asesoría legal, y las leyes varían por estado. Hacer tu parte reduce el riesgo — no lo elimina. Tú tienes el control — pausa o para cuando quieras.",
+    pi_start:"Empezar Parte 1 — antes de que lleguen →",
     prep_title:"Antes de que llegue el oficial",
     prep_step_of:"Paso {n} de {t}", prep_try:"Ahora yo →",
     prep_recall_hint:"Toca un paso a la derecha para colocarlo. Toca una casilla llena para deshacer.",
@@ -1962,6 +1976,28 @@ const PREP_STEPS=[
    es:{title:'Manos en el volante', short:'Manos al volante', why:"Este es el estado final. Manos sobre el volante, visibles, quietas. Ya terminó de moverse. Respire. No busca nada más hasta que el oficial lo indique — y primero diga lo que va a hacer.", ticks:['Sobre el volante, quietas','No busque nada hasta que le digan']}}
 ];
 let prepStepIdx=0, prepPlaced=[], prepBank=[], prepLastSeated=-1;
+/* Practice intro: the 2-part explainer shown before Part 1 begins. */
+function practiceIntroOpen(){
+  const _t=t(), o=document.getElementById('pintroOverlay');
+  o.querySelector('#pintroBody').innerHTML=`
+    <svg viewBox="0 0 120 120" fill="none" style="width:84px;height:84px;margin:0 auto 4px;display:block">
+      <path d="M14 61 L60 19 L106 61" stroke="#1B2A4A" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="60" cy="74" r="20" fill="none" stroke="#E8B84B" stroke-width="9"/>
+      <rect x="52" y="64" width="16" height="20" rx="3" fill="#1B2A4A"/></svg>
+    <div style="font-weight:900;font-size:22px;letter-spacing:1.5px;color:var(--navy);margin-bottom:6px">AMPARO</div>
+    <div class="lang" style="display:inline-flex;margin:2px 0 14px">
+      <button class="${lang==='en'?'on':''}" style="padding:5px 14px;border:0;background:${lang==='en'?'var(--navy)':'transparent'};color:${lang==='en'?'#fff':'var(--navy)'};cursor:pointer;font-weight:800;font-size:12.5px" onclick="setLang('en');practiceIntroOpen()">English</button>
+      <button class="${lang==='es'?'on':''}" style="padding:5px 14px;border:0;background:${lang==='es'?'var(--navy)':'transparent'};color:${lang==='es'?'#fff':'var(--navy)'};cursor:pointer;font-weight:800;font-size:12.5px" onclick="setLang('es');practiceIntroOpen()">Español</button>
+    </div>
+    <h1 style="font-size:21px;margin:0 0 8px">${_t.pi_title}</h1>
+    <p style="color:var(--ink);font-size:14px;line-height:1.6;margin:0 auto 14px;max-width:340px">${_t.pi_body}</p>
+    <p class="soon" style="margin:0 auto 16px;max-width:340px">${_t.pi_disc}</p>
+    <button class="btn gold" style="width:100%" onclick="practiceIntroClose();prepOpen()">${_t.pi_start}</button>
+    <button class="linkbtn" style="margin-top:6px" onclick="showDoc()">${_t.doc_link}</button>`;
+  o.classList.add('open');
+  ph('sr_practice_intro_opened');
+}
+function practiceIntroClose(){ document.getElementById('pintroOverlay').classList.remove('open'); }
 function prepOpen(){
   prepStepIdx=0;
   document.getElementById('prepTitle').textContent=t().prep_title;
@@ -2148,7 +2184,7 @@ function render(){
       <div class="trust-strip">${trustChips()}</div>
       ${window.__resumeStep?`<button class="btn" onclick="goM(${window.__resumeStep});window.__resumeStep=0">${_t.resume_btn}</button>`:''}
       <button class="btn gold" onclick="goM(1)">${_t.w_btn}</button>
-      <button class="btn" onclick="prepOpen()">${_t.w_try}</button>
+      <button class="btn" onclick="practiceIntroOpen()">${_t.w_try}</button>
       <button class="linkbtn" onclick="practiceOpen()">${_t.prep_link}</button>
       <button class="linkbtn" onclick="viewSample()">👀 ${_t.w_sample}</button>
       <button class="linkbtn" onclick="shareAmparo(this)">${_t.w_share}</button>
