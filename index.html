@@ -3178,7 +3178,8 @@ const PRACTICE={
     {o:"\u201cHow much have you had to drink?\u201d", y:"\u201cI'd rather not answer questions without a lawyer, officer.\u201d Any specific answer can be used against you \u2014 even \u201cjust one beer.\u201d"},
     {o:"\u201cSign here.\u201d", y:"Sign it. Signing is a promise to appear \u2014 not an admission of guilt. Refusing can get you arrested."},
     {o:"The stop seems to be over.", y:"\u201cAm I free to go?\u201d Only after that, if you want it: \u201cMay I have your name and badge for my records?\u201d"},
-    {o:"\u201cYou're under arrest.\u201d", y:"\u201cI am using my right to stay silent. I want a lawyer.\u201d Then stop talking \u2014 to everyone, about everything."}
+    {o:"\u201cYou're under arrest.\u201d", y:"\u201cI am using my right to stay silent. I want a lawyer.\u201d Then stop talking \u2014 to everyone, about everything."},
+    {o:"\u201cDo you know why I stopped you?\u201d", y:"\u201cNo, officer, I don't.\u201d You're not required to guess \u2014 a simple, honest \u201cno\u201d avoids admitting to anything."}
   ],
   es:[
     {o:"\u201cLicencia y registro.\u201d", y:"\u201cBuenas noches, oficial. Mis documentos est\u00e1n a la vista en la tarjeta \u2014 voy a alcanzar los originales ahora.\u201d Manos visibles, despacio."},
@@ -3188,7 +3189,8 @@ const PRACTICE={
     {o:"\u201c\u00bfCu\u00e1nto has tomado?\u201d", y:"\u201cPrefiero no responder preguntas sin un abogado, oficial.\u201d Cualquier respuesta puede usarse en tu contra \u2014 incluso \u201csolo una cerveza.\u201d"},
     {o:"\u201cFirma aqu\u00ed.\u201d", y:"F\u00edrmala. Firmar es una promesa de comparecer \u2014 no una admisi\u00f3n de culpa. Negarse puede llevar a un arresto."},
     {o:"La parada parece haber terminado.", y:"\u201c\u00bfPuedo irme?\u201d Solo despu\u00e9s, si lo deseas: \u201c\u00bfMe da su nombre y placa para mis registros?\u201d"},
-    {o:"\u201cQuedas arrestado.\u201d", y:"\u201cEstoy usando mi derecho a guardar silencio. Quiero un abogado.\u201d Luego deja de hablar \u2014 con todos, de todo."}
+    {o:"\u201cQuedas arrestado.\u201d", y:"\u201cEstoy usando mi derecho a guardar silencio. Quiero un abogado.\u201d Luego deja de hablar \u2014 con todos, de todo."},
+    {o:"\u201c\u00bfSabes por qu\u00e9 te detuve?\u201d", y:"\u201cNo, oficial, no lo s\u00e9.\u201d No tienes que adivinar \u2014 un simple y honesto \u201cno\u201d evita admitir algo."}
   ]
 };
 /* Levels = officer hostility, not "difficulty". Script SHRINKS as hostility
@@ -3201,7 +3203,7 @@ const PRACTICE={
 /* Level 4 (index 3) = the Black Swan: user does everything right, officer stays
    hostile anyway. Unlocks after all 3 levels — teaches that the tool manages
    risk, it doesn't eliminate it. Opt-in behind its own warning, sober ending. */
-const PRX_LEVELS=[{ids:[0,1,2,6],rate:0.95},{ids:[0,1,2,4,5],rate:1.12},{ids:[3,7],rate:1.28},{ids:[0,1,2,3,7],rate:1.28}];
+const PRX_LEVELS=[{ids:[0,8,1,2,6],rate:0.95},{ids:[0,8,1,2,4,5],rate:1.12},{ids:[3,7],rate:1.28},{ids:[0,8,1,2,3,7],rate:1.28}];
 const PRX_DO=new Set([3,5]); // comply/sign cards — an action, not a spoken line
 const PRX_COP=`<svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#e9ecf3"/><path d="M22 106c5-22 20-31 38-31s33 9 38 31" fill="#1B2A4A"/><circle cx="60" cy="55" r="21" fill="#31425f"/><path d="M38 47c2-12 10-19 22-19s20 7 22 19H38z" fill="#1B2A4A"/><rect x="36" y="45" width="48" height="6" rx="3" fill="#121e38"/><circle cx="44" cy="88" r="5" fill="#E8B84B"/></svg>`;
 /* Card 5 ("Sign here") is the one card where blanket advice is wrong-by-state:
@@ -3222,8 +3224,8 @@ const PRX_SIGN={
 /* "Why you can" anchors — constitutional / Supreme Court only (state-independent
    and verifiable); state-statute cites live on the printed rules pages. */
 const PRX_CITES={
-  en:{1:"Why you can: 5th Amendment — the right to remain silent.",2:"Why you can: 4th Amendment — you may refuse consent to searches.",3:"Why you comply: Pennsylvania v. Mimms (1977) — officers may order a driver out.",4:"Why you can: 5th Amendment — the right to remain silent.",6:"Why you ask: 4th Amendment — a stop must end when its reason ends.",7:"Why it works: 5th & 6th Amendments — silence, and counsel."},
-  es:{1:"Por qué puedes: 5ª Enmienda — el derecho a guardar silencio.",2:"Por qué puedes: 4ª Enmienda — puedes negar el consentimiento a registros.",3:"Por qué cumples: Pennsylvania v. Mimms (1977) — pueden ordenar al conductor salir.",4:"Por qué puedes: 5ª Enmienda — el derecho a guardar silencio.",6:"Por qué preguntas: 4ª Enmienda — la parada debe terminar cuando termina su motivo.",7:"Por qué funciona: 5ª y 6ª Enmiendas — silencio y abogado."}
+  en:{1:"Why you can: 5th Amendment — the right to remain silent.",2:"Why you can: 4th Amendment — you may refuse consent to searches.",3:"Why you comply: Pennsylvania v. Mimms (1977) — officers may order a driver out.",4:"Why you can: 5th Amendment — the right to remain silent.",6:"Why you ask: 4th Amendment — a stop must end when its reason ends.",7:"Why it works: 5th & 6th Amendments — silence, and counsel.",8:"Why you can: 5th Amendment — you don't have to guess or self-incriminate."},
+  es:{1:"Por qué puedes: 5ª Enmienda — el derecho a guardar silencio.",2:"Por qué puedes: 4ª Enmienda — puedes negar el consentimiento a registros.",3:"Por qué cumples: Pennsylvania v. Mimms (1977) — pueden ordenar al conductor salir.",4:"Por qué puedes: 5ª Enmienda — el derecho a guardar silencio.",6:"Por qué preguntas: 4ª Enmienda — la parada debe terminar cuando termina su motivo.",7:"Por qué funciona: 5ª y 6ª Enmiendas — silencio y abogado.",8:"Por qué puedes: 5ª Enmienda — no tienes que adivinar ni incriminarte."}
 };
 function prxCard(ci){
   if(ci===5){ const ov=(PRX_SIGN[lang]||{})[data.state]; if(ov) return ov; }
@@ -3273,7 +3275,13 @@ const PRX_VAR={
  7:[{en:"You're under arrest. Turn around and put your hands behind your back.",es:"Queda bajo arresto. Voltéese y ponga las manos detrás de la espalda.",tone:"calm"},
     {en:"At this point you're being placed under arrest.",es:"En este momento queda usted bajo arresto.",tone:"calm"},
     {en:"You're under arrest. Hands behind your back.",es:"Está bajo arresto. Las manos atrás.",tone:"curt"},
-    {en:"Turn around. You're under arrest.",es:"Voltéese. Queda arrestado.",tone:"curt"}]
+    {en:"Turn around. You're under arrest.",es:"Voltéese. Queda arrestado.",tone:"curt"}],
+ 8:[{en:"Do you know why I stopped you?",es:"¿Sabe por qué lo detuve?",tone:"calm"},
+    {en:"Any idea why I pulled you over tonight?",es:"¿Alguna idea de por qué lo detuve esta noche?",tone:"calm"},
+    {en:"You know why I stopped you?",es:"¿Sabe por qué lo paré?",tone:"curt"},
+    {en:"Do you know why you're being stopped?",es:"¿Sabe por qué lo están deteniendo?",tone:"curt"},
+    {en:"You know exactly why I stopped you. Don't play dumb.",es:"Sabe exactamente por qué lo paré. No se haga el tonto.",tone:"hostile"},
+    {en:"Do you know why I stopped you? Don't lie to me.",es:"¿Sabe por qué lo detuve? No me mienta.",tone:"hostile"}]
 };
 const PRX_CURVE=[
  {en:"Where you headed in such a hurry?",es:"¿Para dónde va con tanta prisa?",tone:"calm",answerBeat:1,coach_en:"Small talk is still questioning. Same line: you're not answering questions.",coach_es:"La charla casual sigue siendo interrogatorio. Misma frase: no responde preguntas."},
