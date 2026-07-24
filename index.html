@@ -2050,7 +2050,7 @@ function prepRenderStep(){
     <p style="text-align:center;font-size:14px;color:var(--ink);margin:0 0 4px">${esc(s.why)}</p>
     ${ticks}
     <div style="display:flex;justify-content:space-between;margin-top:16px;gap:10px">
-      <button class="btn ghost" style="flex:none;margin-top:0;visibility:${prepStepIdx===0?'hidden':'visible'}" onclick="prepBack()">← ${_t.a11y_back}</button>
+      <button class="btn ghost" style="flex:none;width:auto;margin-top:0;visibility:${prepStepIdx===0?'hidden':'visible'}" onclick="prepBack()">← ${_t.a11y_back}</button>
       <button class="btn gold" style="flex:1;margin-top:0" onclick="prepNext()">${prepStepIdx===PREP_STEPS.length-1?_t.prep_try:_t.next+' →'}</button>
     </div>`;
 }
