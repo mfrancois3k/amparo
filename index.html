@@ -227,6 +227,27 @@
   /* "You said" = the user's own attempt, styled as practice.html's green sent bubble (right) */
   .prc-said{margin-left:auto;max-width:88%;background:var(--ok);color:#fff;border-radius:15px;border-bottom-right-radius:5px;padding:11px 14px;font-size:14.5px;line-height:1.45;margin-bottom:8px}
   .prc-role.right{text-align:right}
+  /* chat-thread conversation (practice.html look): officer photo inline, green me-bubbles */
+  .prx-setter{font-style:italic;color:var(--muted);font-size:12px;text-align:center;padding:0 6px 10px;margin-bottom:8px;border-bottom:1px dashed var(--line)}
+  .prx-row{display:flex;align-items:flex-end;gap:8px;margin-bottom:10px}
+  .prx-row.me{flex-direction:row-reverse}
+  .prx-cav{width:36px;height:36px;border-radius:50%;flex:none;overflow:hidden;background:#eef4f9;position:relative}
+  .prx-cav img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .prx-cav.me{display:flex;align-items:center;justify-content:center;font-size:18px;background:#d7e8e2}
+  .prx-ob{max-width:74%;background:#eef1f4;color:var(--ink);padding:11px 14px;border-radius:16px;border-bottom-left-radius:5px;font-size:15px;font-weight:600;line-height:1.4;cursor:pointer}
+  .prx-ob.firm{background:#f3e6e1} .prx-ob.hot{background:#f6ddd4}
+  html:not(.sr-motion) .prx-ob.pop{animation:bubbleIn .3s var(--ease-spring)}
+  .prx-mb{max-width:74%;background:var(--ok);color:#fff;padding:11px 14px;border-radius:16px;border-bottom-right-radius:5px;font-size:15px;line-height:1.4}
+  .prx-opt{display:block;width:100%;text-align:left;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:12px 14px;font-size:14px;color:var(--ink);cursor:pointer;margin-top:9px;font-family:inherit;transition:border-color .15s,background .15s,transform .1s}
+  .prx-opt:active{transform:scale(.99)}
+  .prx-opt.pg{border-color:var(--ok);background:#eef7f0} .prx-opt.pb{border-color:#ED6C02;background:#fdf1e0}
+  .prx-opt:disabled{cursor:default}
+  .prx-coach{margin-top:10px;padding:12px 14px;border-radius:12px;font-size:13.5px;line-height:1.5;text-align:left}
+  .prx-coach.good{background:#eef7f0;border:1px solid #bcd8c2;color:#123f38}
+  .prx-coach.bad{background:#fdf1e0;border:1px solid #e6c78a;color:#6b4a08}
+  .prx-coach .mdl{display:block;margin-top:8px;padding-top:8px;border-top:1px solid rgba(0,0,0,.1)}
+  .prx-ctrls{display:flex;align-items:center;gap:6px;justify-content:center;flex-wrap:wrap;margin:2px 0 12px}
+  .prx-ctrls .prx-vlang{margin:0}
   .prc-home{background:rgba(255,255,255,.16);border:0;border-radius:9px;padding:5px 7px;cursor:pointer;display:flex;align-items:center;line-height:0;flex:none}
   .prc-home:hover{background:rgba(255,255,255,.28)}
   .prc-home svg{width:21px;height:21px}
@@ -1214,6 +1235,8 @@ const T = {
     prx_heard_good:"You hit the key words.", prx_heard_retry:"Close \u2014 the highlighted key words are the ones to land.",
     prx_voice:"Officer voice:", prx_gender:"Officer:", prx_g_m:"♂ Male", prx_g_f:"♀ Female",
     prx_dem_label:"Officer's demeanor", prx_dem_calm:"calm", prx_dem_firm:"firm", prx_dem_tense:"tense",
+    prx_pick:"Your turn — what do you say?", prx_model:"One calm way to say it", prx_setter:"You're pulled over at dusk. The officer walks up to your window.",
+    prx_own_sum:"…or answer in my own words (type or speak)",
     prx_type_ph:"…or type your answer here", prx_type_btn:"Check",
     prx_said:"You said", prx_legal:"⚖️ Legally, you say",
     prx_passed:"🏅 Passed — you hit {n} of {t} key words", prx_close_line:"Close — {n} of {t} key words. One more rep locks it in.",
@@ -1451,6 +1474,8 @@ const T = {
     prx_heard_good:"Dijiste las palabras clave.", prx_heard_retry:"Casi — las palabras clave resaltadas son las que hay que decir.",
     prx_voice:"Voz del oficial:", prx_gender:"Oficial:", prx_g_m:"♂ Hombre", prx_g_f:"♀ Mujer",
     prx_dem_label:"Actitud del oficial", prx_dem_calm:"tranquilo", prx_dem_firm:"firme", prx_dem_tense:"tenso",
+    prx_pick:"Tu turno — ¿qué dices?", prx_model:"Una forma calmada de decirlo", prx_setter:"Te detienen al anochecer. El oficial se acerca a tu ventanilla.",
+    prx_own_sum:"…o responder con mis palabras (escribe o habla)",
     prx_type_ph:"…o escribe tu respuesta aquí", prx_type_btn:"Comprobar",
     prx_said:"Dijiste", prx_legal:"⚖️ Legalmente, tú dices",
     prx_passed:"🏅 Aprobado — dijiste {n} de {t} palabras clave", prx_close_line:"Casi — {n} de {t} palabras clave. Una repetición más y lo tienes.",
@@ -3282,6 +3307,29 @@ function prxCard(ci){
   if(ci===5){ const ov=(PRX_SIGN[lang]||{})[data.state]; if(ov) return ov; }
   return PRACTICE[lang][ci];
 }
+/* Answer choices per beat: a reviewed correct answer + one plausible common
+   mistake, each with a coach line. The full reviewed script (card.y) is still
+   shown as the model. g/b = option label, gc/bc = coach, react = officer's line
+   after a wrong pick. Bilingual. */
+const PRX_OPT={
+ 0:{g:{en:'Hand them over — “Here you go, officer.”',es:'Entrégalos — «Aquí tiene, oficial.»'},b:{en:'Ask first — “Why did you stop me?”',es:'Pregunta primero — «¿Por qué me detuvo?»'},gc:{en:'Calm compliance is the safest, fastest path — documents first, no extra talking.',es:'Cooperar con calma es lo más seguro y rápido — primero los documentos, sin hablar de más.'},bc:{en:'Asking before you comply can read as confrontational. Hand the documents over first; ask once things are calm.',es:'Preguntar antes de cooperar puede verse como confrontación. Entrega los documentos primero; pregunta cuando todo esté en calma.'},react:{en:'I’ll get to that. Documents first.',es:'Ya llegaré a eso. Primero los documentos.'}},
+ 8:{g:{en:'“No, officer, I don’t.”',es:'«No, oficial, no lo sé.»'},b:{en:'“Was I speeding?”',es:'«¿Iba con exceso de velocidad?»'},gc:{en:'A short, honest “no” is safe — you’re not required to guess a reason.',es:'Un “no” breve y honesto es seguro — no tienes que adivinar una razón.'},bc:{en:'Guessing a reason can admit to something. Keep it a simple “no.”',es:'Adivinar una razón puede admitir algo. Que sea un simple “no.”'},react:{en:'So you admit it. Interesting.',es:'Así que lo admites. Interesante.'}},
+ 1:{g:{en:'“I’m not answering questions, officer.”',es:'«No voy a responder preguntas, oficial.»'},b:{en:'“Just coming from a friend’s place.”',es:'«Solo vengo de casa de un amigo.»'},gc:{en:'You can decline questions calmly — that’s your right, and you owe no story.',es:'Puedes negarte a preguntas con calma — es tu derecho, y no debes ninguna historia.'},bc:{en:'Anything you volunteer can be used later. A calm decline is safer.',es:'Cualquier cosa que ofrezcas puede usarse después. Negarte con calma es más seguro.'},react:{en:'Where exactly? Don’t make this hard.',es:'¿Dónde exactamente? No lo hagas difícil.'}},
+ 2:{g:{en:'“I don’t consent to any searches, officer.”',es:'«No doy consentimiento para ningún registro, oficial.»'},b:{en:'“Sure, go ahead.”',es:'«Claro, adelante.»'},gc:{en:'Declining consent, calmly, protects your rights even if they search anyway.',es:'Negar el consentimiento, con calma, protege tus derechos aunque registren de todas formas.'},bc:{en:'“Sure” gives up a protection you didn’t have to give up.',es:'«Claro» cede una protección que no tenías que ceder.'},react:{en:'Step out while I look.',es:'Bájate mientras reviso.'}},
+ 3:{g:{en:'“Okay, officer.” — step out, hands visible',es:'«Está bien, oficial.» — baja, manos a la vista'},b:{en:'“Why? I didn’t do anything.” — stay put',es:'«¿Por qué? No hice nada.» — quédate sentado'},gc:{en:'Stepping out calmly is the safe move — you keep your other rights.',es:'Bajarte con calma es lo seguro — conservas tus otros derechos.'},bc:{en:'Refusing a lawful exit order escalates it. Comply now; contest it later.',es:'Negarte a una orden legal de bajar lo agrava. Cumple ahora; discútelo después.'},react:{en:'I need you out of the car. Now.',es:'Necesito que salgas del auto. Ahora.'}},
+ 4:{g:{en:'“I’d rather not answer questions without a lawyer, officer.”',es:'«Prefiero no responder preguntas sin un abogado, oficial.»'},b:{en:'“Just one beer earlier.”',es:'«Solo una cerveza hace rato.»'},gc:{en:'Declining that question — out loud — keeps a truthful answer from being used against you.',es:'Negarte a esa pregunta — en voz alta — evita que una respuesta verdadera se use en tu contra.'},bc:{en:'Any specific answer can be used against you, even if it’s true.',es:'Cualquier respuesta específica puede usarse en tu contra, aunque sea verdad.'},react:{en:'Keep your hands on the wheel.',es:'Mantén las manos en el volante.'}},
+ 5:{g:{en:'Sign it — a promise to appear, not guilt',es:'Fírmala — una promesa de comparecer, no culpa'},b:{en:'“I’m not signing anything.”',es:'«No voy a firmar nada.»'},gc:{en:'Signing a citation isn’t admitting guilt; it just promises you’ll appear.',es:'Firmar una citación no es admitir culpa; solo promete que comparecerás.'},bc:{en:'Refusing to sign can get you arrested — signing isn’t an admission.',es:'Negarte a firmar puede llevarte a un arresto — firmar no es una admisión.'},react:{en:'Refusing to sign is its own problem.',es:'Negarte a firmar es otro problema.'}},
+ 6:{g:{en:'“Am I free to go?”',es:'«¿Puedo irme?»'},b:{en:'Argue that the stop was unfair',es:'Discute que la parada fue injusta'},gc:{en:'Asking “Am I free to go?” is how you end a stop that’s over.',es:'Preguntar «¿Puedo irme?» es cómo terminas una parada que ya acabó.'},bc:{en:'Arguing keeps you there. Ask plainly if you’re free to go.',es:'Discutir te mantiene ahí. Pregunta claramente si puedes irte.'},react:{en:'Not yet.',es:'Todavía no.'}},
+ 7:{g:{en:'“I’m using my right to stay silent. I want a lawyer.”',es:'«Estoy usando mi derecho a guardar silencio. Quiero un abogado.»'},b:{en:'“This is wrong — I didn’t do anything!”',es:'«¡Esto está mal — no hice nada!»'},gc:{en:'Silence plus asking for a lawyer is exactly right. Then stop talking.',es:'Silencio más pedir un abogado es lo correcto. Luego deja de hablar.'},bc:{en:'Arguing on the roadside hurts you. Invoke silence and a lawyer.',es:'Discutir en la carretera te perjudica. Invoca el silencio y un abogado.'},react:{en:'…',es:'…'}}
+};
+let prxChosen='', prxChoseGood=false;
+function prxPick(good){
+  const ci=prDeck[prIdx]?prDeck[prIdx].ci:0, o=PRX_OPT[ci]; if(!o) return;
+  prxChosen=good?o.g[lang]:o.b[lang]; prxChoseGood=good; prCurTier=good?'g':'y';
+  prxSaidTxt=''; prxSaidKey=''; prRevealed=true;
+  ph('sr_practice_choice',{level:prLevel+1,good:good,beat:ci,lang:lang});
+  practiceRender();
+}
 /* Officer line variants + curveballs. Authored once, reviewable line-by-line —
    deliberately NOT runtime-generated: a lawyer can sign a static bank, never an
    LLM improvising police dialogue. Curveballs change the QUESTION, never the
@@ -3595,6 +3643,33 @@ function prxTypeCheck(){
   prxCompareShow();
   ph('sr_practice_typed',{level:prLevel+1,state:data.state,lang:lang});
 }
+/* Own-words answer inside the chat flow: score the typed text against the
+   reviewed key phrases, then reveal as a chat turn (same coach + model as an
+   option pick). Generous, accent-insensitive; never a fail state. */
+function prxTypeAnswer(){
+  const el=document.getElementById('prxTypeIn'); if(!el||!el.value.trim()) return;
+  const raw=el.value.trim(), card=prxCard(prDeck[prIdx].ci);
+  const cn=' '+raw.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')+' ';
+  if([' kill myself',' end it all',' want to die',' suicide',' cant go on',' quitarme la vida',' quiero morir',' suicidio',' no aguanto mas'].some(p=>cn.includes(p))){
+    prxChosen=raw; prxChoseGood=true; prCurTier='y'; prxSaidTxt=''; prxSaidKey='';
+    prRevealed=true; ph('sr_crisis_phrase_shown',{level:prLevel+1,lang:lang});
+    // show the 988 line as the coach
+    const o=PRX_OPT[prDeck[prIdx].ci]; if(o){ o._crisis=true; }
+    practiceRender();
+    const c=document.querySelector('.prx-coach'); if(c) c.innerHTML=t().prx_crisis;
+    return;
+  }
+  const norm=s=>(' '+s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/'/g,'').replace(/[^a-z0-9ñ ]/gi,' ')+' ');
+  const h=norm(raw), hw=h.trim().split(/\s+/);
+  const phrases=(card.y.match(/“([^”]+)”/g)||[]).map(s=>s.replace(/[“”]/g,''));
+  const words=[...new Set(norm(phrases.join(' ')).split(/\s+/).filter(w=>w.length>3))];
+  const hit=w=>h.includes(' '+w+' ')||hw.some(x=>x.length>3&&x.slice(0,4)===w.slice(0,4)&&Math.abs(x.length-w.length)<=3);
+  const hits=words.filter(hit).length, total=words.length, good=total>0&&hits>=Math.ceil(total/2);
+  prxSaidHits=hits; prxSaidTotal=total; prxSaidGood=good; prxSaidTxt=raw; prxSaidKey=prLevel+':'+prIdx;
+  prxChosen=raw; prxChoseGood=good; prCurTier=good?'g':'y'; prRevealed=true;
+  ph('sr_practice_typed',{level:prLevel+1,state:data.state,lang:lang});
+  practiceRender();
+}
 function practiceOpen(){
   prLevel=0; prIdx=0; prRevealed=false; // prWarnOk deliberately NOT reset — L3 consent holds for the whole visit
   prDeck=prxBuildDeck(); prRun=[]; prCurTier=null; prRunLogged=false;
@@ -3607,14 +3682,14 @@ function practiceOpen(){
 }
 function prxTab(i){
   prxRecCancel(); prxDropLast(); prxIdleN=0;
-  prLevel=i; prIdx=0; prRevealed=false;
+  prLevel=i; prIdx=0; prRevealed=false; prxChosen=''; prxChoseGood=false;
   prDeck=prxBuildDeck(); prRun=[]; prCurTier=null; prRunLogged=false;
   practiceRender();
   if(!(i>=2&&!prWarnOk)) prxSpeak();
   ph('sr_practice_level_started',{level:i+1,state:data.state,lang:lang});
 }
 function prxAgain(){
-  prxDropLast(); prxIdleN=0;
+  prxDropLast(); prxIdleN=0; prxChosen=''; prxChoseGood=false;
   prIdx=0; prRevealed=false; prRun=[]; prCurTier=null; prRunLogged=false;
   prDeck=prxBuildDeck(); practiceRender(); prxSpeak();
 }
@@ -3628,7 +3703,7 @@ function prxBack(){
   practiceRender(); prxSpeak();
 }
 function prxAdvance(){
-  prxDropLast(); prxIdleN=0; prxSaidTxt=''; prxSaidKey=''; prxSaidHits=0; prxSaidTotal=0; prxSaidGood=false;
+  prxDropLast(); prxIdleN=0; prxSaidTxt=''; prxSaidKey=''; prxSaidHits=0; prxSaidTotal=0; prxSaidGood=false; prxChosen=''; prxChoseGood=false;
   prRun.push(prCurTier==='g'?'g':'y'); prCurTier=null;
   prIdx++; prRevealed=false; practiceRender(); prxSpeak();
 }
@@ -3636,7 +3711,7 @@ function prxAdvance(){
    re-scores cleanly. At the first beat, Back returns you to the level tabs (home). */
 function prxBack(){
   if(prIdx<=0){ practiceClose(); return; }
-  prxDropLast(); prxIdleN=0; prxSaidTxt=''; prxSaidKey=''; prxSaidHits=0; prxSaidTotal=0; prxSaidGood=false;
+  prxDropLast(); prxIdleN=0; prxSaidTxt=''; prxSaidKey=''; prxSaidHits=0; prxSaidTotal=0; prxSaidGood=false; prxChosen=''; prxChoseGood=false;
   prRun.pop(); prIdx--; prRevealed=false; practiceRender(); prxSpeak();
 }
 /* 🏆 badge: client-side canvas → shareable PNG. The share IS the marketing —
@@ -3774,61 +3849,44 @@ function practiceRender(){
   const _demPct={calm:12,curt:52,hostile:88}[d.tone]||12;
   const _demCol=d.tone==='hostile'?'#D32F2F':d.tone==='curt'?'#ED6C02':'#2f8f5b';
   const demeanor=`<div class="prx-dem" aria-hidden="true"><div class="prx-dem-lbl"><span>${_t.prx_dem_label}</span><span style="color:${_demCol}">${_demWord}</span></div><div class="prx-dem-track"><div class="prx-dem-dot" style="left:${_demPct}%;border-color:${_demCol}"></div></div></div>`;
-  b.innerHTML=tabs+daily+demeanor+rail+`<div class="prx-grid">
-    <div class="prx-cop">
-      <div class="prx-avatar">${PRX_COP}<img class="prx-face" src="img/officer-${prxGender}.jpg" alt="" onload="this.classList.add('ok')" onerror="this.remove()"></div>
-      <div class="prx-wave" id="prxWave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-      ${hasConsole?'':`<button class="prx-hear" onclick="prxSpeak()">${_t.prx_hear}</button>`}
-      <div class="prx-vlang">${_t.prx_gender}
-        <button class="prx-vbtn${prxGender==='m'?' on':''}" onclick="prxSetGender('m')">${_t.prx_g_m}</button>
-        <button class="prx-vbtn${prxGender==='f'?' on':''}" onclick="prxSetGender('f')">${_t.prx_g_f}</button></div>
-      ${lang==='es'?`<div class="prx-vlang">${_t.prx_voice}
-        <button class="prx-vbtn${prxVoiceLang==='en'?' on':''}" onclick="prxVoiceLang='en';practiceRender();prxSpeak()">EN</button>
-        <button class="prx-vbtn${prxVoiceLang==='es'?' on':''}" onclick="prxVoiceLang='es';practiceRender();prxSpeak()">ES</button></div>`:''}
-    </div>
-    <div>
-      <div class="prc-count">${_t.prx_count.replace('{n}',prIdx+1).replace('{total}',prDeck.length)}${d.curve?` · ${_t.prx_curve}`:''}</div>
-      ${prIdx===0&&!prRevealed&&prLevel===0?`<p class="prc-intro">${_t.prx_intro}</p>`:''}
-      ${prxTTS&&lang==='es'&&prxVoiceLang==='en'&&prIdx===0?`<p class="prc-intro" style="margin-bottom:8px">${_t.prx_tts_note}</p>`:''}
-      <div class="prc-role">${_t.prx_officer}</div>
-      <div class="prc-officer" id="prxBubble" onclick="prxSpeak()" title="🔊"><span class="tdots" aria-hidden="true"><i></i><i></i><i></i></span><span class="btxt">“${d.officer[lang]}”</span></div>
-      ${prRevealed?`${prxSaidKey===prLevel+':'+prIdx&&prxSaidTxt?`<div class="prc-role right">${_t.prx_said}</div>
-        <div class="prc-said">“${esc(prxSaidTxt)}”</div>
-        ${prxSaidTotal?`<div class="prx-match" aria-hidden="true">${Array.from({length:prxSaidTotal},(x,i)=>`<i class="${i<prxSaidHits?'on':''}"></i>`).join('')}</div>
-        <div class="prx-passline${prxSaidGood?' ok':''}">${(prxSaidGood?_t.prx_passed:_t.prx_close_line).replace('{n}',prxSaidHits).replace('{t}',prxSaidTotal)}</div>`:''}`:''}
-        <div class="prc-role">${_t.prx_legal}</div>
-        <div class="prc-you">${prxKeys(card.y)}</div>
-        ${d.curve?`<div class="prc-cite">🎯 ${d.curve['coach_'+lang]}</div>`:''}
-        ${PRX_CITES[lang][ci]?`<div class="prc-cite">⚖️ ${PRX_CITES[lang][ci]}</div>`:''}
-        <div class="prc-nav">${prIdx>0?`<button class="btn ghost prc-back" onclick="prxBack()">← ${_t.a11y_back}</button>`:''}<button class="btn" style="flex:1" onclick="prxAdvance()">${prxSaidKey===prLevel+':'+prIdx&&prxSaidTxt?_t.prx_next:(isDo?_t.prx_got:_t.prx_say)}</button></div>`
-      :`<p class="prc-intro" style="margin-bottom:6px">${_t.prx_your_turn}</p>
-        <div class="prx-pace" aria-hidden="true"><i></i></div>
-        <div class="prx-pace-lbl">${_t.prx_pace}</div>
-        ${hasConsole?`<div class="prx-console">
-        <button class="prx-rec" id="prxRecBtn" onclick="prxRecToggle()">${_t.prx_rec}</button>
-        <div class="prx-userwave" id="prxUserWave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        ${PRX_SR?`<div class="prx-caption" id="prxCaption" aria-live="polite"></div>`:''}
-        <div class="prx-cbar">
-          <button onclick="prxSpeak()">${_t.prx_hear}</button>
-          <button id="prxPlayback" onclick="prxPlayLast()" ${prxLastUrl?'':'disabled'}>${_t.prx_playback}</button>
-        </div>
-        <div class="prx-rec-note" id="prxRecNote">${PRX_SR?_t.prx_rec_note_sr:_t.prx_rec_note}</div>
-        </div>`:''}
-        <div class="prx-typerow">
-          <input id="prxTypeIn" type="text" placeholder="${_t.prx_type_ph}" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="done" onkeydown="if(event.key==='Enter')prxTypeCheck()">
-          <button onclick="prxTypeCheck()">${_t.prx_type_btn}</button>
-        </div>
-        <div id="prxCompare"></div>
-        <div class="prc-nav">${prIdx>0?`<button class="btn ghost prc-back" onclick="prxBack()">← ${_t.a11y_back}</button>`:''}<button class="btn gold" style="flex:1" onclick="prxRecFinish();prRevealed=true;practiceRender()">${_t.prx_reveal}</button></div>`}
-    </div>
-  </div>`;
+  const moodC=d.tone==='hostile'?'hot':d.tone==='curt'?'firm':'';
+  const photo=`<div class="prx-cav"><img src="img/officer-${prxGender}.jpg" alt="" onerror="this.remove()"></div>`;
+  const opt=PRX_OPT[ci];
+  const answered=prRevealed;
+  const meText=prxChosen||((prxSaidKey===prLevel+':'+prIdx)?prxSaidTxt:'');
+  /* accumulating chat thread: officer photo + grey bubble (left), your green bubble (right) */
+  let thread=`<div class="prx-thread">`;
+  if(prIdx===0) thread+=`<div class="prx-setter">${_t.prx_setter}</div>`;
+  thread+=`<div class="prx-row">${photo}<div class="prx-ob ${moodC}" id="prxBubble" onclick="prxSpeak()" title="🔊">“${esc(d.officer[lang])}”</div></div>`;
+  if(answered&&meText){
+    thread+=`<div class="prx-row me"><div class="prx-cav me">🙂</div><div class="prx-mb">${esc(meText)}</div></div>`;
+    if(!prxChoseGood&&prxChosen&&opt&&opt.react) thread+=`<div class="prx-row">${photo}<div class="prx-ob ${moodC}">${esc(opt.react[lang])}</div></div>`;
+  }
+  thread+=`</div>`;
+  const ctrls=`<div class="prx-ctrls"><button class="prx-hear" onclick="prxSpeak()">${_t.prx_hear}</button><span class="prx-vlang">${_t.prx_gender} <button class="prx-vbtn${prxGender==='m'?' on':''}" onclick="prxSetGender('m')">${_t.prx_g_m}</button><button class="prx-vbtn${prxGender==='f'?' on':''}" onclick="prxSetGender('f')">${_t.prx_g_f}</button></span>${lang==='es'?`<span class="prx-vlang">${_t.prx_voice} <button class="prx-vbtn${prxVoiceLang==='en'?' on':''}" onclick="prxVoiceLang='en';practiceRender();prxSpeak()">EN</button><button class="prx-vbtn${prxVoiceLang==='es'?' on':''}" onclick="prxVoiceLang='es';practiceRender();prxSpeak()">ES</button></span>`:''}</div>`;
+  let resp;
+  if(!answered){
+    const gC=`<button class="prx-opt" onclick="prxPick(true)">${opt?opt.g[lang]:esc(card.y)}</button>`;
+    const bC=opt?`<button class="prx-opt" onclick="prxPick(false)">${opt.b[lang]}</button>`:'';
+    resp=`<div class="prc-count">${_t.prx_count.replace('{n}',prIdx+1).replace('{total}',prDeck.length)}${d.curve?` · ${_t.prx_curve}`:''}</div>
+      <p class="prc-intro" style="margin:0 0 2px">${_t.prx_pick}</p>
+      ${(prIdx%2===0)?gC+bC:bC+gC}
+      <details class="prx-own" style="margin-top:10px"><summary style="font-size:12.5px;color:var(--muted);cursor:pointer">${_t.prx_own_sum}</summary>
+        <div class="prx-typerow" style="margin-top:8px"><input id="prxTypeIn" type="text" placeholder="${_t.prx_type_ph}" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="done" onkeydown="if(event.key==='Enter')prxTypeAnswer()"><button onclick="prxTypeAnswer()">${_t.prx_type_btn}</button></div>
+      </details>
+      ${prIdx>0?`<div class="prc-nav" style="margin-top:10px"><button class="btn ghost prc-back" onclick="prxBack()">← ${_t.a11y_back}</button></div>`:''}`;
+  } else {
+    const coachTxt=opt?(prxChoseGood?opt.gc[lang]:opt.bc[lang]):'';
+    resp=`${(prxSaidTotal&&prxSaidKey===prLevel+':'+prIdx)?`<div class="prx-match" aria-hidden="true">${Array.from({length:prxSaidTotal},(x,i)=>`<i class="${i<prxSaidHits?'on':''}"></i>`).join('')}</div><div class="prx-passline${prxSaidGood?' ok':''}">${(prxSaidGood?_t.prx_passed:_t.prx_close_line).replace('{n}',prxSaidHits).replace('{t}',prxSaidTotal)}</div>`:''}
+      <div class="prx-coach ${prxChoseGood?'good':'bad'}">${coachTxt}<span class="mdl">💬 <b>${_t.prx_model}:</b> ${prxKeys(card.y)}</span></div>
+      ${d.curve?`<div class="prc-cite">🎯 ${d.curve['coach_'+lang]}</div>`:''}
+      ${PRX_CITES[lang][ci]?`<div class="prc-cite">⚖️ ${PRX_CITES[lang][ci]}</div>`:''}
+      <div class="prc-nav">${prIdx>0?`<button class="btn ghost prc-back" onclick="prxBack()">← ${_t.a11y_back}</button>`:''}<button class="btn" style="flex:1" onclick="prxAdvance()">${_t.prx_next}</button></div>`;
+  }
+  b.innerHTML=tabs+daily+demeanor+rail+ctrls+thread+resp;
   clearTimeout(prxTypeT);
-  if(freshBeat&&!prRevealed&&!document.documentElement.classList.contains('sr-motion')){
-    const bub=document.getElementById('prxBubble');
-    if(bub){
-      bub.classList.add('typing');
-      prxTypeT=setTimeout(()=>{ const b2=document.getElementById('prxBubble'); if(b2){ b2.classList.remove('typing'); b2.classList.add('pop'); } },650);
-    }
+  if(freshBeat&&!answered&&!document.documentElement.classList.contains('sr-motion')){
+    const bub=document.getElementById('prxBubble'); if(bub) bub.classList.add('pop');
   }
   const ti=document.getElementById('prxTypeIn');
   if(ti){ const cb=ti.nextElementSibling; if(cb){ cb.disabled=!ti.value.trim(); ti.addEventListener('input',()=>{ cb.disabled=!ti.value.trim(); }); } }
