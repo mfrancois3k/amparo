@@ -348,6 +348,41 @@
   .ab-body h3{font-size:13px;color:var(--gold);text-transform:uppercase;letter-spacing:.8px;margin:16px 0 4px}
   .ab-body h3:first-child{margin-top:0}
   .ab-body p{font-size:14px;color:var(--ink);line-height:1.5}
+  .doc-case{background:#fbf9f4;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:10px 0;font-size:13.5px;line-height:1.55;color:var(--ink)}
+  .doc-src{margin-top:6px;font-size:11.5px;color:var(--muted)}
+  .doc-src a{color:var(--navy);font-weight:700}
+  .doc-blame{background:#f3e6e1;border-left:3px solid #a3311f;padding:10px 12px;border-radius:6px;font-weight:700;color:#6b2618;font-size:13.5px;margin:12px 0}
+  /* pre-arrival prep drill: teach steps + tap-to-place recall (mobile-safe, no drag) */
+  .prep-art{width:100%;max-width:170px;margin:0 auto;display:block}
+  .prep-art svg{width:100%;height:auto;display:block}
+  .prep-tick{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink);background:#eef7f0;border:1px solid #cfe3de;border-radius:9px;padding:8px 11px;margin-top:7px}
+  .prep-tick.night{background:#fdf1e0;border-color:#e6c78a;color:#6b4a08;font-weight:700}
+  .prep-tick .ck{width:16px;height:16px;border-radius:50%;background:var(--ok);color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .prep-tick.night .ck{background:#a9660b}
+  .prep-progress{height:6px;background:var(--line);border-radius:6px;overflow:hidden;margin-bottom:14px}
+  .prep-progress i{display:block;height:100%;background:var(--ok);transition:width .4s}
+  .prep-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+  .prep-colhead{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);text-align:center;margin-bottom:6px}
+  .prep-slot,.prep-chip{display:flex;align-items:center;gap:7px;min-height:52px;border-radius:11px;padding:6px 8px}
+  .prep-slot{border:2px dashed var(--line);background:#faf8f3;transition:border-color .25s,background .25s}
+  .prep-slot.filled{border-style:solid;background:#fff}
+  .prep-slot.next{border-color:var(--ok)}
+  .prep-slot.ok{border-style:solid;border-color:var(--ok);background:#eef7f0}
+  .prep-slot.no{border-style:solid;border-color:#a9660b;background:#fdf1e0}
+  .prep-slotnum{width:24px;height:24px;border-radius:50%;background:var(--ink);color:#fff;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .prep-slot.next .prep-slotnum{background:var(--ok)}
+  .prep-ghost{width:26px;height:20px;flex-shrink:0;opacity:.14}
+  .prep-ghost svg{width:100%;height:100%}
+  .prep-label{font-size:11.5px;font-weight:700;color:var(--ink);line-height:1.15}
+  .prep-hint{font-size:11px;color:var(--muted)}
+  .prep-chip{background:#fff;border:1.5px solid var(--line);cursor:pointer;user-select:none;transition:opacity .2s,border-color .15s,transform .12s}
+  .prep-chip:active{transform:scale(.96)}
+  .prep-chip.done{opacity:.4;pointer-events:none;border-style:solid;border-color:var(--ok)}
+  .prep-count{text-align:center;font-size:12px;color:var(--muted);font-weight:700;margin-top:6px}
+  .prep-sheet{position:fixed;left:0;right:0;bottom:0;background:var(--white);border-top:1px solid var(--line);border-radius:16px 16px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.14);padding:18px 18px 26px;transform:translateY(110%);transition:transform .32s cubic-bezier(.16,1,.3,1);z-index:96;max-width:440px;margin:0 auto}
+  .prep-sheet.show{transform:translateY(0)}
+  .prep-sheet h3{margin:0 0 6px;font-size:16px;color:var(--navy)}
+  .prep-sheet p{margin:0 0 14px;font-size:13.5px;color:var(--ink);line-height:1.5}
   .ab-revlist{margin-top:8px;display:flex;flex-direction:column;gap:5px}
   .ab-rev{font-size:12.5px;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:9px;padding:8px 11px}
   .ab-rev.ok{background:#eef7f0;border-color:#bcd8c2;color:var(--ok)}
@@ -998,6 +1033,25 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
   </div>
 </div>
 
+<div id="prepOverlay" role="dialog" aria-modal="true" aria-label="Practice before they arrive">
+  <div class="ab-card" style="max-width:420px">
+    <div class="ab-top"><div class="ab-title" id="prepTitle"></div><button class="ab-x" onclick="prepClose()" id="prepX"></button></div>
+    <div class="ab-body" id="prepBody" style="text-align:left"></div>
+  </div>
+  <div class="prep-sheet" id="prepSheet">
+    <h3 id="prepSheetTitle"></h3>
+    <p id="prepSheetBody"></p>
+    <button class="btn gold" id="prepSheetBtn" style="width:100%"></button>
+  </div>
+</div>
+
+<div id="docOverlay" role="dialog" aria-modal="true" aria-label="The truth we can't practice away">
+  <div class="ab-card">
+    <div class="ab-top"><div class="ab-title"></div><button class="ab-x" onclick="closeDoc()"></button></div>
+    <div class="ab-body"></div>
+  </div>
+</div>
+
 <div id="aboutOverlay" role="dialog" aria-modal="true" aria-label="About Amparo / Acerca de Amparo">
   <div class="ab-card">
     <div class="ab-top"><div class="ab-title"></div><button class="ab-x" onclick="closeAbout()"></button></div>
@@ -1071,6 +1125,29 @@ const T = {
     w_b1:"Your documents never leave your phone", w_b2:"Rules & legal lifelines matched to your state", w_b3:"Print at home. In the car in minutes.", w_b4:"We rehearse the stop with you — out loud, before you ever need it.",
     w_btn:"Build my pack",
     about_link:"Who's behind Amparo? \u2192",
+    doc_link:"Why can't practice make a stop 100% safe? \u2192",
+    doc_title:"The truth we can't practice away",
+    doc_h:"Some people did everything right and were still killed.",
+    doc_body:"We don't ask you to take our word for it \u2014 here are documented cases, with sources you can read yourself:",
+    doc_case1_name:"Philando Castile",
+    doc_case1_body:"During a 2016 traffic stop in Minnesota he calmly told the officer he had a licensed firearm, exactly as advised, and was shot and killed. The officer was acquitted in 2017.",
+    doc_case2_name:"Daunte Wright",
+    doc_case2_body:"A 2021 traffic stop in Brooklyn Center, Minnesota ended when an officer shot and killed him. She was later convicted of manslaughter.",
+    doc_blame:"This is a failure of the system and the officer \u2014 never of the person who was killed.",
+    doc_why:"We show you this not to scare you, but because a tool that promised words could keep you safe would be lying to you \u2014 and because you deserve to see where the facts come from.",
+    doc_clarity:"Practicing calm, minimal responses genuinely lowers your risk. It cannot remove it, because the risk was never fully in your hands. Knowing that isn't despair \u2014 it's clarity: do your part, and put the blame where it belongs.",
+    doc_resource:"If this brings up grief or fear, you're not alone. Call or text <b>988</b> (free, 24/7, confidential). For your rights, contact your local ACLU affiliate: <b>aclu.org/affiliates</b>.",
+    doc_close:"Close and take a breath",
+    doc_sources:"Sources", doc_source:"Source",
+    prep_link:"🚗 Practice before they arrive — hands & car",
+    prep_title:"Before the officer arrives",
+    prep_step_of:"Step {n} of {t}", prep_try:"Now let me try →",
+    prep_recall_hint:"Tap a step on the right to seat it. Tap a filled slot to undo.",
+    prep_recall_rule:"Movement first, stillness last.",
+    prep_order:"Order", prep_steps:"Steps", prep_slot:"Slot", prep_undo:"activate to undo",
+    prep_placed:"{n} of {t} placed", prep_place_all:"Place all 5 to check", prep_check:"Check my order",
+    prep_correct_t:"You've got the order.", prep_correct_b:"Movement first, stillness last. When your hands already know this, the real 30–60 seconds are for staying calm — not deciding.", prep_correct_btn:"Done →",
+    prep_wrong_t:"Almost — one to move", prep_wrong_b:"Slot {n} should be “{s}.” The rule: everything you reach for happens early, so your hands are already still when the officer arrives. Tap a placed step to send it back, then re-place it.", prep_wrong_btn:"Fix it",
     scen_title:"Situations your pack covers",
     a11y_back:"Back", a11y_close_cam:"Close camera", a11y_shutter:"Take photo",
     w_sample:"See a full sample pack first \u2192",
@@ -1116,6 +1193,7 @@ const T = {
     prx_type_ph:"…or type your answer here", prx_type_btn:"Check",
     prx_said:"You said", prx_legal:"⚖️ Legally, you say",
     prx_passed:"🏅 Passed — you hit {n} of {t} key words", prx_close_line:"Close — {n} of {t} key words. One more rep locks it in.",
+    prx_crisis:"It sounds like you might be carrying something heavy right now, and you don't have to carry it alone. You can call or text 988 (free, 24/7, confidential) any time. This practice will be here when you're ready.",
     prx_curve:"⚡ Curveball", prx_verified:"voice-verified",
     prx_playback:"▶ Play back my voice",
     prx_daily:"⚡ Today's curveball", prx_daily_done:"done ✓", prx_daily_live:"in this run",
@@ -1138,6 +1216,8 @@ const T = {
     ab_mission:"Too many drivers have to plan for a traffic stop going wrong. Amparo \u2014 Spanish for shelter \u2014 turns your rights into something you can hold in your hand, so your hands stay on the wheel and the card does the talking.",
     ab_who_h:"Who made it",
     ab_who_pending:"Amparo is an independent project. Founder and team details are shown here before public launch.",
+    ab_founder_note:"I built Amparo for anyone, of any minority, anywhere, who has ever feared that a routine stop could cost them their life. You deserve at least this: the knowledge, rehearsed and ready, so you have a fighting chance to make it home.<br><br>Do your part \u2014 stay calm, keep your hands visible, record what happens. If you do everything right and it still goes wrong, that record is yours: proof of how you carried yourself, so the truth can protect you and hold others accountable.<br><br>Whoever you are, reading this: I thought of you when I made this. I pray this never happens to you. But if it does, I hope you're armed with the right knowledge to move forward with your life.",
+    ab_founder_sign:"\u2014 Michael Francois, founder of Amparo",
     ab_review_h:"Legal review",
     ab_review_pending:"Every rule in Amparo is cited to the exact state statute or code section \u2014 check the number yourself, anytime. We're also having each state's content formally reviewed and signed off by a licensed attorney in that state before public launch. Until a state shows a green \u201cAttorney-reviewed\u201d badge, treat it as well-sourced general information, not legal advice.",
     ab_state_pending:"attorney sign-off in progress \u2014 rules already cited to statute",
@@ -1277,6 +1357,29 @@ const T = {
     w_b1:"Tus documentos nunca salen de tu teléfono", w_b2:"Reglas y líneas de ayuda según tu estado", w_b3:"Imprime en casa. Listo en minutos.", w_b4:"Ensayamos la parada contigo — en voz alta, antes de que la necesites.",
     w_btn:"Crear mi paquete",
     about_link:"\u00bfQui\u00e9n est\u00e1 detr\u00e1s de Amparo? \u2192",
+    doc_link:"\u00bfPor qu\u00e9 la pr\u00e1ctica no puede hacer 100% segura una parada? \u2192",
+    doc_title:"La verdad que no podemos practicar para evitar",
+    doc_h:"Algunas personas hicieron todo bien y aun as\u00ed fueron asesinadas.",
+    doc_body:"No te pedimos que nos creas \u2014 aqu\u00ed est\u00e1n los casos documentados, con fuentes que puedes leer t\u00fa mismo:",
+    doc_case1_name:"Philando Castile",
+    doc_case1_body:"Durante una parada de tr\u00e1fico en 2016 en Minnesota le dijo con calma al oficial que ten\u00eda un arma con licencia, exactamente como se le aconseja, y fue baleado y asesinado. El oficial fue absuelto en 2017.",
+    doc_case2_name:"Daunte Wright",
+    doc_case2_body:"Una parada de tr\u00e1fico en 2021 en Brooklyn Center, Minnesota, termin\u00f3 cuando un oficial le dispar\u00f3 y lo mat\u00f3. Ella fue condenada despu\u00e9s por homicidio involuntario.",
+    doc_blame:"Esto es una falla del sistema y del oficial \u2014 nunca de la persona que fue asesinada.",
+    doc_why:"Te mostramos esto no para asustarte, sino porque una herramienta que prometiera que las palabras te mantienen a salvo te estar\u00eda mintiendo \u2014 y porque mereces ver de d\u00f3nde vienen los hechos.",
+    doc_clarity:"Practicar respuestas calmadas y m\u00ednimas s\u00ed reduce tu riesgo. No puede eliminarlo, porque el riesgo nunca estuvo del todo en tus manos. Saber esto no es desesperanza \u2014 es claridad: haz tu parte y pon la culpa donde corresponde.",
+    doc_resource:"Si esto trae dolor o miedo, no est\u00e1s solo. Llama o env\u00eda un mensaje al <b>988</b> (gratis, 24/7, confidencial). Para tus derechos, contacta a tu afiliado local de ACLU: <b>aclu.org/affiliates</b>.",
+    doc_close:"Cerrar y respirar",
+    doc_sources:"Fuentes", doc_source:"Fuente",
+    prep_link:"🚗 Practica antes de que lleguen — manos y auto",
+    prep_title:"Antes de que llegue el oficial",
+    prep_step_of:"Paso {n} de {t}", prep_try:"Ahora yo →",
+    prep_recall_hint:"Toca un paso a la derecha para colocarlo. Toca una casilla llena para deshacer.",
+    prep_recall_rule:"Movimiento primero, quietud al final.",
+    prep_order:"Orden", prep_steps:"Pasos", prep_slot:"Casilla", prep_undo:"activa para deshacer",
+    prep_placed:"{n} de {t} colocados", prep_place_all:"Coloca los 5 para revisar", prep_check:"Revisar mi orden",
+    prep_correct_t:"Tienes el orden.", prep_correct_b:"Movimiento primero, quietud al final. Cuando tus manos ya saben esto, los 30–60 segundos reales son para mantener la calma — no para decidir.", prep_correct_btn:"Listo →",
+    prep_wrong_t:"Casi — falta mover uno", prep_wrong_b:"La casilla {n} debería ser “{s}.” La regla: todo lo que buscas ocurre temprano, para que tus manos ya estén quietas cuando el oficial llegue. Toca un paso colocado para devolverlo y colócalo de nuevo.", prep_wrong_btn:"Corregir",
     scen_title:"Situaciones que cubre tu paquete",
     a11y_back:"Atrás", a11y_close_cam:"Cerrar cámara", a11y_shutter:"Tomar foto",
     w_sample:"Ver primero un paquete de muestra completo \u2192",
@@ -1322,6 +1425,7 @@ const T = {
     prx_type_ph:"…o escribe tu respuesta aquí", prx_type_btn:"Comprobar",
     prx_said:"Dijiste", prx_legal:"⚖️ Legalmente, tú dices",
     prx_passed:"🏅 Aprobado — dijiste {n} de {t} palabras clave", prx_close_line:"Casi — {n} de {t} palabras clave. Una repetición más y lo tienes.",
+    prx_crisis:"Parece que quizá cargas algo pesado en este momento, y no tienes que cargarlo solo. Puedes llamar o enviar un mensaje al 988 (gratis, 24/7, confidencial) cuando quieras. Esta práctica estará aquí cuando estés listo.",
     prx_curve:"⚡ Pregunta trampa", prx_verified:"verificadas con voz",
     prx_playback:"▶ Escuchar mi voz",
     prx_daily:"⚡ Trampa del día", prx_daily_done:"hecha ✓", prx_daily_live:"en esta ronda",
@@ -1344,6 +1448,8 @@ const T = {
     ab_mission:"Demasiados conductores tienen que prepararse para que una parada salga mal. Amparo convierte tus derechos en algo que puedes sostener \u2014 para que tus manos queden en el volante y la tarjeta hable por ti.",
     ab_who_h:"Qui\u00e9n lo hizo",
     ab_who_pending:"Amparo es un proyecto independiente. Los datos del fundador y del equipo se muestran aquí antes del lanzamiento público.",
+    ab_founder_note:"Construí Amparo para cualquier persona, de cualquier minoría, en cualquier lugar, que alguna vez haya temido que una parada de tráfico le costara la vida. Merece al menos esto: el conocimiento, ensayado y listo, para tener una oportunidad de llegar a casa.<br><br>Haga su parte — mantenga la calma, mantenga sus manos a la vista, grabe lo que pasa. Si hace todo bien y aun así sale mal, ese registro es suyo: prueba de cómo se comportó, para que la verdad lo proteja y haga responsables a otros.<br><br>Quienquiera que sea, leyendo esto: pensé en usted al hacer esto. Rezo para que esto nunca le pase. Pero si pasa, espero que esté armado con el conocimiento correcto para seguir adelante con su vida.",
+    ab_founder_sign:"— Michael Francois, fundador de Amparo",
     ab_review_h:"Revisi\u00f3n legal",
     ab_review_pending:"Cada regla en Amparo cita el art\u00edculo exacto del c\u00f3digo estatal \u2014 puedes verificar el n\u00famero t\u00fa mismo, cuando quieras. Adem\u00e1s, el contenido de cada estado est\u00e1 siendo revisado y aprobado formalmente por un abogado con licencia en ese estado antes del lanzamiento p\u00fablico. Hasta que un estado muestre la insignia verde \u201cRevisado por abogado\u201d, tr\u00e1talo como informaci\u00f3n general bien documentada, no asesor\u00eda legal.",
     ab_state_pending:"revisi\u00f3n de abogado en curso \u2014 reglas ya citadas a la ley",
@@ -1523,7 +1629,7 @@ const REVIEW = {
   org:"",            // e.g. "Amparo, LLC"
   founder:"Michael Francois",  // edit, or replace with your company name
   founderRole:"Founder",
-  founderNote:"",    // one line on why you built it
+  founderNote:"",    // one line on why you built it — set per-language via ab_founder_note in T[]
   contact:"hello@amparohq.com",  // support email / URL — edit anytime
   siteUrl:"amparohq.com",  // live link — prints a share line on every page
   emailEnabled:false,  // flip to true ONLY after deploying /.netlify/functions/send-pack — until then the email-receipt button hides so users never see a "try again in a minute" that can't succeed
@@ -1805,6 +1911,8 @@ function showAbout(){
   o.querySelector('.ab-body').innerHTML=`
     <h3>${_t.ab_mission_h}</h3><p>${REVIEW.founderNote||_t.ab_mission}</p>
     <h3>${_t.ab_who_h}</h3><p>${REVIEW.founder?`${REVIEW.founder}${REVIEW.founderRole?', '+(lang==='es'&&REVIEW.founderRole==='Founder'?'Fundador':REVIEW.founderRole):''}${REVIEW.org?' · '+REVIEW.org:''}`:_t.ab_who_pending}</p>
+    <p style="font-style:italic;border-left:3px solid var(--gold);padding-left:12px;margin:6px 0 14px">${_t.ab_founder_note}</p>
+    <p style="font-weight:800;color:var(--navy);margin-top:-8px">${_t.ab_founder_sign}</p>
     <h3>${_t.ab_review_h}</h3><p>${_t.ab_review_pending}</p><div class="ab-revlist">${rev}</div>
     <h3>${_t.ab_privacy_h}</h3><p>${_t.ab_privacy}</p>
     ${REVIEW.contact?`<p style="margin-top:10px"><b>${_t.ab_contact}:</b> ${REVIEW.contact}</p>`:''}`;
@@ -1813,6 +1921,142 @@ function showAbout(){
   o.classList.add('open');
   ph('sr_about_opened');
   if(window.SRMotion&&SRMotion.overlayIn) SRMotion.overlayIn('#aboutOverlay','.ab-card');
+}
+/* ============ PRE-ARRIVAL PREP DRILL (Part 1: hands & car, before the officer
+   reaches the window) ============
+   Physical safety sequence, not legal script — no attorney-review dependency.
+   Teach each step + why, then a tap-to-place recall (never drag: mobile-safe,
+   screen-reader safe). Movement-first/stillness-last ordering is the one rule. */
+const PREP_SVG={
+  stop:`<svg viewBox="0 0 140 90"><rect x="0" y="70" width="140" height="20" fill="#e8e2d5"/><line x1="0" y1="66" x2="140" y2="66" stroke="#cfc7b6" stroke-width="2" stroke-dasharray="10 8"/><rect x="30" y="40" width="72" height="22" rx="8" fill="#1f5c52"/><path d="M44 40 q8 -15 26 -15 h8 q11 0 18 15 z" fill="#2f7368"/><rect x="52" y="30" width="15" height="11" rx="2" fill="#cfe3de"/><rect x="71" y="30" width="15" height="11" rx="2" fill="#cfe3de"/><circle cx="46" cy="64" r="8" fill="#2b2b2b"/><circle cx="46" cy="64" r="3.5" fill="#888"/><circle cx="90" cy="64" r="8" fill="#2b2b2b"/><circle cx="90" cy="64" r="3.5" fill="#888"/><circle cx="30" cy="52" r="4" fill="#f2b705"/><circle cx="102" cy="52" r="4" fill="#f2b705"/></svg>`,
+  settle:`<svg viewBox="0 0 140 90"><rect x="24" y="6" width="92" height="12" rx="4" fill="#d9d2c2"/><circle cx="70" cy="18" r="7" fill="#ffe39a" stroke="#a9660b" stroke-width="2"/><g stroke="#f2b705" stroke-width="2" stroke-linecap="round"><line x1="70" y1="28" x2="70" y2="34"/><line x1="59" y1="25" x2="55" y2="30"/><line x1="81" y1="25" x2="85" y2="30"/></g><path d="M14 80 q56 -28 112 0 z" fill="#2f3134"/><circle cx="66" cy="70" r="15" fill="none" stroke="#1c1b19" stroke-width="4"/><circle cx="66" cy="70" r="4" fill="#1c1b19"/></svg>`,
+  window:`<svg viewBox="0 0 140 90"><rect x="34" y="12" width="72" height="66" rx="9" fill="#1f5c52"/><rect x="44" y="20" width="52" height="32" rx="4" fill="#2f3134"/><rect x="44" y="20" width="52" height="16" rx="4" fill="#cfe3de"/><line x1="44" y1="36" x2="96" y2="36" stroke="#9ab5ad" stroke-width="2"/><rect x="50" y="60" width="30" height="6" rx="3" fill="#123f38"/><g stroke="#f7f5f0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="70" y1="26" x2="70" y2="45"/><path d="M64 39 l6 6 l6 -6"/></g></svg>`,
+  phone:`<svg viewBox="0 0 140 90"><rect x="24" y="60" width="28" height="9" rx="3" fill="#8a8578"/><rect x="28" y="16" width="34" height="54" rx="6" fill="#1c1b19"/><rect x="32" y="22" width="26" height="42" rx="3" fill="#3a4b57"/><circle cx="45" cy="43" r="6" fill="none" stroke="#cfe3de" stroke-width="2"/><circle cx="56" cy="13" r="5" fill="#a3311f"/><g transform="translate(76,42) rotate(-7)"><rect x="0" y="0" width="52" height="34" rx="4" fill="#fdf1e0" stroke="#a9660b" stroke-width="1.5"/><circle cx="13" cy="15" r="7" fill="#e6c78a"/><rect x="25" y="9" width="22" height="4" rx="2" fill="#c99a4e"/><rect x="25" y="17" width="19" height="3" rx="1.5" fill="#d9b578"/><rect x="25" y="23" width="21" height="3" rx="1.5" fill="#d9b578"/></g></svg>`,
+  hands:`<svg viewBox="0 0 140 90"><circle cx="70" cy="50" r="33" fill="none" stroke="#1c1b19" stroke-width="6"/><circle cx="70" cy="50" r="9" fill="#1c1b19"/><line x1="70" y1="50" x2="47" y2="43" stroke="#1c1b19" stroke-width="5"/><line x1="70" y1="50" x2="93" y2="43" stroke="#1c1b19" stroke-width="5"/><line x1="70" y1="50" x2="70" y2="80" stroke="#1c1b19" stroke-width="5"/><g fill="#c8875a"><ellipse cx="49" cy="26" rx="11" ry="8"/><ellipse cx="91" cy="26" rx="11" ry="8"/></g></svg>`
+};
+const PREP_STEPS=[
+  {key:'stop', en:{title:'Stop safe', short:'Stop safe', why:"Hazard lights on, pull fully onto the right shoulder or a well-lit, open spot, away from moving traffic. You can go a short distance to somewhere safe and lit before you stop.", ticks:['Hazards on','Off the traffic lane, somewhere lit']},
+   es:{title:'Deténgase seguro', short:'Deténgase', why:"Encienda las luces intermitentes y oríllese por completo al carril derecho o a un lugar bien iluminado y abierto, lejos del tránsito. Puede avanzar un poco hasta un lugar seguro e iluminado antes de detenerse.", ticks:['Intermitentes encendidas','Fuera del carril, en un lugar iluminado']}},
+  {key:'settle', en:{title:'Settle the car', short:'Settle the car', why:"Put it in park and turn the music off so you can hear the officer. If it's dark, turn on your interior dome light — letting them see your hands is one of the calmest, most protective things you can do.", ticks:['Park · radio off','Dark out? Dome light ON'], night:true},
+   es:{title:'Calme el auto', short:'Calme el auto', why:"Ponga el auto en estacionar y apague la música para oír al oficial. Si está oscuro, encienda la luz interior — dejar que vean sus manos es de lo más calmante y protector que puede hacer.", ticks:['En estacionar · radio apagada','¿Está oscuro? Luz interior ENCENDIDA'], night:true}},
+  {key:'window', en:{title:'Open the window', short:'Open the window', why:"Roll the driver's window down about halfway now — enough to talk and pass documents. Doing it early means you're not making a motion near the door when the officer walks up.", ticks:['Window halfway, before they arrive']},
+   es:{title:'Baje la ventanilla', short:'Baje la ventanilla', why:"Baje ahora la ventanilla del conductor hasta la mitad — lo suficiente para hablar y pasar documentos. Hacerlo temprano evita que haga un movimiento cerca de la puerta cuando el oficial se acerque.", ticks:['Ventanilla a la mitad, antes de que llegue']}},
+  {key:'phone', en:{title:'Set phone & papers', short:'Set phone & papers', why:"Get your phone in its mount and recording — then leave it (never raise a phone in your hand at the window). And get your license, registration and insurance to one easy spot. If they're in the glovebox, don't dig — tell the officer where they are first.", ticks:['Phone mounted & recording — not in hand','Papers in one spot, glovebox closed']},
+   es:{title:'Teléfono y papeles', short:'Teléfono y papeles', why:"Ponga el teléfono en su soporte y grabando — luego déjelo (nunca levante el teléfono en la mano en la ventanilla). Y tenga su licencia, registro y seguro en un solo lugar fácil. Si están en la guantera, no hurgue — primero dígale al oficial dónde están.", ticks:['Teléfono en el soporte y grabando — no en la mano','Papeles en un solo lugar, guantera cerrada']}},
+  {key:'hands', en:{title:'Hands on the wheel', short:'Hands on the wheel', why:"This is the end state. Hands on top of the wheel, visible, still. You're done moving. Breathe. You reach for nothing else until the officer directs you — and you say what you're about to do first.", ticks:['On top of the wheel, still','Reach for nothing until told']},
+   es:{title:'Manos en el volante', short:'Manos al volante', why:"Este es el estado final. Manos sobre el volante, visibles, quietas. Ya terminó de moverse. Respire. No busca nada más hasta que el oficial lo indique — y primero diga lo que va a hacer.", ticks:['Sobre el volante, quietas','No busque nada hasta que le digan']}}
+];
+let prepStepIdx=0, prepPlaced=[], prepBank=[], prepLastSeated=-1;
+function prepOpen(){
+  prepStepIdx=0;
+  document.getElementById('prepTitle').textContent=t().prep_title;
+  document.getElementById('prepX').textContent=t().prx_close;
+  document.getElementById('prepOverlay').classList.add('open');
+  prepRenderStep();
+  ph('sr_prep_opened');
+}
+function prepClose(){
+  document.getElementById('prepSheet').classList.remove('show');
+  document.getElementById('prepOverlay').classList.remove('open');
+}
+function prepStep(){ return lang==='es'?PREP_STEPS[prepStepIdx].es:PREP_STEPS[prepStepIdx].en; }
+function prepRenderStep(){
+  const _t=t(), s=prepStep(), b=document.getElementById('prepBody');
+  const ticks=s.ticks.map((tx,i)=>{
+    const night=s.night&&i===1;
+    return `<div class="prep-tick${night?' night':''}"><span class="ck">✓</span><span>${esc(tx)}</span></div>`;
+  }).join('');
+  b.innerHTML=`
+    <div class="prep-progress"><i style="width:${Math.round(((prepStepIdx+1)/PREP_STEPS.length)*100)}%"></i></div>
+    <div class="prep-art">${PREP_SVG[PREP_STEPS[prepStepIdx].key]}</div>
+    <div style="text-align:center;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--ok);margin:8px 0 2px">${_t.prep_step_of.replace('{n}',prepStepIdx+1).replace('{t}',PREP_STEPS.length)}</div>
+    <h1 style="text-align:center;font-size:19px;margin:0 0 10px">${esc(s.title)}</h1>
+    <p style="text-align:center;font-size:14px;color:var(--ink);margin:0 0 4px">${esc(s.why)}</p>
+    ${ticks}
+    <div style="display:flex;justify-content:space-between;margin-top:16px;gap:10px">
+      <button class="btn ghost" style="flex:none;margin-top:0;visibility:${prepStepIdx===0?'hidden':'visible'}" onclick="prepBack()">← ${_t.a11y_back}</button>
+      <button class="btn gold" style="flex:1;margin-top:0" onclick="prepNext()">${prepStepIdx===PREP_STEPS.length-1?_t.prep_try:_t.next+' →'}</button>
+    </div>`;
+}
+function prepNext(){ if(prepStepIdx<PREP_STEPS.length-1){ prepStepIdx++; prepRenderStep(); } else prepStartRecall(); }
+function prepBack(){ if(prepStepIdx>0){ prepStepIdx--; prepRenderStep(); } }
+function prepStartRecall(){
+  prepPlaced=[]; prepLastSeated=-1;
+  prepBank=PREP_STEPS.map((_,i)=>i);
+  for(let i=prepBank.length-1;i>0;i--){ const j=(i*7+3)%(i+1); [prepBank[i],prepBank[j]]=[prepBank[j],prepBank[i]]; }
+  if(prepBank.every((v,i)=>v===i)) prepBank.reverse();
+  document.getElementById('prepSheet').classList.remove('show');
+  prepRenderRecall();
+  ph('sr_prep_recall_started');
+}
+function prepMini(i){ return lang==='es'?PREP_STEPS[i].es.short:PREP_STEPS[i].en.short; }
+function prepRenderRecall(){
+  const _t=t(), b=document.getElementById('prepBody');
+  let slots='';
+  for(let pos=0;pos<PREP_STEPS.length;pos++){
+    if(pos<prepPlaced.length){
+      const sIdx=prepPlaced[pos], k=PREP_STEPS[sIdx].key;
+      slots+=`<div class="prep-slot filled" onclick="prepUnplace(${pos})" role="button" tabindex="0" aria-label="${esc(prepMini(sIdx))}, ${_t.prep_undo}">
+        <span class="prep-slotnum">${pos+1}</span><div class="prep-ghost">${PREP_SVG[k]}</div><span class="prep-label">${esc(prepMini(sIdx))}</span></div>`;
+    }else{
+      slots+=`<div class="prep-slot${pos===prepPlaced.length?' next':''}"><span class="prep-slotnum">${pos+1}</span><span class="prep-hint">${_t.prep_slot} ${pos+1}</span></div>`;
+    }
+  }
+  const chips=prepBank.map(sIdx=>{
+    const k=PREP_STEPS[sIdx].key, placed=prepPlaced.indexOf(sIdx)>=0;
+    return `<div class="prep-chip${placed?' done':''}" ${placed?'':`onclick="prepPlace(${sIdx})" role="button" tabindex="0"`} aria-label="${esc(prepMini(sIdx))}">
+      <div class="prep-ghost" style="opacity:1">${PREP_SVG[k]}</div><span class="prep-label">${esc(prepMini(sIdx))}</span></div>`;
+  }).join('');
+  b.innerHTML=`
+    <p style="text-align:center;font-size:12.5px;color:var(--ink);margin:0 0 2px">${_t.prep_recall_hint}</p>
+    <p style="text-align:center;font-size:11.5px;color:var(--muted);margin:0 0 12px"><b>${_t.prep_recall_rule}</b></p>
+    <div class="prep-grid">
+      <div><div class="prep-colhead">${_t.prep_order}</div>${slots}</div>
+      <div><div class="prep-colhead">${_t.prep_steps}</div>${chips}</div>
+    </div>
+    <div class="prep-count">${_t.prep_placed.replace('{n}',prepPlaced.length).replace('{t}',PREP_STEPS.length)}</div>
+    <button class="btn gold" style="width:100%" ${prepPlaced.length<PREP_STEPS.length?'disabled':''} onclick="prepCheckOrder()">${prepPlaced.length<PREP_STEPS.length?_t.prep_place_all:_t.prep_check}</button>`;
+}
+function prepPlace(sIdx){ if(prepPlaced.length>=PREP_STEPS.length||prepPlaced.indexOf(sIdx)>=0)return; prepPlaced.push(sIdx); prepRenderRecall(); }
+function prepUnplace(pos){ prepPlaced.splice(pos,1); prepRenderRecall(); }
+function prepCheckOrder(){
+  if(prepPlaced.length<PREP_STEPS.length) return;
+  const _t=t(), allRight=prepPlaced.every((sIdx,pos)=>sIdx===pos);
+  const firstWrong=prepPlaced.findIndex((sIdx,pos)=>sIdx!==pos);
+  // reflect right/wrong on the rendered slots directly
+  document.querySelectorAll('.prep-slot.filled').forEach((el,pos)=>{ el.classList.toggle('ok',prepPlaced[pos]===pos); el.classList.toggle('no',prepPlaced[pos]!==pos); });
+  const sh=document.getElementById('prepSheet');
+  document.getElementById('prepSheetTitle').textContent=allRight?_t.prep_correct_t:_t.prep_wrong_t;
+  document.getElementById('prepSheetBody').textContent=allRight?_t.prep_correct_b:_t.prep_wrong_b.replace('{n}',firstWrong+1).replace('{s}',prepMini(firstWrong));
+  const btn=document.getElementById('prepSheetBtn');
+  btn.textContent=allRight?_t.prep_correct_btn:_t.prep_wrong_btn;
+  btn.onclick=allRight?()=>{ sh.classList.remove('show'); prepClose(); ph('sr_prep_recall_done'); }:()=>sh.classList.remove('show');
+  sh.classList.add('show');
+  if(allRight) ph('sr_prep_recall_correct');
+}
+function showDoc(){
+  const _t=t(); const o=document.getElementById('docOverlay');
+  o.querySelector('.ab-body').innerHTML=`
+    <h3>${esc(_t.doc_h)}</h3><p>${esc(_t.doc_body)}</p>
+    <div class="doc-case"><b>${esc(_t.doc_case1_name)}</b> — ${esc(_t.doc_case1_body)}
+      <div class="doc-src">${_t.doc_sources}: <a href="https://www.cnn.com/2017/06/16/us/philando-castile-trial-verdict" target="_blank" rel="noopener">CNN</a> · <a href="https://www.aclu.org/news/racial-justice/two-years-after-police-killing-philando-castile-justice-continues-be-denied" target="_blank" rel="noopener">ACLU</a></div></div>
+    <div class="doc-case"><b>${esc(_t.doc_case2_name)}</b> — ${esc(_t.doc_case2_body)}
+      <div class="doc-src">${_t.doc_source}: <a href="https://www.npr.org/2021/12/23/1066012247/kim-potter-trial-daunte-wright" target="_blank" rel="noopener">NPR</a></div></div>
+    <p>${esc(_t.doc_why)}</p>
+    <div class="doc-blame">${esc(_t.doc_blame)}</div>
+    <p>${esc(_t.doc_clarity)}</p>
+    <p style="font-size:13px;color:var(--muted)">${_t.doc_resource}</p>`;
+  o.querySelector('.ab-title').textContent=_t.doc_title;
+  o.querySelector('.ab-x').textContent=_t.doc_close;
+  o.classList.add('open');
+  ph('sr_doc_opened');
+  if(window.SRMotion&&SRMotion.overlayIn) SRMotion.overlayIn('#docOverlay','.ab-card');
+}
+function closeDoc(){
+  const o=document.getElementById('docOverlay');
+  const fin=()=>o.classList.remove('open');
+  if(window.SRMotion&&SRMotion.overlayOut) SRMotion.overlayOut('#docOverlay','.ab-card',fin);
+  else fin();
 }
 function closeAbout(){
   const o=document.getElementById('aboutOverlay');
@@ -1890,9 +2134,11 @@ function render(){
       ${window.__resumeStep?`<button class="btn" onclick="goM(${window.__resumeStep});window.__resumeStep=0">${_t.resume_btn}</button>`:''}
       <button class="btn gold" onclick="goM(1)">${_t.w_btn}</button>
       <button class="btn" onclick="practiceOpen()">${_t.w_try}</button>
+      <button class="linkbtn" onclick="prepOpen()">${_t.prep_link}</button>
       <button class="linkbtn" onclick="viewSample()">👀 ${_t.w_sample}</button>
       <button class="linkbtn" onclick="shareAmparo(this)">${_t.w_share}</button>
       <button class="linkbtn" onclick="showAbout()">${_t.about_link}</button>
+      <button class="linkbtn" onclick="showDoc()">${_t.doc_link}</button>
     </div>`;
   }
 
@@ -3157,6 +3403,17 @@ function prxCompareShow(){
   const _t=t(), card=prxCard(prDeck[prIdx]?prDeck[prIdx].ci:0);
   const heard=prxHeard.trim();
   if(!heard){ el.innerHTML=`<div class="prx-heard">${_t.prx_heard_none}</div>`; return; }
+  /* Safety net, not scoring: if a typed/spoken attempt contains crisis language,
+     show the 988 line instead of grading the answer. Checked before any matching. */
+  const crisisNorm=' '+heard.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')+' ';
+  const CRISIS=[' kill myself',' end it all',' want to die',' suicide',' cant go on',' no reason to live',
+    ' quitarme la vida',' acabar con todo',' quiero morir',' suicidio',' no puedo mas',' no aguanto mas'];
+  if(CRISIS.some(p=>crisisNorm.includes(p))){
+    prxSaidTxt=''; prxSaidKey=''; prCurTier='y';
+    el.innerHTML=`<div class="prx-heard">${_t.prx_crisis}</div>`;
+    ph('sr_crisis_phrase_shown',{level:prLevel+1,lang:lang});
+    return;
+  }
   prxSaidTxt=heard; prxSaidKey=prLevel+':'+prIdx; // carried into the reveal as the "You said" card
   /* accent-insensitive on both sides — a typed "registro" must match "registró"
      and vice versa; typos shouldn't feel like failure (panel constraint) */
@@ -3413,6 +3670,7 @@ function practiceRender(){
       </div>
       <p class="prc-intro">${swan?'':(yCount?_t.prx_tip_y:_t.prx_tip_all)}</p>
       ${sober?`<p class="prc-intro">${swan?_t.prx_done4:_t.prx_done3}</p>`:''}
+      ${swan?`<button class="linkbtn" onclick="showDoc()">${_t.doc_link}</button>`:''}
       <div class="prx-bd">${bdRows}</div>
       ${master?`<div class="prx-master">🏆 ${_t.prx_master}</div>
       <button class="btn gold" onclick="prxShareCert(this)">${_t.prx_master_btn}</button>
