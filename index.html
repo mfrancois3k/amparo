@@ -224,7 +224,9 @@
   @keyframes tdot{0%,100%{opacity:.35;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
   .prc-rt{font-size:12px;font-weight:800;color:#ff9d8a;margin-left:8px}
   .prc-you{background:#eef7f0;border:1.5px solid #bcd8c2;border-radius:14px;padding:16px;font-size:16px;line-height:1.5;color:#1d4a2c;margin-bottom:14px}
-  .prc-said{background:var(--white);border:1.5px dashed var(--line);border-radius:14px;padding:13px 15px;font-size:15px;font-style:italic;color:#4b5563;margin-bottom:8px}
+  /* "You said" = the user's own attempt, styled as a sent chat message (right) */
+  .prc-said{margin-left:auto;max-width:88%;background:var(--navy);color:#fff;border-radius:15px;border-bottom-right-radius:5px;padding:11px 14px;font-size:14.5px;line-height:1.45;margin-bottom:8px}
+  .prc-role.right{text-align:right}
   .prx-match{display:flex;gap:4px;margin:0 0 6px}
   .prx-match i{flex:1;height:8px;border-radius:4px;background:#e5e0d4;transition:background .4s}
   .prx-match i.on{background:var(--ok)}
@@ -237,6 +239,11 @@
   #practiceOverlay .ab-card{display:flex;flex-direction:column;max-height:94vh}
   #practiceOverlay .ab-body{flex:1;overflow:auto}
   @media(min-width:700px){#practiceOverlay .ab-card{max-width:900px;height:94vh}}
+  /* demeanor meter (practice.html look): shifts calm→tense with officer tone */
+  .prx-dem{margin:0 0 12px}
+  .prx-dem-lbl{display:flex;justify-content:space-between;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);margin-bottom:4px}
+  .prx-dem-track{height:6px;background:linear-gradient(90deg,#2f8f5b,#ED6C02,#D32F2F);border-radius:6px;position:relative;opacity:.9}
+  .prx-dem-dot{position:absolute;top:50%;width:14px;height:14px;border-radius:50%;background:#fff;border:2px solid var(--ink);transform:translate(-50%,-50%);transition:left .5s,border-color .5s}
   .prx-rail{display:flex;align-items:center;gap:5px;margin:0 0 12px}
   .prx-rail .rd{width:12px;height:12px;border-radius:50%;background:#e5e0d4;flex:none;transition:transform .3s var(--ease-spring),background .3s}
   .prx-rail .rd.g{background:var(--ok)}
@@ -1190,6 +1197,7 @@ const T = {
     prx_heard:"You said:", prx_heard_none:"Didn't catch that \u2014 try again a little closer to the phone, or just trust your ears.",
     prx_heard_good:"You hit the key words.", prx_heard_retry:"Close \u2014 the highlighted key words are the ones to land.",
     prx_voice:"Officer voice:", prx_gender:"Officer:", prx_g_m:"♂ Male", prx_g_f:"♀ Female",
+    prx_dem_label:"Officer's demeanor", prx_dem_calm:"calm", prx_dem_firm:"firm", prx_dem_tense:"tense",
     prx_type_ph:"…or type your answer here", prx_type_btn:"Check",
     prx_said:"You said", prx_legal:"⚖️ Legally, you say",
     prx_passed:"🏅 Passed — you hit {n} of {t} key words", prx_close_line:"Close — {n} of {t} key words. One more rep locks it in.",
@@ -1422,6 +1430,7 @@ const T = {
     prx_heard:"Dijiste:", prx_heard_none:"No se escuchó — inténtalo un poco más cerca del teléfono, o confía en tus oídos.",
     prx_heard_good:"Dijiste las palabras clave.", prx_heard_retry:"Casi — las palabras clave resaltadas son las que hay que decir.",
     prx_voice:"Voz del oficial:", prx_gender:"Oficial:", prx_g_m:"♂ Hombre", prx_g_f:"♀ Mujer",
+    prx_dem_label:"Actitud del oficial", prx_dem_calm:"tranquilo", prx_dem_firm:"firme", prx_dem_tense:"tenso",
     prx_type_ph:"…o escribe tu respuesta aquí", prx_type_btn:"Comprobar",
     prx_said:"Dijiste", prx_legal:"⚖️ Legalmente, tú dices",
     prx_passed:"🏅 Aprobado — dijiste {n} de {t} palabras clave", prx_close_line:"Casi — {n} de {t} palabras clave. Una repetición más y lo tienes.",
@@ -3700,7 +3709,12 @@ function practiceRender(){
   const _today=new Date().toISOString().slice(0,10);
   const hasCb=prDeck.some(x=>x.curve);
   const daily=`${(hasCb||prx.cbDay===_today)?`<div class="prx-daily">${_t.prx_daily}: ${prx.cbDay===_today?_t.prx_daily_done:_t.prx_daily_live}</div>`:''}${prx.streak.n>1?`<div class="prx-daily">🔁 ${_t.prx_streak.replace('{n}',prx.streak.n)}</div>`:''}`;
-  b.innerHTML=tabs+daily+rail+`<div class="prx-grid">
+  /* demeanor meter — the officer's current tone as a calm→tense position */
+  const _demWord={calm:_t.prx_dem_calm,curt:_t.prx_dem_firm,hostile:_t.prx_dem_tense}[d.tone]||_t.prx_dem_calm;
+  const _demPct={calm:12,curt:52,hostile:88}[d.tone]||12;
+  const _demCol=d.tone==='hostile'?'#D32F2F':d.tone==='curt'?'#ED6C02':'#2f8f5b';
+  const demeanor=`<div class="prx-dem" aria-hidden="true"><div class="prx-dem-lbl"><span>${_t.prx_dem_label}</span><span style="color:${_demCol}">${_demWord}</span></div><div class="prx-dem-track"><div class="prx-dem-dot" style="left:${_demPct}%;border-color:${_demCol}"></div></div></div>`;
+  b.innerHTML=tabs+daily+demeanor+rail+`<div class="prx-grid">
     <div class="prx-cop">
       <div class="prx-avatar">${PRX_COP}<img class="prx-face" src="img/officer-${prxGender}.jpg" alt="" onload="this.classList.add('ok')" onerror="this.remove()"></div>
       <div class="prx-wave" id="prxWave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
@@ -3718,7 +3732,7 @@ function practiceRender(){
       ${prxTTS&&lang==='es'&&prxVoiceLang==='en'&&prIdx===0?`<p class="prc-intro" style="margin-bottom:8px">${_t.prx_tts_note}</p>`:''}
       <div class="prc-role">${_t.prx_officer}</div>
       <div class="prc-officer" id="prxBubble" onclick="prxSpeak()" title="🔊"><span class="tdots" aria-hidden="true"><i></i><i></i><i></i></span><span class="btxt">“${d.officer[lang]}”</span></div>
-      ${prRevealed?`${prxSaidKey===prLevel+':'+prIdx&&prxSaidTxt?`<div class="prc-role">${_t.prx_said}</div>
+      ${prRevealed?`${prxSaidKey===prLevel+':'+prIdx&&prxSaidTxt?`<div class="prc-role right">${_t.prx_said}</div>
         <div class="prc-said">“${esc(prxSaidTxt)}”</div>
         ${prxSaidTotal?`<div class="prx-match" aria-hidden="true">${Array.from({length:prxSaidTotal},(x,i)=>`<i class="${i<prxSaidHits?'on':''}"></i>`).join('')}</div>
         <div class="prx-passline${prxSaidGood?' ok':''}">${(prxSaidGood?_t.prx_passed:_t.prx_close_line).replace('{n}',prxSaidHits).replace('{t}',prxSaidTotal)}</div>`:''}`:''}
