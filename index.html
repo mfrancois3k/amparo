@@ -1152,14 +1152,14 @@ const T = {
     doc_resource:"If this brings up grief or fear, you're not alone. Call or text <b>988</b> (free, 24/7, confidential). For your rights, contact your local ACLU affiliate: <b>aclu.org/affiliates</b>.",
     doc_close:"Close and take a breath",
     doc_sources:"Sources", doc_source:"Source",
-    prep_link:"🚗 Practice before they arrive — hands & car",
+    prep_link:"Skip to the conversation →",
     prep_title:"Before the officer arrives",
     prep_step_of:"Step {n} of {t}", prep_try:"Now let me try →",
     prep_recall_hint:"Tap a step on the right to seat it. Tap a filled slot to undo.",
     prep_recall_rule:"Movement first, stillness last.",
     prep_order:"Order", prep_steps:"Steps", prep_slot:"Slot", prep_undo:"activate to undo",
     prep_placed:"{n} of {t} placed", prep_place_all:"Place all 5 to check", prep_check:"Check my order",
-    prep_correct_t:"You've got the order.", prep_correct_b:"Movement first, stillness last. When your hands already know this, the real 30–60 seconds are for staying calm — not deciding.", prep_correct_btn:"Done →",
+    prep_correct_t:"You've got the order.", prep_correct_b:"Movement first, stillness last. Your hands are on the wheel now — still. The officer is walking up. Next it's words, not motion.", prep_correct_btn:"Now the conversation — what you say →",
     prep_wrong_t:"Almost — one to move", prep_wrong_b:"Slot {n} should be “{s}.” The rule: everything you reach for happens early, so your hands are already still when the officer arrives. Tap a placed step to send it back, then re-place it.", prep_wrong_btn:"Fix it",
     scen_title:"Situations your pack covers",
     a11y_back:"Back", a11y_close_cam:"Close camera", a11y_shutter:"Take photo",
@@ -1222,7 +1222,7 @@ const T = {
     cert_saved:"✓ Badge saved — post it anywhere",
     v_swipe:"\u2194\ufe0f Swipe to flip through your pages",
     w_share:"\ud83d\udce4 Send this to someone you love", w_shared:"\u2713 Link copied \u2014 paste it anywhere",
-    w_try:"\ud83d\ude94 Hear the officer \u2014 practice 30 seconds", rail_more:"More options",
+    w_try:"\ud83d\ude94 Practice a full stop \u2014 2 minutes", rail_more:"More options",
     next:"Continue", tagline:"Know your rights", pdf_hint:"No printer? In the print window, choose “Save as PDF” as the printer.", pdf_backup:"Save the PDF — it’s your backup. Reprint anytime without redoing anything.",
     tc_reviewed:"Attorney-reviewed", tc_private:"Photos stay on your device", tc_by:"By",
     ab_title:"Who's behind Amparo", ab_close:"Close",
@@ -1385,14 +1385,14 @@ const T = {
     doc_resource:"Si esto trae dolor o miedo, no est\u00e1s solo. Llama o env\u00eda un mensaje al <b>988</b> (gratis, 24/7, confidencial). Para tus derechos, contacta a tu afiliado local de ACLU: <b>aclu.org/affiliates</b>.",
     doc_close:"Cerrar y respirar",
     doc_sources:"Fuentes", doc_source:"Fuente",
-    prep_link:"🚗 Practica antes de que lleguen — manos y auto",
+    prep_link:"Saltar a la conversación →",
     prep_title:"Antes de que llegue el oficial",
     prep_step_of:"Paso {n} de {t}", prep_try:"Ahora yo →",
     prep_recall_hint:"Toca un paso a la derecha para colocarlo. Toca una casilla llena para deshacer.",
     prep_recall_rule:"Movimiento primero, quietud al final.",
     prep_order:"Orden", prep_steps:"Pasos", prep_slot:"Casilla", prep_undo:"activa para deshacer",
     prep_placed:"{n} de {t} colocados", prep_place_all:"Coloca los 5 para revisar", prep_check:"Revisar mi orden",
-    prep_correct_t:"Tienes el orden.", prep_correct_b:"Movimiento primero, quietud al final. Cuando tus manos ya saben esto, los 30–60 segundos reales son para mantener la calma — no para decidir.", prep_correct_btn:"Listo →",
+    prep_correct_t:"Tienes el orden.", prep_correct_b:"Movimiento primero, quietud al final. Tus manos están en el volante — quietas. El oficial se acerca. Ahora son palabras, no movimiento.", prep_correct_btn:"Ahora la conversación — qué dices →",
     prep_wrong_t:"Casi — falta mover uno", prep_wrong_b:"La casilla {n} debería ser “{s}.” La regla: todo lo que buscas ocurre temprano, para que tus manos ya estén quietas cuando el oficial llegue. Toca un paso colocado para devolverlo y colócalo de nuevo.", prep_wrong_btn:"Corregir",
     scen_title:"Situaciones que cubre tu paquete",
     a11y_back:"Atrás", a11y_close_cam:"Cerrar cámara", a11y_shutter:"Tomar foto",
@@ -1455,7 +1455,7 @@ const T = {
     cert_saved:"✓ Insignia guardada — publícala donde quieras",
     v_swipe:"↔️ Desliza para pasar tus páginas",
     w_share:"📤 Envíaselo a alguien que quieres", w_shared:"✓ Enlace copiado — pégalo donde quieras",
-    w_try:"🚔 Escucha al oficial — practica 30 segundos", rail_more:"Más opciones",
+    w_try:"🚔 Practica una parada completa — 2 minutos", rail_more:"Más opciones",
     next:"Continuar", tagline:"Conoce tus derechos", pdf_hint:"¿Sin impresora? En la ventana de impresión, elige “Guardar como PDF” como impresora.", pdf_backup:"Guarda el PDF — es tu respaldo. Reimprime cuando quieras sin rehacer nada.",
     tc_reviewed:"Revisado por abogado", tc_private:"Tus fotos quedan en tu dispositivo", tc_by:"Por",
     ab_title:"Qui\u00e9n est\u00e1 detr\u00e1s de Amparo", ab_close:"Cerrar",
@@ -2045,7 +2045,7 @@ function prepCheckOrder(){
   document.getElementById('prepSheetBody').textContent=allRight?_t.prep_correct_b:_t.prep_wrong_b.replace('{n}',firstWrong+1).replace('{s}',prepMini(firstWrong));
   const btn=document.getElementById('prepSheetBtn');
   btn.textContent=allRight?_t.prep_correct_btn:_t.prep_wrong_btn;
-  btn.onclick=allRight?()=>{ sh.classList.remove('show'); prepClose(); ph('sr_prep_recall_done'); }:()=>sh.classList.remove('show');
+  btn.onclick=allRight?()=>{ sh.classList.remove('show'); prepClose(); ph('sr_prep_recall_done'); practiceOpen(); }:()=>sh.classList.remove('show');
   sh.classList.add('show');
   if(allRight) ph('sr_prep_recall_correct');
 }
@@ -2148,8 +2148,8 @@ function render(){
       <div class="trust-strip">${trustChips()}</div>
       ${window.__resumeStep?`<button class="btn" onclick="goM(${window.__resumeStep});window.__resumeStep=0">${_t.resume_btn}</button>`:''}
       <button class="btn gold" onclick="goM(1)">${_t.w_btn}</button>
-      <button class="btn" onclick="practiceOpen()">${_t.w_try}</button>
-      <button class="linkbtn" onclick="prepOpen()">${_t.prep_link}</button>
+      <button class="btn" onclick="prepOpen()">${_t.w_try}</button>
+      <button class="linkbtn" onclick="practiceOpen()">${_t.prep_link}</button>
       <button class="linkbtn" onclick="viewSample()">👀 ${_t.w_sample}</button>
       <button class="linkbtn" onclick="shareAmparo(this)">${_t.w_share}</button>
       <button class="linkbtn" onclick="showAbout()">${_t.about_link}</button>
