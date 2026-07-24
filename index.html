@@ -2049,13 +2049,13 @@ function prepRenderStep(){
     <h1 style="text-align:center;font-size:19px;margin:0 0 10px">${esc(s.title)}</h1>
     <p style="text-align:center;font-size:14px;color:var(--ink);margin:0 0 4px">${esc(s.why)}</p>
     ${ticks}
-    <div style="display:flex;justify-content:space-between;margin-top:16px;gap:10px">
-      <button class="btn ghost" style="flex:none;width:auto;margin-top:0;visibility:${prepStepIdx===0?'hidden':'visible'}" onclick="prepBack()">← ${_t.a11y_back}</button>
-      <button class="btn gold" style="flex:1;margin-top:0" onclick="prepNext()">${prepStepIdx===PREP_STEPS.length-1?_t.prep_try:_t.next+' →'}</button>
+    <div style="display:flex;justify-content:center;align-items:center;margin-top:16px;gap:10px">
+      <button class="btn ghost" style="flex:none;width:auto;margin-top:0" onclick="prepBack()">← ${_t.a11y_back}</button>
+      <button class="btn gold" style="flex:1;margin-top:0;max-width:320px" onclick="prepNext()">${prepStepIdx===PREP_STEPS.length-1?_t.prep_try:_t.next+' →'}</button>
     </div>`;
 }
 function prepNext(){ if(prepStepIdx<PREP_STEPS.length-1){ prepStepIdx++; prepRenderStep(); } else prepStartRecall(); }
-function prepBack(){ if(prepStepIdx>0){ prepStepIdx--; prepRenderStep(); } }
+function prepBack(){ if(prepStepIdx>0){ prepStepIdx--; prepRenderStep(); } else { prepClose(); practiceIntroOpen(); } }
 function prepStartRecall(){
   prepPlaced=[]; prepLastSeated=-1;
   prepBank=PREP_STEPS.map((_,i)=>i);
