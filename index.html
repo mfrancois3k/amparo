@@ -3818,7 +3818,14 @@ function usageFeedback(sentiment){
    The chip appears only once the SW is actually controlling — a claim Luis can
    verify with airplane mode, not marketing copy. */
 if('serviceWorker' in navigator&&location.protocol==='https:'){
-  navigator.serviceWorker.register('sw.js').then(()=>navigator.serviceWorker.ready).then(()=>{
+  /* One-time reload when a NEW worker takes control — this is what lets users
+     still on the old cache-first worker pick up a fresh deploy on THIS visit
+     instead of the next. Guarded so it can never loop. */
+  let _swReloaded=false;
+  navigator.serviceWorker.addEventListener('controllerchange',()=>{
+    if(_swReloaded) return; _swReloaded=true; location.reload();
+  });
+  navigator.serviceWorker.register('sw.js').then(reg=>{ try{ reg.update(); }catch(e){} return navigator.serviceWorker.ready; }).then(()=>{
     const el=document.getElementById('offlineReady');
     if(el){ el.textContent=t().offline_ready; el.style.display='block'; }
   }).catch(()=>{});
