@@ -1068,7 +1068,7 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
 
 <div id="practiceOverlay" role="dialog" aria-modal="true" aria-label="Practice / Práctica">
   <div class="ab-card">
-    <div class="ab-top"><div class="ab-title" id="prcTitle"></div><div style="display:flex;gap:8px"><button class="ab-x" id="prcQX" onclick="quickExit()" style="background:rgba(255,157,138,.25)"></button><button class="ab-x" id="prcX" onclick="practiceClose()"></button></div></div>
+    <div class="ab-top"><div class="ab-title" id="prcTitle"></div><button class="ab-x" id="prcX" onclick="practiceClose()"></button></div>
     <div class="ab-body" id="practiceBody"></div>
   </div>
 </div>
@@ -3559,7 +3559,6 @@ function practiceOpen(){
   const _t=t();
   document.getElementById('prcTitle').textContent=_t.prx_title;
   document.getElementById('prcX').textContent=_t.prx_close;
-  document.getElementById('prcQX').textContent=_t.prx_qx;
   document.getElementById('practiceOverlay').classList.add('open');
   practiceRender(); prxSpeak();
   ph('sr_practice_opened',{state:data.state,lang:lang});
