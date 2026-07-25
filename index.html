@@ -270,6 +270,11 @@
   .prx-coach .mdl{display:block;margin-top:8px;padding-top:8px;border-top:1px solid rgba(0,0,0,.1)}
   /* summary footer — rehearsal count, resources, founder's note */
   .prx-foot{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+  .prx-tab.lock{opacity:.5;cursor:not-allowed}
+  .prx-tab.lock:hover{transform:none;border-color:var(--line)}
+  .prx-lockhint{flex-basis:100%;grid-column:1/-1;font-size:11.5px;font-weight:700;color:var(--muted);text-align:center;margin-top:2px}
+  .prx-lockhint.pulse{animation:lockPulse .5s ease}
+  @keyframes lockPulse{0%,100%{color:var(--muted);transform:scale(1)}40%{color:var(--navy);transform:scale(1.05)}}
   .prx-chknote{font-size:12px;line-height:1.5;color:var(--ink);text-align:left;background:#fdf6e3;border:1px solid var(--gold);border-radius:10px;padding:10px 12px;margin-bottom:10px}
   .prx-chknote.muted{background:#f6f4ee;border-color:var(--line);color:var(--muted);font-size:11.5px}
   .prx-rehearse{text-align:center;font-weight:800;font-size:13.5px;color:var(--navy);margin-bottom:12px}
@@ -1277,6 +1282,7 @@ const T = {
     i_skip_all:"Skip this \u2014 just use my state",
     prx_open_cta:"\ud83c\udfb4 Practice the script \u2014 2 minutes",
     prx_lvl1:"\ud83d\ude0c Calm stop", prx_lvl2:"\ud83d\ude20 Irritated officer", prx_lvl3:"\ud83d\udea8 Ordered out", prx_lvl4:"\u26ab The hard stop", prx_lvl5:"\ud83c\udf12 Hard mode", prx_lvl6:"\ud83d\udea7 Checkpoint",
+    prx_locked:"Finish the first three stops to unlock these.",
     prx_warn6:"A fixed Border Patrol checkpoint \u2014 the kind that sits on a highway up to 100 miles inside the border. The agent here isn't angry. That's the point: the mistake in this one isn't panicking, it's answering something you never had to answer.",
     prx_chk_note:"Rehearsal only \u2014 general information, not legal advice, and not reviewed by an immigration attorney. What agents may do at a checkpoint has been settled law since the 1970s. Whether a LOCAL police officer can act on your status is changing fast in Texas, Georgia and New York \u2014 check your state's page and a current legal-aid source.",
     prx_chk_limit:"One honest limit: none of this controls whether an agent follows the rules. The ACLU's own guidance says people at checkpoints still face extended detentions, searches and profiling. Knowing the words protects your case. It cannot protect you from someone who ignores them.",
@@ -1547,6 +1553,7 @@ const T = {
     i_skip_all:"Omitir — solo usar mi estado",
     prx_open_cta:"🎴 Practica el guion — 2 minutos",
     prx_lvl1:"😌 Parada tranquila", prx_lvl2:"😠 Oficial irritado", prx_lvl3:"🚨 Te ordenan salir", prx_lvl4:"⚫ La parada dura", prx_lvl5:"🌒 Modo difícil", prx_lvl6:"🚧 Retén",
+    prx_locked:"Termina las primeras tres paradas para desbloquear estas.",
     prx_warn6:"Un retén fijo de la Patrulla Fronteriza — de los que están en una carretera hasta 100 millas dentro de la frontera. Aquí el agente no está enojado. Ese es el punto: en esta parada el error no es entrar en pánico, es responder algo que nunca tuviste que responder.",
     prx_chk_note:"Solo práctica — información general, no asesoría legal, y no revisada por un abogado de inmigración. Lo que los agentes pueden hacer en un retén es ley establecida desde los años 70. Si un oficial LOCAL puede actuar según tu estatus está cambiando rápido en Texas, Georgia y Nueva York — consulta la página de tu estado y una fuente legal actualizada.",
     prx_chk_limit:"Un límite honesto: nada de esto controla si el agente cumple las reglas. La propia guía de la ACLU dice que en los retenes la gente aún enfrenta detenciones largas, registros y perfilamiento. Conocer las palabras protege tu caso. No puede protegerte de alguien que las ignora.",
@@ -3930,6 +3937,13 @@ function practiceOpen(){
   ph('sr_practice_opened',{state:data.state,lang:lang});
 }
 function prxTab(i){
+  /* Locked tabs are rendered so the levels are discoverable, but entering them
+     still requires finishing the first three — the gate is the point. */
+  if((i===3||i===4)&&!(prx.done[0]&&prx.done[1]&&prx.done[2])){
+    const h=document.querySelector('.prx-lockhint');
+    if(h){ h.classList.remove('pulse'); void h.offsetWidth; h.classList.add('pulse'); }
+    return;
+  }
   prxRecCancel(); prxDropLast(); prxIdleN=0;
   prLevel=i; prIdx=0; prRevealed=false; prxChosen=''; prxChoseGood=false; prxPickedAlt=false;
   prDeck=prxBuildDeck(); prRun=[]; prCurTier=null; prRunLogged=false;
@@ -4133,8 +4147,15 @@ function practiceRender(){
   const _bk=document.getElementById('prcBack');
   if(_bk){ const showBack=(prIdx>0&&prIdx<prDeck.length&&!(prLevel>=2&&!prWarnOk)); _bk.style.display=showBack?'inline-block':'none'; const _bt=document.getElementById('prcBackTxt'); if(_bt)_bt.textContent=_t.a11y_back; }
   const mUnlocked=prx.done[0]&&prx.done[1]&&prx.done[2];
-  const tabs=`<div class="prx-tabs" role="tablist">${(mUnlocked?[0,1,2,3,4,5]:[0,1,2,5]).map(i=>
-    `<button class="prx-tab${i===prLevel?' on':''}" role="tab" aria-selected="${i===prLevel}" onclick="prxTab(${i})"><span class="tbg${i===4?' hardbg':''}${i===5?' chkbg':''}" aria-hidden="true"${(i===4||i===5)?'':` style="background-image:url('img/scene-${i+1}.jpg')"`}></span>${i===4?(prx.done[4]?'✓ ':''):(prx.best[i]?`🟩${parseInt(prx.best[i])} `:(prx.done[i]?'✓ ':''))}${_t['prx_lvl'+(i+1)]}</button>`).join('')}</div>`;
+  /* The two hostile levels stay GATED but no longer hidden — hiding them made
+     them undiscoverable, and a locked tab still tells you the level exists.
+     Checkpoint (5) is never gated: it's a different encounter, not an escalation. */
+  const isLocked=i=>(i===3||i===4)&&!mUnlocked;
+  /* Stranded on a level that just re-locked (progress cleared mid-run): fall back
+     to the first stop rather than rendering a locked level as the active tab. */
+  if(isLocked(prLevel)){ prLevel=0; prIdx=0; prRevealed=false; prWarnOk=false; prDeck=prxBuildDeck(); prRun=[]; prCurTier=null; prRunLogged=false; }
+  const tabs=`<div class="prx-tabs" role="tablist">${[0,1,2,3,4,5].map(i=>
+    `<button class="prx-tab${i===prLevel?' on':''}${isLocked(i)?' lock':''}" role="tab" aria-selected="${i===prLevel}"${isLocked(i)?` aria-disabled="true" title="${_t.prx_locked}"`:''} onclick="prxTab(${i})"><span class="tbg${i===4?' hardbg':''}${i===5?' chkbg':''}" aria-hidden="true"${(i===4||i===5)?'':` style="background-image:url('img/scene-${i+1}.jpg')"`}></span>${isLocked(i)?'🔒 ':(i===4?(prx.done[4]?'✓ ':''):(prx.best[i]?`🟩${parseInt(prx.best[i])} `:(prx.done[i]?'✓ ':'')))}${_t['prx_lvl'+(i+1)]}</button>`).join('')}${mUnlocked?'':`<div class="prx-lockhint">🔒 ${_t.prx_locked}</div>`}</div>`;
   if(prLevel>=2&&!prWarnOk){ // opt-in gate: escalation is chosen, never sprung
     b.innerHTML=tabs+`<div class="prx-warn">${prLevel===5?_t.prx_warn6:(prLevel===4?_t.prx_warn5:(prLevel===3?_t.prx_warn4:_t.prx_warn3))}</div>
       <button class="btn gold" onclick="prWarnOk=true;practiceRender();prxSpeak()">${_t.prx_warn_go}</button>`;
