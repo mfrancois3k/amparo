@@ -209,11 +209,15 @@
   .scen .si{font-size:22px;flex:none;width:34px;text-align:center}
   .scen .sn{font-weight:800;color:var(--navy);font-size:14.5px}
   .scen .sd{font-size:13px;color:var(--muted);line-height:1.45;margin-top:2px}
-  #aboutOverlay,#practiceOverlay,#docOverlay,#prepOverlay,#pintroOverlay{position:fixed;inset:0;z-index:95;background:rgba(9,14,26,.6);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:20px}
-  #aboutOverlay.open,#practiceOverlay.open,#docOverlay.open,#prepOverlay.open,#pintroOverlay.open{display:flex;animation:camIn .35s var(--ease-out)}
-  /* docOverlay is opened FROM the other overlays, so it must paint above them —
-     equal z-index left it behind the practice overlay and the link looked dead. */
-  #docOverlay{z-index:97}
+  #aboutOverlay,#practiceOverlay,#docOverlay,#prepOverlay,#pintroOverlay,#carryOverlay{position:fixed;inset:0;z-index:95;background:rgba(9,14,26,.6);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:20px}
+  #aboutOverlay.open,#practiceOverlay.open,#docOverlay.open,#prepOverlay.open,#pintroOverlay.open,#carryOverlay.open{display:flex;animation:camIn .35s var(--ease-out)}
+  /* docOverlay and carryOverlay are opened FROM the other overlays, so they must
+     paint above them — equal z-index left doc behind practice and it looked dead. */
+  #docOverlay,#carryOverlay{z-index:97}
+  .carry-lbl{display:block;font-size:13px;font-weight:800;color:var(--navy);margin:14px 0 5px}
+  .carry-in{width:100%;padding:12px 13px;border:1.5px solid var(--line);border-radius:11px;font-size:15px;background:#fffdf8;font-family:inherit;color:var(--ink)}
+  .carry-in:focus{outline:none;border-color:var(--navy)}
+  .carry-prev{width:100%;max-width:330px;border-radius:14px;box-shadow:0 8px 24px rgba(27,42,74,.16);margin:6px auto 12px;display:block}
   .prc-count{font-size:12px;font-weight:800;letter-spacing:1px;color:#8a7a4a;text-transform:uppercase;margin-bottom:10px}
   .prc-role{font-size:11px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:#8a7a4a;margin-bottom:6px}
   .prc-officer{position:relative;background:#fff;border:1.5px solid var(--line);border-radius:16px;border-top-left-radius:4px;padding:16px;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:14px;cursor:pointer}
@@ -1104,6 +1108,12 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
   </div>
 </div>
 
+<div id="carryOverlay" role="dialog" aria-modal="true" aria-label="Your carry card">
+  <div class="ab-card" style="max-width:430px">
+    <div class="ab-body" id="carryBody" style="padding:24px 22px"></div>
+  </div>
+</div>
+
 <div id="docOverlay" role="dialog" aria-modal="true" aria-label="The truth we can't practice away">
   <div class="ab-card">
     <div class="ab-top"><div class="ab-title"></div><button class="ab-x" onclick="closeDoc()"></button></div>
@@ -1247,6 +1257,21 @@ const T = {
     prx_fn_head:"A note from the person who built this",
     prx_rehearse1:"🛡 You just finished your first full rehearsal.",
     prx_rehearseN:"🛡 You've rehearsed this {n} times. It gets steadier each time.",
+    carry_btn:"Make my carry card →", carry_t:"Your carry card",
+    carry_sub:"From memory — no peeking. This is the part that rides into the car with you. Fill in your own words.",
+    carry_hands:"✋ My hands will…", carry_hands_ph:"e.g. on the wheel, in view",
+    carry_breath:"🫁 My breath…", carry_breath_ph:"e.g. one slow breath before I speak",
+    carry_line:"💬 My one line…", carry_line_ph:"e.g. I don't consent to a search, officer",
+    carry_docs:"🪪 My documents are…", carry_docs_ph:"e.g. on the visor / on the seat",
+    carry_make:"Make my card →", carry_skip:"Skip for now",
+    carry_shot:"Screenshot it, or save it to your phone. Keep it where you'll see it before you drive.",
+    carry_save:"Save my card", carry_cont:"Continue →", carry_edit:"Edit my answers",
+    carry_saved:"Card saved to your device.", carry_longpress:"Long-press the card above to save the image.",
+    carry_c_title:"MY CARRY CARD", carry_c_sub:"What I do if I get pulled over",
+    carry_c_hands:"Hands", carry_c_breath:"Breath", carry_c_line:"My line", carry_c_docs:"Documents",
+    carry_c_foot:"Move early, end still. Practice, not legal advice — laws vary by state.",
+    carry_d_hands:"stay on the wheel, in view", carry_d_breath:"one slow breath before I speak",
+    carry_d_line:"I don't consent to a search, officer", carry_d_docs:"in one easy spot",
     prx_warn4:"In this one you do everything right \u2014 and the officer stays hostile anyway. Some stops are like that. The point: calm words protect your case even when they don't soften the officer.",
     prx_done4_t:"You did everything right.",
     prx_done4:"Some stops go badly anyway \u2014 that's not on you. That's why the pack, the lifelines, and a lawyer exist. What you said tonight is what protects you in court tomorrow.",
@@ -1499,6 +1524,21 @@ const T = {
     prx_fn_head:"Una nota de quien construyó esto",
     prx_rehearse1:"🛡 Acabas de terminar tu primer ensayo completo.",
     prx_rehearseN:"🛡 Has ensayado esto {n} veces. Se vuelve más firme cada vez.",
+    carry_btn:"Crear mi tarjeta de bolsillo →", carry_t:"Tu tarjeta de bolsillo",
+    carry_sub:"De memoria — sin mirar. Esta es la parte que va contigo en el auto. Complétala con tus palabras.",
+    carry_hands:"✋ Mis manos…", carry_hands_ph:"ej. en el volante, a la vista",
+    carry_breath:"🫁 Mi respiración…", carry_breath_ph:"ej. una respiración lenta antes de hablar",
+    carry_line:"💬 Mi frase…", carry_line_ph:"ej. No consiento un registro, oficial",
+    carry_docs:"🪪 Mis documentos están…", carry_docs_ph:"ej. en la visera / en el asiento",
+    carry_make:"Crear mi tarjeta →", carry_skip:"Omitir por ahora",
+    carry_shot:"Toma captura o guárdala en tu teléfono. Tenla donde la veas antes de manejar.",
+    carry_save:"Guardar mi tarjeta", carry_cont:"Continuar →", carry_edit:"Editar mis respuestas",
+    carry_saved:"Tarjeta guardada en tu dispositivo.", carry_longpress:"Mantén presionada la tarjeta de arriba para guardar la imagen.",
+    carry_c_title:"MI TARJETA", carry_c_sub:"Qué hago si me detienen",
+    carry_c_hands:"Manos", carry_c_breath:"Respiración", carry_c_line:"Mi frase", carry_c_docs:"Documentos",
+    carry_c_foot:"Muévete temprano, termina quieto. Práctica, no asesoría legal — las leyes varían por estado.",
+    carry_d_hands:"en el volante, a la vista", carry_d_breath:"una respiración lenta antes de hablar",
+    carry_d_line:"No consiento un registro, oficial", carry_d_docs:"en un solo lugar fácil",
     prx_warn4:"Aquí lo haces todo bien — y el oficial sigue hostil de todos modos. Algunas paradas son así. El punto: las palabras calmadas protegen tu caso aunque no ablanden al oficial.",
     prx_done4_t:"Lo hiciste todo bien.",
     prx_done4:"Algunas paradas salen mal de todos modos — no es tu culpa. Para eso existen el paquete, las líneas de ayuda y un abogado. Lo que dijiste hoy es lo que te protege mañana en la corte.",
@@ -3810,6 +3850,109 @@ function prxBack(){
   prxDropLast(); prxIdleN=0; prxSaidTxt=''; prxSaidKey=''; prxSaidHits=0; prxSaidTotal=0; prxSaidGood=false; prxChosen=''; prxChoseGood=false; prxPickedAlt=false;
   prRun.pop(); prIdx--; prRevealed=false; practiceRender(); prxSpeak();
 }
+/* ===== Carry card =====
+   The artifact that leaves the screen: four lines, in the driver's own words,
+   rendered to a PNG they keep on the phone. Recalled from memory on purpose —
+   writing it is the retrieval practice. Everything stays on the device. */
+const CARRY_F=[['cHands','carry_hands','carry_hands_ph',42],['cBreath','carry_breath','carry_breath_ph',42],
+               ['cLine','carry_line','carry_line_ph',52],['cDocs','carry_docs','carry_docs_ph',42]];
+let carryVals={};
+function carryOpen(){
+  const _t=t(), o=document.getElementById('carryOverlay');
+  o.querySelector('#carryBody').innerHTML=`
+    <div style="text-align:center">
+      <div style="font-size:30px;line-height:1" aria-hidden="true">🪪</div>
+      <h1 style="font-size:20px;margin:4px 0 6px">${_t.carry_t}</h1>
+      <p style="font-size:13px;color:var(--muted);margin:0 auto 4px;max-width:330px">${_t.carry_sub}</p>
+    </div>
+    <div id="carryForm" style="text-align:left">
+      ${CARRY_F.map(([id,lb,ph,mx])=>`<label class="carry-lbl" for="${id}">${_t[lb]}</label>
+        <input class="carry-in" id="${id}" maxlength="${mx}" placeholder="${_t[ph]}" value="${esc(carryVals[id]||'')}" autocomplete="off">`).join('')}
+      <button class="btn" style="width:100%" onclick="carryBuild()">${_t.carry_make}</button>
+      <button class="linkbtn" onclick="carryClose()">${_t.carry_skip}</button>
+    </div>
+    <div id="carryDone" style="display:none">
+      <img id="carryPrev" class="carry-prev" alt="${_t.carry_t}">
+      <p style="font-size:12px;color:var(--muted);text-align:center;margin:0 0 12px">${_t.carry_shot}</p>
+      <button class="btn gold" style="width:100%" onclick="carrySave(this)">${_t.carry_save}</button>
+      <button class="linkbtn" onclick="carryOpen()">${_t.carry_edit}</button>
+      <button class="linkbtn" onclick="carryClose()">${_t.carry_cont}</button>
+      <div class="soon" id="carryNote" aria-live="polite" style="margin-top:4px"></div>
+    </div>`;
+  o.classList.add('open');
+  ph('sr_carry_opened',{lang:lang});
+}
+function carryClose(){ document.getElementById('carryOverlay').classList.remove('open'); }
+function carryBuild(){
+  CARRY_F.forEach(([id])=>{ const el=document.getElementById(id); if(el) carryVals[id]=el.value.trim(); });
+  carryDraw();
+  document.getElementById('carryForm').style.display='none';
+  document.getElementById('carryDone').style.display='block';
+  ph('sr_carry_built',{lang:lang});
+}
+function carryWrap(x,text,px,py,maxW,lh){
+  const words=String(text).split(' '); let line='', n=0;
+  words.forEach(w=>{ const tst=line?line+' '+w:w;
+    if(x.measureText(tst).width>maxW&&line){ x.fillText(line,px,py+n*lh); line=w; n++; } else line=tst; });
+  x.fillText(line,px,py+n*lh); return n;
+}
+function carryCanvas(){
+  const _t=t(), c=document.createElement('canvas'); c.width=1040; c.height=640;
+  const x=c.getContext('2d'), W=1040, H=640, F='"Segoe UI",Arial,sans-serif';
+  x.fillStyle='#FAF6EE'; x.fillRect(0,0,W,H);
+  x.fillStyle='#1B2A4A'; x.fillRect(0,0,W,90);
+  x.fillStyle='#E8B84B'; x.fillRect(0,90,W,6);
+  /* shield mark, drawn to match the site logo */
+  x.strokeStyle='#fff'; x.lineWidth=9; x.lineCap='round'; x.lineJoin='round';
+  x.beginPath(); x.moveTo(34,52); x.lineTo(58,30); x.lineTo(82,52); x.stroke();
+  x.beginPath(); x.arc(58,59,11,0,Math.PI*2); x.strokeStyle='#E8B84B'; x.lineWidth=7; x.stroke();
+  x.textAlign='left'; x.fillStyle='#fff'; x.font='900 34px '+F;
+  x.fillText(_t.carry_c_title,110,54);
+  x.fillStyle='#F3D48A'; x.font='700 19px '+F;
+  x.fillText(_t.carry_c_sub,110,78);
+  const rows=[[_t.carry_c_hands,carryVals.cHands||_t.carry_d_hands],
+              [_t.carry_c_breath,carryVals.cBreath||_t.carry_d_breath],
+              [_t.carry_c_line,carryVals.cLine||_t.carry_d_line],
+              [_t.carry_c_docs,carryVals.cDocs||_t.carry_d_docs]];
+  let y=150;
+  rows.forEach(([lab,val])=>{
+    x.fillStyle='#8a7a4a'; x.font='800 20px '+F; x.fillText(lab.toUpperCase(),40,y);
+    x.fillStyle='#22293a'; x.font='700 30px '+F;
+    const extra=carryWrap(x,val,40,y+34,960,36);
+    y+=96+extra*36;
+  });
+  x.strokeStyle='#E8B84B'; x.lineWidth=3;
+  x.beginPath(); x.moveTo(40,H-58); x.lineTo(W-40,H-58); x.stroke();
+  x.fillStyle='#6b7280'; x.font='600 19px '+F; x.fillText(_t.carry_c_foot,40,H-26);
+  x.textAlign='right'; x.fillStyle='#1B2A4A'; x.font='900 22px '+F;
+  x.fillText('amparohq.com',W-40,H-26);
+  return c;
+}
+function carryDraw(){
+  const c=carryCanvas(), p=document.getElementById('carryPrev');
+  try{ if(p) p.src=c.toDataURL('image/png'); }catch(e){}
+}
+async function carrySave(btn){
+  const _t=t(), note=document.getElementById('carryNote');
+  const blob=await new Promise(r=>carryCanvas().toBlob(r,'image/png'));
+  if(!blob) return;
+  const file=new File([blob],'amparo-carry-card.png',{type:'image/png'});
+  ph('sr_carry_saved',{lang:lang});
+  try{
+    if(navigator.canShare&&navigator.canShare({files:[file]})){
+      await navigator.share({files:[file],title:_t.carry_t});
+      if(note) note.textContent=_t.carry_saved;
+      return;
+    }
+  }catch(e){ if(e&&e.name==='AbortError'){ if(note) note.textContent=''; return; } }
+  try{
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a'); a.href=url; a.download='amparo-carry-card.png';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>{ try{ URL.revokeObjectURL(url); }catch(e){} },4000);
+    if(note) note.textContent=_t.carry_saved;
+  }catch(e){ if(note) note.textContent=_t.carry_longpress; }
+}
 /* 🏆 badge: client-side canvas → shareable PNG. The share IS the marketing —
    an image survives every platform (IG/WhatsApp/SMS) where text grids get mangled. */
 function prxCertCanvas(){
@@ -3901,6 +4044,7 @@ function practiceRender(){
     const _runs=Object.keys(prx.runs).reduce((a,k)=>a+(prx.runs[k]||0),0)||1;
     const foot=`<div class="prx-foot">
       <div class="prx-rehearse">${_runs<=1?_t.prx_rehearse1:_t.prx_rehearseN.replace('{n}',_runs)}</div>
+      ${prLevel===4?'':`<button class="linkbtn" style="margin-bottom:12px" onclick="carryOpen()">🪪 ${_t.carry_btn}</button>`}
       <div class="prx-res">${_t.prx_resource}</div>
       <div class="prx-fn"><div class="prx-fn-h">${_t.prx_fn_head}</div>
         <p>${_t.ab_founder_note}</p>
@@ -3916,6 +4060,7 @@ function practiceRender(){
         <p class="prc-intro" style="margin-top:12px">${_t.prx_hard_b2}</p>
         <p class="soon" style="margin-top:10px">${_t.prx_hard_note}</p>
         <p style="font-style:italic;border-left:3px solid var(--gold);padding-left:12px;margin:14px 0;font-size:13px;line-height:1.6;color:var(--ink);text-align:left">${_t.prx_final_note}</p>
+        <button class="btn" onclick="carryOpen()">${_t.carry_btn}</button>
         ${foot}
         <button class="btn ghost" onclick="prxAgain()">${_t.prx_again}</button>
         <button class="btn ghost" onclick="practiceClose()">${_t.prx_close}</button>`;
