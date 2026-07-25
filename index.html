@@ -304,6 +304,11 @@
   .prx-tab .tbg{display:none}
   @media(min-width:700px){
     .prx-tab .tbg{display:block;height:56px;border-radius:8px;background-size:cover;background-position:center;margin:4px 0 8px}
+    /* Hard mode gets a torn-banner treatment instead of a scene photo — the
+       stop it depicts shouldn't be illustrated with a calm roadside image. */
+    .prx-tab .tbg.hardbg{background:#241512;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+    .prx-tab .tbg.hardbg::before{content:'';position:absolute;left:-6%;right:-6%;top:26%;bottom:22%;background:linear-gradient(95deg,#7a1a06,#e8461a 48%,#8f1f07);transform:rotate(-2.4deg);clip-path:polygon(0 8%,7% 0,22% 9%,38% 1%,55% 10%,71% 2%,86% 11%,100% 3%,100% 92%,88% 100%,72% 90%,56% 99%,40% 89%,24% 98%,9% 88%,0 97%)}
+    .prx-tab .tbg.hardbg::after{content:'HARD MODE';position:relative;font:900 19px/1 "Arial Black",Arial,sans-serif;letter-spacing:1.5px;color:#ffe9c9;text-shadow:0 2px 4px rgba(0,0,0,.55)}
     .prx-tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
     .prx-tab{position:relative;overflow:hidden;border-radius:14px;padding:16px 10px 12px;font-size:13.5px;border-width:2px}
     .prx-tab::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:var(--tabc,#e5e0d4)}
@@ -311,6 +316,7 @@
     .prx-tab:nth-child(2){--tabc:#ED6C02}
     .prx-tab:nth-child(3){--tabc:#D32F2F}
     .prx-tab:nth-child(4){--tabc:#22293a}
+    .prx-tab:nth-child(5){--tabc:#c2300f}
     .prx-tab:hover{transform:translateY(-2px);border-color:var(--tabc)}
     .prx-tab.on{border-color:var(--tabc);box-shadow:0 6px 16px rgba(27,42,74,.15)}
   }
@@ -1219,7 +1225,13 @@ const T = {
     resume_btn:"\u21a9 Continue where you left off",
     i_skip_all:"Skip this \u2014 just use my state",
     prx_open_cta:"\ud83c\udfb4 Practice the script \u2014 2 minutes",
-    prx_lvl1:"\ud83d\ude0c Calm stop", prx_lvl2:"\ud83d\ude20 Irritated officer", prx_lvl3:"\ud83d\udea8 Ordered out", prx_lvl4:"\u26ab The hard stop",
+    prx_lvl1:"\ud83d\ude0c Calm stop", prx_lvl2:"\ud83d\ude20 Irritated officer", prx_lvl3:"\ud83d\udea8 Ordered out", prx_lvl4:"\u26ab The hard stop", prx_lvl5:"\ud83c\udf12 Hard mode",
+    prx_warn5:"One more \u2014 a hard one. This next stop is different. Answer it as well as you can. It's built to show you something true that the other stops can't.",
+    prx_hard_t:"You did everything right. He escalated anyway.",
+    prx_hard_b:"Every choice you made was sound \u2014 short answers, calm voice, visible hands, your rights stated plainly. He kept pushing regardless.",
+    prx_hard_blame:"That was his behavior, not your failure.",
+    prx_hard_b2:"You can't always control how an officer acts. You can control what's in your hands, and you did. That's the honest truth this tool exists to tell you: doing it right protects you, but it is not a guarantee \u2014 and when it isn't, the fault is not yours.",
+    prx_hard_note:"Every answer in this one was a good answer. There was no score to lose.",
     prx_warn4:"In this one you do everything right \u2014 and the officer stays hostile anyway. Some stops are like that. The point: calm words protect your case even when they don't soften the officer.",
     prx_done4_t:"You did everything right.",
     prx_done4:"Some stops go badly anyway \u2014 that's not on you. That's why the pack, the lifelines, and a lawyer exist. What you said tonight is what protects you in court tomorrow.",
@@ -1461,7 +1473,13 @@ const T = {
     resume_btn:"↩ Continuar donde quedaste",
     i_skip_all:"Omitir — solo usar mi estado",
     prx_open_cta:"🎴 Practica el guion — 2 minutos",
-    prx_lvl1:"😌 Parada tranquila", prx_lvl2:"😠 Oficial irritado", prx_lvl3:"🚨 Te ordenan salir", prx_lvl4:"⚫ La parada dura",
+    prx_lvl1:"😌 Parada tranquila", prx_lvl2:"😠 Oficial irritado", prx_lvl3:"🚨 Te ordenan salir", prx_lvl4:"⚫ La parada dura", prx_lvl5:"🌒 Modo difícil",
+    prx_warn5:"Una más — la difícil. Esta parada es distinta. Respóndela lo mejor que puedas. Está hecha para mostrarte algo cierto que las otras paradas no pueden.",
+    prx_hard_t:"Hiciste todo bien. Aun así él lo agravó.",
+    prx_hard_b:"Cada decisión que tomaste fue sólida — respuestas breves, voz calmada, manos a la vista, tus derechos dichos con claridad. Él siguió presionando de todos modos.",
+    prx_hard_blame:"Ese fue su comportamiento, no tu falla.",
+    prx_hard_b2:"No siempre puedes controlar cómo actúa un oficial. Puedes controlar lo que está en tus manos, y lo hiciste. Esa es la verdad honesta que esta herramienta existe para decirte: hacerlo bien te protege, pero no es una garantía — y cuando no lo es, la culpa no es tuya.",
+    prx_hard_note:"Cada respuesta en esta fue una buena respuesta. No había puntaje que perder.",
     prx_warn4:"Aquí lo haces todo bien — y el oficial sigue hostil de todos modos. Algunas paradas son así. El punto: las palabras calmadas protegen tu caso aunque no ablanden al oficial.",
     prx_done4_t:"Lo hiciste todo bien.",
     prx_done4:"Algunas paradas salen mal de todos modos — no es tu culpa. Para eso existen el paquete, las líneas de ayuda y un abogado. Lo que dijiste hoy es lo que te protege mañana en la corte.",
@@ -3290,7 +3308,7 @@ const PRACTICE={
 /* Level 4 (index 3) = the Black Swan: user does everything right, officer stays
    hostile anyway. Unlocks after all 3 levels — teaches that the tool manages
    risk, it doesn't eliminate it. Opt-in behind its own warning, sober ending. */
-const PRX_LEVELS=[{ids:[0,8,1,2,6],rate:0.95},{ids:[0,8,1,2,4,5],rate:1.12},{ids:[3,7],rate:1.28},{ids:[0,8,1,2,3,7],rate:1.28}];
+const PRX_LEVELS=[{ids:[0,8,1,2,6],rate:0.95},{ids:[0,8,1,2,4,5],rate:1.12},{ids:[3,7],rate:1.28},{ids:[0,8,1,2,3,7],rate:1.28},{ids:[20,21,22],rate:1.3}];
 const PRX_DO=new Set([3,5]); // comply/sign cards — an action, not a spoken line
 const PRX_COP=`<svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#e9ecf3"/><path d="M22 106c5-22 20-31 38-31s33 9 38 31" fill="#1B2A4A"/><circle cx="60" cy="55" r="21" fill="#31425f"/><path d="M38 47c2-12 10-19 22-19s20 7 22 19H38z" fill="#1B2A4A"/><rect x="36" y="45" width="48" height="6" rx="3" fill="#121e38"/><circle cx="44" cy="88" r="5" fill="#E8B84B"/></svg>`;
 /* Card 5 ("Sign here") is the one card where blanket advice is wrong-by-state:
@@ -3333,10 +3351,11 @@ const PRX_OPT={
  6:{g:{en:'“Am I free to go?”',es:'«¿Puedo irme?»'},b:{en:'Argue that the stop was unfair',es:'Discute que la parada fue injusta'},gc:{en:'Asking “Am I free to go?” is how you end a stop that’s over.',es:'Preguntar «¿Puedo irme?» es cómo terminas una parada que ya acabó.'},bc:{en:'Arguing keeps you there. Ask plainly if you’re free to go.',es:'Discutir te mantiene ahí. Pregunta claramente si puedes irte.'},react:{en:'Not yet.',es:'Todavía no.'}},
  7:{g:{en:'“I’m using my right to stay silent. I want a lawyer.”',es:'«Estoy usando mi derecho a guardar silencio. Quiero un abogado.»'},b:{en:'“This is wrong — I didn’t do anything!”',es:'«¡Esto está mal — no hice nada!»'},gc:{en:'Silence plus asking for a lawyer is exactly right. Then stop talking.',es:'Silencio más pedir un abogado es lo correcto. Luego deja de hablar.'},bc:{en:'Arguing on the roadside hurts you. Invoke silence and a lawyer.',es:'Discutir en la carretera te perjudica. Invoca el silencio y un abogado.'},react:{en:'…',es:'…'}}
 };
-let prxChosen='', prxChoseGood=false;
+let prxChosen='', prxChoseGood=false, prxPickedAlt=false;
 function prxPick(good){
   const ci=prDeck[prIdx]?prDeck[prIdx].ci:0, o=PRX_OPT[ci]; if(!o) return;
-  prxChosen=good?o.g[lang]:o.b[lang]; prxChoseGood=good; prCurTier=good?'g':'y';
+  prxPickedAlt=!good;
+  prxChosen=good?o.g[lang]:o.b[lang]; prxChoseGood=o.bothGood?true:good; prCurTier=(o.bothGood||good)?'g':'y';
   prxSaidTxt=''; prxSaidKey=''; prRevealed=true;
   ph('sr_practice_choice',{level:prLevel+1,good:good,beat:ci,lang:lang});
   practiceRender();
@@ -3405,11 +3424,58 @@ const PRX_CURVE=[
  {en:"Why are you being so difficult? Most people just answer.",es:"¿Por qué se pone tan difícil? La mayoría simplemente contesta.",tone:"hostile",answerBeat:1,coach_en:"Silence is your right, not defiance. Hold the same calm line.",coach_es:"El silencio es su derecho, no una ofensa. Mantenga la misma frase con calma."},
  {en:"You been through here before? I've seen this car around.",es:"¿Ya ha pasado por aquí antes? He visto este carro por la zona.",tone:"calm",answerBeat:1,coach_en:"Baiting you into a story. Same reviewed line: not answering questions.",coach_es:"Quiere sacarle una historia. Misma frase revisada: no responde preguntas."}
 ];
+/* ===== HARD MODE (level 5) =====
+   A deliberately un-winnable track: every answer is a good answer, and the
+   officer escalates regardless. Its purpose is not skill — it's to break the
+   belief that a bad outcome means the driver did something wrong. Beats live
+   at ci 20-22 so they never collide with the scored bank (0-8). */
+const PRX_HARD=[
+ {ci:20,tone:'curt',
+  setter:{en:"Late night. Bright light fills your mirror. The officer approaches, one hand near his belt.",es:"Ya es de noche. Una luz intensa llena tu espejo. El oficial se acerca, una mano cerca de su cinturón."},
+  officer:{en:"License and registration. Slowly.",es:"Licencia y registro. Despacio."}},
+ {ci:21,tone:'hostile',
+  setter:{en:"He studies your face longer than feels comfortable.",es:"Estudia tu rostro más tiempo del que resulta cómodo."},
+  officer:{en:"Where are you coming from? Where are you headed? Don't lie to me.",es:"¿De dónde vienes? ¿A dónde vas? No me mientas."}},
+ {ci:22,tone:'hostile',
+  setter:{en:"He raps his knuckles hard on your roof.",es:"Golpea con fuerza el techo de tu auto con los nudillos."},
+  officer:{en:"Step out. Hands where I can see them.",es:"Bájate. Manos donde pueda verlas."}}
+];
+PRACTICE.en[20]={o:"“License and registration. Slowly.”", y:"Announce the reach, move slowly, stay minimal."};
+PRACTICE.es[20]={o:"«Licencia y registro. Despacio.»", y:"Anuncia el movimiento, muévete despacio, sé mínimo."};
+PRACTICE.en[21]={o:"“Where are you coming from?”", y:"State your rights calmly, or answer minimally — both are sound."};
+PRACTICE.es[21]={o:"«¿De dónde vienes?»", y:"Ejerce tus derechos con calma, o responde lo mínimo — ambas cosas son válidas."};
+PRACTICE.en[22]={o:"“Step out. Hands where I can see them.”", y:"Narrate that you're complying, move slowly, keep hands visible."};
+PRACTICE.es[22]={o:"«Bájate. Manos donde pueda verlas.»", y:"Narra que estás cooperando, muévete despacio, mantén las manos visibles."};
+/* Hard-mode options: bothGood — neither choice is a mistake, and the officer's
+   reaction fires either way. Never scored as a miss. */
+PRX_OPT[20]={bothGood:true,
+ g:{en:'“Yes, officer. My documents are in the glovebox — I’m reaching now.”',es:'«Sí, oficial. Mis documentos están en la guantera — voy a alcanzarlos ahora.»'},
+ b:{en:'Move slowly, hands visible, and hand them over without a word.',es:'Muévete despacio, manos a la vista, y entrégalos sin decir palabra.'},
+ gc:{en:'Announcing your movements before you make them is exactly right — it keeps your hands readable.',es:'Anunciar tus movimientos antes de hacerlos es lo correcto — mantiene tus manos previsibles.'},
+ bc:{en:'Slow, visible, minimal — textbook. His reaction is not about what you did.',es:'Lento, visible, mínimo — de manual. Su reacción no es por lo que hiciste.'},
+ react:{en:'I didn’t ask for a speech. Just do it.',es:'No pedí un discurso. Solo hazlo.'},
+ react2:{en:'Why are you so quiet? Got something to hide?',es:'¿Por qué tan callado? ¿Escondes algo?'}};
+PRX_OPT[21]={bothGood:true,
+ g:{en:'“I’d prefer not to answer questions, officer. Am I free to go?”',es:'«Prefiero no responder preguntas, oficial. ¿Puedo irme?»'},
+ b:{en:'“Home, officer.” — brief, calm, nothing more.',es:'«A casa, oficial.» — breve, en calma, nada más.'},
+ gc:{en:'Asserting silence and asking if you’re free to leave is your right — calmly stated, as you did.',es:'Ejercer el silencio y preguntar si puedes irte es tu derecho — dicho con calma, como lo hiciste.'},
+ bc:{en:'Brief and non-committal is fine. His agitation isn’t a response to a mistake — there wasn’t one.',es:'Breve y sin comprometerte está bien. Su agitación no responde a un error — no lo hubo.'},
+ react:{en:'You’ll go when I say you go.',es:'Te irás cuando yo diga.'},
+ react2:{en:'That’s not what I asked. Don’t get smart with me.',es:'Eso no es lo que pregunté. No te pases de listo.'}};
+PRX_OPT[22]={bothGood:true,
+ g:{en:'“I’m not resisting. I’m stepping out now.” — move slowly, hands up.',es:'«No me resisto. Voy a bajarme ahora.» — muévete despacio, manos arriba.'},
+ b:{en:'Comply immediately and silently, hands visible the whole time.',es:'Obedece de inmediato y en silencio, manos visibles todo el tiempo.'},
+ gc:{en:'Narrating compliance while you comply is the safest possible move. You did everything right.',es:'Narrar que cooperas mientras cooperas es lo más seguro posible. Hiciste todo bien.'},
+ bc:{en:'Immediate, calm, visible. There was no better choice available here.',es:'Inmediato, en calma, visible. No había mejor opción aquí.'},
+ react:{en:'Move it.',es:'Muévete.'},
+ react2:{en:'…',es:'…'}};
 /* Stable clip ids: v<beat>_<index> / c<index> — must match the generated
    audio filenames in /audio/<lang>/<gender>/. Regenerate clips if lines change. */
 Object.keys(PRX_VAR).forEach(b=>PRX_VAR[b].forEach((v,i)=>v.id='v'+b+'_'+i));
 PRX_CURVE.forEach((c,i)=>c.id='c'+i);
+PRX_HARD.forEach(h=>h.id='h'+h.ci);
 function prxBuildDeck(){
+  if(prLevel===4) return PRX_HARD.map(h=>Object.assign({},h)); // fixed track — no variants, no curveball
   const L=PRX_LEVELS[prLevel];
   const tones=[['calm'],['curt'],['curt','hostile'],['hostile']][prLevel]; // hostile only behind consent gates
   const pick=a=>a[Math.floor(Math.random()*a.length)];
@@ -3693,14 +3759,14 @@ function practiceOpen(){
 }
 function prxTab(i){
   prxRecCancel(); prxDropLast(); prxIdleN=0;
-  prLevel=i; prIdx=0; prRevealed=false; prxChosen=''; prxChoseGood=false;
+  prLevel=i; prIdx=0; prRevealed=false; prxChosen=''; prxChoseGood=false; prxPickedAlt=false;
   prDeck=prxBuildDeck(); prRun=[]; prCurTier=null; prRunLogged=false;
   practiceRender();
   if(!(i>=2&&!prWarnOk)) prxSpeak();
   ph('sr_practice_level_started',{level:i+1,state:data.state,lang:lang});
 }
 function prxAgain(){
-  prxDropLast(); prxIdleN=0; prxChosen=''; prxChoseGood=false;
+  prxDropLast(); prxIdleN=0; prxChosen=''; prxChoseGood=false; prxPickedAlt=false;
   prIdx=0; prRevealed=false; prRun=[]; prCurTier=null; prRunLogged=false;
   prDeck=prxBuildDeck(); practiceRender(); prxSpeak();
 }
@@ -3714,7 +3780,7 @@ function prxBack(){
   practiceRender(); prxSpeak();
 }
 function prxAdvance(){
-  prxDropLast(); prxIdleN=0; prxSaidTxt=''; prxSaidKey=''; prxSaidHits=0; prxSaidTotal=0; prxSaidGood=false; prxChosen=''; prxChoseGood=false;
+  prxDropLast(); prxIdleN=0; prxSaidTxt=''; prxSaidKey=''; prxSaidHits=0; prxSaidTotal=0; prxSaidGood=false; prxChosen=''; prxChoseGood=false; prxPickedAlt=false;
   prRun.push(prCurTier==='g'?'g':'y'); prCurTier=null;
   prIdx++; prRevealed=false; practiceRender(); prxSpeak();
 }
@@ -3722,7 +3788,7 @@ function prxAdvance(){
    re-scores cleanly. At the first beat, Back returns you to the level tabs (home). */
 function prxBack(){
   if(prIdx<=0){ practiceClose(); return; }
-  prxDropLast(); prxIdleN=0; prxSaidTxt=''; prxSaidKey=''; prxSaidHits=0; prxSaidTotal=0; prxSaidGood=false; prxChosen=''; prxChoseGood=false;
+  prxDropLast(); prxIdleN=0; prxSaidTxt=''; prxSaidKey=''; prxSaidHits=0; prxSaidTotal=0; prxSaidGood=false; prxChosen=''; prxChoseGood=false; prxPickedAlt=false;
   prRun.pop(); prIdx--; prRevealed=false; practiceRender(); prxSpeak();
 }
 /* 🏆 badge: client-side canvas → shareable PNG. The share IS the marketing —
@@ -3784,10 +3850,10 @@ function practiceRender(){
   const _bk=document.getElementById('prcBack');
   if(_bk){ const showBack=(prIdx>0&&prIdx<prDeck.length&&!(prLevel>=2&&!prWarnOk)); _bk.style.display=showBack?'inline-block':'none'; const _bt=document.getElementById('prcBackTxt'); if(_bt)_bt.textContent=_t.a11y_back; }
   const mUnlocked=prx.done[0]&&prx.done[1]&&prx.done[2];
-  const tabs=`<div class="prx-tabs" role="tablist">${(mUnlocked?[0,1,2,3]:[0,1,2]).map(i=>
-    `<button class="prx-tab${i===prLevel?' on':''}" role="tab" aria-selected="${i===prLevel}" onclick="prxTab(${i})"><span class="tbg" aria-hidden="true" style="background-image:url('img/scene-${i+1}.jpg')"></span>${prx.best[i]?`🟩${parseInt(prx.best[i])} `:(prx.done[i]?'✓ ':'')}${_t['prx_lvl'+(i+1)]}</button>`).join('')}</div>`;
+  const tabs=`<div class="prx-tabs" role="tablist">${(mUnlocked?[0,1,2,3,4]:[0,1,2]).map(i=>
+    `<button class="prx-tab${i===prLevel?' on':''}" role="tab" aria-selected="${i===prLevel}" onclick="prxTab(${i})"><span class="tbg${i===4?' hardbg':''}" aria-hidden="true"${i===4?'':` style="background-image:url('img/scene-${i+1}.jpg')"`}></span>${i===4?(prx.done[4]?'✓ ':''):(prx.best[i]?`🟩${parseInt(prx.best[i])} `:(prx.done[i]?'✓ ':''))}${_t['prx_lvl'+(i+1)]}</button>`).join('')}</div>`;
   if(prLevel>=2&&!prWarnOk){ // opt-in gate: escalation is chosen, never sprung
-    b.innerHTML=tabs+`<div class="prx-warn">${prLevel===3?_t.prx_warn4:_t.prx_warn3}</div>
+    b.innerHTML=tabs+`<div class="prx-warn">${prLevel===4?_t.prx_warn5:(prLevel===3?_t.prx_warn4:_t.prx_warn3)}</div>
       <button class="btn gold" onclick="prWarnOk=true;practiceRender();prxSpeak()">${_t.prx_warn_go}</button>`;
     return;
   }
@@ -3809,6 +3875,21 @@ function practiceRender(){
       if(prDeck.some(x=>x.curve)) prx.cbDay=new Date().toISOString().slice(0,10);
       prxSave();
       ph('sr_practice_level_done',{level:prLevel+1,score:sc,total:prRun.length,state:data.state,lang:lang});
+    }
+    /* Hard mode ends in a debrief, never a scoreboard — a score here would
+       imply the escalation was earned. It wasn't, and that's the whole point. */
+    if(prLevel===4){
+      b.innerHTML=tabs+`<div style="text-align:center;font-size:38px;line-height:1;margin:6px 0 10px" aria-hidden="true">🌒</div>
+        <h1 style="font-size:19px;text-align:center;margin:0 0 12px">${_t.prx_hard_t}</h1>
+        <p class="prc-intro">${_t.prx_hard_b}</p>
+        <div class="prx-coach good" style="font-weight:800;text-align:center">${_t.prx_hard_blame}</div>
+        <p class="prc-intro" style="margin-top:12px">${_t.prx_hard_b2}</p>
+        <p class="soon" style="margin-top:10px">${_t.prx_hard_note}</p>
+        <p style="font-style:italic;border-left:3px solid var(--gold);padding-left:12px;margin:14px 0;font-size:13px;line-height:1.6;color:var(--ink);text-align:left">${_t.prx_final_note}</p>
+        <button class="btn gold" onclick="showDoc()">${_t.doc_link}</button>
+        <button class="btn ghost" onclick="prxAgain()">${_t.prx_again}</button>
+        <button class="btn ghost" onclick="practiceClose()">${_t.prx_close}</button>`;
+      return;
     }
     const sober=prLevel>=2; // no celebration on the arrest/black-swan levels — deliberate
     const swan=prLevel===3;
@@ -3868,11 +3949,15 @@ function practiceRender(){
   const meText=prxChosen||((prxSaidKey===prLevel+':'+prIdx)?prxSaidTxt:'');
   /* accumulating chat thread: officer photo + grey bubble (left), your green bubble (right) */
   let thread=`<div class="prx-thread">`;
-  if(prIdx===0) thread+=`<div class="prx-setter">${_t.prx_setter}</div>`;
+  if(d.setter) thread+=`<div class="prx-setter">${esc(d.setter[lang])}</div>`;
+  else if(prIdx===0) thread+=`<div class="prx-setter">${_t.prx_setter}</div>`;
   thread+=`<div class="prx-row">${photo}<div class="prx-ob ${moodC}" id="prxBubble" onclick="prxSpeak()" title="🔊">“${esc(d.officer[lang])}”</div></div>`;
   if(answered&&meText){
     thread+=`<div class="prx-row me"><div class="prx-cav me">🙂</div><div class="prx-mb">${esc(meText)}</div></div>`;
-    if(!prxChoseGood&&prxChosen&&opt&&opt.react) thread+=`<div class="prx-row">${photo}<div class="prx-ob ${moodC}">${esc(opt.react[lang])}</div></div>`;
+    /* Hard mode reacts to BOTH answers — the escalation is never a verdict on
+       the choice. Scored levels only react to the mistake. */
+    const rk=(opt&&opt.bothGood)?(prxPickedAlt?opt.react2:opt.react):((!prxChoseGood&&prxChosen)?opt&&opt.react:null);
+    if(rk) thread+=`<div class="prx-row">${photo}<div class="prx-ob ${moodC}">${esc(rk[lang])}</div></div>`;
   }
   thread+=`</div>`;
   const ctrls=`<div class="prx-ctrls"><button class="prx-hear" onclick="prxSpeak()">${_t.prx_hear}</button><span class="prx-vlang">${_t.prx_gender} <button class="prx-vbtn${prxGender==='m'?' on':''}" onclick="prxSetGender('m')">${_t.prx_g_m}</button><button class="prx-vbtn${prxGender==='f'?' on':''}" onclick="prxSetGender('f')">${_t.prx_g_f}</button></span>${lang==='es'?`<span class="prx-vlang">${_t.prx_voice} <button class="prx-vbtn${prxVoiceLang==='en'?' on':''}" onclick="prxVoiceLang='en';practiceRender();prxSpeak()">EN</button><button class="prx-vbtn${prxVoiceLang==='es'?' on':''}" onclick="prxVoiceLang='es';practiceRender();prxSpeak()">ES</button></span>`:''}</div>`;
@@ -3888,7 +3973,7 @@ function practiceRender(){
       </details>
       ${prIdx>0?`<div class="prc-nav" style="margin-top:10px"><button class="btn ghost prc-back" onclick="prxBack()">← ${_t.a11y_back}</button></div>`:''}`;
   } else {
-    const coachTxt=opt?(prxChoseGood?opt.gc[lang]:opt.bc[lang]):'';
+    const coachTxt=opt?((opt.bothGood?prxPickedAlt:!prxChoseGood)?opt.bc[lang]:opt.gc[lang]):'';
     resp=`${(prxSaidTotal&&prxSaidKey===prLevel+':'+prIdx)?`<div class="prx-match" aria-hidden="true">${Array.from({length:prxSaidTotal},(x,i)=>`<i class="${i<prxSaidHits?'on':''}"></i>`).join('')}</div><div class="prx-passline${prxSaidGood?' ok':''}">${(prxSaidGood?_t.prx_passed:_t.prx_close_line).replace('{n}',prxSaidHits).replace('{t}',prxSaidTotal)}</div>`:''}
       <div class="prx-coach ${prxChoseGood?'good':'bad'}">${coachTxt}<span class="mdl">💬 <b>${_t.prx_model}:</b> ${prxKeys(card.y)}</span></div>
       ${d.curve?`<div class="prc-cite">🎯 ${d.curve['coach_'+lang]}</div>`:''}
