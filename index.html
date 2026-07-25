@@ -211,6 +211,9 @@
   .scen .sd{font-size:13px;color:var(--muted);line-height:1.45;margin-top:2px}
   #aboutOverlay,#practiceOverlay,#docOverlay,#prepOverlay,#pintroOverlay{position:fixed;inset:0;z-index:95;background:rgba(9,14,26,.6);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:20px}
   #aboutOverlay.open,#practiceOverlay.open,#docOverlay.open,#prepOverlay.open,#pintroOverlay.open{display:flex;animation:camIn .35s var(--ease-out)}
+  /* docOverlay is opened FROM the other overlays, so it must paint above them —
+     equal z-index left it behind the practice overlay and the link looked dead. */
+  #docOverlay{z-index:97}
   .prc-count{font-size:12px;font-weight:800;letter-spacing:1px;color:#8a7a4a;text-transform:uppercase;margin-bottom:10px}
   .prc-role{font-size:11px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:#8a7a4a;margin-bottom:6px}
   .prc-officer{position:relative;background:#fff;border:1.5px solid var(--line);border-radius:16px;border-top-left-radius:4px;padding:16px;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:14px;cursor:pointer}
@@ -248,6 +251,14 @@
   .prx-coach.good{background:#eef7f0;border:1px solid #bcd8c2;color:#123f38}
   .prx-coach.bad{background:#fdf1e0;border:1px solid #e6c78a;color:#6b4a08}
   .prx-coach .mdl{display:block;margin-top:8px;padding-top:8px;border-top:1px solid rgba(0,0,0,.1)}
+  /* summary footer — rehearsal count, resources, founder's note */
+  .prx-foot{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+  .prx-rehearse{text-align:center;font-weight:800;font-size:13.5px;color:var(--navy);margin-bottom:12px}
+  .prx-res{border:1px solid var(--line);background:#fffdf8;border-radius:12px;padding:12px 14px;font-size:12.5px;line-height:1.6;color:var(--ink)}
+  .prx-fn{border:1.5px solid var(--gold);background:#fffbf0;border-radius:12px;padding:14px 16px;margin-top:12px;text-align:left}
+  .prx-fn-h{font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#8a7a4a;margin-bottom:8px}
+  .prx-fn p{font-size:13px;line-height:1.65;color:var(--ink);margin:0}
+  .prx-fn-s{font-weight:800;color:var(--navy);font-size:13px;margin-top:10px}
   .prx-ctrls{display:flex;align-items:center;gap:6px;justify-content:center;flex-wrap:wrap;margin:2px 0 12px}
   .prx-ctrls .prx-vlang{margin:0}
   .prc-home{background:rgba(255,255,255,.16);border:0;border-radius:9px;padding:5px 7px;cursor:pointer;display:flex;align-items:center;line-height:0;flex:none}
@@ -1232,6 +1243,10 @@ const T = {
     prx_hard_blame:"That was his behavior, not your failure.",
     prx_hard_b2:"You can't always control how an officer acts. You can control what's in your hands, and you did. That's the honest truth this tool exists to tell you: doing it right protects you, but it is not a guarantee \u2014 and when it isn't, the fault is not yours.",
     prx_hard_note:"Every answer in this one was a good answer. There was no score to lose.",
+    prx_resource:"Feeling shaken? Call or text <b>988</b> (Suicide &amp; Crisis Lifeline, US — free, 24/7). Know your rights: <b>aclu.org</b>. Record &amp; report stops: <b>ACLU Mobile Justice</b>.",
+    prx_fn_head:"A note from the person who built this",
+    prx_rehearse1:"🛡 You just finished your first full rehearsal.",
+    prx_rehearseN:"🛡 You've rehearsed this {n} times. It gets steadier each time.",
     prx_warn4:"In this one you do everything right \u2014 and the officer stays hostile anyway. Some stops are like that. The point: calm words protect your case even when they don't soften the officer.",
     prx_done4_t:"You did everything right.",
     prx_done4:"Some stops go badly anyway \u2014 that's not on you. That's why the pack, the lifelines, and a lawyer exist. What you said tonight is what protects you in court tomorrow.",
@@ -1480,6 +1495,10 @@ const T = {
     prx_hard_blame:"Ese fue su comportamiento, no tu falla.",
     prx_hard_b2:"No siempre puedes controlar cómo actúa un oficial. Puedes controlar lo que está en tus manos, y lo hiciste. Esa es la verdad honesta que esta herramienta existe para decirte: hacerlo bien te protege, pero no es una garantía — y cuando no lo es, la culpa no es tuya.",
     prx_hard_note:"Cada respuesta en esta fue una buena respuesta. No había puntaje que perder.",
+    prx_resource:"¿Te sientes sacudido? Llama o envía un mensaje al <b>988</b> (Línea de Crisis y Suicidio, EE. UU. — gratis, 24/7). Conoce tus derechos: <b>aclu.org</b>. Graba y reporta las paradas: <b>ACLU Mobile Justice</b>.",
+    prx_fn_head:"Una nota de quien construyó esto",
+    prx_rehearse1:"🛡 Acabas de terminar tu primer ensayo completo.",
+    prx_rehearseN:"🛡 Has ensayado esto {n} veces. Se vuelve más firme cada vez.",
     prx_warn4:"Aquí lo haces todo bien — y el oficial sigue hostil de todos modos. Algunas paradas son así. El punto: las palabras calmadas protegen tu caso aunque no ablanden al oficial.",
     prx_done4_t:"Lo hiciste todo bien.",
     prx_done4:"Algunas paradas salen mal de todos modos — no es tu culpa. Para eso existen el paquete, las líneas de ayuda y un abogado. Lo que dijiste hoy es lo que te protege mañana en la corte.",
@@ -3876,6 +3895,17 @@ function practiceRender(){
       prxSave();
       ph('sr_practice_level_done',{level:prLevel+1,score:sc,total:prRun.length,state:data.state,lang:lang});
     }
+    /* Shared summary footer (ported from the practice.html summary): rehearsal
+       count → crisis/rights resources → founder's note → the hard-truth link.
+       Every level ends here, not just the swan. */
+    const _runs=Object.keys(prx.runs).reduce((a,k)=>a+(prx.runs[k]||0),0)||1;
+    const foot=`<div class="prx-foot">
+      <div class="prx-rehearse">${_runs<=1?_t.prx_rehearse1:_t.prx_rehearseN.replace('{n}',_runs)}</div>
+      <div class="prx-res">${_t.prx_resource}</div>
+      <div class="prx-fn"><div class="prx-fn-h">${_t.prx_fn_head}</div>
+        <p>${_t.ab_founder_note}</p>
+        <div class="prx-fn-s">${_t.ab_founder_sign}</div></div>
+      <button class="linkbtn" onclick="showDoc()">${_t.doc_link}</button></div>`;
     /* Hard mode ends in a debrief, never a scoreboard — a score here would
        imply the escalation was earned. It wasn't, and that's the whole point. */
     if(prLevel===4){
@@ -3886,7 +3916,7 @@ function practiceRender(){
         <p class="prc-intro" style="margin-top:12px">${_t.prx_hard_b2}</p>
         <p class="soon" style="margin-top:10px">${_t.prx_hard_note}</p>
         <p style="font-style:italic;border-left:3px solid var(--gold);padding-left:12px;margin:14px 0;font-size:13px;line-height:1.6;color:var(--ink);text-align:left">${_t.prx_final_note}</p>
-        <button class="btn gold" onclick="showDoc()">${_t.doc_link}</button>
+        ${foot}
         <button class="btn ghost" onclick="prxAgain()">${_t.prx_again}</button>
         <button class="btn ghost" onclick="practiceClose()">${_t.prx_close}</button>`;
       return;
@@ -3915,13 +3945,13 @@ function practiceRender(){
       </div>
       <p class="prc-intro">${swan?'':(yCount?_t.prx_tip_y:_t.prx_tip_all)}</p>
       ${sober?`<p class="prc-intro">${swan?_t.prx_done4:_t.prx_done3}</p>`:''}
-      ${swan?`<button class="linkbtn" onclick="showDoc()">${_t.doc_link}</button>`:''}
       <div class="prx-bd">${bdRows}</div>
       ${master?`<div class="prx-master">🏆 ${_t.prx_master}</div>
       <button class="btn gold" onclick="prxShareCert(this)">${_t.prx_master_btn}</button>
       <button class="btn" onclick="prxShareRun(this)">${_t.prx_share_btn}</button>`
       :`<button class="btn gold" onclick="prxShareRun(this)">${_t.prx_share_btn}</button>
       ${prLevel<2?`<button class="btn" onclick="prxTab(${prLevel+1})">${_t['prx_lvl'+(prLevel+2)]} →</button>`:''}`}
+      ${foot}
       <button class="btn ghost" onclick="prxAgain()">${_t.prx_again}</button>
       <button class="btn ghost" onclick="practiceClose()">${_t.prx_close}</button>`;
     return;
