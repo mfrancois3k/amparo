@@ -2,11 +2,27 @@
    Page: network-first (you always get the latest deploy when you have signal;
    the cache is only the offline fallback). Audio/img: cache-first (immutable,
    and prepaid-data users must not re-pay for clips they've already played). */
-const C = 'amparo-v2';
+const C = 'amparo-v3';
 const CORE = './';
+/* Precached alongside the shell: without these the install prompt and the
+   home-screen icon fail on a cold/offline start, which is the exact moment
+   an installed pack has to work. */
+const EXTRA = [
+  './manifest.webmanifest',
+  './img/icon-192.png',
+  './img/icon-512.png',
+  './img/icon-maskable-512.png',
+  './img/apple-touch-icon.png'
+];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(C).then(c => c.add(CORE)).catch(() => {}));
+  // addAll is atomic — one 404 would reject the whole install, so the icons are
+  // added individually and allowed to fail without blocking the shell.
+  e.waitUntil(caches.open(C).then(c =>
+    c.add(CORE).catch(() => {}).then(() =>
+      Promise.all(EXTRA.map(u => c.add(u).catch(() => {})))
+    )
+  ).catch(() => {}));
   self.skipWaiting();
 });
 

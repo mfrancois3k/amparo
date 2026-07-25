@@ -23,11 +23,21 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://www.amparohq.com/og.png">
 <meta name="theme-color" content="#1B2A4A">
+<!-- Installability is not polish here: iOS evicts storage for NON-installed sites
+     after ~7 days idle, and the whole pitch is "set it up once, need it months
+     later at the roadside." Without the manifest the offline pack quietly expires. -->
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Amparo">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='72' r='28' fill='none' stroke='%23E8B84B' stroke-width='12'/%3E%3Crect x='48' y='56' width='24' height='32' rx='4' fill='%231B2A4A'/%3E%3Cpath d='M12 62 L60 18 L108 62' fill='none' stroke='%231B2A4A' stroke-width='13' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
   :root{
     --navy:#1B2A4A; --navy-deep:#121e38; --gold:#E8B84B; --gold-soft:#F3D48A;
-    --cream:#FAF6EE; --white:#FFFFFF; --ink:#22293a; --muted:#6b7280;
+    --cream:#FAF6EE; --white:#FFFFFF; --ink:#22293a; --muted:#64707d;
+    /* --gold is a background/border colour: 1.9:1 as text. Use --gold-ink for text. */
+    --gold-ink:#6b4d0d;
     --ok:#2f8f5b; --line:#e5e0d4; --radius:18px;
     --ease-out:cubic-bezier(.22,.8,.36,1); --ease-spring:cubic-bezier(.34,1.45,.5,1);
   }
@@ -43,7 +53,7 @@
   #splash .sname{font-size:36px;font-weight:900;color:var(--navy);letter-spacing:.5px;opacity:0}
   #splash .sname span{display:inline-block;will-change:transform}
   html:not(.sr-motion) #splash .sname{animation:riseIn .8s var(--ease-out) .35s forwards}
-  #splash .stag{font-size:12.5px;font-weight:700;letter-spacing:2.2px;color:#8a7a4a;text-transform:uppercase;opacity:0}
+  #splash .stag{font-size:12.5px;font-weight:700;letter-spacing:2.2px;color:var(--gold-ink);text-transform:uppercase;opacity:0}
   html:not(.sr-motion) #splash .stag{animation:riseIn .8s var(--ease-out) .65s forwards}
   @keyframes breathe{0%,100%{transform:scale(.97)}50%{transform:scale(1.03)}}
   @keyframes riseIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
@@ -58,7 +68,7 @@
   .brand svg{width:42px;height:42px;transition:transform .5s var(--ease-spring)}
   .brand:hover svg{transform:rotate(-6deg) scale(1.07)}
   .brand .bn{font-weight:900;font-size:19px;color:var(--navy);letter-spacing:.4px;line-height:1.05}
-  .brand .bt{font-size:8.5px;font-weight:700;letter-spacing:1.4px;color:#8a7a4a;text-transform:uppercase}
+  .brand .bt{font-size:8.5px;font-weight:700;letter-spacing:1.4px;color:var(--gold-ink);text-transform:uppercase}
   .lang{display:flex;border:1.5px solid var(--navy);border-radius:99px;overflow:hidden;font-size:13px}
   .lang button{padding:6px 14px;border:0;background:transparent;color:var(--navy);cursor:pointer;font-weight:800;transition:background .25s,color .25s}
   .lang button.on{background:var(--navy);color:var(--white)}
@@ -76,7 +86,7 @@
   .snode.now .l{color:var(--navy)}
   .snode.done .c{border-color:var(--gold);background:var(--gold);color:var(--navy-deep)}
   html:not(.sr-motion) .snode.done .c{animation:popIn .45s var(--ease-spring)}
-  .snode.done .l{color:#8a7a4a}
+  .snode.done .l{color:var(--gold-ink)}
   @keyframes glowPulse{0%,100%{box-shadow:0 0 0 4px rgba(232,184,75,.25)}50%{box-shadow:0 0 0 7px rgba(232,184,75,.4)}}
   @keyframes popIn{0%{transform:scale(.6)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
 
@@ -89,7 +99,7 @@
   .stagger>*:nth-child(3){animation-delay:.21s}.stagger>*:nth-child(4){animation-delay:.29s}
   .stagger>*:nth-child(5){animation-delay:.37s}.stagger>*:nth-child(6){animation-delay:.45s}
   .stagger>*:nth-child(7){animation-delay:.53s}.stagger>*:nth-child(8){animation-delay:.61s}
-  .eyebrow{font-size:11px;font-weight:900;letter-spacing:1.8px;color:var(--gold);text-transform:uppercase;margin-bottom:8px}
+  .eyebrow{font-size:11px;font-weight:900;letter-spacing:1.8px;color:var(--gold-ink);text-transform:uppercase;margin-bottom:8px}
   .eyebrow b{color:#c79a2e}
   h1{font-size:26px;color:var(--navy);letter-spacing:-.4px;margin-bottom:8px;line-height:1.18}
   h2{font-size:19px;color:var(--navy);margin-bottom:6px}
@@ -124,6 +134,9 @@
   .lawnote.small{font-size:11px;padding:7px 11px;margin:6px 0 0;border-radius:8px}
 
   label{display:block;font-size:13.5px;font-weight:800;color:var(--navy);margin:15px 0 6px}
+  /* Heading over the backup-contact PAIR. Not a <label> — a label pointing at two
+     inputs is invalid, so the inputs carry their own aria-label instead. */
+  .lblhead{display:block;font-size:13px;font-weight:800;color:#5f5e58;margin:15px 0 6px}
   input[type=text],input[type=tel],input[type=email]{width:100%;padding:14px;border:1.5px solid var(--line);border-radius:12px;font-size:16px;background:#fffdf8;transition:border-color .25s,box-shadow .25s,transform .25s}
   input:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 4px rgba(27,42,74,.1);transform:translateY(-1px)}
   .opt{font-weight:500;color:var(--muted)}
@@ -148,7 +161,7 @@
   @keyframes successPulse{0%{box-shadow:0 0 0 0 rgba(47,143,91,.4)}100%{box-shadow:0 0 0 14px rgba(47,143,91,0)}}
   .up img{width:76px;height:50px;object-fit:cover;border-radius:8px;border:1px solid var(--line)}
   .up .ph{width:76px;height:50px;border-radius:8px;background:#f0ecdf;display:flex;align-items:center;justify-content:center;color:#b3a87f;flex:none;transition:background .3s}
-  .up:hover .ph{background:var(--gold-soft);color:#8a7a4a}
+  .up:hover .ph{background:var(--gold-soft);color:var(--gold-ink)}
   .up div.t{font-size:14.5px;font-weight:800;color:var(--navy)}
   .up div.s{font-size:12.5px;color:var(--muted)}
   .up input{display:none}
@@ -165,7 +178,7 @@
   .tag.fee{background:#fdf1dc;color:#9a6c10}
   .tag.hrs{background:#eef1f7;color:#3c4c72}
   .tag.safe{background:#eef5fb;color:#2b5d8f}
-  .tag.soon{background:#f3f0e6;color:#8a7a4a}
+  .tag.soon{background:#f3f0e6;color:var(--gold-ink)}
 
   /* preview */
   /* pack preview: swipe carousel on phones, 2-col grid on desktop — kills the
@@ -190,7 +203,7 @@
   .arow .at b{display:block;font-size:14.5px;font-weight:800;color:var(--navy);line-height:1.3}
   .arow .at small{display:block;font-size:12px;color:var(--muted);margin-top:2px;line-height:1.45;font-weight:500}
   .arow .ac{color:var(--muted);font-size:18px;font-weight:800;flex:none}
-  .rail-label{font-size:11.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:#8a7a4a;margin:16px 0 2px;text-align:left}
+  .rail-label{font-size:11.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold-ink);margin:16px 0 2px;text-align:left}
 
   /* desktop split: pack preview left, sticky action rail right */
   @media(min-width:900px){
@@ -218,8 +231,8 @@
   .carry-in{width:100%;padding:12px 13px;border:1.5px solid var(--line);border-radius:11px;font-size:15px;background:#fffdf8;font-family:inherit;color:var(--ink)}
   .carry-in:focus{outline:none;border-color:var(--navy)}
   .carry-prev{width:100%;max-width:330px;border-radius:14px;box-shadow:0 8px 24px rgba(27,42,74,.16);margin:6px auto 12px;display:block}
-  .prc-count{font-size:12px;font-weight:800;letter-spacing:1px;color:#8a7a4a;text-transform:uppercase;margin-bottom:10px}
-  .prc-role{font-size:11px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:#8a7a4a;margin-bottom:6px}
+  .prc-count{font-size:12px;font-weight:800;letter-spacing:1px;color:var(--gold-ink);text-transform:uppercase;margin-bottom:10px}
+  .prc-role{font-size:11px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold-ink);margin-bottom:6px}
   .prc-officer{position:relative;background:#fff;border:1.5px solid var(--line);border-radius:16px;border-top-left-radius:4px;padding:16px;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:14px;cursor:pointer}
   html:not(.sr-motion) .prc-officer.pop{animation:bubbleIn .35s var(--ease-spring)}
   @keyframes bubbleIn{from{opacity:0;transform:translateY(6px) scale(.97)}to{opacity:1;transform:none}}
@@ -260,7 +273,7 @@
   .prx-rehearse{text-align:center;font-weight:800;font-size:13.5px;color:var(--navy);margin-bottom:12px}
   .prx-res{border:1px solid var(--line);background:#fffdf8;border-radius:12px;padding:12px 14px;font-size:12.5px;line-height:1.6;color:var(--ink)}
   .prx-fn{border:1.5px solid var(--gold);background:#fffbf0;border-radius:12px;padding:14px 16px;margin-top:12px;text-align:left}
-  .prx-fn-h{font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#8a7a4a;margin-bottom:8px}
+  .prx-fn-h{font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-ink);margin-bottom:8px}
   .prx-fn p{font-size:13px;line-height:1.65;color:var(--ink);margin:0}
   .prx-fn-s{font-weight:800;color:var(--navy);font-size:13px;margin-top:10px}
   .prx-ctrls{display:flex;align-items:center;gap:6px;justify-content:center;flex-wrap:wrap;margin:2px 0 12px}
@@ -274,7 +287,7 @@
   .prx-match{display:flex;gap:4px;margin:0 0 6px}
   .prx-match i{flex:1;height:8px;border-radius:4px;background:#e5e0d4;transition:background .4s}
   .prx-match i.on{background:var(--ok)}
-  .prx-passline{font-size:13px;font-weight:800;color:#8a7a4a;margin-bottom:12px}
+  .prx-passline{font-size:13px;font-weight:800;color:var(--gold-ink);margin-bottom:12px}
   .prx-passline.ok{color:#2f8f5b}
   .prc-intro{font-size:13px;color:#6b6a63;line-height:1.5;margin-bottom:14px}
   /* practice drill: full-screen dusk stage — a place, not a popup. Static
@@ -295,7 +308,7 @@
   .prx-rail .rd.cur{background:var(--gold);transform:scale(1.4);box-shadow:0 0 0 4px rgba(232,184,75,.28)}
   .prx-rail .rl{flex:1;height:2px;background:#e5e0d4;min-width:6px}
   .prx-rail .rg{font-size:16px;flex:none;line-height:1}
-  .prx-daily{font-size:11.5px;font-weight:800;color:#8a7a4a;margin:-6px 0 10px}
+  .prx-daily{font-size:11.5px;font-weight:800;color:var(--gold-ink);margin:-6px 0 10px}
   .prx-console{background:#10182b;border-radius:14px;padding:12px 14px;margin:6px 0 10px}
   .prx-console .prx-rec{color:#F3D48A;border-color:rgba(243,212,138,.45);margin:0}
   .prx-console .prx-rec.rec{color:#ff9d8a;border-color:#ff9d8a}
@@ -369,7 +382,7 @@
   .prx-rec{background:transparent;border:1.5px solid var(--line);border-radius:9px;padding:7px 11px;font-size:12.5px;font-weight:800;color:var(--navy);cursor:pointer;font-family:inherit;margin:2px 0 4px}
   .prx-rec.rec{border-color:#b3452f;color:#b3452f}
   .prx-rec-note{font-size:11.5px;color:var(--muted);margin-bottom:8px}
-  .prc-cite{font-size:11.5px;font-weight:700;color:#8a7a4a;margin:-6px 0 14px}
+  .prc-cite{font-size:11.5px;font-weight:700;color:var(--gold-ink);margin:-6px 0 14px}
   .prx-heard{font-size:12.5px;color:var(--ink);background:var(--white);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-top:8px;line-height:1.5}
   .prx-chip{display:inline-block;font-size:11.5px;font-weight:800;border:1px solid var(--line);border-radius:999px;padding:2px 8px;color:var(--muted);margin:2px 2px 0 0}
   .prx-chip.hit{background:#eef7f0;border-color:#bcd8c2;color:#1d4a2c}
@@ -402,7 +415,7 @@
   .ab-title{font-weight:900;font-size:16px}
   .ab-x{background:rgba(255,255,255,.15);border:0;color:#fff;font-size:12px;font-weight:800;padding:6px 12px;border-radius:8px;cursor:pointer}
   .ab-body{padding:18px 20px 24px}
-  .ab-body h3{font-size:13px;color:var(--gold);text-transform:uppercase;letter-spacing:.8px;margin:16px 0 4px}
+  .ab-body h3{font-size:13px;color:var(--gold-ink);text-transform:uppercase;letter-spacing:.8px;margin:16px 0 4px}
   .ab-body h3:first-child{margin-top:0}
   .ab-body p{font-size:14px;color:var(--ink);line-height:1.5}
   .doc-case{background:#fbf9f4;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:10px 0;font-size:13.5px;line-height:1.55;color:var(--ink)}
@@ -454,9 +467,9 @@
   .docrow .dt .s{font-size:12px;color:var(--muted)}
   .docrow .st{font-size:12px;font-weight:800;padding:5px 11px;border-radius:99px;flex:none}
   .docrow .st.ok{background:#eef7f0;color:var(--ok)}
-  .docrow .st.pend{background:#f3f0e6;color:#8a7a4a}
+  .docrow .st.pend{background:#f3f0e6;color:var(--gold-ink)}
   .docrow .st.skip{background:#eef1f7;color:#3c4c72}
-  .side-chip{display:inline-block;font-size:10.5px;font-weight:800;padding:2.5px 9px;border-radius:99px;background:#f3f0e6;color:#8a7a4a;margin:0 5px 0 0}
+  .side-chip{display:inline-block;font-size:10.5px;font-weight:800;padding:2.5px 9px;border-radius:99px;background:#f3f0e6;color:var(--gold-ink);margin:0 5px 0 0}
   .side-chip.ok{background:#eef7f0;color:var(--ok)}
 
   #camOverlay{position:fixed;inset:0;z-index:90;background:var(--navy-deep);display:none;flex-direction:column;color:var(--white)}
@@ -566,6 +579,11 @@
   .ab-x{min-height:44px;min-width:44px}
   .cam-x{width:44px;height:44px}
   .cam-side{min-height:44px}
+  /* Practice voice/gender toggles and "hear again" sat at ~19-23px — under the
+     24px floor, in the one screen used one-handed under stress. Padded via
+     ::before so the visual chip size is unchanged. */
+  .prx-vbtn,.prx-hear{position:relative}
+  .prx-vbtn::before,.prx-hear::before{content:"";position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);height:44px}
   /* overlay scroll containment (iOS scroll chaining / rubber-banding) */
   .ab-card,#camOverlay{overscroll-behavior:contain}
   .maskrow .sw::before{content:"";position:absolute;inset:-10px} /* 44px+ hit area for the mask toggle */
@@ -599,22 +617,22 @@
   .pp-brand{display:flex;align-items:center;gap:10px}
   .pp-brand svg{width:40px;height:40px}
   .pp-brand .n{font-size:19px;font-weight:900;color:var(--navy);letter-spacing:.4px;line-height:1.05}
-  .pp-brand .t{font-size:7.5px;font-weight:800;letter-spacing:1.3px;color:#8a7a4a;text-transform:uppercase}
+  .pp-brand .t{font-size:7.5px;font-weight:800;letter-spacing:1.3px;color:var(--gold-ink);text-transform:uppercase}
   .pp-tag{font-size:11px;color:var(--muted);text-align:right}
   /* "Where this page goes" placement strip — one per printed page */
   .place{display:flex;align-items:center;gap:8px;border:1.2px solid var(--gold);background:#fdf6e3;border-radius:8px;padding:3px 8px;margin-bottom:7px}
   .place svg{width:58px;height:34px;flex:none;display:block}
   .place .pt{font-size:9.3px;line-height:1.3;color:var(--ink)}
   .place .pt b{color:var(--navy);letter-spacing:.5px;font-size:8.8px;margin-right:4px}
-  .place .pt span{display:block;color:#8a7a4a;font-size:8.3px;margin-top:1px}
+  .place .pt span{display:block;color:var(--gold-ink);font-size:8.3px;margin-top:1px}
   .pp h1{font-size:23px;color:var(--navy);line-height:1.05;margin-bottom:2px}
-  .pp .es-sub{font-size:15px;color:#8a7a4a;font-weight:800;margin-bottom:12px}
+  .pp .es-sub{font-size:15px;color:var(--gold-ink);font-weight:800;margin-bottom:12px}
   .step-row{display:flex;gap:11px;align-items:center;padding:2px 0;border-bottom:1px solid #eee7d6}
   .step-num{width:30px;height:30px;border-radius:9px;background:#fff;border:2.5px solid var(--navy);color:var(--navy);font-size:18px;font-weight:900;display:flex;align-items:center;justify-content:center;flex:none}
   .step-ico{width:32px;height:32px;flex:none;display:flex;align-items:center;justify-content:center}
   .step-ico svg{width:30px;height:30px}
   .step-tx .en{font-size:13px;font-weight:900;color:var(--ink)}
-  .step-tx .es{font-size:10.3px;color:#8a7a4a;font-weight:700}
+  .step-tx .es{font-size:10.3px;color:var(--gold-ink);font-weight:700}
   .coop{background:#fff;border:3px solid var(--navy);color:var(--navy);font-size:14px;font-weight:900;letter-spacing:.3px;line-height:1.4;padding:8px 11px;border-radius:9px;margin-bottom:8px}
   .p4grid{display:flex;gap:11px}
   .p4col{flex:1;min-width:0}
@@ -623,8 +641,8 @@
   .pbox li{font-size:10px;margin-left:12px;margin-bottom:2px;line-height:1.3}
   .pbox.warn{background:#fdf6e3;border-color:var(--gold)}
   .logline{font-size:10px;color:var(--ink);border-bottom:1px solid #cfc7b2;padding:4px 0 2px;display:flex;justify-content:space-between}
-  .logline b{color:#8a7a4a;font-weight:800}
-  .cuth{font-size:9.5px;color:#8a7a4a;font-weight:800;margin-top:7px;text-transform:uppercase;letter-spacing:.5px}
+  .logline b{color:var(--gold-ink);font-weight:800}
+  .cuth{font-size:9.5px;color:var(--gold-ink);font-weight:800;margin-top:7px;text-transform:uppercase;letter-spacing:.5px}
   .cutrow{display:flex;gap:10px;margin-top:5px}
   .cut{flex:1;border:1.5px dashed #b8ad8c;border-radius:9px;padding:7px;background:#fff;font-size:10px;font-weight:900;color:var(--navy);text-align:center;line-height:1.3}
   .pp-foot{margin-top:8px;font-size:9px;color:var(--muted);border-top:1px solid var(--line);padding-top:8px;line-height:1.45}
@@ -643,7 +661,7 @@
   .r-item{display:flex;gap:9px;margin-bottom:7px;align-items:flex-start}
   .r-item .n{width:22px;height:22px;border-radius:7px;background:var(--gold);color:var(--navy-deep);font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;flex:none;margin-top:1px}
   .r-item .en{font-size:14px;font-weight:900;line-height:1.3}
-  .r-item .es{font-size:11px;color:#8a7a4a;font-weight:700;line-height:1.25}
+  .r-item .es{font-size:11px;color:var(--gold-ink);font-weight:700;line-height:1.25}
   .staterow{display:flex;gap:12px;margin-top:10px}
   .statebox{flex:1;border:1.5px solid var(--line);border-radius:11px;padding:9px 12px;background:#fbf8f0}
   .statebox h3{font-size:12.5px;color:var(--navy);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
@@ -670,7 +688,12 @@
   .wallet .wc{padding:8px 11px;font-size:10px;line-height:1.42}
   .wallet .wc b{color:var(--navy)}
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" async></script>
+<!-- SRI pinned: a compromised CDN or a hostile network could otherwise inject a
+     script that reads the in-memory licence photos and contacts. If GSAP is ever
+     version-bumped the hash MUST be regenerated or animations silently stop. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"
+        integrity="sha384-HOvlOYPIs/zjoIkWUGXkVmXsjr8GuZLV+Q+rcPwmJOVZVpvTSXQChiN4t9Euv9Vc"
+        crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
 <script>
 /* ============================================================
    SRMotion — GSAP micro-animation system for Amparo
@@ -1204,7 +1227,7 @@ const T = {
     doc_case2_body:"A 2021 traffic stop in Brooklyn Center, Minnesota ended when an officer shot and killed him. She was later convicted of manslaughter.",
     doc_blame:"This is a failure of the system and the officer \u2014 never of the person who was killed.",
     doc_why:"We show you this not to scare you, but because a tool that promised words could keep you safe would be lying to you \u2014 and because you deserve to see where the facts come from.",
-    doc_clarity:"Practicing calm, minimal responses genuinely lowers your risk. It cannot remove it, because the risk was never fully in your hands. Knowing that isn't despair \u2014 it's clarity: do your part, and put the blame where it belongs.",
+    doc_clarity:"Practicing calm, minimal responses measurably lowers how threatening you appear to an officer \u2014 that much is documented. It cannot make you safe, because the risk was never fully in your hands. Knowing that isn't despair \u2014 it's clarity: do your part, and put the blame where it belongs.",
     doc_resource:"If this brings up grief or fear, you're not alone. Call or text <b>988</b> (free, 24/7, confidential). For your rights, contact your local ACLU affiliate: <b>aclu.org/affiliates</b>.",
     doc_close:"Close and take a breath",
     doc_sources:"Sources", doc_source:"Source",
@@ -1239,7 +1262,6 @@ const T = {
     prx_done_t:"Level complete.",
     prx_done:"Run it again with someone playing the officer \u2014 and once with every new driver in the house.",
     prx_close:"Close",
-    prx_qx:"\u26a1 Quick exit",
     offline_ready:"\u2708\ufe0f Saved on this device \u2014 works without internet",
     pp_step2:"Step 2 of 2 \u2014 make it stick:",
     pdf_q:"\ud83d\udda8 No printer, or want the PDF? \u25be",
@@ -1294,7 +1316,7 @@ const T = {
     prx_dem_label:"Officer's demeanor", prx_dem_calm:"calm", prx_dem_firm:"firm", prx_dem_tense:"tense",
     prx_pick:"Your turn — what do you say?", prx_model:"One calm way to say it", prx_setter:"You're pulled over at dusk. The officer walks up to your window.",
     prx_own_sum:"…or answer in my own words (type or speak)",
-    prx_type_ph:"…or type your answer here", prx_type_btn:"Check",
+    prx_type_ph:"…or type your answer here", prx_type_btn:"Check", prx_type_a11y:"Type your answer",
     prx_said:"You said", prx_legal:"⚖️ Legally, you say",
     prx_passed:"🏅 Passed — you hit {n} of {t} key words", prx_close_line:"Close — {n} of {t} key words. One more rep locks it in.",
     prx_crisis:"It sounds like you might be carrying something heavy right now, and you don't have to carry it alone. You can call or text 988 (free, 24/7, confidential) any time. This practice will be here when you're ready.",
@@ -1337,6 +1359,7 @@ const T = {
     i_ec:"Emergency contact name", i_ec_ph:"Someone who picks up",
     i_ecp:"Emergency contact phone", i_ecp_ph:"(555) 555-5555",
     i_ec2_h:"Backup contact (optional)", i_ec2_note:"In case your first contact can't be reached — printed on your wallet card too.",
+    i_ec2_a11y:"Backup contact name", i_ecp2_a11y:"Backup contact phone",
     i_ec2:"Backup contact name", i_ec2_ph:"A second person who'd answer",
     i_ecp2:"Backup contact phone", i_ecp2_ph:"(555) 555-5555",
     i_att:"Attorney or legal aid number (optional)", i_att_ph:"If you have one",
@@ -1471,7 +1494,7 @@ const T = {
     doc_case2_body:"Una parada de tr\u00e1fico en 2021 en Brooklyn Center, Minnesota, termin\u00f3 cuando un oficial le dispar\u00f3 y lo mat\u00f3. Ella fue condenada despu\u00e9s por homicidio involuntario.",
     doc_blame:"Esto es una falla del sistema y del oficial \u2014 nunca de la persona que fue asesinada.",
     doc_why:"Te mostramos esto no para asustarte, sino porque una herramienta que prometiera que las palabras te mantienen a salvo te estar\u00eda mintiendo \u2014 y porque mereces ver de d\u00f3nde vienen los hechos.",
-    doc_clarity:"Practicar respuestas calmadas y m\u00ednimas s\u00ed reduce tu riesgo. No puede eliminarlo, porque el riesgo nunca estuvo del todo en tus manos. Saber esto no es desesperanza \u2014 es claridad: haz tu parte y pon la culpa donde corresponde.",
+    doc_clarity:"Practicar respuestas calmadas y m\u00ednimas s\u00ed reduce de forma medible lo amenazante que pareces ante un oficial \u2014 eso est\u00e1 documentado. No puede volverte seguro, porque el riesgo nunca estuvo del todo en tus manos. Saber esto no es desesperanza \u2014 es claridad: haz tu parte y pon la culpa donde corresponde.",
     doc_resource:"Si esto trae dolor o miedo, no est\u00e1s solo. Llama o env\u00eda un mensaje al <b>988</b> (gratis, 24/7, confidencial). Para tus derechos, contacta a tu afiliado local de ACLU: <b>aclu.org/affiliates</b>.",
     doc_close:"Cerrar y respirar",
     doc_sources:"Fuentes", doc_source:"Fuente",
@@ -1506,7 +1529,6 @@ const T = {
     prx_done_t:"Nivel completado.",
     prx_done:"Repítelo con alguien haciendo de oficial \u2014 y una vez con cada conductor nuevo de la casa.",
     prx_close:"Cerrar",
-    prx_qx:"⚡ Salida rápida",
     offline_ready:"✈️ Guardado en este dispositivo — funciona sin internet",
     pp_step2:"Paso 2 de 2 — que se te quede:",
     pdf_q:"🖨 ¿Sin impresora o quieres el PDF? ▾",
@@ -1561,7 +1583,7 @@ const T = {
     prx_dem_label:"Actitud del oficial", prx_dem_calm:"tranquilo", prx_dem_firm:"firme", prx_dem_tense:"tenso",
     prx_pick:"Tu turno — ¿qué dices?", prx_model:"Una forma calmada de decirlo", prx_setter:"Te detienen al anochecer. El oficial se acerca a tu ventanilla.",
     prx_own_sum:"…o responder con mis palabras (escribe o habla)",
-    prx_type_ph:"…o escribe tu respuesta aquí", prx_type_btn:"Comprobar",
+    prx_type_ph:"…o escribe tu respuesta aquí", prx_type_btn:"Comprobar", prx_type_a11y:"Escribe tu respuesta",
     prx_said:"Dijiste", prx_legal:"⚖️ Legalmente, tú dices",
     prx_passed:"🏅 Aprobado — dijiste {n} de {t} palabras clave", prx_close_line:"Casi — {n} de {t} palabras clave. Una repetición más y lo tienes.",
     prx_crisis:"Parece que quizá cargas algo pesado en este momento, y no tienes que cargarlo solo. Puedes llamar o enviar un mensaje al 988 (gratis, 24/7, confidencial) cuando quieras. Esta práctica estará aquí cuando estés listo.",
@@ -1604,6 +1626,7 @@ const T = {
     i_ec:"Nombre del contacto de emergencia", i_ec_ph:"Alguien que conteste",
     i_ecp:"Teléfono del contacto de emergencia", i_ecp_ph:"(555) 555-5555",
     i_ec2_h:"Contacto de respaldo (opcional)", i_ec2_note:"Por si no pueden localizar a tu primer contacto — también se imprime en tu tarjeta de cartera.",
+    i_ec2_a11y:"Nombre del contacto de respaldo", i_ecp2_a11y:"Teléfono del contacto de respaldo",
     i_ec2:"Nombre del contacto de respaldo", i_ec2_ph:"Una segunda persona que conteste",
     i_ecp2:"Teléfono del contacto de respaldo", i_ecp2_ph:"(555) 555-5555",
     i_att:"Número de abogado o ayuda legal (opcional)", i_att_ph:"Si tienes uno",
@@ -1984,6 +2007,10 @@ let isDemo=false;
 window.isDemoActive=()=>isDemo;
 
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+/* Keyboard-activation prefix for div[role=button]. A real <button> fires click on
+   Enter/Space; a div does not, so without this the drill is mouse-only. Usage:
+   onkeydown="${KACT}doThing()}"  — note the closing brace supplied by the caller. */
+const KACT="if(event.key==='Enter'||event.key===' '){event.preventDefault();";
 function t(){return T[lang];}
 function setLang(l){
   lang=l;
@@ -2159,7 +2186,7 @@ function prepRenderRecall(){
   for(let pos=0;pos<PREP_STEPS.length;pos++){
     if(pos<prepPlaced.length){
       const sIdx=prepPlaced[pos], k=PREP_STEPS[sIdx].key;
-      slots+=`<div class="prep-slot filled" onclick="prepUnplace(${pos})" role="button" tabindex="0" aria-label="${esc(prepMini(sIdx))}, ${_t.prep_undo}">
+      slots+=`<div class="prep-slot filled" onclick="prepUnplace(${pos})" onkeydown="${KACT}prepUnplace(${pos})}" role="button" tabindex="0" aria-label="${esc(prepMini(sIdx))}, ${_t.prep_undo}">
         <span class="prep-slotnum">${pos+1}</span><div class="prep-ghost">${PREP_SVG[k]}</div><span class="prep-label">${esc(prepMini(sIdx))}</span></div>`;
     }else{
       slots+=`<div class="prep-slot${pos===prepPlaced.length?' next':''}"><span class="prep-slotnum">${pos+1}</span><span class="prep-hint">${_t.prep_slot} ${pos+1}</span></div>`;
@@ -2167,7 +2194,7 @@ function prepRenderRecall(){
   }
   const chips=prepBank.map(sIdx=>{
     const k=PREP_STEPS[sIdx].key, placed=prepPlaced.indexOf(sIdx)>=0;
-    return `<div class="prep-chip${placed?' done':''}" ${placed?'':`onclick="prepPlace(${sIdx})" role="button" tabindex="0"`} aria-label="${esc(prepMini(sIdx))}">
+    return `<div class="prep-chip${placed?' done':''}" ${placed?'':`onclick="prepPlace(${sIdx})" onkeydown="${KACT}prepPlace(${sIdx})}" role="button" tabindex="0"`} aria-label="${esc(prepMini(sIdx))}">
       <div class="prep-ghost" style="opacity:1">${PREP_SVG[k]}</div><span class="prep-label">${esc(prepMini(sIdx))}</span></div>`;
   }).join('');
   b.innerHTML=`
@@ -2330,16 +2357,16 @@ function render(){
       <h1>${_t.i_title}</h1><p class="sub">${_t.i_sub}</p>
       <p class="soon" style="text-align:left;margin:-4px 0 10px">✳️ ${_t.i_opt}</p>
       <div class="stagger">
-        <div><label>${_t.i_name}</label><input type="text" id="f_name" autocomplete="name" enterkeyhint="next" placeholder="${_t.i_name_ph}" value="${esc(data.name)}" oninput="data.name=this.value;persist()"></div>
-        <div><label>${_t.i_ec}</label><input type="text" id="f_ec" autocomplete="off" enterkeyhint="next" placeholder="${_t.i_ec_ph}" value="${esc(data.ec)}" oninput="data.ec=this.value;persist()"></div>
-        <div><label>${_t.i_ecp}</label><input type="tel" id="f_ecp" autocomplete="tel" inputmode="tel" enterkeyhint="next" placeholder="${_t.i_ecp_ph}" value="${esc(data.ecp)}" oninput="data.ecp=this.value;persist()"></div>
-        <div style="margin-top:2px"><label style="font-size:13px;color:#6b6a63">${_t.i_ec2_h}</label>
+        <div><label for="f_name">${_t.i_name}</label><input type="text" id="f_name" autocomplete="name" enterkeyhint="next" placeholder="${_t.i_name_ph}" value="${esc(data.name)}" oninput="data.name=this.value;persist()"></div>
+        <div><label for="f_ec">${_t.i_ec}</label><input type="text" id="f_ec" autocomplete="off" enterkeyhint="next" placeholder="${_t.i_ec_ph}" value="${esc(data.ec)}" oninput="data.ec=this.value;persist()"></div>
+        <div><label for="f_ecp">${_t.i_ecp}</label><input type="tel" id="f_ecp" autocomplete="tel" inputmode="tel" enterkeyhint="next" placeholder="${_t.i_ecp_ph}" value="${esc(data.ecp)}" oninput="data.ecp=this.value;persist()"></div>
+        <div style="margin-top:2px"><div class="lblhead">${_t.i_ec2_h}</div>
           <p class="soon" style="text-align:left;margin:2px 0 6px;font-size:12px">${_t.i_ec2_note}</p>
-          <input type="text" id="f_ec2" autocomplete="off" enterkeyhint="next" placeholder="${_t.i_ec2_ph}" value="${esc(data.ec2)}" oninput="data.ec2=this.value;persist()" style="margin-bottom:8px">
-          <input type="tel" id="f_ecp2" autocomplete="tel" inputmode="tel" enterkeyhint="next" placeholder="${_t.i_ecp2_ph}" value="${esc(data.ecp2)}" oninput="data.ecp2=this.value;persist()">
+          <input type="text" id="f_ec2" aria-label="${_t.i_ec2_a11y}" autocomplete="off" enterkeyhint="next" placeholder="${_t.i_ec2_ph}" value="${esc(data.ec2)}" oninput="data.ec2=this.value;persist()" style="margin-bottom:8px">
+          <input type="tel" id="f_ecp2" aria-label="${_t.i_ecp2_a11y}" autocomplete="tel" inputmode="tel" enterkeyhint="next" placeholder="${_t.i_ecp2_ph}" value="${esc(data.ecp2)}" oninput="data.ecp2=this.value;persist()">
         </div>
-        <div><label>${_t.i_att}</label><input type="tel" id="f_att" autocomplete="off" inputmode="tel" enterkeyhint="next" placeholder="${_t.i_att_ph}" value="${esc(data.att)}" oninput="data.att=this.value;persist()"></div>
-        ${REVIEW.emailEnabled?`<div><label>${_t.i_email}</label><input type="email" id="f_email" autocomplete="email" inputmode="email" enterkeyhint="done" placeholder="${_t.i_email_ph}" value="${esc(data.email)}" oninput="data.email=this.value.trim();persist()">
+        <div><label for="f_att">${_t.i_att}</label><input type="tel" id="f_att" autocomplete="off" inputmode="tel" enterkeyhint="next" placeholder="${_t.i_att_ph}" value="${esc(data.att)}" oninput="data.att=this.value;persist()"></div>
+        ${REVIEW.emailEnabled?`<div><label for="f_email">${_t.i_email}</label><input type="email" id="f_email" autocomplete="email" inputmode="email" enterkeyhint="done" placeholder="${_t.i_email_ph}" value="${esc(data.email)}" oninput="data.email=this.value.trim();persist()">
         <p class="soon" style="text-align:left;margin-top:5px;font-size:12px">🔒 ${_t.i_email_note}</p></div>`:''}
       </div>
       <button class="btn" onclick="saveInfo()">${_t.next} →</button>
@@ -3150,8 +3177,8 @@ function buildPrint(){
     <div class="pp-head">${brandBlock}<div class="pp-tag">${st.name}${data.name?' · '+esc(data.name):''}</div></div>
     ${placeStrip(1)}
     <div style="border:2px solid #1B2A4A;border-radius:12px;padding:10px 14px;margin-bottom:9px;background:#f4f1e7">
-      <div style="font-size:13px;font-weight:900;color:#1B2A4A;letter-spacing:.8px;margin-bottom:6px">☑ ${_t.prep_title}${_t.prep_es?` <span style="font-weight:700;color:#8a7a4a;font-size:10px">· ${_t.prep_es}</span>`:''}</div>
-      ${_t.prep.map(p=>`<div style="display:flex;gap:8px;font-size:11.5px;margin-bottom:2px;line-height:1.32"><span style="color:#E8B84B;font-weight:900">▸</span><span><b>${p.en}</b> <span style="color:#8a7a4a">${p.es}</span></span></div>`).join('')}
+      <div style="font-size:13px;font-weight:900;color:#1B2A4A;letter-spacing:.8px;margin-bottom:6px">☑ ${_t.prep_title}${_t.prep_es?` <span style="font-weight:700;color:var(--gold-ink);font-size:10px">· ${_t.prep_es}</span>`:''}</div>
+      ${_t.prep.map(p=>`<div style="display:flex;gap:8px;font-size:11.5px;margin-bottom:2px;line-height:1.32"><span style="color:#E8B84B;font-weight:900">▸</span><span><b>${p.en}</b> <span style="color:var(--gold-ink)">${p.es}</span></span></div>`).join('')}
     </div>
     <h1>${_t.pr_title}</h1>
     ${_t.pr_es?`<div class="es-sub">${_t.pr_es}</div>`:''}
@@ -3183,11 +3210,11 @@ function buildPrint(){
           <div class="amend">${lang==='es'?'Enmiendas 4.ª y 5.ª · Constitución de EE. UU.':'4th & 5th Amendments · U.S. Constitution'}</div>
           ${_t.rights.map((r,i)=>`
             <div class="r-item"><div class="n">${i+1}</div>
-              <div><div class="en">${lang==='es'?r.es:r.en}${r.amend?` <span style="font-weight:700;font-size:10px;color:#8a7a4a">(${lang==='es'?r.amend.replace('5th Amendment','5.ª Enmienda').replace('4th Amendment','4.ª Enmienda'):r.amend})</span>`:''}</div>
+              <div><div class="en">${lang==='es'?r.es:r.en}${r.amend?` <span style="font-weight:700;font-size:10px;color:var(--gold-ink)">(${lang==='es'?r.amend.replace('5th Amendment','5.ª Enmienda').replace('4th Amendment','4.ª Enmienda'):r.amend})</span>`:''}</div>
               <div class="es">${lang==='es'?r.en:r.es}</div></div>
             </div>`).join('')}
           <div class="qrbox"><img src="${QR[data.state]||QR.NY}" width="52" height="52" style="border-radius:6px;display:block"><div style="font-size:9.5px;color:#6b7280;line-height:1.4">${lang==='es'?('Escanee para el directorio gratuito de ayuda legal de su estado: '+(QR_URL[data.state||'NY'])):('Scan for your state\'s free legal-aid directory: '+(QR_URL[data.state||'NY']))}</div></div>
-          <div style="font-size:9.5px;color:#8a7a4a;margin-top:7px;line-height:1.35">⚖ ${lang==='es'?'Las fotos impresas son solo ayuda visual — lleve y entregue sus documentos reales cuando se los pidan.':'Printed document photos are a visual aid only — carry and hand over your real documents when asked.'}</div>
+          <div style="font-size:9.5px;color:var(--gold-ink);margin-top:7px;line-height:1.35">⚖ ${lang==='es'?'Las fotos impresas son solo ayuda visual — lleve y entregue sus documentos reales cuando se los pidan.':'Printed document photos are a visual aid only — carry and hand over your real documents when asked.'}</div>
         </div>
       </div>
     </div>
@@ -3673,7 +3700,7 @@ function prxCompareShow(){
   prxSaidHits=hits.length; prxSaidTotal=words.length; prxSaidGood=good;
   el.innerHTML=`<div class="prx-heard"><b>${_t.prx_heard}</b> “${esc(heard)}”</div>
     ${words.length?`<div style="margin:6px 0 2px">${words.map(w=>`<span class="prx-chip${hit(w)?' hit':''}">${esc(w)}</span>`).join('')}</div>`:''}
-    <div class="prx-heard" style="border:0;background:none;padding:4px 0 0;font-weight:800;color:${good?'#2f8f5b':'#8a7a4a'}">${good?_t.prx_heard_good:_t.prx_heard_retry}</div>`;
+    <div class="prx-heard" style="border:0;background:none;padding:4px 0 0;font-weight:800;color:${good?'#2f8f5b':'#6b4d0d'}">${good?_t.prx_heard_good:_t.prx_heard_retry}</div>`;
   if(good){ prCurTier='g'; ph('sr_practice_keywords_hit',{level:prLevel+1,state:data.state,lang:lang}); }
 }
 /* Real-amplitude user waveform: Web Audio analyser on the mic stream, driven by
@@ -3916,7 +3943,7 @@ function carryCanvas(){
               [_t.carry_c_docs,carryVals.cDocs||_t.carry_d_docs]];
   let y=150;
   rows.forEach(([lab,val])=>{
-    x.fillStyle='#8a7a4a'; x.font='800 20px '+F; x.fillText(lab.toUpperCase(),40,y);
+    x.fillStyle='#6b4d0d'; x.font='800 20px '+F; x.fillText(lab.toUpperCase(),40,y);
     x.fillStyle='#22293a'; x.font='700 30px '+F;
     const extra=carryWrap(x,val,40,y+34,960,36);
     y+=96+extra*36;
@@ -3929,8 +3956,16 @@ function carryCanvas(){
   return c;
 }
 function carryDraw(){
-  const c=carryCanvas(), p=document.getElementById('carryPrev');
+  const _t=t(), c=carryCanvas(), p=document.getElementById('carryPrev');
   try{ if(p) p.src=c.toDataURL('image/png'); }catch(e){}
+  /* The card is pixels, so its content is invisible to a screen reader. Rebuild
+     the four lines as the alt text or the user cannot check what they're saving. */
+  if(p) p.alt=_t.carry_t+': '+
+    [[_t.carry_c_hands,carryVals.cHands||_t.carry_d_hands],
+     [_t.carry_c_breath,carryVals.cBreath||_t.carry_d_breath],
+     [_t.carry_c_line,carryVals.cLine||_t.carry_d_line],
+     [_t.carry_c_docs,carryVals.cDocs||_t.carry_d_docs]]
+    .map(r=>r[0]+' — '+r[1]).join('; ');
 }
 async function carrySave(btn){
   const _t=t(), note=document.getElementById('carryNote');
@@ -4144,7 +4179,7 @@ function practiceRender(){
       <p class="prc-intro" style="margin:0 0 2px">${_t.prx_pick}</p>
       ${(prIdx%2===0)?gC+bC:bC+gC}
       <details class="prx-own" style="margin-top:10px"><summary style="font-size:12.5px;color:var(--muted);cursor:pointer">${_t.prx_own_sum}</summary>
-        <div class="prx-typerow" style="margin-top:8px"><input id="prxTypeIn" type="text" placeholder="${_t.prx_type_ph}" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="done" onkeydown="if(event.key==='Enter')prxTypeAnswer()"><button onclick="prxTypeAnswer()">${_t.prx_type_btn}</button></div>
+        <div class="prx-typerow" style="margin-top:8px"><input id="prxTypeIn" type="text" aria-label="${_t.prx_type_a11y}" placeholder="${_t.prx_type_ph}" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="done" onkeydown="if(event.key==='Enter')prxTypeAnswer()"><button onclick="prxTypeAnswer()">${_t.prx_type_btn}</button></div>
       </details>
       ${prIdx>0?`<div class="prc-nav" style="margin-top:10px"><button class="btn ghost prc-back" onclick="prxBack()">← ${_t.a11y_back}</button></div>`:''}`;
   } else {
@@ -4165,7 +4200,12 @@ function practiceRender(){
 }
 /* Quick exit: one tap replaces this page with a neutral site and leaves no
    drill on screen — for anyone who needs to not be seen practicing this. */
-function quickExit(){ try{ location.replace('https://www.google.com/search?q=weather'); }catch(e){ location.href='https://www.google.com'; } }
+/* NOTE: a "quick exit" button used to live here. It only navigated away — it did
+   NOT wipe `data` or localStorage, and with the page eligible for bfcache a single
+   Back gesture restored the captured licence photos. It has been removed rather
+   than left as a panic button that does not panic. If one is ever re-added it must
+   wipe state BEFORE navigating: null every field of `data` (photos included),
+   clearSave(), stopStream(), then leave. */
 function practiceClose(){
   clearTimeout(prxIdleT); prxIdleN=0;
   prxRecCancel(); prxDropLast();
@@ -4251,6 +4291,71 @@ window.addEventListener('afterprint',()=>{
     const post=document.getElementById('postPrintActions'); if(post) post.style.display='block';
     const pf=document.getElementById('printFeedback'); if(pf) pf.style.display='block';
   }
+});
+
+/* ===== Overlay accessibility: Escape, focus trap, focus restore =====
+   Every overlay already declared role="dialog" aria-modal="true", but none of it
+   was true in practice: Escape did nothing, Tab wandered into the covered page
+   behind the backdrop, and closing dropped focus to <body>. Handled centrally
+   here rather than in each of the seven close functions. Overlays are siblings
+   of #appRoot, so the background can simply be made inert while one is open. */
+const OVERLAYS={
+  camOverlay:closeCam, pintroOverlay:practiceIntroClose, prepOverlay:prepClose,
+  carryOverlay:carryClose, docOverlay:closeDoc, aboutOverlay:closeAbout,
+  practiceOverlay:practiceClose
+};
+const FOCUSABLE='a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
+let ovReturn=null;
+
+/* Topmost = highest z-index among the open ones (doc/carry sit at 97 precisely so
+   they win over the practice overlay that launched them); DOM order breaks ties. */
+function ovTop(){
+  const open=Object.keys(OVERLAYS).map(id=>document.getElementById(id))
+    .filter(el=>el&&el.classList.contains('open'));
+  if(!open.length) return null;
+  return open.sort((a,b)=>(parseInt(getComputedStyle(a).zIndex,10)||0)-(parseInt(getComputedStyle(b).zIndex,10)||0)).pop();
+}
+function ovItems(el){
+  return Array.prototype.filter.call(el.querySelectorAll(FOCUSABLE),n=>n.offsetParent!==null);
+}
+function ovFocusIn(el){
+  const items=ovItems(el);
+  if(items.length){ try{ items[0].focus({preventScroll:true}); }catch(e){} return; }
+  el.setAttribute('tabindex','-1');
+  try{ el.focus({preventScroll:true}); }catch(e){}
+}
+Object.keys(OVERLAYS).forEach(id=>{
+  const el=document.getElementById(id); if(!el) return;
+  new MutationObserver(()=>{
+    const isOpen=el.classList.contains('open');
+    if(isOpen&&el.__ovOpen!==true){
+      el.__ovOpen=true;
+      if(!ovReturn) ovReturn=document.activeElement;
+      const root=document.getElementById('appRoot'); if(root) root.setAttribute('inert','');
+      // body is filled in immediately after .open is added, so focus on the next tick
+      setTimeout(()=>{ if(el.classList.contains('open')) ovFocusIn(el); },40);
+    }else if(!isOpen&&el.__ovOpen===true){
+      el.__ovOpen=false;
+      if(!ovTop()){
+        const root=document.getElementById('appRoot'); if(root) root.removeAttribute('inert');
+        if(ovReturn&&ovReturn.focus){ try{ ovReturn.focus({preventScroll:true}); }catch(e){} }
+        ovReturn=null;
+      }
+    }
+  }).observe(el,{attributes:true,attributeFilter:['class']});
+});
+document.addEventListener('keydown',e=>{
+  const el=ovTop(); if(!el) return;
+  if(e.key==='Escape'){
+    e.preventDefault();
+    const close=OVERLAYS[el.id]; if(close) close();
+    return;
+  }
+  if(e.key!=='Tab') return;
+  const items=ovItems(el); if(!items.length) return;
+  const first=items[0], last=items[items.length-1];
+  if(e.shiftKey&&document.activeElement===first){ e.preventDefault(); last.focus(); }
+  else if(!e.shiftKey&&document.activeElement===last){ e.preventDefault(); first.focus(); }
 });
 </script>
 </body>

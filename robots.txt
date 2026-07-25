@@ -1,0 +1,8 @@
+# Amparo — amparohq.com
+# The rights content here is the only crawlable know-your-rights material in this
+# category (every competitor is a native app). Crawling it is the point.
+User-agent: *
+Allow: /
+Disallow: /listen-test.html
+
+Sitemap: https://www.amparohq.com/sitemap.xml
