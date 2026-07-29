@@ -2605,7 +2605,24 @@ function restore(){
 }
 function clearSave(){ try{ localStorage.removeItem('sr_save'); }catch(e){} }
 
-function go(n){step=n;persist();render();}
+/* Session replay is deliberately scoped to the FIRST TWO screens only — the
+   landing page and the state picker, which is where ~97% of people leave.
+   The moment anyone reaches step 2 (emergency contacts) or beyond, recording
+   stops for the rest of the session and never restarts: documents, the camera,
+   contacts and the printed pack are structurally un-recordable rather than
+   relying on a masking rule to hold. See srReplayGuard(). */
+let srReplayDead=false;
+function srReplayGuard(n){
+  try{
+    if(!window.posthog) return;
+    if(n>=2){
+      if(!srReplayDead){ srReplayDead=true; posthog.stopSessionRecording(); }
+      return;
+    }
+    if(!srReplayDead && posthog.startSessionRecording) posthog.startSessionRecording();
+  }catch(e){}
+}
+function go(n){srReplayGuard(n);step=n;persist();render();}
 let _navBusy=false;
 function goM(n){
   if(_navBusy) return;
@@ -3356,6 +3373,9 @@ function buildPrint(){
 }
 
 render();
+/* Arm/disarm replay for whatever step we restored into — a returning user resumed
+   at step 3 must not start recording just because go() hasn't run yet. */
+srReplayGuard(step);
 /* Ctrl+P before the preview step: #printRoot would be empty and the paper blank.
    If a state is picked, build the pack on the fly so browser-menu printing works
    from any step; if not, skip the analytics event — blank pages aren't packs. */
