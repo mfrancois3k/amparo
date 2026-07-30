@@ -1829,7 +1829,12 @@ const REVIEW = {
     NY:{name:"", bar:"", date:"", edition:""}
   }
 };
-const EDITION="2026-B", ED_REPLACE="07/2027";
+/* 2026-C: immigration guidance corrected (voluntary departure / stipulated
+   removal named; the silence-can-lengthen-the-stop caveat added), checkpoint
+   level and its printed section added, and the "lowers your risk" claim
+   reworded to what the evidence supports. Content changed, so the edition
+   moves and any attorney badge drops until that state is re-reviewed. */
+const EDITION="2026-C", ED_REPLACE="07/2027";
 function isReviewed(st){ const a=REVIEW.attorneys[st]; return !!(a && a.name && a.edition===EDITION); }
 function reviewLine(st){
   const a=REVIEW.attorneys[st]||{};
