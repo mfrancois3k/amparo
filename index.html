@@ -1119,13 +1119,13 @@
   if(!/^https?:/.test(location.protocol)) return;
   try{
     !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once unregister opt_in_capturing opt_out_capturing".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-    /* PH_HOST — swap to the managed reverse proxy once its subdomain exists.
-       The proxy currently claims www.amparohq.com, which is why the SITE 404s:
-       one hostname cannot be both the website and the analytics proxy. Move the
-       proxy to ph.amparohq.com, give www back to Vercel, then flip this line.
-       Leaving it on the direct host until then, so analytics keeps working
-       instead of silently posting into a hostname that isn't provisioned. */
-    var PH_HOST='https://us.i.posthog.com';   // -> 'https://ph.amparohq.com' after the proxy moves
+    /* PH_HOST — routed through the managed reverse proxy at ph.amparohq.com.
+       Verified 2026-07-30: proxy status 'valid' via the PostHog API, and
+       /static/array.js resolves 200 through it before this was flipped.
+       Proxying analytics same-site helps it survive ad/tracker blockers that
+       would otherwise strip a bare *.posthog.com request. Revert to
+       'https://us.i.posthog.com' if the ph subdomain's DNS/cert ever lapses. */
+    var PH_HOST='https://ph.amparohq.com';
     posthog.init('phc_y5LzPeRZJpRMFYEt7EZgeCewBoBDWC3GvW5fBFveMf6K',{
       api_host:PH_HOST,
       ui_host:'https://us.posthog.com',  // keeps replay/session links pointing at PostHog when proxied
