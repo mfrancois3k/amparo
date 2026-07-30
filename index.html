@@ -669,7 +669,7 @@
   .wcard-band .b1{font-size:18px;font-weight:900;letter-spacing:.5px}
   .wcard-band .b2{font-size:11px;opacity:.85}
   .wcard-body{display:flex;gap:16px;padding:14px 16px}
-  .pockets{width:2.5in;flex:none;display:flex;flex-direction:column;gap:10px}
+  .docline{width:2.5in;flex:none;display:flex;align-items:center;text-align:center;border:1.5px dashed #b8ad8c;border-radius:9px;padding:14px 10px;background:#fbf8f0;font-size:10px;font-weight:800;letter-spacing:.6px;color:#6b4d0d;line-height:1.5}
   .pocket{border:1.5px dashed #b8ad8c;border-radius:9px;height:1.42in;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#fbf8f0}
   .pocket img{width:100%;height:100%;object-fit:cover}
   .pocket .pl{font-size:11px;color:#a2966d;text-align:center;padding:0 8px;font-weight:800}
@@ -1117,19 +1117,6 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
   <p class="disclaimer" data-i="disclaimer">Amparo provides general legal information, not legal advice. Every rule is cited to the exact state statute so you can check it yourself; formal attorney sign-off per state is in progress. Phone numbers verified July 16, 2026.</p>
 </div>
 
-<!-- ============ CAMERA / EDITOR OVERLAY ============ -->
-<div id="camOverlay" role="dialog" aria-modal="true" aria-label="Camera / Cámara">
-  <div class="cam-shell">
-    <div class="cam-top">
-      <div><div class="ct" id="camTitle"></div><div class="cd" id="camSub"></div></div>
-      <button class="cam-x" aria-label="Close camera / Cerrar cámara" onclick="closeCam()">✕</button>
-    </div>
-    <div class="cam-dots" id="camDots"></div>
-    <div id="camBody" style="flex:1;display:flex;flex-direction:column;min-height:0"></div>
-    <input type="file" id="camFile" accept="image/*" style="display:none">
-    <input type="file" id="camNative" accept="image/*" capture="environment" style="display:none">
-  </div>
-</div>
 
 <div id="pintroOverlay" role="dialog" aria-modal="true" aria-label="Practice a traffic stop">
   <div class="ab-card" style="max-width:440px">
@@ -1228,7 +1215,7 @@ const T = {
   en: {
     pilotBanner:"Free during our community pilot — will be $19 after launch.",
     disclaimer:"Amparo provides general legal information, not legal advice. Every rule is cited to the exact state statute so you can check it yourself; formal attorney sign-off per state is in progress. Phone numbers verified July 16, 2026.",
-    stepLabels:["State","You","Docs","Lifelines","Print"],
+    stepLabels:["State","You","Lifelines","Print"],
     stepWord:"Step",
     w_title:"Get pulled over with a plan.",
     w_sub:"Amparo builds your traffic-stop pack: a window card that speaks for you, your documents shown, your state's rules. Set it up once, print it, keep it in the car.",
@@ -1500,7 +1487,7 @@ const T = {
   es: {
     pilotBanner:"Gratis durante nuestro piloto comunitario — costará $19 después del lanzamiento.",
     disclaimer:"Amparo ofrece información legal general, no asesoría legal. Cada regla cita el artículo exacto de la ley estatal para que usted mismo lo verifique; la revisión formal por un abogado en cada estado está en curso. Números verificados el 16 de julio de 2026.",
-    stepLabels:["Estado","Tú","Docs","Líneas","Imprimir"],
+    stepLabels:["Estado","Tú","Líneas","Imprimir"],
     stepWord:"Paso",
     w_title:"Que la policía no te agarre sin un plan.",
     w_sub:"Amparo crea tu paquete para paradas de tráfico: una tarjeta de ventana que habla por ti, tus documentos a la vista, las reglas de tu estado. Configúralo una vez, imprímelo, guárdalo en el carro.",
@@ -2375,7 +2362,7 @@ function render(){
      pack they haven't printed yet isn't "out of date," so it stays off elsewhere. */
   const _sb=document.getElementById('staleBanner');
   if(_sb){
-    const showHere=(step===0||step===5)&&data.state&&!isDemo; // state alone marks a real pack — a skipped name must not disable the freshness warning
+    const showHere=(step===0||step===4)&&data.state&&!isDemo; // state alone marks a real pack — a skipped name must not disable the freshness warning
     const fresh=showHere?packFreshness():{stale:false,soon:false};
     if(showHere&&(fresh.stale||fresh.soon)){
       _sb.style.display='block';
@@ -2396,7 +2383,7 @@ function render(){
   if(_ub){
     const staleShowing=_sb&&_sb.style.display==='block';
     const threeDays=3*24*60*60*1000;
-    const showUsage=(step===0||step===5)&&!staleShowing&&hasPrinted&&data.state&&!isDemo
+    const showUsage=(step===0||step===4)&&!staleShowing&&hasPrinted&&data.state&&!isDemo
       &&printedAt&&!usageFeedbackGiven&&(Date.now()-printedAt>=threeDays);
     if(showUsage){
       _ub.style.display='block';
@@ -2479,47 +2466,9 @@ function render(){
   }
 
   if(step===3){
-    const isMobile=/Android|iPhone|iPad|Mobi/i.test(navigator.userAgent);
-    const DICONS={lic:'🪪',ins:'🛡️',reg:'📄'};
-    const row=(doc)=>{
-      const sides=DOCSEQ.filter(k=>docOf(k)===doc);
-      const done=sides.filter(k=>data[k]).length;
-      const skipped=data.skipped[doc];
-      const st=done===sides.length?'ok':(skipped?'skip':'pend');
-      const stTxt=done===sides.length?_t.d_done_st:(skipped?_t.d_skip_st:(done?`${done}/${sides.length}`:_t.d_pend_st));
-      const thumb=data[sides[0]]||data[sides[1]||''];
-      const chips=sides.length>1?`<div style="margin-top:4px">${sides.map((k,i)=>`<span class="side-chip ${data[k]?'ok':''}">${i?_t.d_side_b:_t.d_side_f}${data[k]?' ✓':''}</span>`).join('')}</div>`:'';
-      return `<div class="docrow" onclick="openCam('${doc}')">
-        <div class="di">${thumb?`<img src="${thumb}" alt="">`:DICONS[doc]}</div>
-        <div class="dt"><div class="n">${_t['d_'+doc]}</div><div class="s">${_t['d_'+doc+'_s']}</div>${chips}</div>
-        <div class="st ${st}">${stTxt}</div>
-      </div>`;
-    };
-    S.innerHTML=`<div class="card">
-      <button class="back" aria-label="${_t.a11y_back}" onclick="goM(2)">← ${_t.a11y_back}</button>
-      ${eyebrow()}
-      <h1>${_t.d_title}</h1><p class="sub">${_t.d_sub}</p>
-      <div class="privacy"><span class="psh">
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M12 2l8 3.5V11c0 5-3.5 8.7-8 11-4.5-2.3-8-6-8-11V5.5L12 2z" fill="#2f8f5b"/><path d="M8.5 12l2.5 2.5 4.5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span><b>${_t.d_priv}</b></span>
-      </div>
-      <div class="stagger">
-        <button class="btn gold" style="margin-top:4px" onclick="startDocFlow()">${_t.d_start}</button>
-        ${row('lic')}
-        ${row('ins')}
-        ${row('reg')}
-      </div>
-      ${!isMobile?`<p class="soon" style="margin-top:12px">💡 ${_t.d_deskhint}</p>`:''}
-      <p class="soon" style="margin-top:10px">⚖️ ${_t.d_visual}</p>
-      <button class="btn" onclick="goM(4)">${_t.next} →</button>
-      <button class="btn ghost" onclick="skipDocs()">${_t.d_skip}</button>
-    </div>`;
-  }
-
-  if(step===4){
     const st=STATES[data.state||'NY'];
     S.innerHTML=`<div class="card">
-      <button class="back" aria-label="${_t.a11y_back}" onclick="goM(3)">← ${_t.a11y_back}</button>
+      <button class="back" aria-label="${_t.a11y_back}" onclick="goM(2)">← ${_t.a11y_back}</button>
       ${eyebrow()}
       <h1>${_t.l_title}</h1><p class="sub">${_t.l_sub}</p>
       <div class="stagger">
@@ -2534,15 +2483,15 @@ function render(){
       <h2 style="font-size:18px;margin:24px 0 4px">${_t.scen_title}</h2>
       <div class="stagger">${SCEN[lang].map(s=>`<div class="scen"><div class="si">${s.ic}</div><div><div class="sn">${s.t}</div><div class="sd">${s.d}${data.state==='TX'&&s.dTX?' '+s.dTX:''}</div></div></div>`).join('')}</div>
       <p class="soon" style="margin-top:16px">${_t.l_more}</p>
-      <button class="btn" onclick="goM(5)">${_t.l_btn}</button>
+      <button class="btn" onclick="goM(4)">${_t.l_btn}</button>
     </div>`;
   }
 
-  if(step===5){
+  if(step===4){
     buildPrint();
     ph('sr_pack_previewed',{state:data.state,lang:lang});
     S.innerHTML=`<div class="card">
-      <button class="back" aria-label="${_t.a11y_back}" onclick="goM(4)">← ${_t.a11y_back}</button>
+      <button class="back" aria-label="${_t.a11y_back}" onclick="goM(3)">← ${_t.a11y_back}</button>
       ${eyebrow()}
       <h1>${_t.v_title}</h1><p class="sub">${_t.v_sub}</p>
       ${isDemo?`<div class="pilot" style="background:#eef6fb;border-color:#bcd7e8;text-align:left;display:block">
@@ -2615,7 +2564,7 @@ function render(){
   }
   /* Preview step gets the wide two-column layout on desktop; every other
      step stays at the narrow phone-first width. */
-  document.getElementById('appRoot').classList.toggle('wide',step===5);
+  document.getElementById('appRoot').classList.toggle('wide',step===4);
   /* Same-step re-renders (state tap, camera close, photo added) must NOT
      replay the screen entrance — that's data patching, not navigation. */
   if(!stepChanged){
@@ -2669,7 +2618,7 @@ function restore(){
     if(s.usageFeedbackGiven) usageFeedbackGiven=true;
     /* returning users get a resume chip on the landing instead of silently
        starting over (UX-research find: revisit landed on step 0, lost) */
-    if(s.step>=1&&s.step<=5&&s.state) window.__resumeStep=s.step;
+    if(s.step>=1&&s.step<=4&&s.state) window.__resumeStep=s.step;
     if((s.lang==='en'||s.lang==='es') && s.lang!==lang){ // whitelist — any other value would brick every render until site data is cleared
       lang=s.lang;
       try{document.documentElement.lang=lang;}catch(e){} // keeps screen readers speaking the right language on resumed sessions
@@ -2716,13 +2665,13 @@ function viewSample(){
   data.state='TX';
   data.name='Maria Sample'; data.ec='Luis Sample'; data.ecp='(555) 010-2000';
   data.ec2='Ana Sample'; data.ecp2='(555) 010-3000'; data.att='(555) 010-4000'; data.email='';
-  step=5; render(); // render directly — go() would persist, and demo never persists
+  step=4; render(); // render directly — go() would persist, and demo never persists
   try{ if(window.posthog&&posthog.capture) posthog.capture('sr_sample_viewed',{lang:lang}); }catch(e){} // the one demo event that SHOULD count: it measures the sample feature itself
 }
 function demoExit(){
   isDemo=false;
   data.state=null; data.name=data.ec=data.ecp=data.ec2=data.ecp2=data.att=data.email='';
-  DOCSEQ.forEach(k=>data[k]=null); data.skipped={lic:false,ins:false,reg:false};
+  
   restore(); // bring back whatever real pack was saved before the demo
   step=0; render();
 }
@@ -2743,509 +2692,15 @@ function loadImg(e,key){
   r.onload=ev=>{data[key]=ev.target.result;render();};
   r.readAsDataURL(f);
 }
-function skipDocs(){['lic','ins','reg'].forEach(d=>{const sides=DOCSEQ.filter(k=>docOf(k)===d);if(!sides.some(k=>data[k]))data.skipped[d]=true;});persist();go(4);}
 
-/* ============ GUIDED DOC CAPTURE ENGINE ============ */
-/* Step-by-step sides: license front → back, insurance front → back, registration.
-   Each side gets capture → review before advancing (Turo/Zocdoc pattern). */
-const DOCSEQ=['lic_f','lic_b','ins_f','ins_b','reg'];
-const docOf=k=>k.split('_')[0];
-let camQueue=[], camIdx=0, camStream=null;
-let ed={img:null,zoom:1,ox:0,oy:0,rot:0,mask:false,mx:.5,my:.78,dragging:null,lastX:0,lastY:0};
-
-function startDocFlow(){
-  camQueue=DOCSEQ.filter(k=>!data[k] && !data.skipped[docOf(k)]);
-  if(!camQueue.length) camQueue=[...DOCSEQ];
-  camIdx=0; showCam();
-}
-function openCam(doc){
-  const sides=DOCSEQ.filter(k=>docOf(k)===doc);
-  camQueue=sides.filter(k=>!data[k]);
-  if(!camQueue.length) camQueue=sides;
-  camIdx=0; showCam();
-}
-function curDoc(){ return camQueue[camIdx]; }
-
-function camHeader(){
-  const _t=t(); const key=curDoc();
-  document.getElementById('camTitle').textContent=_t['d_'+key];
-  document.getElementById('camSub').textContent=_t['d_'+key+'_s'];
-  const dots=document.getElementById('camDots');
-  dots.innerHTML=camQueue.map((k,i)=>`<span class="${i===camIdx?'on':(i<camIdx?'did':'')}"></span>`).join('');
-  dots.style.display=camQueue.length>1?'flex':'none';
-}
-
-/* ---- camera module: permission state machine ---- */
-let camFacing='environment', camTorch=false;
-
-/* Prominent, always-works path: launches the phone's native camera app.
-   Works even where the live getUserMedia viewfinder is blocked (sandboxed
-   iframe, opened-as-file, denied permission). */
-function nativePrimaryBtn(){
-  const _t=t();
-  return `<button class="cam-enable" onclick="document.getElementById('camNative').click()">${_t.c_native}</button>`;
-}
-/* Secondary options shown beneath the primary action. */
-function fallbackButtons(){
-  const _t=t();
-  return `
-    <button class="cam-side" style="padding:14px 22px" onclick="document.getElementById('camFile').click()">${_t.c_gallery}</button>
-    ${docOf(curDoc()||'')==='ins'?`<p style="font-size:12px;opacity:.7">${_t.c_digital}</p>`:''}
-    <button class="cam-side" onclick="skipOne()">${_t.c_skipone}</button>`;
-}
-function wireInputs(){
-  document.getElementById('camFile').onchange=e=>fileToEditor(e);
-  document.getElementById('camNative').onchange=e=>fileToEditor(e);
-}
-function browserUnblock(){
-  const _t=t(); const ua=navigator.userAgent;
-  if(/firefox/i.test(ua)) return _t.c_ub_firefox;
-  if(/safari/i.test(ua) && !/chrome|crios/i.test(ua)) return _t.c_ub_safari;
-  return _t.c_ub_chrome;
-}
-
-async function showCam(){
-  const ov=document.getElementById('camOverlay');
-  const wasOpen=ov.classList.contains('open');
-  ov.classList.add('open');
-  if(!wasOpen && window.SRMotion&&SRMotion.overlayIn) SRMotion.overlayIn('#camOverlay','.cam-shell');
-  camHeader();
-  wireInputs();
-  const _t=t();
-  // 1) API unavailable (opened as a file / sandboxed viewer) → native camera path
-  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
-    document.getElementById('camBody').innerHTML=`
-      <div class="cam-fallback">
-        <div class="big">📷</div>
-        <h3>${_t.c_takephoto_t}</h3>
-        <p>${_t.c_nocam}</p>
-        ${nativePrimaryBtn()}
-        ${fallbackButtons()}
-      </div>`;
-    return;
-  }
-  // 2) Already granted this session or before? Go straight to the viewfinder —
-  //    the explainer is a ONE-TIME screen, never shown again after first Allow.
-  if(camStream && camStream.getVideoTracks()[0] && camStream.getVideoTracks()[0].readyState==='live'){ startViewfinder(); return; }
-  let remembered=false;
-  try{ remembered=localStorage.getItem('sr_cam_ok')==='1'; }catch(e){}
-  // 3) Permissions API pre-check: skip the explainer if already granted, go to unblock help if denied
-  let state='prompt';
-  try{
-    const st=await navigator.permissions.query({name:'camera'});
-    state=st.state;
-  }catch(e){ /* Permissions API not supported → treat as prompt */ }
-  if(state==='granted' || (remembered && state!=='denied')){ startViewfinder(); }
-  else if(state==='denied'){ showBlocked(); }
-  else { showPermExplainer(); }
-}
-
-function showPermExplainer(){
-  const _t=t();
-  document.getElementById('camBody').innerHTML=`
-    <div class="cam-fallback">
-      <div class="big">📷</div>
-      <h3>${_t.c_perm_t}</h3>
-      <p>${_t.c_perm}</p>
-      <p style="font-size:12.5px;opacity:.72;max-width:310px">${_t.c_allowtip}</p>
-      <button class="cam-enable" onclick="startViewfinder()">${_t.c_enable}</button>
-      <button class="cam-side" style="padding:14px 22px" onclick="document.getElementById('camNative').click()">${_t.c_native}</button>
-      ${fallbackButtons()}
-    </div>`;
-}
-
-function showBlocked(){
-  const _t=t();
-  document.getElementById('camBody').innerHTML=`
-    <div class="cam-fallback">
-      <div class="big">📷</div>
-      <h3>${_t.c_blocked_t}</h3>
-      <p>${_t.c_blocked}</p>
-      ${nativePrimaryBtn()}
-      ${fallbackButtons()}
-      <div class="unblock">${_t.c_livehint}<br>${browserUnblock()}
-        <button class="cam-side" style="margin-top:12px;width:100%" onclick="startViewfinder()">${_t.c_retry}</button>
-      </div>
-    </div>`;
-}
-
-function showCamError(titleKey,bodyKey){
-  const _t=t();
-  document.getElementById('camBody').innerHTML=`
-    <div class="cam-fallback">
-      <div class="big">⚠️</div>
-      <h3>${_t[titleKey]}</h3>
-      <p>${_t[bodyKey]}</p>
-      ${nativePrimaryBtn()}
-      ${fallbackButtons()}
-      <button class="cam-side" style="margin-top:6px" onclick="startViewfinder()">${_t.c_retry}</button>
-    </div>`;
-}
-
-async function startViewfinder(){
-  const _t=t();
-  // Reuse the live stream across sides/docs — permission is requested ONCE and
-  // the camera never restarts between steps (Stripe/Onfido keep one session).
-  const live=camStream && camStream.getVideoTracks()[0] && camStream.getVideoTracks()[0].readyState==='live' && camStream.__facing===camFacing;
-  if(!live){
-    stopStream();
-    try{
-      camStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:camFacing,width:{ideal:1920}},audio:false});
-      camStream.__facing=camFacing;
-      try{ localStorage.setItem('sr_cam_ok','1'); }catch(e){}
-    }catch(e){
-      if(e.name==='NotAllowedError'||e.name==='PermissionDeniedError'){ try{localStorage.removeItem('sr_cam_ok');}catch(_e){} showBlocked(); }
-      else if(e.name==='NotFoundError'||e.name==='DevicesNotFoundError'){ showCamError('c_nodev_t','c_nodev'); }
-      else if(e.name==='NotReadableError'||e.name==='TrackStartError'){ showCamError('c_busy_t','c_busy'); }
-      else{ showCamError('c_nodev_t','c_nodev'); }
-      return;
-    }
-  }
-  camHeader();
-  // torch capability?
-  const track=camStream.getVideoTracks()[0];
-  let hasTorch=false;
-  try{ hasTorch=!!(track.getCapabilities && track.getCapabilities().torch); }catch(e){}
-  camTorch=false;
-  // Mirror the PREVIEW for user-facing cameras (desktop webcams, selfie cams)
-  // so aiming the card feels like a mirror. The capture itself stays
-  // unmirrored — snap() draws the raw video frame, so the card prints readable.
-  let mirror=true;
-  try{ const fm=(track.getSettings && track.getSettings().facingMode)||''; mirror = fm!=='environment'; }catch(e){}
-  camMirror=mirror;
-  const isBack=curDoc().endsWith('_b');
-  document.getElementById('camBody').innerHTML=`
-    <div class="cam-stage">
-      <video id="camVid" class="${mirror?'mirror':''}" autoplay playsinline muted></video>
-      <div class="cam-guide">
-        <div class="frame" id="acFrame"></div>
-        <div class="cam-instr"><b id="acTitle">${isBack?_t.c_flipnext:_t.c_shoot}</b><span id="acSub">${_t.c_autonote}</span></div>
-      </div>
-    </div>
-    ${docOf(curDoc())==='ins'?`<p style="font-size:12px;text-align:center;opacity:.75;padding:8px 24px 0">${_t.c_digital}</p>`:''}
-    <div class="cam-ctl">
-      <div class="czl">
-        <button class="cam-mini" title="${_t.c_gallery}" onclick="document.getElementById('camFile').click()">🖼</button>
-        ${hasTorch?`<button class="cam-mini" id="torchBtn" title="${_t.c_torch}" onclick="toggleTorch()">🔦</button>`:''}
-      </div>
-      <button class="cam-shutter" onclick="snap()" aria-label="${_t.a11y_shutter}"></button>
-      <div class="czr"><button class="cam-mini" title="${_t.c_flip}" onclick="flipCam()">🔄</button></div>
-    </div>
-    <button class="cam-skip" onclick="skipOne()">${_t.c_skipone}</button>`;
-  document.getElementById('camVid').srcObject=camStream;
-  startAuto();
-}
-
-function flipCam(){ camFacing = camFacing==='environment' ? 'user' : 'environment'; stopAuto(); stopStream(); startViewfinder(); }
-async function toggleTorch(){
-  try{
-    const track=camStream.getVideoTracks()[0];
-    camTorch=!camTorch;
-    await track.applyConstraints({advanced:[{torch:camTorch}]});
-    document.getElementById('torchBtn').classList.toggle('on',camTorch);
-  }catch(e){}
-}
-function flashFX(){
-  let f=document.querySelector('.flashfx');
-  if(!f){ f=document.createElement('div'); f.className='flashfx'; document.body.appendChild(f); }
-  f.classList.remove('go'); void f.offsetWidth; f.classList.add('go');
-}
-
-function stopStream(){ if(camStream){ camStream.getTracks().forEach(tr=>tr.stop()); camStream=null; } }
-
-/* ============ AUTO-CAPTURE ENGINE ============
-   Lightweight, dependency-free version of what Stripe Identity / BlinkID do:
-   sample the guide-frame region ~4×/sec on a small canvas and gate capture on
-   (a) lighting band, (b) interior detail/sharpness via Laplacian variance,
-   (c) motion stability via frame differencing held for ~1.2s.
-   Live guidance updates under the frame; manual shutter always available. */
-let acTimer=null, acPrevData=null, acGood=0, acStart=0, camMirror=true;
-const acCv=document.createElement('canvas'); acCv.width=128; acCv.height=81;
-
-/* Map the on-screen guide frame into raw-video pixel coords
-   (accounts for object-fit:cover letterboxing and mirrored preview). */
-function frameRegion(){
-  const v=document.getElementById('camVid'), st=document.querySelector('.cam-stage'), fr=document.getElementById('acFrame');
-  if(!v||!st||!fr||!v.videoWidth) return null;
-  const sr=st.getBoundingClientRect(), frr=fr.getBoundingClientRect();
-  const scale=Math.max(sr.width/v.videoWidth, sr.height/v.videoHeight);
-  const offX=(v.videoWidth*scale-sr.width)/2, offY=(v.videoHeight*scale-sr.height)/2;
-  let x=(frr.left-sr.left+offX)/scale, y=(frr.top-sr.top+offY)/scale;
-  let w=frr.width/scale, h=frr.height/scale;
-  if(camMirror){ x=v.videoWidth-x-w; }
-  const px=w*.03, py=h*.03; // small breathing margin
-  x=Math.max(0,x-px); y=Math.max(0,y-py);
-  w=Math.min(v.videoWidth-x,w+2*px); h=Math.min(v.videoHeight-y,h+2*py);
-  return {x,y,w,h,v};
-}
-
-function startAuto(){ stopAuto(); acPrevData=null; acGood=0; acStart=Date.now(); acTimer=setInterval(acTick,250); }
-function stopAuto(){ if(acTimer){ clearInterval(acTimer); acTimer=null; } const f=document.getElementById('acFrame'); if(f) f.classList.remove('lock'); }
-function acSet(title,sub){
-  const a=document.getElementById('acTitle'), b=document.getElementById('acSub');
-  if(a&&title!=null) a.textContent=title;
-  if(b&&sub!=null) b.textContent=sub;
-}
-
-function acTick(){
-  const _t=t(); const reg=frameRegion(); if(!reg) return;
-  const ctx=acCv.getContext('2d',{willReadFrequently:true});
-  let d;
-  try{
-    ctx.drawImage(reg.v, reg.x,reg.y,reg.w,reg.h, 0,0,acCv.width,acCv.height);
-    d=ctx.getImageData(0,0,acCv.width,acCv.height).data;
-  }catch(e){ return; }
-  const W=acCv.width,H=acCv.height,N=W*H;
-  const g=new Float32Array(N);
-  let mean=0,blown=0;
-  for(let i=0;i<N;i++){ const j=i*4; const l=.299*d[j]+.587*d[j+1]+.114*d[j+2]; g[i]=l; mean+=l; if(l>250)blown++; }
-  mean/=N;
-  const blownFrac=blown/N;
-  // interior detail / sharpness — variance of Laplacian (Stripe's blur gate)
-  let lsum=0,l2=0,cnt=0;
-  for(let y=1;y<H-1;y++)for(let x=1;x<W-1;x++){
-    const i=y*W+x;
-    const lap=4*g[i]-g[i-1]-g[i+1]-g[i-W]-g[i+W];
-    lsum+=lap; l2+=lap*lap; cnt++;
-  }
-  const lapVar=l2/cnt-(lsum/cnt)*(lsum/cnt);
-  // motion stability — mean abs diff vs previous sample (IoU-style hold-still gate)
-  let motion=999;
-  if(acPrevData){ let s=0,m=0; for(let i=0;i<N;i+=4){ s+=Math.abs(g[i]-acPrevData[i]); m++; } motion=s/m; }
-  acPrevData=g;
-  const frame=document.getElementById('acFrame');
-  const elapsed=Date.now()-acStart;
-  const sub=(elapsed>12000)?_t.c_trouble:_t.c_autonote; // timeout → nudge manual shutter
-  const idle=curDoc()&&curDoc().endsWith('_b')?_t.c_flipnext:_t.c_shoot;
-  // Progressive relaxation (production trick): plain card backs have little
-  // texture, so the detail gate eases the longer the user keeps trying.
-  const relax=elapsed>9000?.5:(elapsed>5000?.7:1);
-  if(mean<38){ acGood=0; if(frame)frame.classList.remove('lock'); acSet(_t.c_light,sub); return; }
-  if(blownFrac>.16){ acGood=0; if(frame)frame.classList.remove('lock'); acSet(_t.c_glare,sub); return; }
-  if(lapVar<95*relax){ acGood=0; if(frame)frame.classList.remove('lock'); acSet(_t.c_closer,sub); return; }
-  if(motion>8){ acGood=0; if(frame)frame.classList.remove('lock'); acSet(idle,sub); return; }
-  acGood++;
-  if(frame) frame.classList.add('lock');
-  acSet(_t.c_steady,sub);
-  if(acGood>=4){ acSet(_t.c_got,''); stopAuto(); snap(); } // ~1s locked → capture
-}
-
-function snap(){
-  stopAuto();
-  const v=document.getElementById('camVid');
-  if(!v||!v.videoWidth) return;
-  const reg=frameRegion();
-  const c=document.createElement('canvas');
-  if(reg){ // auto-crop to the guide frame — the review step opens pre-framed, no zooming needed
-    c.width=Math.round(reg.w); c.height=Math.round(reg.h);
-    c.getContext('2d').drawImage(v, reg.x,reg.y,reg.w,reg.h, 0,0,c.width,c.height);
-  }else{
-    c.width=v.videoWidth; c.height=v.videoHeight;
-    c.getContext('2d').drawImage(v,0,0);
-  }
-  flashFX(); // capture confirmation: white flash
-  if(navigator.vibrate) navigator.vibrate([35,60,35]); // haptic pulse where supported
-  // stream intentionally stays live → instant retake and seamless next side
-  const img=new Image();
-  img.onload=()=>openEditor(img);
-  img.src=c.toDataURL('image/jpeg',.92);
-}
-
-function fileToEditor(e){
-  const f=e.target.files[0]; if(!f) return;
-  e.target.value='';
-  stopAuto(); // stream stays live for a seamless next side
-  const r=new FileReader();
-  r.onload=ev=>{ const img=new Image(); img.onload=()=>openEditor(img); img.src=ev.target.result; };
-  r.readAsDataURL(f);
-}
-
-function skipOne(){
-  /* Skip only the CURRENT side — a captured front must survive skipping the back
-     ("Skip this one" promises one, not both). The doc is marked skipped only when
-     no side was captured at all, so the status chips stay truthful. */
-  const doc=docOf(curDoc());
-  /* "Skip" means "don't capture now," never "delete" — an existing photo
-     (retake mode) survives the skip untouched. */
-  const sides=DOCSEQ.filter(k=>docOf(k)===doc);
-  if(!sides.some(k=>data[k])) data.skipped[doc]=true;
-  persist();
-  nextDoc();
-}
-function nextDoc(){
-  camIdx++;
-  if(camIdx>=camQueue.length){ closeCam(); } else { showCam(); }
-}
-function closeCam(){
-  stopAuto();
-  stopStream();
-  const ov=document.getElementById('camOverlay');
-  const fin=()=>{
-    ov.classList.remove('open');
-    render();
-    if(window.SRMotion&&SRMotion.pop) SRMotion.pop('#screen .docrow .st.ok',.1);
-  };
-  if(window.SRMotion&&SRMotion.overlayOut) SRMotion.overlayOut('#camOverlay','.cam-shell',fin);
-  else fin();
-}
-
-/* ---- editor: pan / zoom / rotate / mask / quality check ---- */
-function openEditor(img){
-  ed={img,zoom:1,ox:0,oy:0,rot:0,mask:false,mx:.5,my:.78,dragging:null,lastX:0,lastY:0};
-  const _t=t(); const isLic=curDoc()==='lic_f';
-  camHeader();
-  document.getElementById('camBody').innerHTML=`
-    <div class="ed-stage" id="edStage">
-      <canvas id="edCanvas"></canvas>
-      <div class="ed-frame"><div class="f"></div></div>
-    </div>
-    <div class="qwarn" id="qwarn">${_t.e_qwarn} <button style="cursor:pointer;text-decoration:underline;background:none;border:none;font:inherit;font-weight:800;color:inherit;padding:12px 10px;margin:-8px 0" onclick="this.parentElement.classList.remove('show')">${_t.e_keep}</button></div>
-    <div class="ed-tools">
-      <span style="font-size:12px;font-weight:800;opacity:.7">${_t.e_zoom}</span>
-      <input type="range" min="1" max="3" step="0.01" value="1" oninput="ed.zoom=+this.value;drawEd()">
-      <button class="cam-side" onclick="ed.rot=(ed.rot+90)%360;drawEd()">${_t.e_rotate}</button>
-    </div>
-    ${isLic?`<div class="maskrow">
-      <div class="sw" id="maskSw" role="switch" tabindex="0" aria-checked="false" onclick="toggleMask()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleMask();}"></div>
-      <div>${_t.e_mask}<div class="mh" id="maskHint" style="display:none">${_t.e_maskhint}</div></div>
-    </div>`:''}
-    <p style="font-size:11px;text-align:center;opacity:.6;padding-top:8px">${_t.e_drag}</p>
-    <div class="ed-q">${_t.e_q}</div>
-    <div class="ed-btnrow">
-      <button class="ed-use" onclick="useShot()">${_t.e_use}</button>
-      <button class="ed-retake" onclick="showCam()">${_t.e_retake}</button>
-    </div>`;
-  const cv=document.getElementById('edCanvas');
-  const stage=document.getElementById('edStage');
-  // size canvas to card ratio frame
-  setTimeout(()=>{
-    const w=Math.min(stage.clientWidth*.82, 640);
-    cv.width=w*2; cv.height=(w/1.586)*2;
-    cv.style.width=w+'px'; cv.style.height=(w/1.586)+'px';
-    drawEd(); qualityCheck();
-  },30);
-  // pointer events: drag image or mask bar
-  cv.addEventListener('pointerdown',e=>{
-    cv.setPointerCapture(e.pointerId);
-    const r=cv.getBoundingClientRect();
-    const px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
-    ed.dragging=(ed.mask && Math.abs(px-ed.mx)<.25 && Math.abs(py-ed.my)<.12)?'mask':'img';
-    ed.lastX=e.clientX; ed.lastY=e.clientY;
-  });
-  cv.addEventListener('pointermove',e=>{
-    if(!ed.dragging) return;
-    const r=cv.getBoundingClientRect();
-    const dx=e.clientX-ed.lastX, dy=e.clientY-ed.lastY;
-    ed.lastX=e.clientX; ed.lastY=e.clientY;
-    if(ed.dragging==='mask'){ ed.mx+=dx/r.width; ed.my+=dy/r.height; ed.mx=Math.max(.08,Math.min(.92,ed.mx)); ed.my=Math.max(.08,Math.min(.92,ed.my)); }
-    else{ ed.ox+=dx*2; ed.oy+=dy*2; }
-    drawEd();
-  });
-  cv.addEventListener('pointerup',()=>ed.dragging=null);
-}
-
-function toggleMask(){
-  ed.mask=!ed.mask;
-  const _msw=document.getElementById('maskSw');
-  _msw.classList.toggle('on',ed.mask);
-  _msw.setAttribute('aria-checked',ed.mask?'true':'false');
-  document.getElementById('maskHint').style.display=ed.mask?'block':'none';
-  drawEd();
-}
-
-function drawEd(target){
-  const cv=target||document.getElementById('edCanvas');
-  if(!cv||!ed.img) return;
-  const ctx=cv.getContext('2d');
-  ctx.fillStyle='#0a0f1c'; ctx.fillRect(0,0,cv.width,cv.height);
-  ctx.save();
-  ctx.translate(cv.width/2+ed.ox, cv.height/2+ed.oy);
-  ctx.rotate(ed.rot*Math.PI/180);
-  const iw=ed.img.width, ih=ed.img.height;
-  const rw=(ed.rot%180)?ih:iw, rh=(ed.rot%180)?iw:ih;
-  const base=Math.max(cv.width/rw, cv.height/rh)*ed.zoom;
-  ctx.scale(base,base);
-  ctx.drawImage(ed.img,-iw/2,-ih/2);
-  ctx.restore();
-  if(ed.mask){
-    ctx.fillStyle='#E8B84B';
-    const mw=cv.width*.34, mh=cv.height*.13;
-    const x=ed.mx*cv.width-mw/2, y=ed.my*cv.height-mh/2;
-    ctx.beginPath(); ctx.roundRect(x,y,mw,mh,8); ctx.fill();
-    ctx.fillStyle='#1B2A4A'; ctx.font=`800 ${Math.round(mh*.5)}px sans-serif`;
-    ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.fillText('••••',x+mw/2,y+mh/2+1);
-  }
-}
-
-function qualityCheck(){
-  try{
-    const cv=document.getElementById('edCanvas');
-    const ctx=cv.getContext('2d');
-    const d=ctx.getImageData(0,0,cv.width,cv.height).data;
-    let sum=0,sum2=0,n=0,blown=0;
-    for(let i=0;i<d.length;i+=40){
-      const l=.299*d[i]+.587*d[i+1]+.114*d[i+2];
-      sum+=l; sum2+=l*l; n++;
-      if(l>250) blown++;
-    }
-    const mean=sum/n, varc=sum2/n-mean*mean;
-    if(varc<900 || blown/n>.18 || mean<40){
-      document.getElementById('qwarn').classList.add('show');
-    }
-  }catch(e){}
-}
-
-function useShot(){
-  // bake final composite
-  const out=document.createElement('canvas');
-  out.width=1000; out.height=Math.round(1000/1.586);
-  const view=document.getElementById('edCanvas');
-  // re-render at output size using same transform ratios
-  const scaleX=out.width/view.width, scaleY=out.height/view.height;
-  const saved={...ed};
-  const octx=out.getContext('2d');
-  octx.fillStyle='#0a0f1c'; octx.fillRect(0,0,out.width,out.height);
-  octx.save();
-  octx.translate(out.width/2+ed.ox*scaleX, out.height/2+ed.oy*scaleY);
-  octx.rotate(ed.rot*Math.PI/180);
-  const iw=ed.img.width, ih=ed.img.height;
-  const rw=(ed.rot%180)?ih:iw, rh=(ed.rot%180)?iw:ih;
-  const base=Math.max(out.width/rw, out.height/rh)*ed.zoom;
-  octx.scale(base,base);
-  octx.drawImage(ed.img,-iw/2,-ih/2);
-  octx.restore();
-  if(ed.mask){
-    octx.fillStyle='#E8B84B';
-    const mw=out.width*.34, mh=out.height*.13;
-    const x=ed.mx*out.width-mw/2, y=ed.my*out.height-mh/2;
-    octx.beginPath(); octx.roundRect(x,y,mw,mh,8); octx.fill();
-    octx.fillStyle='#1B2A4A'; octx.font=`800 ${Math.round(mh*.5)}px sans-serif`;
-    octx.textAlign='center'; octx.textBaseline='middle';
-    octx.fillText('••••',x+mw/2,y+mh/2+1);
-  }
-  data[curDoc()]=out.toDataURL('image/jpeg',.9);
-  ph('sr_doc_added',{doc:curDoc()});
-  data.skipped[docOf(curDoc())]=false;
-  persist(); // photos themselves are intentionally not cached
-  nextDoc();
-}
-
-/* resume a saved session (fields + step; photos start fresh by design) */
-restore();
-try{
-  const s=JSON.parse(localStorage.getItem('sr_save')||'null');
-  if(s && typeof s.step==='number' && isFinite(s.step) && s.step>0) step=Math.min(Math.floor(s.step),5); // clamp + floor: older saves had a 6-step wizard, and a fractional step matches no render branch
-  if(step>1 && !STATES[data.state]) step=1; // a resumed session without a valid state must re-pick — never silently default a pack to NY
-}catch(e){}
-function restart(){step=0;data.state=null;data.name=data.ec=data.ecp=data.ec2=data.ecp2=data.att=data.email="";DOCSEQ.forEach(k=>data[k]=null);data.skipped={lic:false,ins:false,reg:false};emailSentTo='';emailBusy=false;hasPrinted=false;printedAt=null;printFeedbackGiven=false;usageFeedbackGiven=false;clearSave();render();}
+function restart(){step=0;data.state=null;data.name=data.ec=data.ecp=data.ec2=data.ecp2=data.att=data.email="";emailSentTo='';emailBusy=false;hasPrinted=false;printedAt=null;printFeedbackGiven=false;usageFeedbackGiven=false;clearSave();render();}
 /* Print a second pack for a family member: keeps the state (families are almost
    always in the same one), clears everything personal — name, contacts, email,
    document photos — and drops straight into the "You" step instead of restarting
    the whole wizard from the splash screen. */
 function printForFamily(){
   data.name=data.ec=data.ecp=data.ec2=data.ecp2=data.att=data.email="";
-  DOCSEQ.forEach(k=>data[k]=null);
+  
   data.skipped={lic:false,ins:false,reg:false};
   emailSentTo='';emailBusy=false;hasPrinted=false;printedAt=null;printFeedbackGiven=false;usageFeedbackGiven=false;
   persist();
@@ -3291,7 +2746,6 @@ function buildPrint(){
   };
   const logoSVG=`<svg viewBox="0 0 120 120" fill="none">${LOGO}</svg>`;
   const brandBlock=`<div class="pp-brand">${logoSVG}<div><div class="n">AMPARO</div><div class="t">${_t.tagline}</div></div></div>`;
-  const pocket=(img,label)=>`<div class="pocket">${img?`<img src="${img}">`:`<div class="pl">${label}</div>`}</div>`;
   document.getElementById('printRoot').innerHTML=`
   <!-- PAGE 1 -->
   <div class="pp">
@@ -3320,11 +2774,10 @@ function buildPrint(){
     <div class="wcard">
       <div class="wcard-band"><div class="b1">AMPARO · ${st.name}</div><div class="b2">${lang==='es'?'Tarjeta de ventana':'Window card'}</div></div>
       <div class="wcard-body">
-        <div class="pockets">
-          ${pocket(data.lic_f,lang==='es'?'LICENCIA DE CONDUCIR — la foto se imprime aquí':'DRIVER\'S LICENSE — photo prints here')}
-          ${pocket(data.ins_f,lang==='es'?'TARJETA DE SEGURO — la foto se imprime aquí':'INSURANCE CARD — photo prints here')}
-          ${pocket(data.reg,lang==='es'?'REGISTRO — la foto se imprime aquí':'REGISTRATION — photo prints here')}
-        </div>
+        <!-- Photo pockets removed with the docs step: drivers already carry the
+             real documents, and a printed copy was never the thing an officer
+             wants. The card now just states they're out and visible. -->
+        <div class="docline">${lang==='es'?'LICENCIA · SEGURO · REGISTRO — a la vista en este sobre':'LICENSE · INSURANCE · REGISTRATION — displayed in this sleeve'}</div>
         <div class="rights">
           <div class="coop">${lang==='es'?'ESTOY COOPERANDO · MIS DOCUMENTOS ESTÁN A LA VISTA · NO ME RESISTO':'I AM COOPERATING · MY DOCUMENTS ARE DISPLAYED · I AM NOT RESISTING'}</div>
           <h2 style="font-size:15px">${lang==='es'?'Declaración de derechos':'Assertion of rights'}</h2>
@@ -4420,14 +3873,14 @@ function practiceRender(){
    Back gesture restored the captured licence photos. It has been removed rather
    than left as a panic button that does not panic. If one is ever re-added it must
    wipe state BEFORE navigating: null every field of `data` (photos included),
-   clearSave(), stopStream(), then leave. */
+   clearSave(), then leave. */
 function practiceClose(){
   clearTimeout(prxIdleT); prxIdleN=0;
   prxRecCancel(); prxDropLast();
   if(prxAudio){ try{ prxAudio.pause(); }catch(e){} prxAudio=null; }
   if(prxTTS){ try{ speechSynthesis.cancel(); }catch(e){} }
   document.getElementById('practiceOverlay').classList.remove('open');
-  if(step===5) render(); // post-print rail is staged on practice progress — refresh it
+  if(step===4) render(); // post-print rail is staged on practice progress — refresh it
 }
 
 /* ============ FEEDBACK ============
@@ -4515,7 +3968,7 @@ window.addEventListener('afterprint',()=>{
    here rather than in each of the seven close functions. Overlays are siblings
    of #appRoot, so the background can simply be made inert while one is open. */
 const OVERLAYS={
-  camOverlay:closeCam, pintroOverlay:practiceIntroClose, prepOverlay:prepClose,
+  pintroOverlay:practiceIntroClose, prepOverlay:prepClose,
   carryOverlay:carryClose, docOverlay:closeDoc, aboutOverlay:closeAbout,
   practiceOverlay:practiceClose
 };
