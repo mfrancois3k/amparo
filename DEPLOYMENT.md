@@ -32,6 +32,35 @@ Server: cloudflare                                  <- dead end
 a CNAME to a third-party Cloudflare proxy with no site behind it. So *every*
 visitor lands on a 404. There is no path to the app through this domain.
 
+### ROOT CAUSE (confirmed via the PostHog API)
+
+`proxyhog.com` is **PostHog's managed reverse proxy**, created 2026-07-30 00:07,
+status `valid`, for the domain `www.amparohq.com`:
+
+```
+domain: www.amparohq.com
+target: bc818ffa37b4c0fc474f.cf-prod-us-proxy.proxyhog.com
+status: valid
+```
+
+So this is not a hijack and nothing needs auditing — it was a deliberate
+setup. The problem is a **hostname collision**: `www.amparohq.com` cannot be
+both the website and the analytics reverse proxy. The proxy claims the whole
+hostname, so `www` now serves PostHog ingestion, and Vercel's apex redirect
+funnels every visitor into it.
+
+**Fix: move the proxy to a subdomain.**
+
+1. PostHog -> Settings -> organization proxy: delete the `www.amparohq.com`
+   record, create one for `ph.amparohq.com`.
+2. Point `ph` at the CNAME PostHog returns.
+3. Point `www` back at `cname.vercel-dns.com` (Option A below).
+4. Flip `PH_HOST` in `index.html` to `https://ph.amparohq.com`.
+
+Until step 4, `PH_HOST` stays on `https://us.i.posthog.com` so analytics keeps
+working rather than posting into a hostname that does not exist yet. The CSP in
+`vercel.json` already allows both hosts, so the flip needs no header change.
+
 ### Important: this is not a Cloudflare problem
 
 The zone's nameservers are Vercel's, so there is no Cloudflare dashboard to fix
