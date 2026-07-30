@@ -49,17 +49,29 @@ both the website and the analytics reverse proxy. The proxy claims the whole
 hostname, so `www` now serves PostHog ingestion, and Vercel's apex redirect
 funnels every visitor into it.
 
-**Fix: move the proxy to a subdomain.**
+**Fix: move the proxy to a subdomain.** (PostHog side is DONE.)
 
-1. PostHog -> Settings -> organization proxy: delete the `www.amparohq.com`
-   record, create one for `ph.amparohq.com`.
-2. Point `ph` at the CNAME PostHog returns.
-3. Point `www` back at `cname.vercel-dns.com` (Option A below).
-4. Flip `PH_HOST` in `index.html` to `https://ph.amparohq.com`.
+Done already, via the PostHog API:
+- deleted the `www.amparohq.com` proxy record
+- created `ph.amparohq.com`, status `waiting` on DNS
 
-Until step 4, `PH_HOST` stays on `https://us.i.posthog.com` so analytics keeps
-working rather than posting into a hostname that does not exist yet. The CSP in
-`vercel.json` already allows both hosts, so the flip needs no header change.
+**Remaining — two DNS records in Vercel (Project -> Settings -> Domains -> DNS):**
+
+| Type  | Name | Value                                              |
+|-------|------|----------------------------------------------------|
+| CNAME | www  | `cname.vercel-dns.com`                             |
+| CNAME | ph   | `67a01122b246953a6027.cf-prod-us-proxy.proxyhog.com` |
+
+The `www` record is what brings the SITE back. The `ph` record is what brings
+ad-blocker-resistant ANALYTICS back; PostHog verifies it and issues SSL
+automatically once it resolves.
+
+Then flip `PH_HOST` in `index.html` to `https://ph.amparohq.com`.
+
+`PH_HOST` deliberately stays on `https://us.i.posthog.com` until `ph` shows
+`valid` in `proxy-list` — pointing it at an unverified hostname would silently
+stop all analytics. The CSP in `vercel.json` already allows both hosts, so the
+flip needs no header change.
 
 ### Important: this is not a Cloudflare problem
 
