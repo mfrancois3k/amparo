@@ -1,9 +1,31 @@
 # Deployment & DNS
 
-## Current status: the live site is down (DNS, not the build)
+## Current status: RESOLVED — site is live
 
-As of 2026-07-30, `https://www.amparohq.com/` returns **404**. The app is fine —
-this is a DNS record pointing at the wrong place.
+`https://www.amparohq.com/` returns **200** and serves the current build
+(verified: `EDITION="2026-C"`, 4-step flow, all 51 states, CSP header present,
+custom 404 page, manifest/sw/icons/robots/sitemap all 200).
+
+The outage below is kept as the incident record.
+
+### Confirmed while fixing it
+
+- **This repo IS connected to Vercel** and `git push` does reach production —
+  the live HTML matched the latest commit. The earlier uncertainty is closed.
+- `amparo.vercel.app` belongs to an unrelated project; it is not this site.
+
+### Still in progress
+
+`ph.amparohq.com` (analytics proxy) is `issuing` — DNS verified, SSL being
+minted. `PH_HOST` in `index.html` stays on `https://us.i.posthog.com` until it
+reports `valid`; flipping to an unverified host would silently stop analytics.
+
+---
+
+## Incident: the site was down (DNS, not the build)
+
+`https://www.amparohq.com/` returned **404**. The app was fine —
+a DNS record pointed at the wrong place.
 
 ### Diagnosis
 
@@ -122,15 +144,9 @@ confirms the deployment is serving *this* repo and not something older.
 
 ## Is this repo actually connected to Vercel?
 
-**Unconfirmed.** There is no `.vercel/project.json` here, and `amparo.vercel.app`
-serves an unrelated Portuguese Next.js app — not this project. Before assuming a
-`git push` reaches production, confirm in the Vercel dashboard that a project is
-linked to `github.com/mfrancois3k/amparo` and note its production URL here:
-
-```
-Vercel project name:  __________________
-Production URL:       __________________
-```
+**Answered: yes.** Verified 2026-07-30 — production served the exact commit that
+had just been pushed. Production URL: `https://www.amparohq.com/`
+(apex `amparohq.com` 308-redirects to it).
 
 ## What this repo expects from the host
 
