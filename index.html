@@ -577,8 +577,42 @@
   .maskrow .sw.on::after{left:23px}
   .maskrow .mh{font-size:11px;opacity:.65;font-weight:600}
 
+  /* ============ MICRO-INTERACTIONS ============
+     Every rule here animates only transform / opacity / box-shadow, so the work
+     stays on the compositor and costs nothing on a low-end phone. Feedback only:
+     nothing moves unless the user touched it. The reduced-motion block below
+     neutralises all of it. */
+  .btn,.state-btn,.linkbtn,.prx-tab,.prx-opt,.life,.docrow{will-change:transform}
+  .btn:active{transform:scale(.978)}
+  .btn.gold{position:relative;overflow:hidden}
+  /* sheen sweeps across the primary action on hover — pure transform */
+  .btn.gold::after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;
+    background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);
+    transform:skewX(-18deg);transition:left .65s var(--ease-out);pointer-events:none}
+  .btn.gold:hover::after{left:130%}
+  .state-btn{transition:transform .26s var(--ease-spring),border-color .22s,box-shadow .26s var(--ease-out)}
+  .state-btn:hover{transform:translateY(-2px)}
+  .state-btn:active{transform:translateY(0) scale(.97)}
+  .state-btn.sel{animation:selPop .34s var(--ease-spring)}
+  @keyframes selPop{0%{transform:scale(1)}45%{transform:scale(1.045)}100%{transform:scale(1)}}
+  .linkbtn{transition:color .2s,transform .22s var(--ease-out)}
+  .linkbtn:active{transform:scale(.97)}
+  .prx-opt{transition:transform .24s var(--ease-spring),border-color .22s,box-shadow .24s var(--ease-out)}
+  .prx-opt:hover{transform:translateY(-1px)}
+  .prx-opt:active{transform:scale(.985)}
+  .back{transition:transform .24s var(--ease-spring)}
+  .back:hover{transform:translateX(-3px)}
+  /* stepper: the active node breathes once when it becomes current */
+  .snode.on .c{animation:nodePop .42s var(--ease-spring)}
+  @keyframes nodePop{0%{transform:scale(.86)}55%{transform:scale(1.09)}100%{transform:scale(1)}}
+  /* focus is never animated away — keyboard users get an instant, solid ring */
+  .btn:focus-visible,.state-btn:focus-visible,.linkbtn:focus-visible,.prx-opt:focus-visible{
+    outline:3px solid var(--navy);outline-offset:3px;transition:none}
+
   @media (prefers-reduced-motion: reduce){
     *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+    .btn.gold::after{display:none}
+    .btn:active,.state-btn:hover,.state-btn:active,.prx-opt:hover,.back:hover{transform:none !important}
   }
 
   /* ============ MOBILE HARDENING ============ */
@@ -1108,7 +1142,7 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
     </div>
     <div class="lang"><button id="langEN" class="on" aria-pressed="true" aria-label="English" onclick="setLang('en')">EN</button><button id="langES" aria-pressed="false" aria-label="Español" onclick="setLang('es')">ES</button></div>
   </header>
-  <div class="pilot" data-i="pilotBanner">Free during our community pilot — will be $19 after launch.</div>
+  <div class="pilot" data-i="pilotBanner">Free. Nothing you enter leaves your phone — no account, no upload.</div>
   <div id="offlineReady" class="soon" style="display:none;margin-top:6px"></div>
   <div id="staleBanner" style="display:none"></div>
   <div id="usageBanner" style="display:none"></div>
@@ -1213,7 +1247,7 @@ document.querySelectorAll('.logoSm').forEach(e=>e.innerHTML=LOGO);
 /* ============ i18n ============ */
 const T = {
   en: {
-    pilotBanner:"Free during our community pilot — will be $19 after launch.",
+    pilotBanner:"Free. Nothing you enter leaves your phone — no account, no upload.",
     disclaimer:"Amparo provides general legal information, not legal advice. Every rule is cited to the exact state statute so you can check it yourself; formal attorney sign-off per state is in progress. Phone numbers verified July 16, 2026.",
     stepLabels:["State","You","Lifelines","Print"],
     stepWord:"Step",
@@ -1369,7 +1403,7 @@ const T = {
     i_ecp:"Emergency contact phone", i_ecp_ph:"(555) 555-5555",
     i_ec2_h:"Backup contact (optional)", i_ec2_note:"In case your first contact can't be reached — printed on your wallet card too.",
     i_ec2_a11y:"Backup contact name", i_ecp2_a11y:"Backup contact phone",
-    s_pending:"federal only", s_pending_t:"Federal rights are shown for this state. Its own statutes are not verified in Amparo yet.",
+    s_pending:"federal ✓", s_pending_t:"Your federal rights are verified and shown. This state's own statutes are still being checked.",
     i_ec2:"Backup contact name", i_ec2_ph:"A second person who'd answer",
     i_ecp2:"Backup contact phone", i_ecp2_ph:"(555) 555-5555",
     i_att:"Attorney or legal aid number (optional)", i_att_ph:"If you have one",
@@ -1452,7 +1486,7 @@ const T = {
       {label:"Personalized to you", yes:"Your name, a backup emergency contact, and documents already printed into the pack."},
       {label:"A family emergency plan", yes:"Who picks up your kids, where documents are kept, a script for parents if you get the call, plus consulate numbers."}
     ],
-    cmp_price:"Free during the pilot. $19 once after launch — no subscription.",
+    cmp_price:"Free. No account, no card, no subscription — and nothing you enter leaves your phone.",
     pr_title:"IF YOU GET PULLED OVER", pr_es:"",
     prep_title:"BEFORE YOU DRIVE — SET THESE IN PLACE", prep_es:"",
     prep:[
@@ -1485,7 +1519,7 @@ const T = {
     footer:"© 2026 Amparo · Pilot edition · General legal information, not legal advice · Every rule cited to state statute · Attorney sign-off in progress · Numbers verified 7/16/2026"
   },
   es: {
-    pilotBanner:"Gratis durante nuestro piloto comunitario — costará $19 después del lanzamiento.",
+    pilotBanner:"Gratis. Nada de lo que escribes sale de tu teléfono — sin cuenta, sin subir nada.",
     disclaimer:"Amparo ofrece información legal general, no asesoría legal. Cada regla cita el artículo exacto de la ley estatal para que usted mismo lo verifique; la revisión formal por un abogado en cada estado está en curso. Números verificados el 16 de julio de 2026.",
     stepLabels:["Estado","Tú","Líneas","Imprimir"],
     stepWord:"Paso",
@@ -1641,7 +1675,7 @@ const T = {
     i_ecp:"Teléfono del contacto de emergencia", i_ecp_ph:"(555) 555-5555",
     i_ec2_h:"Contacto de respaldo (opcional)", i_ec2_note:"Por si no pueden localizar a tu primer contacto — también se imprime en tu tarjeta de cartera.",
     i_ec2_a11y:"Nombre del contacto de respaldo", i_ecp2_a11y:"Teléfono del contacto de respaldo",
-    s_pending:"solo federal", s_pending_t:"Para este estado se muestran derechos federales. Sus propias leyes aún no están verificadas en Amparo.",
+    s_pending:"federal ✓", s_pending_t:"Tus derechos federales están verificados y se muestran. Las leyes propias de este estado aún se están revisando.",
     i_ec2:"Nombre del contacto de respaldo", i_ec2_ph:"Una segunda persona que conteste",
     i_ecp2:"Teléfono del contacto de respaldo", i_ecp2_ph:"(555) 555-5555",
     i_att:"Número de abogado o ayuda legal (opcional)", i_att_ph:"Si tienes uno",
@@ -1724,7 +1758,7 @@ const T = {
       {label:"Personalizado para ti", yes:"Tu nombre, un contacto de emergencia de respaldo y documentos ya impresos en el paquete."},
       {label:"Un plan familiar de emergencia", yes:"Quién recoge a tus hijos, dónde están los documentos, un guion para los padres si reciben la llamada, y números de consulados."}
     ],
-    cmp_price:"Gratis durante el piloto. $19 único pago después del lanzamiento — sin suscripción.",
+    cmp_price:"Gratis. Sin cuenta, sin tarjeta, sin suscripción — y nada de lo que escribes sale de tu teléfono.",
     pr_title:"SI TE DETIENE LA POLICÍA", pr_es:"IF YOU GET PULLED OVER",
     prep_title:"ANTES DE MANEJAR — DEJA ESTO LISTO", prep_es:"BEFORE YOU DRIVE — SET THESE IN PLACE",
     prep:[

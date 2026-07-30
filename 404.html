@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Page not found — Amparo</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1B2A4A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='72' r='28' fill='none' stroke='%23E8B84B' stroke-width='12'/%3E%3Crect x='48' y='56' width='24' height='32' rx='4' fill='%231B2A4A'/%3E%3Cpath d='M12 62 L60 18 L108 62' fill='none' stroke='%231B2A4A' stroke-width='13' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --navy:#1B2A4A; --navy-deep:#121e38; --gold:#E8B84B; --gold-soft:#F3D48A;
+    --cream:#FAF6EE; --white:#fff; --ink:#22293a; --muted:#64707d;
+    --gold-ink:#6b4d0d; --line:#e5e0d4;
+    --ease-out:cubic-bezier(.22,.8,.36,1); --spring:cubic-bezier(.34,1.45,.5,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    min-height:100svh;background:var(--cream);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
+    display:flex;align-items:center;justify-content:center;
+    padding:24px max(20px,env(safe-area-inset-left)) calc(24px + env(safe-area-inset-bottom));
+    /* faint paper grain so the empty page doesn't read as a broken white screen */
+    background-image:radial-gradient(circle at 18% 12%,rgba(232,184,75,.10),transparent 42%),
+                     radial-gradient(circle at 84% 88%,rgba(27,42,74,.07),transparent 46%);
+  }
+  .wrap{width:100%;max-width:440px;text-align:center}
+
+  /* ---- brand ---- */
+  .brand{display:inline-flex;align-items:center;gap:9px;margin-bottom:26px;
+         opacity:0;animation:rise .6s var(--ease-out) .05s forwards}
+  .brand svg{width:34px;height:34px;display:block}
+  .brand .bn{font-size:19px;font-weight:900;letter-spacing:-.3px;color:var(--navy)}
+  .brand .bt{font-size:8.5px;font-weight:700;letter-spacing:1.4px;color:var(--gold-ink);text-transform:uppercase}
+
+  /* ---- the deer ---- */
+  .scene{position:relative;width:190px;height:150px;margin:0 auto 6px;
+         opacity:0;animation:rise .7s var(--ease-out) .18s forwards}
+  .beam{position:absolute;left:50%;top:-14px;width:150px;height:150px;transform:translateX(-50%);
+        background:radial-gradient(ellipse at 50% 0,rgba(232,184,75,.42),rgba(232,184,75,0) 68%);
+        animation:beam 4.2s ease-in-out infinite}
+  .deer{position:relative;width:100%;height:100%;display:block;
+        animation:sway 6s ease-in-out infinite}
+  .deer .ear{transform-origin:center;animation:flick 5s ease-in-out infinite}
+  .deer .ear.r{animation-delay:.9s}
+  .eye{transform-origin:center;animation:blink 4.6s ease-in-out infinite}
+  .eye.r{animation-delay:.06s}
+
+  /* ---- copy ---- */
+  h1{font-size:clamp(26px,7vw,34px);line-height:1.15;letter-spacing:-.6px;color:var(--navy);margin-bottom:10px;
+     opacity:0;animation:rise .6s var(--ease-out) .3s forwards}
+  .code{display:inline-block;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;
+        color:var(--gold-ink);margin-bottom:12px;opacity:0;animation:rise .6s var(--ease-out) .24s forwards}
+  p.sub{font-size:15px;line-height:1.6;color:var(--muted);margin-bottom:26px;
+        opacity:0;animation:rise .6s var(--ease-out) .38s forwards}
+
+  /* ---- actions ---- */
+  .acts{display:flex;flex-direction:column;gap:10px;
+        opacity:0;animation:rise .6s var(--ease-out) .46s forwards}
+  .btn{display:flex;align-items:center;justify-content:center;gap:8px;
+       width:100%;min-height:52px;padding:15px 20px;border:0;border-radius:15px;cursor:pointer;
+       font-family:inherit;font-size:16px;font-weight:800;text-decoration:none;
+       background:var(--navy);color:#fff;position:relative;overflow:hidden;
+       transition:transform .3s var(--spring),box-shadow .3s var(--ease-out)}
+  .btn.gold{background:linear-gradient(135deg,var(--gold),#dCA83C);color:var(--navy-deep);
+            box-shadow:0 6px 18px rgba(232,184,75,.34)}
+  .btn:hover{transform:translateY(-2px)}
+  .btn.gold:hover{box-shadow:0 10px 26px rgba(232,184,75,.46)}
+  .btn:active{transform:translateY(0) scale(.985)}
+  .btn:focus-visible{outline:3px solid var(--navy);outline-offset:3px}
+  .btn.gold:focus-visible{outline-color:var(--gold-ink)}
+  /* sheen sweep on hover — pure transform, stays on the compositor */
+  .btn.gold::after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;
+    background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);
+    transform:skewX(-18deg);transition:left .6s var(--ease-out)}
+  .btn.gold:hover::after{left:130%}
+  .btn .arw{transition:transform .3s var(--spring)}
+  .btn:hover .arw{transform:translateX(4px)}
+  .ghost{background:transparent;color:var(--navy);border:1.5px solid var(--line);min-height:48px;font-size:15px}
+  .ghost:hover{border-color:var(--navy);background:#fff}
+
+  .note{margin-top:22px;font-size:12px;line-height:1.55;color:var(--muted);
+        opacity:0;animation:rise .6s var(--ease-out) .56s forwards}
+
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @keyframes beam{0%,100%{opacity:.55}50%{opacity:.95}}
+  @keyframes sway{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+  @keyframes flick{0%,90%,100%{transform:rotate(0)}93%{transform:rotate(-9deg)}96%{transform:rotate(5deg)}}
+  @keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+
+  /* Motion is decoration here — strip all of it, but never hide the content. */
+  @media (prefers-reduced-motion:reduce){
+    *,*::after{animation:none!important;transition:none!important}
+    .brand,.scene,h1,.code,p.sub,.acts,.note{opacity:1!important;transform:none!important}
+  }
+  @media (prefers-color-scheme:dark){
+    :root{--cream:#12192b;--ink:#eef1f6;--muted:#9aa6b8;--navy:#f0f3f8;--line:#2a3550;--gold-ink:#F3D48A}
+    body{background:#12192b}
+    .btn{background:#26324e;color:#fff}
+    .ghost{background:transparent;color:#eef1f6}
+    .ghost:hover{background:#1a2439}
+    .brand .bn{color:#f0f3f8}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand">
+    <svg viewBox="0 0 120 120" fill="none" aria-hidden="true">
+      <circle cx="60" cy="72" r="28" fill="none" stroke="#E8B84B" stroke-width="12"/>
+      <rect x="48" y="56" width="24" height="32" rx="4" fill="#1B2A4A"/>
+      <path d="M12 62 L60 18 L108 62" fill="none" stroke="#1B2A4A" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div style="text-align:left">
+      <div class="bn">Amparo</div>
+      <div class="bt">Know your rights</div>
+    </div>
+  </div>
+
+  <!-- Deer in headlights: the freeze this whole product exists to prevent.
+       Drawn as SVG rather than a photo — scales cleanly, themes with the site,
+       and costs no extra request on a prepaid data plan. -->
+  <div class="scene">
+    <div class="beam" aria-hidden="true"></div>
+    <svg class="deer" viewBox="0 0 190 150" role="img" aria-label="A deer caught in headlights, frozen">
+      <ellipse cx="95" cy="139" rx="46" ry="6" fill="#1B2A4A" opacity=".13"/>
+      <g stroke="#1B2A4A" stroke-width="5.5" stroke-linecap="round" fill="none">
+        <path d="M74 58 C68 42 63 34 55 27"/><path d="M64 44 C56 40 51 40 45 42"/><path d="M69 34 C63 27 59 24 52 21"/>
+        <path d="M116 58 C122 42 127 34 135 27"/><path d="M126 44 C134 40 139 40 145 42"/><path d="M121 34 C127 27 131 24 138 21"/>
+      </g>
+      <g class="ear l"><ellipse cx="66" cy="70" rx="12" ry="8" transform="rotate(-24 66 70)" fill="#7d5a3c"/></g>
+      <g class="ear r"><ellipse cx="124" cy="70" rx="12" ry="8" transform="rotate(24 124 70)" fill="#7d5a3c"/></g>
+      <path d="M95 60 C114 60 124 74 124 92 C124 112 111 126 95 126 C79 126 66 112 66 92 C66 74 76 60 95 60Z" fill="#9a7150"/>
+      <path d="M95 96 C106 96 112 104 112 112 C112 121 104 126 95 126 C86 126 78 121 78 112 C78 104 84 96 95 96Z" fill="#c9a583"/>
+      <g fill="#141b2c"><ellipse class="eye l" cx="82" cy="88" rx="7.5" ry="8.5"/><ellipse class="eye r" cx="108" cy="88" rx="7.5" ry="8.5"/></g>
+      <g fill="#fff" opacity=".92"><circle cx="84.4" cy="85.2" r="2.5"/><circle cx="110.4" cy="85.2" r="2.5"/></g>
+      <ellipse cx="95" cy="112" rx="6.5" ry="5" fill="#4a3426"/>
+    </svg>
+  </div>
+
+  <div class="code">Error 404</div>
+  <h1>This page isn't here.</h1>
+  <p class="sub">Frozen for a second? That's the whole reason Amparo exists — so you don't freeze when it counts. Let's get you back.</p>
+
+  <div class="acts">
+    <a class="btn gold" href="/">Take me home <span class="arw" aria-hidden="true">→</span></a>
+    <a class="btn ghost" href="/#practice">Practice a traffic stop instead</a>
+  </div>
+
+  <p class="note">If you typed the address, check it for a typo. If you followed a link here, it's on us — the home page has everything.</p>
+</div>
+</body>
+</html>
