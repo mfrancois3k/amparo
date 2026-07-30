@@ -121,7 +121,12 @@
   .feat:hover .fi{transform:scale(1.12) rotate(-4deg);background:var(--gold-soft)}
 
   /* state buttons */
-  .state-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;margin-top:6px}
+  /* 51 entries now, so the grid scrolls rather than pushing the Next button
+     off-screen. Fully-researched states float visually above the pending ones. */
+  .state-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;margin-top:6px;max-height:52vh;overflow-y:auto;overscroll-behavior:contain;padding:2px}
+  .state-btn.pend{background:#fbfaf6;border-style:dashed}
+  .state-btn.pend .nm{color:var(--muted)}
+  .pendtag{font-size:8.5px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--gold-ink);margin-top:3px;line-height:1.1}
   .state-btn{border:1.5px solid var(--line);border-radius:15px;background:var(--white);padding:18px 6px 14px;text-align:center;cursor:pointer;transition:all .3s var(--ease-spring);position:relative}
   .state-btn:hover{transform:translateY(-4px);border-color:#cbc2a6;box-shadow:0 8px 20px rgba(27,42,74,.12)}
   .state-btn .ab{font-size:24px;font-weight:900;color:var(--navy)}
@@ -1367,8 +1372,8 @@ const T = {
     ab_privacy_h:"Your privacy",
     ab_privacy:"Amparo keeps no accounts and no database of who you are. Your contacts and document photos live only on your device and go straight into your printout \u2014 they are never uploaded, so they can't be handed over even under pressure. We count anonymous events (like how many packs get printed, and in which state) to prove the tool is used \u2014 never who you are, never what you typed, never your photos. If you choose to email yourself a receipt, only your name, state and email address pass through our email service to deliver it, and that's all. We never sell or share anything with any agency, including immigration authorities.",
     ab_contact:"Contact",
-    s_title:"Which state do you drive in?", s_sub:"Your pack's rules and legal lifelines are matched to your state's laws.",
-    s_soon:"More states coming — the pilot starts with these three.",
+    s_title:"Which state do you drive in?", s_sub:"Texas, Georgia and New York have their own statutes cited line by line. Every other state gets the federal rights that apply everywhere — marked so you know the difference.",
+    s_soon:"“Federal only” means we show you the rights that hold in all 50 states, and we do NOT show that state’s own rules — because we won’t print a rule we haven’t checked against the statute. More states get their own citations as each one is verified.",
     i_title:"Who is this pack for?", i_sub:"This goes on the wallet card so someone you trust gets called if you're ever detained.",
     i_opt:"Every field is optional — fill in what helps you, skip the rest.",
     pdf_where:"No printer at home? Save the PDF, then print it free at most public libraries — or at FedEx/Staples, work, church, or a friend's.",
@@ -1377,6 +1382,7 @@ const T = {
     i_ecp:"Emergency contact phone", i_ecp_ph:"(555) 555-5555",
     i_ec2_h:"Backup contact (optional)", i_ec2_note:"In case your first contact can't be reached — printed on your wallet card too.",
     i_ec2_a11y:"Backup contact name", i_ecp2_a11y:"Backup contact phone",
+    s_pending:"federal only", s_pending_t:"Federal rights are shown for this state. Its own statutes are not verified in Amparo yet.",
     i_ec2:"Backup contact name", i_ec2_ph:"A second person who'd answer",
     i_ecp2:"Backup contact phone", i_ecp2_ph:"(555) 555-5555",
     i_att:"Attorney or legal aid number (optional)", i_att_ph:"If you have one",
@@ -1638,8 +1644,8 @@ const T = {
     ab_privacy_h:"Tu privacidad",
     ab_privacy:"Amparo no guarda cuentas ni una base de datos de qui\u00e9n eres. Tus contactos y fotos de documentos viven solo en tu dispositivo y van directo a tu impresi\u00f3n \u2014 nunca se suben, as\u00ed que no pueden entregarse ni bajo presi\u00f3n. Contamos eventos an\u00f3nimos (como cu\u00e1ntos paquetes se imprimen y en qu\u00e9 estado) para demostrar que la herramienta se usa \u2014 nunca qui\u00e9n eres, nunca lo que escribiste, nunca tus fotos. Si eliges enviarte un recibo por correo, solo tu nombre, tu estado y tu direcci\u00f3n de correo pasan por nuestro servicio de correo para entregarlo, y nada m\u00e1s. Nunca vendemos ni compartimos nada con ninguna agencia, incluidas las autoridades de inmigraci\u00f3n.",
     ab_contact:"Contacto",
-    s_title:"¿En qué estado manejas?", s_sub:"Las reglas y líneas de ayuda de tu paquete corresponden a las leyes de tu estado.",
-    s_soon:"Más estados pronto — el piloto empieza con estos tres.",
+    s_title:"¿En qué estado manejas?", s_sub:"Texas, Georgia y Nueva York tienen sus propias leyes citadas línea por línea. Los demás estados reciben los derechos federales que aplican en todas partes — marcados para que sepas la diferencia.",
+    s_soon:"«Solo federal» significa que te mostramos los derechos que valen en los 50 estados, y NO mostramos las reglas propias de ese estado — porque no imprimimos una regla que no hemos verificado contra la ley. Cada estado recibe sus propias citas al verificarse.",
     i_title:"¿Para quién es este paquete?", i_sub:"Esto va en la tarjeta de cartera para que llamen a alguien de confianza si alguna vez te detienen.",
     i_opt:"Todos los campos son opcionales — llena lo que te sirva y omite el resto.",
     pdf_where:"¿Sin impresora en casa? Guarda el PDF y luego imprímelo gratis en la mayoría de las bibliotecas públicas — o en FedEx/Staples, el trabajo, la iglesia o con un amigo.",
@@ -1648,6 +1654,7 @@ const T = {
     i_ecp:"Teléfono del contacto de emergencia", i_ecp_ph:"(555) 555-5555",
     i_ec2_h:"Contacto de respaldo (opcional)", i_ec2_note:"Por si no pueden localizar a tu primer contacto — también se imprime en tu tarjeta de cartera.",
     i_ec2_a11y:"Nombre del contacto de respaldo", i_ecp2_a11y:"Teléfono del contacto de respaldo",
+    s_pending:"solo federal", s_pending_t:"Para este estado se muestran derechos federales. Sus propias leyes aún no están verificadas en Amparo.",
     i_ec2:"Nombre del contacto de respaldo", i_ec2_ph:"Una segunda persona que conteste",
     i_ecp2:"Teléfono del contacto de respaldo", i_ecp2_ph:"(555) 555-5555",
     i_att:"Número de abogado o ayuda legal (opcional)", i_att_ph:"Si tienes uno",
@@ -1798,6 +1805,67 @@ const STATES = {
       {n:"Direct legal-aid line", p:"Coming soon", d_en:"Partnership pending — added the moment it's confirmed. Scan the QR for the live list.", d_es:"Alianza pendiente — se agrega al confirmarse. Escanea el QR para la lista actualizada.", tags:["soon"]}
     ]}
 };
+
+/* ===== NATIONAL COVERAGE =====
+   Every state is selectable, so nobody hits a dead end. States we have NOT
+   researched to citation standard get the federal baseline below — rules that
+   are true in all 50 states because they come from the U.S. Constitution and
+   the Supreme Court, not from a state code — plus an explicit marker saying
+   their state's own rules are not verified yet.
+
+   The pending entries are built into STATES itself so every existing call site
+   (print pack, lifelines, freshness banner, resume whitelist) keeps working
+   with no change. `pending:true` is the only thing that distinguishes them.
+
+   NOTHING here is a state statute. Per-state citations arrive only via
+   research/state-law-matrix.md, verified and attorney-reviewed, one at a time. */
+const US_STATE_NAMES = {
+  AL:"Alabama", AK:"Alaska", AZ:"Arizona", AR:"Arkansas", CA:"California",
+  CO:"Colorado", CT:"Connecticut", DE:"Delaware", DC:"District of Columbia",
+  FL:"Florida", GA:"Georgia", HI:"Hawaii", ID:"Idaho", IL:"Illinois",
+  IN:"Indiana", IA:"Iowa", KS:"Kansas", KY:"Kentucky", LA:"Louisiana",
+  ME:"Maine", MD:"Maryland", MA:"Massachusetts", MI:"Michigan", MN:"Minnesota",
+  MS:"Mississippi", MO:"Missouri", MT:"Montana", NE:"Nebraska", NV:"Nevada",
+  NH:"New Hampshire", NJ:"New Jersey", NM:"New Mexico", NY:"New York",
+  NC:"North Carolina", ND:"North Dakota", OH:"Ohio", OK:"Oklahoma",
+  OR:"Oregon", PA:"Pennsylvania", RI:"Rhode Island", SC:"South Carolina",
+  SD:"South Dakota", TN:"Tennessee", TX:"Texas", UT:"Utah", VT:"Vermont",
+  VA:"Virginia", WA:"Washington", WV:"West Virginia", WI:"Wisconsin", WY:"Wyoming"
+};
+/* Federal floor. Each line is Supreme Court or Bill of Rights law that binds
+   every state — safe to show anywhere. The last line is the honest limit. */
+const BASE_RULES_EN = [
+  "Show your licence, registration and proof of insurance when the officer asks. Every state requires this while you're driving — the part you control is HOW: announce the reach before you make it, move slowly, keep your hands visible.",
+  "The officer can order you — and your passengers — out of the car, even with no suspicion that anyone did anything wrong.<br><i class=\"stq\">Pennsylvania v. Mimms, 434 U.S. 106 (1977); Maryland v. Wilson, 519 U.S. 408 (1997)</i>",
+  "Silence is your right, but you have to claim it out loud. Just going quiet is not enough — say it: “I'm using my right to remain silent.”<br><i class=\"stq\">Berghuis v. Thompkins, 560 U.S. 370 (2010); Salinas v. Texas, 570 U.S. 178 (2013)</i>",
+  "You can refuse a search — “I don't consent to any searches, officer.” Refusing is not evidence against you, and by itself it does not give an officer a reason to search.",
+  "A stop cannot be stretched out to wait for a drug dog unless there's separate reasonable suspicion. Once the reason for the stop is finished, holding you longer needs its own justification.<br><i class=\"stq\">Rodriguez v. United States, 575 U.S. 348 (2015)</i>",
+  "Never physically resist — not even an order you're sure is unlawful. You win later, on paper, with a lawyer. Nobody wins on the roadside.",
+  "⚠️ <b>Your state's own rules aren't verified in Amparo yet.</b> Everything above is federal law and applies everywhere. What varies by state — whether you must give your name, whether refusing to sign a ticket can get you arrested, and whether you may record audio without telling the officer — is NOT shown for your state, because we won't print a rule we haven't checked against the statute."
+];
+const BASE_RULES_ES = [
+  "Muestre su licencia, registro y prueba de seguro cuando el oficial se los pida. Todos los estados lo exigen mientras maneja — lo que usted controla es CÓMO: anuncie el movimiento antes de hacerlo, muévase despacio, mantenga las manos a la vista.",
+  "El oficial puede ordenarle a usted — y a sus pasajeros — bajar del auto, aunque no sospeche que alguien hizo algo malo.<br><i class=\"stq\">Pennsylvania v. Mimms, 434 U.S. 106 (1977); Maryland v. Wilson, 519 U.S. 408 (1997)</i>",
+  "El silencio es su derecho, pero tiene que invocarlo en voz alta. Quedarse callado no basta — dígalo: «Estoy usando mi derecho a guardar silencio.»<br><i class=\"stq\">Berghuis v. Thompkins, 560 U.S. 370 (2010); Salinas v. Texas, 570 U.S. 178 (2013)</i>",
+  "Puede negarse a un registro — «No doy consentimiento para ningún registro, oficial.» Negarse no es prueba en su contra, y por sí solo no le da al oficial una razón para registrar.",
+  "No pueden alargar la parada para esperar a un perro antidrogas sin una sospecha razonable aparte. Una vez terminado el motivo de la parada, retenerlo más tiempo necesita su propia justificación.<br><i class=\"stq\">Rodriguez v. United States, 575 U.S. 348 (2015)</i>",
+  "Nunca se resista físicamente — ni siquiera a una orden que usted sabe que es ilegal. Se gana después, en papel, con un abogado. Nadie gana en la carretera.",
+  "⚠️ <b>Las reglas propias de su estado aún no están verificadas en Amparo.</b> Todo lo anterior es ley federal y aplica en todas partes. Lo que cambia según el estado — si debe dar su nombre, si negarse a firmar una multa puede llevar a un arresto, y si puede grabar audio sin avisarle al oficial — NO se muestra para su estado, porque no imprimimos una regla que no hemos verificado contra la ley."
+];
+/* National lifelines — real, reachable from any state. */
+const BASE_LIFELINES = [
+  {n:"Find your state's ACLU affiliate", p:"aclu.org/affiliates", d_en:"Every state has one. They publish state-specific know-your-rights guidance and take reports of rights violations. Not your lawyer, but the right first call.", d_es:"Cada estado tiene una. Publican guías de derechos específicas del estado y reciben reportes de violaciones. No es su abogado, pero es la primera llamada correcta.", tags:["free","safe"]},
+  {n:"Legal aid + social services referral", p:"Dial 211", d_en:"Free nationwide referral line. Ask for legal aid in your county — they route you to the office that covers your area.", d_es:"Línea gratuita nacional de referencias. Pida ayuda legal en su condado — lo dirigen a la oficina de su área.", tags:["free","hrs"]},
+  {n:"MigraWatch — United We Dream", p:"1-844-363-1423", d_en:"Free hotline to report ICE activity and get rapid-response, know-your-rights help. Any immigration status.", d_es:"Línea gratuita para reportar actividad de ICE y recibir ayuda de respuesta rápida. Cualquier estatus migratorio.", tags:["free","safe"]},
+  {n:"988 Suicide & Crisis Lifeline", p:"988", d_en:"If a stop leaves you shaken. Free, 24/7, confidential — call or text.", d_es:"Si una parada lo deja alterado. Gratis, 24/7, confidencial — llame o envíe mensaje.", tags:["free","safe"]}
+];
+/* Fill in every state we haven't researched. Researched states are untouched. */
+Object.keys(US_STATE_NAMES).forEach(k=>{
+  if(STATES[k]) return;
+  STATES[k]={name:US_STATE_NAMES[k], pending:true,
+             rules_en:BASE_RULES_EN, rules_es:BASE_RULES_ES,
+             lifelines:BASE_LIFELINES};
+});
 
 const TAGNAMES = {
   en:{free:"Free", fee:"$20 consult", hrs:"Business hours", safe:"Any immigration status", soon:"Coming soon"},
@@ -2008,6 +2076,11 @@ const PACK_EXTRA = {
     cr:["¿Hay heridos? Llame primero al 911.","Fotografíe todo — autos, placas, la escena, lesiones — antes de mover nada.","Intercambie licencia, seguro y placa. Nunca hable de culpa — hasta un “lo siento” cuenta.","Anote nombres y teléfonos de los testigos antes de que se vayan.","Pregunte cómo obtener el informe policial — anote el número.","Llame a su aseguradora el mismo día. La demora daña su reclamo."]
   },
   claims:{
+    /* Used for any state whose own notice-of-claim deadline hasn't been
+       researched. Says the true, useful thing — these deadlines are unusually
+       short and vary by city — without inventing a number for their state. */
+    DEFAULT:{en:"Deadlines to sue a police department, city or state are <b>much shorter than a normal lawsuit deadline</b> — in many places a written notice is due within <b>30 to 90 days</b> of the incident, and missing it can end a valid case before it starts. <b>Amparo has not verified your state's deadline yet.</b> If you were hurt or your rights were violated, contact a lawyer or your state's ACLU affiliate <b>this week</b> — not next month.",
+             es:"Los plazos para demandar a un departamento de policía, ciudad o estado son <b>mucho más cortos que los de una demanda normal</b> — en muchos lugares hay que presentar un aviso escrito en <b>30 a 90 días</b> del incidente, y perderlo puede terminar un caso válido antes de empezar. <b>Amparo aún no ha verificado el plazo de su estado.</b> Si resultó herido o violaron sus derechos, contacte a un abogado o a la filial de ACLU de su estado <b>esta semana</b> — no el mes que viene."},
     TX:{en:"Hurt by police or government? You may have to file a written notice FAST — Texas default is 6 months, and many cities are shorter: <b>Houston requires notice within 90 days.</b> Miss it and you can lose that claim — but federal civil-rights claims (like excessive force, 42 U.S.C. §1983) have NO notice deadline and a longer time limit, so missing 90 days does not kill every case. See a lawyer immediately either way.<br><i class=\"stq\">“…not later than six months after the day that the incident…occurred…A city's charter and ordinance provisions requiring notice within a charter period permitted by law are ratified and approved.” — Civ. Prac. &amp; Rem. Code §101.101</i>",
         es:"¿Dañado por la policía o el gobierno? Quizá deba presentar un aviso escrito RÁPIDO — el plazo de Texas es 6 meses, y muchas ciudades son más cortas: <b>Houston exige el aviso en 90 días.</b> Si lo pierde, puede perder ese reclamo — pero los reclamos federales de derechos civiles (como fuerza excesiva, 42 U.S.C. §1983) NO tienen plazo de aviso y dan más tiempo, así que perder los 90 días no mata todos los casos. Vea a un abogado de inmediato de todos modos.<br><i class=\"stq\">Texto de la ley (en inglés): “…not later than six months after the day that the incident…occurred…A city's charter and ordinance provisions requiring notice within a charter period permitted by law are ratified and approved.” — Código Civil Práctico y de Remedios §101.101</i>"},
     GA:{en:"To sue a city you must send written “ante litem” notice within <b>6 months</b> (O.C.G.A. §36-33-5) — a county within <b>12 months</b> (§36-11-1), and the State of Georgia within <b>12 months</b> with strict delivery rules (§50-21-26). Federal civil-rights claims (42 U.S.C. §1983) have NO notice deadline. Miss a deadline and that claim may be barred — see a lawyer immediately.<br><i class=\"stq\">“Within six months of the happening of the event…the person…having the claim shall present the claim in writing to the governing authority of the municipal corporation.” — O.C.G.A. §36-33-5(b) · “Notice of a claim shall be given in writing within 12 months of the date the loss was discovered or should have been discovered.” — O.C.G.A. §50-21-26</i>",
@@ -2369,10 +2442,11 @@ function render(){
       ${eyebrow()}
       <h1>${_t.s_title}</h1><p class="sub">${_t.s_sub}</p>
       <div class="state-grid stagger">
-        ${Object.keys(STATES).map(k=>`
-          <button class="state-btn ${data.state===k?'sel':''}" onclick="pickState('${k}')">
+        ${Object.keys(STATES).sort((a,b)=>STATES[a].name.localeCompare(STATES[b].name)).map(k=>`
+          <button class="state-btn ${data.state===k?'sel':''}${STATES[k].pending?' pend':''}" onclick="pickState('${k}')"${STATES[k].pending?` title="${_t.s_pending_t}"`:''}>
             <span class="badge">✓</span>
             <div class="ab">${k}</div><div class="nm">${STATES[k].name}</div>
+            ${STATES[k].pending?`<div class="pendtag">${_t.s_pending}</div>`:''}
           </button>`).join('')}
       </div>
       <p class="soon">${_t.s_soon}</p>
@@ -3260,7 +3334,12 @@ function buildPrint(){
               <div><div class="en">${lang==='es'?r.es:r.en}${r.amend?` <span style="font-weight:700;font-size:10px;color:var(--gold-ink)">(${lang==='es'?r.amend.replace('5th Amendment','5.ª Enmienda').replace('4th Amendment','4.ª Enmienda'):r.amend})</span>`:''}</div>
               <div class="es">${lang==='es'?r.en:r.es}</div></div>
             </div>`).join('')}
-          <div class="qrbox"><img src="${QR[data.state]||QR.NY}" width="52" height="52" style="border-radius:6px;display:block"><div style="font-size:9.5px;color:#6b7280;line-height:1.4">${lang==='es'?('Escanee para el directorio gratuito de ayuda legal de su estado: '+(QR_URL[data.state||'NY'])):('Scan for your state\'s free legal-aid directory: '+(QR_URL[data.state||'NY']))}</div></div>
+          ${QR[data.state]
+            ? `<div class="qrbox"><img src="${QR[data.state]}" width="52" height="52" style="border-radius:6px;display:block"><div style="font-size:9.5px;color:#6b7280;line-height:1.4">${lang==='es'?('Escanee para el directorio gratuito de ayuda legal de su estado: '+QR_URL[data.state]):('Scan for your state\'s free legal-aid directory: '+QR_URL[data.state])}</div></div>`
+            /* No state QR yet: point at the national directory. Falling back to
+               another state's QR would send, say, a California driver to New
+               York legal aid — worse than showing no code at all. */
+            : `<div class="qrbox"><div style="font-size:9.5px;color:#6b7280;line-height:1.4">${lang==='es'?'Busque ayuda legal gratuita en su estado: <b>lawhelp.org</b> · Su filial de ACLU: <b>aclu.org/affiliates</b>':'Find free legal aid in your state: <b>lawhelp.org</b> · Your ACLU affiliate: <b>aclu.org/affiliates</b>'}</div></div>`}
           <div style="font-size:9.5px;color:var(--gold-ink);margin-top:7px;line-height:1.35">⚖ ${lang==='es'?'Las fotos impresas son solo ayuda visual — lleve y entregue sus documentos reales cuando se los pidan.':'Printed document photos are a visual aid only — carry and hand over your real documents when asked.'}</div>
         </div>
       </div>
@@ -3366,7 +3445,7 @@ function buildPrint(){
         <div class="pbox"><h3>📱 ${PX.phn_h}</h3><ul>${PX.phn.map(x=>`<li>${x}</li>`).join('')}</ul></div>
       </div>
       <div class="p4col">
-        <div class="pbox warn"><h3>⏰ ${PX.claim_h}</h3><div style="font-size:10.3px;line-height:1.45">${PACK_EXTRA.claims[data.state||'NY'][lang]}</div></div>
+        <div class="pbox warn"><h3>⏰ ${PX.claim_h}</h3><div style="font-size:10.3px;line-height:1.45">${(PACK_EXTRA.claims[data.state]||PACK_EXTRA.claims.DEFAULT)[lang]}</div></div>
         <div class="pbox"><h3>🚛 ${PX.tow_h}</h3><ul>${PX.tow.map(x=>`<li>${x}</li>`).join('')}</ul></div>
         <div class="pbox"><h3>👂 ${PX.trap_h}</h3><ul>${PX.trap.map(x=>`<li>${x}</li>`).join('')}</ul></div>
         <div class="pbox warn"><h3>⏳ ${PX.ev_h}</h3><ul>${PX.ev.map(x=>`<li>${x}</li>`).join('')}</ul></div>
