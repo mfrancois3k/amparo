@@ -218,6 +218,10 @@
   }
 
   .disclaimer{font-size:12px;color:var(--muted);margin-top:24px;text-align:center;line-height:1.5}
+  .lawcheck{font-size:11.5px;color:var(--muted);margin-top:18px;text-align:center;line-height:1.5}
+  .lawcheck .dot{display:inline-block;width:7px;height:7px;border-radius:99px;background:var(--ok);margin-right:6px;vertical-align:middle}
+  .lawcheck.flag .dot{background:var(--gold)}
+  .lawcheck b{color:var(--ink);font-weight:800}
   .linkbtn{display:block;width:100%;background:none;border:0;color:var(--navy);font-size:13.5px;font-weight:800;cursor:pointer;margin-top:12px;padding:6px;text-decoration:underline;opacity:.82}
   .linkbtn:hover{opacity:1}
   .trust-strip{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin:16px 0 2px}
@@ -1167,6 +1171,10 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
   <div id="usageBanner" style="display:none"></div>
   <div class="stepper" id="stepper"></div>
   <div id="screen"></div>
+  <!-- Populated from law-status.json, written by the daily GitHub Action.
+       Deliberately separate from the attorney-review line below: "sources
+       checked" and "a person read this" are different claims. -->
+  <p class="lawcheck" id="lawCheck" style="display:none"></p>
   <p class="disclaimer" data-i="disclaimer">Amparo provides general legal information, not legal advice. Every rule is cited to the exact state statute so you can check it yourself; formal attorney sign-off per state is in progress. Phone numbers verified July 16, 2026.</p>
 </div>
 
@@ -1422,6 +1430,8 @@ const T = {
     i_ecp:"Emergency contact phone", i_ecp_ph:"(555) 555-5555",
     i_ec2_h:"Backup contact (optional)", i_ec2_note:"In case your first contact can't be reached — printed on your wallet card too.",
     i_ec2_a11y:"Backup contact name", i_ecp2_a11y:"Backup contact phone",
+    lawchk:"Statute sources auto-checked daily — last check <b>{d}</b>. This checks whether the source text moved, not that the law is correct.",
+    lawchk_flag:"A source statute changed on <b>{d}</b> and is under review. The rules shown were last reviewed by a person on the date below.",
     s_pending:"federal ✓", s_pending_t:"Your federal rights are verified and shown. This state's own statutes are still being checked.",
     i_ec2:"Backup contact name", i_ec2_ph:"A second person who'd answer",
     i_ecp2:"Backup contact phone", i_ecp2_ph:"(555) 555-5555",
@@ -1694,6 +1704,8 @@ const T = {
     i_ecp:"Teléfono del contacto de emergencia", i_ecp_ph:"(555) 555-5555",
     i_ec2_h:"Contacto de respaldo (opcional)", i_ec2_note:"Por si no pueden localizar a tu primer contacto — también se imprime en tu tarjeta de cartera.",
     i_ec2_a11y:"Nombre del contacto de respaldo", i_ecp2_a11y:"Teléfono del contacto de respaldo",
+    lawchk:"Fuentes legales revisadas automáticamente a diario — última revisión <b>{d}</b>. Comprueba si el texto de la ley cambió, no que la ley sea correcta.",
+    lawchk_flag:"Una ley fuente cambió el <b>{d}</b> y está en revisión. Las reglas mostradas fueron revisadas por una persona en la fecha de abajo.",
     s_pending:"federal ✓", s_pending_t:"Tus derechos federales están verificados y se muestran. Las leyes propias de este estado aún se están revisando.",
     i_ec2:"Nombre del contacto de respaldo", i_ec2_ph:"Una segunda persona que conteste",
     i_ecp2:"Teléfono del contacto de respaldo", i_ecp2_ph:"(555) 555-5555",
@@ -2164,6 +2176,9 @@ function setLang(l){
   document.getElementById('langES').setAttribute('aria-pressed',l==='es'?'true':'false');
   document.querySelector('.pilot').textContent=t().pilotBanner;
   document.querySelector('.disclaimer').textContent=t().disclaimer;
+  /* The source-check badge lives outside #screen, so render() won't touch it —
+     re-translate it here from the status already fetched. */
+  renderLawCheck();
   persist();
   if(window.SRMotion&&SRMotion.langSwap) SRMotion.langSwap(render);
   else render();
@@ -2966,6 +2981,34 @@ render();
 /* Arm/disarm replay for whatever step we restored into — a returning user resumed
    at step 3 must not start recording just because go() hasn't run yet. */
 srReplayGuard(step);
+
+/* ===== Daily source-check badge =====
+   law-status.json is rewritten each morning by .github/workflows/law-watch.yml.
+   Shown ONLY if the fetch succeeds: offline, on a stale cache, or on a file://
+   open there is simply no badge. A "last checked" date that might be days old is
+   worse than none — the whole point is that the date is trustworthy.
+   Note the wording carefully: this says sources were CHECKED, never that the law
+   was verified. A script cannot verify law; the attorney line below is the claim
+   about human review, and the two must not be blurred together. */
+function renderLawCheck(){
+  const st=window.__lawStatus, el=document.getElementById('lawCheck');
+  if(!el||!st||!st.lastChecked) return;
+  const _t=t(), flagged=(st.needsReview||[]).length>0;
+  let d=st.lastChecked;
+  try{ d=new Intl.DateTimeFormat(lang==='es'?'es':'en',{day:'numeric',month:'long',year:'numeric'})
+         .format(new Date(st.lastChecked+'T12:00:00Z')); }catch(e){}
+  el.className='lawcheck'+(flagged?' flag':'');
+  el.innerHTML='<span class="dot" aria-hidden="true"></span>'+
+    (flagged?_t.lawchk_flag:_t.lawchk).replace('{d}',d);
+  el.style.display='block';
+}
+(function(){
+  if(!/^https?:/.test(location.protocol)) return;
+  fetch('law-status.json',{cache:'no-store'})
+    .then(r=>r.ok?r.json():Promise.reject(new Error('HTTP '+r.status)))
+    .then(st=>{ window.__lawStatus=st; renderLawCheck(); })
+    .catch(()=>{});   // silent: no badge is the correct failure mode
+})();
 /* Ctrl+P before the preview step: #printRoot would be empty and the paper blank.
    If a state is picked, build the pack on the fly so browser-menu printing works
    from any step; if not, skip the analytics event — blank pages aren't packs. */

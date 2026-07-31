@@ -1,0 +1,51 @@
+{
+  "_comment": [
+    "Watchlist for the daily source check (tools/law-watch.mjs).",
+    "These are the PRIMARY statute pages behind the rules Amparo prints.",
+    "The job does NOT re-verify the law — no script can do that. It detects when",
+    "a source page's text CHANGES, which is the signal that a human needs to",
+    "re-read it. 'anchor' is a string that must appear in the page; the hash is",
+    "taken from a window around it so page furniture (ads, timestamps, nav)",
+    "doesn't cause daily false alarms.",
+    "URLs must point at CURRENT law, never a year-pinned snapshot (e.g. /codes/texas/2023/...) — a frozen year can never change, which would silently defeat the whole purpose of this watch.",
+    "All four sit on codes.findlaw.com. Justia 403s this runner under any load; if FindLaw ever starts blocking too, the job reports 'unreachable' (inconclusive) rather than raising a false alarm."
+  ],
+  "sources": [
+    {
+      "id": "tx-521-025",
+      "state": "TX",
+      "cite": "Tex. Transp. Code §521.025",
+      "topic": "Licence must be displayed on demand",
+      "url": "https://codes.findlaw.com/tx/transportation-code/transp-sect-521-025/",
+      "anchor": "521.025",
+      "hash": "405ae411370ea0a4"
+    },
+    {
+      "id": "tx-543-005",
+      "state": "TX",
+      "cite": "Tex. Transp. Code §543.005",
+      "topic": "Signing a citation is a promise to appear",
+      "url": "https://codes.findlaw.com/tx/transportation-code/transp-sect-543-005/",
+      "anchor": "543.005",
+      "hash": "306086259c7e63e6"
+    },
+    {
+      "id": "ny-vtl-1194",
+      "state": "NY",
+      "cite": "N.Y. Veh. & Traf. Law §1194",
+      "topic": "Chemical-test refusal consequences",
+      "url": "https://codes.findlaw.com/ny/vehicle-and-traffic-law/vat-sect-1194/",
+      "anchor": "1194",
+      "hash": "faad8027b4143d54"
+    },
+    {
+      "id": "ga-40-5-29",
+      "state": "GA",
+      "cite": "O.C.G.A. §40-5-29",
+      "topic": "Licence possession and display on demand",
+      "url": "https://codes.findlaw.com/ga/title-40-motor-vehicles-and-traffic/ga-code-sect-40-5-29/",
+      "anchor": "40-5-29",
+      "hash": "5ab882c418b903d0"
+    }
+  ]
+}
