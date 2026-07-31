@@ -8,7 +8,7 @@
     "taken from a window around it so page furniture (ads, timestamps, nav)",
     "doesn't cause daily false alarms.",
     "URLs must point at CURRENT law, never a year-pinned snapshot (e.g. /codes/texas/2023/...) — a frozen year can never change, which would silently defeat the whole purpose of this watch.",
-    "All four sit on codes.findlaw.com. Justia 403s this runner under any load; if FindLaw ever starts blocking too, the job reports 'unreachable' (inconclusive) rather than raising a false alarm."
+    "HOST CHOICE IS ABOUT DATACENTER IPs, not content. Probed from a real GitHub Actions runner: FindLaw and Justia 403 it every time (they answer a residential IP fine, which is why local runs mislead). public.law serves the runner reliably, so TX and NY use it. Georgia stays on FindLaw because public.law has no Georgia subdomain and every other GA source tested (lawserver, onecle, elaws, casetext, legis.ga.gov) 404s, 503s or returns a JS shell. GA therefore reports 'unreachable' from CI and is only really checked on a local run — which the honest-failure handling in law-watch.mjs covers: lastChecked only advances when at least one source was actually reached."
   ],
   "sources": [
     {
@@ -16,27 +16,27 @@
       "state": "TX",
       "cite": "Tex. Transp. Code §521.025",
       "topic": "Licence must be displayed on demand",
-      "url": "https://codes.findlaw.com/tx/transportation-code/transp-sect-521-025/",
+      "url": "https://texas.public.law/statutes/tex._transp._code_section_521.025",
       "anchor": "521.025",
-      "hash": "405ae411370ea0a4"
+      "hash": "aeeea7d6807b31cf"
     },
     {
       "id": "tx-543-005",
       "state": "TX",
       "cite": "Tex. Transp. Code §543.005",
       "topic": "Signing a citation is a promise to appear",
-      "url": "https://codes.findlaw.com/tx/transportation-code/transp-sect-543-005/",
+      "url": "https://texas.public.law/statutes/tex._transp._code_section_543.005",
       "anchor": "543.005",
-      "hash": "306086259c7e63e6"
+      "hash": "62c8d7122a41814d"
     },
     {
       "id": "ny-vtl-1194",
       "state": "NY",
       "cite": "N.Y. Veh. & Traf. Law §1194",
       "topic": "Chemical-test refusal consequences",
-      "url": "https://codes.findlaw.com/ny/vehicle-and-traffic-law/vat-sect-1194/",
+      "url": "https://newyork.public.law/laws/n.y._vehicle_and_traffic_law_section_1194",
       "anchor": "1194",
-      "hash": "faad8027b4143d54"
+      "hash": "1716b6f817d21e27"
     },
     {
       "id": "ga-40-5-29",

@@ -4,7 +4,8 @@
   "reachedSources": 4,
   "sourcesWatched": 4,
   "counts": {
-    "ok": 4
+    "baseline": 3,
+    "ok": 1
   },
   "needsReview": [],
   "note": "Automated source-change check only. This does not verify that the law is correct — that requires a person."
