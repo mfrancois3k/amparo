@@ -3012,10 +3012,17 @@ function renderLawCheck(){
 /* Ctrl+P before the preview step: #printRoot would be empty and the paper blank.
    If a state is picked, build the pack on the fly so browser-menu printing works
    from any step; if not, skip the analytics event — blank pages aren't packs. */
+let _lastPrintEv=0;
 window.addEventListener('beforeprint',()=>{
   const pr=document.getElementById('printRoot');
   if(pr && !pr.children.length && data.state) buildPrint();
-  if(pr && pr.children.length) ph('sr_pack_printed',{state:data.state||'none',lang:lang,edition:EDITION});
+  /* Android Chrome fires beforeprint more than once for a single print — seen in
+     production 686ms apart, which silently inflated every sr_pack_printed count.
+     One print must equal one event, so debounce rather than trust the browser. */
+  if(pr && pr.children.length && Date.now()-_lastPrintEv>4000){
+    _lastPrintEv=Date.now();
+    ph('sr_pack_printed',{state:data.state||'none',lang:lang,edition:EDITION});
+  }
 });
 let emailBusy=false, emailSentTo='';
 async function sendPackEmail(){
