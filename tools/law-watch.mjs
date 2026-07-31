@@ -112,9 +112,22 @@ for (const [n, src] of watch.sources.entries()) {
 const counts = results.reduce((a, r) => (a[r.status] = (a[r.status] || 0) + 1, a), {});
 const changed = results.filter(r => r.status === 'changed' || r.status === 'anchor-missing');
 
+const today = new Date().toISOString().slice(0, 10);
+const reached = results.filter(r => r.status !== 'unreachable').length;
+
+/* If NOTHING was reachable, the check did not happen — advancing lastChecked
+   would put "sources checked today" on the site while nothing was checked.
+   FindLaw 403s GitHub Actions runner IPs even though it answers a residential
+   one, so this is the normal cloud failure mode, not an edge case. Carry the
+   previous date forward and mark the attempt instead. */
+let previous = null;
+try { previous = JSON.parse(await readFile(OUT, 'utf8')); } catch (e) {}
+
 const status = {
   // Deliberately named "checked", never "verified" — see the header comment.
-  lastChecked: new Date().toISOString().slice(0, 10),
+  lastChecked: reached ? today : (previous?.lastChecked ?? null),
+  lastAttempt: today,
+  reachedSources: reached,
   sourcesWatched: watch.sources.length,
   counts,
   needsReview: changed.map(r => ({ state: r.state, cite: r.cite, why: r.status })),

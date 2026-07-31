@@ -2992,6 +2992,8 @@ srReplayGuard(step);
    about human review, and the two must not be blurred together. */
 function renderLawCheck(){
   const st=window.__lawStatus, el=document.getElementById('lawCheck');
+  /* No lastChecked means no source has ever been reached — show nothing rather
+     than a date that would imply a check that never happened. */
   if(!el||!st||!st.lastChecked) return;
   const _t=t(), flagged=(st.needsReview||[]).length>0;
   let d=st.lastChecked;
