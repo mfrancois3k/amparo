@@ -2,15 +2,8 @@
   "lastChecked": "2026-07-31",
   "sourcesWatched": 4,
   "counts": {
-    "changed": 1,
-    "ok": 3
+    "unreachable": 4
   },
-  "needsReview": [
-    {
-      "state": "TX",
-      "cite": "Tex. Transp. Code §521.025",
-      "why": "changed"
-    }
-  ],
+  "needsReview": [],
   "note": "Automated source-change check only. This does not verify that the law is correct — that requires a person."
 }
