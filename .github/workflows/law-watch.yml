@@ -1,0 +1,78 @@
+name: Daily statute source check
+
+# Runs on GitHub's infrastructure, not a laptop — so the "last checked" date on
+# the site stays true whether or not anyone is at a machine.
+on:
+  schedule:
+    - cron: '17 9 * * *'      # 09:17 UTC daily; off-the-hour to dodge the rush
+  workflow_dispatch:           # allow a manual run from the Actions tab
+
+permissions:
+  contents: write              # commit the refreshed law-status.json
+  issues: write                # open a review issue when a statute changes
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check statute sources
+        id: check
+        # The script exits 1 when a source changed. That is a signal, not a
+        # build failure, so don't let it abort the workflow.
+        run: |
+          set +e
+          node tools/law-watch.mjs | tee check.log
+          echo "changed=$?" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Commit the refreshed status
+        run: |
+          git config user.name  "amparo-law-watch"
+          git config user.email "actions@github.com"
+          git add law-status.json
+          # Only lastChecked moves on a quiet day; skip the commit if truly nothing differs.
+          git diff --staged --quiet && echo "no change to commit" && exit 0
+          git commit -m "chore: daily statute source check ($(date -u +%Y-%m-%d))"
+          git push
+
+      - name: Open a review issue if a statute changed
+        if: steps.check.outputs.changed == '1'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const status = JSON.parse(fs.readFileSync('law-status.json', 'utf8'));
+            const list = status.needsReview
+              .map(r => `- **${r.state}** ${r.cite} — \`${r.why}\``).join('\n');
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Statute source changed — human review needed (${status.lastChecked})`,
+              labels: ['legal-review'],
+              body: [
+                'The daily check found that a source statute page changed since the last run.',
+                '',
+                '**This does NOT mean the law changed** — the page text moved, which is the',
+                'signal that a person needs to read it. It could equally be a publisher',
+                'reformatting the page.',
+                '',
+                list,
+                '',
+                '### What to do',
+                '1. Open the source URL in `research/law-watch.json` and read the section.',
+                '2. If the rule Amparo prints is still correct, re-baseline:',
+                '   `node tools/law-watch.mjs --write` and commit.',
+                '3. If the rule changed, update `STATES` in `index.html`, **bump `EDITION`**',
+                '   (that drops every attorney badge until each state is re-reviewed), then',
+                '   re-baseline.',
+                '',
+                'Do not re-baseline without reading the statute — that would silently bless',
+                'a change nobody looked at.'
+              ].join('\n')
+            });
