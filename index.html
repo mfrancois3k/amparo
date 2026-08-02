@@ -1144,13 +1144,19 @@
       api_host:PH_HOST,
       ui_host:'https://us.posthog.com',  // keeps replay/session links pointing at PostHog when proxied
       defaults:'2026-05-30',
-      /* These four are load-bearing for privacy and are deliberately kept even
+      /* These five are load-bearing for privacy and are deliberately kept even
          though the vendor snippet omits them. Without disable_session_recording
          replay auto-starts on EVERY screen — including emergency contacts —
          which defeats srReplayGuard()'s two-screen scoping. */
       autocapture:false,
       capture_pageview:true,
       disable_session_recording:true,
+      /* Replay is re-enabled for steps 0-1 only by srReplayGuard(). That scoping was
+         written when step 1 was 51 buttons and nothing on either screen was typeable.
+         v2.5.0 added a search input to step 1, so "un-recordable by structure" stopped
+         being true and nothing was masking it. Masking is now pinned here rather than
+         left to whatever the runtime-fetched SDK happens to default to. */
+      session_recording:{maskAllInputs:true,maskTextInputs:true},
       person_profiles:'identified_only'
     });
   }catch(e){}
@@ -1527,6 +1533,9 @@ const T = {
     stuck_r_look:"Just looking around",
     stuck_thanks:"Thank you — that tells us where to fix it.",
     stuck_close:"Close",
+    prx_idle_h:"Take your time. Nothing here is timed, and nothing is being scored while you wait.",
+    prx_idle_replay:"Say the line again",
+    prx_idle_leave:"Step out of this stop",
     fb_mail_subject:"Amparo feedback", fb_mail_body:"Hi — I used Amparo in {state} and wanted to share:\n\n(Please don't include officer names, badge/case numbers, or anything that could identify you or others.)\n\n",
     cmp_title:"What's actually in your pack",
     cmp_note:"Keep carrying a general rights card too — this doesn't replace one. Amparo adds what most general cards aren't built to include:",
@@ -1811,6 +1820,9 @@ const T = {
     stuck_r_look:"Solo estoy mirando",
     stuck_thanks:"Gracias — eso nos dice dónde arreglarlo.",
     stuck_close:"Cerrar",
+    prx_idle_h:"Tómate tu tiempo. Aquí nada tiene reloj, y no se está calificando nada mientras esperas.",
+    prx_idle_replay:"Repetir la frase",
+    prx_idle_leave:"Salir de esta parada",
     fb_mail_subject:"Comentarios sobre Amparo", fb_mail_body:"Hola — usé Amparo en {state} y quería compartir:\n\n(Por favor no incluyas nombres de oficiales, números de placa/caso, ni nada que te identifique a ti o a otros.)\n\n",
     cmp_title:"Qué incluye realmente tu paquete",
     cmp_note:"Sigue llevando una tarjeta de derechos general también — esto no la reemplaza. Amparo agrega lo que la mayoría de las tarjetas generales no incluyen:",
@@ -2758,7 +2770,11 @@ function clearSave(){ try{ localStorage.removeItem('sr_save'); }catch(e){} }
    The moment anyone reaches step 2 (emergency contacts) or beyond, recording
    stops for the rest of the session and never restarts: documents, the camera,
    contacts and the printed pack are structurally un-recordable rather than
-   relying on a masking rule to hold. See srReplayGuard(). */
+   relying on a masking rule to hold. See srReplayGuard().
+   CAVEAT, added after this argument was found to have expired: "structurally
+   un-recordable" covered steps 0-1 only while nothing there was typeable. v2.5.0
+   put a search input on step 1. Input masking is now pinned explicitly in
+   posthog.init() so the two-screen scope no longer carries the whole claim. */
 let srReplayDead=false;
 function srReplayGuard(n){
   try{
@@ -3055,6 +3071,13 @@ function buildPrint(){
   </div>`;
 }
 
+/* restore() BEFORE the first render, not after and not never. It had exactly two
+   call sites — its own definition and demoExit() — so it never ran on a normal page
+   load. Everything inside it was dead: autosave/resume, the saved pack, and the
+   first-visit Spanish auto-detect at the top of the function. A Spanish-dominant
+   phone was landing in English the whole time, and the comment below already
+   assumed a restore that wasn't happening. */
+restore();
 render();
 /* Arm/disarm replay for whatever step we restored into — a returning user resumed
    at step 3 must not start recording just because go() hasn't run yet. */
@@ -3415,7 +3438,14 @@ function prxBuildDeck(){
   }
   return deck;
 }
-let prLevel=0, prIdx=0, prRevealed=false, prWarnOk=false;
+let prLevel=0, prIdx=0, prRevealed=false;
+/* Consent to escalation is PER LEVEL, not one global boolean. It used to be a single
+   flag: tapping "I'm ready" on level 3 silently consented you to Hard Mode and the
+   checkpoint too, so prx_warn5 and prx_warn6 — warnings written specifically for
+   those levels — were never shown to anyone who had cleared level 3. The stated
+   design intent was "escalation is chosen, never sprung"; the code only honoured it
+   once per visit. */
+let prWarnOk={};
 let prDeck=[], prRun=[], prCurTier=null, prRunLogged=false;
 let prxBeatSeen='', prxTypeT=0, prxSaidTxt='', prxSaidKey='', prxSaidHits=0, prxSaidTotal=0, prxSaidGood=false;
 let prx={done:{},runs:{},streak:{last:'',n:0}};
@@ -3458,8 +3488,26 @@ function prxIdleArm(){
   if(prLevel<2||prRevealed||prIdx>=prDeck.length||prxIdleN>=1) return;
   prxIdleT=setTimeout(()=>{
     const ov=document.getElementById('practiceOverlay');
-    if(ov&&ov.classList.contains('open')&&!prRevealed){ prxIdleN++; prxSpeak(); }
+    if(!(ov&&ov.classList.contains('open')&&!prRevealed)) return;
+    prxIdleN++;
+    /* Twelve seconds of silence used to be answered by re-speaking the hostile
+       officer line. Freezing is the single most common trauma response to a real
+       stop, and it is exactly what this audience carries into the drill — so the
+       app was escalating at the precise moment someone locked up. It now opens a
+       door instead of pushing: replay is a choice, and leaving is offered at equal
+       weight. Nothing is scored, nothing is logged. */
+    const off=document.getElementById('prxIdleOffer'); const _t=t();
+    if(off) off.innerHTML=`<div class="prx-heard" style="margin-top:8px">
+      <div style="margin-bottom:8px">${_t.prx_idle_h}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <button class="btn ghost" style="padding:8px 12px;margin-top:0" onclick="prxIdleReplay()">${_t.prx_idle_replay}</button>
+        <button class="btn ghost" style="padding:8px 12px;margin-top:0" onclick="practiceClose()">${_t.prx_idle_leave}</button>
+      </div></div>`;
   },12000);
+}
+function prxIdleReplay(){
+  const off=document.getElementById('prxIdleOffer'); if(off) off.innerHTML='';
+  prxSpeak();
 }
 function prxSpeak(){
   if(prIdx>=prDeck.length) return;
@@ -3501,6 +3549,18 @@ let prxRec=null, prxRecTick=0; // {rec, stream, discard}
    accents, stutters and quiet voices are the audience, not an error state. */
 const PRX_SR=window.SpeechRecognition||window.webkitSpeechRecognition||null;
 let prxHeard='';
+/* ONE crisis list, ONE normalizer, two call sites. They were duplicated inline and
+   had drifted: the typed path — the primary way anyone enters free text — was
+   missing three phrases the voice path caught, two of them Spanish. The normalizer
+   now also strips apostrophes; without that, the natural spelling "I can't go on"
+   never matched its own pattern " cant go on" and only the typo form was
+   intercepted. Verified in-browser before and after. */
+const PRX_CRISIS=[' kill myself',' end it all',' want to die',' suicide',' cant go on',' no reason to live',
+  ' quitarme la vida',' acabar con todo',' quiero morir',' suicidio',' no puedo mas',' no aguanto mas'];
+function prxIsCrisis(s){
+  const n=' '+String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/['’]/g,'')+' ';
+  return PRX_CRISIS.some(p=>n.includes(p));
+}
 function prxCompareShow(){
   const el=document.getElementById('prxCompare'); if(!el) return;
   const _t=t(), card=prxCard(prDeck[prIdx]?prDeck[prIdx].ci:0);
@@ -3508,13 +3568,17 @@ function prxCompareShow(){
   if(!heard){ el.innerHTML=`<div class="prx-heard">${_t.prx_heard_none}</div>`; return; }
   /* Safety net, not scoring: if a typed/spoken attempt contains crisis language,
      show the 988 line instead of grading the answer. Checked before any matching. */
-  const crisisNorm=' '+heard.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')+' ';
-  const CRISIS=[' kill myself',' end it all',' want to die',' suicide',' cant go on',' no reason to live',
-    ' quitarme la vida',' acabar con todo',' quiero morir',' suicidio',' no puedo mas',' no aguanto mas'];
-  if(CRISIS.some(p=>crisisNorm.includes(p))){
-    prxSaidTxt=''; prxSaidKey=''; prCurTier='y';
+  if(prxIsCrisis(heard)){
+    /* tier 'x' = this beat is not scored at all. It used to be 'y' (a miss), which
+       prxAdvance() pushed into prRun — so a disclosure rendered as a yellow square
+       in the results grid AND was concatenated into the shareable run summary. */
+    prxSaidTxt=''; prxSaidKey=''; prCurTier='x';
     el.innerHTML=`<div class="prx-heard">${_t.prx_crisis}</div>`;
-    ph('sr_crisis_phrase_shown',{level:prLevel+1,lang:lang});
+    /* No analytics call here, deliberately. The properties were clean ({level,lang},
+       never any text) but the EVENT'S EXISTENCE transmits off-device that one
+       anonymous session disclosed suicidal ideation. At this traffic volume it can
+       inform no decision, so it was pure disclosure with no upside. The 988 line
+       below is what does the work. */
     return;
   }
   prxSaidTxt=heard; prxSaidKey=prLevel+':'+prIdx; // carried into the reveal as the "You said" card
@@ -3645,10 +3709,9 @@ function prxTypeCheck(){
 function prxTypeAnswer(){
   const el=document.getElementById('prxTypeIn'); if(!el||!el.value.trim()) return;
   const raw=el.value.trim(), card=prxCard(prDeck[prIdx].ci);
-  const cn=' '+raw.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')+' ';
-  if([' kill myself',' end it all',' want to die',' suicide',' cant go on',' quitarme la vida',' quiero morir',' suicidio',' no aguanto mas'].some(p=>cn.includes(p))){
-    prxChosen=raw; prxChoseGood=true; prCurTier='y'; prxSaidTxt=''; prxSaidKey='';
-    prRevealed=true; ph('sr_crisis_phrase_shown',{level:prLevel+1,lang:lang});
+  if(prxIsCrisis(raw)){
+    prxChosen=raw; prxChoseGood=true; prCurTier='x'; prxSaidTxt=''; prxSaidKey='';
+    prRevealed=true;
     // show the 988 line as the coach
     const o=PRX_OPT[prDeck[prIdx].ci]; if(o){ o._crisis=true; }
     practiceRender();
@@ -3667,7 +3730,7 @@ function prxTypeAnswer(){
   practiceRender();
 }
 function practiceOpen(){
-  prLevel=0; prIdx=0; prRevealed=false; // prWarnOk deliberately NOT reset — L3 consent holds for the whole visit
+  prLevel=0; prIdx=0; prRevealed=false; // per-level consent deliberately NOT reset — a level you already opted into stays opted-in for the visit
   prDeck=prxBuildDeck(); prRun=[]; prCurTier=null; prRunLogged=false;
   const _t=t();
   document.getElementById('prcTitle').textContent=_t.prx_title;
@@ -3688,7 +3751,7 @@ function prxTab(i){
   prLevel=i; prIdx=0; prRevealed=false; prxChosen=''; prxChoseGood=false; prxPickedAlt=false;
   prDeck=prxBuildDeck(); prRun=[]; prCurTier=null; prRunLogged=false;
   practiceRender();
-  if(!(i>=2&&!prWarnOk)) prxSpeak();
+  if(!(i>=2&&!prWarnOk[i])) prxSpeak();
   ph('sr_practice_level_started',{level:i+1,state:data.state,lang:lang});
 }
 function prxAgain(){
@@ -3707,7 +3770,11 @@ function prxBack(){
 }
 function prxAdvance(){
   prxDropLast(); prxIdleN=0; prxSaidTxt=''; prxSaidKey=''; prxSaidHits=0; prxSaidTotal=0; prxSaidGood=false; prxChosen=''; prxChoseGood=false; prxPickedAlt=false;
-  prRun.push(prCurTier==='g'?'g':'y'); prCurTier=null;
+  /* tier 'x' (crisis disclosure) is recorded as NOTHING — no square in the grid, no
+     contribution to the score, nothing in the shareable summary. Anything else keeps
+     the original good/miss behaviour. */
+  if(prCurTier!=='x') prRun.push(prCurTier==='g'?'g':'y');
+  prCurTier=null;
   prIdx++; prRevealed=false; practiceRender(); prxSpeak();
 }
 /* Back: step to the previous beat, dropping its recorded result so a re-do
@@ -3885,7 +3952,7 @@ function practiceRender(){
   const L=PRX_LEVELS[prLevel], deck=PRACTICE[lang];
   /* Back button: only meaningful mid-run, past the first beat */
   const _bk=document.getElementById('prcBack');
-  if(_bk){ const showBack=(prIdx>0&&prIdx<prDeck.length&&!(prLevel>=2&&!prWarnOk)); _bk.style.display=showBack?'inline-block':'none'; const _bt=document.getElementById('prcBackTxt'); if(_bt)_bt.textContent=_t.a11y_back; }
+  if(_bk){ const showBack=(prIdx>0&&prIdx<prDeck.length&&!(prLevel>=2&&!prWarnOk[prLevel])); _bk.style.display=showBack?'inline-block':'none'; const _bt=document.getElementById('prcBackTxt'); if(_bt)_bt.textContent=_t.a11y_back; }
   const mUnlocked=prx.done[0]&&prx.done[1]&&prx.done[2];
   /* The two hostile levels stay GATED but no longer hidden — hiding them made
      them undiscoverable, and a locked tab still tells you the level exists.
@@ -3893,12 +3960,12 @@ function practiceRender(){
   const isLocked=i=>(i===3||i===4)&&!mUnlocked;
   /* Stranded on a level that just re-locked (progress cleared mid-run): fall back
      to the first stop rather than rendering a locked level as the active tab. */
-  if(isLocked(prLevel)){ prLevel=0; prIdx=0; prRevealed=false; prWarnOk=false; prDeck=prxBuildDeck(); prRun=[]; prCurTier=null; prRunLogged=false; }
+  if(isLocked(prLevel)){ prLevel=0; prIdx=0; prRevealed=false; prDeck=prxBuildDeck(); prRun=[]; prCurTier=null; prRunLogged=false; }
   const tabs=`<div class="prx-tabs" role="tablist">${[0,1,2,3,4,5].map(i=>
     `<button class="prx-tab${i===prLevel?' on':''}${isLocked(i)?' lock':''}" role="tab" aria-selected="${i===prLevel}"${isLocked(i)?` aria-disabled="true" title="${_t.prx_locked}"`:''} onclick="prxTab(${i})"><span class="tbg${i===4?' hardbg':''}${i===5?' chkbg':''}" aria-hidden="true"${(i===4||i===5)?'':` style="background-image:url('img/scene-${i+1}.jpg')"`}></span>${isLocked(i)?'🔒 ':(i===4?(prx.done[4]?'✓ ':''):(prx.best[i]?`🟩${parseInt(prx.best[i])} `:(prx.done[i]?'✓ ':'')))}${_t['prx_lvl'+(i+1)]}</button>`).join('')}${mUnlocked?'':`<div class="prx-lockhint">🔒 ${_t.prx_locked}</div>`}</div>`;
-  if(prLevel>=2&&!prWarnOk){ // opt-in gate: escalation is chosen, never sprung
+  if(prLevel>=2&&!prWarnOk[prLevel]){ // opt-in gate: escalation is chosen, never sprung — checked per level
     b.innerHTML=tabs+`<div class="prx-warn">${prLevel===5?_t.prx_warn6:(prLevel===4?_t.prx_warn5:(prLevel===3?_t.prx_warn4:_t.prx_warn3))}</div>
-      <button class="btn gold" onclick="prWarnOk=true;practiceRender();prxSpeak()">${_t.prx_warn_go}</button>`;
+      <button class="btn gold" onclick="prWarnOk[prLevel]=true;practiceRender();prxSpeak()">${_t.prx_warn_go}</button>`;
     return;
   }
   if(prIdx>=prDeck.length){
@@ -4030,6 +4097,7 @@ function practiceRender(){
       <p class="prc-intro" style="margin:0 0 2px">${_t.prx_pick}</p>
       ${(prIdx%2===0)?gC+bC:bC+gC}
       <details class="prx-own" style="margin-top:10px"><summary style="font-size:12.5px;color:var(--muted);cursor:pointer">${_t.prx_own_sum}</summary>
+        <div id="prxIdleOffer"></div>
         <div class="prx-typerow" style="margin-top:8px"><input id="prxTypeIn" type="text" aria-label="${_t.prx_type_a11y}" placeholder="${_t.prx_type_ph}" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="done" onkeydown="if(event.key==='Enter')prxTypeAnswer()"><button onclick="prxTypeAnswer()">${_t.prx_type_btn}</button></div>
       </details>
       ${prIdx>0?`<div class="prc-nav" style="margin-top:10px"><button class="btn ghost prc-back" onclick="prxBack()">← ${_t.a11y_back}</button></div>`:''}`;
