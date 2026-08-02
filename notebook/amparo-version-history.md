@@ -157,6 +157,55 @@ the fix is skippable-and-resumable, not removal).
 
 ---
 
+## v2.6.0 — 2026-08-02 — "The safety net had a hole, and the boot path never ran"
+
+- `9a65eed` — **`sr_step_viewed`.** All ~30 existing `sr_*` events recorded
+  actions; none recorded a step being *seen*. So "56 people saw the picker and
+  left" was indistinguishable from "only 6 ever rendered it," and v2.5.0's
+  picker fix was unfalsifiable. Fired from `render()` rather than `go()` so a
+  restored or deep-linked first paint counts; `stepChanged` dedupes re-renders
+  and language toggles (`sr_pack_printed` had already been burned by exactly
+  that class of double-fire in v2.2.0). Plus a **feedback path for the 95% who
+  leave** — `usageFeedback` existed but only appeared for a returning user who
+  had already printed. The stuck-strip sits on every wizard step, four fixed
+  reasons, only a reason slug transmitted. With autocapture permanently off,
+  this is the only possible substitute for rage-click data.
+- `2bb2d9d` — **four defects found by a blind-spot panel** (trauma-informed
+  practitioner, analytics engineer, privacy engineer — none of those disciplines
+  had ever read this code). All the same shape: a claim true when written and
+  silently invalidated later, or a safety net that existed but was unreachable.
+  1. **`restore()` was never called at boot** — two call sites, its own
+     definition and `demoExit()`. Autosave, resume, and the first-visit Spanish
+     auto-detect were all dead. **A Spanish-dominant phone landed in English the
+     entire time**, and an earlier audit this same day had marked that problem
+     "already fixed" on the strength of code that existed but was unreachable.
+  2. **Session replay ran on steps 0–1 with no masking.** The scoping argument —
+     those screens are "structurally un-recordable" — was true when step 1 was
+     51 buttons. v2.5.0 added a text input and nobody revisited it.
+  3. **The crisis net missed the natural spelling of its own trigger.** No
+     apostrophe stripping, so `"I can't go on"` was not intercepted while
+     `"I cant go on"` was. The phrase list was also duplicated and drifted (the
+     typed path missed three phrases, two Spanish), and a disclosure was scored
+     as a **miss** — a yellow square in the results grid, carried into the
+     shareable summary.
+  4. **`sr_crisis_phrase_shown` removed.** Properties were clean; the event's
+     *existence* transmitted that a session disclosed suicidal ideation.
+  Also: a freeze is no longer answered with escalation (12s of silence used to
+  re-speak the hostile officer line), and consent to escalation is per-level
+  instead of one global boolean that silently consented level-3 finishers to
+  Hard Mode and the checkpoint.
+- `notebook/` — UPL attorney engagement memo (sendable), focus group 02 (twelve
+  simulated members walked step-by-step), and `wargames/02-consensus-roadmap.md`
+  (20 ranked items, unioning the wargame 01 panel with new seats).
+
+**No legal content changed. EDITION remains 2026-C.**
+
+**Open at this tag:** six UI/UX fix specs designed but unapplied; GA still
+unreachable from CI; no state attorney-reviewed; Upsolve v. James unresolved for
+the scored practice engine.
+
+---
+
 ## Quick lookup: "what tag has the fix for X"
 
 | If you're looking for… | It's in |
@@ -174,6 +223,16 @@ the fix is skippable-and-resumable, not removal).
 | The panel / blind spots / roadmap doc | v2.5.0, `wargames/01-panel-and-roadmap.md` |
 | State-picker search / priority order / scroll-trap fix | v2.5.0 |
 | The UX audit that found the 94.5% drop | v2.5.0, `notebook/amparo-ux-audit-2026-08-02.md` |
+| `sr_step_viewed` / step-view instrumentation | v2.6.0 |
+| Feedback path for people who never convert | v2.6.0 |
+| `restore()` never ran at boot (Spanish auto-detect was dead) | v2.6.0 |
+| Session-replay masking on steps 0–1 | v2.6.0 |
+| Crisis-phrase apostrophe bug + list drift | v2.6.0 |
+| Freeze no longer answered with escalation | v2.6.0 |
+| Per-level consent to escalation | v2.6.0 |
+| UPL attorney engagement memo | v2.6.0, `notebook/amparo-upl-engagement-memo.md` |
+| Consensus roadmap (20 ranked items) | v2.6.0, `wargames/02-consensus-roadmap.md` |
+| Focus group 02 (12 members, step-by-step) | v2.6.0, `notebook/amparo-focus-group-02-walkthrough.md` |
 
 To restore any version exactly:
 ```bash
