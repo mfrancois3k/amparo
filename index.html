@@ -1181,6 +1181,7 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
   <div id="usageBanner" style="display:none"></div>
   <div class="stepper" id="stepper"></div>
   <div id="screen"></div>
+  <div id="fbStrip"></div>
   <!-- Populated from law-status.json, written by the daily GitHub Action.
        Deliberately separate from the attorney-review line below: "sources
        checked" and "a person read this" are different claims. -->
@@ -1515,6 +1516,17 @@ const T = {
     usage_fb_note:"Want to tell us more? Email us →",
     usage_fb_thanks:"Thank you — this helps us know Amparo is working for real people.",
     usage_fb_dismiss:"Not now",
+    /* Stuck-strip: the only feedback path reachable by someone who never finishes.
+       Fixed choices only — the reason slug is all that's ever sent, never typed text. */
+    stuck_link:"Something here confusing?",
+    stuck_h:"What's in the way?",
+    stuck_sub:"One tap. Nothing you type is sent — we only see which button.",
+    stuck_r_find:"Can't find what I need",
+    stuck_r_why:"Not sure why this is asked",
+    stuck_r_trust:"Not sure I trust it yet",
+    stuck_r_look:"Just looking around",
+    stuck_thanks:"Thank you — that tells us where to fix it.",
+    stuck_close:"Close",
     fb_mail_subject:"Amparo feedback", fb_mail_body:"Hi — I used Amparo in {state} and wanted to share:\n\n(Please don't include officer names, badge/case numbers, or anything that could identify you or others.)\n\n",
     cmp_title:"What's actually in your pack",
     cmp_note:"Keep carrying a general rights card too — this doesn't replace one. Amparo adds what most general cards aren't built to include:",
@@ -1790,6 +1802,15 @@ const T = {
     usage_fb_note:"¿Quieres contarnos más? Escríbenos →",
     usage_fb_thanks:"Gracias — esto nos ayuda a saber que Amparo sirve a personas reales.",
     usage_fb_dismiss:"Ahora no",
+    stuck_link:"¿Algo aquí es confuso?",
+    stuck_h:"¿Qué te está estorbando?",
+    stuck_sub:"Un toque. Nada de lo que escribas se envía — solo vemos qué botón elegiste.",
+    stuck_r_find:"No encuentro lo que necesito",
+    stuck_r_why:"No sé por qué se pide esto",
+    stuck_r_trust:"Todavía no sé si confiar",
+    stuck_r_look:"Solo estoy mirando",
+    stuck_thanks:"Gracias — eso nos dice dónde arreglarlo.",
+    stuck_close:"Cerrar",
     fb_mail_subject:"Comentarios sobre Amparo", fb_mail_body:"Hola — usé Amparo en {state} y quería compartir:\n\n(Por favor no incluyas nombres de oficiales, números de placa/caso, ni nada que te identifique a ti o a otros.)\n\n",
     cmp_title:"Qué incluye realmente tu paquete",
     cmp_note:"Sigue llevando una tarjeta de derechos general también — esto no la reemplaza. Amparo agrega lo que la mayoría de las tarjetas generales no incluyen:",
@@ -2426,11 +2447,21 @@ function closeAbout(){
 }
 
 let _lastStep=-1,_lastLang=null;
+const STEP_SLUG=['welcome','state','you','lifelines','print'];
+let stuckOpen=false, stuckDone=false;
 function render(){
   const stepChanged=(_lastStep!==step);
   const langChanged=(_lastLang!==lang);
   _lastStep=step;_lastLang=lang;
+  /* Step VIEW, distinct from every other sr_* event, which all record actions.
+     Without this you cannot tell "56 people saw the picker and left" from "only 6
+     ever rendered it" — the funnel's biggest blind spot. Fired here rather than in
+     go() so a restored/deep-linked first paint counts too; stepChanged dedupes
+     same-step re-renders. Stable English slug, never the translated label, or the
+     funnel splits by language. */
+  if(stepChanged) ph('sr_step_viewed',{step:step,name:STEP_SLUG[step]||('step'+step),lang:lang});
   if(stepChanged||langChanged) stepper(); // same-step data patches keep the stepper DOM (no done-pop replay)
+  fbStrip();
   if(window.SRMotion&&stepChanged) SRMotion.stepper(step);
   const _pilot=document.querySelector('.pilot'); if(_pilot) _pilot.style.display=step===0?'none':'block';
   const _bt=document.getElementById('brandTag'); if(_bt) _bt.textContent=t().tagline;
@@ -4067,6 +4098,43 @@ function feedbackMailto(){
   const subj=t().fb_mail_subject;
   const body=t().fb_mail_body.replace('{state}',stName||(data.state||''));
   return `mailto:feedback@amparohq.com?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
+}
+/* The existing usage-feedback nudge only reaches a returning user who already
+   printed — roughly the 5% who convert. This strip is the same idea aimed at the
+   other 95%: quiet on every wizard step, low visual weight so it never competes
+   with the primary action, and it stays reachable right up to the moment someone
+   leaves. Fixed choices only; the reason slug is the entire payload. Free text
+   goes through the user's own mail client, never through us. */
+function fbStrip(){
+  const el=document.getElementById('fbStrip'); if(!el) return;
+  if(step<1||isDemo){ el.innerHTML=''; el.style.display='none'; return; }
+  el.style.display='block';
+  const _t=t();
+  if(stuckDone){
+    el.innerHTML=`<div class="pilot" style="background:#eef6fb;border-color:#bcd7e8;text-align:left"><b>${_t.stuck_thanks}</b></div>`;
+    return;
+  }
+  if(!stuckOpen){
+    el.innerHTML=`<div style="text-align:center;margin:14px 0 4px">
+      <a href="#" class="fb-tap" style="font-size:13px;color:#6b6a63" onclick="stuckToggle();return false">${_t.stuck_link}</a></div>`;
+    return;
+  }
+  const R=[['find',_t.stuck_r_find],['why',_t.stuck_r_why],['trust',_t.stuck_r_trust],['looking',_t.stuck_r_look]];
+  el.innerHTML=`<div class="pilot" style="background:#fdf6e3;border-color:#E8B84B;text-align:left">
+    <b>${_t.stuck_h}</b><br><span style="font-size:13px">${_t.stuck_sub}</span>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">
+      ${R.map(([k,label])=>`<button class="btn ghost" style="padding:8px 12px;margin-top:0" onclick="stuckFeedback('${k}')">${esc(label)}</button>`).join('')}
+    </div>
+    <div style="margin-top:10px;font-size:13px">
+      <a href="${feedbackMailto()}" class="fb-tap" onclick="stuckFeedback('emailed')">${_t.usage_fb_note}</a>
+      &nbsp;·&nbsp;
+      <a href="#" class="fb-tap" style="color:#6b6a63" onclick="stuckToggle();return false">${_t.stuck_close}</a>
+    </div></div>`;
+}
+function stuckToggle(){ stuckOpen=!stuckOpen; if(stuckOpen) ph('sr_stuck_opened',{step:step,name:STEP_SLUG[step]||('step'+step),lang:lang}); fbStrip(); }
+function stuckFeedback(reason){
+  ph('sr_stuck_feedback',{reason,step:step,name:STEP_SLUG[step]||('step'+step),state:data.state,lang:lang});
+  stuckDone=true; stuckOpen=false; fbStrip();
 }
 function usageFeedback(sentiment){
   ph('sr_usage_feedback',{sentiment,state:data.state,lang:lang});
