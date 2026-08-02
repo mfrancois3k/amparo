@@ -123,7 +123,17 @@
   /* state buttons */
   /* 51 entries now, so the grid scrolls rather than pushing the Next button
      off-screen. Fully-researched states float visually above the pending ones. */
-  .state-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;margin-top:6px;max-height:52vh;overflow-y:auto;overscroll-behavior:contain;padding:2px}
+  /* No inner max-height/overflow here on purpose — a scrollable box nested
+     inside an already-scrolling page is a scroll-trap. Real usage data (94.5%
+     drop before a state was picked; Texas sat at position 44 of 51 with no
+     way to search) points straight at this screen. The page's own scroll now
+     carries the whole list; #stateSearch does the real work of narrowing it. */
+  .state-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;margin-top:6px;padding:2px}
+  .state-search{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;font-size:15px;margin-top:14px;background:var(--white);color:var(--ink)}
+  .state-search:focus{outline:none;border-color:var(--navy)}
+  .state-pri-label,.state-rest-label{grid-column:1/-1;font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin:2px 0 -2px}
+  .state-rest-label{margin-top:10px}
+  .state-btn.nomatch{display:none}
   .state-btn.pend{background:#fbfaf6;border-style:dashed}
   .state-btn.pend .nm{color:var(--muted)}
   .pendtag{font-size:8.5px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--gold-ink);margin-top:3px;line-height:1.1}
@@ -1422,6 +1432,7 @@ const T = {
     ab_contact:"Contact",
     s_title:"Which state do you drive in?", s_sub:"Texas, Georgia and New York have their own statutes cited line by line. Every other state gets the federal rights that apply everywhere — marked so you know the difference.",
     s_soon:"“Federal only” means we show you the rights that hold in all 50 states, and we do NOT show that state’s own rules — because we won’t print a rule we haven’t checked against the statute. More states get their own citations as each one is verified.",
+    s_search:"Search your state…", s_pri_label:"Fully cited", s_rest_label:"Federal rights", s_nomatch:"No state matches that search.",
     i_title:"Who is this pack for?", i_sub:"This goes on the wallet card so someone you trust gets called if you're ever detained.",
     i_opt:"Every field is optional — fill in what helps you, skip the rest.",
     pdf_where:"No printer at home? Save the PDF, then print it free at most public libraries — or at FedEx/Staples, work, church, or a friend's.",
@@ -1696,6 +1707,7 @@ const T = {
     ab_contact:"Contacto",
     s_title:"¿En qué estado manejas?", s_sub:"Texas, Georgia y Nueva York tienen sus propias leyes citadas línea por línea. Los demás estados reciben los derechos federales que aplican en todas partes — marcados para que sepas la diferencia.",
     s_soon:"«Solo federal» significa que te mostramos los derechos que valen en los 50 estados, y NO mostramos las reglas propias de ese estado — porque no imprimimos una regla que no hemos verificado contra la ley. Cada estado recibe sus propias citas al verificarse.",
+    s_search:"Busca tu estado…", s_pri_label:"Con leyes citadas", s_rest_label:"Derechos federales", s_nomatch:"Ningún estado coincide con esa búsqueda.",
     i_title:"¿Para quién es este paquete?", i_sub:"Esto va en la tarjeta de cartera para que llamen a alguien de confianza si alguna vez te detienen.",
     i_opt:"Todos los campos son opcionales — llena lo que te sirva y omite el resto.",
     pdf_where:"¿Sin impresora en casa? Guarda el PDF y luego imprímelo gratis en la mayoría de las bibliotecas públicas — o en FedEx/Staples, el trabajo, la iglesia o con un amigo.",
@@ -2496,14 +2508,23 @@ function render(){
       <button class="back" aria-label="${_t.a11y_back}" onclick="goM(0)">← ${_t.a11y_back}</button>
       ${eyebrow()}
       <h1>${_t.s_title}</h1><p class="sub">${_t.s_sub}</p>
-      <div class="state-grid stagger">
-        ${Object.keys(STATES).sort((a,b)=>STATES[a].name.localeCompare(STATES[b].name)).map(k=>`
-          <button class="state-btn ${data.state===k?'sel':''}${STATES[k].pending?' pend':''}" onclick="pickState('${k}')"${STATES[k].pending?` title="${_t.s_pending_t}"`:''}>
+      <input type="text" id="stateSearch" class="state-search" placeholder="${_t.s_search}"
+             oninput="filterStates(this.value)" autocomplete="off" inputmode="text">
+      <div class="state-grid stagger" id="stateGrid">
+        ${(()=>{ const keys=Object.keys(STATES).sort((a,b)=>STATES[a].name.localeCompare(STATES[b].name));
+          const pri=keys.filter(k=>!STATES[k].pending), rest=keys.filter(k=>STATES[k].pending);
+          const btn=k=>`
+          <button class="state-btn ${data.state===k?'sel':''}${STATES[k].pending?' pend':''}" data-name="${STATES[k].name.toLowerCase()}" data-ab="${k.toLowerCase()}" onclick="pickState('${k}')"${STATES[k].pending?` title="${_t.s_pending_t}"`:''}>
             <span class="badge">✓</span>
             <div class="ab">${k}</div><div class="nm">${STATES[k].name}</div>
             ${STATES[k].pending?`<div class="pendtag">${_t.s_pending}</div>`:''}
-          </button>`).join('')}
+          </button>`;
+          /* Cited states float to the top always — this is what "Texas at
+             position 44 of 51" was fixing. Not hidden, just no longer buried. */
+          return `<div class="state-pri-label">${_t.s_pri_label}</div>${pri.map(btn).join('')}`+
+                 `<div class="state-rest-label">${_t.s_rest_label}</div>${rest.map(btn).join('')}`; })()}
       </div>
+      <p class="soon" id="stateNoMatch" style="display:none">${_t.s_nomatch}</p>
       <p class="soon">${_t.s_soon}</p>
       <button class="btn" onclick="goM(2)" ${data.state?'':'disabled'}>${_t.next} →</button>
     </div>`;
@@ -2725,6 +2746,32 @@ function goM(n){
   if(!(window.SRMotion&&SRMotion.screenOut)){ go(n); return; }
   _navBusy=true;
   SRMotion.screenOut(()=>{ _navBusy=false; go(n); });
+}
+/* Client-side only — the query never leaves the page, matching the same
+   on-device promise as everything else here. */
+function filterStates(q){
+  q=q.trim().toLowerCase();
+  const btns=[...document.querySelectorAll('#stateGrid .state-btn')];
+  let shown=0;
+  btns.forEach(b=>{
+    const match=!q||b.dataset.name.includes(q)||b.dataset.ab.includes(q);
+    b.classList.toggle('nomatch',!match);
+    if(match) shown++;
+  });
+  const nm=document.getElementById('stateNoMatch');
+  if(nm) nm.style.display=shown?'none':'block';
+  // Section labels track whether their group has any visible match.
+  const grid=document.getElementById('stateGrid'); if(!grid) return;
+  [...grid.children].forEach((el,i,arr)=>{
+    if(!el.classList.contains('state-pri-label')&&!el.classList.contains('state-rest-label')) return;
+    let hasVisible=false;
+    for(let j=i+1;j<arr.length;j++){
+      const n=arr[j];
+      if(n.classList.contains('state-pri-label')||n.classList.contains('state-rest-label')) break;
+      if(!n.classList.contains('nomatch')) hasVisible=true;
+    }
+    el.style.display=hasVisible?'':'none';
+  });
 }
 function pickState(k){data.state=k;persist();render();ph('sr_state_selected',{state:k});}
 /* ============ SAMPLE PACK (demo mode) ============ */
