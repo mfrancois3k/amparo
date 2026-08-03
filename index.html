@@ -2940,8 +2940,13 @@ function render(){
             <span class="pr-nm">${_t['prx_lvl'+(i+1)]}</span>${done?`<span class="pr-donebadge">${_t.hub_done_badge}</span>`:''}
             <!-- prx.best stores "5/6". parseInt() dropped the denominator, and
                  denominators DIFFER per level (5/6/2/6/3/4) — so a perfect 2/2 rendered
-                 as "2" and read worse than a 4/6. Show the whole fraction. -->
-            <span class="pr-st">${isLk?_t.hub_locked:(best?`🟩 ${esc(best)}`:(done?_t.hub_done:_t.hub_start))}</span>
+                 as "2" and read worse than a 4/6. Show the whole fraction.
+                 Hard Mode (i===3) is the swan/unwinnable level — :4474 already
+                 suppresses its score on the practice-overlay tab strip ("no
+                 celebration on the arrest/black-swan levels — deliberate"), but
+                 this hub card was written later and never got the same guard,
+                 so it leaked a score the results screen itself refuses to show. -->
+            <span class="pr-st">${isLk?_t.hub_locked:(i===3?(done?_t.hub_done:_t.hub_start):(best?`🟩 ${esc(best)}`:(done?_t.hub_done:_t.hub_start)))}</span>
           </button>`;}).join('')}
       </div>`;
       })()}
