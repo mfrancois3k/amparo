@@ -1514,6 +1514,7 @@ const T = {
     prx_your_turn:"Your turn \u2014 say your answer out loud first.",
     prx_say:"\u2713 I said it out loud", prx_got:"\u2713 Got it",
     prx_hear:"\ud83d\udd0a Hear it again",
+    prx_mute:"\ud83d\udd07 Silence the officer", prx_unmute:"\ud83d\udd0a Turn the voice back on",
     prx_tts_note:"The officer speaks English \u2014 like most real stops.",
     prx_warn3:"This level sounds like an irritated officer and ends with an arrest. It can feel heavy \u2014 but even here, you have rights, and knowing the words is the whole point.",
     prx_warn_go:"I'm ready",
@@ -1819,6 +1820,7 @@ const T = {
     prx_your_turn:"Tu turno — di tu respuesta en voz alta primero.",
     prx_say:"✓ Lo dije en voz alta", prx_got:"✓ Entendido",
     prx_hear:"🔊 Escuchar de nuevo",
+    prx_mute:"🔇 Silenciar al oficial", prx_unmute:"🔊 Activar la voz",
     prx_tts_note:"El oficial habla inglés — como en la mayoría de las paradas reales.",
     prx_warn3:"Este nivel suena como un oficial irritado y termina en un arresto. Puede sentirse fuerte — pero incluso aquí tienes derechos, y conocer las palabras es el punto.",
     prx_warn_go:"Estoy listo",
@@ -2722,7 +2724,10 @@ function render(){
       <button class="back" aria-label="${_t.a11y_back}" onclick="goM(0)">← ${_t.a11y_back}</button>
       ${eyebrow()}
       <h1>${_t.s_title}</h1><p class="sub">${_t.s_sub}</p>
-      <input type="text" id="stateSearch" class="state-search" placeholder="${_t.s_search}"
+      <!-- aria-label, not placeholder alone: a placeholder stops being the accessible
+           name the moment real text is typed, leaving a screen-reader user with an
+           unnamed field mid-search. Flagged in two consecutive focus groups. -->
+      <input type="text" id="stateSearch" class="state-search" aria-label="${_t.s_search}" placeholder="${_t.s_search}"
              oninput="filterStates(this.value)" autocomplete="off" inputmode="text" ${_collapsed?'hidden':''}>
       <div class="state-grid stagger${_collapsed?' collapsed':''}" id="stateGrid">
         ${(()=>{ const keys=Object.keys(STATES).sort((a,b)=>STATES[a].name.localeCompare(STATES[b].name));
@@ -2887,7 +2892,10 @@ function render(){
           return `<button class="pr-card${isLk?' lock':''}" ${isLk?`aria-disabled="true" title="${_t.hub_locked}"`:''} onclick="${isLk?'':`prStart(${i})`}">
             <span class="pr-ic" aria-hidden="true">${isLk?'🔒':(done?'✓':'▶')}</span>
             <span class="pr-nm">${_t['prx_lvl'+(i+1)]}</span>
-            <span class="pr-st">${isLk?_t.hub_locked:(best?`🟩 ${parseInt(best)}`:(done?_t.hub_done:_t.hub_start))}</span>
+            <!-- prx.best stores "5/6". parseInt() dropped the denominator, and
+                 denominators DIFFER per level (5/6/2/6/3/4) — so a perfect 2/2 rendered
+                 as "2" and read worse than a 4/6. Show the whole fraction. -->
+            <span class="pr-st">${isLk?_t.hub_locked:(best?`🟩 ${esc(best)}`:(done?_t.hub_done:_t.hub_start))}</span>
           </button>`;}).join('')}
       </div>
       <button class="btn ghost" style="margin-top:16px" onclick="goM(4)">${_t.hub_back_pack}</button>
@@ -3794,6 +3802,24 @@ prx.best=prx.best||{}; prx.streak=prx.streak||{last:'',n:0};
 function prxSave(){ try{ localStorage.setItem('amparo_prx',JSON.stringify(prx)); }catch(e){} }
 
 const prxTTS=('speechSynthesis' in window);
+/* Mute is a PREFERENCE, not a capability — prxTTS above only ever answered "can this
+   browser speak", never "does this person want it to". There was no way to silence the
+   officer at all, which blocked four focus-group personas outright: a stop survivor for
+   whom the synthesized hostile voice IS the trigger, and anyone rehearsing somewhere
+   they cannot make noise. Persisted like the voice-gender choice already is — someone
+   who needs silence needs it every session, not once. */
+let prxMuted=false;
+try{ prxMuted=localStorage.getItem('amparo_muted')==='1'; }catch(e){}
+function prxMuteTgl(){
+  prxMuted=!prxMuted;
+  try{ localStorage.setItem('amparo_muted',prxMuted?'1':'0'); }catch(e){}
+  if(prxMuted){
+    try{ if(prxAudio){ prxAudio.pause(); prxAudio=null; } if(prxTTS) speechSynthesis.cancel(); }catch(e){}
+    prxWaveTgl(false);
+  }
+  ph('sr_practice_mute',{muted:prxMuted,lang:lang});
+  practiceRender();
+}
 let prxVoice=null, prxVoiceEs=null;
 /* Officer voice defaults to English even in Spanish mode — that's the realistic
    stop. ES mode gets an in-drill toggle to hear the lines in Spanish while learning. */
@@ -3847,6 +3873,10 @@ function prxIdleReplay(){
 }
 function prxSpeak(){
   if(prIdx>=prDeck.length) return;
+  /* Gated at the single entry point so no caller can bypass it. Muted still ARMS the
+     idle handler below — a silent user can still freeze, and the freeze offer is the
+     safety affordance, not the audio. */
+  if(prxMuted){ prxIdleArm(); return; }
   const d=prDeck[prIdx];
   const useEs=(lang==='es'&&prxVoiceLang==='es');
   try{ if(prxAudio){ prxAudio.pause(); prxAudio=null; } if(prxTTS) speechSynthesis.cancel(); }catch(e){}
@@ -4312,7 +4342,7 @@ function practiceRender(){
      to the first stop rather than rendering a locked level as the active tab. */
   if(isLocked(prLevel)){ prLevel=0; prIdx=0; prRevealed=false; prDeck=prxBuildDeck(); prRun=[]; prCurTier=null; prRunLogged=false; }
   const tabs=`<div class="prx-tabs" role="tablist">${[0,1,2,3,4,5].map(i=>
-    `<button class="prx-tab${i===prLevel?' on':''}${isLocked(i)?' lock':''}" role="tab" aria-selected="${i===prLevel}"${isLocked(i)?` aria-disabled="true" title="${_t.prx_locked}"`:''} onclick="prxTab(${i})"><span class="tbg${i===4?' hardbg':''}${i===5?' chkbg':''}" aria-hidden="true"${(i===4||i===5)?'':` style="background-image:url('img/scene-${i+1}.jpg')"`}></span>${isLocked(i)?'🔒 ':(i===4?(prx.done[4]?'✓ ':''):(prx.best[i]?`🟩${parseInt(prx.best[i])} `:(prx.done[i]?'✓ ':'')))}${_t['prx_lvl'+(i+1)]}</button>`).join('')}${mUnlocked?'':`<div class="prx-lockhint">🔒 ${_t.prx_locked}</div>`}</div>`;
+    `<button class="prx-tab${i===prLevel?' on':''}${isLocked(i)?' lock':''}" role="tab" aria-selected="${i===prLevel}"${isLocked(i)?` aria-disabled="true" title="${_t.prx_locked}"`:''} onclick="prxTab(${i})"><span class="tbg${i===4?' hardbg':''}${i===5?' chkbg':''}" aria-hidden="true"${(i===4||i===5)?'':` style="background-image:url('img/scene-${i+1}.jpg')"`}></span>${isLocked(i)?'🔒 ':(i===4?(prx.done[4]?'✓ ':''):(prx.best[i]?`🟩${prx.best[i]} `:(prx.done[i]?'✓ ':'')))}${_t['prx_lvl'+(i+1)]}</button>`).join('')}${mUnlocked?'':`<div class="prx-lockhint">🔒 ${_t.prx_locked}</div>`}</div>`;
   if(prLevel>=2&&!prWarnOk[prLevel]){ // opt-in gate: escalation is chosen, never sprung — checked per level
     b.innerHTML=tabs+`<div class="prx-warn">${prLevel===5?_t.prx_warn6:(prLevel===4?_t.prx_warn5:(prLevel===3?_t.prx_warn4:_t.prx_warn3))}</div>
       <button class="btn gold" onclick="prWarnOk[prLevel]=true;practiceRender();prxSpeak()">${_t.prx_warn_go}</button>`;
@@ -4438,7 +4468,7 @@ function practiceRender(){
     if(rk) thread+=`<div class="prx-row">${photo}<div class="prx-ob ${moodC}">${esc(rk[lang])}</div></div>`;
   }
   thread+=`</div>`;
-  const ctrls=`<div class="prx-ctrls"><button class="prx-hear" onclick="prxSpeak()">${_t.prx_hear}</button><span class="prx-vlang">${_t.prx_gender} <button class="prx-vbtn${prxGender==='m'?' on':''}" onclick="prxSetGender('m')">${_t.prx_g_m}</button><button class="prx-vbtn${prxGender==='f'?' on':''}" onclick="prxSetGender('f')">${_t.prx_g_f}</button></span>${lang==='es'?`<span class="prx-vlang">${_t.prx_voice} <button class="prx-vbtn${prxVoiceLang==='en'?' on':''}" onclick="prxVoiceLang='en';practiceRender();prxSpeak()">EN</button><button class="prx-vbtn${prxVoiceLang==='es'?' on':''}" onclick="prxVoiceLang='es';practiceRender();prxSpeak()">ES</button></span>`:''}</div>`;
+  const ctrls=`<div class="prx-ctrls"><button class="prx-hear" onclick="prxMuteTgl()" aria-pressed="${prxMuted}">${prxMuted?_t.prx_unmute:_t.prx_mute}</button>${prxMuted?'':`<button class="prx-hear" onclick="prxSpeak()">${_t.prx_hear}</button>`}<span class="prx-vlang">${_t.prx_gender} <button class="prx-vbtn${prxGender==='m'?' on':''}" onclick="prxSetGender('m')">${_t.prx_g_m}</button><button class="prx-vbtn${prxGender==='f'?' on':''}" onclick="prxSetGender('f')">${_t.prx_g_f}</button></span>${lang==='es'?`<span class="prx-vlang">${_t.prx_voice} <button class="prx-vbtn${prxVoiceLang==='en'?' on':''}" onclick="prxVoiceLang='en';practiceRender();prxSpeak()">EN</button><button class="prx-vbtn${prxVoiceLang==='es'?' on':''}" onclick="prxVoiceLang='es';practiceRender();prxSpeak()">ES</button></span>`:''}</div>`;
   let resp;
   if(!answered){
     const gC=`<button class="prx-opt" onclick="prxPick(true)">${opt?opt.g[lang]:esc(card.y)}</button>`;
