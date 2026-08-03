@@ -241,6 +241,48 @@
   .scen .si{font-size:22px;flex:none;width:34px;text-align:center}
   .scen .sn{font-weight:800;color:var(--navy);font-size:14.5px}
   .scen .sd{font-size:13px;color:var(--muted);line-height:1.45;margin-top:2px}
+
+  /* ===== Lifelines carousel =====
+     Step 3 measured 2449px — 3.5 screens, and 2.4x the next-longest step —
+     because six lifelines and seven scenarios were all stacked open. Horizontal
+     paging, not vertical stacking. NOTE this is deliberately a HORIZONTAL
+     scroller: v2.5.0 removed a nested VERTICAL scrollbox from the state grid
+     because it fought the page's own scroll and read as "stuck". A horizontal
+     swipe is orthogonal to page scroll, so it does not reproduce that trap.
+     Cards stretch to a shared height (flex default) so the row never looks
+     ragged, and each is 86% wide so the NEXT one always peeks — that peek is
+     the entire swipe affordance. */
+  .ll-track{display:flex;gap:11px;overflow-x:auto;scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;padding:3px 1px 5px;margin-top:10px}
+  .ll-track::-webkit-scrollbar{display:none}
+  .ll-card{flex:0 0 86%;scroll-snap-align:center;display:flex;flex-direction:column;
+    border:1.5px solid var(--line);border-radius:14px;padding:15px;background:#fffdf8}
+  .ll-card .ln{font-size:15.5px;font-weight:900;color:var(--navy)}
+  .ll-card .ld{font-size:12.5px;color:var(--muted);line-height:1.45;margin-top:5px;flex:1}
+  .ll-card .lltags{margin-top:auto;padding-top:8px}
+  /* The contact line is the point of the card, so it is the biggest thing on it
+     and — where it is a real number — a tap target that opens the dialer. */
+  .ll-contact{display:inline-block;font-size:19px;font-weight:900;color:var(--navy);
+    letter-spacing:.4px;margin:4px 0 0;text-decoration:none;min-height:34px;line-height:34px}
+  a.ll-contact{border-bottom:2px solid var(--gold)}
+  a.ll-contact:active{opacity:.65}
+  .ll-contact.pending{font-size:15px;color:var(--muted);font-weight:800}
+  .ll-nav{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:2px}
+  .ll-dot{width:8px;height:8px;border-radius:50%;background:#ded7c2;border:0;padding:0;
+    cursor:pointer;transition:background .25s,transform .25s var(--ease-spring)}
+  .ll-dot.on{background:var(--navy);transform:scale(1.3)}
+  .ll-count{font-size:12px;font-weight:800;color:var(--muted);margin-left:6px}
+  /* Scenarios: 378 words across seven always-open cards was the larger half of
+     the scroll. Native <details> — closed by default, zero JS, keyboard and
+     screen-reader correct for free. */
+  .scq{border:1px solid var(--line);border-radius:13px;margin-top:9px;background:#fffdf8;overflow:hidden}
+  .scq>summary{display:flex;gap:11px;align-items:center;padding:13px 14px;cursor:pointer;
+    list-style:none;font-weight:800;color:var(--navy);font-size:14.5px}
+  .scq>summary::-webkit-details-marker{display:none}
+  .scq>summary .si{font-size:20px;flex:none;width:28px;text-align:center}
+  .scq>summary .chev{margin-left:auto;flex:none;color:var(--muted);font-size:13px;transition:transform .25s var(--ease-out)}
+  .scq[open]>summary .chev{transform:rotate(90deg)}
+  .scq .sd{font-size:13px;color:var(--muted);line-height:1.5;padding:0 14px 13px 53px}
   #aboutOverlay,#practiceOverlay,#docOverlay,#prepOverlay,#pintroOverlay,#carryOverlay{position:fixed;inset:0;z-index:95;background:rgba(9,14,26,.6);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:20px}
   #aboutOverlay.open,#practiceOverlay.open,#docOverlay.open,#prepOverlay.open,#pintroOverlay.open,#carryOverlay.open{display:flex;animation:camIn .35s var(--ease-out)}
   /* docOverlay and carryOverlay are opened FROM the other overlays, so they must
@@ -1573,6 +1615,11 @@ const T = {
     l_title:"Know your lifelines", l_sub:"If a stop goes wrong, these are the verified channels for your state — with honest labels, because a number that doesn't answer is worse than no number. They print on your wallet card too.",
     l_more:"More direct legal-aid lines are coming as partnerships are confirmed.",
     l_btn:"Preview my pack",
+    ll_aria:"Your lifelines — swipe sideways to see each one",
+    ll_count:"{n} of {t}",
+    ll_dot:"Show lifeline {n}",
+    ll_tap:"Tap the number to call",
+    scen_sub:"Tap any one to see what to do.",
     v_title:"Your pack is ready", v_sub:"Six pages — 1–4 live in the car; 5–6 stay at home. Print on regular paper; the window card works best in a clear sleeve.",
     v_pg1:"Page 1 — Practice sheet: If you get pulled over", v_pg2:"Page 2 — Window card (faces the officer)", v_pg3:"Page 3 — Wallet card + your lifelines", v_pg4:"Page 4 — In the car: your script, their info, the incident log", v_pg5:"Page 5 — Family emergency plan + consulates (keep at home)", v_pg6:"Page 6 — After the ticket: court, tow, phone, crash (keep at home)",
     v_print:"Print my pack", v_family:"👪 Print for another family member", v_family_sub:"Same state, keeps your setup — just swap the name, contact and documents.", v_redo:"Make a pack for another driver or car",
@@ -1864,6 +1911,11 @@ const T = {
     l_title:"Conoce tus líneas de ayuda", l_sub:"Si una parada sale mal, estos son los canales verificados de tu estado — con etiquetas honestas, porque un número que no contesta es peor que ningún número. También se imprimen en tu tarjeta de cartera.",
     l_more:"Más líneas directas de ayuda legal vienen en camino según se confirmen las alianzas.",
     l_btn:"Ver mi paquete",
+    ll_aria:"Tus líneas de ayuda — desliza para verlas una por una",
+    ll_count:"{n} de {t}",
+    ll_dot:"Mostrar línea {n}",
+    ll_tap:"Toca el número para llamar",
+    scen_sub:"Toca cualquiera para ver qué hacer.",
     v_title:"Tu paquete está listo", v_sub:"Seis páginas — las 1–4 van en el carro; la 5–6 se quedan en casa. Imprime en papel normal; la tarjeta de ventana funciona mejor en una funda transparente.",
     v_pg1:"Página 1 — Hoja de práctica: Si te detiene la policía", v_pg2:"Página 2 — Tarjeta de ventana (hacia el oficial)", v_pg3:"Página 3 — Tarjeta de cartera + tus líneas de ayuda", v_pg4:"Página 4 — En el carro: tu guion, los datos del oficial, el registro", v_pg5:"Página 5 — Plan familiar de emergencia + consulados (guarda en casa)", v_pg6:"Página 6 — Después de la multa: corte, grúa, teléfono, choque (guarda en casa)",
     v_print:"Imprimir mi paquete", v_family:"👪 Imprimir para otro familiar", v_family_sub:"Mismo estado, se guarda tu configuración — solo cambia el nombre, el contacto y los documentos.", v_redo:"Crear un paquete para otro conductor u otro carro",
@@ -2687,20 +2739,34 @@ function render(){
       <button class="back" aria-label="${_t.a11y_back}" onclick="goM(2)">← ${_t.a11y_back}</button>
       ${eyebrow()}
       <h1>${_t.l_title}</h1><p class="sub">${_t.l_sub}</p>
-      <div class="stagger">
-        ${st.lifelines.map(L=>`
-          <div class="life">
+      <div class="ll-track" id="llTrack" tabindex="0" role="group" aria-label="${_t.ll_aria}">
+        ${st.lifelines.map((L,i)=>{
+          const raw=L.p==='Coming soon'?(lang==='es'?'Próximamente':'Coming soon'):(L.p==='Dial 211'&&lang==='es'?'Marca el 211':L.p);
+          const c=lifeContact(L.p);
+          return `<article class="ll-card" data-i="${i}">
             <div class="ln">${lnName(L)}</div>
-            <div class="lp">${L.p==='Coming soon'?(lang==='es'?'Próximamente':'Coming soon'):(L.p==='Dial 211'&&lang==='es'?'Marca el 211':L.p)}</div>
+            ${c.href
+              ? `<a class="ll-contact" href="${c.href}"${c.type==='web'?' target="_blank" rel="noopener noreferrer"':''}>${esc(raw)}</a>`
+              : `<div class="ll-contact pending">${esc(raw)}</div>`}
             <div class="ld">${lang==='es'?L.d_es:L.d_en}</div>
-            <div>${L.tags.map(tag=>`<span class="tag ${tag}">${TAGNAMES[lang][tag]}</span>`).join('')}</div>
-          </div>`).join('')}
+            <div class="lltags">${L.tags.map(tag=>`<span class="tag ${tag}">${TAGNAMES[lang][tag]}</span>`).join('')}</div>
+          </article>`;}).join('')}
       </div>
-      <h2 style="font-size:18px;margin:24px 0 4px">${_t.scen_title}</h2>
-      <div class="stagger">${SCEN[lang].map(s=>`<div class="scen"><div class="si">${s.ic}</div><div><div class="sn">${s.t}</div><div class="sd">${s.d}${data.state==='TX'&&s.dTX?' '+s.dTX:''}</div></div></div>`).join('')}</div>
-      <p class="soon" style="margin-top:16px">${_t.l_more}</p>
-      <button class="btn gold" onclick="goM(4)">${_t.l_btn}</button>
+      <div class="ll-nav">
+        ${st.lifelines.map((L,i)=>`<button type="button" class="ll-dot${i===0?' on':''}" data-i="${i}" aria-label="${_t.ll_dot.replace('{n}',i+1)}" onclick="llGo(${i})"></button>`).join('')}
+        <span class="ll-count" id="llCount" aria-live="polite">${_t.ll_count.replace('{n}',1).replace('{t}',st.lifelines.length)}</span>
+      </div>
+      <p class="soon" style="margin-top:8px">${_t.ll_tap} · ${_t.l_more}</p>
+      <h2 style="font-size:18px;margin:22px 0 2px">${_t.scen_title}</h2>
+      <p class="soon" style="margin:0 0 4px">${_t.scen_sub}</p>
+      ${SCEN[lang].map(s=>`<details class="scq"><summary><span class="si">${s.ic}</span><span>${s.t}</span><span class="chev">▶</span></summary><div class="sd">${s.d}${data.state==='TX'&&s.dTX?' '+s.dTX:''}</div></details>`).join('')}
+      <button class="btn gold" style="margin-top:18px" onclick="goM(4)">${_t.l_btn}</button>
     </div>`;
+    /* Bound here rather than inline: the track is rebuilt on every render, so the
+       listener has to be re-attached to the new node anyway. passive — this only
+       reads scrollLeft and never calls preventDefault. */
+    const _tr=document.getElementById('llTrack');
+    if(_tr) _tr.addEventListener('scroll',llSync,{passive:true});
   }
 
   if(step===4){
@@ -2932,6 +2998,34 @@ function pickState(k){
    change is reachable three ways: animated via GSAP, instant when GSAP is
    unavailable or motion is reduced, and straight from render() for a resumed
    session that should land already collapsed with nothing to animate. */
+/* A lifeline you cannot tap is half a lifeline. Phone numbers become tel: links
+   (opens the dialer locally — nothing leaves the device), domains become normal
+   links, and "Coming soon" stays inert text rather than pretending to be one. */
+function lifeContact(p){
+  const s=String(p||'').trim();
+  if(/^[a-z0-9][a-z0-9.\/-]*\.[a-z]{2,}/i.test(s)) return {type:'web',href:'https://'+s};
+  const bare=s.replace(/^(dial|marca el)\s+/i,'');
+  const digits=bare.replace(/\D/g,'');
+  if(digits.length>=3 && !/[a-z]{2,}/i.test(bare)) return {type:'tel',href:'tel:'+digits};
+  return {type:'none',href:null};
+}
+/* Dots follow the swipe; tapping a dot scrolls to that card. Scroll position is
+   the single source of truth — no duplicated "current index" state to drift. */
+function llSync(){
+  const tr=document.getElementById('llTrack'); if(!tr) return;
+  const cards=[...tr.querySelectorAll('.ll-card')]; if(!cards.length) return;
+  const mid=tr.scrollLeft+tr.clientWidth/2;
+  let best=0,bd=Infinity;
+  cards.forEach((c,i)=>{const d=Math.abs((c.offsetLeft+c.offsetWidth/2)-mid); if(d<bd){bd=d;best=i;}});
+  tr.parentNode.querySelectorAll('.ll-dot').forEach((d,i)=>d.classList.toggle('on',i===best));
+  const cnt=document.getElementById('llCount');
+  if(cnt) cnt.textContent=t().ll_count.replace('{n}',best+1).replace('{t}',cards.length);
+}
+function llGo(i){
+  const tr=document.getElementById('llTrack'); if(!tr) return;
+  const c=tr.querySelectorAll('.ll-card')[i]; if(!c) return;
+  tr.scrollTo({left:c.offsetLeft-(tr.clientWidth-c.offsetWidth)/2,behavior:'smooth'});
+}
 function setStateCollapsed(on){
   const grid=document.getElementById('stateGrid'); if(!grid) return;
   const search=document.getElementById('stateSearch');
