@@ -132,10 +132,10 @@
   .state-search{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;font-size:15px;margin-top:14px;background:var(--white);color:var(--ink)}
   .state-search:focus{outline:none;border-color:var(--navy)}
   .state-pri-label,.state-rest-label{grid-column:1/-1;font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin:2px 0 -2px}
-  .state-rest-label{margin-top:10px}
+  .state-rest-label{margin-top:18px}
   .state-btn.nomatch{display:none}
-  .state-btn.pend{background:#fbfaf6;border-style:dashed}
-  .state-btn.pend .nm{color:var(--muted)}
+  .state-btn.pend{background:#fbfaf6}
+  
   .pendtag{font-size:8.5px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--gold-ink);margin-top:3px;line-height:1.1}
   .state-btn{border:1.5px solid var(--line);border-radius:15px;background:var(--white);padding:18px 6px 14px;text-align:center;cursor:pointer;transition:all .3s var(--ease-spring);position:relative}
   .state-btn:hover{transform:translateY(-4px);border-color:#cbc2a6;box-shadow:0 8px 20px rgba(27,42,74,.12)}
@@ -2536,10 +2536,9 @@ function render(){
       <div class="trust-strip">${trustChips()}</div>
       ${window.__resumeStep?`<button class="btn" onclick="goM(${window.__resumeStep});window.__resumeStep=0">${_t.resume_btn}</button>`:''}
       <button class="btn gold" onclick="goM(1)">${_t.w_btn}</button>
-      <button class="btn" onclick="practiceIntroOpen()">${_t.w_try}</button>
+      <button class="btn ghost" onclick="practiceIntroOpen()">${_t.w_try}</button>
       <div class="lawnote small">${_t.law_marker}</div>
-      <button class="linkbtn" onclick="practiceOpen()">${_t.prep_link}</button>
-      <button class="linkbtn" onclick="viewSample()">👀 ${_t.w_sample}</button>
+            <button class="linkbtn" onclick="viewSample()">👀 ${_t.w_sample}</button>
       <button class="linkbtn" onclick="shareAmparo(this)">${_t.w_share}</button>
       <button class="linkbtn" onclick="showAbout()">${_t.about_link}</button>
       <button class="linkbtn" onclick="showDoc()">${_t.doc_link}</button>
@@ -2569,7 +2568,7 @@ function render(){
       </div>
       <p class="soon" id="stateNoMatch" style="display:none">${_t.s_nomatch}</p>
       <p class="soon">${_t.s_soon}</p>
-      <button class="btn" onclick="goM(2)" ${data.state?'':'disabled'}>${_t.next} →</button>
+      <button class="btn gold" onclick="goM(2)" ${data.state?'':'disabled'}>${_t.next} →</button>
     </div>`;
   }
 
@@ -2592,8 +2591,8 @@ function render(){
         ${REVIEW.emailEnabled?`<div><label for="f_email">${_t.i_email}</label><input type="email" id="f_email" autocomplete="email" inputmode="email" enterkeyhint="done" placeholder="${_t.i_email_ph}" value="${esc(data.email)}" oninput="data.email=this.value.trim();persist()">
         <p class="soon" style="text-align:left;margin-top:5px;font-size:12px">🔒 ${_t.i_email_note}</p></div>`:''}
       </div>
-      <button class="btn" onclick="saveInfo()">${_t.next} →</button>
-      <button class="linkbtn" onclick="goM(3)">${_t.i_skip_all}</button>
+      <button class="btn gold" onclick="saveInfo()">${_t.next} →</button>
+      <button class="btn ghost" onclick="skipInfo()">${_t.i_skip_all}</button>
     </div>`;
   }
 
@@ -2615,7 +2614,7 @@ function render(){
       <h2 style="font-size:18px;margin:24px 0 4px">${_t.scen_title}</h2>
       <div class="stagger">${SCEN[lang].map(s=>`<div class="scen"><div class="si">${s.ic}</div><div><div class="sn">${s.t}</div><div class="sd">${s.d}${data.state==='TX'&&s.dTX?' '+s.dTX:''}</div></div></div>`).join('')}</div>
       <p class="soon" style="margin-top:16px">${_t.l_more}</p>
-      <button class="btn" onclick="goM(4)">${_t.l_btn}</button>
+      <button class="btn gold" onclick="goM(4)">${_t.l_btn}</button>
     </div>`;
   }
 
@@ -2837,6 +2836,16 @@ function demoExit(){
   restore(); // bring back whatever real pack was saved before the demo
   step=0; render();
 }
+/* Skip at the same visual weight as Continue, and measured. Step 2 said every field
+   was optional and then behaved like a form that collects: the only way past it was a
+   grey text link under a solid button. For a privacy-motivated user that reads as a
+   dark pattern even though the copy is honest — seeing that you can move on having
+   typed nothing is the moment the on-device promise becomes credible. Instrumented
+   because a rising skip rate is the intended outcome here, not a regression. */
+function skipInfo(){
+  ph('sr_you_skipped',{lang:lang,hadName:!!(document.getElementById('f_name')||{}).value});
+  goM(3);
+}
 function saveInfo(){
   data.name=document.getElementById('f_name').value;
   data.ec=document.getElementById('f_ec').value;
@@ -2846,7 +2855,7 @@ function saveInfo(){
   data.att=document.getElementById('f_att').value;
   data.email=(document.getElementById('f_email')||{value:''}).value.trim();
   persist();
-  go(3);
+  goM(3);
 }
 function loadImg(e,key){
   const f=e.target.files[0]; if(!f) return;
@@ -4188,7 +4197,7 @@ function fbStrip(){
     return;
   }
   const R=[['find',_t.stuck_r_find],['why',_t.stuck_r_why],['trust',_t.stuck_r_trust],['looking',_t.stuck_r_look]];
-  el.innerHTML=`<div class="pilot" style="background:#fdf6e3;border-color:#E8B84B;text-align:left">
+  el.innerHTML=`<div class="pilot" style="background:#eef6fb;border-color:#bcd7e8;text-align:left">
     <b>${_t.stuck_h}</b><br><span style="font-size:13px">${_t.stuck_sub}</span>
     <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">
       ${R.map(([k,label])=>`<button class="btn ghost" style="padding:8px 12px;margin-top:0" onclick="stuckFeedback('${k}')">${esc(label)}</button>`).join('')}
