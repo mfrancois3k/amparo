@@ -111,8 +111,9 @@ photorealistic officer faces the design system deliberately avoids.
 > unobtrusive, a text link "🔑 Retrieve my pack".
 >
 > RIGHT SCREEN: a focused modal over a dimmed version of the same page. Modal
-> heading "Retrieve my pack". Body text "Enter the 12-character code from your
-> receipt." A single wide input showing a monospace placeholder. A navy button
+> heading "Retrieve my pack". Body text "Enter the 8-character code from your
+> receipt." A single wide input showing a monospace placeholder formatted like
+> "XXXX-XXXX". A navy button
 > "Unlock". Below it a divider and a separate quieter section headed "Restore my
 > personal details" with the line "Different from the code above — this one
 > rebuilds your contacts on this device, and never touches our servers." and a

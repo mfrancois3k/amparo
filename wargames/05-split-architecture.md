@@ -76,7 +76,9 @@ The entitlement row is the whole design problem, and it has one rule:
 A workable row:
 
 ```
-token        random 12 chars, generated server-side, NOT derived from email
+token        random 8 chars, Crockford Base32 (excludes 0/O, 1/I/L — no
+             ambiguous-glyph transcription errors), generated server-side,
+             NOT derived from email
 state        "NY"
 product      "script-pack"
 edition      "2026-C"
@@ -85,6 +87,28 @@ created      timestamp
 
 No name. No email. No IP retained. No device id. The token is a bearer credential
 for a product, not a login for a person.
+
+**Length, revisited.** 12 random chars was the first draft and it was wrong —
+correct instinct to push back. The asset behind this token is a ~$4 one-time
+product, not an account or a payment method: the threat model is "someone
+guesses a stranger's code and gets a free PDF," not "someone drains a bank
+account." That does not need bank-grade entropy, and every character typed
+on a phone at the roadside is friction against the one thing this document
+exists to make painless.
+
+8 chars of Crockford Base32 is ~34 bits — about 17 billion combinations.
+Guessing that by brute force is impractical for the payoff **as long as the
+claim endpoint is rate-limited** (a handful of attempts per IP per hour,
+standard for any redemption code). Rate-limiting, not raw length, is what
+actually stops abuse here — the same tradeoff most consumer redeem-a-code
+flows make, because most of them are protecting the same kind of low-value,
+one-time asset this is.
+
+The common path needs neither number anyway: `localStorage` holds the token
+after purchase, so re-opening Amparo on the same phone requires typing
+nothing. 8 characters is the fallback for a new device, not the primary
+path — and it should be presented in 4-character groups (`XXXX-XXXX`) so it
+reads and re-types cleanly off a receipt.
 
 **Where the identity actually goes:** Stripe. Stripe necessarily sees the card
 and the email for the receipt. That is unavoidable for any card payment and it

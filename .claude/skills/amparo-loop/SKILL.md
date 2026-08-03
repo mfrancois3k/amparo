@@ -49,10 +49,14 @@ summary to the user and continue — never let this block steps 6-9.
 
 ## 6. Pick the next notebook filenames
 ```bash
-ls notebook/amparo-focus-group-*.md | grep -oE '[0-9]+' | sort -n | tail -1   # next FG number, zero-padded 2 digits
+ls notebook/amparo-focus-group-*.md | grep -oE 'focus-group-[0-9]+' | grep -oE '[0-9]+' | sort -n | tail -1   # next FG number
 ls wargames/*.md | grep -oE '^wargames/[0-9]+' | grep -oE '[0-9]+' | sort -n | tail -1   # next wargame number
 ```
-Increment each. Slug from ARGUMENTS.
+The first pattern must anchor on `focus-group-` — a bare `[0-9]+` also matches
+version numbers embedded in older filenames (`...-v270.md` → `270`) and picks
+the wrong max. Increment each result. Slug from ARGUMENTS. If
+`notebook/amparo-blindspot-audit-<today>.md` already exists (same-day rerun),
+suffix `-02`, `-03`, ... rather than overwrite.
 
 ## 7. Agent A — 10-persona focus group (background)
 Read `.focus-group/members.md` and the two most recent
