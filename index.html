@@ -3638,20 +3638,15 @@ const PRX_VAR={
  0:[{en:"License and registration, please.",es:"Licencia y registro, por favor.",tone:"calm"},
     {en:"Good evening. I'm going to need your license, registration, and proof of insurance.",es:"Buenas noches. Voy a necesitar su licencia, el registro y la prueba de seguro.",tone:"calm"},
     {en:"License and registration.",es:"Licencia y registro.",tone:"curt"},
-    {en:"Documents. License, registration. Let's go.",es:"Documentos. Licencia, registro. Vamos.",tone:"curt"},
-    {en:"License. Registration. Now, please.",es:"Licencia. Registro. Ahora, por favor.",tone:"hostile"},
-    {en:"I've asked twice. License and registration. Hand them over.",es:"Ya se lo pedí dos veces. Licencia y registro. Entréguemelos.",tone:"hostile"}],
+    {en:"Documents. License, registration. Let's go.",es:"Documentos. Licencia, registro. Vamos.",tone:"curt"}],
  1:[{en:"So, where are you coming from tonight?",es:"A ver, ¿de dónde viene esta noche?",tone:"calm"},
     {en:"Where you headed? Coming from somewhere fun?",es:"¿Para dónde va? ¿Viene de algún lado divertido?",tone:"calm"},
     {en:"Where are you coming from?",es:"¿De dónde viene?",tone:"curt"},
-    {en:"Coming from where? It's a simple question.",es:"¿Viene de dónde? Es una pregunta sencilla.",tone:"curt"},
-    {en:"Where were you tonight? Don't make this difficult.",es:"¿Dónde estuvo esta noche? No lo haga difícil.",tone:"hostile"},
-    {en:"I asked where you're coming from. Answer me.",es:"Le pregunté de dónde viene. Contésteme.",tone:"hostile"}],
+    {en:"Coming from where? It's a simple question.",es:"¿Viene de dónde? Es una pregunta sencilla.",tone:"curt"}],
  2:[{en:"You don't mind if I take a quick look in the car, right?",es:"No le molesta si le echo un vistazo rápido al carro, ¿verdad?",tone:"calm"},
     {en:"Mind if I take a look inside? Just routine.",es:"¿Le importa si reviso adentro? Es pura rutina.",tone:"calm"},
     {en:"I'm going to check the vehicle. That okay with you?",es:"Voy a revisar el vehículo. ¿Está de acuerdo?",tone:"curt"},
-    {en:"Pop the trunk for me. You're fine with that, right?",es:"Ábrame la cajuela. No hay problema, ¿verdad?",tone:"curt"},
-    {en:"If there's nothing in there, this takes two minutes. Can I search it or not?",es:"Si no hay nada ahí, esto toma dos minutos. ¿Puedo revisar o no?",tone:"hostile"}],
+    {en:"Pop the trunk for me. You're fine with that, right?",es:"Ábrame la cajuela. No hay problema, ¿verdad?",tone:"curt"}],
  3:[{en:"Sir, I need you to step out of the vehicle for me.",es:"Señor, necesito que se baje del vehículo, por favor.",tone:"calm"},
     {en:"Go ahead and step out of the car, please.",es:"Bájese del carro, por favor.",tone:"calm"},
     {en:"Step out of the vehicle.",es:"Bájese del vehículo.",tone:"curt"},
@@ -3660,8 +3655,7 @@ const PRX_VAR={
  4:[{en:"Have you had anything to drink tonight?",es:"¿Ha tomado algo esta noche?",tone:"calm"},
     {en:"Just a couple beers, right? Be honest with me.",es:"Solo un par de cervezas, ¿verdad? Sea honesto conmigo.",tone:"calm"},
     {en:"How much have you had to drink?",es:"¿Cuánto ha tomado?",tone:"curt"},
-    {en:"I can smell it. How many drinks?",es:"Se le siente el olor. ¿Cuántos tragos?",tone:"curt"},
-    {en:"How many. Give me a number.",es:"Cuántos. Deme un número.",tone:"hostile"}],
+    {en:"I can smell it. How many drinks?",es:"Se le siente el olor. ¿Cuántos tragos?",tone:"curt"}],
  5:[{en:"I need your signature here. It's not an admission of guilt.",es:"Necesito su firma aquí. No es una admisión de culpa.",tone:"calm"},
     {en:"Sign at the bottom, please. It just means you received the citation.",es:"Firme abajo, por favor. Solo confirma que recibió la citación.",tone:"calm"},
     {en:"Sign here.",es:"Firme aquí.",tone:"curt"},
@@ -3677,9 +3671,7 @@ const PRX_VAR={
  8:[{en:"Do you know why I stopped you?",es:"¿Sabe por qué lo detuve?",tone:"calm"},
     {en:"Any idea why I pulled you over tonight?",es:"¿Alguna idea de por qué lo detuve esta noche?",tone:"calm"},
     {en:"You know why I stopped you?",es:"¿Sabe por qué lo paré?",tone:"curt"},
-    {en:"Do you know why you're being stopped?",es:"¿Sabe por qué lo están deteniendo?",tone:"curt"},
-    {en:"You know exactly why I stopped you. Don't play dumb.",es:"Sabe exactamente por qué lo paré. No se haga el tonto.",tone:"hostile"},
-    {en:"Do you know why I stopped you? Don't lie to me.",es:"¿Sabe por qué lo detuve? No me mienta.",tone:"hostile"}]
+    {en:"Do you know why you're being stopped?",es:"¿Sabe por qué lo están deteniendo?",tone:"curt"}]
 };
 const PRX_CURVE=[
  {en:"Where you headed in such a hurry?",es:"¿Para dónde va con tanta prisa?",tone:"calm",answerBeat:1,coach_en:"Small talk is still questioning. Same line: you're not answering questions.",coach_es:"La charla casual sigue siendo interrogatorio. Misma frase: no responde preguntas."},
@@ -3693,11 +3685,14 @@ const PRX_CURVE=[
  {en:"Why are you being so difficult? Most people just answer.",es:"¿Por qué se pone tan difícil? La mayoría simplemente contesta.",tone:"hostile",answerBeat:1,coach_en:"Silence is your right, not defiance. Hold the same calm line.",coach_es:"El silencio es su derecho, no una ofensa. Mantenga la misma frase con calma."},
  {en:"You been through here before? I've seen this car around.",es:"¿Ya ha pasado por aquí antes? He visto este carro por la zona.",tone:"calm",answerBeat:1,coach_en:"Baiting you into a story. Same reviewed line: not answering questions.",coach_es:"Quiere sacarle una historia. Misma frase revisada: no responde preguntas."}
 ];
-/* ===== HARD MODE (level 5) =====
+/* ===== HARD MODE (4th numbered rung, PRX_LEVELS index 3) =====
    A deliberately un-winnable track: every answer is a good answer, and the
    officer escalates regardless. Its purpose is not skill — it's to break the
    belief that a bad outcome means the driver did something wrong. Beats live
-   at ci 20-22 so they never collide with the scored bank (0-8). */
+   at ci 20-22 so they never collide with the scored bank (0-8). Also carries
+   the swan/unwinnable ending that used to belong to the now-deleted "hard
+   stop" level — that level recycled 100% of its beats from levels 1 and 3,
+   so its ending moved here rather than the deck. */
 const PRX_HARD=[
  {ci:20,tone:'curt',
   setter:{en:"Late night. Bright light fills your mirror. The officer approaches, one hand near his belt.",es:"Ya es de noche. Una luz intensa llena tu espejo. El oficial se acerca, una mano cerca de su cinturón."},
@@ -3738,7 +3733,11 @@ PRX_OPT[22]={bothGood:true,
  bc:{en:'Immediate, calm, visible. There was no better choice available here.',es:'Inmediato, en calma, visible. No había mejor opción aquí.'},
  react:{en:'Move it.',es:'Muévete.'},
  react2:{en:'…',es:'…'}};
-/* ===== Level 6: fixed Border Patrol checkpoint =====
+/* ===== Checkpoint: fixed Border Patrol scenario, unnumbered on purpose =====
+   Not "level 5" — deliberately outside the numbered ladder and never gated
+   behind it. A different encounter, not an escalation of the traffic stop,
+   and the one scenario that applies fully to the 47 federal-only states.
+
    Different failure mode from every other level. The other decks train against
    PANIC — this one trains against VOLUNTEERING. The agent is businesslike, not
    hostile; the mistake is answering a question you never had to answer, or
