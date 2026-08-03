@@ -1453,7 +1453,8 @@ const T = {
     prx_close:"Close",
     offline_ready:"\u2708\ufe0f Saved on this device \u2014 works without internet",
     pp_step2:"Step 2 of 2 \u2014 make it stick:",
-    pdf_q:"\ud83d\udda8 No printer, or want the PDF? \u25be",
+    v_print_pdf:"Print or save as PDF",
+    pdf_q:"\ud83d\udcd6 How do I save it as a PDF instead? \u25be",
     resume_btn:"\u21a9 Continue where you left off",
     i_skip_all:"Skip this \u2014 just use my state",
     prx_open_cta:"\ud83c\udfb4 Practice the script \u2014 2 minutes",
@@ -1750,7 +1751,8 @@ const T = {
     prx_close:"Cerrar",
     offline_ready:"✈️ Guardado en este dispositivo — funciona sin internet",
     pp_step2:"Paso 2 de 2 — que se te quede:",
-    pdf_q:"🖨 ¿Sin impresora o quieres el PDF? ▾",
+    v_print_pdf:"Imprimir o guardar como PDF",
+    pdf_q:"📖 ¿Cómo lo guardo como PDF? ▾",
     resume_btn:"↩ Continuar donde quedaste",
     i_skip_all:"Omitir — solo usar mi estado",
     prx_open_cta:"🎴 Practica el guion — 2 minutos",
@@ -2778,7 +2780,14 @@ function render(){
         ${_t.cmp_rows.map(r=>`<div class="cmp-row"><div class="cmp-label">${r.label}</div><span class="cmp-yes">${r.yes}</span></div>`).join('')}
         <p class="cmp-foot">${_t.cmp_price}</p>
       </div>
-      <button class="btn gold" onclick="window.print()">🖨 ${_t.v_print}</button>
+      <!-- One gold action at a time. window.print() already covers BOTH outcomes —
+           the OS print dialog offers "Save as PDF" as a destination on iOS and
+           Android, so this was never two features, only one poorly-labeled button.
+           Before printing: getting the pack is the goal, so this is gold. After
+           printing: the pack is done and practice is the actual point of the
+           product, so this demotes to ghost and Practice becomes the one gold
+           action below — never two gold buttons on screen at once. -->
+      <button class="btn ${hasPrinted&&!isDemo?'ghost':'gold'}" id="printBtn" onclick="window.print()">🖨 ${_t.v_print_pdf}</button>
       <div id="printedBanner" aria-live="polite" style="display:none;background:#eef7f0;border:1.5px solid #bcd8c2;border-radius:12px;padding:12px 14px;margin-top:10px;font-size:14px;color:#1d4a2c;text-align:center"></div>
       <div id="postPrintActions" style="display:${hasPrinted&&!isDemo?'block':'none'}">
         ${!(prx.done[0]||prx.done[1]||prx.done[2])?`
@@ -4516,6 +4525,11 @@ window.addEventListener('afterprint',()=>{
     const hint=document.getElementById('postPrintHint'); if(hint) hint.remove();
     const post=document.getElementById('postPrintActions'); if(post) post.style.display='block';
     const pf=document.getElementById('printFeedback'); if(pf) pf.style.display='block';
+    /* First real print of the session — demote this button the same way render()
+       would on a fresh paint, without waiting for one. Practice's gold CTA is
+       about to appear in postPrintActions above; two gold buttons at once is
+       exactly the state the focus-group review flagged. */
+    const pb=document.getElementById('printBtn'); if(pb) pb.classList.replace('gold','ghost');
   }
 });
 
