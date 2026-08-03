@@ -2695,7 +2695,7 @@ function render(){
       <div class="trust-strip">${trustChips()}</div>
       ${window.__resumeStep?`<button class="btn" onclick="goM(${window.__resumeStep});window.__resumeStep=0">${_t.resume_btn}</button>`:''}
       <button class="btn gold" onclick="goM(1)">${_t.w_btn}</button>
-      <button class="btn ghost" onclick="practiceIntroOpen()">${_t.w_try}</button>
+      <button class="btn ghost" onclick="goM(5)">${_t.w_try}</button>
       <div class="lawnote small">${_t.law_marker}</div>
             <button class="linkbtn" onclick="viewSample()">👀 ${_t.w_sample}</button>
       <button class="linkbtn" onclick="shareAmparo(this)">${_t.w_share}</button>
@@ -2818,7 +2818,7 @@ function render(){
         ${!(prx.done[0]||prx.done[1]||prx.done[2])?`
         <p class="rail-label" style="margin-top:14px">${_t.pp_step2}</p>
         <button class="btn gold" onclick="goM(5)">${_t.prx_open_cta}</button>`
-        :`<button class="arow" onclick="practiceOpen()"><span class="at"><b>${_t.prx_open}</b></span><span class="ac">›</span></button>
+        :`<button class="arow" onclick="goM(5)"><span class="at"><b>${_t.prx_open}</b></span><span class="ac">›</span></button>
         <button class="arow" onclick="shareAmparo(this.querySelector('b'))"><span class="at"><b>${_t.w_share}</b></span><span class="ac">›</span></button>
         <button class="linkbtn" style="margin-top:8px" onclick="const m=document.getElementById('railMore');const on=m.style.display==='none';m.style.display=on?'block':'none';this.textContent=(on?'▴ ':'▾ ')+this.textContent.slice(2)">▾ ${_t.rail_more}</button>
         <div id="railMore" style="display:none">
@@ -2942,7 +2942,7 @@ function restore(){
     if(s.usageFeedbackGiven) usageFeedbackGiven=true;
     /* returning users get a resume chip on the landing instead of silently
        starting over (UX-research find: revisit landed on step 0, lost) */
-    if(s.step>=1&&s.step<=4&&s.state) window.__resumeStep=s.step;
+    if(s.step>=1&&s.step<=5&&s.state) window.__resumeStep=s.step;
     if((s.lang==='en'||s.lang==='es') && s.lang!==lang){ // whitelist — any other value would brick every render until site data is cleared
       lang=s.lang;
       try{document.documentElement.lang=lang;}catch(e){} // keeps screen readers speaking the right language on resumed sessions
@@ -4073,6 +4073,11 @@ function practiceOpen(){
    re-checks it independently and refuses locked levels on its own. */
 function prStart(i){
   ph('sr_practice_hub_start',{level:i+1,lang:lang});
+  /* First-ever run still meets the intro overlay — it carries the framing and the
+     language choice, and the hub must not become a way around it. Anyone with
+     existing progress has already seen it, so they go straight into the scenario. */
+  const seen=prx.done[0]||prx.done[1]||prx.done[2]||prx.done[3]||prx.done[4]||prx.done[5];
+  if(!seen){ practiceIntroOpen(); return; }
   practiceOpen();
   if(i!==0) prxTab(i);
 }
