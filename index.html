@@ -79,7 +79,7 @@
   .stepper{display:flex;justify-content:space-between;margin:20px 2px 22px;position:relative}
   .stepper::before{content:"";position:absolute;top:16px;left:24px;right:24px;height:2.5px;background:#e8e2d2;border-radius:2px;z-index:0}
   .stepper .fill{position:absolute;top:16px;left:24px;height:2.5px;background:linear-gradient(90deg,var(--gold),#d9a832);border-radius:2px;z-index:1;transition:width .6s var(--ease-out)}
-  .snode{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:5px;width:52px}
+  .snode{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;min-width:52px}
   .snode .c{width:33px;height:33px;border-radius:50%;background:var(--white);border:2.5px solid #ded7c2;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#b3a87f;transition:all .4s var(--ease-spring)}
   .snode .l{font-size:11px;font-weight:800;letter-spacing:.4px;color:#6f6248;text-transform:uppercase;transition:color .3s}
   .snode.now .c{border-color:var(--navy);background:var(--navy);color:var(--white);box-shadow:0 0 0 5px rgba(232,184,75,.35);animation:glowPulse 2.2s ease-in-out infinite}
@@ -1196,13 +1196,13 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
 </div>
 
 
-<div id="pintroOverlay" role="dialog" aria-modal="true" aria-label="Practice a traffic stop">
+<div id="pintroOverlay" role="dialog" aria-modal="true" aria-label="Practice a traffic stop / Practica una parada de tráfico">
   <div class="ab-card" style="max-width:440px">
     <div class="ab-body" id="pintroBody" style="text-align:center;padding:26px 22px"></div>
   </div>
 </div>
 
-<div id="prepOverlay" role="dialog" aria-modal="true" aria-label="Practice before they arrive">
+<div id="prepOverlay" role="dialog" aria-modal="true" aria-label="Practice before they arrive / Practica antes de que lleguen">
   <div class="ab-card" style="max-width:420px">
     <div class="ab-top"><div class="ab-title" id="prepTitle"></div><button class="ab-x" onclick="prepClose()" id="prepX"></button></div>
     <div class="ab-body" id="prepBody" style="text-align:left"></div>
@@ -1214,13 +1214,13 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
   </div>
 </div>
 
-<div id="carryOverlay" role="dialog" aria-modal="true" aria-label="Your carry card">
+<div id="carryOverlay" role="dialog" aria-modal="true" aria-label="Your carry card / Tu tarjeta de bolsillo">
   <div class="ab-card" style="max-width:430px">
     <div class="ab-body" id="carryBody" style="padding:24px 22px"></div>
   </div>
 </div>
 
-<div id="docOverlay" role="dialog" aria-modal="true" aria-label="The truth we can't practice away">
+<div id="docOverlay" role="dialog" aria-modal="true" aria-label="The truth we can't practice away / La verdad que no se puede ensayar">
   <div class="ab-card">
     <div class="ab-top"><div class="ab-title"></div><button class="ab-x" onclick="closeDoc()"></button></div>
     <div class="ab-body"></div>
@@ -1236,7 +1236,7 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
 
 <div id="practiceOverlay" role="dialog" aria-modal="true" aria-label="Practice / Práctica">
   <div class="ab-card">
-    <div class="ab-top"><div style="display:flex;align-items:center;gap:8px;min-width:0"><button class="prc-home" onclick="practiceClose()" aria-label="Home" title="Home"><svg viewBox="0 0 120 120" fill="none"><path d="M14 61 L60 19 L106 61" stroke="#fff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><circle cx="60" cy="74" r="19" fill="none" stroke="#E8B84B" stroke-width="9"/></svg></button><button class="ab-x" id="prcBack" onclick="prxBack()" style="display:none">← <span id="prcBackTxt"></span></button><div class="ab-title" id="prcTitle"></div></div><button class="ab-x" id="prcX" onclick="practiceClose()"></button></div>
+    <div class="ab-top"><div style="display:flex;align-items:center;gap:8px;min-width:0"><button class="prc-home" onclick="practiceClose()" aria-label="Home / Inicio" title="Home"><svg viewBox="0 0 120 120" fill="none"><path d="M14 61 L60 19 L106 61" stroke="#fff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><circle cx="60" cy="74" r="19" fill="none" stroke="#E8B84B" stroke-width="9"/></svg></button><button class="ab-x" id="prcBack" onclick="prxBack()" style="display:none">← <span id="prcBackTxt"></span></button><div class="ab-title" id="prcTitle"></div></div><button class="ab-x" id="prcX" onclick="practiceClose()"></button></div>
     <div class="ab-body" id="practiceBody"></div>
   </div>
 </div>
@@ -1299,6 +1299,9 @@ const T = {
     w_sub:"Amparo builds your traffic-stop pack: a window card that speaks for you, your documents shown, your state's rules. Set it up once, print it, keep it in the car.",
     w_b1:"Your documents never leave your phone", w_b2:"Rules & legal lifelines matched to your state", w_b3:"Print at home. In the car in minutes.", w_b4:"We rehearse the stop with you — out loud, before you ever need it.",
     w_btn:"Build my pack",
+    /* document.title appeared nowhere in the JS, so a Spanish user's tab, bookmark,
+       home-screen shortcut and share sheet all stayed English. */
+    pageTitle:"Amparo — Know your rights at every traffic stop.",
     about_link:"Who's behind Amparo? \u2192",
     doc_link:"Why can't practice make a stop 100% safe? \u2192",
     doc_title:"The truth we can't practice away",
@@ -1588,6 +1591,7 @@ const T = {
     w_sub:"Amparo crea tu paquete para paradas de tráfico: una tarjeta de ventana que habla por ti, tus documentos a la vista, las reglas de tu estado. Configúralo una vez, imprímelo, guárdalo en el carro.",
     w_b1:"Tus documentos nunca salen de tu teléfono", w_b2:"Reglas y líneas de ayuda según tu estado", w_b3:"Imprime en casa. Listo en minutos.", w_b4:"Ensayamos la parada contigo — en voz alta, antes de que la necesites.",
     w_btn:"Crear mi paquete",
+    pageTitle:"Amparo — Conoce tus derechos en cada parada de tráfico.",
     about_link:"\u00bfQui\u00e9n est\u00e1 detr\u00e1s de Amparo? \u2192",
     doc_link:"\u00bfPor qu\u00e9 la pr\u00e1ctica no puede hacer 100% segura una parada? \u2192",
     doc_title:"La verdad que no podemos practicar para evitar",
@@ -1876,10 +1880,10 @@ const STATES = {
     lifelines:[
       {n:"211 Texas", p:"Dial 211", d_en:"Free public referral line — connects you to local legal aid and services. Anyone can call.", d_es:"Línea pública gratuita de referencias — lo conecta con ayuda legal local. Cualquiera puede llamar.", tags:["free","safe"]},
       {n:"TexasLawHelp.org", p:"texaslawhelp.org", d_en:"Free official directory of legal help across Texas. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Texas. Siempre actualizado.", tags:["free","safe"]},
-      {n:"State Bar of Texas Referral", p:"800-252-9690", d_en:"Matches you to a vetted attorney. $20 for a 30-min consult. Mon–Fri 8:30–4:30 CT.", d_es:"Lo conecta con un abogado verificado. $20 por consulta de 30 min. Lun–Vie 8:30–4:30 CT.", tags:["fee","hrs"]},
+      {n:"State Bar of Texas Referral", n_es:"Colegio de Abogados de Texas — referencias", p:"800-252-9690", d_en:"Matches you to a vetted attorney. $20 for a 30-min consult. Mon–Fri 8:30–4:30 CT.", d_es:"Lo conecta con un abogado verificado. $20 por consulta de 30 min. Lun–Vie 8:30–4:30 CT.", tags:["fee","hrs"]},
       {n:"MigraWatch — United We Dream", p:"1-844-363-1423", d_en:"Free hotline to report ICE activity and get rapid-response, know-your-rights help. Any immigration status.", d_es:"Línea gratuita para reportar actividad de ICE y recibir ayuda de respuesta rápida para conocer sus derechos. Cualquier estatus migratorio.", tags:["free","safe"]},
-      {n:"TCOLE — report officer misconduct", p:"512-936-7700", d_en:"Texas' statewide law-enforcement licensing body. For most complaints, start with the officer's own department — TCOLE handles licensing-level violations and can suspend or revoke an officer's license. Not a lawyer, doesn't award money damages.", d_es:"El organismo estatal que otorga la licencia a los oficiales de Texas. Para la mayoría de las quejas, empiece con el propio departamento del oficial — TCOLE atiende violaciones a nivel de licencia y puede suspender o revocar la licencia de un oficial. No es un abogado, no otorga compensación monetaria.", tags:["free","hrs"]},
-      {n:"Direct legal-aid line", p:"Coming soon", d_en:"Partnership pending — added the moment it's confirmed. Scan the QR for the live list.", d_es:"Alianza pendiente — se agrega al confirmarse. Escanea el QR para la lista actualizada.", tags:["soon"]}
+      {n:"TCOLE — report officer misconduct", n_es:"TCOLE — reportar mala conducta de un oficial", p:"512-936-7700", d_en:"Texas' statewide law-enforcement licensing body. For most complaints, start with the officer's own department — TCOLE handles licensing-level violations and can suspend or revoke an officer's license. Not a lawyer, doesn't award money damages.", d_es:"El organismo estatal que otorga la licencia a los oficiales de Texas. Para la mayoría de las quejas, empiece con el propio departamento del oficial — TCOLE atiende violaciones a nivel de licencia y puede suspender o revocar la licencia de un oficial. No es un abogado, no otorga compensación monetaria.", tags:["free","hrs"]},
+      {n:"Direct legal-aid line", n_es:"Línea directa de ayuda legal", p:"Coming soon", d_en:"Partnership pending — added the moment it's confirmed. Scan the QR for the live list.", d_es:"Alianza pendiente — se agrega al confirmarse. Escanea el QR para la lista actualizada.", tags:["soon"]}
     ]},
   GA: { name:"Georgia",
     rules_en:["You must display your license to an officer on request (O.C.G.A. §40-5-29) — handing it over is the safe way to comply.<br><i class=\"stq\">“Every licensee shall have his or her driver's license in his or her immediate possession at all times when operating a motor vehicle” (a); “shall display his or her license upon the demand of a law enforcement officer” (b). — O.C.G.A. §40-5-29(a),(b)</i>","You may remain silent beyond providing your documents — Georgia has no general stop-and-identify law for drivers. But NEVER give a false name (a crime, O.C.G.A. §16-10-25), and in some on-foot situations officers may lawfully demand identification.","Officers may lawfully order you out of the vehicle — comply, keep hands visible, argue later.","Carrying a firearm? Georgia law does not require you to volunteer it — but never reach without announcing; if asked, answer calmly and follow instructions.","Silence covers questions — not chemical tests. Refusing the state test after a DUI arrest suspends your license for a year — you have 30 days to appeal that suspension (O.C.G.A. §40-5-67.1). Under the Georgia Constitution, refusing the breath test cannot be used against you in a criminal trial (Elliott v. State, 2019); refusing a blood test generally still can be. Roadside sobriety tests and the portable roadside breath device are voluntary in Georgia.","Sobriety checkpoints are legal in Georgia. Don't drive with this card mounted — keep it in the door pocket and present it once stopped."],
@@ -1887,9 +1891,9 @@ const STATES = {
     lifelines:[
       {n:"211 Georgia", p:"Dial 211", d_en:"Free public referral line — connects you to local legal aid and services. Anyone can call.", d_es:"Línea pública gratuita de referencias — lo conecta con ayuda legal local. Cualquiera puede llamar.", tags:["free","safe"]},
       {n:"GeorgiaLegalAid.org", p:"georgialegalaid.org", d_en:"Free official directory of legal help across Georgia. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Georgia. Siempre actualizado.", tags:["free","safe"]},
-      {n:"Georgia NAACP complaints", p:"404-577-8977", d_en:"Free civil-rights complaint intake (racial profiling). Advocacy, not a law firm. Business hours.", d_es:"Recepción gratuita de quejas de derechos civiles. Apoyo, no es un bufete. Horario de oficina.", tags:["free","hrs"]},
+      {n:"Georgia NAACP complaints", n_es:"NAACP de Georgia — quejas", p:"404-577-8977", d_en:"Free civil-rights complaint intake (racial profiling). Advocacy, not a law firm. Business hours.", d_es:"Recepción gratuita de quejas de derechos civiles. Apoyo, no es un bufete. Horario de oficina.", tags:["free","hrs"]},
       {n:"MigraWatch — United We Dream", p:"1-844-363-1423", d_en:"Free hotline to report ICE activity and get rapid-response, know-your-rights help. Any immigration status.", d_es:"Línea gratuita para reportar actividad de ICE y recibir ayuda de respuesta rápida para conocer sus derechos. Cualquier estatus migratorio.", tags:["free","safe"]},
-      {n:"Direct legal-aid line", p:"Coming soon", d_en:"Partnership pending — added the moment it's confirmed. Scan the QR for the live list.", d_es:"Alianza pendiente — se agrega al confirmarse. Escanea el QR para la lista actualizada.", tags:["soon"]}
+      {n:"Direct legal-aid line", n_es:"Línea directa de ayuda legal", p:"Coming soon", d_en:"Partnership pending — added the moment it's confirmed. Scan the QR for the live list.", d_es:"Alianza pendiente — se agrega al confirmarse. Escanea el QR para la lista actualizada.", tags:["soon"]}
     ]},
   NY: { name:"New York",
     rules_en:["You must show your license (VTL §507(2)), registration (§401(4)) and insurance card (§319(3)) when an officer asks — handing them over is the safe way to comply. Failing to show your license is treated as presumptive evidence of driving unlicensed:<br><i class=\"stq\">“Failure by a licensee to exhibit a license valid for operation…to any magistrate…peace officer…or police officer shall be presumptive evidence that he is not duly licensed.” — VTL §507(2)</i>","You may remain silent beyond providing your documents — New York has no stop-and-identify law.","In NYC, the Right to Know Act requires NYPD officers to identify themselves and explain the stop; in many stops they must offer a business card (summons or arrest paperwork can substitute). Before a consent search they must tell you that you can refuse, and document your consent.","If ordered out of the vehicle — or told to lower the window fully — comply. Hands visible, move slowly, argue later.","Silence covers questions — not chemical tests. Refusing the official breath/blood test after a DWI arrest costs your license for at least a year plus a civil penalty (VTL §1194), even if you're never convicted. The ROADSIDE is different in NY: refusing the roadside breath screening is itself a traffic infraction (VTL §1194(1)(b)), and refusing balance/eye tests can be brought up in court. Sobriety checkpoints are legal in NY.<br><i class=\"stq\">“…a revoked license…shall not be restored for at least one year after such revocation.” — VTL §1194(2)(d)(1)(a)</i>","Carrying a licensed firearm? NY does not require you to volunteer it — never reach toward it; if asked, answer that one question and follow instructions.","Never drive with this card mounted on the windshield or front side windows (VTL §375(12-a)) — keep it in the door pocket and hold it up only after you've stopped.<br><i class=\"stq\">“No person shall drive any motor vehicle with any sign or other nontransparent material…upon the front windshield or the sidewings or side windows…forward of or adjacent to the operator's seat.” — VTL §375(12-a)</i>"],
@@ -1897,9 +1901,9 @@ const STATES = {
     lifelines:[
       {n:"211 New York", p:"Dial 211", d_en:"Free public referral line — connects you to local legal aid and services. Anyone can call.", d_es:"Línea pública gratuita de referencias — lo conecta con ayuda legal local. Cualquiera puede llamar.", tags:["free","safe"]},
       {n:"LawHelpNY.org", p:"lawhelpny.org", d_en:"Free official directory of legal help across New York. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Nueva York. Siempre actualizado.", tags:["free","safe"]},
-      {n:"CCRB — police complaints (NYC only)", p:"1-800-341-2272", d_en:"Free complaint agency for NYPD officers only (stops, searches, force). Outside NYC, complain to the local department or NY State Police. Not a lawyer — it investigates. CCRB does not ask about immigration status.", d_es:"Agencia gratuita de quejas solo para oficiales de NYPD. Fuera de NYC, presente su queja al departamento local o a la Policía Estatal. No es un abogado — investiga. La CCRB no pregunta sobre estatus migratorio.", tags:["free","safe","hrs"]},
-      {n:"NYS New Americans Hotline", p:"1-800-566-7636", d_en:"Free, confidential immigration help and referrals statewide (Mon–Fri). Any immigration status — interpreters available.", d_es:"Ayuda migratoria gratuita y confidencial en todo el estado (lun–vie). Cualquier estatus — hay intérpretes.", tags:["free","safe","hrs"]},
-      {n:"Direct legal-aid line", p:"Coming soon", d_en:"Partnership pending — added the moment it's confirmed. Scan the QR for the live list.", d_es:"Alianza pendiente — se agrega al confirmarse. Escanea el QR para la lista actualizada.", tags:["soon"]}
+      {n:"CCRB — police complaints (NYC only)", n_es:"CCRB — quejas contra la policía (solo NYC)", p:"1-800-341-2272", d_en:"Free complaint agency for NYPD officers only (stops, searches, force). Outside NYC, complain to the local department or NY State Police. Not a lawyer — it investigates. CCRB does not ask about immigration status.", d_es:"Agencia gratuita de quejas solo para oficiales de NYPD. Fuera de NYC, presente su queja al departamento local o a la Policía Estatal. No es un abogado — investiga. La CCRB no pregunta sobre estatus migratorio.", tags:["free","safe","hrs"]},
+      {n:"NYS New Americans Hotline", n_es:"NYS — Línea para Nuevos Estadounidenses", p:"1-800-566-7636", d_en:"Free, confidential immigration help and referrals statewide (Mon–Fri). Any immigration status — interpreters available.", d_es:"Ayuda migratoria gratuita y confidencial en todo el estado (lun–vie). Cualquier estatus — hay intérpretes.", tags:["free","safe","hrs"]},
+      {n:"Direct legal-aid line", n_es:"Línea directa de ayuda legal", p:"Coming soon", d_en:"Partnership pending — added the moment it's confirmed. Scan the QR for the live list.", d_es:"Alianza pendiente — se agrega al confirmarse. Escanea el QR para la lista actualizada.", tags:["soon"]}
     ]}
 };
 
@@ -1950,11 +1954,18 @@ const BASE_RULES_ES = [
   "⚠️ <b>Las reglas propias de su estado aún no están verificadas en Amparo.</b> Todo lo anterior es ley federal y aplica en todas partes. Lo que cambia según el estado — si debe dar su nombre, si negarse a firmar una multa puede llevar a un arresto, y si puede grabar audio sin avisarle al oficial — NO se muestra para su estado, porque no imprimimos una regla que no hemos verificado contra la ley."
 ];
 /* National lifelines — real, reachable from any state. */
+/* Lifeline NAMES were a single `n` field while descriptions already had d_en/d_es,
+   so every name rendered in English no matter the language — on step 3, the "who do
+   I actually call" screen, for ~47 states, and in the printed pack too. One name was
+   special-cased in an inline ternary at each of the two render sites; everything else
+   fell through. Proper nouns (211 X, MigraWatch, *.org) deliberately carry no n_es.
+   ES wording here is a working translation and is queued for the transcreation pass. */
+function lnName(L){ return (lang==='es'&&L.n_es)?L.n_es:L.n; }
 const BASE_LIFELINES = [
-  {n:"Find your state's ACLU affiliate", p:"aclu.org/affiliates", d_en:"Every state has one. They publish state-specific know-your-rights guidance and take reports of rights violations. Not your lawyer, but the right first call.", d_es:"Cada estado tiene una. Publican guías de derechos específicas del estado y reciben reportes de violaciones. No es su abogado, pero es la primera llamada correcta.", tags:["free","safe"]},
-  {n:"Legal aid + social services referral", p:"Dial 211", d_en:"Free nationwide referral line. Ask for legal aid in your county — they route you to the office that covers your area.", d_es:"Línea gratuita nacional de referencias. Pida ayuda legal en su condado — lo dirigen a la oficina de su área.", tags:["free","hrs"]},
+  {n:"Find your state's ACLU affiliate", n_es:"Encuentra la filial de ACLU de tu estado", p:"aclu.org/affiliates", d_en:"Every state has one. They publish state-specific know-your-rights guidance and take reports of rights violations. Not your lawyer, but the right first call.", d_es:"Cada estado tiene una. Publican guías de derechos específicas del estado y reciben reportes de violaciones. No es su abogado, pero es la primera llamada correcta.", tags:["free","safe"]},
+  {n:"Legal aid + social services referral", n_es:"Ayuda legal + referencia a servicios sociales", p:"Dial 211", d_en:"Free nationwide referral line. Ask for legal aid in your county — they route you to the office that covers your area.", d_es:"Línea gratuita nacional de referencias. Pida ayuda legal en su condado — lo dirigen a la oficina de su área.", tags:["free","hrs"]},
   {n:"MigraWatch — United We Dream", p:"1-844-363-1423", d_en:"Free hotline to report ICE activity and get rapid-response, know-your-rights help. Any immigration status.", d_es:"Línea gratuita para reportar actividad de ICE y recibir ayuda de respuesta rápida. Cualquier estatus migratorio.", tags:["free","safe"]},
-  {n:"988 Suicide & Crisis Lifeline", p:"988", d_en:"If a stop leaves you shaken. Free, 24/7, confidential — call or text.", d_es:"Si una parada lo deja alterado. Gratis, 24/7, confidencial — llame o envíe mensaje.", tags:["free","safe"]}
+  {n:"988 Suicide & Crisis Lifeline", n_es:"988 Línea de Suicidio y Crisis", p:"988", d_en:"If a stop leaves you shaken. Free, 24/7, confidential — call or text.", d_es:"Si una parada lo deja alterado. Gratis, 24/7, confidencial — llame o envíe mensaje.", tags:["free","safe"]}
 ];
 /* Fill in every state we haven't researched. Researched states are untouched. */
 Object.keys(US_STATE_NAMES).forEach(k=>{
@@ -2225,8 +2236,12 @@ function setLang(l){
      re-translate it here from the status already fetched. */
   renderLawCheck();
   persist();
-  if(window.SRMotion&&SRMotion.langSwap) SRMotion.langSwap(render);
-  else render();
+  let _swapped=false;
+  const _once=()=>{ if(_swapped) return; _swapped=true; render(); };
+  if(window.SRMotion&&SRMotion.langSwap) SRMotion.langSwap(_once);
+  else _once();
+  setTimeout(_once,250); // no-ops if the animation already re-rendered
+  document.title=t().pageTitle;
 }
 
 /* ============ STEPPER ============ */
@@ -2605,7 +2620,7 @@ function render(){
       <div class="stagger">
         ${st.lifelines.map(L=>`
           <div class="life">
-            <div class="ln">${L.n==='Direct legal-aid line'&&lang==='es'?'Línea directa de ayuda legal':L.n}</div>
+            <div class="ln">${lnName(L)}</div>
             <div class="lp">${L.p==='Coming soon'?(lang==='es'?'Próximamente':'Coming soon'):(L.p==='Dial 211'&&lang==='es'?'Marca el 211':L.p)}</div>
             <div class="ld">${lang==='es'?L.d_es:L.d_en}</div>
             <div>${L.tags.map(tag=>`<span class="tag ${tag}">${TAGNAMES[lang][tag]}</span>`).join('')}</div>
@@ -3003,7 +3018,7 @@ function buildPrint(){
     <div class="lifegrid">
       ${st.lifelines.filter(L=>!L.tags.includes('soon')).map(L=>`
         <div class="lifebox">
-          <div class="n">${L.n==='Direct legal-aid line'&&lang==='es'?'Línea directa de ayuda legal':L.n}</div><div class="p">${L.p==='Coming soon'?(lang==='es'?'Próximamente':'Coming soon'):(L.p==='Dial 211'&&lang==='es'?'Marque el 211':L.p)}</div>
+          <div class="n">${lnName(L)}</div><div class="p">${L.p==='Coming soon'?(lang==='es'?'Próximamente':'Coming soon'):(L.p==='Dial 211'&&lang==='es'?'Marque el 211':L.p)}</div>
           <div class="d">${lang==='es'?L.d_es:L.d_en}</div>
         </div>`).join('')}
     </div>
@@ -3087,6 +3102,7 @@ function buildPrint(){
    phone was landing in English the whole time, and the comment below already
    assumed a restore that wasn't happening. */
 restore();
+try{document.title=t().pageTitle;}catch(e){}
 render();
 /* Arm/disarm replay for whatever step we restored into — a returning user resumed
    at step 3 must not start recording just because go() hasn't run yet. */
