@@ -256,6 +256,17 @@
      screen creates real ambiguity about which one a swipe belongs to; every
      two-dataset reference pattern (Apple Fitness, KOHO, Vivid, Nu, GoHenry)
      resolves it the same way — one content area, a segment picker above it. */
+  /* Step-5 practice hub: one tap per scenario, progress legible at a glance. */
+  .pr-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  .pr-card{display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;
+    border:1.5px solid var(--line);border-radius:14px;padding:14px 13px;background:#fffdf8;
+    cursor:pointer;font-family:inherit;min-height:96px;transition:transform .25s var(--ease-spring),border-color .22s,box-shadow .25s var(--ease-out)}
+  .pr-card:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:0 6px 16px rgba(232,184,75,.16)}
+  .pr-card.lock{opacity:.55;cursor:default}
+  .pr-card.lock:hover{transform:none;border-color:var(--line);box-shadow:none}
+  .pr-card .pr-ic{font-size:18px;line-height:1}
+  .pr-card .pr-nm{font-size:14px;font-weight:900;color:var(--navy);line-height:1.25}
+  .pr-card .pr-st{font-size:11.5px;font-weight:800;color:var(--muted);margin-top:auto}
   .ll-seg{display:flex;gap:6px;background:#f3f0e6;border-radius:12px;padding:4px;margin-top:12px}
   .ll-seg button{flex:1;border:0;background:transparent;border-radius:9px;padding:9px 6px;
     font-family:inherit;font-size:13px;font-weight:800;color:var(--muted);cursor:pointer;
@@ -1396,11 +1407,11 @@ const T = {
   en: {
     pilotBanner:"Free. Nothing you enter leaves your phone — no account, no upload.",
     disclaimer:"Amparo provides general legal information, not legal advice. Every rule is cited to the exact state statute so you can check it yourself; formal attorney sign-off per state is in progress. Phone numbers verified July 16, 2026.",
-    stepLabels:["State","You","Lifelines","Print"],
+    stepLabels:["State","You","Lifelines","Print","Practice"],
     stepWord:"Step",
-    w_title:"Get pulled over with a plan.",
-    w_sub:"Amparo builds your traffic-stop pack: a window card that speaks for you, your documents shown, your state's rules. Set it up once, print it, keep it in the car.",
-    w_b1:"Your documents never leave your phone", w_b2:"Rules & legal lifelines matched to your state", w_b3:"Print at home. In the car in minutes.", w_b4:"We rehearse the stop with you — out loud, before you ever need it.",
+    w_title:"Practice the stop before it happens.",
+    w_sub:"Amparo rehearses a police stop with you — out loud, with a real officer's lines — until the words come without thinking. Then it builds a pack for your glovebox, so they're there even if your mind goes blank.",
+    w_b1:"Rehearse out loud, before you ever need it", w_b2:"Your state's rules and legal lifelines", w_b3:"A printed pack for the glovebox", w_b4:"Nothing you enter leaves your phone",
     w_btn:"Build my pack",
     /* document.title appeared nowhere in the JS, so a Spanish user's tab, bookmark,
        home-screen shortcut and share sheet all stayed English. */
@@ -1453,6 +1464,13 @@ const T = {
     prx_close:"Close",
     offline_ready:"\u2708\ufe0f Saved on this device \u2014 works without internet",
     pp_step2:"Step 2 of 2 \u2014 make it stick:",
+    hub_title:"Now rehearse it.",
+    hub_sub:"The pack is in your glovebox. This is the part that has to be in your head. Run a scenario out loud — two minutes each.",
+    hub_locked:"Finish the first three to unlock",
+    hub_done:"Done",
+    hub_start:"Start",
+    hub_replay:"Run again",
+    hub_back_pack:"Back to my pack",
     v_print_pdf:"Print or save as PDF",
     pdf_q:"\ud83d\udcd6 How do I save it as a PDF instead? \u25be",
     resume_btn:"\u21a9 Continue where you left off",
@@ -1696,11 +1714,11 @@ const T = {
   es: {
     pilotBanner:"Gratis. Nada de lo que escribes sale de tu teléfono — sin cuenta, sin subir nada.",
     disclaimer:"Amparo ofrece información legal general, no asesoría legal. Cada regla cita el artículo exacto de la ley estatal para que usted mismo lo verifique; la revisión formal por un abogado en cada estado está en curso. Números verificados el 16 de julio de 2026.",
-    stepLabels:["Estado","Tú","Líneas","Imprimir"],
+    stepLabels:["Estado","Tú","Líneas","Imprimir","Práctica"],
     stepWord:"Paso",
-    w_title:"Que la policía no te agarre sin un plan.",
-    w_sub:"Amparo crea tu paquete para paradas de tráfico: una tarjeta de ventana que habla por ti, tus documentos a la vista, las reglas de tu estado. Configúralo una vez, imprímelo, guárdalo en el carro.",
-    w_b1:"Tus documentos nunca salen de tu teléfono", w_b2:"Reglas y líneas de ayuda según tu estado", w_b3:"Imprime en casa. Listo en minutos.", w_b4:"Ensayamos la parada contigo — en voz alta, antes de que la necesites.",
+    w_title:"Practica la parada antes de que ocurra.",
+    w_sub:"Amparo ensaya una parada policial contigo — en voz alta, con las frases reales de un oficial — hasta que las palabras salgan sin pensar. Después arma un paquete para tu guantera, para que estén ahí aunque te quedes en blanco.",
+    w_b1:"Ensaya en voz alta, antes de necesitarlo", w_b2:"Las reglas y líneas de ayuda de tu estado", w_b3:"Un paquete impreso para la guantera", w_b4:"Nada de lo que escribes sale de tu teléfono",
     w_btn:"Crear mi paquete",
     pageTitle:"Amparo — Conoce tus derechos en cada parada de tráfico.",
     about_link:"\u00bfQui\u00e9n est\u00e1 detr\u00e1s de Amparo? \u2192",
@@ -1751,6 +1769,13 @@ const T = {
     prx_close:"Cerrar",
     offline_ready:"✈️ Guardado en este dispositivo — funciona sin internet",
     pp_step2:"Paso 2 de 2 — que se te quede:",
+    hub_title:"Ahora ensáyalo.",
+    hub_sub:"El paquete ya está en tu guantera. Esta es la parte que tiene que estar en tu cabeza. Haz un escenario en voz alta — dos minutos cada uno.",
+    hub_locked:"Termina los primeros tres para desbloquear",
+    hub_done:"Hecho",
+    hub_start:"Empezar",
+    hub_replay:"Repetir",
+    hub_back_pack:"Volver a mi paquete",
     v_print_pdf:"Imprimir o guardar como PDF",
     pdf_q:"📖 ¿Cómo lo guardo como PDF? ▾",
     resume_btn:"↩ Continuar donde quedaste",
@@ -2593,7 +2618,7 @@ function closeAbout(){
 }
 
 let _lastStep=-1,_lastLang=null;
-const STEP_SLUG=['welcome','state','you','lifelines','print'];
+const STEP_SLUG=['welcome','state','you','lifelines','print','practice'];
 let stuckOpen=false, stuckDone=false;
 function render(){
   const stepChanged=(_lastStep!==step);
@@ -2665,7 +2690,7 @@ function render(){
     S.innerHTML=`<div class="card stagger">
       <h1>${_t.w_title}</h1>
       <p class="sub">${_t.w_sub}</p>
-      ${[[_t.w_b1,'🔒'],[_t.w_b2,'📍'],[_t.w_b3,'🖨'],[_t.w_b4,'🗣']].map(b=>`
+      ${[[_t.w_b1,'🗣'],[_t.w_b2,'📍'],[_t.w_b3,'🖨'],[_t.w_b4,'🔒']].map(b=>`
         <div class="feat"><span class="fi">${b[1]}</span>${b[0]}</div>`).join('')}
       <div class="trust-strip">${trustChips()}</div>
       ${window.__resumeStep?`<button class="btn" onclick="goM(${window.__resumeStep});window.__resumeStep=0">${_t.resume_btn}</button>`:''}
@@ -2792,7 +2817,7 @@ function render(){
       <div id="postPrintActions" style="display:${hasPrinted&&!isDemo?'block':'none'}">
         ${!(prx.done[0]||prx.done[1]||prx.done[2])?`
         <p class="rail-label" style="margin-top:14px">${_t.pp_step2}</p>
-        <button class="btn gold" onclick="practiceOpen()">${_t.prx_open_cta}</button>`
+        <button class="btn gold" onclick="goM(5)">${_t.prx_open_cta}</button>`
         :`<button class="arow" onclick="practiceOpen()"><span class="at"><b>${_t.prx_open}</b></span><span class="ac">›</span></button>
         <button class="arow" onclick="shareAmparo(this.querySelector('b'))"><span class="at"><b>${_t.w_share}</b></span><span class="ac">›</span></button>
         <button class="linkbtn" style="margin-top:8px" onclick="const m=document.getElementById('railMore');const on=m.style.display==='none';m.style.display=on?'block':'none';this.textContent=(on?'▴ ':'▾ ')+this.textContent.slice(2)">▾ ${_t.rail_more}</button>
@@ -2836,6 +2861,30 @@ function render(){
         wrap.appendChild(clone);
       });
     },40);
+  }
+  /* Step 5 — the practice hub. The pack was never the product; rehearsal is.
+     This is a ROUTING surface only: it lists the six scenarios that already
+     exist in the practice engine, shows real progress from `prx`, and hands off
+     to practiceOpen(). It authors no new legal content and no new dialogue —
+     every line spoken here still comes from the existing reviewed banks. */
+  if(step===5){
+    const mUnlocked=prx.done[0]&&prx.done[1]&&prx.done[2];
+    const locked=i=>(i===3||i===4)&&!mUnlocked;
+    S.innerHTML=`<div class="card">
+      <button class="back" aria-label="${_t.a11y_back}" onclick="goM(4)">← ${_t.a11y_back}</button>
+      ${eyebrow()}
+      <h1>${_t.hub_title}</h1><p class="sub">${_t.hub_sub}</p>
+      <div class="pr-grid">
+        ${[0,1,2,3,4,5].map(i=>{
+          const isLk=locked(i), best=prx.best&&prx.best[i], done=prx.done[i];
+          return `<button class="pr-card${isLk?' lock':''}" ${isLk?`aria-disabled="true" title="${_t.hub_locked}"`:''} onclick="${isLk?'':`prStart(${i})`}">
+            <span class="pr-ic" aria-hidden="true">${isLk?'🔒':(done?'✓':'▶')}</span>
+            <span class="pr-nm">${_t['prx_lvl'+(i+1)]}</span>
+            <span class="pr-st">${isLk?_t.hub_locked:(best?`🟩 ${parseInt(best)}`:(done?_t.hub_done:_t.hub_start))}</span>
+          </button>`;}).join('')}
+      </div>
+      <button class="btn ghost" style="margin-top:16px" onclick="goM(4)">${_t.hub_back_pack}</button>
+    </div>`;
   }
   /* Preview step gets the wide two-column layout on desktop; every other
      step stays at the narrow phone-first width. */
@@ -3195,7 +3244,7 @@ function buildPrint(){
       <div style="font-size:13px;font-weight:900;color:#1B2A4A;letter-spacing:.8px;margin-bottom:6px">☑ ${_t.prep_title}${_t.prep_es?` <span style="font-weight:700;color:var(--gold-ink);font-size:10px">· ${_t.prep_es}</span>`:''}</div>
       ${_t.prep.map(p=>`<div style="display:flex;gap:8px;font-size:11.5px;margin-bottom:2px;line-height:1.32"><span style="color:#E8B84B;font-weight:900">▸</span><span><b>${p.en}</b> <span style="color:var(--gold-ink)">${p.es}</span></span></div>`).join('')}
     </div>
-    <h1>${_t.pr_title}</h1>
+    <h1>${_t.hub_title}</h1>
     ${_t.pr_es?`<div class="es-sub">${_t.pr_es}</div>`:''}
     ${_t.steps.map((s,i)=>`
       <div class="step-row">
@@ -4017,6 +4066,15 @@ function practiceOpen(){
   document.getElementById('practiceOverlay').classList.add('open');
   practiceRender(); prxSpeak();
   ph('sr_practice_opened',{state:data.state,lang:lang});
+}
+/* Step-5 hub entry point: open the practice overlay already on the chosen
+   scenario. Routes through practiceOpen() (which builds the deck and wires the
+   overlay) and then prxTab(), so the hub cannot bypass the level gate — prxTab
+   re-checks it independently and refuses locked levels on its own. */
+function prStart(i){
+  ph('sr_practice_hub_start',{level:i+1,lang:lang});
+  practiceOpen();
+  if(i!==0) prxTab(i);
 }
 function prxTab(i){
   /* Locked tabs are rendered so the levels are discoverable, but entering them
