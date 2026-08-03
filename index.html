@@ -482,15 +482,21 @@
   .prep-chip.done{opacity:.4;pointer-events:none;border-style:solid;border-color:var(--ok)}
   .prep-count{text-align:center;font-size:12px;color:var(--muted);font-weight:700;margin-top:6px}
   .prep-sheet{position:fixed;left:0;right:0;bottom:0;background:var(--white);border-top:1px solid var(--line);border-radius:16px 16px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.14);padding:18px 18px 26px;transform:translateY(110%);transition:transform .32s cubic-bezier(.16,1,.3,1);z-index:96;max-width:440px;margin:0 auto}
-  /* Retract-on-pick: once a state is chosen, every other tile collapses out of
-     the flow so Continue sits right below the one tile that matters. Two-phase
-     so it reads as a collapse, not a pop: tiles fade+shrink first, THEN the grid
-     height animates down to match — the height change only starts once the
-     fading tiles are already invisible, so removing them from layout never
-     looks like a jump cut. */
-  .state-grid{transition:height .32s cubic-bezier(.16,1,.3,1)}
-  .state-grid.collapsing .state-btn:not(.sel){opacity:0;transform:scale(.88);pointer-events:none;transition:opacity .2s var(--ease-out),transform .2s var(--ease-out)}
-  .state-grid.collapsing .state-pri-label,.state-grid.collapsing .state-rest-label{opacity:0;transition:opacity .16s var(--ease-out)}
+  /* Retract-on-pick. `align-items:start` here is load-bearing, not cosmetic: a
+     grid item STRETCHES to its row by default, so while the grid height was
+     pinned for the transition the single surviving tile inflated to 144px wide
+     by 1820px tall — measured, not guessed. That sliver was the "long triangle"
+     artifact. Starting alignment keeps it at its natural height. */
+  .state-grid.collapsed{align-items:start}
+  .state-btn[hidden]{display:none}
+  /* The picked tile becomes the confirmation: full width, ✓ and the state name
+     centered, nothing else on screen between it and Continue. */
+  .state-btn.confirmed{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:11px;padding:22px 16px;cursor:default}
+  .state-btn.confirmed:hover{transform:none;box-shadow:0 0 0 2.5px var(--navy) inset}
+  .state-btn.confirmed .ab{display:none}
+  .state-btn.confirmed .nm{font-size:18px;font-weight:800;color:var(--navy);margin-top:0}
+  .state-btn.confirmed .badge{position:static;top:auto;right:auto;width:27px;height:27px;font-size:15px}
+  .state-btn.confirmed .pendtag{display:none}
   .state-change{margin:10px 0 0}
   .prep-sheet.show{transform:translateY(0)}
   .prep-sheet h3{margin:0 0 6px;font-size:16px;color:var(--navy)}
@@ -1120,6 +1126,51 @@
     var els = document.querySelectorAll(sel); if (!els.length) return;
     G().fromTo(els, { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45,
       ease: 'power3.out', stagger: 0.07, delay: delay || 0, clearProps: 'transform,opacity' });
+  };
+  /* State picker collapse/expand. `swap` is the DOM mutation itself (hide the
+     other tiles, promote the picked one to the confirmation card) and is ALWAYS
+     called — with GSAP it is sequenced between a fade-out and a height tween,
+     without GSAP (reduced motion, or the CDN never landed) it just runs, so the
+     picker still retracts, only instantly. No stagger anywhere here on purpose:
+     a staggered fade across a 3-column grid sweeps diagonally, which is the
+     class of artifact this whole change exists to remove. */
+  SR.stateCollapse = function (grid, swap) {
+    if (!OK() || !grid) { swap(); return; }
+    var g = G();
+    var others = grid.querySelectorAll('.state-btn:not(.sel),.state-pri-label,.state-rest-label');
+    var startH = rect(grid).height;
+    g.to(others, { opacity: 0, duration: 0.18, ease: 'power2.in', onComplete: function () {
+      swap();
+      var sel = grid.querySelector('.state-btn.sel');
+      /* Measure the natural collapsed height with height:auto FIRST. Reading
+         scrollHeight while the element is pinned returns the PIN, not the
+         content — that made the tween a no-op and the collapse landed as a
+         snap on clearProps. Both writes happen in one frame, so nothing paints
+         in between and there is no flash. */
+      g.set(grid, { height: 'auto' });
+      var endH = rect(grid).height;
+      g.set(grid, { height: startH });
+      g.to(grid, { height: endH, duration: 0.36, ease: 'power3.inOut',
+        onComplete: function () { g.set(grid, { clearProps: 'height' }); } });
+      if (sel) g.fromTo(sel, { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out', delay: 0.05,
+          clearProps: 'transform,opacity' });
+    }});
+  };
+  SR.stateExpand = function (grid, swap) {
+    if (!OK() || !grid) { swap(); return; }
+    var g = G();
+    var startH = rect(grid).height;
+    swap();
+    var others = grid.querySelectorAll('.state-btn:not(.sel),.state-pri-label,.state-rest-label');
+    g.set(others, { opacity: 0 });
+    g.set(grid, { height: 'auto' });      // measure natural height before pinning
+    var endH = rect(grid).height;
+    g.set(grid, { height: startH });
+    g.to(grid, { height: endH, duration: 0.36, ease: 'power3.inOut',
+      onComplete: function () { g.set(grid, { clearProps: 'height' }); } });
+    g.to(others, { opacity: 1, duration: 0.26, ease: 'power2.out', delay: 0.08,
+      clearProps: 'opacity' });
   };
   SR.langSwap = function (rerender) {
     var sc = document.getElementById('screen');
@@ -2585,11 +2636,11 @@ function render(){
       <h1>${_t.s_title}</h1><p class="sub">${_t.s_sub}</p>
       <input type="text" id="stateSearch" class="state-search" placeholder="${_t.s_search}"
              oninput="filterStates(this.value)" autocomplete="off" inputmode="text" ${_collapsed?'hidden':''}>
-      <div class="state-grid stagger" id="stateGrid">
+      <div class="state-grid stagger${_collapsed?' collapsed':''}" id="stateGrid">
         ${(()=>{ const keys=Object.keys(STATES).sort((a,b)=>STATES[a].name.localeCompare(STATES[b].name));
           const pri=keys.filter(k=>!STATES[k].pending), rest=keys.filter(k=>STATES[k].pending);
           const btn=k=>`
-          <button class="state-btn ${data.state===k?'sel':''}${STATES[k].pending?' pend':''}" data-name="${STATES[k].name.toLowerCase()}" data-ab="${k.toLowerCase()}" onclick="pickState('${k}')"${STATES[k].pending?` title="${_t.s_pending_t}"`:''} ${_collapsed&&data.state!==k?'hidden':''}>
+          <button class="state-btn ${data.state===k?'sel':''}${_collapsed&&data.state===k?' confirmed':''}${STATES[k].pending?' pend':''}" data-name="${STATES[k].name.toLowerCase()}" data-ab="${k.toLowerCase()}" onclick="pickState('${k}')"${STATES[k].pending?` title="${_t.s_pending_t}"`:''} ${_collapsed&&data.state!==k?'hidden':''}>
             <span class="badge">✓</span>
             <div class="ab">${k}</div><div class="nm">${STATES[k].name}</div>
             ${STATES[k].pending?`<div class="pendtag">${_t.s_pending}</div>`:''}
@@ -2877,32 +2928,30 @@ function pickState(k){
   collapseStateGrid();
   ph('sr_state_selected',{state:k,lang:lang});
 }
-/* Two-phase so the height change never looks like a jump: (1) every non-picked
-   tile and both group labels fade+shrink out over 200ms, opacity/transform only
-   so it stays compositor-cheap; (2) only once they are already invisible do we
-   give them `hidden` (removes them from layout AND the a11y tree) and animate
-   the grid's own height down to its new, much shorter natural size. Doing the
-   height step before the fade would read as a pop; doing it without a measured
-   start height would skip the transition entirely, since you cannot animate
-   from `auto`. */
-function collapseStateGrid(){
+/* The DOM mutation, kept separate from the animation so the exact same state
+   change is reachable three ways: animated via GSAP, instant when GSAP is
+   unavailable or motion is reduced, and straight from render() for a resumed
+   session that should land already collapsed with nothing to animate. */
+function setStateCollapsed(on){
   const grid=document.getElementById('stateGrid'); if(!grid) return;
   const search=document.getElementById('stateSearch');
   const soon=document.getElementById('stateSoon');
   const changeLink=document.getElementById('stateChangeLink');
-  if(search) search.hidden=true;
-  if(soon) soon.hidden=true;
-  if(changeLink) changeLink.hidden=false;
-  const startH=grid.getBoundingClientRect().height;
-  grid.style.height=startH+'px';
-  grid.classList.add('collapsing');
-  setTimeout(()=>{
-    if(!grid.classList.contains('collapsing')) return; // uncollapsed again mid-fade
-    [...grid.querySelectorAll('.state-btn:not(.sel)')].forEach(b=>b.hidden=true);
-    grid.querySelectorAll('.state-pri-label,.state-rest-label').forEach(l=>l.hidden=true);
-    grid.style.height=grid.scrollHeight+'px';
-    setTimeout(()=>{ if(grid.classList.contains('collapsing')) grid.style.height='auto'; },330);
-  },210);
+  grid.classList.toggle('collapsed',on);
+  [...grid.querySelectorAll('.state-btn')].forEach(b=>{
+    const isSel=b.classList.contains('sel');
+    b.hidden = on && !isSel;
+    b.classList.toggle('confirmed', on && isSel);
+  });
+  grid.querySelectorAll('.state-pri-label,.state-rest-label').forEach(l=>l.hidden=on);
+  if(search) search.hidden=on;
+  if(soon) soon.hidden=on;
+  if(changeLink) changeLink.hidden=!on;
+}
+function collapseStateGrid(){
+  const grid=document.getElementById('stateGrid'); if(!grid) return;
+  if(window.SRMotion&&SRMotion.stateCollapse) SRMotion.stateCollapse(grid,()=>setStateCollapsed(true));
+  else setStateCollapsed(true);
 }
 /* "Not your state?" — the escape hatch a retract-to-one-tile pattern MUST have,
    or a wrong tap traps the user. Reveals everything again; deliberately does
@@ -2910,19 +2959,8 @@ function collapseStateGrid(){
    their original pick — and Continue — still stands. */
 function uncollapseStateGrid(){
   const grid=document.getElementById('stateGrid'); if(!grid) return;
-  const search=document.getElementById('stateSearch');
-  const soon=document.getElementById('stateSoon');
-  const changeLink=document.getElementById('stateChangeLink');
-  const startH=grid.getBoundingClientRect().height;
-  grid.style.height=startH+'px';
-  grid.classList.remove('collapsing');
-  [...grid.querySelectorAll('.state-btn')].forEach(b=>b.hidden=false);
-  grid.querySelectorAll('.state-pri-label,.state-rest-label').forEach(l=>l.hidden=false);
-  if(search) search.hidden=false;
-  if(soon) soon.hidden=false;
-  if(changeLink) changeLink.hidden=true;
-  requestAnimationFrame(()=>{ grid.style.height=grid.scrollHeight+'px';
-    setTimeout(()=>{ grid.style.height='auto'; },330); });
+  if(window.SRMotion&&SRMotion.stateExpand) SRMotion.stateExpand(grid,()=>setStateCollapsed(false));
+  else setStateCollapsed(false);
 }
 /* ============ SAMPLE PACK (demo mode) ============ */
 function viewSample(){
