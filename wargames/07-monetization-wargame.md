@@ -158,32 +158,35 @@ infrastructure. Every fork below hangs off that split.
   confirm console is clean and `vercel.json` is byte-identical to pre-change.
   Pass = purchase page reachable with an unmodified header file.
 
-### Move 6 — Delivery and re-download: pick a route by what you can verify
-- **Action:** choose exactly one, by trigger:
+### Move 6 — Delivery and re-download: **Route 6A, on Convex** (operator's call, 2026-08-03)
+- **Action:** success URL carries `session_id` → a Convex `claimPack` mutation
+  verifies it against Stripe and writes a bearer token row (`token / state /
+  product / edition`, no identity fields — schema in `wargames/05` §2) →
+  client stores the token in `localStorage`, calls `getPack` on return visits.
+  Superseded alternatives, kept for the record: 6B (no server, trivially
+  forgeable — rejected once real infra was chosen) and 6C (Stripe emails the
+  pack, reintroduces identity — rejected, least preferred).
 
-| Trigger | Route | Server? | CSP change? | Honest tradeoff |
-|---|---|---|---|---|
-| Vercel functions available **and** operator accepts new infra | **6A** — success URL carries `session_id`; a function verifies it and returns a signed bearer token | one function | `connect-src` += own domain (already `'self'`) → **none** | Strongest. Token row holds `token/state/product/edition` and no identity. |
-| No functions, operator accepts trivially-forgeable entitlement | **6B** — success URL sets a local flag; pack unlocks client-side | none | none | A determined user gets a $3.99 PDF free. For this price point that is a business cost, not a breach. **Say so out loud rather than implying security that isn't there.** |
-| Operator accepts identity at a second point | **6C** — Stripe emails the pack link | none | none | Reintroduces email identity. Contradicts the scoped claim unless disclosed. **Least preferred.** |
-
-- **Expected observation (6A):** function returns 200 + token for a real
-  `session_id`, and 4xx for a fabricated one.
+- **Expected observation:** `claimPack` returns a token for a real
+  `session_id` verified against Stripe, and rejects a fabricated one. `getPack`
+  returns the pack for a valid token, nothing for an invalid one.
 - **Most-likely failure → signal → counter-move:**
   - Token derived from the email/session id → it becomes an identifier → **the
-    server row now links to a person, defeating the entire architecture** →
-    counter-move: generate the token from a CSPRNG, store the mapping, never
-    derive it.
-  - Stripe secret key ends up client-side → visible in `view-source` → the whole
-    product is one static file; **any key in `index.html` is public.** Secret
-    key lives only in the function's environment.
-- **Fork trigger:** if 6B is chosen, the offer copy must not claim the pack is
-  protected. State plainly that it's a convenience, not a lock.
+    Convex row now links to a person, defeating the entire architecture** →
+    counter-move: generate the token from a CSPRNG inside the mutation, store
+    the mapping, never derive it from anything Stripe sends.
+  - Stripe secret key ends up in client code → visible in `view-source` → the
+    static file is public by construction; **any key inside `index.html` is
+    public.** Secret key lives only in Convex's environment variables, used
+    only inside `claimPack`, never returned to the client.
+  - `getPack` has no rate limit → token space becomes brute-forceable →
+    Convex mutations/queries can be rate-limited per caller; add it before
+    this goes live, not after.
 - **Abort condition:** if delivery would require storing the buyer's name or
-  email in Amparo's own store, **stop.** That is the line this whole plan exists
-  to hold.
+  email in the `packs` table, **stop.** That is the line this whole plan exists
+  to hold, independent of which backend hosts the table.
 - **Verification run:** buy once end-to-end → confirm the pack downloads →
-  inspect the stored row and assert it contains no name/email → clear
+  inspect the Convex row and assert it contains no name/email → clear
   `localStorage` → re-enter token → pack returns. Pass = all four, and the row
   is impersonal.
 

@@ -65,9 +65,55 @@ over" claim rests on and it should never move.
 Name, contacts, attorney number, state, practice progress, preferences.
 Unchanged from today.
 
-### Tier 2 — Server, and deliberately impersonal.
+### Tier 2 — Convex, and deliberately impersonal.
 Purchased script packs, and an entitlement record that says *a* purchase
-happened — never *whose*.
+happened — never *whose*. Backend chosen: **Convex** (operator's call,
+2026-08-03) — a real database, not a bespoke KV row.
+
+Convex changes the implementation, not the rule. **The rule from this
+section is unchanged and is not optional: the table Convex hosts must never
+gain a column that identifies a person.** Convex will hold whatever schema
+gets defined for it — that schema is application code, same as it would be
+on any other backend. Nothing about Convex forces a `name` or `email`
+field to exist; nothing about this plan requires the privacy claim in §5 to
+be dropped. If it's dropped, that's a separate, deliberate choice about the
+data model — not a consequence of the vendor.
+
+**Concrete Convex shape:**
+```ts
+// convex/schema.ts
+packs: defineTable({
+  token:   v.string(),   // random, generated server-side, not derived from email
+  state:   v.string(),   // "NY"
+  product: v.string(),   // "script-pack"
+  edition: v.string(),   // "2026-C"
+}).index("by_token", ["token"])
+```
+`claimPack` mutation — called from the Stripe return URL, writes one row, no
+identity fields. `getPack` query — called with the token, returns the pack
+or nothing. No `users` table. No auth. A bearer token for a product, same as
+§2 always specified — Convex is just where the row lives now.
+
+**Client integration, kept minimal on purpose.** Amparo is a single static
+HTML file with no build step and no bundler (verified in `wargames/07`,
+recon R1). The full Convex JS client is a webpack-shaped SDK meant for a
+built app — pulling it in here would be the first dependency this file has
+ever had. Call Convex's HTTP API directly with `fetch()` instead: `getPack`
+and `claimPack` are reachable at
+`https://<deployment>.convex.cloud/api/query` /
+`/api/mutation` with a JSON body. Same one-file architecture, same "view-
+source proves what this does" property the rest of the product relies on.
+
+**CSP cost: one line.** `wargames/07` R2 already established the CSP blocks
+Stripe.js and similar SDKs; a `fetch()` to Convex is a plain XHR-shaped
+request, not a script or an iframe, so it only needs one addition to
+`connect-src` — the Convex deployment's own domain, alongside the existing
+`'self'` and the two PostHog origins already there. `payment=()` and COOP
+are untouched; those govern payment UI, not a data fetch.
+
+**Sequencing is unchanged.** This is still Phase B in `wargames/07` —
+blocked on the UPL memo being amended and answered (Move 4), same as before
+Convex was chosen. Naming the backend doesn't move the gate.
 
 The entitlement row is the whole design problem, and it has one rule:
 
