@@ -1265,6 +1265,8 @@
       autocapture:false,
       capture_pageview:true,
       disable_session_recording:true,
+      disable_surveys:true,   // nothing remotely-injectable belongs in a rehearsal, and this drops ~98KB
+      capture_dead_clicks:false,
       /* Replay is re-enabled for steps 0-1 only by srReplayGuard(). That scoping was
          written when step 1 was 51 buttons and nothing on either screen was typeable.
          v2.5.0 added a search input to step 1, so "un-recordable by structure" stopped
@@ -2172,7 +2174,11 @@ function edReplaceLabel(){ try{ return new Intl.DateTimeFormat(lang==='es'?'es':
 function packFreshness(){
   const diff=edReplaceDate()-new Date();
   const day=24*60*60*1000;
-  return { stale:diff<=0, soon:diff>0&&diff<=45*day };
+  /* An edition change is a HARD stale: the printed words in the glovebox no longer
+     match the reviewed content. Older saves carry no edition, so they are left alone
+     rather than nagged on an assumption. */
+  const edStale = !!(printedEdition && printedEdition!==EDITION);
+  return { stale:edStale||diff<=0, soon:!edStale&&diff>0&&diff<=45*day, edition:edStale };
 }
 function icsEscape(s){ return String(s).replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n'); }
 function downloadReprintReminder(){
@@ -2356,6 +2362,7 @@ let hasPrinted=false;
    flags make each ask fire at most once per pack — tap, dismiss, or email all
    count as "asked," never nagged again for this pack. */
 let printedAt=null, printFeedbackGiven=false, usageFeedbackGiven=false;
+let printedEdition=null; // EDITION the saved pack was printed under; null on pre-2.7.1 saves
 /* Sample-pack mode: everything is example data, so nothing persists (a demo must
    never overwrite a real saved pack) and no analytics fire (a demo isn't usage). */
 let isDemo=false;
@@ -2912,7 +2919,7 @@ function persist(){
   if(isDemo) return; // never let sample data overwrite a real saved pack
   try{
     const {state,name,ec,ecp,ec2,ecp2,att,email,skipped}=data;
-    localStorage.setItem('sr_save', JSON.stringify({state,name,ec,ecp,ec2,ecp2,att,email,skipped,lang,step,hasPrinted,printedAt,printFeedbackGiven,usageFeedbackGiven}));
+    localStorage.setItem('sr_save', JSON.stringify({state,name,ec,ecp,ec2,ecp2,att,email,skipped,lang,step,hasPrinted,printedAt,printedEdition,printFeedbackGiven,usageFeedbackGiven}));
   }catch(e){}
 }
 function restore(){
@@ -2938,6 +2945,7 @@ function restore(){
     if(s.skipped) data.skipped=s.skipped;
     if(s.hasPrinted) hasPrinted=true;
     if(s.printedAt) printedAt=s.printedAt;
+    if(s.printedEdition) printedEdition=s.printedEdition;
     if(s.printFeedbackGiven) printFeedbackGiven=true;
     if(s.usageFeedbackGiven) usageFeedbackGiven=true;
     /* returning users get a resume chip on the landing instead of silently
@@ -3182,7 +3190,7 @@ function loadImg(e,key){
   r.readAsDataURL(f);
 }
 
-function restart(){step=0;data.state=null;data.name=data.ec=data.ecp=data.ec2=data.ecp2=data.att=data.email="";emailSentTo='';emailBusy=false;hasPrinted=false;printedAt=null;printFeedbackGiven=false;usageFeedbackGiven=false;clearSave();render();}
+function restart(){step=0;data.state=null;data.name=data.ec=data.ecp=data.ec2=data.ecp2=data.att=data.email="";emailSentTo='';emailBusy=false;hasPrinted=false;printedAt=null;printedEdition=null;printFeedbackGiven=false;usageFeedbackGiven=false;clearSave();render();}
 /* Print a second pack for a family member: keeps the state (families are almost
    always in the same one), clears everything personal — name, contacts, email,
    document photos — and drops straight into the "You" step instead of restarting
@@ -3191,7 +3199,7 @@ function printForFamily(){
   data.name=data.ec=data.ecp=data.ec2=data.ecp2=data.att=data.email="";
   
   data.skipped={lic:false,ins:false,reg:false};
-  emailSentTo='';emailBusy=false;hasPrinted=false;printedAt=null;printFeedbackGiven=false;usageFeedbackGiven=false;
+  emailSentTo='';emailBusy=false;hasPrinted=false;printedAt=null;printedEdition=null;printFeedbackGiven=false;usageFeedbackGiven=false;
   persist();
   ph('sr_print_for_family',{state:data.state,lang:lang});
   goM(2);
@@ -3199,7 +3207,7 @@ function printForFamily(){
 /* Jump straight to re-capturing documents for a returning user whose edition is
    stale/soon — name, state and contacts are already restored from localStorage,
    only the (never-cached) document photos need retaking. */
-function updateStalePack(){ hasPrinted=false; printedAt=null; printFeedbackGiven=false; usageFeedbackGiven=false; emailSentTo=''; emailBusy=false; ph('sr_update_stale_pack',{state:data.state,lang:lang}); goM(3); }
+function updateStalePack(){ hasPrinted=false; printedAt=null; printedEdition=null; printFeedbackGiven=false; usageFeedbackGiven=false; emailSentTo=''; emailBusy=false; ph('sr_update_stale_pack',{state:data.state,lang:lang}); goM(3); }
 
 /* ============ PRINT PACK ============ */
 function buildPrint(){
@@ -4564,7 +4572,13 @@ if('serviceWorker' in navigator&&location.protocol==='https:'){
      still on the old cache-first worker pick up a fresh deploy on THIS visit
      instead of the next. Guarded so it can never loop. */
   let _swReloaded=false;
+  /* Reload ONLY when an existing controller is being replaced by a new build. On a
+     first visit there is no controller yet, so this event is just the SW taking control
+     for the first time — reloading there cost a second full parse AND a duplicate
+     $pageview on every new visitor, inflating exactly the landed-but-did-not-convert
+     population the 94.5% drop is measured from. */
   navigator.serviceWorker.addEventListener('controllerchange',()=>{
+    if(!navigator.serviceWorker.controller) return;
     if(_swReloaded) return; _swReloaded=true; location.reload();
   });
   navigator.serviceWorker.register('sw.js').then(reg=>{ try{ reg.update(); }catch(e){} return navigator.serviceWorker.ready; }).then(()=>{
@@ -4584,7 +4598,7 @@ window.addEventListener('afterprint',()=>{
   /* Reveal the secondary print-screen actions (reminder, family reprint, restart)
      only now — gates the CTA stack behind the one decision that matters first. */
   if(!hasPrinted){
-    hasPrinted=true; printedAt=Date.now(); persist();
+    hasPrinted=true; printedAt=Date.now(); printedEdition=EDITION; persist();
     const hint=document.getElementById('postPrintHint'); if(hint) hint.remove();
     const post=document.getElementById('postPrintActions'); if(post) post.style.display='block';
     const pf=document.getElementById('printFeedback'); if(pf) pf.style.display='block';
