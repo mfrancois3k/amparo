@@ -1511,7 +1511,7 @@ const T = {
     v_title:"Your pack is ready", v_sub:"Six pages — 1–4 live in the car; 5–6 stay at home. Print on regular paper; the window card works best in a clear sleeve.",
     v_pg1:"Page 1 — Practice sheet: If you get pulled over", v_pg2:"Page 2 — Window card (faces the officer)", v_pg3:"Page 3 — Wallet card + your lifelines", v_pg4:"Page 4 — In the car: your script, their info, the incident log", v_pg5:"Page 5 — Family emergency plan + consulates (keep at home)", v_pg6:"Page 6 — After the ticket: court, tow, phone, crash (keep at home)",
     v_print:"Print my pack", v_family:"👪 Print for another family member", v_family_sub:"Same state, keeps your setup — just swap the name, contact and documents.", v_redo:"Make a pack for another driver or car",
-    post_print_hint:"A reminder to reprint, printing for family, and starting over show up here once you print.",
+    post_print_hint:"After you print, you'll find: reprint · print for family · start over.",
     remind_btn:"🔔 Remind me to reprint", remind_sub:"Downloads a calendar reminder for {date} — made on your phone, never uploaded.",
     rail_now:"Do now", rail_later:"For later",
     stale_h:"Your printed pack may be out of date", stale_expired:"This edition expired {date} — laws and lifeline numbers can change. Worth a reprint.", stale_soon:"This edition is due for a refresh by {date}.", stale_btn:"Update my pack",
@@ -1800,7 +1800,7 @@ const T = {
     v_title:"Tu paquete está listo", v_sub:"Seis páginas — las 1–4 van en el carro; la 5–6 se quedan en casa. Imprime en papel normal; la tarjeta de ventana funciona mejor en una funda transparente.",
     v_pg1:"Página 1 — Hoja de práctica: Si te detiene la policía", v_pg2:"Página 2 — Tarjeta de ventana (hacia el oficial)", v_pg3:"Página 3 — Tarjeta de cartera + tus líneas de ayuda", v_pg4:"Página 4 — En el carro: tu guion, los datos del oficial, el registro", v_pg5:"Página 5 — Plan familiar de emergencia + consulados (guarda en casa)", v_pg6:"Página 6 — Después de la multa: corte, grúa, teléfono, choque (guarda en casa)",
     v_print:"Imprimir mi paquete", v_family:"👪 Imprimir para otro familiar", v_family_sub:"Mismo estado, se guarda tu configuración — solo cambia el nombre, el contacto y los documentos.", v_redo:"Crear un paquete para otro conductor u otro carro",
-    post_print_hint:"Un recordatorio para reimprimir, imprimir para la familia, y empezar de nuevo aparecen aquí después de imprimir.",
+    post_print_hint:"Después de imprimir verás: reimprimir · imprimir para la familia · empezar de nuevo.",
     remind_btn:"🔔 Recuérdame reimprimir", remind_sub:"Descarga un recordatorio de calendario para {date} — creado en tu teléfono, nunca se sube.",
     rail_now:"Para ahora", rail_later:"Para después",
     stale_h:"Tu paquete impreso puede estar desactualizado", stale_expired:"Esta edición venció {date} — las leyes y los números de ayuda pueden cambiar. Vale la pena reimprimir.", stale_soon:"Esta edición debe renovarse antes de {date}.", stale_btn:"Actualizar mi paquete",
@@ -2951,7 +2951,7 @@ function buildPrint(){
         <div class="docline">${lang==='es'?'LICENCIA · SEGURO · REGISTRO — a la vista en este sobre':'LICENSE · INSURANCE · REGISTRATION — displayed in this sleeve'}</div>
         <div class="rights">
           <div class="coop">${lang==='es'?'ESTOY COOPERANDO · MIS DOCUMENTOS ESTÁN A LA VISTA · NO ME RESISTO':'I AM COOPERATING · MY DOCUMENTS ARE DISPLAYED · I AM NOT RESISTING'}</div>
-          <h2 style="font-size:15px">${lang==='es'?'Declaración de derechos':'Assertion of rights'}</h2>
+          <h2 style="font-size:15px">${lang==='es'?'MIS DERECHOS':'MY RIGHTS'}</h2>
           <div class="amend">${lang==='es'?'Enmiendas 4.ª y 5.ª · Constitución de EE. UU.':'4th & 5th Amendments · U.S. Constitution'}</div>
           ${_t.rights.map((r,i)=>`
             <div class="r-item"><div class="n">${i+1}</div>
@@ -3384,7 +3384,7 @@ const PRX_CHK=[
   setter:{en:"He walks slowly down the side of the car, glancing in each window.",es:"Camina despacio junto al auto, mirando por cada ventana."},
   officer:{en:"Mind if I take a look in the trunk?",es:"¿Le molesta si reviso la cajuela?"}},
  {ci:33,id:'k33',tone:'curt',
-  setter:{en:"He points to a paved area off to the right, where two other cars are already parked.",es:"Señala una zona pavimentada a la derecha, donde ya hay otros dos autos estacionados."},
+  setter:{en:"He points to a paved area off to the right, where two other cars are already parked.",es:"Señala un espacio a la derecha. Ya hay dos autos ahí."},
   officer:{en:"Pull over to secondary.",es:"Oríllese a la inspección secundaria."}}
 ];
 PRACTICE.en[30]={o:"“Citizenship?”", y:"Decline calmly, or answer briefly — but never volunteer where you've been."};

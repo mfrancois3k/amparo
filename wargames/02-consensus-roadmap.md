@@ -331,6 +331,29 @@ and bump EDITION if any wording changes.
 
 ---
 
+### 3b. Have counsel gloss "detained" — one sentence, highest-stakes copy in the product
+**What.** Commission a one-line, attorney-drafted gloss of **detained**, placed
+adjacent to `rights[3]` / `rights[4]` on the printed window card and surfaced once
+in the wizard before print.
+**Why.** From the plain-language audit (2026-08-02), and it is the single
+highest-leverage item that audit produced. The two lines are the product's exit
+mechanism — *"If I am being detained, please tell me why"* and *"If I am not being
+detained, am I free to go?"* — and the word they both hinge on appears **twice in
+the entire file and is defined zero times**, in a product that otherwise reads at
+grade 6. A driver who does not know that detained means *not free to leave, but
+not arrested* cannot interpret the officer's answer, cannot know whether to drive
+off or go silent, and will most likely say the line and then wait — the exact
+outcome the card exists to prevent. It sits on the surface used at maximum stress
+with the least available attention.
+**Effort.** S — one sentence, drafted once, reused twice. Cheapest attorney hour
+in the backlog.
+**Gate.** Attorney-drafted only — this is a statement of law and **rule 1 forbids
+generating it**. Bundle into the item 3 or item 18 engagement rather than opening
+a third. Adding a new gloss as separate copy does not bump EDITION; changing the
+two card lines themselves does.
+
+---
+
 ### 4. Pursue one organizational endorsement
 **What.** Approach local legal-aid orgs, NAACP chapters, immigrant-rights
 groups, and churches for a named endorsement and a distribution channel. Not an
