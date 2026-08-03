@@ -3969,7 +3969,14 @@ function prxSpeak(){
   prxIdleArm();
 }
 function prxSpeakTTS(d,useEs){
-  if(!prxTTS) return;
+  /* Gated here, not just at prxSpeak()'s entry, because this function has a
+     second real entry: pausing an in-flight prxAudio (which prxMuteTgl() does
+     the instant someone mutes) rejects that Audio element's pending play()
+     promise, and prxSpeak()'s own .catch() calls straight into this function.
+     Without this guard, tapping mute mid-line could ITSELF trigger the TTS
+     fallback to speak — the mute button causing the exact sound it exists to
+     stop. Found by this session's blind-spot audit, reproduced live. */
+  if(prxMuted||!prxTTS) return;
   try{
     speechSynthesis.cancel();
     const tn=PRX_TONE[d.tone]||PRX_TONE.calm;
@@ -4069,7 +4076,10 @@ function prxWaveStop(){
   document.querySelectorAll('#prxUserWave i').forEach(el=>el.style.height='6px');
 }
 let prxLastUrl=null, prxTok=0;
-function prxPlayLast(){ if(prxLastUrl){ try{ new Audio(prxLastUrl).play().catch(()=>{}); }catch(e){} } }
+/* Same "somewhere I cannot make noise" reasoning as the officer mute applies
+   here — it isn't the officer's voice, but it's still audio the environment
+   that made mute necessary would not want played. */
+function prxPlayLast(){ if(prxLastUrl&&!prxMuted){ try{ new Audio(prxLastUrl).play().catch(()=>{}); }catch(e){} } }
 /* bumping the token invalidates any in-flight MediaRecorder onstop — a recording
    finishing AFTER the user moved on must never attach to the next card */
 function prxDropLast(){ prxTok++; if(prxLastUrl){ try{ URL.revokeObjectURL(prxLastUrl); }catch(e){} prxLastUrl=null; } }
@@ -4120,7 +4130,10 @@ async function prxRecToggle(){
       if(prxLastUrl){ try{ URL.revokeObjectURL(prxLastUrl); }catch(e){} }
       prxLastUrl=URL.createObjectURL(new Blob(chunks,{type:rec.mimeType||'audio/webm'}));
       const pb=document.getElementById('prxPlayback'); if(pb) pb.removeAttribute('disabled');
-      try{ new Audio(prxLastUrl).play().catch(()=>{}); }catch(e){}
+      /* Fires the instant recording stops, with no separate tap — the highest-
+         value place to check prxMuted, since this is the one autoplay in the
+         whole engine the user cannot see coming before it happens. */
+      if(!prxMuted){ try{ new Audio(prxLastUrl).play().catch(()=>{}); }catch(e){} }
     };
     rec.start();
     if(btn){ btn.classList.add('rec'); }
