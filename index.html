@@ -1473,12 +1473,18 @@ const T = {
     hub_start:"Start",
     hub_replay:"Run again",
     hub_back_pack:"Back to my pack",
+    hub_m1:"Traffic stop", hub_m2:"At your door",
+    hub_m2_h:"Not built yet — and we won't fake it.",
+    hub_m2_body:"Police at your door is a different encounter with different rules, and it deserves its own rehearsal. We're building it. It isn't here yet because every line an officer says and every answer we mark correct has to be checked by a lawyer first — and because a knock at the door is often a domestic-violence call, which changes what safe advice even looks like. We'd rather ship it late than ship it wrong.",
     v_print_pdf:"Print or save as PDF",
     pdf_q:"\ud83d\udcd6 How do I save it as a PDF instead? \u25be",
     resume_btn:"\u21a9 Continue where you left off",
     i_skip_all:"Skip this \u2014 just use my state",
     prx_open_cta:"\ud83c\udfb4 Practice the script \u2014 2 minutes",
-    prx_lvl1:"\ud83d\ude0c Calm stop", prx_lvl2:"\ud83d\ude20 Irritated officer", prx_lvl3:"\ud83d\udea8 Ordered out", prx_lvl4:"\u26ab The hard stop", prx_lvl5:"\ud83c\udf12 Hard mode", prx_lvl6:"\ud83d\udea7 Checkpoint",
+    /* Four numbered rungs plus checkpoint, which is a different encounter rather than a
+       harder one. "The hard stop" and "Hard mode" were two names for the same feeling and
+       the first of them recycled every beat it used \u2014 merged into one. */
+    prx_lvl1:"\ud83d\ude0c Calm stop", prx_lvl2:"\ud83d\ude20 Irritated officer", prx_lvl3:"\ud83d\udea8 Ordered out", prx_lvl4:"\ud83c\udf12 Hard mode", prx_lvl5:"\ud83d\udea7 Checkpoint",
     prx_locked:"Finish the first three stops to unlock these.",
     prx_warn6:"A fixed Border Patrol checkpoint \u2014 the kind that sits on a highway up to 100 miles inside the border. The agent here isn't angry. That's the point: the mistake in this one isn't panicking, it's answering something you never had to answer.",
     prx_chk_note:"Rehearsal only \u2014 general information, not legal advice, and not reviewed by an immigration attorney. What agents may do at a checkpoint has been settled law since the 1970s. Whether a LOCAL police officer can act on your status is changing fast in Texas, Georgia and New York \u2014 check your state's page and a current legal-aid source.",
@@ -1508,7 +1514,9 @@ const T = {
     carry_c_foot:"Move early, end still. Practice, not legal advice — laws vary by state.",
     carry_d_hands:"stay on the wheel, in view", carry_d_breath:"one slow breath before I speak",
     carry_d_line:"I don't consent to a search, officer", carry_d_docs:"in one easy spot",
-    prx_warn4:"In this one you do everything right \u2014 and the officer stays hostile anyway. Some stops are like that. The point: calm words protect your case even when they don't soften the officer.",
+    /* Now the ONLY heavy-stop warning, so it carries both halves: it is late and hostile,
+       AND it is the one built to show you something the other stops can't. */
+    prx_warn4:"The last one, and the hard one. It's late, the officer is hostile from the first word \u2014 and in this stop you do everything right and he stays hostile anyway. Some stops are like that. The point: calm words protect your case even when they don't soften the officer.",
     prx_done4_t:"You did everything right.",
     prx_done4:"Some stops go badly anyway \u2014 that's not on you. That's why the pack, the lifelines, and a lawyer exist. What you said tonight is what protects you in court tomorrow.",
     prx_your_turn:"Your turn \u2014 say your answer out loud first.",
@@ -1779,12 +1787,15 @@ const T = {
     hub_start:"Empezar",
     hub_replay:"Repetir",
     hub_back_pack:"Volver a mi paquete",
+    hub_m1:"Parada de tráfico", hub_m2:"En tu puerta",
+    hub_m2_h:"Todavía no está listo — y no vamos a fingir que sí.",
+    hub_m2_body:"La policía en tu puerta es un encuentro distinto, con reglas distintas, y merece su propio ensayo. Lo estamos construyendo. No está aquí todavía porque cada frase del oficial y cada respuesta que marcamos como correcta tiene que revisarla un abogado primero — y porque un toque en la puerta muchas veces es una llamada por violencia doméstica, lo que cambia qué consejo es seguro. Preferimos publicarlo tarde que publicarlo mal.",
     v_print_pdf:"Imprimir o guardar como PDF",
     pdf_q:"📖 ¿Cómo lo guardo como PDF? ▾",
     resume_btn:"↩ Continuar donde quedaste",
     i_skip_all:"Omitir — solo usar mi estado",
     prx_open_cta:"🎴 Practica el guion — 2 minutos",
-    prx_lvl1:"😌 Parada tranquila", prx_lvl2:"😠 Oficial irritado", prx_lvl3:"🚨 Te ordenan salir", prx_lvl4:"⚫ La parada dura", prx_lvl5:"🌒 Modo difícil", prx_lvl6:"🚧 Retén",
+    prx_lvl1:"😌 Parada tranquila", prx_lvl2:"😠 Oficial irritado", prx_lvl3:"🚨 Te ordenan salir", prx_lvl4:"🌒 Modo difícil", prx_lvl5:"🚧 Retén",
     prx_locked:"Termina las primeras tres paradas para desbloquear estas.",
     prx_warn6:"Un retén fijo de la Patrulla Fronteriza — de los que están en una carretera hasta 100 millas dentro de la frontera. Aquí el agente no está enojado. Ese es el punto: en esta parada el error no es entrar en pánico, es responder algo que nunca tuviste que responder.",
     prx_chk_note:"Solo práctica — información general, no asesoría legal, y no revisada por un abogado de inmigración. Lo que los agentes pueden hacer en un retén es ley establecida desde los años 70. Si un oficial LOCAL puede actuar según tu estatus está cambiando rápido en Texas, Georgia y Nueva York — consulta la página de tu estado y una fuente legal actualizada.",
@@ -1814,7 +1825,7 @@ const T = {
     carry_c_foot:"Muévete temprano, termina quieto. Práctica, no asesoría legal — las leyes varían por estado.",
     carry_d_hands:"en el volante, a la vista", carry_d_breath:"una respiración lenta antes de hablar",
     carry_d_line:"No consiento un registro, oficial", carry_d_docs:"en un solo lugar fácil",
-    prx_warn4:"Aquí lo haces todo bien — y el oficial sigue hostil de todos modos. Algunas paradas son así. El punto: las palabras calmadas protegen tu caso aunque no ablanden al oficial.",
+    prx_warn4:"La última, y la difícil. Es de noche y el oficial está hostil desde la primera palabra — y en esta parada haces todo bien y sigue hostil de todos modos. Algunas paradas son así. El punto: las palabras calmadas protegen tu caso aunque no ablanden al oficial.",
     prx_done4_t:"Lo hiciste todo bien.",
     prx_done4:"Algunas paradas salen mal de todos modos — no es tu culpa. Para eso existen el paquete, las líneas de ayuda y un abogado. Lo que dijiste hoy es lo que te protege mañana en la corte.",
     prx_your_turn:"Tu turno — di tu respuesta en voz alta primero.",
@@ -2881,13 +2892,25 @@ function render(){
      every line spoken here still comes from the existing reviewed banks. */
   if(step===5){
     const mUnlocked=prx.done[0]&&prx.done[1]&&prx.done[2];
-    const locked=i=>(i===3||i===4)&&!mUnlocked;
+    const locked=i=>(i===3)&&!mUnlocked;
     S.innerHTML=`<div class="card">
       <button class="back" aria-label="${_t.a11y_back}" onclick="goM(4)">← ${_t.a11y_back}</button>
       ${eyebrow()}
       <h1>${_t.hub_title}</h1><p class="sub">${_t.hub_sub}</p>
+      <!-- Modules as tabs. Reuses the .ll-seg segmented control already established on
+           step 3 rather than inventing a second tab grammar. The door module is listed
+           because hiding work-in-progress made the 47 federal-only states read as
+           "broken" once already — but it states plainly that it is unbuilt and why,
+           instead of a "coming soon" that implies a date nobody has committed to. -->
+      <div class="ll-seg" role="tablist">
+        <button type="button" role="tab" id="hubTab0" class="${_hubTab===0?'on':''}" aria-selected="${_hubTab===0}" onclick="hubTab(0)">${_t.hub_m1}</button>
+        <button type="button" role="tab" id="hubTab1" class="${_hubTab===1?'on':''}" aria-selected="${_hubTab===1}" onclick="hubTab(1)">${_t.hub_m2}</button>
+      </div>
+      ${_hubTab===1?`<div class="pilot" style="background:#eef1f7;border-color:#c3cde0;text-align:left;display:block;margin-top:12px">
+        <b>${_t.hub_m2_h}</b><br><span style="font-size:13px">${_t.hub_m2_body}</span>
+      </div>`:`
       <div class="pr-grid">
-        ${[0,1,2,3,4,5].map(i=>{
+        ${[0,1,2,3,4].map(i=>{
           const isLk=locked(i), best=prx.best&&prx.best[i], done=prx.done[i];
           return `<button class="pr-card${isLk?' lock':''}" ${isLk?`aria-disabled="true" title="${_t.hub_locked}"`:''} onclick="${isLk?'':`prStart(${i})`}">
             <span class="pr-ic" aria-hidden="true">${isLk?'🔒':(done?'✓':'▶')}</span>
@@ -2897,7 +2920,7 @@ function render(){
                  as "2" and read worse than a 4/6. Show the whole fraction. -->
             <span class="pr-st">${isLk?_t.hub_locked:(best?`🟩 ${esc(best)}`:(done?_t.hub_done:_t.hub_start))}</span>
           </button>`;}).join('')}
-      </div>
+      </div>`}
       <button class="btn ghost" style="margin-top:16px" onclick="goM(4)">${_t.hub_back_pack}</button>
     </div>`;
   }
@@ -3070,6 +3093,9 @@ function lifeContact(p){
 /* Which segment step 3 is showing. Module-level so switching tabs and re-rendering
    (a language toggle, say) keeps the user where they were instead of snapping back. */
 let _llTab=0;
+/* Which practice MODULE the hub is showing. Same reasoning. */
+let _hubTab=0;
+function hubTab(i){ _hubTab=i; ph('sr_hub_module',{module:i===0?'traffic':'door',lang:lang}); render(); }
 /* Both segments feed ONE track. Deliberately NOT gated: Continue stays live from
    the moment the step opens. The only real completed-funnel user in this product's
    history said "I skip all of that" — a rule that forces someone to swipe through
@@ -3527,7 +3553,7 @@ const PRACTICE={
 /* Level 4 (index 3) = the Black Swan: user does everything right, officer stays
    hostile anyway. Unlocks after all 3 levels — teaches that the tool manages
    risk, it doesn't eliminate it. Opt-in behind its own warning, sober ending. */
-const PRX_LEVELS=[{ids:[0,8,1,2,6],rate:0.95},{ids:[0,8,1,2,4,5],rate:1.12},{ids:[3,7],rate:1.28},{ids:[0,8,1,2,3,7],rate:1.28},{ids:[20,21,22],rate:1.3},{ids:[30,31,32,33],rate:1.0}];
+const PRX_LEVELS=[{ids:[0,8,1,2,6],rate:0.95},{ids:[0,8,1,2,4,5],rate:1.12},{ids:[3,7],rate:1.28},{ids:[20,21,22],rate:1.3},{ids:[30,31,32,33],rate:1.0}];
 const PRX_DO=new Set([3,5,33]); // comply/sign/pull-over cards — an action, not a spoken line
 const PRX_COP=`<svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#e9ecf3"/><path d="M22 106c5-22 20-31 38-31s33 9 38 31" fill="#1B2A4A"/><circle cx="60" cy="55" r="21" fill="#31425f"/><path d="M38 47c2-12 10-19 22-19s20 7 22 19H38z" fill="#1B2A4A"/><rect x="36" y="45" width="48" height="6" rx="3" fill="#121e38"/><circle cx="44" cy="88" r="5" fill="#E8B84B"/></svg>`;
 /* Card 5 ("Sign here") is the one card where blanket advice is wrong-by-state:
@@ -3760,8 +3786,8 @@ Object.keys(PRX_VAR).forEach(b=>PRX_VAR[b].forEach((v,i)=>v.id='v'+b+'_'+i));
 PRX_CURVE.forEach((c,i)=>c.id='c'+i);
 PRX_HARD.forEach(h=>h.id='h'+h.ci);
 function prxBuildDeck(){
-  if(prLevel===4) return PRX_HARD.map(h=>Object.assign({},h)); // fixed track — no variants, no curveball
-  if(prLevel===5) return PRX_CHK.map(h=>Object.assign({},h));  // checkpoint — fixed, legally scripted
+  if(prLevel===3) return PRX_HARD.map(h=>Object.assign({},h)); // fixed track — no variants, no curveball
+  if(prLevel===4) return PRX_CHK.map(h=>Object.assign({},h));  // checkpoint — fixed, legally scripted
   const L=PRX_LEVELS[prLevel];
   const tones=[['calm'],['curt'],['curt','hostile'],['hostile']][prLevel]; // hostile only behind consent gates
   const pick=a=>a[Math.floor(Math.random()*a.length)];
@@ -3799,6 +3825,29 @@ try{
   else Object.keys(raw).forEach(k=>{ if(raw[k]) prx.done[k]=true; }); // migrate v1 flat {level:true} shape
 }catch(e){}
 prx.best=prx.best||{}; prx.streak=prx.streak||{last:'',n:0};
+/* Level-index migration. prx.done/best/runs are keyed by NUMERIC level index, so
+   removing the old index 3 ("The hard stop") silently re-points every returning user's
+   saved progress: their Hard mode result would show up on Checkpoint. Runs once, guarded
+   by a version stamp.
+   Old: 0 calm · 1 irritated · 2 ordered-out · 3 hard-stop · 4 hard-mode · 5 checkpoint
+   New: 0 calm · 1 irritated · 2 ordered-out · 3 hard-mode  · 4 checkpoint
+   Old 3 is dropped rather than remapped — its deck no longer exists, and claiming a
+   result for a level the user never played would be inventing progress. */
+(function(){
+  try{
+    if(prx.v>=2) return;
+    const shift=o=>{ if(!o) return o;
+      const n={};
+      if(o[0]!==undefined) n[0]=o[0];
+      if(o[1]!==undefined) n[1]=o[1];
+      if(o[2]!==undefined) n[2]=o[2];
+      if(o[4]!==undefined) n[3]=o[4];   // hard mode  4 -> 3
+      if(o[5]!==undefined) n[4]=o[5];   // checkpoint 5 -> 4
+      return n; };
+    prx.done=shift(prx.done); prx.best=shift(prx.best); prx.runs=shift(prx.runs);
+    prx.v=2; prxSave();
+  }catch(e){}
+})();
 function prxSave(){ try{ localStorage.setItem('amparo_prx',JSON.stringify(prx)); }catch(e){} }
 
 const prxTTS=('speechSynthesis' in window);
@@ -4122,7 +4171,7 @@ function prStart(i){
 function prxTab(i){
   /* Locked tabs are rendered so the levels are discoverable, but entering them
      still requires finishing the first three — the gate is the point. */
-  if((i===3||i===4)&&!(prx.done[0]&&prx.done[1]&&prx.done[2])){
+  if(i===3&&!(prx.done[0]&&prx.done[1]&&prx.done[2])){
     const h=document.querySelector('.prx-lockhint');
     if(h){ h.classList.remove('pulse'); void h.offsetWidth; h.classList.add('pulse'); }
     return;
@@ -4337,14 +4386,14 @@ function practiceRender(){
   /* The two hostile levels stay GATED but no longer hidden — hiding them made
      them undiscoverable, and a locked tab still tells you the level exists.
      Checkpoint (5) is never gated: it's a different encounter, not an escalation. */
-  const isLocked=i=>(i===3||i===4)&&!mUnlocked;
+  const isLocked=i=>(i===3)&&!mUnlocked;
   /* Stranded on a level that just re-locked (progress cleared mid-run): fall back
      to the first stop rather than rendering a locked level as the active tab. */
   if(isLocked(prLevel)){ prLevel=0; prIdx=0; prRevealed=false; prDeck=prxBuildDeck(); prRun=[]; prCurTier=null; prRunLogged=false; }
-  const tabs=`<div class="prx-tabs" role="tablist">${[0,1,2,3,4,5].map(i=>
-    `<button class="prx-tab${i===prLevel?' on':''}${isLocked(i)?' lock':''}" role="tab" aria-selected="${i===prLevel}"${isLocked(i)?` aria-disabled="true" title="${_t.prx_locked}"`:''} onclick="prxTab(${i})"><span class="tbg${i===4?' hardbg':''}${i===5?' chkbg':''}" aria-hidden="true"${(i===4||i===5)?'':` style="background-image:url('img/scene-${i+1}.jpg')"`}></span>${isLocked(i)?'🔒 ':(i===4?(prx.done[4]?'✓ ':''):(prx.best[i]?`🟩${prx.best[i]} `:(prx.done[i]?'✓ ':'')))}${_t['prx_lvl'+(i+1)]}</button>`).join('')}${mUnlocked?'':`<div class="prx-lockhint">🔒 ${_t.prx_locked}</div>`}</div>`;
+  const tabs=`<div class="prx-tabs" role="tablist">${[0,1,2,3,4].map(i=>
+    `<button class="prx-tab${i===prLevel?' on':''}${isLocked(i)?' lock':''}" role="tab" aria-selected="${i===prLevel}"${isLocked(i)?` aria-disabled="true" title="${_t.prx_locked}"`:''} onclick="prxTab(${i})"><span class="tbg${i===3?' hardbg':''}${i===4?' chkbg':''}" aria-hidden="true"${(i===3||i===4)?'':` style="background-image:url('img/scene-${i+1}.jpg')"`}></span>${isLocked(i)?'🔒 ':(i===3?(prx.done[3]?'✓ ':''):(prx.best[i]?`🟩${prx.best[i]} `:(prx.done[i]?'✓ ':'')))}${_t['prx_lvl'+(i+1)]}</button>`).join('')}${mUnlocked?'':`<div class="prx-lockhint">🔒 ${_t.prx_locked}</div>`}</div>`;
   if(prLevel>=2&&!prWarnOk[prLevel]){ // opt-in gate: escalation is chosen, never sprung — checked per level
-    b.innerHTML=tabs+`<div class="prx-warn">${prLevel===5?_t.prx_warn6:(prLevel===4?_t.prx_warn5:(prLevel===3?_t.prx_warn4:_t.prx_warn3))}</div>
+    b.innerHTML=tabs+`<div class="prx-warn">${prLevel===4?_t.prx_warn6:(prLevel===3?_t.prx_warn4:_t.prx_warn3)}</div>
       <button class="btn gold" onclick="prWarnOk[prLevel]=true;practiceRender();prxSpeak()">${_t.prx_warn_go}</button>`;
     return;
   }
@@ -4373,11 +4422,11 @@ function practiceRender(){
     const _runs=Object.keys(prx.runs).reduce((a,k)=>a+(prx.runs[k]||0),0)||1;
     /* Checkpoint level carries two extra notes the other levels don't need: the
        settled-vs-moving law split, and the ceiling on what rehearsal can do. */
-    const chkNote=prLevel===5?`<div class="prx-chknote">${_t.prx_chk_limit}</div>
+    const chkNote=prLevel===4?`<div class="prx-chknote">${_t.prx_chk_limit}</div>
       <div class="prx-chknote muted">${_t.prx_chk_note}</div>`:'';
     const foot=`<div class="prx-foot">${chkNote}
       <div class="prx-rehearse">${_runs<=1?_t.prx_rehearse1:_t.prx_rehearseN.replace('{n}',_runs)}</div>
-      ${prLevel===4?'':`<button class="linkbtn" style="margin-bottom:12px" onclick="carryOpen()">🪪 ${_t.carry_btn}</button>`}
+      ${prLevel===3?'':`<button class="linkbtn" style="margin-bottom:12px" onclick="carryOpen()">🪪 ${_t.carry_btn}</button>`}
       <div class="prx-res">${_t.prx_resource}</div>
       <div class="prx-fn"><div class="prx-fn-h">${_t.prx_fn_head}</div>
         <p>${_t.ab_founder_note}</p>
@@ -4385,7 +4434,7 @@ function practiceRender(){
       <button class="linkbtn" onclick="showDoc()">${_t.doc_link}</button></div>`;
     /* Hard mode ends in a debrief, never a scoreboard — a score here would
        imply the escalation was earned. It wasn't, and that's the whole point. */
-    if(prLevel===4){
+    if(prLevel===3){
       b.innerHTML=tabs+`<div style="text-align:center;font-size:38px;line-height:1;margin:6px 0 10px" aria-hidden="true">🌒</div>
         <h1 style="font-size:19px;text-align:center;margin:0 0 12px">${_t.prx_hard_t}</h1>
         <p class="prc-intro">${_t.prx_hard_b}</p>
