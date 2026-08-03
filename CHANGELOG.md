@@ -6,6 +6,106 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.7.3 — 2026-08-03
+
+v2.7.3 — "Loop verification pass, subject: officer-voice mute"
+
+Nothing new shipped in code beyond what v2.7.2 already covered — this tag
+marks the state a verification loop (10-persona focus group, module design
+review, blind-spot audit) is being run against. Loop subject: the officer-
+voice mute shipped in `8ce9639`, persisted, gating both the MP3 and TTS
+output paths at the single `prxSpeak()` entry point.
+
+Also backfills three tags that were pushed without a CHANGELOG entry —
+`.claude/skills/amparo-loop/` codifies this sequence going forward so that
+doesn't happen again.
+
+## v2.7.2 — 2026-08-03
+
+v2.7.2 — "Hard mode absorbs the hard stop; progress becomes visible"
+
+**Level merge.** "The hard stop" and "Hard mode" collapsed into one.
+Correcting the record: the unwinnable ending ("you did everything right and
+the officer stays hostile anyway") belonged to "The hard stop", not "Hard
+mode" as stated earlier in this project. The merge kept Hard mode's beats
+because they were the only original late-game content — "The hard stop"
+recycled 100% of its beats from levels 1 and 3 — and moved the unwinnable
+ending onto them. Ladder is now four numbered rungs plus an unnumbered,
+ungated Checkpoint. A version-stamped, idempotent localStorage migration
+re-points every returning user's saved progress onto the new indices; the
+deleted level's result is dropped, never remapped.
+
+**Module tabs.** Hub now shows [Traffic stop] [At your door], reusing the
+segmented control from step 3. The door tab is an honest empty state — not
+built, and why: pending attorney review, and because a knock at the door is
+frequently a domestic-violence call. Full research in
+`notebook/amparo-door-module-research-2026-08-03.md`.
+
+**Progress visibility.** "{n} of 4 done" with a fill bar under the tabs, plus
+a green completed-state on cards. Checkpoint deliberately excluded from the
+count.
+
+**Also in this line:** mute for the officer voice (persisted, gates both
+audio paths), full score fractions instead of a truncated integer, an
+aria-label on the state search input.
+
+Open: door module unbuilt by design; UPL opinion still pending.
+
+## v2.7.1 — 2026-08-03
+
+v2.7.1 — "The hub nobody could reach, and the pack that didn't know its own edition"
+
+Fixes for defects introduced or exposed by v2.7.0, all found by a focus
+group and a blind-spot audit run against the shipped build.
+
+**Reachability.** The step-5 practice hub had exactly one entry point,
+behind printing AND behind having completed zero scenarios — so it vanished
+the moment progress existed. Six of ten personas could never reach the
+screen the new headline promises. Now reachable from the landing page, from
+both post-print branches, and resumable.
+
+**Honesty.** A printed pack never recorded which EDITION it was printed
+under, so a content correction never triggered a reprint warning — now
+stamped at print and checked. Every first visit reloaded because
+`controllerchange` had no existing-controller check, inflating the exact
+population the 94.5% drop is measured from. PostHog Surveys was never
+disabled and defaulted on — a remotely-injectable modal with input fields,
+in a product that promises nothing leaves your phone. Off, with dead-click
+capture.
+
+**Settled.** React/Next + Tailwind rebuild rejected on measured evidence.
+Cloud TTS rejected; voices stay authoring-time MP3s + on-device speech.
+
+## v2.7.0 — 2026-08-03
+
+v2.7.0 — "Rehearsal is the product"
+
+The through-line of this release: the app kept presenting itself as a pack
+generator that also had practice, when practice was always the point.
+
+**Repositioned.** Landing headline now leads with rehearsal ("Practice the
+stop before it happens") in both languages. Practice moved from the fourth
+of four bullets to the first. New step 5, "Practice", in the stepper and as
+a real screen: a hub listing the six existing scenarios with live progress
+and lock state.
+
+**Funnel and layout.** Step 3 went from 2449px (3.5 screens) to 667px (1.0
+screen): lifelines became a peek-card carousel, then lifelines and scenarios
+collapsed into one segmented track. State picker retracts to the picked
+state. Print screen: one label covers both outcomes ("Print or save as
+PDF"), and the print button demotes to ghost once printed so Practice is the
+only gold action.
+
+**Honesty and correctness.** Spanish lifeline names never translated —
+affecting ~47 states and the printed pack. The language toggle could
+silently no-op. Dialog aria-labels were frozen in English while
+`documentElement.lang` was correctly maintained. `document.title` appeared
+nowhere in the JS.
+
+Open at this tag: UPL opinion still pending — step 5 promotes the scored
+engine in the core funnel, shipped on the operator's explicit decision with
+the gate still logged in `wargames/02`.
+
 ## v2.6.0 — 2026-08-02
 
 v2.6.0 — "The safety net had a hole, and the boot path never ran"

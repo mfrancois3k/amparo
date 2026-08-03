@@ -206,6 +206,44 @@ the scored practice engine.
 
 ---
 
+## v2.7.0 — 2026-08-03 — "Rehearsal is the product"
+
+Landing headline repositioned around rehearsal, not the pack. New step 5
+"Practice" hub with live progress. Step 3 (lifelines) cut from 2449px to
+667px via a segmented carousel. Print screen unified to one label covering
+both print and PDF outcomes. Spanish lifeline names, the language-toggle
+no-op, and frozen-English aria-labels all fixed. UPL opinion still pending —
+step 5 promotes the scored engine, a deliberate call logged in `wargames/02`.
+
+## v2.7.1 — 2026-08-03 — "The hub nobody could reach"
+
+Fixed defects v2.7.0 introduced: the practice hub had exactly one entry
+point and vanished once a user had any progress — found by a focus group
+run against the shipped build. Printed packs now stamp their EDITION so a
+content correction triggers a reprint warning. A `controllerchange` bug was
+double-firing `$pageview` on every first visit. PostHog Surveys disabled.
+React/Next rebuild and cloud TTS both rejected on measured evidence.
+
+## v2.7.2 — 2026-08-03 — "Hard mode absorbs the hard stop"
+
+"The hard stop" and "Hard mode" merged — the former recycled 100% of its
+beats from other levels, the unwinnable ending moved onto the latter's
+original content. Ladder now 4 numbered rungs + unnumbered Checkpoint, with
+a version-stamped localStorage migration for existing users. Hub tabs added
+[Traffic stop][At your door] — door tab is an honest "not built, here's why"
+empty state pending attorney + DV-clinician review
+(`notebook/amparo-door-module-research-2026-08-03.md`). Progress bar added.
+Mute for the officer voice, full score fractions, search aria-label.
+
+## v2.7.3 — 2026-08-03 — loop verification pass
+
+No code changes — tags the state a `/amparo-loop` verification run (focus
+group, module review, blind-spot audit) executes against, subject: the
+mute fix from v2.7.2. Backfills this doc and CHANGELOG.md for v2.7.0–2.7.2,
+which were pushed without an entry in either.
+
+---
+
 ## Quick lookup: "what tag has the fix for X"
 
 | If you're looking for… | It's in |
@@ -233,6 +271,15 @@ the scored practice engine.
 | UPL attorney engagement memo | v2.6.0, `notebook/amparo-upl-engagement-memo.md` |
 | Consensus roadmap (20 ranked items) | v2.6.0, `wargames/02-consensus-roadmap.md` |
 | Focus group 02 (12 members, step-by-step) | v2.6.0, `notebook/amparo-focus-group-02-walkthrough.md` |
+| Step 5 practice hub / rehearsal-first landing | v2.7.0 |
+| Lifelines carousel (2449px → 667px) | v2.7.0 |
+| Practice hub reachability fix | v2.7.1 |
+| Pack EDITION staleness check | v2.7.1 |
+| Duplicate `$pageview` on first visit | v2.7.1 |
+| Hard-stop/Hard-mode level merge + progress migration | v2.7.2 |
+| Door module empty state / DV research | v2.7.2, `notebook/amparo-door-module-research-2026-08-03.md` |
+| Officer-voice mute | v2.7.2, verified again at v2.7.3 |
+| `.claude/skills/amparo-loop/` (this verification sequence) | v2.7.3 |
 
 To restore any version exactly:
 ```bash
