@@ -482,6 +482,19 @@
   .prep-chip.done{opacity:.4;pointer-events:none;border-style:solid;border-color:var(--ok)}
   .prep-count{text-align:center;font-size:12px;color:var(--muted);font-weight:700;margin-top:6px}
   .prep-sheet{position:fixed;left:0;right:0;bottom:0;background:var(--white);border-top:1px solid var(--line);border-radius:16px 16px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.14);padding:18px 18px 26px;transform:translateY(110%);transition:transform .32s cubic-bezier(.16,1,.3,1);z-index:96;max-width:440px;margin:0 auto}
+  /* State-confirm bar: reachable Continue with zero scrolling once a state is
+     tapped. Same slide-up grammar as .prep-sheet above (already-established
+     pattern, not a new one) so it reads as part of the same product rather than
+     a bolted-on widget. Fixed at viewport bottom, NOT nested inside a transformed
+     ancestor — .app only carries `transform` during its one-time mount animation,
+     which is over well before a user can reach step 1. */
+  .state-confirm{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;justify-content:center;padding:0 max(18px,env(safe-area-inset-left)) 0 max(18px,env(safe-area-inset-right));pointer-events:none}
+  .state-confirm-inner{pointer-events:auto;width:100%;max-width:540px;background:var(--white);border:1.5px solid var(--line);border-bottom:0;border-radius:16px 16px 0 0;box-shadow:0 -10px 30px rgba(27,42,74,.16);padding:14px 16px calc(14px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:12px;transform:translateY(110%);transition:transform .32s cubic-bezier(.16,1,.3,1)}
+  .state-confirm.show .state-confirm-inner{transform:translateY(0)}
+  .state-confirm .sc-txt{flex:1;min-width:0}
+  .state-confirm .sc-name{display:block;font-size:15.5px;font-weight:800;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .state-confirm .sc-sub{display:block;font-size:12px;color:var(--muted);font-weight:600;margin-top:1px}
+  .state-confirm .btn{margin:0;width:auto;padding:13px 20px;white-space:nowrap;flex:none}
   .prep-sheet.show{transform:translateY(0)}
   .prep-sheet h3{margin:0 0 6px;font-size:16px;color:var(--navy)}
   .prep-sheet p{margin:0 0 14px;font-size:13.5px;color:var(--ink);line-height:1.5}
@@ -1188,6 +1201,7 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
   <div class="stepper" id="stepper"></div>
   <div id="screen"></div>
   <div id="fbStrip"></div>
+  <div id="stateConfirmBar" class="state-confirm" aria-live="polite"></div>
   <!-- Populated from law-status.json, written by the daily GitHub Action.
        Deliberately separate from the attorney-review line below: "sources
        checked" and "a person read this" are different claims. -->
@@ -1443,6 +1457,7 @@ const T = {
     s_title:"Which state do you drive in?", s_sub:"Texas, Georgia and New York have their own statutes cited line by line. Every other state gets the federal rights that apply everywhere — marked so you know the difference.",
     s_soon:"“Federal only” means we show you the rights that hold in all 50 states, and we do NOT show that state’s own rules — because we won’t print a rule we haven’t checked against the statute. More states get their own citations as each one is verified.",
     s_search:"Search your state…", s_pri_label:"Fully cited", s_rest_label:"Federal rights", s_nomatch:"No state matches that search.",
+    sc_ready:"Ready to continue", sc_change:"Tap another state to change it",
     i_title:"Who is this pack for?", i_sub:"This goes on the wallet card so someone you trust gets called if you're ever detained.",
     i_opt:"Every field is optional — fill in what helps you, skip the rest.",
     pdf_where:"No printer at home? Save the PDF, then print it free at most public libraries — or at FedEx/Staples, work, church, or a friend's.",
@@ -1733,6 +1748,7 @@ const T = {
     s_title:"¿En qué estado manejas?", s_sub:"Texas, Georgia y Nueva York tienen sus propias leyes citadas línea por línea. Los demás estados reciben los derechos federales que aplican en todas partes — marcados para que sepas la diferencia.",
     s_soon:"«Solo federal» significa que te mostramos los derechos que valen en los 50 estados, y NO mostramos las reglas propias de ese estado — porque no imprimimos una regla que no hemos verificado contra la ley. Cada estado recibe sus propias citas al verificarse.",
     s_search:"Busca tu estado…", s_pri_label:"Con leyes citadas", s_rest_label:"Derechos federales", s_nomatch:"Ningún estado coincide con esa búsqueda.",
+    sc_ready:"Listo para continuar", sc_change:"Toca otro estado para cambiarlo",
     i_title:"¿Para quién es este paquete?", i_sub:"Esto va en la tarjeta de cartera para que llamen a alguien de confianza si alguna vez te detienen.",
     i_opt:"Todos los campos son opcionales — llena lo que te sirva y omite el resto.",
     pdf_where:"¿Sin impresora en casa? Guarda el PDF y luego imprímelo gratis en la mayoría de las bibliotecas públicas — o en FedEx/Staples, el trabajo, la iglesia o con un amigo.",
@@ -2489,6 +2505,11 @@ function render(){
   if(stepChanged) ph('sr_step_viewed',{step:step,name:STEP_SLUG[step]||('step'+step),lang:lang});
   if(stepChanged||langChanged) stepper(); // same-step data patches keep the stepper DOM (no done-pop replay)
   fbStrip();
+  /* Lives outside #screen (see the sibling <div id="stateConfirmBar"> in the shell),
+     so replacing #screen's innerHTML for a new step does NOT clear it on its own —
+     this call is what hides it on the way out of step 1, and restores it correctly
+     if a resumed session re-enters step 1 with data.state already set. */
+  updateStateConfirmBar();
   if(window.SRMotion&&stepChanged) SRMotion.stepper(step);
   const _pilot=document.querySelector('.pilot'); if(_pilot) _pilot.style.display=step===0?'none':'block';
   const _bt=document.getElementById('brandTag'); if(_bt) _bt.textContent=t().tagline;
@@ -2583,7 +2604,7 @@ function render(){
       </div>
       <p class="soon" id="stateNoMatch" style="display:none">${_t.s_nomatch}</p>
       <p class="soon">${_t.s_soon}</p>
-      <button class="btn gold" onclick="goM(2)" ${data.state?'':'disabled'}>${_t.next} →</button>
+      <button class="btn gold" id="stateBottomNext" onclick="goM(2)" ${data.state?'':'disabled'}>${_t.next} →</button>
     </div>`;
   }
 
@@ -2834,7 +2855,44 @@ function filterStates(q){
     el.style.display=hasVisible?'':'none';
   });
 }
-function pickState(k){data.state=k;persist();render();ph('sr_state_selected',{state:k});}
+/* pickState used to call render(), which rebuilds the ENTIRE step-1 card —
+   all 51+ buttons torn down and recreated — on every single tap. That is very
+   likely the actual source of "feels clunky": any CSS transition or animation
+   running on a button gets killed mid-flight because the DOM node it was
+   playing on no longer exists. Typeform-smooth selection needs the opposite:
+   touch only the two nodes that changed, never the whole grid.
+
+   Also implements the explicit ask: focus the picked state without shrinking
+   or hiding the others (scrollIntoView, no dimming, no layout change to
+   siblings), and put Continue within reach with zero scrolling (the sticky
+   confirm bar). The bottom-of-card Continue stays in sync for anyone who
+   scrolls there naturally instead. */
+function pickState(k){
+  if(data.state===k) return; // re-tapping the same tile should not re-fire animations
+  const grid=document.getElementById('stateGrid');
+  const prev=grid&&grid.querySelector('.state-btn.sel');
+  if(prev) prev.classList.remove('sel');
+  data.state=k; persist();
+  const next=grid&&grid.querySelector(`.state-btn[data-ab="${k.toLowerCase()}"]`);
+  if(next){
+    next.classList.add('sel'); // CSS animation (selPop, badge popIn) restarts on class add
+    next.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+  const bottomNext=document.getElementById('stateBottomNext');
+  if(bottomNext) bottomNext.disabled=false;
+  updateStateConfirmBar();
+  ph('sr_state_selected',{state:k,lang:lang});
+}
+function updateStateConfirmBar(){
+  const el=document.getElementById('stateConfirmBar'); if(!el) return;
+  if(step!==1||!data.state){ el.classList.remove('show'); el.innerHTML=''; return; }
+  const _t=t(), name=(STATES[data.state]||{}).name||data.state;
+  el.innerHTML=`<div class="state-confirm-inner">
+    <div class="sc-txt"><span class="sc-name">✓ ${esc(name)}</span><span class="sc-sub">${_t.sc_ready}</span></div>
+    <button class="btn gold" onclick="goM(2)">${_t.next} →</button>
+  </div>`;
+  requestAnimationFrame(()=>el.classList.add('show'));
+}
 /* ============ SAMPLE PACK (demo mode) ============ */
 function viewSample(){
   isDemo=true;
