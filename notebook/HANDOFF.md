@@ -101,10 +101,12 @@ inflated. Re-read the funnel over a clean window before treating it as exact.
    exposed component, not the statute pages. Needs a UPL attorney (~$1–2K)
    before any per-state review spend. The memo is drafted at
    `notebook/amparo-upl-engagement-memo.md` and **unsent**.
-   - It currently states no payment mechanism exists. Amend that before sending
-     if monetization is still planned.
-   - Its Q9 asks about charging "for the printable pack only — never for the
-     practice engine," which is the *opposite* of the current monetization idea.
+   - Amended at `cc285d4` (2026-08-04): Q9 now asks about three distinct
+     revenue lines — pack only, practice scripts, engine access — instead of
+     the stale "pack only, never the practice engine" framing, which asked the
+     opposite of the real question. Q9b added on whether 501(c)(3) changes any
+     of it. Section 1 no longer claims monetization is unplanned. Nothing left
+     to amend; it needs a recipient, not another edit.
 2. **The door module has a content blocker, not just a legal one.** Michigan's
    POST curriculum instructs officers on a DV call not to accept "everything's
    fine" and to refuse to leave without speaking to the victim. The module's
