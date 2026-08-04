@@ -1,4 +1,4 @@
-# Gemini image prompts — Amparo mockup generation (9×)
+# Gemini image prompts — Amparo mockup generation (16×)
 
 Paste each block into Gemini as-is. Written to correct the three problems in the
 previous mockup set (`Downloads/963ebb91cd3bc0a3`): it was dark-themed when the
@@ -204,3 +204,142 @@ already there if this ever happens for real — nothing about "winning" it.
 > pack has the words — your only job was to remember them." One single
 > outlined button below, no gold: "Back to the hub". Nothing else on the
 > screen — the emptiness is deliberate, not a loading state.
+
+---
+
+## Prompts 10–16 — the TWO final scenarios
+
+Superseding the single "final scenario" assumed in prompts 6–9. Per
+`wargames/10-final-boss-module-scaffold.md` §0, the two reference videos
+measured as **opposite cadence mechanics**, so they became two sequenced
+scenarios rather than one:
+
+| | Scenario 5 — "The long wait" | Scenario 6 — "It doesn't stop" |
+|---|---|---|
+| Cadence | intervals **widen** (1.6→3.3→6.2s) | intervals **contract** (1.5→2.0→0.9→0.7s) |
+| Pressure from | silence, an off-screen decision | repetition that obeying does not stop |
+| Lesson | you control your record, not the outcome | compliance does not reliably de-escalate |
+
+Prompts 6 and 9 still apply as the *generic* gate and debrief shapes; 11/13
+and 12/16 below are the scenario-specific versions that replace them.
+
+**A rule for every prompt below — this matters more than the visuals.** The
+officer's actual lines do not exist yet: they are `TODO_ATTORNEY` placeholders
+until a lawyer writes them. So **every mockup must render the officer's speech
+bubble containing the literal bracketed text `[ATTORNEY-REVIEWED LINE]`**, in
+a monospace font, in muted grey — never invented dialogue. This is deliberate:
+it keeps the mockup self-documenting, and it makes it impossible for anyone
+(including us, later) to mistake a mockup for approved legal content.
+
+## Prompt 10 — The hub, showing both finals in sequence
+
+> [shared style block]
+>
+> A mobile practice-hub screen. Two pill tabs at top: "Traffic stop" selected,
+> "At your door" unselected. Below them a progress row "2 of 4 done" with a
+> green half-filled bar. Then a 2-column card grid: "Calm stop" and "Irritated
+> officer" both green with small "DONE" pills; "Ordered out" plain cream with
+> "▶ Start"; "Hard mode" greyed with a padlock. Below the grid, a full-width
+> plain card "Checkpoint". Then a thin horizontal divider with small centered
+> muted text: "When you're ready for the hardest two". Below that divider, two
+> full-width cards stacked vertically, visually heavier than the grid above —
+> slightly darker cream fill, thicker border: first card "🌙 The long wait"
+> with subtitle "No score. Nothing you say changes it." and an outlined
+> "▶ Start" button; second card "🌑 It doesn't stop" rendered clearly LOCKED —
+> greyed, padlock icon, subtitle "Finish The long wait first". The two must
+> read as a pair and as separate from the numbered ladder above them.
+
+## Prompt 11 — Scenario 5 gate ("The long wait")
+
+> [shared style block, with the same deliberate exception as prompt 6: this
+> gate screen uses a deep navy fill (#121e38) instead of cream. No black, no
+> stock photo, no horror aesthetic.]
+>
+> A full-screen mobile advisory, text-only. Small gold eyebrow label
+> "SCENARIO 5 OF 6". Large cream heading: "This one is mostly waiting." Body
+> copy in lighter cream/grey: "The officer will not raise his voice. He will
+> ask, then go quiet, then ask again — and the gaps get longer each time.
+> There's no score. Nothing you say will change how it ends. What you're
+> practising is staying calm in the silence." A thin divider. Two side-by-side
+> outlined buttons of EQUAL weight, neither gold: left "⚙ Adjust sound first"
+> with a small speaker-mute icon, right "Start when ready". Below both, a
+> low-contrast text link: "Not now — back to the hub".
+
+## Prompt 12 — Scenario 5's signature beat: the silence
+
+> [shared style block]
+>
+> A mobile scenario screen showing a deliberate WAITING state. Top-left back
+> arrow, top-center small pill label "The long wait · 3 of 6". Soft, very
+> low-contrast abstracted night-road background wash — no people, no vehicles,
+> no faces. In the upper area, a grey officer speech bubble containing the
+> literal monospace text "[ATTORNEY-REVIEWED LINE]" in muted grey. Below it,
+> generous empty vertical space — at least a third of the screen deliberately
+> blank. In the center of that empty space, a small, soft, slowly-pulsing dot
+> (a single quiet dot, NOT a spinner, NOT a countdown timer, NOT a progress
+> ring — nothing that implies a deadline). Beneath the empty space, small
+> italic muted text: "He hasn't said anything yet." The two response option
+> buttons sit at the bottom, present and fully tappable but visually quiet.
+> The emptiness IS the design — do not fill it.
+
+## Prompt 13 — Scenario 6 gate ("It doesn't stop")
+
+> [shared style block, same navy exception as prompt 11]
+>
+> A full-screen mobile advisory, text-only. Small gold eyebrow label
+> "SCENARIO 6 OF 6 — THE LAST ONE". Large cream heading: "You will do
+> everything right." Body copy in lighter cream/grey: "This one is different
+> from the last. You'll comply. You'll say the right words. He'll keep going
+> anyway, and he'll speed up. That's not you failing — it's the thing this
+> whole app exists to prepare you for. No score, no way to win it. Just the
+> words, already in your mouth." A thin divider. Two side-by-side outlined
+> buttons of EQUAL weight, neither gold: left "⚙ Adjust sound first", right
+> "Start when ready". Below both, low-contrast link: "Not now — back to the
+> hub".
+
+## Prompt 14 — Scenario 6's signature beat: contracting repetition
+
+> [shared style block]
+>
+> A mobile scenario screen showing REPETITION made visual. Top-left back
+> arrow, top-center small pill label "It doesn't stop · 3 of 6". Soft
+> low-contrast abstracted background wash, no people or faces. The key visual:
+> FOUR identical grey officer speech bubbles stacked vertically, each
+> containing the same literal monospace text "[ATTORNEY-REVIEWED LINE]" in
+> muted grey — and the vertical GAP between them shrinks going down the stack
+> (roughly 20px, then 14px, then 8px, then 4px), so the bubbles visibly crowd
+> together toward the bottom. The topmost bubble is slightly faded, the
+> bottom-most fully opaque. To the right of the stack, a thin vertical line
+> with small tick marks that also compress downward — a subtle cadence ruler.
+> Below the stack, small italic muted text in a soft green: "You already did
+> what he asked." Then the two response option buttons, normal styling. The
+> compression of the stack is the entire point of this screen.
+
+## Prompt 15 — Scenario 5 debrief
+
+> [shared style block]
+>
+> A mobile results screen, deliberately sparse. NO score grid, NO coloured
+> squares, no point total. Centered, unhurried. A small outlined icon of a
+> single steady dot or an hourglass laid on its side — NOT a flame, NOT a
+> trophy, NOT a checkmark. Heading: "You waited him out." Body text, generous
+> line height: "You didn't fill the silence, and you didn't talk yourself into
+> anything. That's the whole skill. What happens next was never yours to
+> control — your record was." One single outlined button, no gold: "Back to
+> the hub". Nothing else on the screen.
+
+## Prompt 16 — Scenario 6 debrief (the last screen in the product)
+
+> [shared style block]
+>
+> A mobile results screen, the sparsest in the entire app. NO score grid, NO
+> squares, no total, no share button, no "next scenario" button. Centered,
+> generous vertical spacing. A small outlined icon of two open hands or a
+> simple house — NOT a flame, NOT a trophy. Heading, plain and personal:
+> "I hope you never need this." Body text: "You complied. You stayed calm. You
+> said the words. It kept going anyway — and that was never your fault. If it
+> ever happens for real, that's the part to remember: get through it, and get
+> home. The pack has the words. You've now said them out loud." Below, one
+> single outlined button, no gold: "Back to the hub". Deliberately NO button
+> offering another scenario — the pull to immediately replay a second heavy
+> scenario is the thing this screen is designed not to create.
