@@ -322,7 +322,7 @@ it keeps the mockup self-documenting, and it makes it impossible for anyone
 > A mobile results screen, deliberately sparse. NO score grid, NO coloured
 > squares, no point total. Centered, unhurried. A small outlined icon of a
 > single steady dot or an hourglass laid on its side — NOT a flame, NOT a
-> trophy, NOT a checkmark. Heading: "You waited him out." Body text, generous
+> trophy, NOT a checkmark. Heading: "The silence was the point." Body text, generous
 > line height: "You didn't fill the silence, and you didn't talk yourself into
 > anything. That's the whole skill. What happens next was never yours to
 > control — your record was." One single outlined button, no gold: "Back to

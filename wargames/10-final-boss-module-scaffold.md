@@ -102,7 +102,7 @@ Each is cheap; each is easy to miss. This list is the implementation checklist.
 | Tab art | `.hardbg` (i=3), `.chkbg` (i=4) | add `.waitbg` (i=5) and `.nostopbg` (i=6) CSS badges — not photos |
 | i18n, both blocks | `prx_lvl1`…`prx_lvl5` | add `prx_lvl6`, `prx_lvl7`, `prx_warn7`, `prx_warn8` EN + ES |
 | `PRX_LEVELS` | 5 entries | append `{ids:[50..55],rate:1.0}` and `{ids:[60..65],rate:1.0}` — `rate` is dead data (never read) but keep the shape consistent |
-| `isLocked` / hub `locked` | `i===3` | `(i===3||i===5||i===6)` — see §3 |
+| `isLocked` / hub `locked` | `i===3` | **NOT** `(i===3\|\|i===5\|\|i===6)` — that expression only checks `mUnlocked` and does not encode the sequential rule below. Use `(i===3) \|\| (i===5&&!mUnlocked) \|\| (i===6&&!(mUnlocked&&prx.done[5]))`. See §3 — this row was wrong in an earlier draft and would have let 6 unlock the instant 5 did, silently defeating the entire point of §0. |
 
 **The warn-ternary is a trap, and it is now a double trap.** `prLevel>=2`
 auto-arms the consent gate, so indices 5 AND 6 get gated for free — but both
@@ -136,10 +136,27 @@ visitor stumbles into.
 disclosures already use it). Every beat here uses it.
 
 - **No green/amber grid** on either results screen.
-- **No `prx.best[5]` or `prx.best[6]` write.** Guard the write at
-  `prx.best[prLevel]=...` so both are excluded — otherwise the hub card leaks a
-  score, the exact bug already fixed once on Hard Mode (`37e4ffe`). That fix
-  guarded `i===3` only; it must become a set, not another one-off.
+- **No `prx.best[5]` or `prx.best[6]` write — at the WRITE site, not just the
+  two display sites.** `37e4ffe` guarded `i===3` at the hub card (`:2949`) and
+  the tab strip (`:4435`) — display only. The write itself,
+  `prx.best[prLevel]=sc+'/'+prRun.length` (`:4455`), is unconditional today and
+  was never touched. A guard added only at display would let the value sit in
+  `localStorage` correctly hidden until the next code path that reads it
+  forgets to check — the same failure shape that shipped the original bug.
+  **One `const PRX_UNSCORED = new Set([3,5,6])` used at all three sites** —
+  write and both displays — not three separate `i===3||...` literals.
+- **No unscoped analytics on either scenario.** `ph('sr_practice_level_done',
+  {level,score,total,state,lang})` fires unconditionally at the
+  `prx.done[prLevel]=true` write (`:4445`/`:4458`), and `sr_practice_choice`/
+  `sr_practice_typed`/`sr_practice_keywords_hit` fire per-beat during any
+  level, all carrying `state`. `ph()` is a live `posthog.capture()` call, not
+  a stub (`:1291`). Nothing today excludes any level from any of these. For
+  content of this weight, "someone in `state` just finished the scenario where
+  compliance didn't help" is exactly the kind of signal this project has
+  removed before (`sr_crisis_phrase_shown`, unmasked replay on steps 0–1) —
+  and it is currently unaddressed for levels 5 and 6. Either the five listed
+  events go in `PRX_UNSCORED`'s exclusion too, or they fire with `state`
+  stripped. Decide explicitly; do not let it happen by default.
 - **`prx.done[5]` / `prx.done[6]`** may be set — completion is real, a *score*
   is not. `done[5]` additionally gates scenario 6 (§3).
 - Every `PRX_OPT` entry uses **`bothGood:true`**. Not a trick: there is no wrong
@@ -183,11 +200,18 @@ and +64 Hz across a 4-second boundary, cold, with no wind-up** — and the
 ultimatum stage that is *quietest by mean, near-highest by peak*. Ref B is the
 reference for dynamics.
 
+**The beat immediately before the flip (`n62`) must stay `curt`, not
+`hostile`.** Tone drives the bubble colour and the TTS pitch/rate directly — if
+the beat right before the flip is already tagged hostile, the tone machinery
+has pre-announced the escalation and the flip lands warm instead of cold. The
+"no wind-up" property is the single most load-bearing craft finding in the
+direction brief; it is cheap to lose by copy-pasting the wrong tone tag.
+
 | # | ci | id | Tone | Decision type | What it trains |
 |---|---|---|---|---|---|
 | 1 | 60 | n60 | curt | comply immediately and fully | doing everything right from beat 1 |
 | 2 | 61 | n61 | curt | keep complying as pace increases | not matching his tempo |
-| 3 | 62 | n62 | hostile | keep complying through repetition | **the signature beat — obeying isn't stopping it** |
+| 3 | 62 | n62 | **curt** | keep complying through repetition | **the signature beat — obeying isn't stopping it** |
 | 4 | 63 | n63 | hostile | absorb the register flip, stay level | not escalating back when he does |
 | 5 | 64 | n64 | hostile | say the one sentence that matters | the sentence they must still have at the worst moment |
 | 6 | 65 | n65 | hostile | say nothing further | the record is already made |
