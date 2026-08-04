@@ -216,10 +216,16 @@ An answer that lets us do one of three things without a follow-up call:
 
 ## Appendix — facts we would not want you to learn late
 
-- No attorney or clinician has reviewed any content in this module. Every
-  officer line and every "correct" answer is currently an unwritten
-  placeholder in the code. Nothing described above has actual words yet — we
-  are asking about the *design*, which is fixed before the words are written.
+- No attorney or clinician has reviewed any content in this module. A full
+  **draft** script now exists in the code (authored 2026-08-04, marked DRAFT
+  and unreviewed in the source, behind the disabled flag): officer lines,
+  response options, and coaching lines for all six beats. The two beats
+  described in §3 (the reason-for-visit beat and the step-out beat) are
+  drafted so that **neither choice is ever marked a mistake** — our own
+  research's interim ruling, which your review supersedes. The draft is
+  review material, not a decision: it exists so you can mark up something
+  concrete instead of authoring from a blank page, and every question in §3
+  stands regardless of it.
 - The rest of the product (traffic-stop scenarios) is separately awaiting
   attorney review for a different legal question (whether a scored rehearsal
   engine constitutes unauthorized practice of law). That review is unrelated

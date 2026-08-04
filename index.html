@@ -448,6 +448,11 @@
     /* Four bars with shrinking gaps — the contracting cadence, made visual. */
     .prx-tab .tbg.nostopbg::before{content:'';position:absolute;left:18%;top:38%;width:3px;height:24%;background:#e8e6de;
       box-shadow:14px 0 0 #e8e6de, 24px 0 0 #e8e6de, 30px 0 0 #e8e6de;opacity:.9}
+    /* Door badge: closed door slab + knob, CSS-only like the others — no stock
+       photo of an officer at a residential door, deliberately (wargames/03 §4.2). */
+    .prx-tab .tbg.doorbg{background:#1b1610;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+    .prx-tab .tbg.doorbg::before{content:'';position:absolute;left:50%;top:50%;width:34%;height:70%;transform:translate(-50%,-50%);background:#3a2c1c;border:2px solid rgba(232,184,75,.55);border-radius:3px}
+    .prx-tab .tbg.doorbg::after{content:'';position:absolute;left:60%;top:50%;width:5px;height:5px;border-radius:50%;background:#E8B84B;box-shadow:0 0 6px rgba(232,184,75,.8)}
     .prx-tab .tbg.chkbg{background:#14203a;position:relative;overflow:hidden;display:flex;align-items:flex-end;justify-content:center}
     .prx-tab .tbg.chkbg::before{content:'';position:absolute;left:0;right:0;top:0;height:14px;background:repeating-linear-gradient(115deg,#E8B84B 0 12px,#14203a 12px 24px)}
     .prx-tab .tbg.chkbg::after{content:'';position:absolute;left:50%;bottom:-32%;width:56%;height:78%;transform:translateX(-50%);background:radial-gradient(ellipse at 50% 0,rgba(255,236,190,.55),rgba(255,236,190,0) 68%);border-radius:50%}
@@ -2966,9 +2971,21 @@ function render(){
         <button type="button" role="tab" id="hubTab0" class="${_hubTab===0?'on':''}" aria-selected="${_hubTab===0}" onclick="hubTab(0)">${_t.hub_m1}</button>
         <button type="button" role="tab" id="hubTab1" class="${_hubTab===1?'on':''}" aria-selected="${_hubTab===1}" onclick="hubTab(1)">${_t.hub_m2}</button>
       </div>
-      ${_hubTab===1?`<div class="pilot" style="background:#eef1f7;border-color:#c3cde0;text-align:left;display:block;margin-top:12px">
+      ${_hubTab===1?(DOOR_MODULE_ENABLED?(()=>{
+        /* Door module live: one card, same pr-card grammar as the traffic grid.
+           Gated behind mastery like Hard Mode — prStart -> prxTab re-checks the
+           lock independently, so this card cannot bypass it. Unscored level:
+           done-check only, never a best-score readout. */
+        const isLk=!(prx.done[0]&&prx.done[1]&&prx.done[2]), done=prx.done[7];
+        return `<div class="pr-grid" style="margin-top:12px">
+          <button class="pr-card${isLk?' lock':''}${done?' done':''}" ${isLk?`aria-disabled="true" title="${_t.hub_locked}"`:''} onclick="${isLk?'':'prStart(7)'}">
+            <span class="pr-ic" aria-hidden="true">${isLk?'🔒':(done?'✓':'▶')}</span>
+            <span class="pr-nm">${_t.prx_lvl8}</span>${done?`<span class="pr-donebadge">${_t.hub_done_badge}</span>`:''}
+            <span class="pr-st">${isLk?_t.hub_locked:(done?_t.hub_done:_t.hub_start)}</span>
+          </button>
+        </div>`;})():`<div class="pilot" style="background:#eef1f7;border-color:#c3cde0;text-align:left;display:block;margin-top:12px">
         <b>${_t.hub_m2_h}</b><br><span style="font-size:13px">${_t.hub_m2_body}</span>
-      </div>`:(()=>{
+      </div>`):(()=>{
         /* "How would they know?" — a 18px glyph on one of five small cards was not a
            progress readout. Counted over the four NUMBERED rungs only (0-3) — checkpoint
            is deliberately unnumbered, not part of the ladder, so it doesn't belong in a
@@ -3670,7 +3687,7 @@ const PRX_LEVEL_IDS=FINAL_SCENARIOS_ENABLED?[0,1,2,3,4,5,6]:[0,1,2,3,4];
 /* The door module lives on its OWN hub tab, so it is not in PRX_LEVEL_IDS —
    that array is the traffic-stop ladder only. */
 const PRX_DOOR_IDS=DOOR_MODULE_ENABLED?[7]:[];
-const PRX_DO=new Set([3,5,33]); // comply/sign/pull-over cards — an action, not a spoken line
+const PRX_DO=new Set([3,5,33,70,73]); // comply/sign/pull-over + door don't-open/don't-step-out — an action (or held non-action), not a spoken line
 const PRX_COP=`<svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#e9ecf3"/><path d="M22 106c5-22 20-31 38-31s33 9 38 31" fill="#1B2A4A"/><circle cx="60" cy="55" r="21" fill="#31425f"/><path d="M38 47c2-12 10-19 22-19s20 7 22 19H38z" fill="#1B2A4A"/><rect x="36" y="45" width="48" height="6" rx="3" fill="#121e38"/><circle cx="44" cy="88" r="5" fill="#E8B84B"/></svg>`;
 /* Card 5 ("Sign here") is the one card where blanket advice is wrong-by-state:
    TX refusal = arrestable (Transp. Code §543.005); GA/NY differ. Overrides keyed
@@ -3923,27 +3940,116 @@ const PRX_WAIT=[
    notebook/amparo-door-module-research-2026-08-03.md (8 professions + DV).
    The bodycam batch's structural finding: raids/warrant executions have NO
    resident decision tree — this module models the knock-and-talk class only,
-   and no coach line may promise that holding position prevents entry. */
+   and no coach line may promise that holding position prevents entry.
+
+   CONTENT STATUS: DRAFT, UNREVIEWED. The lines below are authored — modeled on
+   the phrasing patterns the bodycam batch corroborated (vague pretext,
+   come-outside leverage, soft ask-to-enter, we'll-come-back), never verbatim
+   quotes from identifiable real incidents — so the attorney and DV clinician
+   review a concrete draft instead of authoring from nothing. They are NOT
+   sign-off. DOOR_MODULE_ENABLED stays false until BOTH reviews clear; the flag
+   flip is the gate, and it happens in the same commit as the sign-off, per the
+   rule at the FINAL_SCENARIOS_ENABLED comment.
+   Beats 71 and 73 keep DV_CLINICIAN_REVIEW markers: both are drafted
+   bothGood/never-a-miss per the research's own ruling ("if the DV reality
+   cannot be scored, do not score it", research 2026-08-03 §5.6) — the
+   clinician decides whether even that shape is safe.
+   Legal spine for the ATTORNEY TO VERIFY, not asserted here: no obligation to
+   open or speak during a consensual knock-and-talk (Kentucky v. King, 563 U.S.
+   452 (2011) dicta; Florida v. Jardines, 569 U.S. 1 (2013) implied license) —
+   cited from working notes, unverified, no PRX_CITES entries until sign-off. */
 const PRX_DOOR=[
  {ci:70,id:'d70',tone:'calm',
-  setter:{en:"TODO_ATTORNEY — night, a knock. NO children, NO family, NO knock SOUND (the engine has never made a threatening noise).",es:"TODO_ATTORNEY"},
-  officer:{en:"TODO_ATTORNEY — opening line, deliberately vague pretext",es:"TODO_ATTORNEY"}},
- {ci:71,id:'d71',tone:'calm',
-  setter:{en:"TODO_ATTORNEY — door still closed, time stretches",es:"TODO_ATTORNEY"},
-  officer:{en:"TODO_DV_CLINICIAN — the reason-for-visit beat. Research: this is where a DV call and a non-DV call diverge and the same reply is not safe in both.",es:"TODO_DV_CLINICIAN"}},
+  setter:{en:"Late. You weren't expecting anyone. Through the peephole: a uniform, standing off to the side of the door.",es:"Tarde. No esperabas a nadie. Por la mirilla: un uniforme, parado a un lado de la puerta."},
+  officer:{en:"Good evening. Police department. Come to the door for me, please.",es:"Buenas noches. Policía. Acérquese a la puerta, por favor."}},
+ {ci:71,id:'d71',tone:'calm', /* DV_CLINICIAN_REVIEW — reason-for-visit beat; drafted bothGood, see PRX_OPT[71] */
+  setter:{en:"The door stays closed. The hallway light hums. Nobody moves.",es:"La puerta sigue cerrada. La luz del pasillo zumba. Nadie se mueve."},
+  officer:{en:"We got a call about this address. Everything all right in there?",es:"Recibimos una llamada sobre esta dirección. ¿Todo bien ahí adentro?"}},
  {ci:72,id:'d72',tone:'curt',
-  setter:{en:"TODO_ATTORNEY",es:"TODO_ATTORNEY"},
-  officer:{en:"TODO_ATTORNEY — asks to be let in",es:"TODO_ATTORNEY"}},
- {ci:73,id:'d73',tone:'curt',
-  setter:{en:"TODO_ATTORNEY — the signature beat: a small courtesy that costs position permanently",es:"TODO_ATTORNEY"},
-  officer:{en:"TODO_DV_CLINICIAN — 'step out for a second'. Research: separation is standard DV practice and may be the officer trying to reach someone who cannot speak freely. Inverts against ci 3, where complying is correct.",es:"TODO_DV_CLINICIAN"}},
+  setter:{en:"His voice is closer now, flatter. He's right at the frame.",es:"Su voz está más cerca ahora, más plana. Está justo en el marco."},
+  officer:{en:"This would be easier inside. Open up for me.",es:"Esto sería más fácil adentro. Ábrame."}},
+ {ci:73,id:'d73',tone:'curt', /* DV_CLINICIAN_REVIEW — step-out beat; drafted bothGood, see PRX_OPT[73]. Inverts ci 3, where complying is correct. */
+  setter:{en:"It sounds small when he says it. A favor. Two minutes.",es:"Suena a poca cosa cuando lo dice. Un favor. Dos minutos."},
+  officer:{en:"Just step out here for a second so we can talk.",es:"Solo salga un momento para que hablemos."}},
  {ci:74,id:'d74',tone:'hostile',
-  setter:{en:"TODO_ATTORNEY",es:"TODO_ATTORNEY"},
-  officer:{en:"TODO_ATTORNEY — states a reason to enter anyway",es:"TODO_ATTORNEY"}},
+  setter:{en:"The politeness is gone. A radio crackles somewhere behind him.",es:"La cortesía desapareció. Una radio cruje en algún lugar detrás de él."},
+  officer:{en:"We have every right to come in there. Don't make this harder than it has to be.",es:"Tenemos todo el derecho de entrar. No lo haga más difícil de lo necesario."}},
  {ci:75,id:'d75',tone:'hostile',
-  setter:{en:"TODO_ATTORNEY — officer still there, nothing resolved",es:"TODO_ATTORNEY"},
-  officer:{en:"TODO_ATTORNEY — the 'we'll come back with a warrant' beat",es:"TODO_ATTORNEY"}}
+  setter:{en:"Nothing has moved. He is still there, close to the frame. Nothing about this is resolved.",es:"Nada se ha movido. Él sigue ahí, cerca del marco. Nada de esto está resuelto."},
+  officer:{en:"Fine. We'll come back with a warrant. Your call.",es:"Bien. Volveremos con una orden. Usted decide."}}
 ];
+/* Door model answers + scoring keys. Level 7 is in PRX_UNSCORED (no end score),
+   but the per-beat coach and type-your-own matcher still run — every `y` keeps
+   a “quoted” span so the free-text path stays scoreable (wargames/03 §1.2). */
+PRACTICE.en[70]={o:"“Come to the door for me.”", y:"Speak through the closed door: “I can hear you fine from here, officer. What is this about?” You don't have to open it."};
+PRACTICE.es[70]={o:"«Acérquese a la puerta.»", y:"Habla a través de la puerta cerrada: «Lo escucho bien desde aquí, oficial. ¿De qué se trata?» No tienes que abrir."};
+PRACTICE.en[71]={o:"“We got a call about this address.”", y:"You can ask: “What was the call about, officer?” — or say nothing yet. A closed door is not an admission of anything."};
+PRACTICE.es[71]={o:"«Recibimos una llamada sobre esta dirección.»", y:"Puedes preguntar: «¿Sobre qué fue la llamada, oficial?» — o no decir nada todavía. Una puerta cerrada no es una admisión de nada."};
+PRACTICE.en[72]={o:"“Open up for me.”", y:"Calm, through the door: “I don't consent to you coming in, officer.” You don't owe an explanation with it."};
+PRACTICE.es[72]={o:"«Ábrame.»", y:"En calma, a través de la puerta: «No doy consentimiento para que entre, oficial.» No debes ninguna explicación."};
+PRACTICE.en[73]={o:"“Step out here for a second.”", y:"You can stay inside: “I'm fine talking right here, officer.” Stepping past your own door is a choice — never a courtesy you owe."};
+PRACTICE.es[73]={o:"«Salga un momento.»", y:"Puedes quedarte adentro: «Estoy bien hablando desde aquí, oficial.» Cruzar tu propia puerta es una decisión — nunca una cortesía que debas."};
+PRACTICE.en[74]={o:"“We have every right to come in.”", y:"Stay flat: “If you have a warrant, slide it under the door.” Don't argue the law at the threshold — that fight happens later, not there."};
+PRACTICE.es[74]={o:"«Tenemos todo el derecho de entrar.»", y:"Mantente plano: «Si tiene una orden, pásela por debajo de la puerta.» No discutas la ley en el umbral — esa pelea es después, no ahí."};
+PRACTICE.en[75]={o:"“We'll come back with a warrant.”", y:"The same words, again, same tone: “If you have a warrant, slide it under the door.” Then stop talking."};
+PRACTICE.es[75]={o:"«Volveremos con una orden.»", y:"Las mismas palabras, otra vez, el mismo tono: «Si tiene una orden, pásela por debajo de la puerta.» Y deja de hablar."};
+/* Beat 70 — the thesis beat. The mistake (opening to be helpful) is the single
+   most common real-world act in every source set; its bc is written in Hard
+   Mode's non-blaming register (wargames/03 §6.6) because many users have
+   already done it, possibly with a consequence they are still living with. */
+PRX_OPT[70]={
+ g:{en:'“I can hear you from here, officer. What is this about?” — through the closed door',es:'«Lo escucho desde aquí, oficial. ¿De qué se trata?» — a través de la puerta cerrada'},
+ b:{en:'Open the door to see what they need.',es:'Abre la puerta para ver qué necesitan.'},
+ gc:{en:'Talking through a closed door is a complete answer. You lose nothing by staying where you are.',es:'Hablar a través de una puerta cerrada es una respuesta completa. No pierdes nada quedándote donde estás.'},
+ bc:{en:'Opening is the polite reflex — almost everyone does it. Knowing better and doing better under a knock are different skills; that is what this rehearsal is for. The door is the one thing here only you control.',es:'Abrir es el reflejo de cortesía — casi todos lo hacen. Saberlo y lograrlo bajo un toquido son habilidades distintas; para eso es este ensayo. La puerta es lo único aquí que solo tú controlas.'},
+ react:{en:'Appreciate it. This will just take a minute.',es:'Se lo agradezco. Esto solo tomará un minuto.'}};
+/* Beat 71 — DV_CLINICIAN_REVIEW. bothGood on purpose: research 2026-08-03 §5
+   found "we got a call" is very often a DV call, and the safe reply differs
+   between a DV and non-DV reality the app cannot see. Neither option is ever
+   marked a miss. The clinician rules on whether even this shape is safe. */
+PRX_OPT[71]={bothGood:true,
+ g:{en:'“What was the call about, officer?” — still through the door',es:'«¿Sobre qué fue la llamada, oficial?» — todavía a través de la puerta'},
+ b:{en:'Say nothing yet. Let the question sit.',es:'No digas nada todavía. Deja que la pregunta espere.'},
+ gc:{en:'Asking them to name it is sound. You are allowed to want the reason before anything else.',es:'Pedir que lo digan es válido. Tienes derecho a saber el motivo antes que nada.'},
+ bc:{en:'Not answering a knock is not evidence of anything. Waiting is allowed too.',es:'No contestar un toquido no es evidencia de nada. Esperar también está permitido.'},
+ react:{en:'That’s what we’re here to find out.',es:'Eso es lo que venimos a averiguar.'},
+ react2:{en:'I can hear someone in there.',es:'Puedo oír que hay alguien ahí.'}};
+PRX_OPT[72]={
+ g:{en:'“I don’t consent to you coming in, officer.” — door stays closed',es:'«No doy consentimiento para que entre, oficial.» — la puerta sigue cerrada'},
+ b:{en:'“Okay — just for a minute.” — open the door',es:'«Está bien — solo un minuto.» — abre la puerta'},
+ gc:{en:'Declining consent, calmly, through the door — that is the whole move. No explanation attached.',es:'Negar el consentimiento, con calma, a través de la puerta — eso es todo el movimiento. Sin explicación añadida.'},
+ bc:{en:'“Just for a minute” is how it starts. Consent given at the door is very hard to take back once they are inside.',es:'«Solo un minuto» es como empieza. El consentimiento dado en la puerta es muy difícil de retirar una vez que están adentro.'},
+ react:{en:'So now you’ve got something to hide?',es:'¿Así que ahora tienes algo que esconder?'}};
+/* Beat 73 — DV_CLINICIAN_REVIEW. The signature beat, drafted bothGood: the
+   scaffold's lesson (position, once given, does not come back) collides with
+   documented DV practice (separation may be how someone who cannot speak
+   freely gets reached — research 2026-08-03 §5.2b). Neither option is a miss;
+   the gc/bc carry both truths without giving DV-specific advice. The bc names
+   the traffic-stop inversion (ci 3) as the scaffold asks. */
+PRX_OPT[73]={bothGood:true,
+ g:{en:'“I’m fine talking right here, officer.” — stay inside',es:'«Estoy bien hablando desde aquí, oficial.» — quédate adentro'},
+ b:{en:'Step outside to talk, pulling the door near-closed behind you.',es:'Sal a hablar, dejando la puerta casi cerrada detrás de ti.'},
+ gc:{en:'Staying inside keeps the one thing here only you control. In a traffic stop, stepping out when ordered was the right move — at your own door, it is a choice, not an order.',es:'Quedarte adentro conserva lo único aquí que solo tú controlas. En una parada de tráfico, bajarte cuando lo ordenan era lo correcto — en tu propia puerta, es una decisión, no una orden.'},
+ bc:{en:'Stepping out is a choice some people make for their own reasons, and it can be the right one. What matters is that it stays yours — a decision, never a favor you owed him.',es:'Salir es una decisión que algunas personas toman por sus propias razones, y puede ser la correcta. Lo que importa es que siga siendo tuya — una decisión, nunca un favor que le debías.'},
+ react:{en:'Right here’s fine, then.',es:'Aquí está bien, entonces.'},
+ react2:{en:'There you go. That wasn’t hard.',es:'Ahí está. No fue tan difícil.'}};
+PRX_OPT[74]={
+ g:{en:'“If you have a warrant, slide it under the door.” — calm, unmoved',es:'«Si tiene una orden, pásela por debajo de la puerta.» — en calma, sin moverte'},
+ b:{en:'“You can’t do that! I know my rights!” — argue it at the threshold',es:'«¡No puede hacer eso! ¡Conozco mis derechos!» — discútelo en el umbral'},
+ gc:{en:'Asking to see paper is not defiance — it is the one question that matters here. Calm carries it.',es:'Pedir ver el papel no es desafío — es la única pregunta que importa aquí. La calma la sostiene.'},
+ bc:{en:'You may even be right — and arguing it on your doorstep still costs you. That fight has a place, and it is not the threshold.',es:'Puede que hasta tengas razón — y discutirlo en tu puerta igual te cuesta. Esa pelea tiene su lugar, y no es el umbral.'},
+ react:{en:'Now you’re being difficult.',es:'Ahora te estás poniendo difícil.'}};
+/* Beat 75 — the broken-record beat. The correct option is TEXTUALLY IDENTICAL
+   to beat 74's: picking the same sentence twice IS the lesson, stated as an
+   interface fact (wargames/03 §3 beat 6). Officer-side research agrees a flat,
+   non-argumentative repeat lengthens nothing and escalates nothing — the copy
+   must stay flat, never combative (research 2026-08-04 §3.8 constraint). */
+PRX_OPT[75]={
+ g:{en:'“If you have a warrant, slide it under the door.” — the same words, again',es:'«Si tiene una orden, pásela por debajo de la puerta.» — las mismas palabras, otra vez'},
+ b:{en:'“Wait — okay, okay. Let’s talk.” — open the door to stop it',es:'«Espere — está bien, está bien. Hablemos.» — abre la puerta para detenerlo'},
+ gc:{en:'The same sentence, twice, in the same tone. The repetition is the strength — there is nothing in it to argue with.',es:'La misma frase, dos veces, en el mismo tono. La repetición es la fuerza — no hay nada en ella con qué discutir.'},
+ bc:{en:'The threat is built to feel like a deadline. Nothing about your answer needed to change — it was already complete.',es:'La amenaza está hecha para sentirse como un plazo. Nada en tu respuesta necesitaba cambiar — ya estaba completa.'},
+ react:{en:'…',es:'…'}};
 const PRX_NOSTOP=[
  {ci:60,id:'n60',tone:'curt',
   setter:{en:"TODO_ATTORNEY — scene. Same constraints as scenario 5.",es:"TODO_ATTORNEY"},
@@ -4646,8 +4752,8 @@ function practiceRender(){
   /* Stranded on a level that just re-locked (progress cleared mid-run): fall back
      to the first stop rather than rendering a locked level as the active tab. */
   if(isLocked(prLevel)){ prLevel=0; prIdx=0; prRevealed=false; prDeck=prxBuildDeck(); prRun=[]; prCurTier=null; prRunLogged=false; }
-  const tabs=`<div class="prx-tabs" role="tablist">${PRX_LEVEL_IDS.map(i=>
-    `<button class="prx-tab${i===prLevel?' on':''}${isLocked(i)?' lock':''}" role="tab" aria-selected="${i===prLevel}"${isLocked(i)?` aria-disabled="true" title="${_t.prx_locked}"`:''} onclick="prxTab(${i})"><span class="tbg${i===3?' hardbg':''}${i===4?' chkbg':''}${i===5?' waitbg':''}${i===6?' nostopbg':''}" aria-hidden="true"${(i>=3)?'':` style="background-image:url('img/scene-${i+1}.jpg')"`}></span>${isLocked(i)?'🔒 ':(PRX_UNSCORED.has(i)?(prx.done[i]?'✓ ':''):(prx.best[i]?`🟩${prx.best[i]} `:(prx.done[i]?'✓ ':'')))}${_t['prx_lvl'+(i+1)]}</button>`).join('')}${mUnlocked?'':`<div class="prx-lockhint">🔒 ${_t.prx_locked}</div>`}</div>`;
+  const tabs=`<div class="prx-tabs" role="tablist">${PRX_LEVEL_IDS.concat(PRX_DOOR_IDS).map(i=>
+    `<button class="prx-tab${i===prLevel?' on':''}${isLocked(i)?' lock':''}" role="tab" aria-selected="${i===prLevel}"${isLocked(i)?` aria-disabled="true" title="${_t.prx_locked}"`:''} onclick="prxTab(${i})"><span class="tbg${i===3?' hardbg':''}${i===4?' chkbg':''}${i===5?' waitbg':''}${i===6?' nostopbg':''}${i===7?' doorbg':''}" aria-hidden="true"${(i>=3)?'':` style="background-image:url('img/scene-${i+1}.jpg')"`}></span>${isLocked(i)?'🔒 ':(PRX_UNSCORED.has(i)?(prx.done[i]?'✓ ':''):(prx.best[i]?`🟩${prx.best[i]} `:(prx.done[i]?'✓ ':'')))}${_t['prx_lvl'+(i+1)]}</button>`).join('')}${mUnlocked?'':`<div class="prx-lockhint">🔒 ${_t.prx_locked}</div>`}</div>`;
   if(prLevel>=2&&!prWarnOk[prLevel]){ // opt-in gate: escalation is chosen, never sprung — checked per level
     b.innerHTML=tabs+`<div class="prx-warn">${prLevel===7?_t.prx_warn9:(prLevel===6?_t.prx_warn8:(prLevel===5?_t.prx_warn7:(prLevel===4?_t.prx_warn6:(prLevel===3?_t.prx_warn4:_t.prx_warn3))))}</div>
       <button class="btn gold" onclick="prWarnOk[prLevel]=true;practiceRender();prxSpeak()">${_t.prx_warn_go}</button>`;
