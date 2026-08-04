@@ -305,12 +305,10 @@ Stated up front because a surprise later costs more than a disclosure now:
   answer, but we are not able to tell you charging is off the table, and we did
   not want that to reach you as a late surprise.
 - Two additional practice scenarios and a separate "police at your door" module
-  are **built in the codebase but disabled behind feature flags**. The two
-  scenarios' officer lines are unwritten placeholders. The door module carries
-  a full **drafted, unreviewed** script (authored 2026-08-04, marked DRAFT in
-  the source) — it is not user-reachable, it ships to no one until reviewed,
-  and it is not part of what we are asking you to assess in this engagement.
-  We mention it so a code review does not surprise you.
+  are **built in the codebase but disabled behind feature flags**, with every
+  officer line still an unwritten placeholder. They are not user-reachable and
+  are not part of what we are asking you to assess. We mention them only so that
+  a code review does not surprise you.
 - We have deliberately excluded from the product any question of whether a local
   officer may act on immigration status, because that law is actively moving in
   our covered states.
