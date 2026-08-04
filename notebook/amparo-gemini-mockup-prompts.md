@@ -144,8 +144,9 @@ doesn't exist yet and nothing here should look like it's showing real lines.
 > label "FINAL SCENARIO". Heading in large cream serif-weight type: "Before
 > you start this one." Body copy in a lighter cream/grey: "This scenario is
 > more intense than the others — a hostile encounter, performed with real
-> weight. You will not be scored, and you are meant to struggle. That's the
-> point: this is the one you remember." A thin divider. Below it, two
+> weight. There's no score here, because this was never about winning. It's
+> about staying calm enough to remember what to say — so if this ever
+> happens for real, you get through it and get home." A thin divider. Below it, two
 > side-by-side outlined buttons of EQUAL visual weight (neither is gold/
 > primary): left button "⚙ Adjust sound first" with a small speaker-mute
 > icon, right button "Start when ready". Small text link beneath both,
@@ -182,17 +183,24 @@ doesn't exist yet and nothing here should look like it's showing real lines.
 > options and text input as the other scenario screens, unchanged. A small
 > toggle top-right reading "Transcript" in the "on" state.
 
-## Prompt 9 — The debrief: lesson, not a score
+## Prompt 9 — The debrief: not a win/lose frame at all
+
+Revised after a real editorial correction: the first draft of this screen
+said "you didn't win this one — that was the point," which still frames the
+scenario as a contest and just negates the outcome. That's wrong. There was
+never a win condition. The scenario exists so the calm and the words are
+already there if this ever happens for real — nothing about "winning" it.
 
 > [shared style block]
 >
 > A mobile results screen with NO score grid, NO green/amber squares, no
 > point total anywhere — deliberately sparse compared to a normal results
-> screen. Centered, unhurried layout. A small icon of a closed book or a
-> single steady flame (not a trophy, not a checkmark). Heading: "You didn't
-> win this one. That was the point." Body text below, generous line height:
-> "Some encounters go wrong no matter what you say. What matters is that the
-> words were already in your mouth when it mattered. Practice it again
-> whenever you're ready — there's no score to protect." One single outlined
-> button below, no gold: "Back to the hub". Nothing else on the screen —
-> the emptiness is deliberate, not a loading state.
+> screen. Centered, unhurried layout. A small steady outlined icon — a single
+> dot, a compass, or two open hands — NOT a flame, NOT a trophy, NOT a
+> checkmark; nothing that reads as danger or victory. Heading, plain and
+> personal, not triumphant: "I hope you never need this." Body text below,
+> generous line height: "If it ever happens for real, the goal was never to
+> win the exchange. It's to stay calm, get through it, and get home. Your
+> pack has the words — your only job was to remember them." One single
+> outlined button below, no gold: "Back to the hub". Nothing else on the
+> screen — the emptiness is deliberate, not a loading state.
