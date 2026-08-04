@@ -250,6 +250,15 @@ could itself trigger the officer's voice via the TTS fallback. Design-only
 final-boss module scaffolded alongside (not shipped) — see
 `wargames/10-final-boss-module-scaffold.md`.
 
+## v2.8.0 — 2026-08-04 — "The recorded voices finally play"
+
+The pre-recorded officer clips had never played on any level but Checkpoint —
+`PRX_VAR`/`PRX_HARD` had no `id` field, so everything fell to browser TTS. 53
+ids wired. Double-voice bug fixed (two independent causes). 18 Spanish clips
+generated via Voicebox native presets, 2 rejected on pronunciation. Two final
+scenarios and the door module fully plumbed but flag-dark pending attorney and
+DV-clinician review.
+
 ---
 
 ## Quick lookup: "what tag has the fix for X"
@@ -292,6 +301,10 @@ final-boss module scaffolded alongside (not shipped) — see
 | Hard Mode hub-card score leak | v2.7.4 |
 | Mute-race CRITICAL fix (mute could itself trigger audio) | v2.7.4 |
 | Final-boss module scaffold (2 scenarios, design-only) | v2.7.4, `wargames/10-final-boss-module-scaffold.md` |
+| Recorded voices never played / TTS everywhere | v2.8.0 |
+| Double-voice on entering a module | v2.8.0 |
+| Spanish audio 49 → 58 per voice | v2.8.0, `notebook/amparo-spanish-audio-recording-list.md` |
+| Final scenarios + door module built (flag-dark) | v2.8.0 |
 
 To restore any version exactly:
 ```bash

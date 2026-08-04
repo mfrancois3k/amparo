@@ -6,6 +6,38 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.8.0 — 2026-08-04
+
+v2.8.0 — "The recorded voices finally play"
+
+**The recorded voices had never played.** `PRX_VAR` and `PRX_HARD` carried no
+`id` field, so the deck builder read `undefined` on every variant and the engine
+fell through to browser TTS on every level except Checkpoint. `git log -S`
+confirms the ids were never written — not lost. All 53 wired, index alignment
+verified first.
+
+**Double voice, two independent causes.** `prStart()` called `practiceOpen()`
+(which speaks level 0) and then `prxTab()` (which speaks the target level) — two
+overlapping lines on every hub card but the first. Separately, a missing clip
+fires *both* `onerror` and a `play()` rejection, and each called the TTS
+fallback. Both fixed.
+
+**18 new Spanish clips**, generated through Voicebox's local API using native
+kokoro Spanish presets. Each was transcribed back and compared to source;
+`k30`/`k33` failed across all three Spanish voices and were deleted rather than
+shipped — a Border Patrol agent mispronouncing "ciudadanía" is worse than a
+correct robotic fallback. `audio/es/` 49 → 58 per voice.
+
+**Built, dark behind flags:** the two final scenarios (levels 5/6) and the door
+module (level 7) — decks, locks with the sequential rule, warn branches,
+unscored guards, debrief branches, both languages. Every officer line is
+`TODO_ATTORNEY`; two door beats are `TODO_DV_CLINICIAN`. `PRX_UNSCORED` and
+`PRX_LEVEL_IDS` replace the scattered `i===N` literals that caused the original
+score leak.
+
+Nothing user-facing changed. Open: attorney review, DV-clinician review, two
+voice performances, `k30`/`k33` Spanish, UPL opinion.
+
 ## v2.7.4 — 2026-08-03
 
 v2.7.4 — "Three fixes from the mute-fix loop's own agents"
