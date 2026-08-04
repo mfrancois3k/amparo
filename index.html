@@ -1610,9 +1610,9 @@ const T = {
     ab_privacy:"Amparo keeps no accounts and no database of who you are. Your contacts and document photos live only on your device and go straight into your printout \u2014 they are never uploaded, so they can't be handed over even under pressure. We count anonymous events (like how many packs get printed, and in which state) to prove the tool is used \u2014 never who you are, never what you typed, never your photos. If you choose to email yourself a receipt, only your name, state and email address pass through our email service to deliver it, and that's all. We never sell or share anything with any agency, including immigration authorities.",
     ab_contact:"Contact",
     s_title:"Which state do you drive in?", s_sub:"Texas, Georgia and New York have their own statutes cited line by line. Every other state gets the federal rights that apply everywhere — marked so you know the difference.",
-    s_soon:"“Federal only” means we show you the rights that hold in all 50 states, and we do NOT show that state’s own rules — because we won’t print a rule we haven’t checked against the statute. More states get their own citations as each one is verified.",
-    s_search:"Search your state…", s_pri_label:"Fully cited", s_rest_label:"Federal rights", s_nomatch:"No state matches that search.",
-    s_change:"Not your state? Choose again",
+    s_soon:"Every state gets the rights that hold everywhere — protections from the U.S. Constitution, verified once for all 50 states. States get their own cited statutes added as each one is checked individually; yours isn’t cited yet, so this pack shows the federal floor only — not a guess at your state’s rules.",
+    s_search:"Search your state…", s_pri_label:"Fully cited", s_rest_label:"Federal rights ✓", s_nomatch:"No state matches that search.",
+    s_change:"Not your state? Choose again", s_fastpath:"Skip ahead — just show me the printable script",
     i_title:"Who is this pack for?", i_sub:"This goes on the wallet card so someone you trust gets called if you're ever detained.",
     i_opt:"Every field is optional — fill in what helps you, skip the rest.",
     pdf_where:"No printer at home? Save the PDF, then print it free at most public libraries — or at FedEx/Staples, work, church, or a friend's.",
@@ -1934,9 +1934,9 @@ const T = {
     ab_privacy:"Amparo no guarda cuentas ni una base de datos de qui\u00e9n eres. Tus contactos y fotos de documentos viven solo en tu dispositivo y van directo a tu impresi\u00f3n \u2014 nunca se suben, as\u00ed que no pueden entregarse ni bajo presi\u00f3n. Contamos eventos an\u00f3nimos (como cu\u00e1ntos paquetes se imprimen y en qu\u00e9 estado) para demostrar que la herramienta se usa \u2014 nunca qui\u00e9n eres, nunca lo que escribiste, nunca tus fotos. Si eliges enviarte un recibo por correo, solo tu nombre, tu estado y tu direcci\u00f3n de correo pasan por nuestro servicio de correo para entregarlo, y nada m\u00e1s. Nunca vendemos ni compartimos nada con ninguna agencia, incluidas las autoridades de inmigraci\u00f3n.",
     ab_contact:"Contacto",
     s_title:"¿En qué estado manejas?", s_sub:"Texas, Georgia y Nueva York tienen sus propias leyes citadas línea por línea. Los demás estados reciben los derechos federales que aplican en todas partes — marcados para que sepas la diferencia.",
-    s_soon:"«Solo federal» significa que te mostramos los derechos que valen en los 50 estados, y NO mostramos las reglas propias de ese estado — porque no imprimimos una regla que no hemos verificado contra la ley. Cada estado recibe sus propias citas al verificarse.",
-    s_search:"Busca tu estado…", s_pri_label:"Con leyes citadas", s_rest_label:"Derechos federales", s_nomatch:"Ningún estado coincide con esa búsqueda.",
-    s_change:"¿No es tu estado? Elige otra vez",
+    s_soon:"Cada estado recibe los derechos que valen en todas partes — protecciones de la Constitución de EE.UU., verificadas una sola vez para los 50 estados. Cada estado recibe sus propias leyes citadas al verificarse individualmente; el tuyo aún no está citado, así que este paquete muestra solo el mínimo federal — no una suposición sobre las reglas de tu estado.",
+    s_search:"Busca tu estado…", s_pri_label:"Con leyes citadas", s_rest_label:"Derechos federales ✓", s_nomatch:"Ningún estado coincide con esa búsqueda.",
+    s_change:"¿No es tu estado? Elige otra vez", s_fastpath:"Adelantar — solo muéstrame el guion para imprimir",
     i_title:"¿Para quién es este paquete?", i_sub:"Esto va en la tarjeta de cartera para que llamen a alguien de confianza si alguna vez te detienen.",
     i_opt:"Todos los campos son opcionales — llena lo que te sirva y omite el resto.",
     pdf_where:"¿Sin impresora en casa? Guarda el PDF y luego imprímelo gratis en la mayoría de las bibliotecas públicas — o en FedEx/Staples, el trabajo, la iglesia o con un amigo.",
@@ -2809,6 +2809,12 @@ function render(){
       <p class="soon" id="stateNoMatch" style="display:none">${_t.s_nomatch}</p>
       <p class="soon" id="stateSoon" ${_collapsed?'hidden':''}>${_t.s_soon}</p>
       <button class="btn gold" id="stateBottomNext" onclick="goM(2)" ${data.state?'':'disabled'}>${_t.next} →</button>
+      <!-- Keisha (rideshare, between fares, no printer, no patience): the wizard is
+           4 screens deep before anything usable. This skips You + Lifelines straight
+           to the printable pack — same destination skipInfo() reaches from step 2,
+           just reachable one screen earlier for anyone who already knows they want
+           the fast lane. Nothing removed; the full wizard is still the default path. -->
+      ${data.state?`<button type="button" class="linkbtn" onclick="skipToPack()">${_t.s_fastpath}</button>`:''}
     </div>`;
   }
 
@@ -3275,6 +3281,14 @@ function demoExit(){
 function skipInfo(){
   ph('sr_you_skipped',{lang:lang,hadName:!!(document.getElementById('f_name')||{}).value});
   goM(3);
+}
+/* Same destination as skipInfo() -> goM(3) -> goM(4), reached one screen earlier.
+   `data` initializes every info field to "" (:2418), so jumping straight from the
+   state pick to the print step is exactly what a full skip-through already produces —
+   no new state to construct here. */
+function skipToPack(){
+  ph('sr_state_fastpath',{lang:lang,state:data.state});
+  goM(4);
 }
 function saveInfo(){
   data.name=document.getElementById('f_name').value;
