@@ -270,6 +270,17 @@ state-pick-to-print-step fast path, and a reworded federal-only state screen
 leading with what's verified before the gap. DV clinician engagement memo
 drafted for the door module, unsent, alongside the UPL memo.
 
+## v2.9.0 — 2026-08-04 — "The door has words now — and they stay behind the flag"
+
+Door module (ci 70-75) drafted end to end: setters, officer lines, options,
+coach lines, model answers, EN + ES; 24 edge-tts clips in the app's canonical
+voices, 24/24 Whisper round-trip verified; hub card + tab + CSS door badge
+wired behind `DOOR_MODULE_ENABLED`. Officer lines modeled on the six-video
+bodycam batch's corroborated patterns (`amparo-door-raid-research-2026-08-04.md`).
+DV-critical beats 71/73 drafted bothGood (never a miss); clinician markers
+stay. Flag stays FALSE — flip still requires attorney + DV-clinician sign-off
+in the same commit. Both memo appendices updated to disclose the draft.
+
 ---
 
 ## Quick lookup: "what tag has the fix for X"
@@ -320,6 +331,10 @@ drafted for the door module, unsent, alongside the UPL memo.
 | State-pick fast-path to printable pack (`skipToPack()`) | v2.8.1 |
 | Federal-only state-screen copy reframe | v2.8.1 |
 | DV clinician engagement memo | v2.8.1, `notebook/amparo-dv-clinician-engagement-memo.md` |
+| Bodycam batch research (6 videos, /watch-bulk) | v2.9.0, `notebook/amparo-door-raid-research-2026-08-04.md` |
+| Door module full draft (script + options + audio, flag-dark) | v2.9.0 |
+| Door audio d70-75 (24 clips, edge-tts, verified) | v2.9.0, `tools/gen_door_voices.py` |
+| Door hub card / tab / `.doorbg` badge wiring | v2.9.0 |
 
 To restore any version exactly:
 ```bash

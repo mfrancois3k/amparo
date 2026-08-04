@@ -6,6 +6,26 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.9.0 — 2026-08-04
+
+v2.9.0 — "The door has words now — and they stay behind the flag"
+
+The door module (ci 70-75) went from placeholder scaffold to a complete,
+testable draft: authored setters, officer lines, response options, coach
+lines, and model answers in EN + ES; 24 audio clips in the app's canonical
+voices, 24/24 round-trip-verified; hub card, tab, and CSS door badge wired
+behind `DOOR_MODULE_ENABLED`.
+
+Officer lines are modeled on phrasing patterns corroborated by a six-video
+bodycam research batch (`notebook/amparo-door-raid-research-2026-08-04.md`),
+never verbatim from identifiable incidents. The two DV-critical beats are
+drafted so neither choice is ever marked a mistake; clinician-review markers
+stay.
+
+**The flag stays FALSE.** The flip still requires attorney + DV-clinician
+sign-off in the same commit. What changed is what reviewers receive: a
+concrete, playable draft instead of a blank page.
+
 ## v2.8.1 — 2026-08-04
 
 v2.8.1 — "Ten personas said no, and not one said the price"
