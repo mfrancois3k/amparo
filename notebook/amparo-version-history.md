@@ -259,6 +259,17 @@ generated via Voicebox native presets, 2 rejected on pronunciation. Two final
 scenarios and the door module fully plumbed but flag-dark pending attorney and
 DV-clinician review.
 
+## v2.8.1 — 2026-08-04 — "Ten personas said no, and not one said the price"
+
+Synthetic 10-persona panel + UI/UX researcher synthesis run against the live
+site: pain points, and would-they-pay-$3.99-for-a-module-script. All 10 said
+no, zero for price reasons — payment-trail risk, no institutional backing,
+duplicate of free content, wrong-shaped for the user, incomplete state
+coverage. Shipped the two fixes buildable without legal content: a
+state-pick-to-print-step fast path, and a reworded federal-only state screen
+leading with what's verified before the gap. DV clinician engagement memo
+drafted for the door module, unsent, alongside the UPL memo.
+
 ---
 
 ## Quick lookup: "what tag has the fix for X"
@@ -305,6 +316,10 @@ DV-clinician review.
 | Double-voice on entering a module | v2.8.0 |
 | Spanish audio 49 → 58 per voice | v2.8.0, `notebook/amparo-spanish-audio-recording-list.md` |
 | Final scenarios + door module built (flag-dark) | v2.8.0 |
+| 10-persona panel + UX researcher synthesis, $3.99 pricing test | v2.8.1 |
+| State-pick fast-path to printable pack (`skipToPack()`) | v2.8.1 |
+| Federal-only state-screen copy reframe | v2.8.1 |
+| DV clinician engagement memo | v2.8.1, `notebook/amparo-dv-clinician-engagement-memo.md` |
 
 To restore any version exactly:
 ```bash

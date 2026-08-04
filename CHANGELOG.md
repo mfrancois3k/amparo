@@ -6,6 +6,25 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.8.1 — 2026-08-04
+
+v2.8.1 — "Ten personas said no, and not one said the price"
+
+A synthetic 10-persona panel plus a UI/UX researcher synthesis, run against
+the live site, asked about pain points and a hypothetical $3.99 module-script
+purchase. All 10 declined — for ten different reasons, none of them price:
+payment-trail risk, no institutional backing, content already free elsewhere,
+wrong-shaped for the user, incomplete state coverage.
+
+Shipped the two findings buildable without touching legal content: a
+fast-path from the state-pick screen straight to the printable pack
+(`skipToPack()`), and a reworded federal-only state screen that leads with
+what's verified across all 50 states before the cited-vs-federal gap. Same
+facts, reordered — EDITION unchanged.
+
+Also drafted a DV clinician engagement memo for the door module (unsent,
+alongside the UPL memo).
+
 ## v2.8.0 — 2026-08-04
 
 v2.8.0 — "The recorded voices finally play"
