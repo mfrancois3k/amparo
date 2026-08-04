@@ -6,6 +6,34 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.7.4 — 2026-08-03
+
+v2.7.4 — "Three fixes from the mute-fix loop's own agents"
+
+**Pruned unreachable dialogue + stale comments.** The v2.7.2 level merge left
+8 officer lines mathematically unreachable — traced by hand which levels can
+select which beat/tone combination, corrected the source agent's count by one
+in the process. Fixed two comments still calling the ladder "level 5/level 6"
+after the merge changed the numbering. Caught and reversed a self-inflicted
+syntax error mid-edit (a premature comment close took the whole script down)
+before it ever reached a commit.
+
+**Hard Mode's hub card was leaking a score.** The results screen has always
+deliberately shown no score for the swan/unwinnable level; the newer hub card
+never got the same guard, so a played Hard Mode showed "🟩 3/3" on the one
+screen designed to say nothing scored happened there.
+
+**CRITICAL — the mute button could trigger the sound it exists to stop.**
+Muting mid-line paused the in-flight audio, which rejected its own play()
+promise, which fell through to the TTS fallback with no mute check — so
+tapping mute could make the officer's line speak a second time, unmuted.
+Fixed at the single call site; also gated the recorded-answer auto-playback,
+same underlying gap.
+
+Design-only, not shipped: a two-scenario "final boss" module — see
+`wargames/10-final-boss-module-scaffold.md`. Gated on attorney review, two
+voice performances, and the UPL opinion.
+
 ## v2.7.3 — 2026-08-03
 
 v2.7.3 — "Loop verification pass, subject: officer-voice mute"

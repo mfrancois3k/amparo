@@ -242,6 +242,14 @@ group, module review, blind-spot audit) executes against, subject: the
 mute fix from v2.7.2. Backfills this doc and CHANGELOG.md for v2.7.0–2.7.2,
 which were pushed without an entry in either.
 
+## v2.7.4 — 2026-08-03 — three fixes the v2.7.3 loop's own agents found
+
+Unreachable dialogue lines pruned, stale post-merge comments fixed, Hard
+Mode's hub-card score leak closed, and a CRITICAL race where muting mid-line
+could itself trigger the officer's voice via the TTS fallback. Design-only
+final-boss module scaffolded alongside (not shipped) — see
+`wargames/10-final-boss-module-scaffold.md`.
+
 ---
 
 ## Quick lookup: "what tag has the fix for X"
@@ -280,6 +288,10 @@ which were pushed without an entry in either.
 | Door module empty state / DV research | v2.7.2, `notebook/amparo-door-module-research-2026-08-03.md` |
 | Officer-voice mute | v2.7.2, verified again at v2.7.3 |
 | `.claude/skills/amparo-loop/` (this verification sequence) | v2.7.3 |
+| Orphaned `PRX_VAR` hostile lines / stale merge comments | v2.7.4 |
+| Hard Mode hub-card score leak | v2.7.4 |
+| Mute-race CRITICAL fix (mute could itself trigger audio) | v2.7.4 |
+| Final-boss module scaffold (2 scenarios, design-only) | v2.7.4, `wargames/10-final-boss-module-scaffold.md` |
 
 To restore any version exactly:
 ```bash
