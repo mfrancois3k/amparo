@@ -37,8 +37,14 @@ LINES = [
     ("k32",  "curt",    "¿Le molesta si reviso la cajuela?"),
     ("k33",  "curt",    "Oríllese a la inspección secundaria."),
 ]
-# voice slot -> Voicebox profile name
-VOICES = {"m": "Miles", "f": "Maya"}
+# voice slot -> Voicebox profile name.
+# These MUST be Spanish-language profiles. The first attempt used the English
+# cloned voices (Miles/Maya) with language="es" — the phonetics were mangled
+# badly enough that Voicebox's own Whisper transcribed "¿Sabe por qué lo
+# detuve?" as "El salve por kilo de toví". Native-Spanish kokoro presets
+# (em_alex / ef_dora) are used instead. Verify any new profile the same way:
+# generate one clip, transcribe it, compare to the source text.
+VOICES = {"m": "AmparoES-M", "f": "AmparoES-F"}
 
 
 def _post(payload, session=None, timeout=120):

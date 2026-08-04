@@ -1,11 +1,40 @@
-# Spanish officer audio — the 22 missing clips
+# Spanish officer audio — 18 of 22 generated, 4 still needed
+
+**STATUS as of 2026-08-04:** 18 clips generated and verified via round-trip
+transcription. **4 remain** — `k30` and `k33`, both voices. See "The four that
+failed" below.
 
 Generated 2026-08-04 from the live `index.html` at commit `41627d2`. Every line
 below is **already-reviewed shipped content** — these are recordings of text
 that exists in the product today, not new writing. Nothing here needs attorney
 review; it needs a microphone.
 
-## Why these are missing
+## The four that failed, and why
+
+`k30` ("¿Ciudadanía?") and `k33` ("Oríllese a la inspección secundaria.")
+were generated and then **deleted rather than shipped.** Every Spanish voice
+available in Voicebox's kokoro engine — `em_alex`, `em_santa`, `ef_dora` —
+mispronounces those two specific words, consistently:
+
+| word | heard as (3 voices, independently) |
+|---|---|
+| Ciudadanía | "Siu da danía" / "Tiu d'Avanía" |
+| Oríllese | "Poríese" / "Porílle sea" / "oríces" |
+
+This is a kokoro model limitation, not a voice-selection problem. It was caught
+by transcribing each generated clip back and comparing to source — the same
+transcriber renders the existing human recordings and the other 18 generated
+clips **exactly**, so the failure is in the audio, not the check.
+
+They were removed rather than kept because **"ciudadanía" is the single most
+important word in the checkpoint scenario** — a Border Patrol agent
+mispronouncing "citizenship" is worse than the browser TTS fallback, which
+says it correctly. Those two beats fall back to TTS until a human records them.
+
+**To finish:** record `k30` and `k33` in both voices by any means, drop them in
+`audio/es/{m,f}/`, and rerun the verifier at the bottom of this file.
+
+## Why these were missing
 
 `audio/es/` has 49 clips against `audio/en/`'s 62. Three families were never
 recorded in Spanish: beat 8 (`v8_*`), hard mode (`h2*`), and checkpoint (`k3*`).
