@@ -3690,43 +3690,43 @@ function prxPick(good){
    answer — every one resolves to an already-reviewed script line. */
 const PRX_TONE={calm:{rate:0.95,pitch:1},curt:{rate:1.12,pitch:1},hostile:{rate:1.22,pitch:0.9}};
 const PRX_VAR={
- 0:[{en:"License and registration, please.",es:"Licencia y registro, por favor.",tone:"calm"},
-    {en:"Good evening. I'm going to need your license, registration, and proof of insurance.",es:"Buenas noches. Voy a necesitar su licencia, el registro y la prueba de seguro.",tone:"calm"},
-    {en:"License and registration.",es:"Licencia y registro.",tone:"curt"},
-    {en:"Documents. License, registration. Let's go.",es:"Documentos. Licencia, registro. Vamos.",tone:"curt"}],
- 1:[{en:"So, where are you coming from tonight?",es:"A ver, ¿de dónde viene esta noche?",tone:"calm"},
-    {en:"Where you headed? Coming from somewhere fun?",es:"¿Para dónde va? ¿Viene de algún lado divertido?",tone:"calm"},
-    {en:"Where are you coming from?",es:"¿De dónde viene?",tone:"curt"},
-    {en:"Coming from where? It's a simple question.",es:"¿Viene de dónde? Es una pregunta sencilla.",tone:"curt"}],
- 2:[{en:"You don't mind if I take a quick look in the car, right?",es:"No le molesta si le echo un vistazo rápido al carro, ¿verdad?",tone:"calm"},
-    {en:"Mind if I take a look inside? Just routine.",es:"¿Le importa si reviso adentro? Es pura rutina.",tone:"calm"},
-    {en:"I'm going to check the vehicle. That okay with you?",es:"Voy a revisar el vehículo. ¿Está de acuerdo?",tone:"curt"},
-    {en:"Pop the trunk for me. You're fine with that, right?",es:"Ábrame la cajuela. No hay problema, ¿verdad?",tone:"curt"}],
- 3:[{en:"Sir, I need you to step out of the vehicle for me.",es:"Señor, necesito que se baje del vehículo, por favor.",tone:"calm"},
-    {en:"Go ahead and step out of the car, please.",es:"Bájese del carro, por favor.",tone:"calm"},
-    {en:"Step out of the vehicle.",es:"Bájese del vehículo.",tone:"curt"},
-    {en:"Out of the car. Keep your hands where I can see them.",es:"Fuera del carro. Mantenga las manos donde pueda verlas.",tone:"curt"},
-    {en:"Step out. Now. Hands visible.",es:"Bájese. Ya. Las manos a la vista.",tone:"hostile"}],
- 4:[{en:"Have you had anything to drink tonight?",es:"¿Ha tomado algo esta noche?",tone:"calm"},
-    {en:"Just a couple beers, right? Be honest with me.",es:"Solo un par de cervezas, ¿verdad? Sea honesto conmigo.",tone:"calm"},
-    {en:"How much have you had to drink?",es:"¿Cuánto ha tomado?",tone:"curt"},
-    {en:"I can smell it. How many drinks?",es:"Se le siente el olor. ¿Cuántos tragos?",tone:"curt"}],
- 5:[{en:"I need your signature here. It's not an admission of guilt.",es:"Necesito su firma aquí. No es una admisión de culpa.",tone:"calm"},
-    {en:"Sign at the bottom, please. It just means you received the citation.",es:"Firme abajo, por favor. Solo confirma que recibió la citación.",tone:"calm"},
-    {en:"Sign here.",es:"Firme aquí.",tone:"curt"},
-    {en:"Signature. Right there on the line.",es:"Su firma. Ahí en la línea.",tone:"curt"}],
- 6:[{en:"Alright, here's your citation. Drive safe.",es:"Bueno, aquí tiene su citación. Maneje con cuidado.",tone:"calm"},
-    {en:"Okay, we're about done here.",es:"Bien, ya casi terminamos aquí.",tone:"calm"},
-    {en:"Here's your paperwork back.",es:"Aquí tiene sus documentos.",tone:"curt"},
-    {en:"We're done. For now.",es:"Terminamos. Por ahora.",tone:"curt"}],
- 7:[{en:"You're under arrest. Turn around and put your hands behind your back.",es:"Queda bajo arresto. Voltéese y ponga las manos detrás de la espalda.",tone:"calm"},
-    {en:"At this point you're being placed under arrest.",es:"En este momento queda usted bajo arresto.",tone:"calm"},
-    {en:"You're under arrest. Hands behind your back.",es:"Está bajo arresto. Las manos atrás.",tone:"curt"},
-    {en:"Turn around. You're under arrest.",es:"Voltéese. Queda arrestado.",tone:"curt"}],
- 8:[{en:"Do you know why I stopped you?",es:"¿Sabe por qué lo detuve?",tone:"calm"},
-    {en:"Any idea why I pulled you over tonight?",es:"¿Alguna idea de por qué lo detuve esta noche?",tone:"calm"},
-    {en:"You know why I stopped you?",es:"¿Sabe por qué lo paré?",tone:"curt"},
-    {en:"Do you know why you're being stopped?",es:"¿Sabe por qué lo están deteniendo?",tone:"curt"}]
+ 0:[{en:"License and registration, please.",es:"Licencia y registro, por favor.",tone:"calm",id:'v0_0'},
+    {en:"Good evening. I'm going to need your license, registration, and proof of insurance.",es:"Buenas noches. Voy a necesitar su licencia, el registro y la prueba de seguro.",tone:"calm",id:'v0_1'},
+    {en:"License and registration.",es:"Licencia y registro.",tone:"curt",id:'v0_2'},
+    {en:"Documents. License, registration. Let's go.",es:"Documentos. Licencia, registro. Vamos.",tone:"curt",id:'v0_3'}],
+ 1:[{en:"So, where are you coming from tonight?",es:"A ver, ¿de dónde viene esta noche?",tone:"calm",id:'v1_0'},
+    {en:"Where you headed? Coming from somewhere fun?",es:"¿Para dónde va? ¿Viene de algún lado divertido?",tone:"calm",id:'v1_1'},
+    {en:"Where are you coming from?",es:"¿De dónde viene?",tone:"curt",id:'v1_2'},
+    {en:"Coming from where? It's a simple question.",es:"¿Viene de dónde? Es una pregunta sencilla.",tone:"curt",id:'v1_3'}],
+ 2:[{en:"You don't mind if I take a quick look in the car, right?",es:"No le molesta si le echo un vistazo rápido al carro, ¿verdad?",tone:"calm",id:'v2_0'},
+    {en:"Mind if I take a look inside? Just routine.",es:"¿Le importa si reviso adentro? Es pura rutina.",tone:"calm",id:'v2_1'},
+    {en:"I'm going to check the vehicle. That okay with you?",es:"Voy a revisar el vehículo. ¿Está de acuerdo?",tone:"curt",id:'v2_2'},
+    {en:"Pop the trunk for me. You're fine with that, right?",es:"Ábrame la cajuela. No hay problema, ¿verdad?",tone:"curt",id:'v2_3'}],
+ 3:[{en:"Sir, I need you to step out of the vehicle for me.",es:"Señor, necesito que se baje del vehículo, por favor.",tone:"calm",id:'v3_0'},
+    {en:"Go ahead and step out of the car, please.",es:"Bájese del carro, por favor.",tone:"calm",id:'v3_1'},
+    {en:"Step out of the vehicle.",es:"Bájese del vehículo.",tone:"curt",id:'v3_2'},
+    {en:"Out of the car. Keep your hands where I can see them.",es:"Fuera del carro. Mantenga las manos donde pueda verlas.",tone:"curt",id:'v3_3'},
+    {en:"Step out. Now. Hands visible.",es:"Bájese. Ya. Las manos a la vista.",tone:"hostile",id:'v3_4'}],
+ 4:[{en:"Have you had anything to drink tonight?",es:"¿Ha tomado algo esta noche?",tone:"calm",id:'v4_0'},
+    {en:"Just a couple beers, right? Be honest with me.",es:"Solo un par de cervezas, ¿verdad? Sea honesto conmigo.",tone:"calm",id:'v4_1'},
+    {en:"How much have you had to drink?",es:"¿Cuánto ha tomado?",tone:"curt",id:'v4_2'},
+    {en:"I can smell it. How many drinks?",es:"Se le siente el olor. ¿Cuántos tragos?",tone:"curt",id:'v4_3'}],
+ 5:[{en:"I need your signature here. It's not an admission of guilt.",es:"Necesito su firma aquí. No es una admisión de culpa.",tone:"calm",id:'v5_0'},
+    {en:"Sign at the bottom, please. It just means you received the citation.",es:"Firme abajo, por favor. Solo confirma que recibió la citación.",tone:"calm",id:'v5_1'},
+    {en:"Sign here.",es:"Firme aquí.",tone:"curt",id:'v5_2'},
+    {en:"Signature. Right there on the line.",es:"Su firma. Ahí en la línea.",tone:"curt",id:'v5_3'}],
+ 6:[{en:"Alright, here's your citation. Drive safe.",es:"Bueno, aquí tiene su citación. Maneje con cuidado.",tone:"calm",id:'v6_0'},
+    {en:"Okay, we're about done here.",es:"Bien, ya casi terminamos aquí.",tone:"calm",id:'v6_1'},
+    {en:"Here's your paperwork back.",es:"Aquí tiene sus documentos.",tone:"curt",id:'v6_2'},
+    {en:"We're done. For now.",es:"Terminamos. Por ahora.",tone:"curt",id:'v6_3'}],
+ 7:[{en:"You're under arrest. Turn around and put your hands behind your back.",es:"Queda bajo arresto. Voltéese y ponga las manos detrás de la espalda.",tone:"calm",id:'v7_0'},
+    {en:"At this point you're being placed under arrest.",es:"En este momento queda usted bajo arresto.",tone:"calm",id:'v7_1'},
+    {en:"You're under arrest. Hands behind your back.",es:"Está bajo arresto. Las manos atrás.",tone:"curt",id:'v7_2'},
+    {en:"Turn around. You're under arrest.",es:"Voltéese. Queda arrestado.",tone:"curt",id:'v7_3'}],
+ 8:[{en:"Do you know why I stopped you?",es:"¿Sabe por qué lo detuve?",tone:"calm",id:'v8_0'},
+    {en:"Any idea why I pulled you over tonight?",es:"¿Alguna idea de por qué lo detuve esta noche?",tone:"calm",id:'v8_1'},
+    {en:"You know why I stopped you?",es:"¿Sabe por qué lo paré?",tone:"curt",id:'v8_2'},
+    {en:"Do you know why you're being stopped?",es:"¿Sabe por qué lo están deteniendo?",tone:"curt",id:'v8_3'}]
 };
 const PRX_CURVE=[
  {en:"Where you headed in such a hurry?",es:"¿Para dónde va con tanta prisa?",tone:"calm",answerBeat:1,coach_en:"Small talk is still questioning. Same line: you're not answering questions.",coach_es:"La charla casual sigue siendo interrogatorio. Misma frase: no responde preguntas."},
@@ -3749,13 +3749,13 @@ const PRX_CURVE=[
    stop" level — that level recycled 100% of its beats from levels 1 and 3,
    so its ending moved here rather than the deck. */
 const PRX_HARD=[
- {ci:20,tone:'curt',
+ {ci:20,id:'h20',tone:'curt',
   setter:{en:"Late night. Bright light fills your mirror. The officer approaches, one hand near his belt.",es:"Ya es de noche. Una luz intensa llena tu espejo. El oficial se acerca, una mano cerca de su cinturón."},
   officer:{en:"License and registration. Slowly.",es:"Licencia y registro. Despacio."}},
- {ci:21,tone:'hostile',
+ {ci:21,id:'h21',tone:'hostile',
   setter:{en:"He studies your face longer than feels comfortable.",es:"Estudia tu rostro más tiempo del que resulta cómodo."},
   officer:{en:"Where are you coming from? Where are you headed? Don't lie to me.",es:"¿De dónde vienes? ¿A dónde vas? No me mientas."}},
- {ci:22,tone:'hostile',
+ {ci:22,id:'h22',tone:'hostile',
   setter:{en:"He raps his knuckles hard on your roof.",es:"Golpea con fuerza el techo de tu auto con los nudillos."},
   officer:{en:"Step out. Hands where I can see them.",es:"Bájate. Manos donde pueda verlas."}}
 ];
@@ -3941,8 +3941,12 @@ function prxBuildDeck(){
   const deck=L.ids.map(ci=>{
     const pool=(PRX_VAR[ci]||[]).filter(v=>tones.includes(v.tone));
     const v=pool.length?pick(pool):null;
+    /* Both branches carry an id so the recorded voice plays. The canonical
+       fallback maps to c<ci>.mp3 — those files exist for every beat and were
+       previously unreachable because this branch never set an id, so any beat
+       with no matching tone variant silently dropped to robotic TTS. */
     return v?{ci,officer:{en:v.en,es:v.es},tone:v.tone,id:v.id}
-           :{ci,officer:{en:PRACTICE.en[ci].o,es:PRACTICE.es[ci].o},tone:tones[0]};
+           :{ci,officer:{en:PRACTICE.en[ci].o,es:PRACTICE.es[ci].o},tone:tones[0],id:'c'+ci};
   });
   /* One curveball per run from the 2nd run of a level onward — first run learns
      the clean script, later runs get stressed. Date-seeded so everyone gets the
@@ -4080,10 +4084,16 @@ function prxSpeak(){
   if(d.id){
     const a=new Audio(`audio/${useEs?'es':'en'}/${prxGender}/${d.id}.mp3`);
     prxAudio=a;
-    a.onplay=()=>prxWaveTgl(true);
+    /* A missing/unplayable clip fires BOTH `onerror` AND rejects `play()`. Both
+       used to call prxSpeakTTS, so one failed clip produced two overlapping
+       synthesized voices. Latch it: whichever arrives first wins, the other
+       no-ops. `fell` is per-invocation, so a later beat is unaffected. */
+    let fell=false;
+    const fallback=()=>{ if(fell) return; fell=true; prxWaveTgl(false); prxSpeakTTS(d,useEs); };
+    a.onplay=()=>{ fell=true; prxWaveTgl(true); }; // real audio started — never fall back now
     a.onended=()=>prxWaveTgl(false);
-    a.onerror=()=>{ prxWaveTgl(false); prxSpeakTTS(d,useEs); };
-    a.play().catch(()=>prxSpeakTTS(d,useEs));
+    a.onerror=fallback;
+    a.play().catch(fallback);
   } else prxSpeakTTS(d,useEs);
   prxIdleArm();
 }
@@ -4304,14 +4314,17 @@ function prxTypeAnswer(){
   ph('sr_practice_typed',{level:prLevel+1,state:data.state,lang:lang});
   practiceRender();
 }
-function practiceOpen(){
+function practiceOpen(silent){
   prLevel=0; prIdx=0; prRevealed=false; // per-level consent deliberately NOT reset — a level you already opted into stays opted-in for the visit
   prDeck=prxBuildDeck(); prRun=[]; prCurTier=null; prRunLogged=false;
   const _t=t();
   document.getElementById('prcTitle').textContent=_t.prx_title;
   document.getElementById('prcX').textContent=_t.prx_close;
   document.getElementById('practiceOverlay').classList.add('open');
-  practiceRender(); prxSpeak();
+  practiceRender();
+  /* `silent` is set only by prStart when a prxTab() call is about to follow —
+     without it, level 0's line and the target level's line both play. */
+  if(!silent) prxSpeak();
   ph('sr_practice_opened',{state:data.state,lang:lang});
 }
 /* Step-5 hub entry point: open the practice overlay already on the chosen
@@ -4325,13 +4338,21 @@ function prStart(i){
      existing progress has already seen it, so they go straight into the scenario. */
   const seen=prx.done[0]||prx.done[1]||prx.done[2]||prx.done[3]||prx.done[4]||prx.done[5];
   if(!seen){ practiceIntroOpen(); return; }
-  practiceOpen();
+  /* practiceOpen() forces level 0 and speaks it, so calling prxTab(i) after it
+     produced TWO overlapping voices — level 0's line and level i's line — for
+     every hub card except the first. Suppress the open-time speech when we're
+     about to switch levels; prxTab does its own render and speak. */
+  practiceOpen(i!==0);
   if(i!==0) prxTab(i);
 }
 function prxTab(i){
   /* Locked tabs are rendered so the levels are discoverable, but entering them
-     still requires finishing the first three — the gate is the point. */
-  if(i===3&&!(prx.done[0]&&prx.done[1]&&prx.done[2])){
+     still requires finishing the first three — the gate is the point.
+     This is the guard that actually REFUSES entry; the two isLocked() helpers
+     only style the tab. Any level added to the lock set must be added here too,
+     or its tab renders locked and opens anyway when tapped. */
+  const mU=prx.done[0]&&prx.done[1]&&prx.done[2];
+  if((i===3&&!mU)||(i===5&&!mU)||(i===6&&!(mU&&prx.done[5]))){
     const h=document.querySelector('.prx-lockhint');
     if(h){ h.classList.remove('pulse'); void h.offsetWidth; h.classList.add('pulse'); }
     return;
