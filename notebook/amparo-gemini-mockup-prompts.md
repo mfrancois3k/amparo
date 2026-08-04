@@ -1,4 +1,4 @@
-# Gemini image prompts — Amparo mockup generation (5×)
+# Gemini image prompts — Amparo mockup generation (9×)
 
 Paste each block into Gemini as-is. Written to correct the three problems in the
 previous mockup set (`Downloads/963ebb91cd3bc0a3`): it was dark-themed when the
@@ -119,3 +119,80 @@ photorealistic officer faces the design system deliberately avoids.
 > rebuilds your contacts on this device, and never touches our servers." and a
 > small outlined button "Paste restore code". The two mechanisms must look
 > visibly distinct, not like one form.
+
+---
+
+## Prompts 6–9 — the "final boss" module's 4 supporting components
+
+Grounded in the 10-persona reaction to the intense-scenario concept and the
+Mobbin references pulled against it (Sora's Content Advisory, Google Arts &
+Culture's flashing-effects modal, Medium/eBay's Preview state, ElevenReader's
+synced transcript). These are the SHAPE of the components, not final copy —
+no scenario dialogue is specified anywhere below, deliberately: that content
+doesn't exist yet and nothing here should look like it's showing real lines.
+
+## Prompt 6 — The content gate, before the module starts
+
+> [shared style block, with one deliberate exception: this single screen may
+> use a deeper navy fill (#121e38) as the full background instead of cream —
+> the one place in the product where a heavier register is earned. Do NOT use
+> black, do NOT use a stock photo, do NOT use a distressed/horror aesthetic.
+> Still calm, still typographic, still the same navy/gold/cream family — just
+> inverted for this one gate. Everywhere else in the app stays cream.]
+>
+> A full-screen mobile advisory, text-only, no imagery. Small gold eyebrow
+> label "FINAL SCENARIO". Heading in large cream serif-weight type: "Before
+> you start this one." Body copy in a lighter cream/grey: "This scenario is
+> more intense than the others — a hostile encounter, performed with real
+> weight. You will not be scored, and you are meant to struggle. That's the
+> point: this is the one you remember." A thin divider. Below it, two
+> side-by-side outlined buttons of EQUAL visual weight (neither is gold/
+> primary): left button "⚙ Adjust sound first" with a small speaker-mute
+> icon, right button "Start when ready". Small text link beneath both,
+> low-contrast: "Not now — back to the hub".
+
+## Prompt 7 — Preview mode, reachable before the real attempt
+
+> [shared style block]
+>
+> A mobile app screen showing the practice hub's module grid (reuse this
+> layout: two pill tabs "Traffic stop"/"At your door" at top, a "{n} of 4
+> done" progress bar with green fill below them). One card in the grid is
+> visually distinct from the rest — labeled "🌒 Final Scenario" with a small
+> tag beside the title reading "PREVIEW AVAILABLE" in a soft blue-grey pill
+> (not gold, not green — a third, clearly informational color distinct from
+> the done/locked states already used elsewhere). Inside that card, below the
+> title, a ghost-outlined button "▶ Preview — no score, no record" sitting
+> above the normal "Start" button, visually secondary to it (smaller, lighter
+> border) so it reads as an option, not the main action.
+
+## Prompt 8 — Synced transcript under the officer line
+
+> [shared style block]
+>
+> A mobile scenario screen, same shell as the existing practice screens: back
+> arrow top-left, a small label "Final Scenario" top-center, soft abstracted
+> background wash. An officer speech bubble containing a few words with the
+> FIRST three words highlighted in a soft gold background (mid-sentence
+> playback position), the remaining words in normal grey-on-white — a
+> karaoke-style sync highlight, not a static caption block. Directly below
+> the bubble, small italic bracketed stage direction text in muted red-brown,
+> distinct from the dialogue itself: "[voice raised, clipped]" — signaling
+> tone to someone who cannot hear it. Below that, the same two response
+> options and text input as the other scenario screens, unchanged. A small
+> toggle top-right reading "Transcript" in the "on" state.
+
+## Prompt 9 — The debrief: lesson, not a score
+
+> [shared style block]
+>
+> A mobile results screen with NO score grid, NO green/amber squares, no
+> point total anywhere — deliberately sparse compared to a normal results
+> screen. Centered, unhurried layout. A small icon of a closed book or a
+> single steady flame (not a trophy, not a checkmark). Heading: "You didn't
+> win this one. That was the point." Body text below, generous line height:
+> "Some encounters go wrong no matter what you say. What matters is that the
+> words were already in your mouth when it mattered. Practice it again
+> whenever you're ready — there's no score to protect." One single outlined
+> button below, no gold: "Back to the hub". Nothing else on the screen —
+> the emptiness is deliberate, not a loading state.
