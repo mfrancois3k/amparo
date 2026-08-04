@@ -99,7 +99,7 @@ Each is cheap; each is easy to miss. This list is the implementation checklist.
 | Practice tab strip | `${[0,1,2,3,4].map(...)}` | `[0,1,2,3,4,5,6]` |
 | Hub progress bar | counts `[0,1,2,3]` = "of 4" | **leave alone** — see §3 |
 | Warn copy ternary | `prLevel===4?warn6:(prLevel===3?warn4:warn3)` | add `prLevel===5?_t.prx_warn7:` **and** `prLevel===6?_t.prx_warn8:` branches **first** — see trap below |
-| Tab art | `.hardbg` (i=3), `.chkbg` (i=4) | add `.waitbg` (i=5) and `.nostopbg` (i=6) CSS badges — not photos |
+| Tab art | `${(i===3\|\|i===4)?'':url('img/scene-${i+1}.jpg')}` | extend the SAME ternary to `(i===3\|\|i===4\|\|i===5\|\|i===6)`, **not just add `.waitbg`/`.nostopbg` badge classes**. `img/scene-6.jpg` and `img/scene-7.jpg` do not exist on disk — confirmed by `ls`. Adding only the badge class leaves the old exclusion unchanged, so the inline `style="background-image:url(...)"` still gets written into the DOM and the browser still issues the failing request even though a badge visually sits on top of it. |
 | i18n, both blocks | `prx_lvl1`…`prx_lvl5` | add `prx_lvl6`, `prx_lvl7`, `prx_warn7`, `prx_warn8` EN + ES |
 | `PRX_LEVELS` | 5 entries | append `{ids:[50..55],rate:1.0}` and `{ids:[60..65],rate:1.0}` — `rate` is dead data (never read) but keep the shape consistent |
 | `isLocked` / hub `locked` | `i===3` | **NOT** `(i===3\|\|i===5\|\|i===6)` — that expression only checks `mUnlocked` and does not encode the sequential rule below. Use `(i===3) \|\| (i===5&&!mUnlocked) \|\| (i===6&&!(mUnlocked&&prx.done[5]))`. See §3 — this row was wrong in an earlier draft and would have let 6 unlock the instant 5 did, silently defeating the entire point of §0. |
@@ -133,9 +133,33 @@ visitor stumbles into.
 ## 4. Scoring: unscored, not zero-scored
 
 `prCurTier='x'` is the existing mechanism for "this beat is not scored" (crisis
-disclosures already use it). Every beat here uses it.
+disclosures already use it). Every beat here uses it — but **that alone does
+not suppress the results screen**, and an earlier draft of this document
+implied it did. Corrected below.
 
-- **No green/amber grid** on either results screen.
+**The real mechanism, verified live.** `practiceRender()` contains a
+completely separate branch, `if(prLevel===3){ ...debrief markup...; return; }`
+(`:4478`), that exits BEFORE the scored-path code (`prx-score`, `prx-result`
+grid, `prx-bd` breakdown) is ever assembled. This is the only reason Hard
+Mode's results screen has no score today — confirmed by forcing `prLevel=3`
+and a completed run in-browser and checking `.prx-score`/`.prx-result`/
+`.prx-bd` are all absent from the DOM. `prCurTier` never enters into it; it
+governs per-beat feedback DURING a run, not the end-of-run assembly, which
+branches on `prLevel` directly.
+
+**What this means for build:** the branch must extend to
+`prLevel===3||prLevel===5||prLevel===6`, each with ITS OWN debrief markup —
+not a shared one. Hard Mode's copy (`prx_hard_t`/`prx_hard_b`/`prx_hard_blame`)
+is specific to Hard Mode; scenarios 5 and 6 need their own strings, matching
+the corrected debrief copy in `amparo-gemini-mockup-prompts.md` prompts 15/16
+("The silence was the point" / "I hope you never need this"). Built as three
+independent `if(prLevel===N)` blocks or one block with an internal switch —
+either is fine, but **do not let scenario 5/6 fall through into the scored
+path below the Hard Mode branch**, which is exactly what happens if the branch
+condition is only ever `prLevel===3` and nobody remembers to extend it.
+
+- **No green/amber grid** on either results screen — achieved by the early
+  return above, not by `prCurTier` alone.
 - **No `prx.best[5]` or `prx.best[6]` write — at the WRITE site, not just the
   two display sites.** `37e4ffe` guarded `i===3` at the hub card (`:2949`) and
   the tab strip (`:4435`) — display only. The write itself,
