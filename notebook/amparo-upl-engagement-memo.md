@@ -30,11 +30,15 @@ features on top of it.** A negative answer is a useful deliverable.
 
 ## 1. What the product is
 
-- Single-file static HTML web app, ~380 KB. No server, no database, no accounts,
+- Single-file static HTML web app, ~436 KB. No server, no database, no accounts,
   no login, no payment, no analytics of user-entered content.
 - Bilingual English / Spanish.
-- Free. There is no payment integration anywhere in the codebase, and none is
-  planned pending this opinion.
+- **Free today, and free in every version you will be shown.** There is no
+  payment integration anywhere in the codebase and none is deployed. We are,
+  however, actively considering charging a one-time fee in future, and Q9 below
+  asks you about that directly. We flag it here rather than burying it: an
+  earlier draft of this memo told you no charging was planned at all, which is
+  no longer accurate and we did not want you to rely on it.
 - All user-entered data (name, emergency contacts, chosen state) stays in the
   browser's local storage on the user's own device. Nothing is uploaded.
 - Distributed at https://www.amparohq.com/. Not marketed as legal advice; not
@@ -205,10 +209,29 @@ expect several to be "it depends," and the conditions are the valuable part.
 8. Does **Tex. Gov't Code § 81.101(c)** cover this product in Texas as described,
    and if so, what exactly must the product display to fall within it?
 
-9. Does the fact that the product is **free, with no payment mechanism of any
-   kind**, materially affect the analysis? Conversely: if we later charged a
-   one-time fee for the printable pack only — never for the practice engine —
-   would that change your answer to any question above?
+9. Does the fact that the product is **free today, with no payment mechanism
+   deployed**, materially affect the analysis?
+
+   And, separately, because our thinking has changed and we would rather you
+   answer the real question than a stale one — we are now considering charging
+   for **scripts tied to the practice scenarios**, i.e. content on the practice
+   side, not only the printable reference pack. Please address each of these:
+
+   a. Charging a one-time fee for the **printable pack only**, with the practice
+      engine remaining entirely free.
+   b. Charging a one-time fee for **practice-scenario scripts** — the words the
+      user rehearses — while the scenarios themselves remain free to play.
+   c. Charging for **access to the scored practice engine itself**.
+
+   If these differ in your analysis, we need to know which line is safe to
+   cross, because it determines what we build. Our present instinct is that (c)
+   is the most exposed and (a) the least, but that is a guess and we would
+   rather be told.
+
+9b. Does forming a **501(c)(3) nonprofit** change your answer to any part of
+    Q9? We ask because *Upsolve* was itself a nonprofit and lost, so we do not
+    assume nonprofit status is protective — but we would like that confirmed
+    rather than assumed.
 
 10. Does the product's **bilingual (Spanish) delivery** to a population that
     includes non-citizens raise any distinct regulatory issue you would flag —
@@ -273,10 +296,19 @@ Stated up front because a surprise later costs more than a disclosure now:
 - The product has had approximately 72 visitors in the last 30 days and one
   known user who completed the full flow. This is pre-traction, not a scaled
   service.
-- The immigration checkpoint level (level 6) was built on settled Supreme Court
-  authority and federal statute and has never been reviewed by an immigration
-  attorney. If you believe that level warrants separate immigration-specialist
-  review, please say so.
+- The immigration checkpoint level was built on settled Supreme Court authority
+  and federal statute and has never been reviewed by an immigration attorney. If
+  you believe that level warrants separate immigration-specialist review, please
+  say so.
+- **We are actively considering charging money for part of this product** (Q9).
+  No payment code is deployed and none will be enabled before we have your
+  answer, but we are not able to tell you charging is off the table, and we did
+  not want that to reach you as a late surprise.
+- Two additional practice scenarios and a separate "police at your door" module
+  are **built in the codebase but disabled behind feature flags**, with every
+  officer line still an unwritten placeholder. They are not user-reachable and
+  are not part of what we are asking you to assess. We mention them only so that
+  a code review does not surprise you.
 - We have deliberately excluded from the product any question of whether a local
   officer may act on immigration status, because that law is actively moving in
   our covered states.
