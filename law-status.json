@@ -1,11 +1,10 @@
 {
-  "lastChecked": "2026-08-06",
-  "lastAttempt": "2026-08-06",
-  "reachedSources": 3,
+  "lastChecked": "2026-08-07",
+  "lastAttempt": "2026-08-07",
+  "reachedSources": 4,
   "sourcesWatched": 4,
   "counts": {
-    "ok": 3,
-    "unreachable": 1
+    "ok": 4
   },
   "needsReview": [],
   "note": "Automated source-change check only. This does not verify that the law is correct — that requires a person."
