@@ -6,6 +6,33 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.16.1 — 2026-08-11
+
+v2.16.1 — "The dead mic path can't come back hot"
+
+An outside master-spec review (banked whole in `wargames/14`) surfaced one
+finding that survived verification: the practice engine still carries a
+browser-SpeechRecognition transcript layer that ships mic audio to
+Google/Apple servers on most platforms. Git trace showed the record-console
+UI reaching it was removed in `6651f47` — so **no user audio has left the
+device** — but the path would have returned hot the day anyone rewired a
+console, under a comment claiming "nothing is uploaded."
+
+- New `prxSTT` gate (localStorage `amparo_stt`, default OFF) on the SR
+  construction — the vendor-transit layer now requires an explicit opt-in
+  that no UI currently offers. Rebuild rules (default-off toggle +
+  bilingual vendor disclosure) banked in the code comment and wargames/14.
+- The comment above `PRX_SR` rewritten to state reality — the
+  quiet-false-claim failure mode this project has been burned by before.
+- `prx_own_sum` promised "(type or speak)"; speak hasn't existed since the
+  chat rebuild. Now "(type it)" / "(escríbelas)".
+- `wargames/14-spec-v5-collision-analysis.md`: the outside Convex+Clerk+
+  React master spec measured against settled decisions — verdicts banked
+  so none of it gets re-litigated from scratch. Key hygiene: the pasted
+  Stripe test + Clerk keys need rotating (operator action).
+
+No EDITION bump — no legal content touched.
+
 ## v2.16.0 — 2026-08-11
 
 v2.16.0 — "One conversation, not a menu and a chat"

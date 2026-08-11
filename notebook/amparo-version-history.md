@@ -8,6 +8,19 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.16.1 — 2026-08-11 — "The dead mic path can't come back hot"
+
+- SpeechRecognition transcript layer gated off by default (`prxSTT`,
+  localStorage `amparo_stt`). Path was already unreachable — record-console
+  UI removed in `6651f47` — but would have returned vendor-transiting the
+  day a console was rewired. No user audio ever left the device; verified
+  by git -S, not memory.
+- Stale "nothing is uploaded" comment rewritten; "(type or speak)" string
+  fixed to "(type it)" — speak hasn't been offered since the chat rebuild.
+- `wargames/14`: outside Convex+Clerk+React master-spec collision analysis
+  banked (rejected vs settled decisions; credits recorded; key rotation
+  flagged). Found the SR issue.
+
 ## v2.16.0 — 2026-08-11 — "One conversation, not a menu and a chat"
 
 Practice hub redesign, driven by convening the wargame-01 expert panel
