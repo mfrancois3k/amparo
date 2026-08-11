@@ -428,6 +428,18 @@ Demeanor tone label was `aria-hidden` — now a polite live region. (4)
 misalign after crisis beats (use `prRunIdx`), and busy-flag guards reset
 synchronously are no-ops against same-tick double-clicks.
 
+## v2.15.0 — 2026-08-11 — "The rehearsal room matches the roadside"
+
+Practice overlay goes dark — card, bubbles, choice cards, coach boxes, tabs,
+rail, results, footer. Extends the recording console/officer-panel palette
+(gold `#F3D48A`, muted `#8fa0bd`, green `#4ade80`) rather than inventing a
+second scheme. Scoped to `#practiceOverlay` via explicit overrides, not a
+global `--navy` flip (it's both dark text AND dark button bg — flipping it
+breaks the selected tab). Six other `.ab-card` overlays + print pack verified
+still light. Caught in visual testing: `.prx-key` inherited text colour,
+rendering the model answer's highlighted phrases unreadable on dark — fixed
+with explicit ink. Tone atmosphere (v2.12.1) re-tuned for dark ground.
+
 ---
 
 ## Quick lookup: "what tag has the fix for X"
@@ -506,6 +518,8 @@ synchronously are no-ops against same-tick double-clicks.
 | Reduced-motion double-tap guard (same-tick clicks) | v2.14.1 |
 | Demeanor label screen-reader fix + `smCap` i18n + dead `prxBack` | v2.14.1 |
 | Loop reports: FG-08, `wargames/12`, blindspot-audit-2026-08-11 | v2.14.1 window |
+| Dark practice card (scoped `#practiceOverlay` palette) | v2.15.0 |
+| `.prx-key` dark-mode contrast fix | v2.15.0 |
 
 To restore any version exactly:
 ```bash

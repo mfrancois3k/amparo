@@ -6,6 +6,26 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.15.0 — 2026-08-11
+
+v2.15.0 — "The rehearsal room matches the roadside"
+
+Practice overlay goes dark — card, bubbles, choice cards, coach boxes, tabs,
+rail, results screen, footer. Palette extends what the recording console and
+officer panel already used (gold `#F3D48A`, muted `#8fa0bd`, green
+`#4ade80`), not a new scheme. Scoped explicitly to `#practiceOverlay` via
+targeted overrides — flipping the global `--navy` var would have made the
+selected tab white-on-white, since it does double duty as text AND button
+background. Six other overlays sharing `.ab-card`, and the printable pack,
+verified to stay light.
+
+Caught in visual testing: `.prx-key` (the model answer's highlighted
+phrases) inherited text colour and rendered light-on-light on the dark
+card — unreadable, on the exact words the user is there to rehearse. Fixed
+with explicit dark ink.
+
+Tone atmosphere (v2.12.1) re-tuned for the dark ground.
+
 ## v2.14.1 — 2026-08-11
 
 v2.14.1 — "Five fixes the loop's own agents found"
