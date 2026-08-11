@@ -8,6 +8,27 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.16.0 — 2026-08-11 — "One conversation, not a menu and a chat"
+
+Practice hub redesign, driven by convening the wargame-01 expert panel
+(encounter designer, level designer, systems designer, game master/scenario
+designer, tutorial designer, game accessibility specialist, instructional
+designer, stress-inoculation psychologist) live over NLM against the full
+notebook — not worked from memory.
+
+- Scenario select: tile grid → vertical card list. Thumbnail + title +
+  one-line description + tone-accent stripe (green/orange/red = the real
+  hostility ladder). Subtitle surfaces that officer wording varies per run
+  (Move 6 — `PRX_VAR`'s ~45 variants existed, were never told to the user).
+- Run screen: tile grid no longer re-renders above the chat. Compact header
+  (back chip, level name, score ring) replaces it. Root cause of the
+  reported issue — user saw all level boxes repeat every screen inside a run.
+- Score ring: always "g/a", never bare count; decoration only, never
+  color-alone signal. `PRX_UNSCORED` levels (hard mode, checkpoint's dark
+  siblings, both final-scenario tracks) render no ring — consistent with the
+  existing no-scoreboard rule on their debrief screens.
+- No EDITION bump — no officer line, citation, or scored answer touched.
+
 ## v2.0.0 — 2026-07-29 — "Get the site live and safe"
 
 The pre-tag build-up commits, in order:

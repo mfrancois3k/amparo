@@ -6,6 +6,37 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.16.0 — 2026-08-11
+
+v2.16.0 — "One conversation, not a menu and a chat"
+
+Practice hub redesigned around an eight-role expert panel (wargame 01's game
+roles + instructional/psych roles), convened live over NLM against the full
+Amparo notebook rather than worked from memory.
+
+**Scenario select** is now a vertical card list — thumbnail, title, one-line
+"what happens," tone-accent stripe (green → orange → red, the same escalation
+ladder the officer actually walks) — replacing the flat tile grid. Subtitle
+tells the user the officer's wording changes every run (`PRX_VAR`'s ~45
+variants existed since the divergent-turns work but were never surfaced —
+Move 6 from wargame 01).
+
+**During a run**, the tile grid is gone entirely. A compact header (back
+chip, level name, score ring) replaces it — officer chat is the whole screen,
+the way image-1 of the reference mockup showed it. Previously every run
+screen re-rendered the full level grid above the chat, which read as "why am
+I seeing all these boxes again."
+
+**Score ring** always shows count *and* denominator ("3/5"), never a bare
+count — the exact bug a v2.14.1 fix already covered elsewhere, now guarded
+here too. Ring is SVG decoration; the number is the signal, colour is never
+the only carrier (game-accessibility catch). Hard mode, checkpoint's unscored
+siblings, and the two dark final-scenario tracks (`PRX_UNSCORED`) never
+render a ring — a score there would imply the escalation was earned, which
+was already the house rule for the debrief screens.
+
+No EDITION bump: presentation-only, zero officer lines or citations touched.
+
 ## v2.15.0 — 2026-08-11
 
 v2.15.0 — "The rehearsal room matches the roadside"
