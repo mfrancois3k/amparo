@@ -309,6 +309,20 @@ four were placement or labelling defects, not missing features. Two pre-existing
 CSS defects fixed in passing (`.btn` width overflow in flex rows, `.docrow .dt`
 missing `min-width:0` at 320px in Spanish).
 
+## v2.11.0 — 2026-08-11 — "A real map, and a stepper that actually steps"
+
+State picker rebuilt twice in one session: a tile cartogram first, replaced
+outright once the actual ask was "like this, not rectangular" — real
+geographic US map from public-domain path data (Wikimedia Blank US Map), 51
+jurisdictions, runtime label placement off each shape's bounding box. Sliver
+states (RI/DE/DC/NJ/CT/MA/NH) get their label pulled outside the polygon and
+wired as a full click/hover peer — the label *is* the tap target there.
+Alphabetical button list removed entirely; map is the one picker. Stepper's
+completed nodes are now clickable nav back to that section via the existing
+`goM()`; current/future nodes stay inert. Found and fixed app-wide: `[hidden]`
+was a silent no-op on `.linkbtn` (author rule beat the UA default).
+`index.html` 458 → 502 KB.
+
 ---
 
 ## Quick lookup: "what tag has the fix for X"
@@ -370,6 +384,10 @@ missing `min-width:0` at 320px in Spanish).
 | Practice CTA scrolls into view after printing | v2.10.0 |
 | Document capture rebuilt as an overlay (not a wizard step) | v2.10.0, `openPapers()` / `sr_docs` |
 | Window-card photo pockets restored (only when photos exist) | v2.10.0 |
+| Geographic US state map (real shapes, replaces alphabetical list) | v2.11.0 |
+| Sliver-state labels as full tap targets (RI/DE/DC/NJ/CT/MA/NH) | v2.11.0 |
+| Stepper's completed nodes clickable — jump back to a section | v2.11.0 |
+| `[hidden]` app-wide fix (was a no-op on `.linkbtn`) | v2.11.0 |
 
 To restore any version exactly:
 ```bash

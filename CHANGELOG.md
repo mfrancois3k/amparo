@@ -6,6 +6,30 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.11.0 — 2026-08-11
+
+v2.11.0 — "A real map, and a stepper that actually steps"
+
+**State picker.** The alphabetical button list is gone; a real geographic US
+map is the one way to pick a state now. Public-domain path data (Wikimedia's
+Blank US Map), 51 jurisdictions, labels placed at runtime from each shape's
+own bounding box. Sliver states (RI, DE, DC, NJ, CT, MA, NH) get their label
+pulled outside the polygon and wired as a full click/hover target — for those
+states the label *is* the tappable state. Hover writes the name + coverage
+tier to a caption bar; TX/GA/NY stay gold; selection retracts to the same
+confirmed-chip flow the button list always used.
+
+**Stepper.** The five-dot State/You/Lifelines/Print/Practice stepper's
+completed nodes now jump back to that section — same `goM()` every Back
+button calls. Current and future steps stay inert (standard breadcrumb
+contract). Real buttons, translated `aria-label`s, keyboard parity.
+
+Found in passing: `[hidden]` was a silent no-op on `.linkbtn` app-wide (an
+author `display:block` rule beat the UA default). One global rule fixed it
+everywhere the attribute is used, not just the map.
+
+`index.html` 458 → 502 KB (the map's path data).
+
 ## v2.10.0 — 2026-08-10
 
 v2.10.0 — "Four answers from the only real user, all four closed"
