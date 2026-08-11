@@ -497,6 +497,101 @@
       repeating-linear-gradient(0deg,rgba(122,15,15,.05) 0 2px,transparent 2px 5px)}
   html:not(.sr-motion) #practiceOverlay .ab-card.hardmode-live::after{animation:hmScan 3.4s linear infinite}
   @keyframes hmScan{from{background-position:0 0,0 0}to{background-position:0 0,0 42px}}
+  /* ===== Dark practice card =====
+     The rehearsal happens at a roadside at night; the cream card never
+     matched that. This extends the palette the recording console (#10182b)
+     and officer panel (.prx-cop) ALREADY use — gold #F3D48A, muted #8fa0bd,
+     green #4ade80 — to the whole card, rather than inventing a second dark
+     scheme that would drift from those two.
+     Written as explicit scoped overrides, NOT by re-declaring the global
+     CSS vars: --navy does double duty as both "dark text" and "dark button
+     background" (.prx-tab.on, .prx-typerow button, .ab-top), so flipping it
+     would make selected tabs white-on-white. Scoped to #practiceOverlay so
+     the six other overlays sharing .ab-card, and the printable pack, are
+     untouched.
+     Contrast checked against #141d33: body text #e8eef7 ~15:1, muted
+     #8fa0bd ~6.6:1, gold #F3D48A ~11.8:1 — all clear AA, muted clears AA
+     for normal text not just large. */
+  #practiceOverlay .ab-card{background:#141d33;color:#e8eef7}
+  #practiceOverlay .ab-body p,#practiceOverlay .ab-body{color:#e8eef7}
+  #practiceOverlay .ab-body h3{color:#F3D48A}
+  #practiceOverlay .prc-count,#practiceOverlay .prx-daily,#practiceOverlay .prc-cite{color:#F3D48A}
+  #practiceOverlay .prc-intro,#practiceOverlay .prx-setter,#practiceOverlay .prx-vlang,
+  #practiceOverlay .prx-dem-lbl,#practiceOverlay .prx-lockhint,#practiceOverlay .prx-caption{color:#8fa0bd}
+  #practiceOverlay .prx-setter{border-bottom-color:#2f3f5e}
+  /* Officer bubble: keeps the tone ladder, re-tuned for a dark ground. */
+  #practiceOverlay .prx-ob{background:#24314d;color:#e8eef7}
+  #practiceOverlay .prx-ob.firm{background:#3a2f3f}
+  #practiceOverlay .prx-ob.hot{background:#4a2f33}
+  #practiceOverlay .prx-mb{background:#2f7d55;color:#fff}
+  #practiceOverlay .prx-cav{background:#24314d}
+  #practiceOverlay .prx-cav.me{background:#2f7d55}
+  /* Choice cards + coach. */
+  #practiceOverlay .prx-opt{background:#1c2740;border-color:#2f3f5e;color:#e8eef7}
+  #practiceOverlay .prx-opt.pg{background:#1b3a2b;border-color:#4ade80}
+  #practiceOverlay .prx-opt.pb{background:#3d2f1c;border-color:#f0a04b}
+  #practiceOverlay .prx-coach.good{background:#16301f;border-color:#2f7d55;color:#cfeeda}
+  #practiceOverlay .prx-coach.bad{background:#33281a;border-color:#8a6a2e;color:#f2ddb4}
+  #practiceOverlay .prx-coach .mdl{border-top-color:rgba(255,255,255,.14)}
+  /* .prx-key sets its own cream highlight but INHERITS colour — on the dark
+     card that made the model answer's key phrases light-on-light and
+     unreadable, which is the single most important string on the screen
+     (it's the words the user is meant to rehearse). Explicit dark ink. */
+  #practiceOverlay .prx-key{background:#f6e2ae;color:#241a05}
+  /* Tabs. .on keeps a LIGHT fill so the selected tab still reads as
+     selected against a dark card — inverting it would lose the signal. */
+  #practiceOverlay .prx-tab{background:#1c2740;border-color:#2f3f5e;color:#cbd5e1}
+  #practiceOverlay .prx-tab.on{background:var(--gold);border-color:var(--gold);color:#1B2A4A}
+  /* Progress rail + demeanor: only the NEUTRAL track needs darkening; the
+     green/gold/red state colours already carry on dark. */
+  #practiceOverlay .prx-rail .rd,#practiceOverlay .prx-rail .rl,
+  #practiceOverlay .prx-match i{background:#2f3f5e}
+  #practiceOverlay .prx-rail .rd.g{background:var(--ok)}
+  #practiceOverlay .prx-rail .rd.y,#practiceOverlay .prx-rail .rd.cur{background:var(--gold)}
+  #practiceOverlay .prx-match i.on{background:#4ade80}
+  #practiceOverlay .prx-dem-dot{background:#e8eef7;border-color:#e8eef7}
+  #practiceOverlay .prx-passline{color:#F3D48A}
+  #practiceOverlay .prx-passline.ok{color:#4ade80}
+  /* Type-your-own. */
+  #practiceOverlay .prx-typerow input{background:#1c2740;border-color:#2f3f5e;color:#e8eef7}
+  #practiceOverlay .prx-typerow input::placeholder{color:#7c8db0}
+  #practiceOverlay .prx-typerow input:focus{border-color:var(--gold)}
+  #practiceOverlay .prx-typerow button{background:var(--gold);color:#1B2A4A}
+  #practiceOverlay .prx-own summary{color:#8fa0bd}
+  #practiceOverlay .prx-heard{background:#1c2740;border-color:#2f3f5e;color:#e8eef7}
+  #practiceOverlay .prx-chip{border-color:#2f3f5e;color:#8fa0bd}
+  #practiceOverlay .prx-chip.hit{background:#1b3a2b;border-color:#2f7d55;color:#cfeeda}
+  /* Results screen. */
+  #practiceOverlay .prx-score{color:#e8eef7}
+  #practiceOverlay .prx-score span{color:#8fa0bd}
+  #practiceOverlay .prx-stats div{background:#1c2740;border-color:#2f3f5e}
+  #practiceOverlay .prx-stats b{color:#e8eef7}
+  #practiceOverlay .prx-stats small{color:#8fa0bd}
+  #practiceOverlay .prx-bd-row{color:#e8eef7;border-bottom-color:#2f3f5e}
+  #practiceOverlay .prx-master,#practiceOverlay .prx-chknote{background:#33281a;border-color:#8a6a2e;color:#f2ddb4}
+  #practiceOverlay .prx-chknote.muted{background:#1c2740;border-color:#2f3f5e;color:#8fa0bd}
+  #practiceOverlay .prx-warn{background:#33281a;border-color:#8a6a2e;color:#f2ddb4}
+  #practiceOverlay .prx-foot{border-top-color:#2f3f5e}
+  #practiceOverlay .prx-rehearse{color:#e8eef7}
+  #practiceOverlay .prx-res{background:#1c2740;border-color:#2f3f5e;color:#cbd5e1}
+  #practiceOverlay .prx-fn{background:#1c2740;border-color:#8a6a2e}
+  #practiceOverlay .prx-fn p{color:#cbd5e1}
+  #practiceOverlay .prx-fn-h{color:#F3D48A}
+  #practiceOverlay .prx-fn-s{color:#e8eef7}
+  /* Controls + shared buttons that land inside the card. */
+  #practiceOverlay .prx-hear{color:#F3D48A;border-color:rgba(243,212,138,.4)}
+  #practiceOverlay .prx-hear:hover{border-color:#F3D48A}
+  #practiceOverlay .prx-vbtn{background:transparent;color:#F3D48A;border-color:rgba(243,212,138,.4)}
+  #practiceOverlay .prx-vbtn.on{background:var(--gold);color:#1B2A4A;border-color:var(--gold)}
+  #practiceOverlay .prx-wave i{background:var(--gold)}
+  #practiceOverlay .linkbtn{color:#F3D48A}
+  #practiceOverlay .btn.ghost{color:#e8eef7;border-color:#2f3f5e}
+  #practiceOverlay .btn.ghost:hover{background:rgba(255,255,255,.06)}
+  /* Tone atmosphere (v2.12.1) re-tuned: the cream-era inset ring is nearly
+     invisible on a dark card, so these lift to a glow that actually reads. */
+  #practiceOverlay .ab-card.firm{box-shadow:0 30px 80px rgba(0,0,0,.5),inset 0 0 0 2px rgba(240,160,75,.45)}
+  #practiceOverlay .ab-card.hot{box-shadow:0 30px 80px rgba(0,0,0,.5),inset 0 0 0 2px rgba(255,105,90,.55)}
+  #practiceOverlay .ab-card.hardmode-live{box-shadow:0 30px 90px rgba(122,15,15,.6),inset 0 0 0 2.5px rgba(255,105,90,.6)}
   #practiceOverlay .ab-body{flex:1;overflow:auto}
   @media(min-width:700px){#practiceOverlay .ab-card{max-width:900px;height:94vh}}
   /* demeanor meter (practice.html look): shifts calm→tense with officer tone */
