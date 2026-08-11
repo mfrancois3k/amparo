@@ -163,8 +163,31 @@ Delete first: `nlm delete source <source-id> -y`.
 **Auth, and this cost real time — read it.** `nlm` stores credentials at
 `~/.notebooklm-mcp-cli/profiles/default`. It does **not** use
 `~/.notebooklm/storage_state.json` — that belongs to the separate `notebooklm`
-binary, and checking it will make working auth look broken. `nlm login` alone
-fails from a sandboxed shell because it cannot spawn Chrome. Do this instead:
+binary, and checking it will make working auth look broken.
+
+Two different credentials live in that profile, with two very different
+lifespans: the Google account cookies (`OSID` etc.) are valid ~13 months and
+are never the problem. The `csrf_token`/`session_id` pair in `metadata.json`
+is a short-lived Google-internal frontend session tied to one page load —
+Google expires it on a timer of a few hours, independent of the cookie's
+stated expiry. That's what "Authentication expired" actually means almost
+every time, and it recurs **within the same working session** — expect it
+multiple times in one day, not once a month.
+
+`nlm` also keeps its own fully isolated Chrome profile at
+`~/.notebooklm-mcp-cli/chrome-profiles/default` (separate from any Chrome you
+use manually), with your Google login already saved in it. So the fix is one
+command, no manual browser, no CDP port:
+
+```bash
+nlm login
+```
+
+That drives its own headless Chrome against its own saved login and mints a
+fresh session token in one shot. Only fall back to the manual CDP dance below
+if plain `nlm login` itself fails — meaning that isolated profile's own
+Google session died too, which should be rare given the ~13-month cookie
+life:
 
 ```bash
 "/c/Program Files/Google/Chrome/Application/chrome.exe" --remote-debugging-port=9223 \
