@@ -5019,7 +5019,38 @@ function prxBack(){
   prIdx--; prRevealed=false;
   practiceRender(); prxSpeak();
 }
+/* Divergence — the officer's NEXT line depends on how this beat went.
+   Direction is capped per level by the consent design ("escalation is
+   chosen, never sprung"):
+   - Level 1 (curt): a good answer DE-escalates — the next line is drawn from
+     the calm pool (every L1 beat ships 2 calm + 2 curt variants), a mistake
+     keeps it curt. Softer-than-promised springs nothing; harsher would, so
+     hostile stays out of L1.
+   - Level 2 (behind the escalation consent gate): a mistake draws hostile, a
+     good answer curt. Its arrest beat (ci 7) currently has no hostile
+     variant, so this leg is inert until one is authored — kept because the
+     logic is tone-pool-driven and lights up the day the bank grows.
+   - Level 0 promises calm; levels 3+ are fixed scripted tracks. Untouched.
+   Selection only: every line the re-deal can pick is the same static,
+   attorney-reviewable bank the deck was dealt from — no new content, the
+   corpus stays closed and finite. Curveball beats are never re-dealt (their
+   wording IS the curveball). The demeanor meter and bubble colour already
+   re-render per beat, so the shift is visible without any new UI. */
+const PRX_DIVERGE={1:{g:'calm',b:'curt'},2:{g:'curt',b:'hostile'}};
+function prxDiverge(){
+  const dir=PRX_DIVERGE[prLevel];
+  if(!dir||prCurTier==='x') return;
+  const next=prDeck[prIdx+1];
+  if(!next||next.curve) return;
+  const want=prCurTier==='g'?dir.g:dir.b;
+  if(next.tone===want) return; // already there — keep the dealt line and its audio
+  const pool=(PRX_VAR[next.ci]||[]).filter(v=>v.tone===want);
+  if(!pool.length) return;
+  const v=pool[Math.floor(Math.random()*pool.length)];
+  Object.assign(next,{officer:{en:v.en,es:v.es},tone:v.tone,id:v.id});
+}
 function prxAdvance(){
+  prxDiverge(); // must read prCurTier BEFORE it is cleared below
   prxDropLast(); prxIdleN=0; prxSaidTxt=''; prxSaidKey=''; prxSaidHits=0; prxSaidTotal=0; prxSaidGood=false; prxChosen=''; prxChoseGood=false; prxPickedAlt=false;
   /* tier 'x' (crisis disclosure) is recorded as NOTHING — no square in the grid, no
      contribution to the score, nothing in the shareable summary. Anything else keeps

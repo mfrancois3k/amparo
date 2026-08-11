@@ -95,6 +95,11 @@ no generative AI, and no runtime text generation anywhere in the product.**
   across the beats, plus roughly 10 "curveball" rephrasings.
 - Every curveball changes only the *question's wording*; each one resolves to an
   already-authored answer. The set of correct answers is closed and finite.
+- On one level, *which* pre-authored variant the officer speaks next depends on
+  whether the user's previous answer matched the model answer (a wrong answer
+  draws a harsher-toned line from the same bank, a right answer a milder one).
+  This is selection among the same closed, static bank — not generation — and
+  the correct answer for each beat is unchanged by it.
 - The code carries this as an explicit design constraint, quoted from the source:
   *"deliberately NOT runtime-generated: a lawyer can sign a static bank, never an
   LLM improvising police dialogue."*
