@@ -174,26 +174,26 @@ stated expiry. That's what "Authentication expired" actually means almost
 every time, and it recurs **within the same working session** — expect it
 multiple times in one day, not once a month.
 
-`nlm` also keeps its own fully isolated Chrome profile at
-`~/.notebooklm-mcp-cli/chrome-profiles/default` (separate from any Chrome you
-use manually), with your Google login already saved in it. So the fix is one
-command, no manual browser, no CDP port:
+**The reliable fix is the CDP method** against a long-running Chrome on port
+9223 (launch once, it keeps serving re-auths all day):
 
 ```bash
-nlm login
-```
-
-That drives its own headless Chrome against its own saved login and mints a
-fresh session token in one shot. Only fall back to the manual CDP dance below
-if plain `nlm login` itself fails — meaning that isolated profile's own
-Google session died too, which should be rare given the ~13-month cookie
-life:
-
-```bash
+curl -s -m 3 http://127.0.0.1:9223/json/version   # already listening?
+# if not:
 "/c/Program Files/Google/Chrome/Application/chrome.exe" --remote-debugging-port=9223 \
   --user-data-dir="C:\Users\mfran\.nlm-chrome-profile" --no-first-run about:blank &
 nlm login --cdp-url http://127.0.0.1:9223
 ```
+
+Plain `nlm login` (no flags) drives `nlm`'s own isolated headless Chrome at
+`~/.notebooklm-mcp-cli/chrome-profiles/default` and DOES sometimes work in
+one shot — but it has also hung with `WebSocketTimeoutException` from this
+sandboxed shell, and a killed attempt leaves zombie `chrome.exe` processes
+holding that profile, which then wedge every retry. If plain login ever
+hangs: kill only nlm's Chromes (`Get-CimInstance Win32_Process -Filter
+"Name='chrome.exe'"` filtered on CommandLine containing
+`notebooklm-mcp-cli`), then use the CDP method above. Verified both
+directions on 2026-08-11.
 
 **Voicebox** (voice generation) is a local app exposing JSON-RPC at
 `127.0.0.1:17493/mcp` while open — not a registered MCP. Drive it over HTTP; see
