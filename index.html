@@ -1911,7 +1911,7 @@ const T = {
     prx_voice:"Officer voice:", prx_gender:"Officer:", prx_g_m:"♂ Male", prx_g_f:"♀ Female",
     prx_dem_label:"Officer's demeanor", prx_dem_calm:"calm", prx_dem_firm:"firm", prx_dem_tense:"tense",
     prx_pick:"Your turn — what do you say?", prx_model:"One calm way to say it", prx_setter:"You're pulled over at dusk. The officer walks up to your window.",
-    prx_own_sum:"…or answer in my own words (type or speak)",
+    prx_own_sum:"…or answer in my own words (type it)",
     prx_type_ph:"…or type your answer here", prx_type_btn:"Check", prx_type_a11y:"Type your answer",
     prx_said:"You said", prx_legal:"⚖️ Legally, you say",
     prx_passed:"🏅 Passed — you hit {n} of {t} key words", prx_close_line:"Close — {n} of {t} key words. One more rep locks it in.",
@@ -2254,7 +2254,7 @@ const T = {
     prx_voice:"Voz del oficial:", prx_gender:"Oficial:", prx_g_m:"♂ Hombre", prx_g_f:"♀ Mujer",
     prx_dem_label:"Actitud del oficial", prx_dem_calm:"tranquilo", prx_dem_firm:"firme", prx_dem_tense:"tenso",
     prx_pick:"Tu turno — ¿qué dices?", prx_model:"Una forma calmada de decirlo", prx_setter:"Te detienen al anochecer. El oficial se acerca a tu ventanilla.",
-    prx_own_sum:"…o responder con mis palabras (escribe o habla)",
+    prx_own_sum:"…o responder con mis palabras (escríbelas)",
     prx_type_ph:"…o escribe tu respuesta aquí", prx_type_btn:"Comprobar", prx_type_a11y:"Escribe tu respuesta",
     prx_said:"Dijiste", prx_legal:"⚖️ Legalmente, tú dices",
     prx_passed:"🏅 Aprobado — dijiste {n} de {t} palabras clave", prx_close_line:"Casi — {n} de {t} palabras clave. Una repetición más y lo tienes.",
@@ -4917,8 +4917,18 @@ let prxRec=null, prxRecTick=0; // {rec, stream, discard}
 /* Transcript layer: browser SpeechRecognition alongside the recorder. The
    transcript is compared to the card's quoted key phrases — matched words go
    green, and the outcome is "you hit it" or "close, try again". Never "failed":
-   accents, stutters and quiet voices are the audience, not an error state. */
+   accents, stutters and quiet voices are the audience, not an error state.
+   ⚠ PRIVACY — read before rewiring: unlike the MediaRecorder path above,
+   browser SpeechRecognition is NOT on-device on most platforms — Chrome and
+   older iOS ship the mic audio to Google/Apple servers for recognition. The
+   record-console UI that reached this code was removed in the chat rebuild
+   (6651f47), so nothing hits it today, and prxSTT below gates it OFF so it
+   cannot come back silently. If a record console is ever rebuilt: the toggle
+   must default OFF and render a vendor-processing disclosure next to it, in
+   both languages. Full analysis: wargames/14. */
 const PRX_SR=window.SpeechRecognition||window.webkitSpeechRecognition||null;
+let prxSTT=false; // opt-in only, never default-on — vendor-server transit, see wargames/14
+try{ prxSTT=localStorage.getItem('amparo_stt')==='1'; }catch(e){}
 let prxHeard='';
 /* ONE crisis list, ONE normalizer, two call sites. They were duplicated inline and
    had drifted: the typed path — the primary way anyone enters free text — was
@@ -5015,7 +5025,7 @@ async function prxRecToggle(){
     const rec=new MediaRecorder(stream), chunks=[];
     let sr=null;
     prxHeard='';
-    if(PRX_SR){
+    if(PRX_SR&&prxSTT){ // gated: browser STT transits vendor servers — opt-in only
       try{
         sr=new PRX_SR();
         sr.lang=lang==='es'?'es-US':'en-US';
