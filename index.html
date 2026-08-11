@@ -348,6 +348,12 @@
     border:1.5px solid var(--line);border-radius:14px;padding:14px 13px;background:#fffdf8;
     cursor:pointer;font-family:inherit;min-height:96px;transition:transform .25s var(--ease-spring),border-color .22s,box-shadow .25s var(--ease-out)}
   .pr-card:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:0 6px 16px rgba(232,184,75,.16)}
+  /* Selection beat: the tapped card confirms green BEFORE the overlay covers
+     it — without this the practice overlay swallows the tap instantly and the
+     pick never visibly registers. One pulse, ~quarter second, then launch. */
+  .pr-card.picked{border-color:var(--ok);box-shadow:0 0 0 3px rgba(47,143,91,.35),0 6px 16px rgba(47,143,91,.22)}
+  html:not(.sr-motion) .pr-card.picked{animation:prPicked .26s var(--ease-spring)}
+  @keyframes prPicked{0%{transform:scale(1)}45%{transform:scale(1.04)}100%{transform:scale(1)}}
   .pr-card.lock{opacity:.55;cursor:default}
   .pr-card.lock:hover{transform:none;border-color:var(--line);box-shadow:none}
   /* Same green-success grammar as .up.hasimg / .trust-chip.ok elsewhere — a tiny ✓
@@ -3286,7 +3292,7 @@ function render(){
       <div class="pr-grid">
         ${PRX_LEVEL_IDS.map(i=>{
           const isLk=locked(i), best=prx.best&&prx.best[i], done=prx.done[i];
-          return `<button class="pr-card${isLk?' lock':''}${done?' done':''}" ${isLk?`aria-disabled="true" title="${_t.hub_locked}"`:''} onclick="${isLk?'':`prStart(${i})`}">
+          return `<button class="pr-card${isLk?' lock':''}${done?' done':''}" ${isLk?`aria-disabled="true" title="${_t.hub_locked}"`:''} onclick="${isLk?'':`prPick(this,${i})`}">
             <span class="pr-ic" aria-hidden="true">${isLk?'🔒':(done?'✓':'▶')}</span>
             <span class="pr-nm">${_t['prx_lvl'+(i+1)]}</span>${done?`<span class="pr-donebadge">${_t.hub_done_badge}</span>`:''}
             <!-- prx.best stores "5/6". parseInt() dropped the denominator, and
@@ -4940,6 +4946,18 @@ function practiceOpen(silent){
    scenario. Routes through practiceOpen() (which builds the deck and wires the
    overlay) and then prxTab(), so the hub cannot bypass the level gate — prxTab
    re-checks it independently and refuses locked levels on its own. */
+/* Hub-card tap: let the pick visibly register (green pulse, ~260ms) before
+   the overlay covers the card. Reduced motion launches immediately. The busy
+   flag eats double-taps during the beat — two prStart() calls would stack
+   practiceOpen's speech twice. */
+let _prPickBusy=false;
+function prPick(el,i){
+  if(_prPickBusy) return;
+  if(document.documentElement.classList.contains('sr-motion')){ prStart(i); return; }
+  _prPickBusy=true;
+  el.classList.add('picked');
+  setTimeout(()=>{ _prPickBusy=false; prStart(i); },260);
+}
 function prStart(i){
   ph('sr_practice_hub_start',{level:i+1,lang:lang});
   /* First-ever run still meets the intro overlay — it carries the framing and the
