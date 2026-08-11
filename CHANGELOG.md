@@ -6,6 +6,27 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.14.1 — 2026-08-11
+
+v2.14.1 — "Five fixes the loop's own agents found"
+
+From the v2.14.0 verification pass (focus group 08, `wargames/12`, blind-spot
+audit 2026-08-11):
+
+1. **Score-history mismatch** (pre-existing, worst): `prRun` skips
+   crisis-tier beats, `prDeck` doesn't — after any crisis disclosure the
+   summary showed the wrong officer line per square and the rail dots the
+   wrong colour. Fixed with a parallel `prRunIdx[]` map through all five
+   reset sites; verified by triggering a real crisis beat mid-run.
+2. **Reduced-motion double-tap** double-fired the practice overlay — and the
+   first fix attempt was also wrong (synchronous flag reset; same-tick
+   clicks slipped through), caught by re-testing the actual double-click.
+3. **Demeanor tone label un-hidden** for screen readers — the only textual
+   tone signal, `aria-hidden` right as divergence made tone the feedback.
+   Now a polite live region.
+4. `smCap()` hardcoded English `'federal ✓'` → uses `_t.s_pending`.
+5. Dead duplicate `prxBack()` deleted.
+
 ## v2.14.0 — 2026-08-11
 
 v2.14.0 — "The officer reacts to how you answer"

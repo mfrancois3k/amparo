@@ -411,6 +411,23 @@ counsel keeps reading an accurate description. Curveballs never re-dealt;
 crisis (tier x) answers never steer tone. No new UI — demeanor meter and
 bubble colour already read tone per beat.
 
+## v2.14.1 — 2026-08-11 — "Five fixes the loop's own agents found"
+
+All five from the v2.14.0 verification pass. (1) Score-history index
+mismatch: `prRun` skips crisis beats, `prDeck` doesn't — wrong officer line
+per score square and wrong rail-dot colour after any crisis disclosure;
+fixed with parallel `prRunIdx[]` through all five reset sites, verified with
+a real crisis beat mid-run. (2) Reduced-motion double-tap double-fired the
+overlay — first fix attempt also wrong (synchronous reset, same-tick clicks
+slip through); caught only by re-testing the actual double-click. (3)
+Demeanor tone label was `aria-hidden` — now a polite live region. (4)
+`smCap()` hardcoded `'federal ✓'` → `_t.s_pending`. (5) Dead duplicate
+`prxBack()` (hoisting-shadowed) deleted.
+
+⚠️ Gotcha pair worth remembering: shared-index reads over `prRun`/`prDeck`
+misalign after crisis beats (use `prRunIdx`), and busy-flag guards reset
+synchronously are no-ops against same-tick double-clicks.
+
 ---
 
 ## Quick lookup: "what tag has the fix for X"
@@ -485,6 +502,10 @@ bubble colour already read tone per beat.
 | Checkpoint split into its own hub tab, out of the traffic ladder | v2.13.0 |
 | Divergent turns — officer's next line reacts to the answer (`prxDiverge()`) | v2.14.0 |
 | L2 arrest beat (ci 7) has no hostile variant — escalation leg inert | v2.14.0 note |
+| Crisis-beat score-history misalignment (`prRunIdx[]`) | v2.14.1 |
+| Reduced-motion double-tap guard (same-tick clicks) | v2.14.1 |
+| Demeanor label screen-reader fix + `smCap` i18n + dead `prxBack` | v2.14.1 |
+| Loop reports: FG-08, `wargames/12`, blindspot-audit-2026-08-11 | v2.14.1 window |
 
 To restore any version exactly:
 ```bash
