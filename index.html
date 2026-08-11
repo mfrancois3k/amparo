@@ -128,6 +128,51 @@
      drop before a state was picked; Texas sat at position 44 of 51 with no
      way to search) points straight at this screen. The page's own scroll now
      carries the whole list; #stateSearch does the real work of narrowing it. */
+  /* ===== State tile map — a letterpress atlas plate, not a geo SVG =====
+     A tile cartogram: every state the same tappable size, letters set on the
+     tile like type in a case, arranged in the shape of the country (the c6 gap
+     in row 1 is Lake Michigan). A geographic map cannot give RI/DE/DC a real
+     touch target at 320px; this gives every state the same one. */
+  .sm-wrap{margin:10px 0 4px}
+  .sm-map{display:grid;grid-template-columns:repeat(11,1fr);gap:4px;padding:12px 10px 10px;background:linear-gradient(160deg,#fdfbf5,#f4efe2);border:1.5px solid var(--line);border-radius:16px;position:relative;overflow:hidden}
+  .sm-map::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:.5;background:
+    repeating-linear-gradient(0deg,transparent 0 23px,rgba(27,42,74,.028) 23px 24px),
+    repeating-linear-gradient(90deg,transparent 0 23px,rgba(27,42,74,.028) 23px 24px)}
+  .sm-tile{position:relative;aspect-ratio:1;border:1.5px solid #ddd6c4;border-radius:6px;background:var(--white);
+    font:800 clamp(8.5px,2.6vw,12px)/1 ui-monospace,'Cascadia Mono','Roboto Mono',Menlo,monospace;
+    letter-spacing:.4px;color:#3c4c72;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;
+    box-shadow:0 1px 0 rgba(27,42,74,.10);touch-action:manipulation;
+    transition:transform .22s var(--ease-spring),box-shadow .22s var(--ease-out),border-color .18s,background .18s,color .18s,opacity .25s}
+  .sm-tile:hover,.sm-tile:focus-visible{transform:translateY(-3px) scale(1.14);z-index:3;border-color:var(--gold);color:var(--navy);
+    box-shadow:0 6px 16px rgba(232,184,75,.45),0 0 0 1.5px var(--gold);outline:none}
+  html:not(.sr-motion) .sm-tile:active{transform:translateY(0) scale(.94)}
+  .sm-tile.cited{background:linear-gradient(150deg,#f2d489,var(--gold));border-color:#c99e2e;color:var(--navy);box-shadow:0 1.5px 0 #b8860b}
+  .sm-tile.sel{background:var(--navy);border-color:var(--navy);color:var(--gold);box-shadow:0 4px 12px rgba(27,42,74,.4)}
+  html:not(.sr-motion) .sm-tile.sel{animation:smSel .5s var(--ease-spring)}
+  @keyframes smSel{0%{transform:scale(1)}40%{transform:scale(1.28)}100%{transform:scale(1)}}
+  .sm-tile.nomatch{opacity:.13;pointer-events:none}
+  /* Entrance: the country typesets itself west to east — one wave, then still. */
+  html:not(.sr-motion) .sm-map .sm-tile{opacity:0;animation:smIn .45s var(--ease-out) forwards;animation-delay:var(--d,0ms)}
+  @keyframes smIn{from{opacity:0;transform:translateY(7px) scale(.6)}to{opacity:1;transform:none}}
+  .sm-cap{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:34px;margin-top:8px;padding:6px 12px;
+    border:1.5px dashed var(--line);border-radius:10px;background:#fffdf8}
+  .sm-cap .nm{font-weight:800;color:var(--navy);font-size:14px;transition:opacity .18s}
+  .sm-cap .tag{font-size:11px;font-weight:800;padding:3px 9px;border-radius:99px;flex:none}
+  .sm-cap .tag.cited{background:var(--gold);color:var(--navy)}
+  .sm-cap .tag.fed{background:#eef1f7;color:#3c4c72}
+  .sm-legend{display:flex;gap:12px;margin-top:7px;font-size:11px;color:var(--muted);font-weight:700}
+  .sm-legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:4px;vertical-align:-1px;border:1px solid #c99e2e}
+  .sm-legend .lg-c i{background:var(--gold)}
+  .sm-legend .lg-f i{background:var(--white);border-color:#ddd6c4}
+  /* Under 380px, 11 columns squeeze tiles below a usable tap size. Floor them
+     at 26px and let the plate pan sideways instead — a small scroll beats a
+     16px target for RI on the exact phones this audience carries. */
+  @media(max-width:379px){
+    .sm-map{grid-template-columns:repeat(11,minmax(26px,1fr));overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+    .sm-wrap{position:relative}
+    .sm-wrap::after{content:'';position:absolute;top:0;right:0;width:26px;height:100%;pointer-events:none;
+      background:linear-gradient(90deg,transparent,rgba(250,246,238,.9));border-radius:0 16px 16px 0}
+  }
   .state-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;margin-top:6px;padding:2px}
   .state-search{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;font-size:15px;margin-top:14px;background:var(--white);color:var(--ink)}
   .state-search:focus{outline:none;border-color:var(--navy)}
@@ -1635,6 +1680,7 @@ const T = {
     s_soon:"Every state gets the rights that hold everywhere — protections from the U.S. Constitution, verified once for all 50 states. States get their own cited statutes added as each one is checked individually; yours isn’t cited yet, so this pack shows the federal floor only — not a guess at your state’s rules.",
     s_search:"Search your state…", s_pri_label:"Fully cited", s_rest_label:"Federal rights ✓", s_nomatch:"No state matches that search.",
     s_change:"Not your state? Choose again", s_fastpath:"Skip ahead — just show me the printable script",
+    sm_hint:"Tap your state on the map — or search below", sm_aria:"United States map — pick your state",
     fin_link:"⏰ Can't finish now? Remind me tomorrow",
     fin_sub:"Adds one calendar entry on your phone. Nothing is sent anywhere, and we never see it.",
     fin_done:"✓ Added to your calendar for tomorrow evening. Your answers stay on this phone until then.",
@@ -1968,6 +2014,7 @@ const T = {
     s_soon:"Cada estado recibe los derechos que valen en todas partes — protecciones de la Constitución de EE.UU., verificadas una sola vez para los 50 estados. Cada estado recibe sus propias leyes citadas al verificarse individualmente; el tuyo aún no está citado, así que este paquete muestra solo el mínimo federal — no una suposición sobre las reglas de tu estado.",
     s_search:"Busca tu estado…", s_pri_label:"Con leyes citadas", s_rest_label:"Derechos federales ✓", s_nomatch:"Ningún estado coincide con esa búsqueda.",
     s_change:"¿No es tu estado? Elige otra vez", s_fastpath:"Adelantar — solo muéstrame el guion para imprimir",
+    sm_hint:"Toca tu estado en el mapa — o busca abajo", sm_aria:"Mapa de Estados Unidos — elige tu estado",
     fin_link:"⏰ ¿No puedes terminar ahora? Recuérdamelo mañana",
     fin_sub:"Agrega una entrada al calendario de tu teléfono. No se envía nada a ningún lado, y nosotros nunca la vemos.",
     fin_done:"✓ Agregado a tu calendario para mañana por la tarde. Tus respuestas se quedan en este teléfono hasta entonces.",
@@ -2877,6 +2924,16 @@ function render(){
       <button class="back" aria-label="${_t.a11y_back}" onclick="goM(0)">← ${_t.a11y_back}</button>
       ${eyebrow()}
       <h1>${_t.s_title}</h1><p class="sub">${_t.s_sub}</p>
+      <!-- The map is a second door to the same 51 pickState() targets, not a
+           replacement: the alphabetical grid below stays for everyone who
+           thinks in names, not geography — and search auto-dims both. -->
+      <div class="sm-wrap" id="stateMap" ${_collapsed?'hidden':''}>
+        <div class="sm-map" role="group" aria-label="${_t.sm_aria}">
+          ${Object.keys(SMAP).map(k=>{const [c,r]=SMAP[k];return `<button type="button" class="sm-tile${STATES[k].pending?'':' cited'}${data.state===k?' sel':''}" style="grid-column:${c+1};grid-row:${r+1};--d:${c*26+r*11}ms" data-name="${STATES[k].name.toLowerCase()}" data-ab="${k.toLowerCase()}" aria-label="${STATES[k].name}" onclick="pickState('${k}')" onpointerenter="smCap('${k}')" onfocus="smCap('${k}')" onpointerleave="smCap(null)" onblur="smCap(null)">${k}</button>`;}).join('')}
+        </div>
+        <div class="sm-cap" id="smCap" aria-hidden="true"><span class="nm" style="color:var(--muted);font-weight:700">${_t.sm_hint}</span></div>
+        <div class="sm-legend"><span class="lg-c"><i></i>${_t.s_pri_label}</span><span class="lg-f"><i></i>${_t.s_rest_label}</span></div>
+      </div>
       <!-- aria-label, not placeholder alone: a placeholder stops being the accessible
            name the moment real text is typed, leaving a screen-reader user with an
            unnamed field mid-search. Flagged in two consecutive focus groups. -->
@@ -3344,9 +3401,31 @@ function goM(n){
 }
 /* Client-side only — the query never leaves the page, matching the same
    on-device promise as everything else here. */
+/* Tile-cartogram coordinates: [col,row] on an 11-wide grid. Hand-laid so
+   neighbours stay neighbours and the coastline reads; the empty c6 in row 1 is
+   Lake Michigan. Every jurisdiction in STATES appears exactly once (51). */
+const SMAP={
+  AK:[0,0],ME:[10,0],
+  WA:[0,1],ID:[1,1],MT:[2,1],ND:[3,1],MN:[4,1],WI:[5,1],MI:[7,1],VT:[9,1],NH:[10,1],
+  OR:[0,2],NV:[1,2],WY:[2,2],SD:[3,2],IA:[4,2],IL:[5,2],IN:[6,2],OH:[7,2],NY:[8,2],MA:[9,2],RI:[10,2],
+  CA:[0,3],UT:[1,3],CO:[2,3],NE:[3,3],MO:[4,3],KY:[5,3],WV:[6,3],PA:[7,3],NJ:[8,3],CT:[9,3],
+  AZ:[1,4],NM:[2,4],KS:[3,4],AR:[4,4],TN:[5,4],VA:[6,4],NC:[7,4],MD:[8,4],DE:[9,4],
+  OK:[3,5],LA:[4,5],MS:[5,5],AL:[6,5],GA:[7,5],SC:[8,5],DC:[9,5],
+  HI:[0,6],TX:[3,6],FL:[8,6]
+};
+/* Hover/focus caption under the map — the tile keeps its two letters, the
+   full name and its coverage tier appear here. Pointer-out returns the hint
+   rather than leaving a stale name. */
+function smCap(k){
+  const el=document.getElementById('smCap'); if(!el) return;
+  const _t=t();
+  if(!k||!STATES[k]){ el.innerHTML=`<span class="nm" style="color:var(--muted);font-weight:700">${_t.sm_hint}</span>`; return; }
+  const cited=!STATES[k].pending;
+  el.innerHTML=`<span class="nm">${STATES[k].name}</span><span class="tag ${cited?'cited':'fed'}">${cited?_t.s_pri_label:'federal ✓'}</span>`;
+}
 function filterStates(q){
   q=q.trim().toLowerCase();
-  const btns=[...document.querySelectorAll('#stateGrid .state-btn')];
+  const btns=[...document.querySelectorAll('#stateGrid .state-btn'),...document.querySelectorAll('#stateMap .sm-tile')];
   let shown=0;
   btns.forEach(b=>{
     const match=!q||b.dataset.name.includes(q)||b.dataset.ab.includes(q);
@@ -3387,6 +3466,10 @@ function pickState(k){
   data.state=k; persist();
   const next=grid&&grid.querySelector(`.state-btn[data-ab="${k.toLowerCase()}"]`);
   if(next) next.classList.add('sel'); // CSS animation (selPop, badge popIn) restarts on class add
+  /* Map tiles mirror the grid's selection — same class, own pop animation. */
+  const map=document.getElementById('stateMap');
+  if(map){ const p=map.querySelector('.sm-tile.sel'); if(p) p.classList.remove('sel');
+    const n=map.querySelector(`.sm-tile[data-ab="${k.toLowerCase()}"]`); if(n) n.classList.add('sel'); }
   const bottomNext=document.getElementById('stateBottomNext');
   if(bottomNext) bottomNext.disabled=false;
   collapseStateGrid();
@@ -3479,6 +3562,7 @@ function setStateCollapsed(on){
     b.classList.toggle('confirmed', on && isSel);
   });
   grid.querySelectorAll('.state-pri-label,.state-rest-label').forEach(l=>l.hidden=on);
+  const smap=document.getElementById('stateMap'); if(smap) smap.hidden=on; // map retracts with the grid — the confirmed chip is the whole story once picked
   if(search) search.hidden=on;
   if(soon) soon.hidden=on;
   if(changeLink) changeLink.hidden=!on;
