@@ -6,6 +6,27 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.14.0 — 2026-08-11
+
+v2.14.0 — "The officer reacts to how you answer"
+
+Divergent turns — the reference mockup's core mechanic, its last unbuilt
+piece. The deck was dealt once at open; now `prxDiverge()` re-deals the next
+beat's variant after each answer, direction capped per level by the consent
+design ("escalation is chosen, never sprung"):
+
+- **Level 1:** good answer de-escalates — next line drawn from the calm pool;
+  mistake keeps it curt. Hostile stays out (no consent gate on L1).
+- **Level 2** (consent-gated): mistake draws hostile, good answer curt. Inert
+  today — the arrest beat has no hostile variant — lights up when one is
+  authored.
+- **Level 0** stays static (promised calm, verified). Levels 3+ fixed tracks.
+
+Selection only: every pickable line is the same static, attorney-reviewable
+bank with its own recorded voice. Corpus stays closed and finite; UPL memo
+§2.2 discloses the mechanic. No new UI — the demeanor meter already reads
+tone per beat, so the officer visibly settling is the feedback.
+
 ## v2.13.0 — 2026-08-11
 
 v2.13.0 — "Checkpoint gets its own tab"

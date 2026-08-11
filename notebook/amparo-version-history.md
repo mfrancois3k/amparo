@@ -395,6 +395,22 @@ Checkpoint | At your door. Traffic keeps the 4 numbered rungs + progress bar;
 checkpoint gets its own card + context note; door unchanged (index 2 now).
 Hub-grouping change only — same level 4, same content, same in-overlay tabs.
 
+## v2.14.0 — 2026-08-11 — "The officer reacts to how you answer"
+
+Divergent turns: `prxDiverge()` re-deals the NEXT beat's variant after each
+answer — the reference mockup's core mechanic ("different next turn loads"),
+its last unbuilt piece. Direction capped per level by the consent design:
+L1 good answer de-escalates to a calm-pool line, mistake keeps curt (hostile
+never enters L1 — no consent gate there); L2 mistake→hostile / good→curt but
+inert today (the arrest beat ci 7 has zero hostile variants — logic kept,
+tone-pool-driven, lights up when one is authored); L0 static (promised calm,
+verified byte-identical); L3+ fixed tracks. Selection only from the same
+closed static bank, each variant with its own recorded-voice id — no new
+content, and UPL memo §2.2 gained a sentence disclosing the mechanic so
+counsel keeps reading an accurate description. Curveballs never re-dealt;
+crisis (tier x) answers never steer tone. No new UI — demeanor meter and
+bubble colour already read tone per beat.
+
 ---
 
 ## Quick lookup: "what tag has the fix for X"
@@ -467,6 +483,8 @@ Hub-grouping change only — same level 4, same content, same in-overlay tabs.
 | Practice card tone-glow + Hard Mode scanline atmosphere | v2.12.1 |
 | Hub scenario-card green-pulse confirm before overlay (`prPick()`) | v2.12.2 |
 | Checkpoint split into its own hub tab, out of the traffic ladder | v2.13.0 |
+| Divergent turns — officer's next line reacts to the answer (`prxDiverge()`) | v2.14.0 |
+| L2 arrest beat (ci 7) has no hostile variant — escalation leg inert | v2.14.0 note |
 
 To restore any version exactly:
 ```bash
