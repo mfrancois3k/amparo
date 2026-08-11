@@ -386,6 +386,15 @@ mockup is already live (map v2.11, state pill v2.12.0, tone atmosphere v2.12.1,
 typed/voice/custom input long-standing, hub dashboard v2.7.0). Paid completion
 screen (mockup 4x4) NOT built — contradicts the 10-persona pricing panel.
 
+## v2.13.0 — 2026-08-11 — "Checkpoint gets its own tab"
+
+A fixed Border Patrol checkpoint applies in all 50 states and has nothing to
+do with a traffic stop's state-cited content, but it was buried as the last
+card in the traffic ladder. Hub goes from 2 tabs to 3: Traffic stop |
+Checkpoint | At your door. Traffic keeps the 4 numbered rungs + progress bar;
+checkpoint gets its own card + context note; door unchanged (index 2 now).
+Hub-grouping change only — same level 4, same content, same in-overlay tabs.
+
 ---
 
 ## Quick lookup: "what tag has the fix for X"
@@ -457,6 +466,7 @@ screen (mockup 4x4) NOT built — contradicts the 10-persona pricing panel.
 | Chosen state travels via eyebrow pill (steps 2-5), tap returns to step 1 | v2.12.0 |
 | Practice card tone-glow + Hard Mode scanline atmosphere | v2.12.1 |
 | Hub scenario-card green-pulse confirm before overlay (`prPick()`) | v2.12.2 |
+| Checkpoint split into its own hub tab, out of the traffic ladder | v2.13.0 |
 
 To restore any version exactly:
 ```bash

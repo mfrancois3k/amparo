@@ -6,6 +6,21 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.13.0 — 2026-08-11
+
+v2.13.0 — "Checkpoint gets its own tab"
+
+A fixed Border Patrol checkpoint is a different encounter from a traffic
+stop — different rules, applies in all 50 states (unlike the state-cited
+traffic content) — but it was buried as the last card in the traffic ladder.
+
+Hub goes from two tabs to three: **Traffic stop | Checkpoint | At your
+door**. Traffic tab keeps the four numbered rungs + the progress bar;
+checkpoint tab shows the one card with a context note; door tab unchanged.
+
+Hub-grouping change only — same level, same content, same in-overlay tab
+strip.
+
 ## v2.12.2 — 2026-08-11
 
 v2.12.2 — "The card says yes before the screen turns"
