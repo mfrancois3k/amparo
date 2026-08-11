@@ -1675,7 +1675,8 @@ const T = {
     hub_start:"Start",
     hub_replay:"Run again",
     hub_back_pack:"Back to my pack",
-    hub_m1:"Traffic stop", hub_m2:"At your door",
+    hub_m1:"Traffic stop", hub_m2:"At your door", hub_m3:"Checkpoint",
+    hub_ck_note:"A fixed Border Patrol checkpoint — not a traffic stop. Different rules, different questions. This scenario applies in all 50 states.",
     hub_m2_h:"Not built yet — and we won't fake it.",
     hub_m2_body:"Police at your door is a different encounter with different rules, and it deserves its own rehearsal. We're building it. It isn't here yet because every line an officer says and every answer we mark correct has to be checked by a lawyer first — and because a knock at the door is often a domestic-violence call, which changes what safe advice even looks like. We'd rather ship it late than ship it wrong.",
     hub_progress:"{n} of {t} done", hub_done_badge:"Done",
@@ -2019,7 +2020,8 @@ const T = {
     hub_start:"Empezar",
     hub_replay:"Repetir",
     hub_back_pack:"Volver a mi paquete",
-    hub_m1:"Parada de tráfico", hub_m2:"En tu puerta",
+    hub_m1:"Parada de tráfico", hub_m2:"En tu puerta", hub_m3:"Retén",
+    hub_ck_note:"Un retén fijo de la Patrulla Fronteriza — no es una parada de tráfico. Reglas distintas, preguntas distintas. Este escenario aplica en los 50 estados.",
     hub_m2_h:"Todavía no está listo — y no vamos a fingir que sí.",
     hub_m2_body:"La policía en tu puerta es un encuentro distinto, con reglas distintas, y merece su propio ensayo. Lo estamos construyendo. No está aquí todavía porque cada frase del oficial y cada respuesta que marcamos como correcta tiene que revisarla un abogado primero — y porque un toque en la puerta muchas veces es una llamada por violencia doméstica, lo que cambia qué consejo es seguro. Preferimos publicarlo tarde que publicarlo mal.",
     hub_progress:"{n} de {t} completados", hub_done_badge:"Hecho",
@@ -3272,25 +3274,37 @@ function render(){
            because hiding work-in-progress made the 47 federal-only states read as
            "broken" once already — but it states plainly that it is unbuilt and why,
            instead of a "coming soon" that implies a date nobody has committed to. -->
+      <!-- Three modules now: the traffic-stop ladder, the Border Patrol
+           checkpoint (its own tab — a fixed immigration checkpoint is a
+           different encounter with different rules, and it was reading as just
+           another traffic level buried at the end of the ladder), and the
+           still-unbuilt door module. -->
       <div class="ll-seg" role="tablist">
         <button type="button" role="tab" id="hubTab0" class="${_hubTab===0?'on':''}" aria-selected="${_hubTab===0}" onclick="hubTab(0)">${_t.hub_m1}</button>
-        <button type="button" role="tab" id="hubTab1" class="${_hubTab===1?'on':''}" aria-selected="${_hubTab===1}" onclick="hubTab(1)">${_t.hub_m2}</button>
+        <button type="button" role="tab" id="hubTab1" class="${_hubTab===1?'on':''}" aria-selected="${_hubTab===1}" onclick="hubTab(1)">${_t.hub_m3}</button>
+        <button type="button" role="tab" id="hubTab2" class="${_hubTab===2?'on':''}" aria-selected="${_hubTab===2}" onclick="hubTab(2)">${_t.hub_m2}</button>
       </div>
-      ${_hubTab===1?`<div class="pilot" style="background:#eef1f7;border-color:#c3cde0;text-align:left;display:block;margin-top:12px">
+      ${_hubTab===2?`<div class="pilot" style="background:#eef1f7;border-color:#c3cde0;text-align:left;display:block;margin-top:12px">
         <b>${_t.hub_m2_h}</b><br><span style="font-size:13px">${_t.hub_m2_body}</span>
       </div>`:(()=>{
-        /* "How would they know?" — a 18px glyph on one of five small cards was not a
-           progress readout. Counted over the four NUMBERED rungs only (0-3) — checkpoint
-           is deliberately unnumbered, not part of the ladder, so it doesn't belong in a
-           "before hard mode" count. */
+        /* Checkpoint (level 4, unnumbered) now lives on its own tab; the
+           traffic ladder is the four numbered rungs (0-3) plus any enabled
+           final scenarios. The "before hard mode" progress bar counts the four
+           rungs and belongs only to the traffic tab — checkpoint isn't part of
+           that ladder, so its tab shows a context note instead. */
+        const CK=4;
+        const onCheckpoint=_hubTab===1;
+        const ids=onCheckpoint?[CK]:PRX_LEVEL_IDS.filter(i=>i!==CK);
         const rungsDone=[0,1,2,3].filter(i=>prx.done[i]).length;
-        return `
-      <div class="hub-progress" role="status" aria-live="polite">
+        const header=onCheckpoint
+          ? `<div class="pilot" style="background:#eef1f7;border-color:#c3cde0;text-align:left;display:block;margin:12px 0 0"><span style="font-size:13px">${_t.hub_ck_note}</span></div>`
+          : `<div class="hub-progress" role="status" aria-live="polite">
         <span>${_t.hub_progress.replace('{n}',rungsDone).replace('{t}',4)}</span>
         <span class="bar"><i style="width:${rungsDone/4*100}%"></i></span>
-      </div>
+      </div>`;
+        return header+`
       <div class="pr-grid">
-        ${PRX_LEVEL_IDS.map(i=>{
+        ${ids.map(i=>{
           const isLk=locked(i), best=prx.best&&prx.best[i], done=prx.done[i];
           return `<button class="pr-card${isLk?' lock':''}${done?' done':''}" ${isLk?`aria-disabled="true" title="${_t.hub_locked}"`:''} onclick="${isLk?'':`prPick(this,${i})`}">
             <span class="pr-ic" aria-hidden="true">${isLk?'🔒':(done?'✓':'▶')}</span>
@@ -3690,7 +3704,7 @@ function lifeContact(p){
 let _llTab=0;
 /* Which practice MODULE the hub is showing. Same reasoning. */
 let _hubTab=0;
-function hubTab(i){ _hubTab=i; ph('sr_hub_module',{module:i===0?'traffic':'door',lang:lang}); render(); }
+function hubTab(i){ _hubTab=i; ph('sr_hub_module',{module:['traffic','checkpoint','door'][i]||'traffic',lang:lang}); render(); }
 /* Both segments feed ONE track. Deliberately NOT gated: Continue stays live from
    the moment the step opens. The only real completed-funnel user in this product's
    history said "I skip all of that" — a rule that forces someone to swipe through
