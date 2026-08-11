@@ -158,9 +158,18 @@
     letter-spacing:.3px;cursor:pointer;pointer-events:all;paint-order:stroke;stroke:#fdfbf5;stroke-width:2.5px;transition:opacity .25s}
   .sm-lb.cited{fill:#5d3f04}
   /* Entrance: the country surfaces west to east off each state's real centroid
-     (delays set at label pass); nothing moves once the wave lands. */
+     (delays set at label pass). `forwards` HELD the animation's opacity:1 in
+     the CSS-animations cascade layer even after it finished — which sits
+     above ordinary rules, so .nomatch{opacity:.1} below could never win and
+     search-filtering silently stopped dimming anything. smPlaceLabels() strips
+     .smgo once the wave is done, so this block governs entry only; afterward
+     .sm-st's plain (unanimated) opacity is what search controls. */
   html:not(.sr-motion) .smgo .sm-st,html:not(.sr-motion) .smgo .sm-lb{opacity:0;animation:smIn .5s var(--ease-out) forwards}
-  html:not(.sr-motion) svg:not(.smgo) .sm-st{opacity:0}
+  /* Pre-paint guard only — before smPlaceLabels() adds .smgo, a state would
+     otherwise flash at full opacity for one frame. Must stop matching once
+     .smdone lands (post-wave), or this re-hides everything the instant .smgo
+     is swapped out below. */
+  html:not(.sr-motion) svg:not(.smgo):not(.smdone) .sm-st{opacity:0}
   @keyframes smIn{from{opacity:0}to{opacity:1}}
   .sm-cap{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:34px;margin-top:8px;padding:6px 12px;
     border:1.5px dashed var(--line);border-radius:10px;background:#fffdf8}
@@ -3465,6 +3474,13 @@ function smPlaceLabels(){
   });
   svg.appendChild(lbls);
   svg.classList.add('smgo');
+  /* Swap to .smdone once the wave has visibly landed (longest stagger delay
+     ~420ms + .5s keyframe). .smgo's CSS-animation opacity:1 sits in the
+     animations cascade layer and would otherwise outrank .nomatch{opacity:.1}
+     forever, silently defeating search-filter dimming after the first paint —
+     removing the class (not just letting the animation finish) is what
+     actually frees ordinary opacity rules to govern the map again. */
+  setTimeout(()=>{ svg.classList.remove('smgo'); svg.classList.add('smdone'); },950);
 }
 /* Hover/focus caption under the map — the tile keeps its two letters, the
    full name and its coverage tier appear here. Pointer-out returns the hint
