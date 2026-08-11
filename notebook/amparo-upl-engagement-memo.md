@@ -2,7 +2,7 @@
 
 **To:** prospective regulatory / unauthorized-practice-of-law counsel
 **From:** Michael Francois, Amparo (amparohq.com)
-**Date:** 2026-08-02
+**Date:** 2026-08-10
 **Re:** Scope-of-engagement request — whether a scored rehearsal feature
 constitutes unauthorized practice of law
 
@@ -30,7 +30,7 @@ features on top of it.** A negative answer is a useful deliverable.
 
 ## 1. What the product is
 
-- Single-file static HTML web app, ~436 KB. No server, no database, no accounts,
+- Single-file static HTML web app, ~458 KB. No server, no database, no accounts,
   no login, no payment, no analytics of user-entered content.
 - Bilingual English / Spanish.
 - **Free today, and free in every version you will be shown.** There is no
@@ -41,6 +41,17 @@ features on top of it.** A negative answer is a useful deliverable.
   no longer accurate and we did not want you to rely on it.
 - All user-entered data (name, emergency contacts, chosen state) stays in the
   browser's local storage on the user's own device. Nothing is uploaded.
+- **The product can also store photographs of the user's own identity
+  documents** — driver's licence, insurance card, vehicle registration — taken
+  through the phone's own camera app. These are optional, the product works
+  fully without them, and they are stored in the same browser local storage on
+  the user's device and printed into the user's own pack. They are never
+  uploaded, never transmitted, and never emailed; there is no server to receive
+  them. We flag this prominently because it is the most sensitive data the
+  product touches, and because a code review will surface it. If you believe it
+  raises any issue beyond the UPL question we are asking — data-protection,
+  state biometric or identity-document statutes, or anything else — please say
+  so unprompted even though it is outside the scope below.
 - Distributed at https://www.amparohq.com/. Not marketed as legal advice; not
   affiliated with any bar association, legal aid organization, or law firm.
 - Currently **no attorney has reviewed any part of it.** The product carries a
