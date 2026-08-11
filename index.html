@@ -1613,6 +1613,9 @@ const T = {
     s_soon:"Every state gets the rights that hold everywhere — protections from the U.S. Constitution, verified once for all 50 states. States get their own cited statutes added as each one is checked individually; yours isn’t cited yet, so this pack shows the federal floor only — not a guess at your state’s rules.",
     s_search:"Search your state…", s_pri_label:"Fully cited", s_rest_label:"Federal rights ✓", s_nomatch:"No state matches that search.",
     s_change:"Not your state? Choose again", s_fastpath:"Skip ahead — just show me the printable script",
+    fin_link:"⏰ Can't finish now? Remind me tomorrow",
+    fin_sub:"Adds one calendar entry on your phone. Nothing is sent anywhere, and we never see it.",
+    fin_done:"✓ Added to your calendar for tomorrow evening. Your answers stay on this phone until then.",
     i_title:"Who is this pack for?", i_sub:"This goes on the wallet card so someone you trust gets called if you're ever detained.",
     i_opt:"Every field is optional — fill in what helps you, skip the rest.",
     pdf_where:"No printer at home? Save the PDF, then print it free at most public libraries — or at FedEx/Staples, work, church, or a friend's.",
@@ -1937,6 +1940,9 @@ const T = {
     s_soon:"Cada estado recibe los derechos que valen en todas partes — protecciones de la Constitución de EE.UU., verificadas una sola vez para los 50 estados. Cada estado recibe sus propias leyes citadas al verificarse individualmente; el tuyo aún no está citado, así que este paquete muestra solo el mínimo federal — no una suposición sobre las reglas de tu estado.",
     s_search:"Busca tu estado…", s_pri_label:"Con leyes citadas", s_rest_label:"Derechos federales ✓", s_nomatch:"Ningún estado coincide con esa búsqueda.",
     s_change:"¿No es tu estado? Elige otra vez", s_fastpath:"Adelantar — solo muéstrame el guion para imprimir",
+    fin_link:"⏰ ¿No puedes terminar ahora? Recuérdamelo mañana",
+    fin_sub:"Agrega una entrada al calendario de tu teléfono. No se envía nada a ningún lado, y nosotros nunca la vemos.",
+    fin_done:"✓ Agregado a tu calendario para mañana por la tarde. Tus respuestas se quedan en este teléfono hasta entonces.",
     i_title:"¿Para quién es este paquete?", i_sub:"Esto va en la tarjeta de cartera para que llamen a alguien de confianza si alguna vez te detienen.",
     i_opt:"Todos los campos son opcionales — llena lo que te sirva y omite el resto.",
     pdf_where:"¿Sin impresora en casa? Guarda el PDF y luego imprímelo gratis en la mayoría de las bibliotecas públicas — o en FedEx/Staples, el trabajo, la iglesia o con un amigo.",
@@ -2245,34 +2251,74 @@ function packFreshness(){
   return { stale:edStale||diff<=0, soon:!edStale&&diff>0&&diff<=45*day, edition:edStale };
 }
 function icsEscape(s){ return String(s).replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n'); }
-function downloadReprintReminder(){
+/* One .ics writer, two callers (reprint + finish-later). The calendar entry is the
+   ONLY thing in this product that can reach a user who has closed the app — and it
+   does it without a server, a push service, an account, or anything leaving the
+   device: the OS calendar holds the reminder, Amparo never learns it exists.
+   Real push was considered and rejected: on iOS it needs Web Push via APNs, which
+   means a server that knows a device token. That trades the moat for a nudge. */
+function downloadIcs(opts){
   const pad=n=>String(n).padStart(2,'0');
-  const rep=edReplaceDate();
-  const dt=`${rep.getFullYear()}${pad(rep.getMonth()+1)}${pad(rep.getDate())}`;
+  const d=opts.date;
+  const allDay=opts.allDay!==false;
+  const dt=allDay
+    ?`${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}`
+    :`${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`;
   const stamp=new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
-  const stName=(STATES[data.state]||{}).name||'';
-  const title=lang==='es'?'Reimprime tu paquete de Amparo':'Reprint your Amparo pack';
-  const desc=lang==='es'
-    ?`Las leyes y los números de ayuda pueden cambiar. Edición ${EDITION}${stName?' — '+stName:''} — reimprime tu paquete.`
-    :`Laws and lifeline numbers can change. Edition ${EDITION}${stName?' — '+stName:''} — reprint your pack.`;
   const ics=[
-    'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Amparo//Reprint Reminder//EN','CALSCALE:GREGORIAN',
+    'BEGIN:VCALENDAR','VERSION:2.0',`PRODID:-//Amparo//${opts.prodid}//EN`,'CALSCALE:GREGORIAN',
     'BEGIN:VEVENT',
-    `UID:amparo-reprint-${EDITION}-${dt}@amparo.app`,
+    `UID:${opts.uid}@amparo.app`,
     `DTSTAMP:${stamp}`,
-    `DTSTART;VALUE=DATE:${dt}`,
-    `SUMMARY:${icsEscape(title)}`,
-    `DESCRIPTION:${icsEscape(desc)}`,
+    allDay?`DTSTART;VALUE=DATE:${dt}`:`DTSTART:${dt}`,
+    `SUMMARY:${icsEscape(opts.title)}`,
+    `DESCRIPTION:${icsEscape(opts.desc)}`,
     'BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:Reminder','TRIGGER:-P0D','END:VALARM',
     'END:VEVENT','END:VCALENDAR'
   ].join('\r\n');
   const blob=new Blob([ics],{type:'text/calendar;charset=utf-8'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');
-  a.href=url; a.download='amparo-reprint-reminder.ics';
+  a.href=url; a.download=opts.filename;
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   setTimeout(()=>URL.revokeObjectURL(url),2000);
+}
+function downloadReprintReminder(){
+  const rep=edReplaceDate();
+  const pad=n=>String(n).padStart(2,'0');
+  const stName=(STATES[data.state]||{}).name||'';
+  downloadIcs({
+    date:rep, allDay:true, prodid:'Reprint Reminder',
+    uid:`amparo-reprint-${EDITION}-${rep.getFullYear()}${pad(rep.getMonth()+1)}${pad(rep.getDate())}`,
+    title:lang==='es'?'Reimprime tu paquete de Amparo':'Reprint your Amparo pack',
+    desc:lang==='es'
+      ?`Las leyes y los números de ayuda pueden cambiar. Edición ${EDITION}${stName?' — '+stName:''} — reimprime tu paquete.`
+      :`Laws and lifeline numbers can change. Edition ${EDITION}${stName?' — '+stName:''} — reprint your pack.`,
+    filename:'amparo-reprint-reminder.ics'});
   ph('sr_reminder_downloaded',{state:data.state,lang:lang,edition:EDITION});
+}
+/* Finish-later. The one real user picked a state on Monday and finished Wednesday
+   night; nothing in the product brought him back — he remembered, and he had
+   promised feedback. A personal obligation is not a retention mechanic. He also
+   named the reason the pack sat unfinished: the document step needed a private
+   moment he did not have in public. So the reminder lands TOMORROW EVENING, when
+   someone is likely to be home and alone, not at an arbitrary hour.
+   Deliberately: no guilt, no streak, no "you abandoned" framing. He has ADHD and
+   said so plainly. Forgetting is the normal case this is built for, not a lapse. */
+function downloadFinishReminder(){
+  const d=new Date(); d.setDate(d.getDate()+1); d.setHours(19,0,0,0);
+  const stName=(STATES[data.state]||{}).name||'';
+  downloadIcs({
+    date:d, allDay:false, prodid:'Finish Reminder',
+    uid:`amparo-finish-${Date.now()}`,
+    title:lang==='es'?'Termina tu paquete de Amparo':'Finish your Amparo pack',
+    desc:lang==='es'
+      ?`Retoma donde quedaste${stName?' — '+stName:''}. Tus respuestas siguen en este teléfono. amparohq.com`
+      :`Pick up where you left off${stName?' — '+stName:''}. Your answers are still on this phone. amparohq.com`,
+    filename:'amparo-finish-reminder.ics'});
+  ph('sr_finish_reminder',{state:data.state,step:step,lang:lang});
+  const n=document.getElementById('finishNote');
+  if(n){ n.textContent=t().fin_done; n.style.display='block'; }
 }
 
 /* Real, scannable QR codes → each state's free legal-aid directory. */
@@ -2775,6 +2821,17 @@ function render(){
     </div>`;
   }
 
+  /* Offered on the mid-wizard steps only: step 0 has nothing to come back to and
+     step 4 means they already have the pack. Requires a picked state, so the
+     reminder can name what is waiting. Never in demo — a sample pack is not a
+     thing to finish. */
+  const finishLater=()=>(!data.state||isDemo)?'':`
+      <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--line)">
+        <button type="button" class="linkbtn" onclick="downloadFinishReminder()">${_t.fin_link}</button>
+        <p class="soon" style="margin-top:2px;font-size:12px">${_t.fin_sub}</p>
+        <p class="soon" id="finishNote" role="status" aria-live="polite" style="display:none;margin-top:6px;color:#1d4a2c;font-weight:700"></p>
+      </div>`;
+
   if(step===1){
     /* Render-time collapse: a resumed session that already has data.state should
        land ALREADY retracted, not full-grid-then-animate. `hidden` is native
@@ -2815,6 +2872,7 @@ function render(){
            just reachable one screen earlier for anyone who already knows they want
            the fast lane. Nothing removed; the full wizard is still the default path. -->
       ${data.state?`<button type="button" class="linkbtn" onclick="skipToPack()">${_t.s_fastpath}</button>`:''}
+      ${finishLater()}
     </div>`;
   }
 
@@ -2839,6 +2897,7 @@ function render(){
       </div>
       <button class="btn gold" onclick="saveInfo()">${_t.next} →</button>
       <button class="btn ghost" onclick="skipInfo()">${_t.i_skip_all}</button>
+      ${finishLater()}
     </div>`;
   }
 
@@ -2856,6 +2915,7 @@ function render(){
       <div class="ll-nav" id="llNav"></div>
       <p class="soon" style="margin-top:8px" id="llFoot"></p>
       <button class="btn gold" style="margin-top:18px" onclick="goM(4)">${_t.l_btn}</button>
+      ${finishLater()}
     </div>`;
     llTab(_llTab, true);
   }
