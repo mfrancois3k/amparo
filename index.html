@@ -3630,7 +3630,7 @@ function smCap(k){
   const _t=t();
   if(!k||!STATES[k]){ el.innerHTML=`<span class="nm" style="color:var(--muted);font-weight:700">${_t.sm_hint}</span>`; return; }
   const cited=!STATES[k].pending;
-  el.innerHTML=`<span class="nm">${STATES[k].name}</span><span class="tag ${cited?'cited':'fed'}">${cited?_t.s_pri_label:'federal ✓'}</span>`;
+  el.innerHTML=`<span class="nm">${STATES[k].name}</span><span class="tag ${cited?'cited':'fed'}">${cited?_t.s_pri_label:_t.s_pending}</span>`;
 }
 function filterStates(q){
   q=q.trim().toLowerCase();
@@ -4596,7 +4596,12 @@ let prLevel=0, prIdx=0, prRevealed=false;
    design intent was "escalation is chosen, never sprung"; the code only honoured it
    once per visit. */
 let prWarnOk={};
-let prDeck=[], prRun=[], prCurTier=null, prRunLogged=false;
+/* prRunIdx[ri] = the prDeck index that produced prRun[ri]. Needed because
+   prRun SKIPS crisis-tier ('x') beats while prDeck does not — reading
+   prDeck[i] or prRun[i] by a shared loop index silently misaligns the moment
+   any crisis beat has occurred in the run, showing the wrong officer line
+   (breakdown) or the wrong colour (rail dots) for every beat after it. */
+let prDeck=[], prRun=[], prRunIdx=[], prCurTier=null, prRunLogged=false;
 let prxBeatSeen='', prxTypeT=0, prxSaidTxt='', prxSaidKey='', prxSaidHits=0, prxSaidTotal=0, prxSaidGood=false;
 let prx={done:{},runs:{},streak:{last:'',n:0}};
 try{
@@ -4945,7 +4950,7 @@ function prxTypeAnswer(){
 }
 function practiceOpen(silent){
   prLevel=0; prIdx=0; prRevealed=false; // per-level consent deliberately NOT reset — a level you already opted into stays opted-in for the visit
-  prDeck=prxBuildDeck(); prRun=[]; prCurTier=null; prRunLogged=false;
+  prDeck=prxBuildDeck(); prRun=[]; prRunIdx=[]; prCurTier=null; prRunLogged=false;
   const _t=t();
   document.getElementById('prcTitle').textContent=_t.prx_title;
   document.getElementById('prcX').textContent=_t.prx_close;
@@ -4967,8 +4972,21 @@ function practiceOpen(silent){
 let _prPickBusy=false;
 function prPick(el,i){
   if(_prPickBusy) return;
-  if(document.documentElement.classList.contains('sr-motion')){ prStart(i); return; }
+  /* The guard used to be set AFTER the sr-motion branch, so reduced-motion —
+     the path most likely to be double-tapped, since there's no pulse to see
+     land — skipped it entirely and could fire prStart() twice. Setting it
+     first covers both branches; the reduced-motion path just clears it
+     immediately since there's no animation left to protect once prStart()
+     (synchronous) returns. */
   _prPickBusy=true;
+  /* Resetting the flag synchronously right after prStart() was STILL a no-op
+     guard: two .click() calls issued back-to-back run in the same tick, so
+     the reset had already happened before the second one was even checked —
+     verified by testing exactly that and watching it double-fire. The flag
+     now stays busy for the same 260ms window the animated branch uses, just
+     with no visual pulse to wait for — prStart() itself still runs
+     immediately, so reduced motion loses zero perceived responsiveness. */
+  if(document.documentElement.classList.contains('sr-motion')){ prStart(i); setTimeout(()=>{ _prPickBusy=false; },260); return; }
   el.classList.add('picked');
   setTimeout(()=>{ _prPickBusy=false; prStart(i); },260);
 }
@@ -5000,25 +5018,18 @@ function prxTab(i){
   }
   prxRecCancel(); prxDropLast(); prxIdleN=0;
   prLevel=i; prIdx=0; prRevealed=false; prxChosen=''; prxChoseGood=false; prxPickedAlt=false;
-  prDeck=prxBuildDeck(); prRun=[]; prCurTier=null; prRunLogged=false;
+  prDeck=prxBuildDeck(); prRun=[]; prRunIdx=[]; prCurTier=null; prRunLogged=false;
   practiceRender();
   if(!(i>=2&&!prWarnOk[i])) prxSpeak();
   ph('sr_practice_level_started',{level:i+1,state:data.state,lang:lang});
 }
 function prxAgain(){
   prxDropLast(); prxIdleN=0; prxChosen=''; prxChoseGood=false; prxPickedAlt=false;
-  prIdx=0; prRevealed=false; prRun=[]; prCurTier=null; prRunLogged=false;
+  prIdx=0; prRevealed=false; prRun=[]; prRunIdx=[]; prCurTier=null; prRunLogged=false;
   prDeck=prxBuildDeck(); practiceRender(); prxSpeak();
 }
 /* Back — step to the previous card in this run, un-revealed so it can be redone.
    Pops the prior beat's stored result; at the first card, Back exits to home. */
-function prxBack(){
-  if(prIdx<=0){ practiceClose(); return; }
-  prxDropLast(); prxIdleN=0; prxSaidTxt=''; prxSaidKey=''; prxSaidHits=0; prxSaidTotal=0; prxSaidGood=false; prCurTier=null;
-  prRun.pop();
-  prIdx--; prRevealed=false;
-  practiceRender(); prxSpeak();
-}
 /* Divergence — the officer's NEXT line depends on how this beat went.
    Direction is capped per level by the consent design ("escalation is
    chosen, never sprung"):
@@ -5055,7 +5066,7 @@ function prxAdvance(){
   /* tier 'x' (crisis disclosure) is recorded as NOTHING — no square in the grid, no
      contribution to the score, nothing in the shareable summary. Anything else keeps
      the original good/miss behaviour. */
-  if(prCurTier!=='x') prRun.push(prCurTier==='g'?'g':'y');
+  if(prCurTier!=='x'){ prRun.push(prCurTier==='g'?'g':'y'); prRunIdx.push(prIdx); }
   prCurTier=null;
   prIdx++; prRevealed=false; practiceRender(); prxSpeak();
 }
@@ -5064,7 +5075,7 @@ function prxAdvance(){
 function prxBack(){
   if(prIdx<=0){ practiceClose(); return; }
   prxDropLast(); prxIdleN=0; prxSaidTxt=''; prxSaidKey=''; prxSaidHits=0; prxSaidTotal=0; prxSaidGood=false; prxChosen=''; prxChoseGood=false; prxPickedAlt=false;
-  prRun.pop(); prIdx--; prRevealed=false; practiceRender(); prxSpeak();
+  prRun.pop(); prRunIdx.pop(); prIdx--; prRevealed=false; practiceRender(); prxSpeak();
 }
 /* ===== Carry card =====
    The artifact that leaves the screen: four lines, in the driver's own words,
@@ -5249,7 +5260,7 @@ function practiceRender(){
   const isLocked=i=>(i===3&&!mUnlocked)||(i===5&&!mUnlocked)||(i===6&&!(mUnlocked&&prx.done[5]))||(i===7&&!mUnlocked);
   /* Stranded on a level that just re-locked (progress cleared mid-run): fall back
      to the first stop rather than rendering a locked level as the active tab. */
-  if(isLocked(prLevel)){ prLevel=0; prIdx=0; prRevealed=false; prDeck=prxBuildDeck(); prRun=[]; prCurTier=null; prRunLogged=false; }
+  if(isLocked(prLevel)){ prLevel=0; prIdx=0; prRevealed=false; prDeck=prxBuildDeck(); prRun=[]; prRunIdx=[]; prCurTier=null; prRunLogged=false; }
   const tabs=`<div class="prx-tabs" role="tablist">${PRX_LEVEL_IDS.map(i=>
     `<button class="prx-tab${i===prLevel?' on':''}${isLocked(i)?' lock':''}" role="tab" aria-selected="${i===prLevel}"${isLocked(i)?` aria-disabled="true" title="${_t.prx_locked}"`:''} onclick="prxTab(${i})"><span class="tbg${i===3?' hardbg':''}${i===4?' chkbg':''}${i===5?' waitbg':''}${i===6?' nostopbg':''}" aria-hidden="true"${(i>=3)?'':` style="background-image:url('img/scene-${i+1}.jpg')"`}></span>${isLocked(i)?'🔒 ':(PRX_UNSCORED.has(i)?(prx.done[i]?'✓ ':''):(prx.best[i]?`🟩${prx.best[i]} `:(prx.done[i]?'✓ ':'')))}${_t['prx_lvl'+(i+1)]}</button>`).join('')}${mUnlocked?'':`<div class="prx-lockhint">🔒 ${_t.prx_locked}</div>`}</div>`;
   if(prLevel>=2&&!prWarnOk[prLevel]){ // opt-in gate: escalation is chosen, never sprung — checked per level
@@ -5337,8 +5348,9 @@ function practiceRender(){
     const master=(prx.done[0]&&prx.done[1]&&prx.done[2])&&!swan; // no trophy on the swan — wrong emotional register
     /* Mobbin-patterned results: big score → grid → stats row → coach tip →
        beat-by-beat breakdown → one primary share CTA */
-    const bdRows=prRun.map((t2,i)=>{
-      const ln=prDeck[i]?prDeck[i].officer[lang]:'';
+    const bdRows=prRun.map((t2,ri)=>{
+      const d=prDeck[prRunIdx[ri]]; // NOT prDeck[ri] — ri skips crisis beats, prDeck doesn't
+      const ln=d?d.officer[lang]:'';
       return `<div class="prx-bd-row"><span>${t2==='g'?'🟩':'🟨'}</span><span>${esc(ln.length>56?ln.slice(0,56)+'…':ln)}</span></div>`;
     }).join('');
     b.innerHTML=tabs+`<div class="prx-score">${score}<span>/${prRun.length}</span></div>
@@ -5370,8 +5382,13 @@ function practiceRender(){
   const beatKey=prLevel+':'+prIdx+':'+prRun.length;
   const freshBeat=beatKey!==prxBeatSeen; prxBeatSeen=beatKey;
   const hasConsole=(navigator.mediaDevices&&window.MediaRecorder&&!isDo&&!prRevealed);
+  /* deckOutcome maps prDeck index -> 'g'/'y', built from prRunIdx — reading
+     prRun[i] directly here had the exact same crisis-beat misalignment as
+     the breakdown rows above, just showing the wrong DOT COLOUR instead of
+     the wrong line, live during play rather than only in the summary. */
+  const deckOutcome={}; prRun.forEach((v,ri)=>{ deckOutcome[prRunIdx[ri]]=v; });
   const rail=`<div class="prx-rail" aria-hidden="true">${prDeck.map((x,i)=>
-    `<span class="rd${i<prIdx?(prRun[i]==='g'?' g':' y'):(i===prIdx?' cur':'')}"></span>${i<prDeck.length-1?'<span class="rl"></span>':''}`).join('')}<span class="rl"></span><span class="rg">⚖️</span></div>`;
+    `<span class="rd${i<prIdx?(deckOutcome[i]==='g'?' g':' y'):(i===prIdx?' cur':'')}"></span>${i<prDeck.length-1?'<span class="rl"></span>':''}`).join('')}<span class="rl"></span><span class="rg">⚖️</span></div>`;
   const _today=new Date().toISOString().slice(0,10);
   const hasCb=prDeck.some(x=>x.curve);
   const daily=`${(hasCb||prx.cbDay===_today)?`<div class="prx-daily">${_t.prx_daily}: ${prx.cbDay===_today?_t.prx_daily_done:_t.prx_daily_live}</div>`:''}${prx.streak.n>1?`<div class="prx-daily">🔁 ${_t.prx_streak.replace('{n}',prx.streak.n)}</div>`:''}`;
@@ -5379,7 +5396,13 @@ function practiceRender(){
   const _demWord={calm:_t.prx_dem_calm,curt:_t.prx_dem_firm,hostile:_t.prx_dem_tense}[d.tone]||_t.prx_dem_calm;
   const _demPct={calm:12,curt:52,hostile:88}[d.tone]||12;
   const _demCol=d.tone==='hostile'?'#D32F2F':d.tone==='curt'?'#ED6C02':'#2f8f5b';
-  const demeanor=`<div class="prx-dem" aria-hidden="true"><div class="prx-dem-lbl"><span>${_t.prx_dem_label}</span><span style="color:${_demCol}">${_demWord}</span></div><div class="prx-dem-track"><div class="prx-dem-dot" style="left:${_demPct}%;border-color:${_demCol}"></div></div></div>`;
+  /* aria-hidden was on the WHOLE meter, so the one textual tone signal in the
+     product was invisible to screen readers — the exact users who most need
+     it since they can't read the bubble colour either. Only the decorative
+     bar+dot (the text already says the same thing) stays hidden; the label
+     is a live region so a tone change announces itself without the user
+     having to go hunting for it. */
+  const demeanor=`<div class="prx-dem"><div class="prx-dem-lbl"><span>${_t.prx_dem_label}</span><span role="status" aria-live="polite" style="color:${_demCol}">${_demWord}</span></div><div class="prx-dem-track" aria-hidden="true"><div class="prx-dem-dot" style="left:${_demPct}%;border-color:${_demCol}"></div></div></div>`;
   const moodC=d.tone==='hostile'?'hot':d.tone==='curt'?'firm':'';
   const photo=`<div class="prx-cav"><img src="img/officer-${prxGender}.jpg" alt="" onerror="this.remove()"></div>`;
   const opt=PRX_OPT[ci];
