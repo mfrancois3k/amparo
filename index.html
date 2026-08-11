@@ -469,7 +469,28 @@
   /* practice drill: full-screen dusk stage — a place, not a popup. Static
      gradient scene only: never animated police lights (trauma-adjacent audience). */
   #practiceOverlay.open{background:linear-gradient(180deg,#0b1020 0%,#131b33 55%,#3a2b45 85%,#7a5236 100%)}
-  #practiceOverlay .ab-card{display:flex;flex-direction:column;max-height:94vh}
+  /* Tone atmosphere. The demeanor bar already tells you the tone as a number;
+     this makes the ROOM feel it too — a border glow that shifts with the
+     officer's tone, cheap because it never touches the text underneath (no
+     dark-mode retheme of every child template, no contrast risk).
+     Hard Mode gets its own treatment on top: from the tab strip it always had
+     a badge and a warning banner, but the beat screen itself looked identical
+     to a calm level while you were playing it. A thin red scanline sweep +
+     top vignette gives the one screen in the product that is DESIGNED to be
+     unwinnable a room that admits it, without inverting to a dark theme that
+     would need every shared template (tabs/rail/thread/resp) re-themed for
+     contrast. */
+  #practiceOverlay .ab-card{display:flex;flex-direction:column;max-height:94vh;position:relative;
+    transition:box-shadow .6s ease}
+  #practiceOverlay .ab-card.firm{box-shadow:0 30px 80px rgba(0,0,0,.5),inset 0 0 0 2px rgba(237,108,2,.32)}
+  #practiceOverlay .ab-card.hot{box-shadow:0 30px 80px rgba(0,0,0,.5),inset 0 0 0 2px rgba(211,50,34,.42)}
+  #practiceOverlay .ab-card.hardmode-live{box-shadow:0 30px 90px rgba(122,15,15,.5),inset 0 0 0 2.5px rgba(211,50,34,.55)}
+  #practiceOverlay .ab-card.hardmode-live::after{content:'';position:absolute;inset:0;border-radius:20px;
+    pointer-events:none;opacity:.85;background:
+      linear-gradient(180deg,rgba(122,15,15,.13),transparent 42%),
+      repeating-linear-gradient(0deg,rgba(122,15,15,.05) 0 2px,transparent 2px 5px)}
+  html:not(.sr-motion) #practiceOverlay .ab-card.hardmode-live::after{animation:hmScan 3.4s linear infinite}
+  @keyframes hmScan{from{background-position:0 0,0 0}to{background-position:0 0,0 42px}}
   #practiceOverlay .ab-body{flex:1;overflow:auto}
   @media(min-width:700px){#practiceOverlay .ab-card{max-width:900px;height:94vh}}
   /* demeanor meter (practice.html look): shifts calm→tense with officer tone */
@@ -5147,6 +5168,13 @@ async function prxShareRun(btn){
 function practiceRender(){
   clearTimeout(prxIdleT); // any re-render cancels a pending officer re-prompt
   const _t=t(), b=document.getElementById('practiceBody');
+  /* Reset the tone-atmosphere class here, unconditionally, before any of the
+     function's early returns (hard-mode/wait/nostop/door debriefs all exit
+     before reaching the live-beat render at the bottom). Debrief screens get
+     their own dark styling already — they should not inherit a stale
+     hardmode-live/hot/firm class left over from the last beat that was played. */
+  const atmCard0=document.querySelector('#practiceOverlay .ab-card');
+  if(atmCard0) atmCard0.className='ab-card';
   const L=PRX_LEVELS[prLevel], deck=PRACTICE[lang];
   /* Back button: only meaningful mid-run, past the first beat */
   const _bk=document.getElementById('prcBack');
@@ -5329,6 +5357,12 @@ function practiceRender(){
       <div class="prc-nav">${prIdx>0?`<button class="btn ghost prc-back" onclick="prxBack()">← ${_t.a11y_back}</button>`:''}<button class="btn" style="flex:1" onclick="prxAdvance()">${_t.prx_next}</button></div>`;
   }
   b.innerHTML=tabs+daily+demeanor+rail+ctrls+thread+resp;
+  /* Card is a stable parent (only #practiceBody's innerHTML is replaced), so
+     toggling its class here is the one-line hook for the tone-atmosphere CSS
+     above — className churn to the SAME value is a DOM no-op, so re-renders
+     of the same beat don't restart the transition or the scanline loop. */
+  const atmCard=document.querySelector('#practiceOverlay .ab-card');
+  if(atmCard) atmCard.className='ab-card'+(prLevel===3?' hardmode-live':(moodC?' '+moodC:''));
   clearTimeout(prxTypeT);
   if(freshBeat&&!answered&&!document.documentElement.classList.contains('sr-motion')){
     const bub=document.getElementById('prxBubble'); if(bub) bub.classList.add('pop');
