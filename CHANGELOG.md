@@ -6,6 +6,26 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.12.0 — 2026-08-11
+
+v2.12.0 — "The pick travels with you"
+
+The chosen state now stays visible after step 1 instead of vanishing when the
+picker collapses. A pill in the eyebrow row on steps 2-5 carries the same
+silhouette shown at confirmation, plus abbreviation and full name — tapping
+it jumps back to step 1, matching the clickable-stepper contract from
+v2.11.0.
+
+Placed opposite the step counter so it reads as carried-over context, not a
+competing control. Animates in a beat after the card. Under 380px the full
+name drops; silhouette + abbreviation still answer "which state." Reuses
+`smShape()`/`SM_BOX` from v2.11.1 — no new geometry.
+
+Not built: the module dashboard from the reference mockup already exists
+(step 5, since v2.7.0). Not built: a paid-script completion screen from the
+same mockup — contradicts the 10-persona pricing panel (all 10 declined
+$3.99, none on price).
+
 ## v2.11.1 — 2026-08-11
 
 v2.11.1 — "The map hands off properly now"

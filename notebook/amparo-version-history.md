@@ -342,6 +342,20 @@ click, because picking a state only toggles classes and never re-runs
 `render()`. Reload-only testing hides this completely; the chip renders empty
 on every real click.
 
+## v2.12.0 — 2026-08-11 — "The pick travels with you"
+
+The chosen state used to vanish once the picker collapsed after step 1 —
+every later step silently depended on a choice the user could no longer see.
+A pill in the eyebrow row on steps 2-5 now carries the confirmation chip's
+own silhouette plus abbreviation and full name, opposite the step counter;
+tapping it calls `goM(1)`, matching v2.11.0's clickable-stepper contract.
+Reuses `smShape()`/`SM_BOX` — no new geometry. Under 380px the name drops,
+silhouette + abbreviation carry it. From the reference mockup's row 1 (state
+should persist through the flow); the mockup's module dashboard was NOT
+rebuilt (already shipped, step 5, since v2.7.0), and its paid-script
+completion screen was NOT built (contradicts the 10-persona pricing panel —
+all 10 declined $3.99, none on price).
+
 ---
 
 ## Quick lookup: "what tag has the fix for X"
@@ -410,6 +424,7 @@ on every real click.
 | Map search-fade regression (`forwards` beat `.nomatch`) | v2.11.1 |
 | Confirmed chip shows the state silhouette (`SM_BOX`, `smShape()`) | v2.11.1 |
 | Map→chip handoff choreographed (~900ms, 3 beats) | v2.11.1 |
+| Chosen state travels via eyebrow pill (steps 2-5), tap returns to step 1 | v2.12.0 |
 
 To restore any version exactly:
 ```bash
