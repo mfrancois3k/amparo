@@ -1498,7 +1498,12 @@ const T = {
     hub_m2_h:"Not built yet — and we won't fake it.",
     hub_m2_body:"Police at your door is a different encounter with different rules, and it deserves its own rehearsal. We're building it. It isn't here yet because every line an officer says and every answer we mark correct has to be checked by a lawyer first — and because a knock at the door is often a domestic-violence call, which changes what safe advice even looks like. We'd rather ship it late than ship it wrong.",
     hub_progress:"{n} of {t} done", hub_done_badge:"Done",
-    v_print_pdf:"Print or save as PDF",
+    /* Named AirPrint explicitly. The one real user hit this button, got a
+       download, and said he "wanted to see if I could just AirPrint the doc" —
+       not knowing this button IS that. window.print() opens the OS dialog, where
+       AirPrint sits alongside Save as PDF. The capability was never missing; the
+       label was hiding it. */
+    v_print_pdf:"Print (AirPrint) or save as PDF",
     pdf_q:"\ud83d\udcd6 How do I save it as a PDF instead? \u25be",
     resume_btn:"\u21a9 Continue where you left off",
     i_skip_all:"Skip this \u2014 just use my state",
@@ -1830,7 +1835,7 @@ const T = {
     hub_m2_h:"Todavía no está listo — y no vamos a fingir que sí.",
     hub_m2_body:"La policía en tu puerta es un encuentro distinto, con reglas distintas, y merece su propio ensayo. Lo estamos construyendo. No está aquí todavía porque cada frase del oficial y cada respuesta que marcamos como correcta tiene que revisarla un abogado primero — y porque un toque en la puerta muchas veces es una llamada por violencia doméstica, lo que cambia qué consejo es seguro. Preferimos publicarlo tarde que publicarlo mal.",
     hub_progress:"{n} de {t} completados", hub_done_badge:"Hecho",
-    v_print_pdf:"Imprimir o guardar como PDF",
+    v_print_pdf:"Imprimir (AirPrint) o guardar como PDF",
     pdf_q:"📖 ¿Cómo lo guardo como PDF? ▾",
     resume_btn:"↩ Continuar donde quedaste",
     i_skip_all:"Omitir — solo usar mi estado",
@@ -5023,6 +5028,21 @@ window.addEventListener('afterprint',()=>{
        about to appear in postPrintActions above; two gold buttons at once is
        exactly the state the focus-group review flagged. */
     const pb=document.getElementById('printBtn'); if(pb) pb.classList.replace('gold','ghost');
+    /* Bring the practice CTA to the user instead of hoping they scroll to it.
+       The one real user printed, came back and looked at the pack twice, and
+       never tapped this: "I saw a lot of buttons but while being busy and
+       distracted I just might not have clicked." The button was correct — one
+       gold action, right copy — but it unhides at the BOTTOM of a screen holding
+       a six-page preview carousel and a comparison table, at the exact moment
+       the user's task ("get the pack") just completed and attention drops.
+       Placement was the defect, not the button. Rides the print dialog's own
+       dismissal so it never yanks the page mid-read; honours reduced-motion via
+       the existing sr-motion class, same as every other scroll in this file. */
+    const smooth=!document.documentElement.classList.contains('sr-motion');
+    setTimeout(()=>{
+      const cta=document.querySelector('#postPrintActions .btn.gold')||post;
+      if(cta) try{ cta.scrollIntoView({behavior:smooth?'smooth':'auto',block:'center'}); }catch(e){ cta.scrollIntoView(); }
+    },260);
   }
 });
 
