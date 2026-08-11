@@ -356,6 +356,24 @@ rebuilt (already shipped, step 5, since v2.7.0), and its paid-script
 completion screen was NOT built (contradicts the 10-persona pricing panel —
 all 10 declined $3.99, none on price).
 
+## v2.12.1 — 2026-08-11 — "The room feels the tone now"
+
+Practice card gets a tone-atmosphere border glow (amber curt, red hostile)
+plus a red vignette + animated scanline for Hard Mode, closing the last gap
+from the mockup pass — Hard Mode had a red tab badge and warning banner, but
+the beat screen itself looked identical to a calm level while playing it.
+`box-shadow` only, never touches text color, so no retheming of shared
+templates needed. Reset unconditionally at the top of `practiceRender()`,
+before its several early-return debrief paths, so a debrief never inherits a
+stale `hardmode-live` class. Not built: a ring turn-counter from the same
+mockup — the existing linear demeanor bar already carries that information.
+
+⚠️ Gotcha: first draft named the DOM handle `card`, colliding with the
+function's pre-existing `const card=prxCard(ci)` (the beat's content object)
+— a function-scope redeclaration that silently failed the whole inline
+script to parse. Caught by running the extracted script through
+`node --check` before trusting browser tests. Renamed to `atmCard`.
+
 ---
 
 ## Quick lookup: "what tag has the fix for X"
@@ -425,6 +443,7 @@ all 10 declined $3.99, none on price).
 | Confirmed chip shows the state silhouette (`SM_BOX`, `smShape()`) | v2.11.1 |
 | Map→chip handoff choreographed (~900ms, 3 beats) | v2.11.1 |
 | Chosen state travels via eyebrow pill (steps 2-5), tap returns to step 1 | v2.12.0 |
+| Practice card tone-glow + Hard Mode scanline atmosphere | v2.12.1 |
 
 To restore any version exactly:
 ```bash

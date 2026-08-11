@@ -6,6 +6,22 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.12.1 — 2026-08-11
+
+v2.12.1 — "The room feels the tone now"
+
+Practice card gets a tone-atmosphere border glow (amber curt, red hostile),
+plus a red vignette + animated scanline for Hard Mode — the beat screen used
+to look identical to a calm level while playing it, badge and banner aside.
+
+Border glow via `box-shadow` only, never touches text color. Card is a
+stable parent, so setting its className no-ops on same-beat re-renders.
+Reset unconditionally before `practiceRender()`'s several early-return
+debrief paths, so a debrief never inherits a stale Hard Mode class.
+
+Not built: a ring turn-counter from the reference mockup — the existing
+linear demeanor bar already carries that information.
+
 ## v2.12.0 — 2026-08-11
 
 v2.12.0 — "The pick travels with you"
