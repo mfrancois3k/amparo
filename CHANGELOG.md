@@ -6,6 +6,33 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.11.1 — 2026-08-11
+
+v2.11.1 — "The map hands off properly now"
+
+**Search-fade regression.** Typing a state name had stopped dimming the rest
+of the map. `filterStates()` was tagging non-matches correctly — the failure
+was purely visual. The entrance wave used `animation-fill-mode: forwards`,
+and a finished animation's held `opacity:1` sits in the animations cascade
+layer, which outranks ordinary author rules regardless of specificity. So
+`.nomatch{opacity:.1}` could never win, from first paint. The map now drops
+the animation class once the wave lands.
+
+**Confirmation shows the state.** The confirmed chip is the state's own
+silhouette above ✓ + name — same artwork the map just animated, cropped to
+that state's bounding box (all 51 measured once and baked in, no layout pass).
+
+**Handoff is choreographed.** The map→chip transition was a 0.18s cut; now
+three beats over ~900ms — pick lifts off the map as the country recedes, the
+plate leaves exactly as the DOM swap hides it, silhouette lands before the
+name. "Not your state?" reverses it.
+
+Note for future work: the silhouette needs **two** injection points —
+`render()` for a session that loads already-collapsed, and the click path
+separately, because picking a state only toggles classes and never re-runs
+`render()`. Testing via reload alone hides this; the chip is empty on every
+real click.
+
 ## v2.11.0 — 2026-08-11
 
 v2.11.0 — "A real map, and a stepper that actually steps"

@@ -323,6 +323,25 @@ completed nodes are now clickable nav back to that section via the existing
 was a silent no-op on `.linkbtn` (author rule beat the UA default).
 `index.html` 458 → 502 KB.
 
+## v2.11.1 — 2026-08-11 — "The map hands off properly now"
+
+Two fixes on the v2.11.0 picker, both found by using it. **Search-fade
+regression:** typing a state name stopped dimming the map — `filterStates()`
+tagged non-matches correctly, but the entrance wave's
+`animation-fill-mode:forwards` held `opacity:1` in the animations cascade
+layer, which outranks ordinary author rules regardless of specificity, so
+`.nomatch{opacity:.1}` could never win from first paint. Fixed by dropping the
+animation class once the wave lands. **Confirmation + handoff:** the confirmed
+chip now shows the state's own silhouette above ✓ + name (bounding boxes for
+all 51 measured once and baked in as `SM_BOX`, no layout pass), and the
+map→chip transition went from a 0.18s cut to three beats over ~900ms.
+
+⚠️ Gotcha worth remembering: the silhouette needs **two** injection points —
+`render()` for an already-collapsed load, and `setStateCollapsed()` for the
+click, because picking a state only toggles classes and never re-runs
+`render()`. Reload-only testing hides this completely; the chip renders empty
+on every real click.
+
 ---
 
 ## Quick lookup: "what tag has the fix for X"
@@ -388,6 +407,9 @@ was a silent no-op on `.linkbtn` (author rule beat the UA default).
 | Sliver-state labels as full tap targets (RI/DE/DC/NJ/CT/MA/NH) | v2.11.0 |
 | Stepper's completed nodes clickable — jump back to a section | v2.11.0 |
 | `[hidden]` app-wide fix (was a no-op on `.linkbtn`) | v2.11.0 |
+| Map search-fade regression (`forwards` beat `.nomatch`) | v2.11.1 |
+| Confirmed chip shows the state silhouette (`SM_BOX`, `smShape()`) | v2.11.1 |
+| Map→chip handoff choreographed (~900ms, 3 beats) | v2.11.1 |
 
 To restore any version exactly:
 ```bash
