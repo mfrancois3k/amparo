@@ -87,6 +87,16 @@
   .snode.done .c{border-color:var(--gold);background:var(--gold);color:var(--navy-deep)}
   html:not(.sr-motion) .snode.done .c{animation:popIn .45s var(--ease-spring)}
   .snode.done .l{color:var(--gold-ink)}
+  /* Completed steps are real nav — same affordance language as .btn/.docrow:
+     lift + glow on hover, a visible focus ring for keyboard users tabbing the
+     stepper, tap-scale on press. "now" and future nodes get none of this —
+     nothing here to click yet. */
+  .snode.clickable{cursor:pointer;border-radius:10px;padding:4px 2px;margin:-4px -2px;transition:transform .22s var(--ease-spring)}
+  .snode.clickable:hover{transform:translateY(-2px)}
+  .snode.clickable:hover .c{box-shadow:0 4px 10px rgba(232,184,75,.55)}
+  .snode.clickable:hover .l{color:var(--navy)}
+  .snode.clickable:focus-visible{outline:2.5px solid var(--navy);outline-offset:2px}
+  html:not(.sr-motion) .snode.clickable:active{transform:translateY(0) scale(.94)}
   @keyframes glowPulse{0%,100%{box-shadow:0 0 0 4px rgba(232,184,75,.25)}50%{box-shadow:0 0 0 7px rgba(232,184,75,.4)}}
   @keyframes popIn{0%{transform:scale(.6)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
 
@@ -2598,7 +2608,16 @@ function stepper(){
     let cls='';
     if(step-1===i && step>=1) cls='now';
     else if(step-1>i) cls='done';
-    html+=`<div class="snode ${cls}"><div class="c">${cls==='done'?'✓':i+1}</div><div class="l">${l}</div></div>`;
+    /* Only completed steps jump back — the wizard has no idea what belongs on
+       Print or Lifelines until State (and, for Print, whatever came before it)
+       is answered, so "now" and future nodes stay inert, exactly the standard
+       breadcrumb-stepper contract (Stripe checkout, GOV.UK forms). goM() is
+       the same nav function every Back button already uses. */
+    const clickable=cls==='done';
+    const attrs=clickable
+      ?` role="button" tabindex="0" aria-label="${esc(l)}" onclick="goM(${i+1})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();goM(${i+1})}"`
+      :'';
+    html+=`<div class="snode ${cls}${clickable?' clickable':''}"${attrs}><div class="c">${cls==='done'?'✓':i+1}</div><div class="l">${l}</div></div>`;
   });
   el.innerHTML=html;
   el.style.display = step===0 ? 'none' : 'flex';
