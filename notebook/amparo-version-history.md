@@ -281,6 +281,34 @@ DV-critical beats 71/73 drafted bothGood (never a miss); clinician markers
 stay. Flag stays FALSE — flip still requires attorney + DV-clinician sign-off
 in the same commit. Both memo appendices updated to disclose the draft.
 
+**⚠️ REVERTED in `df974b7`** — the door-module content from this tag is not in
+`main`. Pulled at Michael's direction: the draft paraphrased phrasing patterns
+from the bodycam research instead of using the source clips, which was not the
+approach asked for. Flag was never on; nothing reached users. `PRX_DOOR` is back
+to placeholders, the 24 clips and `tools/gen_door_voices.py` are deleted. The
+research survives at `notebook/amparo-door-raid-research-2026-08-04.md`.
+`git checkout v2.9.0 -- .` still restores the draft if it is ever wanted.
+
+## v2.10.0 — 2026-08-10 — "Four answers from the only real user, all four closed"
+
+Every change traces to one of four direct answers from the one real user, and
+nothing in it was invented. (1) Download worked but he wanted AirPrint and never
+knew the button already does it — `window.print()` opens the OS dialog where
+AirPrint lives; label now names it. (2) Nothing in the product brought him back
+— he remembered, and had promised feedback; added a `.ics` reminder, the only
+channel that reaches a closed app with no server, account or push token, landing
+tomorrow evening because he named privacy as the blocker. (3) The gold practice
+CTA got lost in a dense screen at the moment his task completed — now scrolls
+itself into view. (4) Document capture returns as an optional overlay rather
+than the wizard step v2.1.0 removed: native OS-camera file input, no
+`getUserMedia`, ~90 lines instead of 493, photos persisted under `sr_docs` so
+the reminder has somewhere to land, print pockets only when photos exist.
+
+The join: not somewhere private → reminder → resume → add them. Three of the
+four were placement or labelling defects, not missing features. Two pre-existing
+CSS defects fixed in passing (`.btn` width overflow in flex rows, `.docrow .dt`
+missing `min-width:0` at 320px in Spanish).
+
 ---
 
 ## Quick lookup: "what tag has the fix for X"
@@ -335,6 +363,13 @@ in the same commit. Both memo appendices updated to disclose the draft.
 | Door module full draft (script + options + audio, flag-dark) | v2.9.0 |
 | Door audio d70-75 (24 clips, edge-tts, verified) | v2.9.0, `tools/gen_door_voices.py` |
 | Door hub card / tab / `.doorbg` badge wiring | v2.9.0 |
+| **Door module draft REVERTED (not in main)** | `df974b7`, after v2.9.0 |
+| Real-user 4-answer session (print, return, CTA, photos) | v2.10.0 |
+| `.ics` "remind me tomorrow" finish-later reminder | v2.10.0, `downloadFinishReminder()` |
+| AirPrint named on the print button | v2.10.0 |
+| Practice CTA scrolls into view after printing | v2.10.0 |
+| Document capture rebuilt as an overlay (not a wizard step) | v2.10.0, `openPapers()` / `sr_docs` |
+| Window-card photo pockets restored (only when photos exist) | v2.10.0 |
 
 To restore any version exactly:
 ```bash

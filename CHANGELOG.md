@@ -6,6 +6,40 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.10.0 — 2026-08-10
+
+v2.10.0 — "Four answers from the only real user, all four closed"
+
+The one real user answered four direct questions about his own session. Every
+change here traces to one of them; nothing was invented.
+
+**1 · Print worked, AirPrint didn't announce itself.** He wanted to AirPrint and
+never realised the button already does that — `window.print()` opens the OS
+dialog where AirPrint lives. Label now names it, both languages.
+
+**2 · Nothing brought him back.** He remembered, and he'd promised feedback. A
+personal obligation is not a retention mechanic. Added a downloadable `.ics`
+reminder — the only channel that reaches a closed app with no server, account,
+or push token. Lands tomorrow evening, because he named privacy as the blocker.
+No guilt, no streak.
+
+**3 · The practice CTA got lost.** *"I saw a lot of buttons but while being busy
+and distracted I just might not have clicked."* The button was already right; it
+arrived at the bottom of a dense screen the moment his task completed. Now
+scrolls itself into view.
+
+**4 · Document capture returns.** Useful and liked — what stopped him was doing
+it in public. Back as an optional **overlay**, not the wizard step v2.1.0
+removed: native OS-camera file input, no `getUserMedia`, ~90 lines instead of
+493. Photos persist under their own key (`sr_docs`) so the reminder has
+somewhere to land. Printed window card gets pockets back only when photos exist.
+
+The join is the point: not somewhere private → reminder → resume → add them.
+Three of the four were placement or labelling defects, not missing features.
+
+Also fixed: `.btn` at `width:100%` overflowing inside flex rows, and
+`.docrow .dt` missing `min-width:0` at 320px in Spanish. Both pre-existing.
+
 ## v2.9.0 — 2026-08-04
 
 v2.9.0 — "The door has words now — and they stay behind the flag"
@@ -25,6 +59,16 @@ stay.
 **The flag stays FALSE.** The flip still requires attorney + DV-clinician
 sign-off in the same commit. What changed is what reviewers receive: a
 concrete, playable draft instead of a blank page.
+
+> **⚠️ REVERTED — this release's door-module content is no longer in `main`.**
+> Pulled at Michael's direction in `df974b7`: the draft paraphrased phrasing
+> patterns from the bodycam research rather than using the source clips, which
+> was not the approach asked for. The flag was never on and nothing reached
+> users. `PRX_DOOR` is back to `TODO_ATTORNEY` / `TODO_DV_CLINICIAN`
+> placeholders; the 24 audio clips and `tools/gen_door_voices.py` are gone.
+> The research that informed it survives in
+> `notebook/amparo-door-raid-research-2026-08-04.md`.
+> Recorded here rather than left to mislead a future session.
 
 ## v2.8.1 — 2026-08-04
 
