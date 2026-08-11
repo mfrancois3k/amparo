@@ -631,12 +631,21 @@
   .state-btn[hidden]{display:none}
   /* The picked tile becomes the confirmation: full width, ✓ and the state name
      centered, nothing else on screen between it and Continue. */
-  .state-btn.confirmed{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:11px;padding:22px 16px;cursor:default}
+  /* Confirmed chip: your state's own silhouette above its name. Recognising
+     the shape is the confirmation — it says "yes, that one" faster than any
+     text can, and it is the same artwork the map just animated. */
+  .state-btn.confirmed{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px 16px 20px;cursor:default}
   .state-btn.confirmed:hover{transform:none;box-shadow:0 0 0 2.5px var(--navy) inset}
   .state-btn.confirmed .ab{display:none}
-  .state-btn.confirmed .nm{font-size:18px;font-weight:800;color:var(--navy);margin-top:0}
-  .state-btn.confirmed .badge{position:static;top:auto;right:auto;width:27px;height:27px;font-size:15px}
+  .state-btn.confirmed .cf-row{display:flex;align-items:center;justify-content:center;gap:10px}
+  .state-btn.confirmed .nm{font-size:19px;font-weight:800;color:var(--navy);margin-top:0}
+  .state-btn.confirmed .badge{position:static;top:auto;right:auto;width:27px;height:27px;font-size:15px;flex:none}
   .state-btn.confirmed .pendtag{display:none}
+  .cf-shape{width:auto;height:78px;max-width:74%;display:block;overflow:visible}
+  .cf-shape path{fill:var(--navy);stroke:var(--navy);stroke-width:6;stroke-linejoin:round;vector-effect:non-scaling-stroke;paint-order:stroke}
+  /* Uncollapsed grid keeps the old inline look (the list is display:none today,
+     but this keeps it correct if it is ever re-enabled). */
+  .state-btn:not(.confirmed) .cf-row{display:contents}
   .state-change{margin:10px 0 0}
   .prep-sheet.show{transform:translateY(0)}
   .prep-sheet h3{margin:0 0 6px;font-size:16px;color:var(--navy)}
@@ -1277,12 +1286,39 @@
      picker still retracts, only instantly. No stagger anywhere here on purpose:
      a staggered fade across a 3-column grid sweeps diagonally, which is the
      class of artifact this whole change exists to remove. */
+  /* Picking a state is the one moment in the wizard worth choreographing: it
+     is the only irreversible-feeling choice, and the map has to hand off to
+     the chip without the user losing track of WHICH state they just chose.
+     So the sequence reads in three beats rather than cutting — the pick lifts
+     off the map while the rest of the country recedes behind it, the plate
+     lifts away, and the same silhouette lands in the chip. ~1.1s total. */
   SR.stateCollapse = function (grid, swap) {
     if (!OK() || !grid) { swap(); return; }
     var g = G();
+    var map = document.getElementById('stateMap');
+    var svg = document.getElementById('smSvg');
+    var picked = svg && svg.querySelector('.sm-st.sel');
+    var rest = svg ? svg.querySelectorAll('.sm-st:not(.sel),.sm-lb') : [];
     var others = grid.querySelectorAll('.state-btn:not(.sel),.state-pri-label,.state-rest-label');
     var startH = rect(grid).height;
-    g.to(others, { opacity: 0, duration: 0.18, ease: 'power2.in', onComplete: function () {
+    var tl = g.timeline({ onComplete: function () {
+      /* Every inline style GSAP wrote has to go, or "Not your state?" reopens
+         onto a faded, shifted, still-dimmed map. */
+      if (map) g.set(map, { clearProps: 'all' });
+      if (picked) g.set(picked, { clearProps: 'all' });
+      if (rest.length) g.set(rest, { clearProps: 'all' });
+    }});
+    // beat 1 — the pick rises, the rest of the country steps back
+    if (picked) tl.to(picked, { scale: 1.07, transformOrigin: 'center center',
+      duration: 0.32, ease: 'back.out(2.2)' }, 0);
+    if (rest.length) tl.to(rest, { opacity: 0.1, duration: 0.32, ease: 'power2.out' }, 0);
+    tl.to(others, { opacity: 0, duration: 0.2, ease: 'power2.in' }, 0);
+    // beat 2 — the plate lifts away
+    /* Ends exactly when swap() hides the plate — overlap here would show the
+       display:none snap through the tail of the fade. */
+    if (map) tl.to(map, { opacity: 0, y: -10, duration: 0.26, ease: 'power2.inOut' }, 0.3);
+    // beat 3 — the chip grows into the space it left
+    tl.add(function () {
       swap();
       var sel = grid.querySelector('.state-btn.sel');
       /* Measure the natural collapsed height with height:auto FIRST. Reading
@@ -1293,12 +1329,21 @@
       g.set(grid, { height: 'auto' });
       var endH = rect(grid).height;
       g.set(grid, { height: startH });
-      g.to(grid, { height: endH, duration: 0.36, ease: 'power3.inOut',
+      g.to(grid, { height: endH, duration: 0.42, ease: 'power3.inOut',
         onComplete: function () { g.set(grid, { clearProps: 'height' }); } });
-      if (sel) g.fromTo(sel, { opacity: 0, y: 10 },
-        { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out', delay: 0.05,
+      if (sel) g.fromTo(sel, { opacity: 0 },
+        { opacity: 1, duration: 0.26, ease: 'power2.out', clearProps: 'opacity' });
+      /* The silhouette lands first and settles — it IS the confirmation, so it
+         gets the weight; the name follows a beat later rather than with it. */
+      var shape = sel && sel.querySelector('.cf-shape');
+      if (shape) g.fromTo(shape, { opacity: 0, scale: 0.6, y: 10 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: 'back.out(1.7)', delay: 0.05,
+          transformOrigin: 'center center', clearProps: 'transform,opacity' });
+      var row = sel && sel.querySelector('.cf-row');
+      if (row) g.fromTo(row, { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.38, ease: 'power3.out', delay: 0.28,
           clearProps: 'transform,opacity' });
-    }});
+    }, 0.56);
   };
   SR.stateExpand = function (grid, swap) {
     if (!OK() || !grid) { swap(); return; }
@@ -1314,6 +1359,12 @@
       onComplete: function () { g.set(grid, { clearProps: 'height' }); } });
     g.to(others, { opacity: 1, duration: 0.26, ease: 'power2.out', delay: 0.08,
       clearProps: 'opacity' });
+    /* Bring the plate back the way it left, so "Not your state?" reads as the
+       map returning rather than a new screen appearing. */
+    var map = document.getElementById('stateMap');
+    if (map) g.fromTo(map, { opacity: 0, y: -10 },
+      { opacity: 1, y: 0, duration: 0.42, ease: 'power2.out', delay: 0.04,
+        clearProps: 'transform,opacity' });
   };
   SR.langSwap = function (rerender) {
     var sc = document.getElementById('screen');
@@ -2974,8 +3025,9 @@ function render(){
           const pri=keys.filter(k=>!STATES[k].pending), rest=keys.filter(k=>STATES[k].pending);
           const btn=k=>`
           <button class="state-btn ${data.state===k?'sel':''}${_collapsed&&data.state===k?' confirmed':''}${STATES[k].pending?' pend':''}" data-name="${STATES[k].name.toLowerCase()}" data-ab="${k.toLowerCase()}" onclick="pickState('${k}')"${STATES[k].pending?` title="${_t.s_pending_t}"`:''} ${_collapsed&&data.state!==k?'hidden':''}>
-            <span class="badge">✓</span>
-            <div class="ab">${k}</div><div class="nm">${STATES[k].name}</div>
+            ${_collapsed&&data.state===k?smShape(k):''}
+            <span class="cf-row"><span class="badge">✓</span><span class="nm">${STATES[k].name}</span></span>
+            <div class="ab">${k}</div>
             ${STATES[k].pending?`<div class="pendtag">${_t.s_pending}</div>`:''}
           </button>`;
           /* Cited states float to the top always — this is what "Texas at
@@ -3445,6 +3497,21 @@ const US_PATHS={"AL":"m 643,467.4 .4,-7.3 -.9,-1.2 -1.7,-.7 -2.5,-2.8 .5,-2.9 48
    right of the bounding box) so RI or DE get a readable, TAPPABLE label even
    though their polygons are slivers; everything else is a centre nudge. */
 const SM_LBL={VT:[-4,-16,'m'],NH:[6,-6,'r'],MA:[8,-2,'r'],CT:[7,8,'r'],RI:[7,2,'r'],NJ:[7,2,'r'],DE:[7,0,'r'],DC:[7,10,'r'],MD:[16,12,'m'],MI:[8,24,'m'],LA:[-8,-2,'m'],FL:[16,6,'m'],CA:[-6,-8,'m'],MN:[-6,8,'m'],ID:[-2,14,'m'],AK:[0,-8,'m'],HI:[12,-6,'m'],NY:[-4,-4,'m'],KY:[6,4,'m'],VA:[8,-2,'m'],WV:[-2,4,'m'],TN:[0,2,'m'],NC:[6,-2,'m']};
+/* Per-state bounding boxes [x,y,w,h] in the map's own 959x593 space, measured
+   once from the rendered paths and baked in so the confirmation chip can crop
+   a single state's silhouette without a layout pass. Regenerate if US_PATHS
+   ever changes: render the map, then read getBBox() off every .sm-st. */
+const SM_BOX={"AL":[620.9,361.1,66.7,108.9],"AK":[9.8,432.4,208.4,155.7],"AZ":[134.9,296.8,118.9,138.3],"AR":[504.5,334.4,88.7,79.8],"CA":[14,147.9,140.7,239.7],"CO":[253.8,222.7,127,100.6],"CT":[843.8,165.2,30.1,29.5],"DE":[817.9,226.6,18.5,30.6],"FL":[638.3,443.5,159.7,136.1],"GA":[666.6,355.2,95.2,99.2],"HI":[227.7,509.8,112.9,73.7],"ID":[140.9,27.5,104.1,168.5],"IL":[555.4,199.2,70.1,123.3],"IN":[617.4,209.8,53.5,93.7],"IA":[471.2,180.4,104.5,69.3],"KS":[374.6,256.3,129.7,70],"KY":[593.4,268.2,129.3,65.6],"LA":[516.7,412.9,98.9,86.7],"ME":[863.1,36.7,64.3,101.6],"MD":[757.4,230.1,79,39.6],"MA":[843.1,142.8,61.2,33.2],"MI":[565.6,74.9,132.7,138.3],"MN":[462.3,53.7,115.8,128.3],"MS":[562.8,365.1,62.5,108.5],"MO":[484.5,244.9,116.7,100.8],"MT":[184,30.5,178.5,113.2],"NE":[347.7,187.6,143.8,71.9],"NV":[77.5,166.5,111.1,171.6],"NH":[852.9,91.9,29,60.7],"NJ":[822.5,190.5,23.1,53.9],"NM":[236.4,311,121.7,126.3],"NY":[743,107,132.4,100.6],"NC":[689.5,299.7,154.6,67.6],"ND":[357.3,56.3,114.8,72.1],"OH":[663.4,195.2,73.4,84.2],"OK":[357.5,322.3,151.1,78.2],"OR":[26.5,59.5,140.6,118.2],"PA":[731.9,179.1,101.6,65.7],"RI":[870.7,163.5,13.9,19.4],"SC":[707.5,346.7,89.3,67],"SD":[351.4,123,122.5,81.4],"TN":[582.6,316.3,148.8,51.4],"TX":[282.3,332.9,244.5,239.2],"UT":[167.6,187.8,97.7,123.2],"VT":[830.6,100.1,29.5,55.2],"VA":[697.7,244.7,137.6,76.4],"WA":[57.4,5.2,117.2,86.7],"WV":[709.2,225.1,79,78.1],"WI":[528.6,101,94.3,101],"WY":[233.2,130.5,122.1,101.3],"DC":[799.9,250.2,3.6,4.4]};
+/* The confirmation chip's state silhouette. Cropped to the state's own bbox
+   with a small margin, so Rhode Island and Texas both fill the same box —
+   the point is recognising YOUR state, not comparing sizes. `pad` is
+   proportional so thin states (DC, DE) don't end up as a hairline. */
+function smShape(k){
+  const b=SM_BOX[k]; if(!b||!US_PATHS[k]) return '';
+  const pad=Math.max(b[2],b[3])*0.08;
+  const vb=`${b[0]-pad} ${b[1]-pad} ${b[2]+pad*2} ${b[3]+pad*2}`;
+  return `<svg class="cf-shape" viewBox="${vb}" aria-hidden="true" preserveAspectRatio="xMidYMid meet"><path d="${US_PATHS[k]}"/></svg>`;
+}
 function smPlaceLabels(){
   const svg=document.getElementById('smSvg'); if(!svg||svg.dataset.labeled) return;
   /* getBBox() is meaningless while the map is display:none (resumed sessions
@@ -3631,6 +3698,15 @@ function setStateCollapsed(on){
     b.classList.toggle('confirmed', on && isSel);
   });
   grid.querySelectorAll('.state-pri-label,.state-rest-label').forEach(l=>l.hidden=on);
+  /* The silhouette needs BOTH injection points. render() covers the resumed
+     session that loads already-collapsed; this covers the click, where only
+     classes toggle and render() never re-runs. Removing first keeps the two
+     from doubling up, and rebuilds the shape when the pick changes. */
+  const selBtn=grid.querySelector('.state-btn.sel');
+  if(selBtn){
+    const old=selBtn.querySelector('.cf-shape'); if(old) old.remove();
+    if(on&&data.state) selBtn.insertAdjacentHTML('afterbegin',smShape(data.state));
+  }
   const smap=document.getElementById('stateMap'); if(smap) smap.hidden=on; // map retracts with the grid — the confirmed chip is the whole story once picked
   if(!on) smPlaceLabels(); // first reveal after a resumed (collapsed) render still needs its label pass
   if(search) search.hidden=on;
