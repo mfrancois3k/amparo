@@ -374,6 +374,18 @@ function's pre-existing `const card=prxCard(ci)` (the beat's content object)
 script to parse. Caught by running the extracted script through
 `node --check` before trusting browser tests. Renamed to `atmCard`.
 
+## v2.12.2 — 2026-08-11 — "The card says yes before the screen turns"
+
+Hub scenario cards confirm the tap with a green pulse (~260ms) before the
+practice overlay covers them — reference mockup row 3 ("card highlights green,
+scenario selected"). Cards route through `prPick()`: pulse, then `prStart()`
+launches; reduced motion launches immediately; a busy flag eats double-taps so
+`practiceOpen()`'s spoken line can't stack. Locked cards keep their empty
+onclick. This was the one remaining row-3 gap — every other screen in the
+mockup is already live (map v2.11, state pill v2.12.0, tone atmosphere v2.12.1,
+typed/voice/custom input long-standing, hub dashboard v2.7.0). Paid completion
+screen (mockup 4x4) NOT built — contradicts the 10-persona pricing panel.
+
 ---
 
 ## Quick lookup: "what tag has the fix for X"
@@ -444,6 +456,7 @@ script to parse. Caught by running the extracted script through
 | Map→chip handoff choreographed (~900ms, 3 beats) | v2.11.1 |
 | Chosen state travels via eyebrow pill (steps 2-5), tap returns to step 1 | v2.12.0 |
 | Practice card tone-glow + Hard Mode scanline atmosphere | v2.12.1 |
+| Hub scenario-card green-pulse confirm before overlay (`prPick()`) | v2.12.2 |
 
 To restore any version exactly:
 ```bash

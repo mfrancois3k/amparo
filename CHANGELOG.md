@@ -6,6 +6,24 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.12.2 — 2026-08-11
+
+v2.12.2 — "The card says yes before the screen turns"
+
+Hub scenario cards confirm the tap with a green pulse (~260ms) before the
+practice overlay covers them — from the reference mockup's row-3 flow. The
+overlay used to swallow the tap instantly; the pick never registered.
+
+Cards route through `prPick()`: pulse, then `prStart()` launches. Reduced
+motion launches immediately. Busy flag eats double-taps (two `prStart()`
+would stack `practiceOpen()`'s spoken line twice). Locked cards keep their
+empty onclick.
+
+Every other screen in the mockup is already live — map (v2.11), state pill
+(v2.12.0), tone atmosphere (v2.12.1), typed/voice input (long-standing), hub
+dashboard (v2.7.0). Paid completion screen (mockup 4x4) NOT built —
+contradicts the 10-persona pricing panel.
+
 ## v2.12.1 — 2026-08-11
 
 v2.12.1 — "The room feels the tone now"
