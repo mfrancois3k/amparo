@@ -1054,3 +1054,54 @@ Full check suite (extractor, storage, service-worker, practice-engine —
 against the production preview server; `grep -o 'cacheName:"[^"]*"'
 app/sw.js` confirms both cache names in the shipped worker are
 `app-audio-v1`/`app-img-v1`, neither matching root's deletion prefix.
+
+---
+
+## Level 2 spike fixed — root edit, first of this migration
+
+Three independent reviews across this migration (wargames/16, 17, 19) all
+converged on the same one-line fix for the same finding: Level 2 ("Ordered
+out") was a 2-beat spike — `PRX_LEVELS[2].ids` was `[3,7]`, jumping straight
+from the exit order to the arrest with nothing between them, right behind
+the heaviest consent gate in the app. The recommended fix — insert `ci:2`
+(the consent-to-search beat, already fully reviewed content in `PRX_VAR[2]`)
+— reuses existing content, authors nothing new.
+
+Root has been untouched by policy for the entire migration. Asked the
+operator explicitly before touching it for the first time; got a clear yes,
+scoped to this one line. Changed `index.html:4374`:
+`{ids:[3,7],rate:1.28}` → `{ids:[3,2,7],rate:1.28}`. Nothing else on that
+line touched.
+
+The other open finding from the same reviews — `PRX_VAR[7]` (the arrest
+beat) has no hostile-tone variant, so the divergence mechanic silently
+no-ops on Level 2's "bad pick" path — was NOT fixed. That fix requires
+authoring a genuinely new officer line, which this project never does
+(attorney-reviewable content only, never model-authored). Asked the
+operator; the answer was to leave it open, logged, same as before.
+
+### What shipped
+- `index.html:4374` — the one-line array edit above.
+- Re-ran `extract-app-content.mjs` (no code changes needed elsewhere —
+  `practice.json`'s `PRX_LEVELS[2]` now reads `{"ids":[3,2,7],"rate":1.28}`,
+  everything downstream — `buildDeck()`, the tone-pool filter, the rail,
+  the score denominator — already handles a 3-beat deck the same as any
+  other, since none of it hardcodes a beat count).
+- `tools/practice-engine-check.mts` gained a regression check pinning the
+  exact ci sequence `[3, 2, 7]`, so a future edit can't silently regress
+  back to the 2-beat spike without a test failing.
+
+### Verification
+- `extract-app-content.mjs --verify` — PASS, content re-synced.
+- `practice-engine-check.mts` — 19/19 (new check included).
+- `app-storage-check.mts` / `sw-routing-check.mjs` — PASS, unchanged.
+- `tsc -b && vite build` / `oxlint` — clean.
+- Live, both languages: entered Level 2, confirmed "Card 1 of 3" /
+  "Tarjeta 2 de 3" (not "of 2"), the new beat 2 render correctly in EN
+  ("Pop the trunk for me...") and ES ("Ábrame la cajuela..."), tone stayed
+  curt (never calm, matching the level's tone pool), score ring tracked
+  correctly through all 3 beats, debrief showed 2/3 with three squares in
+  the grid. Zero console errors beyond the known dev-only 404s (audio/img
+  paths not served by the isolated dev server) and the pre-existing
+  browser-TTS CSP worker warning (noted in Move 5.2's log, unrelated to
+  this change).

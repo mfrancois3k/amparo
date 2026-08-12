@@ -52,6 +52,11 @@ check('level 2 (index 2): tone pool allows curt AND hostile, never calm', () => 
   for (const beat of deck) assert.ok(beat.tone === 'curt' || beat.tone === 'hostile', `beat ci=${beat.ci} tone=${beat.tone}`);
 });
 
+check('level 2: three beats [3,2,7], not the old two-beat [3,7] spike (wargames/16 2.1)', () => {
+  const deck = buildDeck(2, emptyProgress(), FIXED_DATE, seededRng(3));
+  assert.deepEqual(deck.map((b) => b.ci), [3, 2, 7]);
+});
+
 check('level 3 (hard mode): fixed track, ids 20/21/22, never variant-randomized', () => {
   const deck = buildDeck(3, emptyProgress(), FIXED_DATE, seededRng(1));
   assert.deepEqual(deck.map((b) => b.ci), [20, 21, 22]);
