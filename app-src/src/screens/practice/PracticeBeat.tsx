@@ -176,7 +176,11 @@ export function PracticeBeat({ t, lang, state, meta, audio, onPick, onTypeAnswer
               no key-phrase grading, nothing that reads as a right/wrong
               answer to someone in crisis. */}
           {state.curTier === 'x' ? (
-            <div className="prx-coach good">{t.prx_crisis}</div>
+            // The single highest-stakes line in the app — a screen-reader
+            // user must hear it announced, not just the sighted styling.
+            // Found by this loop's blind-spot audit: the demeanor meter
+            // three lines above already had aria-live, this didn't.
+            <div className="prx-coach good" role="alert" aria-live="assertive">{t.prx_crisis}</div>
           ) : (
             <>
               {meta.matched ? (

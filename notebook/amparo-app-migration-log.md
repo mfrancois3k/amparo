@@ -839,3 +839,66 @@ first-ever visitor.
 **Phase 5 complete.** Next: Phase 6 — `/app` service worker + manifest
 (Move 6.1), then the parity audit (Move 6.2), the last phase in
 wargames/15.
+
+---
+
+## Post-Phase-5 fixes — loop round after v2.19.0
+
+Two independent live QA passes (EN/TX+NY returning-user, ES/Georgia
+fresh-session — both zero defects) plus this loop's three background
+reports (focus group 11, module review 17, blindspot audit
+2026-08-12-02) surfaced two real, cheap, in-scope fixes, applied now:
+
+- **Crisis message had no screen-reader announcement.** The demeanor
+  meter three lines above already had `aria-live`; the crisis-tier reveal
+  (`PracticeBeat.tsx`) — the single highest-stakes sentence in the
+  app — did not. Added `role="alert" aria-live="assertive"`. Verified
+  live: triggering the Spanish crisis path shows the 988 message correctly
+  exposed via `[role="alert"]` in the rendered DOM.
+- **Officer audio stale-callback leak** (blindspot audit). `stopAll()` in
+  `usePracticeAudio.ts` paused the old `Audio` element and dropped the
+  React ref, but never detached its `onplay`/`onerror`/`onended`
+  handlers. `pause()` rejects any pending `play()` promise, and that
+  rejection still reached the STALE object's `onerror` — which could fire
+  the TTS fallback for a beat that's no longer current, reachable via
+  rapid re-tap of "hear it again," `back()`, or navigating off the screen
+  mid-clip. Fixed by nulling all three handlers before `pause()`.
+
+### Findings surfaced but NOT fixed — re-characterized or logged
+- **"Mute unreachable before first audio fires"** (focus group, framed as
+  a regression). Checked against root: root has the IDENTICAL property —
+  no mute control exists anywhere before entering a level (`prx-hear` only
+  renders inside the live-beat view, index.html's `practiceRender` non-
+  select branch). `/app`'s port is faithful to this, not a new gap.
+  Changing it would be a real UX feature addition beyond this migration's
+  port scope, not a bug fix — logged for a product decision, not silently
+  built.
+- **`PRX_VAR[7]` has no hostile-tone variant** (module review, confirmed
+  live via the divergence mechanic silently no-op'ing on level 2's "bad
+  pick" path). Content-authoring gap, not code — can't be fixed without
+  writing new officer dialogue, which this project never does.
+- **Level 2 ("ordered out") is still a 2-beat spike behind the consent
+  gate** (module review, carried forward from wargames/16, confirmed still
+  open in both `index.html` and the ported `practiceEngine.ts`). Same
+  content/design-decision category as above.
+- **`app_prx`/`app_mute`/`app_voice` use `writeApp` (silent-fail) instead
+  of `writeAppReporting`** (blindspot audit) — a quota failure would
+  silently drop a completed practice run while the debrief screen still
+  celebrates it. Real, but low-probability (this key never stores images,
+  unlike `app_docs`, which shares the same quota and is the actual
+  pressure point) and would need a genuine UI failure state this beta
+  doesn't have a pattern for yet. Logged, not built, to avoid inventing
+  UI beyond scope on a low-probability path.
+- **No cross-tab `storage` event reconciliation on `app_prx`** (blindspot
+  audit) — two open tabs can last-write-wins clobber each other's
+  progress. Low priority, logged only.
+
+### Verification
+Full check suite (extractor, storage, service-worker, practice-engine —
+18/18) and build pass. Live-verified the crisis `role="alert"` fix in the
+browser (Spanish crisis phrase → `[role="alert"]` present with the 988
+text). The audio-leak fix has no isolated live repro in this session (the
+failure needs precise timing against a real audio clip, which the dev
+server can't serve — see Move 5.2's log for the same img/audio dev-vs-prod
+note) but is confirmed correct by code inspection and the practice-engine
+check suite's unrelated coverage staying green.

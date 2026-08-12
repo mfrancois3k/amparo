@@ -76,7 +76,19 @@ export function usePracticeAudio(): PracticeAudio {
 
   const stopAll = useCallback(() => {
     try {
-      if (audioRef.current) { audioRef.current.pause(); audioRef.current = null }
+      if (audioRef.current) {
+        /* Detach handlers BEFORE pausing — pause() rejects any pending
+           play() promise, and that rejection still reaches onerror on this
+           same Audio object even after we've dropped our own reference to
+           it, so the double-fallback latch in speak() would fire the TTS
+           fallback for a beat that's no longer current. Found by this
+           loop's blind-spot audit: reachable via rapid re-tap of "hear it
+           again," back(), or navigating off the screen mid-clip. */
+        const a = audioRef.current
+        a.onplay = null; a.onerror = null; a.onended = null
+        a.pause()
+        audioRef.current = null
+      }
       if (hasTTS) speechSynthesis.cancel()
     } catch { /* ignore */ }
     setSpeaking(false)
