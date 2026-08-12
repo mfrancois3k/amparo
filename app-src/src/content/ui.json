@@ -1,0 +1,68 @@
+{
+  "STEP_SLUG": [
+    "welcome",
+    "state",
+    "you",
+    "lifelines",
+    "print",
+    "practice"
+  ],
+  "DOCS": [
+    {
+      "k": "lic_f",
+      "doc": "lic",
+      "t": "d_lic_f",
+      "s": "d_lic_f_s"
+    },
+    {
+      "k": "lic_b",
+      "doc": "lic",
+      "t": "d_lic_b",
+      "s": "d_lic_b_s"
+    },
+    {
+      "k": "ins_f",
+      "doc": "ins",
+      "t": "d_ins_f",
+      "s": "d_ins_f_s"
+    },
+    {
+      "k": "ins_b",
+      "doc": "ins",
+      "t": "d_ins_b",
+      "s": "d_ins_b_s"
+    },
+    {
+      "k": "reg",
+      "doc": "reg",
+      "t": "d_reg",
+      "s": "d_reg_s"
+    }
+  ],
+  "CARRY_F": [
+    [
+      "cHands",
+      "carry_hands",
+      "carry_hands_ph",
+      42
+    ],
+    [
+      "cBreath",
+      "carry_breath",
+      "carry_breath_ph",
+      42
+    ],
+    [
+      "cLine",
+      "carry_line",
+      "carry_line_ph",
+      52
+    ],
+    [
+      "cDocs",
+      "carry_docs",
+      "carry_docs_ph",
+      42
+    ]
+  ]
+}

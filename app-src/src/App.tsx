@@ -31,7 +31,11 @@ export default function App() {
         </a>
         .
         <br />
-        <span style={{ color: 'var(--muted)' }}>
+        {/* lang="es" matters here: this banner shows both languages at once
+            inside an English document, so without it a screen reader applies
+            English phonetics to the Spanish. Half this product's audience reads
+            the Spanish side. */}
+        <span lang="es" style={{ color: 'var(--muted)' }}>
           <strong>Versión de prueba.</strong> La aplicación real está en{' '}
           <a href="/" style={{ color: 'var(--navy)' }}>
             amparohq.com

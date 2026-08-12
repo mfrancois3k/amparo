@@ -129,8 +129,94 @@ the index shift wrong does not throw — it silently displays a returning user's
 Hard-mode result as their Checkpoint result. Verified meaningful by breaking the
 shift and watching it fail.
 
+### QA round, 2026-08-11 — three independent agents
+
+Run after Phases 1–2 deployed. Verdicts: root regression **SAFE-WITH-CAVEATS**,
+`/app` E2E **PASS**, content fidelity **FAITHFUL-WITH-NOTES**. No CRITICAL or
+HIGH anywhere. Most of what was found was wrong in *this migration's own tooling*
+— which is the point of running QA that does not trust the author.
+
+**Root regression (the live product).** 89 adversarial assertions over the real
+worker, plus a live browser A/B against the pre-commit version served on
+localhost. All 257 tracked repo files were classified under both the old and new
+`isAsset` predicates: **zero same-origin assets changed classification.** The
+A/B also *proved the bug the commit fixes was real* — the OLD worker destroyed a
+planted `workbox-precache-*` cache; the new one leaves it and every third-party
+cache intact while still pruning `amparo-v1`/`v2`. Deployed `sw.js` is
+byte-identical to HEAD and byte-stable across repeated fetches, which rules out
+the one condition that could cause a reload loop. Update path traced to exactly
+one reload.
+
+Two things it corrected in my understanding: the cross-origin matcher change is
+a **security fix, not a caching loss** — the old substring test would cache *any*
+third-party URL containing `/img/` or `/audio/` into a never-versioned cache —
+and the `/og.png` change is strictly better, since the old `endsWith` failed on a
+query string.
+
+**`/app` E2E.** Zero external hosts contacted (corroborated three ways), zero
+storage keys created, no console errors, mobile-clean, product palette confirmed.
+The headline: **no cache poisoning** — the cached root shell measured
+545,066 bytes / sha256 `087728ad…` both before and after an online `/app` visit
+while controlled by the root worker, with `amparo-v3` still at exactly 6 entries.
+Committed build verified not stale (byte-identical rebuild), and deployed ==
+committed == source, which independently confirms no server-side build runs.
+
+**Content fidelity.** 2,271 string leaves walked: **0 defects.** 145 apparent
+mismatches were all encoding artifacts (the source spells characters as `—`,
+`\"` etc.); the *values* are identical. Placeholder counts reconcile exactly —
+the only `TODO_ATTORNEY`/`TODO_DV_CLINICIAN` occurrences not in the JSON are in
+code comments. Typographic marks and all 34 `§` citations survived intact.
+
+### Four defects the audit found in this migration's own tooling — all fixed
+
+1. **`PLACE` was never extracted.** A bilingual bank printed on all six pack
+   pages, carrying safety-relevant wording ("announce … I'm reaching for it
+   slowly"). It was the *only* unextracted prose bank. Now included, along with
+   `STEP_SLUG`/`DOCS`/`CARRY_F` (structural tables the app needs, where a
+   retyped slug breaks routing silently).
+2. **The verbatim guard verified nothing it claimed.** It sampled
+   `beat.officer.en` out of `PRACTICE` — a key path `PRACTICE` does not have
+   (its beats are `{o, y}`) — so the primary rehearsal dialogue contributed
+   **zero** lines while the tool printed "74 officer lines checked". A guard
+   advertising coverage it lacks is worse than no guard: it is the
+   claim-louder-than-reality failure hard rule 3 exists for, committed by the
+   very tool meant to prevent content drift. Now walks **every** string leaf —
+   2,317 of them.
+3. **The JSON-safety guard was Set/Map-only.** `RegExp`, `Date`, functions,
+   `undefined` and `NaN` all serialized to `{}`/`null`/nothing at exit 0. Now an
+   allowlist of the JSON types. Verified against all five attacks plus a clean
+   control.
+4. **`plain()` was destroying the evidence.** Even after (3), `RegExp` and `Date`
+   still passed, because `plain()` recursed into anything with
+   `typeof === 'object'` and flattened them to `{}` *before* the guard ran. It
+   now only rebuilds genuine plain objects.
+
+Also fixed: the escape-tolerant matcher was decoding HTML entities, which turned
+a *correct* string into a false miss — `&amp;` inside a value is content ("Civ.
+Prac. &amp; Rem. Code"), not encoding, because these literals live inside a
+`<script>` where `&` is already literal. JS escapes are decoded; entities are not.
+
+Two findings from the E2E pass were also fixed: the Spanish banner now carries
+`lang="es"` (without it a screen reader applies English phonetics to half the
+audience's language), and `/app` now gets its **own, strictly tighter CSP** —
+no CDN, no analytics hosts, no inline scripts. Root's rule is deliberately not
+edited; the block is appended, so root keeps exactly the policy it has today
+under any precedence rule. That moves "zero analytics" from tested to enforced.
+
+### Open, NOT from this migration — root's offline chip can overclaim
+On a true first visit the root app can display *"Saved on this device — works
+without internet"* while `caches.keys()` is empty and no worker controls the
+page: the chip is gated on `navigator.serviceWorker.ready` (resolves on an
+active *registration*) rather than on the page being controlled or anything
+actually being cached — while the source comment claims the opposite. For a
+product whose pitch is roadside offline reliability this is an honesty gap of
+exactly the kind rule 3 names. Pre-existing, unrelated to `e21d019`, and root
+fixes ship separately from migration work — so it is filed here, not patched
+mid-phase. The agent marked its production repro [UNVERIFIED] outside its
+browser environment; settle with a normal incognito window before fixing.
+
 ### Inherited by Phase 3
-- **256 kB of content JSON must be code-split, not imported wholesale.** The
+- **~236 kB of content JSON must be code-split, not imported wholesale.** The
   bundle is still 60.2 kB gzip only because nothing imports it yet. `map.json`
   alone (the state-map path data) is 45.6 kB.
 - The wargame's "every `localStorage.setItem` literal matches `/^app_/`" bundle

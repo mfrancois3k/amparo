@@ -47,6 +47,16 @@
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
+    },
+    {
+      "//": "The /app strangler build (wargames/15) needs none of root's third-party origins: no GSAP CDN, no PostHog, and no inline scripts (a Vite build has none). Root's rule above is deliberately NOT edited — this block is appended so that whichever precedence Vercel applies, root keeps exactly the policy it has today. /app is only ever equal to or tighter than root. This makes the beta's 'zero analytics' promise enforced at the header layer instead of merely tested; script-src has no host that could serve an analytics bundle, and connect-src has nowhere to send one.",
+      "source": "/app/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+        }
+      ]
     }
   ]
 }

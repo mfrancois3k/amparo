@@ -362,5 +362,49 @@
         "es": "Para demandar a una ciudad o al NYPD debe presentar un <b>Aviso de Reclamo en 90 días</b> (Gen. Mun. Law §50-e). Demandar al Estado — incluida la Policía Estatal — pasa por la Court of Claims con reglas distintas, con plazos igual de cortos (a menudo 90 días). Y los reclamos federales de derechos civiles (42 U.S.C. §1983) NO requieren aviso de reclamo y dan hasta 3 años — perder los 90 días no mata todos los casos. Vea a un abogado enseguida.<br><i class=\"stq\">Texto de la ley (en inglés): “…the notice of claim shall comply with and be served in accordance with the provisions of this section within ninety days after the claim arises.” — Ley Municipal General §50-e</i>"
       }
     }
+  },
+  "PLACE": {
+    "1": {
+      "ic": "door",
+      "lb_en": "WHERE IT GOES",
+      "lb_es": "DÓNDE VA",
+      "en": "Driver’s door pocket or clipped to the visor — never mounted on the glass while driving. Before you reach for it: hands stay visible, announce “my card is in the door pocket — I’m reaching for it slowly.”",
+      "es": "Bolsillo de la puerta o sujeta al visor — nunca montada en el vidrio mientras maneja. Antes de alcanzarla: manos visibles, anuncie “mi tarjeta está en la puerta — la voy a alcanzar despacio.”"
+    },
+    "2": {
+      "ic": "window",
+      "lb_en": "HOW IT’S USED",
+      "lb_es": "CÓMO SE USA",
+      "en": "Once stopped: hold it against your window glass facing the officer, window down 2–3 inches. Asked for your documents? Hand them over — the card is your voice, never a refusal.",
+      "es": "Ya detenido: sosténgala contra el vidrio hacia el oficial, ventana abajo 5–7 cm. ¿Le piden sus documentos? Entréguelos — la tarjeta es su voz, nunca una negativa."
+    },
+    "3": {
+      "ic": "wallet",
+      "lb_en": "WHERE IT GOES",
+      "lb_es": "DÓNDE VA",
+      "en": "Cut along the dotted line and fold it first — plain paper goes soft in weeks. Easiest fix: a cheap vinyl card sleeve. Laminating instead? Use two pieces meeting at the fold, never one sheet across it — that cracks right at the crease. Printed on an inkjet? Let it dry a full day before covering.",
+      "es": "Corte por la línea punteada y dóblela primero — el papel normal se ablanda en semanas. La solución más fácil: una funda de vinilo barata. ¿Prefiere laminarla? Use dos piezas que se unan en el doblez, nunca una sola lámina continua — se agrietará justo ahí. ¿La imprimió en una impresora de inyección? Déjela secar un día completo antes de cubrirla."
+    },
+    "4": {
+      "ic": "glove",
+      "lb_en": "WHERE IT GOES",
+      "lb_es": "DÓNDE VA",
+      "en": "In the car with page 1 — or clipped to your registration, so one announced reach gets everything. Read it while the officer runs your license, or after the stop — never while they’re at your window.",
+      "es": "En el carro junto a la página 1 — o sujeta a su registro, para que un solo alcance anunciado lo tome todo. Léala mientras el oficial revisa su licencia, o después de la parada — nunca cuando esté en su ventana."
+    },
+    "5": {
+      "ic": "home",
+      "lb_en": "WHERE IT GOES",
+      "lb_es": "DÓNDE VA",
+      "en": "At home with your important documents — NOT in the car. Your emergency contact should know where it is.",
+      "es": "En casa con sus documentos importantes — NO en el carro. Su contacto de emergencia debe saber dónde está."
+    },
+    "6": {
+      "ic": "home",
+      "lb_en": "WHERE IT GOES",
+      "lb_es": "DÓNDE VA",
+      "en": "At home — you’ll reach for it after a ticket, tow, or crash.",
+      "es": "En casa — la necesitará después de una multa, una grúa o un choque."
+    }
   }
 }

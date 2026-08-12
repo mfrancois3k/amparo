@@ -27,8 +27,13 @@
    `const` declarations in a single script.
 
    The scanner understands strings, template literals (including `${}` nesting),
-   and comments. It does NOT understand regex literals — no targeted bank
-   contains one, and `--verify` would fail loudly if that ever changed. */
+   and comments. It does NOT understand regex literals. No targeted bank contains
+   one today (all 39 sliced statements were checked). If one is ever added, the
+   failure is only sometimes loud: a regex containing a quote or `/*` sends the
+   scanner off the end of the file and the tool exits 1 with "could not locate",
+   but a PLAIN regex is sliced fine and then serializes as `{}` at exit 0. The
+   JSON-safety allowlist below is what actually catches that case — `--verify`
+   does not, because it re-extracts the same broken slice. */
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -46,7 +51,15 @@ const VERIFY = process.argv.includes('--verify');
 const GROUPS = {
   'meta.json':       ['EDITION', 'ED_REPLACE', 'REVIEW', 'FINAL_SCENARIOS_ENABLED', 'DOOR_MODULE_ENABLED'],
   'states.json':     ['STATES', 'US_STATE_NAMES', 'BASE_RULES_EN', 'BASE_RULES_ES', 'BASE_LIFELINES', 'TAGNAMES', 'SCEN', 'QR', 'QR_URL'],
-  'pack-extra.json': ['PACK_EXTRA'],
+  // PLACE is the bilingual "where it goes / how it's used" strip printed on all
+  // six pack pages. It was missed on the first pass — found by an audit, not by
+  // this tool, which is why the verbatim check below is now exhaustive rather
+  // than a sample. Its wording is safety-relevant ("announce ... I'm reaching
+  // for it slowly"), so it is content, not chrome.
+  'pack-extra.json': ['PACK_EXTRA', 'PLACE'],
+  // Structural tables: no prose, but the app needs them and retyping a slug or
+  // a field id silently breaks routing or a form.
+  'ui.json':         ['STEP_SLUG', 'DOCS', 'CARRY_F'],
   'map.json':        ['US_PATHS', 'SM_LBL', 'SM_BOX'],
   'prep.json':       ['PREP_STEPS'],
   'practice.json':   [
@@ -163,13 +176,19 @@ try {
     for PRX_UNSCORED and PRX_DO on the first run — which would have made every
     scored level render a score, including hard mode. Recursive because a Set
     nested inside a bank would fail just as quietly. */
-const isSet = v => Object.prototype.toString.call(v) === '[object Set]';
-const isMap = v => Object.prototype.toString.call(v) === '[object Map]';
+const tag = v => Object.prototype.toString.call(v);
+const isSet = v => tag(v) === '[object Set]';
+const isMap = v => tag(v) === '[object Map]';
 function plain(v) {
   if (isSet(v)) return [...v].map(plain);
   if (isMap(v)) return Object.fromEntries([...v].map(([k, x]) => [k, plain(x)]));
   if (Array.isArray(v)) return v.map(plain);
-  if (v && typeof v === 'object') return Object.fromEntries(Object.entries(v).map(([k, x]) => [k, plain(x)]));
+  /* ONLY genuine plain objects are rebuilt. An earlier version recursed into
+     anything with `typeof v === 'object'`, which silently flattened a RegExp or
+     a Date into `{}` — destroying the very evidence the JSON-safety guard below
+     exists to catch, so those two passed at exit 0. Exotic objects are now
+     returned untouched so the guard sees them and refuses to write. */
+  if (tag(v) === '[object Object]') return Object.fromEntries(Object.entries(v).map(([k, x]) => [k, plain(x)]));
   return v;
 }
 
@@ -180,41 +199,74 @@ for (const [file, names] of Object.entries(GROUPS)) {
 files['t.en.json'] = plain(evaluated[I18N].en);
 files['t.es.json'] = plain(evaluated[I18N].es);
 
-/* Nothing that JSON cannot represent may reach disk. A surviving Set/Map would
-   serialize as `{}` and lose its contents without any error — see the note on
-   plain() above. Cheap, and it closes the failure mode permanently. */
+/* Nothing that JSON cannot represent may reach disk. This is an ALLOWLIST of the
+   JSON types, not a denylist of Set/Map — an earlier version checked only those
+   two and let RegExp, Date, functions, `undefined` and NaN/Infinity through, each
+   of which loses its contents at exit 0 with no error:
+     JSON.stringify({r:/x/})        -> {"r":{}}
+     JSON.stringify({f:()=>1})      -> {}            (key vanishes)
+     JSON.stringify({n:NaN})        -> {"n":null}
+   `--verify` cannot catch any of that either, since it re-extracts the same
+   broken slice and gets the same broken output. Only this check can. */
+const JSON_SAFE = new Set(['[object String]', '[object Number]', '[object Boolean]', '[object Null]', '[object Array]', '[object Object]']);
 const nonJson = [];
 (function scan(v, path) {
-  if (isSet(v) || isMap(v)) { nonJson.push(path); return; }
+  const t = tag(v);
+  if (!JSON_SAFE.has(t)) { nonJson.push(`${path} (${t})`); return; }
+  if (t === '[object Number]' && !Number.isFinite(v)) { nonJson.push(`${path} (${v})`); return; }
   if (Array.isArray(v)) v.forEach((x, i) => scan(x, `${path}[${i}]`));
-  else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) scan(x, `${path}.${k}`);
+  else if (t === '[object Object]') for (const [k, x] of Object.entries(v)) scan(x, `${path}.${k}`);
 })(files, '');
 if (nonJson.length) {
-  console.error(`extract: value(s) not representable in JSON reached output: ${nonJson.join(', ')}`);
+  console.error('extract: value(s) not representable in JSON reached output — refusing to write.');
+  nonJson.slice(0, 8).forEach(p => console.error(`  ${p}`));
   process.exit(1);
 }
 
 const sha = s => createHash('sha256').update(s).digest('hex').slice(0, 16);
 const render = obj => JSON.stringify(obj, null, 2) + '\n';
 
-/* Integrity spot-check: a sample of extracted officer lines must appear as exact
-   substrings of index.html. Evaluation makes transformation unlikely, but this
-   is the check that would actually catch it, so it runs every time. */
-const sample = [];
-for (const deck of Object.values(evaluated.PRACTICE ?? {})) {
-  if (Array.isArray(deck)) for (const beat of deck) {
-    if (beat?.officer?.en) sample.push(beat.officer.en);
-    if (beat?.officer?.es) sample.push(beat.officer.es);
+/* Verbatim check over EVERY extracted string, not a sample.
+   The previous version sampled `beat.officer.en` out of PRACTICE — a key path
+   PRACTICE does not have (its beats are `{o, y}`), so it silently contributed
+   ZERO lines while the tool printed "74 officer lines checked" and implied the
+   primary rehearsal dialogue was covered. It wasn't. An audit found that, not
+   this tool. A guard that advertises coverage it does not have is worse than no
+   guard, so it now walks every string leaf and reports what it actually did.
+
+   Matching is escape-tolerant by comparing against a decoded copy of the source:
+   index.html spells many characters as JS escapes (`—`, `\"`, `\n`), so ~150
+   strings are byte-different in the file while being identical in value.
+   Decoding once up front is O(1) and keeps the check honest instead of burying
+   real misses under a fuzzy allowance.
+
+   JS escapes ONLY — deliberately no HTML-entity decoding. These literals live
+   inside a <script>, so `&` and `<` are already literal there; an `&amp;` inside
+   a value is CONTENT that gets rendered later (e.g. "Civ. Prac. &amp; Rem.
+   Code"). Decoding entities here turned a correct string into a false miss. */
+const htmlDecoded = html
+  .replace(/\\u([0-9a-fA-F]{4})/g, (_, h) => String.fromCharCode(parseInt(h, 16)))
+  .replace(/\\n/g, '\n').replace(/\\t/g, '\t').replace(/\\r/g, '\r')
+  .replace(/\\"/g, '"').replace(/\\'/g, "'")
+  .replace(/\\\\/g, '\\');
+
+let strChecked = 0, strVerbatim = 0;
+const notFound = [];
+(function walk(v, path) {
+  if (typeof v === 'string') {
+    if (!v.trim()) return;            // empty-by-design values (e.g. `amend:""`)
+    strChecked++;
+    if (html.includes(v)) { strVerbatim++; return; }
+    if (htmlDecoded.includes(v)) return;   // present, spelled with escapes/entities
+    notFound.push([path, v]);
+    return;
   }
-}
-for (const vs of Object.values(evaluated.PRX_VAR ?? {})) {
-  for (const v of vs) { if (v.en) sample.push(v.en); if (v.es) sample.push(v.es); }
-}
-const escaped = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-const notFound = sample.filter(line => !html.includes(line) && !html.includes(escaped(line)));
+  if (Array.isArray(v)) v.forEach((x, i) => walk(x, `${path}[${i}]`));
+  else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) walk(x, path ? `${path}.${k}` : k);
+})(files, '');
 if (notFound.length) {
-  console.error(`extract: ${notFound.length} extracted line(s) are NOT verbatim in index.html — refusing to write.`);
-  notFound.slice(0, 3).forEach(l => console.error(`  ${JSON.stringify(l.slice(0, 70))}`));
+  console.error(`extract: ${notFound.length} extracted string(s) are NOT present in index.html — refusing to write.`);
+  notFound.slice(0, 5).forEach(([p, v]) => console.error(`  ${p}: ${JSON.stringify(v.slice(0, 70))}`));
   process.exit(1);
 }
 
@@ -262,6 +314,6 @@ for (const [file, obj] of Object.entries(files)) {
 console.log(VERIFY ? 'extract --verify:' : 'extract: wrote app-src/src/content/');
 report.forEach(r => console.log(r));
 console.log(`  i18n: ${Object.keys(files['t.en.json']).length} top-level keys, ${enPaths.length} deep paths, EN/ES structure identical`);
-console.log(`  officer lines checked verbatim against index.html: ${sample.length}`);
+console.log(`  strings verified present in index.html: ${strChecked} (${strVerbatim} byte-identical, ${strChecked - strVerbatim} via source escapes/entities)`);
 if (VERIFY) console.log(failures === 0 ? 'PASS — content matches index.html' : `${failures} FILE(S) DRIFTED`);
 process.exit(failures === 0 ? 0 : 1);
