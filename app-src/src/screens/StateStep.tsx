@@ -89,10 +89,16 @@ export function StateStep({ t, picked, onPick, onBack, onNext }: Props) {
 
       {collapsed && picked ? (
         <>
+          {/* Structure mirrors root's confirmed button (index.html:3247-3249):
+              silhouette, then a row of badge + name. `.ab` is in root's markup
+              and hidden by CSS in the confirmed state; kept so the port and root
+              can be diffed rule-for-rule. */}
           <div className="state-confirmed">
             <StateSilhouette code={picked} />
-            <span className="badge">✓</span>
-            <span className="nm">{NAMES[picked] ?? picked}</span>
+            <span className="cf-row">
+              <span className="badge">✓</span>
+              <span className="nm">{NAMES[picked] ?? picked}</span>
+            </span>
             <span className="ab">{picked}</span>
           </div>
           <button type="button" className="linkbtn state-change" onClick={() => setShowAll(true)}>

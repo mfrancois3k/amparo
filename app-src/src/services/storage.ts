@@ -76,6 +76,21 @@ function readJson<T>(key: string): T | null {
  * site data is cleared. Validation is the caller's `validStates` set so this
  * module never needs the content banks imported.
  */
+/**
+ * Whether root has a saved pack AT ALL — distinct from whether it could be read.
+ *
+ * These differ, and the difference is load-bearing for language resolution. Root
+ * wraps its whole `restore()` in try/catch (index.html:3647-3686), so a CORRUPT
+ * `sr_save` throws, is swallowed, and leaves lang at its default 'en' — root's
+ * `navigator.language` sniff never runs, because it lives inside the
+ * `if(!s){…return}` branch that a throw skips entirely. A reader that treats
+ * "unparseable" as "absent" would sniff the browser language instead and hand a
+ * returning user a different language than root gives them.
+ */
+export function rootSaveExists(): boolean {
+  return readRaw(ROOT_KEYS.save) !== null;
+}
+
 export function readRootSave(validStates: ReadonlySet<string>): RootSave | null {
   const s = readJson<Record<string, unknown>>(ROOT_KEYS.save);
   if (!s) return null;

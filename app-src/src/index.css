@@ -16,13 +16,10 @@
 
 *{box-sizing:border-box;margin:0;padding:0}
 
-body{
-  background:var(--cream);
-  color:var(--ink);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  line-height:1.5;
-  -webkit-font-smoothing:antialiased;
-}
+/* Verbatim from index.html:46 — the font stack and 1.55 line-height are root's.
+   An earlier version here used a different stack and 1.5, which is a redesign
+   rather than a port and shifts every line of text in the app. */
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;background:var(--cream);color:var(--ink);line-height:1.55}
 
 /* Reduced motion. NOTE — root's `sr-motion` class means the OPPOSITE of what its
    name suggests, and an earlier version of this comment had it backwards:

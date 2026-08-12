@@ -41,17 +41,24 @@ function Shell() {
   return (
     <div className="app-wrap">
       <header className="app-head">
-        <span className="brand">Amparo</span>
+        <span className="brand"><span className="bn">Amparo</span></span>
         <span className="tagline">{t.tagline}</span>
-        <span className="lang" role="group" aria-label="Language / Idioma">
+        {/* aria-labels are root's own, verbatim from index.html:1628 — NOT
+            authored here. An earlier version invented a group label
+            ("Language / Idioma") and in doing so dropped these, leaving the
+            buttons announcing as "EN"/"ES". An accessible name is user-facing
+            text; the no-authored-strings rule covers it. */}
+        <span className="lang">
           <button
             className={lang === 'en' ? 'on' : ''}
             aria-pressed={lang === 'en'}
+            aria-label="English"
             onClick={() => setLang('en')}
           >EN</button>
           <button
             className={lang === 'es' ? 'on' : ''}
             aria-pressed={lang === 'es'}
+            aria-label="Español"
             onClick={() => setLang('es')}
           >ES</button>
         </span>

@@ -12,7 +12,7 @@
 import { createContext, useContext } from 'react'
 import en from './content/t.en.json'
 import es from './content/t.es.json'
-import { readApp, readRootSave } from './services/storage'
+import { readApp, readRootSave, rootSaveExists } from './services/storage'
 
 export type Lang = 'en' | 'es'
 export type Bank = typeof en
@@ -46,8 +46,15 @@ export function resolveInitialLang(): Lang {
   const stored = readApp<Lang | null>('lang', null)
   if (stored === 'en' || stored === 'es') return stored
 
-  const rootSave = readRootSave(NO_STATE_WHITELIST)
-  if (rootSave) return rootSave.lang === 'es' ? 'es' : 'en'
+  /* `rootSaveExists`, not `readRootSave !== null`: a CORRUPT sr_save must behave
+     like root, where the parse throws, the catch swallows it, and lang stays
+     'en' — root's sniff is unreachable in that case. Treating unparseable as
+     absent would sniff the browser instead and give a returning user a different
+     language than root does. */
+  if (rootSaveExists()) {
+    const rootSave = readRootSave(NO_STATE_WHITELIST)
+    return rootSave?.lang === 'es' ? 'es' : 'en'
+  }
 
   const nav = (typeof navigator !== 'undefined' && navigator.language) || ''
   return nav.toLowerCase().startsWith('es') ? 'es' : 'en'

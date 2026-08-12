@@ -22,7 +22,7 @@
  *    keys; filtering only toggles a className.
  */
 import { useEffect, useRef, useState } from 'react'
-import { CODES, LABELS, PATH_D, VIEWBOX, shapeViewBox } from '../content/map'
+import { CODES, DELAY_MS, LABELS, PATH_D, VIEWBOX, shapeViewBox } from '../content/map'
 import type { Bank } from '../i18n'
 import '../styles/map.css'
 
@@ -88,7 +88,7 @@ export function StateMap({ picked, matches, names, isCited, t, onPick }: Props) 
               role="button"
               aria-label={names[code] ?? code}
               aria-pressed={picked === code}
-              style={{ animationDelay: `${LABELS.find((l) => l.code === code)!.delayMs}ms` }}
+              style={{ animationDelay: `${DELAY_MS[code]}ms` }}
               onClick={() => onPick(code)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onPick(code) }
@@ -107,6 +107,14 @@ export function StateMap({ picked, matches, names, isCited, t, onPick }: Props) 
         <g className="sm-lbs">
           {LABELS.map((l) => {
             const dim = matches !== null && !matches.has(l.code)
+            /* Pointer targets only — deliberately NOT focusable, and with no
+               role or aria-label. Root's smPlaceLabels (index.html:3766-3768)
+               gives labels click + pointerenter/leave and nothing else: the path
+               already carries the state's accessible name and tab stop. An
+               earlier version added tabIndex/role/aria-label here, which made a
+               keyboard user tab all 51 states TWICE and a screen reader announce
+               every name twice. The label stays a full mouse and touch target —
+               for the sliver states it is the only realistic one. */
             return (
               <text
                 key={l.code}
@@ -115,18 +123,11 @@ export function StateMap({ picked, matches, names, isCited, t, onPick }: Props) 
                 y={l.y}
                 textAnchor={l.anchor}
                 data-st={l.code}
-                tabIndex={dim ? -1 : 0}
-                role="button"
-                aria-label={names[l.code] ?? l.code}
+                aria-hidden="true"
                 style={{ animationDelay: `${l.delayMs}ms` }}
                 onClick={() => onPick(l.code)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onPick(l.code) }
-                }}
                 onPointerEnter={() => setHover(l.code)}
                 onPointerLeave={() => setHover(null)}
-                onFocus={() => setHover(l.code)}
-                onBlur={() => setHover(null)}
               >
                 {l.code}
               </text>
@@ -142,8 +143,13 @@ export function StateMap({ picked, matches, names, isCited, t, onPick }: Props) 
         {cap ? (
           <>
             <span className="nm">{names[cap] ?? cap}</span>
+            {/* s_pending, not s_rest_label. Root's smCap (index.html:3790) uses
+                `cited ? s_pri_label : s_pending` — "federal ✓". s_rest_label
+                ("Federal rights ✓") is the LEGEND/section-header string. Both
+                are extracted, so the extractor's existence check could not catch
+                using the right bank in the wrong place. */}
             <span className={`tag ${capCited ? 'cited' : 'fed'}`}>
-              {capCited ? t.s_pri_label : t.s_rest_label}
+              {capCited ? t.s_pri_label : t.s_pending}
             </span>
           </>
         ) : (

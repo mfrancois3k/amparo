@@ -200,11 +200,18 @@ files['t.en.json'] = plain(evaluated[I18N].en);
 files['t.es.json'] = plain(evaluated[I18N].es);
 
 /* Derived, not sliced. `CITED` is the list of states with real reviewed statute
-   content; every other state renders the federal floor. Root asks this by testing
-   membership in STATES, but STATES carries all the rule text — importing it just
-   to learn three key names costs ~6 kB gzipped in the map chunk. Twenty bytes
-   here instead. Kept in sync by construction: it is computed from STATES. */
-files['meta.json'].CITED = Object.keys(evaluated.STATES);
+   content; every other state renders the federal floor. Root asks this as
+   `!STATES[k].pending` (index.html:3232, 3789), but STATES carries all the rule
+   text — importing it just to learn three key names costs ~6 kB gzipped in the
+   map chunk. Twenty bytes here instead.
+
+   The predicate is root's, NOT `Object.keys(STATES)`. Those give the same answer
+   today only because root fills the other 48 states in with `pending:true` in a
+   separate forEach (index.html:2549) that this tool never slices — so the sliced
+   literal happens to contain exactly the cited three. Staging a fourth state in
+   the literal with `pending:true`, which is the natural way to add one, would
+   have made /app paint it gold and caption it "Fully cited". */
+files['meta.json'].CITED = Object.keys(evaluated.STATES).filter(k => !evaluated.STATES[k].pending);
 
 /* The map's labels are positioned from SM_BOX, which holds bounding boxes that
    were measured once from the rendered paths and baked in. If a state is ever

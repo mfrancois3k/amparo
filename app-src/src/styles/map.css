@@ -64,16 +64,24 @@
 .state-search{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;font-size:15px;margin-top:14px;background:var(--white);color:var(--ink)}
 .state-search:focus{outline:none;border-color:var(--navy)}
 
-/* Confirmed-state chip. Root builds this out of the alphabetical grid's buttons
-   (index.html:3246-3251); that grid is never visible in its expanded form
-   (index.html:212 — `.state-grid:not(.collapsed){display:none}`), so /app ships
-   only the collapsed form and the grid does not exist here at all. */
-.state-confirmed{display:flex;align-items:center;gap:12px;width:100%;text-align:left;
-  margin-top:6px;padding:12px 14px;border:2px solid var(--navy);border-radius:14px;
-  background:var(--white);cursor:default;font-family:inherit}
-.state-confirmed .cf-shape{width:46px;height:46px;flex:none}
-.state-confirmed .cf-shape path{fill:var(--navy)}
-.state-confirmed .badge{display:inline-flex;align-items:center;justify-content:center;
-  width:20px;height:20px;border-radius:50%;background:var(--ok);color:#fff;font-size:12px;font-weight:800;flex:none}
-.state-confirmed .nm{font-weight:800;color:var(--navy);font-size:16px}
-.state-confirmed .ab{margin-left:auto;font-weight:800;color:var(--muted);font-size:13px}
+/* Confirmed-state chip — ported from root's `.state-btn.confirmed`
+   (index.html:826-835). Root builds it out of the alphabetical grid's buttons;
+   that grid is never visible in its expanded form (index.html:212 —
+   `.state-grid:not(.collapsed){display:none}`), so /app ships only the collapsed
+   form and the grid does not exist here at all. The class is renamed because
+   there is no grid button to qualify, but the RULES are root's.
+
+   The `.cf-shape path` stroke is load-bearing, not decoration: stroke-width:6
+   with non-scaling-stroke is what keeps RI, DE and DC readable at chip size, and
+   root's design treats recognising the shape as the confirmation. An earlier
+   version of this file dropped it and shrank the shape to 46px, which is a
+   redesign rather than a port. */
+.state-confirmed{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px 16px 20px;cursor:default;
+  width:100%;margin-top:6px;border:2px solid var(--navy);border-radius:14px;background:var(--white);font-family:inherit}
+.state-confirmed .cf-row{display:flex;align-items:center;justify-content:center;gap:10px}                 /* :829 */
+.state-confirmed .nm{font-size:19px;font-weight:800;color:var(--navy);margin-top:0}                       /* :830 */
+.state-confirmed .badge{position:static;top:auto;right:auto;width:27px;height:27px;font-size:15px;flex:none;
+  display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:var(--gold);color:var(--navy-deep);font-weight:800}  /* :831 */
+.state-confirmed .ab{display:none}                                                                        /* :828 */
+.cf-shape{width:auto;height:78px;max-width:74%;display:block;overflow:visible}                            /* :833 */
+.cf-shape path{fill:var(--navy);stroke:var(--navy);stroke-width:6;stroke-linejoin:round;vector-effect:non-scaling-stroke;paint-order:stroke}  /* :834 */
