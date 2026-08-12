@@ -5,6 +5,23 @@
     <link rel="icon" type="image/svg+xml" href="/app/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#1B2A4A" />
+    <!-- /app's own CSP, tighter than root's, delivered here rather than in
+         vercel.json for a measured reason: Vercel applies the FIRST matching
+         header block, so an appended `/app/(.*)` rule is dead config (verified
+         by curl against production), and the alternative — narrowing root's
+         `/(.*)` rule with a negative lookahead — edits the one rule protecting
+         the live product.
+
+         A page enforces EVERY policy it is served, so this combines with root's
+         header and the effective policy is the intersection: the strictest of
+         the two wins per directive. Root's header is untouched; /app simply
+         cannot reach the CDN or the analytics hosts it inherits, and has no
+         inline-script allowance (a Vite build needs none). That makes this
+         build's "zero analytics" an enforced property, not just a tested one.
+
+         `frame-ancestors` is intentionally absent — it is ignored in a meta
+         policy, and root's header already sets it to 'none' for every path. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'" />
     <!-- noindex is load-bearing, not caution: the live app is at '/', and an
          indexed /app would split the funnel and rank a beta above the product.
          Remove only as part of a promotion decision (wargames/15 Move 6.2). -->
