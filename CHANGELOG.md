@@ -6,6 +6,34 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.19.1 — 2026-08-12
+
+v2.19.1 — "Announce the crisis line; stop the stale echo"
+
+Loop round after v2.19.0: two independent live QA passes (zero defects)
+plus three background reports (10-persona focus group, practice-module
+design review, blind-spot architecture audit) surfaced two real, cheap,
+in-scope fixes:
+
+- Crisis-tier reveal (`PracticeBeat.tsx`) had no `aria-live` — the single
+  highest-stakes sentence in the practice flow went unannounced to screen
+  readers. Added `role="alert" aria-live="assertive"`.
+- `usePracticeAudio`'s `stopAll()` dropped its `Audio` ref without
+  detaching `onplay`/`onerror`/`onended` first, so a `pause()`-rejected
+  `play()` promise could still fire the TTS fallback for a stale beat —
+  reachable via rapid re-tap of "hear it again," back-navigation, or
+  leaving the screen mid-clip.
+
+Other findings re-characterized rather than fixed: the "mute unreachable
+before first audio" gap matches root's own existing behavior exactly
+(verified against root's source, not a regression); a missing
+hostile-tone officer-line variant and Level 2's short beat count are
+content-authoring gaps, not code; `app_prx`'s silent-fail storage write
+and cross-tab reconciliation are logged as low-probability, no UI pattern
+for the failure state yet.
+
+No EDITION bump — no legal content touched.
+
 ## v2.19.0 — 2026-08-12
 
 v2.19.0 — "Phase 5 closes: the whole funnel practices out loud"

@@ -8,6 +8,14 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.19.1 — 2026-08-12 — "Announce the crisis line; stop the stale echo"
+
+Loop round after v2.19.0 (`2a4f375`): crisis message now announces to
+screen readers (`role="alert"`); officer audio no longer leaks stale
+play/error callbacks across beats. From 3 background reports (FG11,
+module review 17, blindspot audit 2026-08-12-02) — other findings
+re-characterized (matches root) or logged (content/low-probability).
+
 ## v2.19.0 — 2026-08-12 — "Phase 5 closes: the whole funnel practices out loud"
 
 `/app` Phases 5.1-5.3 (`234cea5`..`2dc99cc`) — practice engine FSM, its UI +
