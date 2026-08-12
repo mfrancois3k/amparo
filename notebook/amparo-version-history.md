@@ -8,6 +8,19 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.18.0 — 2026-08-12 — "The pack prints, the engine's on paper"
+
+`/app` Phases 3-5.1 (`f0d4819`..`eaeac7e`), tagged as one batch after full
+end-to-end QA. State map (Phase 3, 7 defects fixed pre-tag). You/docs +
+Lifelines (Phase 4.1-4.2) — real bug found live: raw `STATES` lookup fell
+back to NY's lifelines for 48 states; fixed via `content/statesResolved.ts`.
+Print pack (Phase 4.3) — found root's own `PACK_EXTRA.con_h` defect (prints
+literal "undefined" on page 6, live today); `/app` degrades gracefully
+instead. Practice engine core FSM (Phase 5.1, no UI yet) — found the
+extractor was silently dropping hard-mode/checkpoint content added via
+post-literal assignment statements; fixed generically. See
+`notebook/amparo-app-migration-log.md` for full per-move detail.
+
 ## v2.17.0 — 2026-08-11 — "A second app, standing beside the first"
 
 The React/Vite strangler at `/app` begins. Operator decision supersedes

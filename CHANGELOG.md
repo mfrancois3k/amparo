@@ -6,6 +6,65 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.18.0 — 2026-08-12
+
+v2.18.0 — "The pack prints, the engine's on paper"
+
+Six commits of `/app` strangler-migration work since v2.17.0 (Phases 3-5.1 of
+`wargames/15`), first put through end-to-end QA and the loop as one batch —
+the per-move discipline (build → full check suite → live browser verify →
+log) held for each individual move as it shipped; this tag is what catches
+the *versioning* up to where the code already was.
+
+**Phase 3 — Welcome + state map.** Geographic SVG map (51 states, search
+fallback) ported from `index.html`'s `US_PATHS`/`SM_BOX` banks. Seven defects
+found and fixed across two independent review passes (code review + live
+E2E) before this tag: dead CSS custom properties, a missing `aria-label` on
+the language toggle that had been silently dropped by an earlier draft, and
+others logged in `notebook/amparo-app-migration-log.md`.
+
+**Phase 4 — You/docs, Lifelines, Print.**
+- Document capture overlay: native `<input capture="environment">`, no
+  `getUserMedia` — photos shrink client-side (1100px, JPEG 0.72) before
+  landing in `app_docs`, own storage key so "delete my photos" can't touch
+  the rest of the pack. Focus trap + Escape-closes + focus-restore, verified
+  live this session.
+- Lifelines step shipped with a real bug, caught by driving the app in a
+  browser rather than re-reading the code: it read the raw 3-key `STATES`
+  literal and fell back to New York's lifelines for the other 48 states.
+  Root synthesizes all 51 at script load; `content/statesResolved.ts` now
+  replicates that synthesis for `/app`. Re-verified live with California.
+- Print pack: all six pages ported from `buildPrint()`, `dangerouslySetInnerHTML`
+  used only on the two fields that carry real embedded markup from the
+  extracted banks (statute-quote spans, claims `<b>` tag) — everything else
+  is plain auto-escaped JSX. Found root's own defect along the way:
+  `PACK_EXTRA` has no `con_h` key, so root's own printed pack has shown the
+  literal word "undefined" as a box header on page 6 this whole time, in
+  both languages. `/app` degrades that box to icon-only instead of
+  hand-authoring replacement text or reproducing the glitch.
+
+**Phase 5.1 — Practice engine core, as an explicit FSM.** `IDLE → PRE_FLIGHT
+→ OFFICER_SPEAKING → AWAITING → BEAT_COMPLETE → DEBRIEF`, pure state +
+transitions, no UI yet. Ports deck building (fixed tracks for hard
+mode/checkpoint/dark levels, tone-pool deal + date-seeded curveball for the
+first three), per-level consent gates (clearing one level's warning no longer
+silently consents into the next), and the crisis-skip alignment between the
+scored run and the deck index that a prior root version got wrong. Along the
+way: the extraction tool itself was missing hard-mode and checkpoint beat
+content entirely — `PRACTICE.en/es[20-22,30-33]` and `PRX_OPT[20-22,30-33]`
+are added by assignment statements *after* the base `const` literals, which
+the const-only slicer never saw. Fixed generically in the extractor, not
+patched around. 17-check self-test in `tools/practice-engine-check.mts`.
+
+**This session's QA pass:** full click-through on the current build — EN/ES
+toggle, state map (Texas and New York), You step with the docs overlay
+(open/Escape/focus-restore), Lifelines both tabs, Print pack with
+state-specific statute text confirmed in the rendered DOM. Zero console
+errors or warnings across the whole session (Vite HMR debug lines aside).
+
+No EDITION bump — no legal content touched; the `con_h` fix is a rendering
+degradation, not a content change.
+
 ## v2.17.0 — 2026-08-11
 
 v2.17.0 — "A second app, standing beside the first"
