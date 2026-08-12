@@ -11,10 +11,12 @@
  * sr_docs/sr_save split (index.html:3519-3521) so "delete my photos" can never
  * take the rest of the pack with it.
  */
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import type { Bank } from '../i18n'
 import { writeAppReporting } from '../services/storage'
 import { DOC_SLOTS, type Docs } from '../screens/youTypes'
+import { useOverlayA11y } from '../hooks/useOverlayA11y'
 
 /* Downscale before storing — ported verbatim from docsShrink (index.html:3557-3573).
    1100px on the long edge stays legible at print size and lands each shot near
@@ -53,21 +55,12 @@ export function DocsOverlay({ t, docs, onChange, onClose }: Props) {
 
   const count = Object.values(docs).filter(Boolean).length
 
-  /* Minimal overlay behaviour: Escape closes, focus moves into the card on open
-     and returns to the trigger on close. Root's full 7-overlay framework
-     (focus TRAP, inert background, z-order-aware Escape) is Move 5.3 — this
-     covers the one overlay /app has today without building ahead of that move. */
-  useEffect(() => {
-    const trigger = document.activeElement as HTMLElement | null
-    cardRef.current?.focus()
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
-    document.addEventListener('keydown', onKey)
-    return () => {
-      document.removeEventListener('keydown', onKey)
-      trigger?.focus?.()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- onClose is stable per mount; re-subscribing on every render would drop the trigger-restore
-  }, [])
+  /* Full overlay a11y (focus trap, inert background, focus restore) —
+     wargames/15 Move 5.3. Rendered via portal below so `#app-root` can be
+     marked inert without deafening the overlay itself, which is a
+     descendant of `#app-root` in the component tree even though it visually
+     covers the whole screen. */
+  useOverlayA11y(cardRef, true, onClose)
 
   const pick = async (key: string, file: File | undefined) => {
     if (!file || !/^image\//.test(file.type)) return
@@ -95,7 +88,7 @@ export function DocsOverlay({ t, docs, onChange, onClose }: Props) {
     setDeleted(true)
   }
 
-  return (
+  return createPortal(
     <div className="ov-backdrop" onClick={onClose}>
       <div className="ov-card" role="dialog" aria-modal="true" aria-label={t.d_title}
         ref={cardRef} tabIndex={-1} onClick={(e) => e.stopPropagation()}>
@@ -119,7 +112,17 @@ export function DocsOverlay({ t, docs, onChange, onClose }: Props) {
                 <span className={`st ${on ? 'ok' : 'pend'}`}>{on ? t.d_done_st : t.d_pend_st}</span>
               </div>
               <div style={{ display: 'flex', gap: 8, margin: '6px 0 2px' }}>
-                <label className="btn ghost" style={{ flex: '1 1 0', minWidth: 0, width: 'auto', margin: 0, cursor: 'pointer', fontSize: 13, padding: '9px 10px', textAlign: 'center' }}>
+                {/* A bare <label> wrapping a display:none input is root's own
+                    pattern too (index.html:3627) — and root has the same gap:
+                    the label itself is never in the tab order, so the file
+                    picker is mouse/touch-only. Found during Move 5.3's
+                    keyboard-only pass; fixed here (not backported to root —
+                    root stays untouched by policy) with an explicit tabIndex
+                    and a keydown handler that forwards Enter/Space to the
+                    input, matching what a native <button> gets for free. */}
+                <label className="btn ghost" tabIndex={0}
+                  style={{ flex: '1 1 0', minWidth: 0, width: 'auto', margin: 0, cursor: 'pointer', fontSize: 13, padding: '9px 10px', textAlign: 'center' }}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.currentTarget.querySelector('input')?.click() } }}>
                   {on ? t.d_replace : t.d_tap}
                   <input type="file" accept="image/*" capture="environment" style={{ display: 'none' }}
                     onChange={(e) => { void pick(d.k, e.target.files?.[0]); e.target.value = '' }} />
@@ -141,6 +144,7 @@ export function DocsOverlay({ t, docs, onChange, onClose }: Props) {
         ) : null}
         {deleted ? <p className="soon" role="status" style={{ color: '#1d4a2c', fontWeight: 700 }}>{t.d_del_ok}</p> : null}
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }

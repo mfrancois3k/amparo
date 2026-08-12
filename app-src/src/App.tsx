@@ -54,7 +54,7 @@ function Shell() {
   const showEyebrow = route.name === 'state' || route.name === 'you' || route.name === 'lifelines' || route.name === 'print'
 
   return (
-    <div className="app-wrap">
+    <div className="app-wrap" id="app-root">
       <header className="app-head">
         <span className="brand"><span className="bn">Amparo</span></span>
         <span className="tagline">{t.tagline}</span>

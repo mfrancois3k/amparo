@@ -755,3 +755,87 @@ first-ever visitor; logged for whichever move claims G1.
   lock gate (Hard Mode locked, Checkpoint correctly never gated). Zero
   uncaught exceptions; only the noted CSP/worker warning and expected
   dev-only 404s (audio/img paths that resolve fine in production).
+
+---
+
+## Move 5.3 — Overlay/a11y framework
+
+Focus trap, inert background, focus restore, and Escape-to-close for
+`DocsOverlay` — the one overlay `/app` has today — plus a keyboard-only pass
+and a manual accessibility scan across the whole funnel. Ported H1/H2 per
+the wargame's action bullet — index.html:5814-5877.
+
+### What shipped
+- `hooks/useOverlayA11y.ts` — a reusable hook, not root's shared
+  MutationObserver-driven manager. Root centralizes across seven always-
+  mounted DOM overlays; `/app`'s overlays are conditionally-rendered React
+  components, so the hook is driven by the `active` boolean React already
+  tracks, applied per-instance. Same semantics: remember the trigger on
+  open, mark `#app-root` inert, focus the first focusable element (or the
+  container itself if none), trap Tab in both directions, Escape closes,
+  restore focus to the trigger on close. Root's z-order "topmost wins"
+  picker (`ovTop()`) isn't ported — `/app` has exactly one overlay type,
+  never nested, so there is nothing to be topmost over; noted in the hook's
+  own comment for whenever a second overlay makes that real.
+- `DocsOverlay.tsx` now renders via `createPortal(..., document.body)`
+  instead of inline in the component tree. It has to: `#app-root` gets
+  `inert` while any overlay is open, and the overlay was previously a
+  descendant of `#app-root` (nested inside whichever step rendered it),
+  which would have made it inert too — same DOM shape problem root avoids
+  by keeping its seven overlays as literal siblings of `#appRoot`.
+- `App.tsx`'s shell gained `id="app-root"` so the hook has something to mark
+  inert.
+
+### Real bug found: upload buttons were keyboard-unreachable — in /app AND root
+The keyboard-only pass (Tab through the doc-capture overlay) found the five
+"Tap to add photo" controls never received focus at all. Root cause: both
+root and `/app` render them as a bare `<label>` wrapping a `display:none`
+file input (index.html:3627) — a label with no `tabindex` is not natively
+in the tab order, and a `display:none` input can never receive focus either.
+Root has carried this since Move 4.1's source. Not backported to root
+(policy: root stays untouched), but cheap to fix in `/app` and directly
+blocks this move's own verification requirement ("keyboard-only full
+pass"), so fixed here: `tabIndex={0}` on the label plus a keydown handler
+forwarding Enter/Space to the hidden input's `click()` — the behavior a
+native `<button>` gets automatically. Verified live: all 5 upload labels
+now appear in the overlay's focusable-item list between the close button
+and the "Done" button, in the same visual order.
+
+### Verification
+- Live keyboard-only pass: Welcome (Tab order sane, external CTAs correctly
+  point at root's live site) → State → You (opened the docs overlay via a
+  real focus-then-activate sequence, matching an actual keyboard user, not
+  a synthetic click — the first test attempt used `.click()` without
+  focusing first and produced a FALSE FAILURE on focus-restore, caught and
+  redone correctly, the same "isolate and re-run before trusting a failing
+  check" discipline from the Phase 4 scrollTo correction).
+- Overlay a11y chain confirmed via direct DOM inspection at each step:
+  `inert` present on `#app-root` while open / absent while closed; the
+  overlay card confirmed NOT a descendant of `#app-root` (portal working);
+  focus lands on the first focusable element (close button) on open; Tab
+  from the last item wraps to the first, Shift+Tab from the first wraps to
+  the last; Escape closes, removes `inert`, and restores focus to the exact
+  `.docrow` trigger element.
+- Manual accessibility scan (no axe-core tool available in this
+  environment, so a targeted DOM audit instead) run on four screens — You
+  step, level-select, live practice beat, and the docs overlay itself:
+  every `<img>` has `alt`, every `<button>` has an accessible name, every
+  `<input>` (excluding file/hidden) has a label, the one `role="dialog"`
+  has `aria-label`, the demeanor meter's `aria-live` region is present.
+  Zero issues found on all four.
+- `extract-app-content.mjs --verify` / `app-storage-check.mts` /
+  `sw-routing-check.mjs` / `practice-engine-check.mts` — all PASS, unchanged
+  (this move touched no content extraction or storage surface).
+- `tsc -b && vite build` — clean. Entry chunk unchanged at 92.41 kB gz.
+- `oxlint` — clean.
+
+### Deferred, logged not omitted
+Root's z-order topmost-picker (only matters once `/app` has two overlays
+that can nest — doesn't exist yet). G1 (intro/prep-drill first-run gate)
+remains unassigned to any move, as noted in Move 5.2's log — `/app`'s
+practice entry still skips straight to the level tiles for a true
+first-ever visitor.
+
+**Phase 5 complete.** Next: Phase 6 — `/app` service worker + manifest
+(Move 6.1), then the parity audit (Move 6.2), the last phase in
+wargames/15.
