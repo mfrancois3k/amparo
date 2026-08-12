@@ -1,5 +1,13 @@
-/* Practice-engine FSM check. `node tools/practice-engine-check.mts`
-   (exit 0 = pass, 1 = fail). Node 22 strips the types natively — no dependency.
+/* Practice-engine FSM check. `npx tsx tools/practice-engine-check.mts`
+   (exit 0 = pass, 1 = fail).
+
+   Unlike this repo's other .mts checks, plain `node` cannot run this one:
+   practiceEngine.ts imports NAMED exports from practice.json (required for
+   Vite's per-key tree-shaking, enforced by this project's oxlint rule — see
+   the import in practiceEngine.ts), but Node's native ESM JSON loader only
+   ever produces a default export, never named ones, even with the `type:
+   "json"` import attribute. tsx's loader synthesizes named JSON exports the
+   same way Vite's does, so it's required here, not optional.
 
    Covers wargames/15 Move 5.1's stated verification runs: deck ci sequences
    are deterministic given a fixed date+level (the curveball-placement part —
