@@ -6,6 +6,29 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.20.1 — 2026-08-12
+
+v2.20.1 — "The cleanup sweep was eating its own sibling"
+
+Loop round after v2.20.0: a blind-spot audit scoped specifically at
+Move 6.1's brand-new service worker found a CRITICAL bug contradicting
+that move's own stated design goal. `/app`'s runtime cache names
+(`amparo-app-audio`/`amparo-app-img`) both started with `amparo-` —
+exactly the prefix root's own daily cache-cleanup sweep deletes (a
+prefix test against everything but `amparo-v3`, not "every cache period"
+as the original code comment misread it). Root's own redeploy cron was
+silently deleting `/app`'s runtime caches every day. Renamed to
+`app-audio-v1`/`app-img-v1`.
+
+Also, proven by git history in the same audit: `/img` filenames are
+stable but not content-hashed (`officer-f.jpg`'s bytes changed under the
+same filename between two commits an hour apart) — switched `/img/**`
+from a year-long `CacheFirst` to `StaleWhileRevalidate` so a real content
+change gets picked up on the next load instead of never. `/audio/**`
+stays `CacheFirst` (genuinely immutable content).
+
+No EDITION bump — no legal content touched.
+
 ## v2.20.0 — 2026-08-12
 
 v2.20.0 — "wargames/15 closes"

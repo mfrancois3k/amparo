@@ -8,6 +8,15 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.20.1 — 2026-08-12 — "The cleanup sweep was eating its own sibling"
+
+Loop round after v2.20.0 (`20b12a9`): CRITICAL fix — /app's runtime cache
+names started with `amparo-`, the exact prefix root's own daily cleanup
+sweep deletes, so root was silently wiping /app's audio/img caches every
+redeploy. Renamed. Also switched /img caching to StaleWhileRevalidate
+(git-history-proven: filenames are stable but content isn't). From
+blind-spot audit 2026-08-12-03, scoped at Move 6.1's new service worker.
+
 ## v2.20.0 — 2026-08-12 — "wargames/15 closes"
 
 `/app` Phase 6 (`13c10ad`..`6527e4d`) — SW+manifest (Move 6.1) and the
