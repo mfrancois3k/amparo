@@ -6,6 +6,70 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.17.0 — 2026-08-11
+
+v2.17.0 — "A second app, standing beside the first"
+
+The operator chose a React/Vite **strangler** migration at `/app` — explicitly
+superseding the no-rebuild verdict banked in `wargames/14` row 1 earlier the
+same day, with conditions: root `index.html` stays live, untouched, and the
+default entry until documented parity; content is ported verbatim by
+mechanical extraction, never retyped; flags stay dark; product palette; no
+accounts, no billing, no new analytics.
+
+`wargames/15-react-strangler-migration.md` is the battle plan — 7 phases, ~18
+moves, each with its expected observation, failure/signal/counter-move, fork
+triggers, abort conditions and verification runs, written so a mid-tier model
+can execute it blind. Three read-only recon passes fed it: a complete parity
+inventory of `index.html` (42 analytics events, 6 localStorage keys including
+two `amparo_prx` migrations, 240 audio files, ~518 i18n keys per language), an
+infra/deploy recon, and a constraint cross-reference. Self-graded 8/8.
+
+**Phase 0 — root service worker hardened** (the precondition, shipped alone).
+Its red-team pass found two landmines a naive plan would have hit blind:
+
+1. The navigation branch stores *every* successful navigation under `CORE`, so
+   one online visit to `/app` would have overwritten the cached root shell —
+   the root app's offline fallback would then serve the wrong app.
+2. `activate` deleted every cache on the origin, which would have wiped
+   `/app`'s Workbox precache — and a cron deploys daily, so `/app` would have
+   silently lost offline capability once a day while still claiming to have
+   it. That is exactly the quiet-false-claim failure mode of hard rule 3.
+
+Third fix: the asset matcher was a substring test on the whole URL, so any
+third-party URL merely containing `/img/` was cached as an immutable asset.
+Cache name deliberately stays `amparo-v3` — bumping it would force every
+existing user to re-download the shell. `tools/sw-routing-check.mjs` runs the
+real worker against stubbed globals (12 assertions); verified meaningful by
+failing 5/5 against the previous version.
+
+**Phase 1 — `/app` beta shell.** Source in `app-src/`, committed build output
+in `app/`. React + react-dom only: 27 packages, 0 vulnerabilities. No root
+`package.json` — that would trip Vercel's framework auto-detection and put
+root deploys at risk. Design tokens copied verbatim from `index.html:36-43`.
+`noindex` so the beta cannot split the funnel. The bilingual preview banner is
+the *only* hand-written user-facing copy allowed in `/app`; everything else
+arrives via the Phase 2 extractor, hash-matched.
+
+Verified live: `/app/` and bare `/app` both 200; `/app` inherits root's CSP and
+needs no `vercel.json` change (a carried RECON NEEDED, now settled); root
+`index.html` byte-unchanged since v2.16.1.
+
+Bundle baseline, recorded before it grows: **191 KB raw / 60.2 KB gzip** for a
+shell that does nothing yet, against **112 KB brotli** for the entire live app.
+That gap is the number the eventual promotion decision has to answer for.
+
+**Also:** the ES `k30`/`k33` audio gap was re-verified rather than inherited.
+Voicebox has moved to v0.5.0 with a profile system, so all three Spanish
+presets were retested and every clip round-tripped through
+`voicebox.transcribe`. All still fail — `¿Ciudadanía?` → "Siu d'Avanía" /
+"Tiu d'Avanía" / "Siu d'Abanía", `Oríllese` → "Poríese". Two new facts: the
+inverted `¿?` is not the cause (the bare word fails identically), and the rest
+of the k33 sentence renders perfectly, localising the fault to `Oríllese`
+alone. No clips shipped; the TTS fallback stands until a human records them.
+
+No EDITION bump — no legal content touched anywhere in this release.
+
 ## v2.16.1 — 2026-08-11
 
 v2.16.1 — "The dead mic path can't come back hot"

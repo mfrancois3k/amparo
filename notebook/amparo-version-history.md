@@ -8,6 +8,31 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.17.0 — 2026-08-11 — "A second app, standing beside the first"
+
+The React/Vite strangler at `/app` begins. Operator decision supersedes
+`wargames/14` row 1 (no-rebuild), with conditions — root untouched until proven
+parity, content extracted verbatim, flags dark, product palette, no
+accounts/billing/analytics.
+
+- `wargames/15-react-strangler-migration.md` — the battle plan. 7 phases, ~18
+  moves, fork triggers, abort conditions, verification suite, red-team record.
+  Fed by three read-only recon passes (full `index.html` parity inventory,
+  infra/deploy, constraint cross-reference). Self-graded 8/8.
+- **Phase 0** (`e21d019`) — `sw.js`: `/app` passthrough guard, prefix-scoped
+  cache cleanup, pathname-anchored asset matcher. Fixes two red-team landmines
+  (root shell cache-poisoning; daily deploy wiping `/app`'s precache while it
+  still claimed offline support). Cache stays `amparo-v3` on purpose.
+  `tools/sw-routing-check.mjs` — 12 assertions, fails 5/5 against the old file.
+- **Phase 1** (`f21c1bf`) — `app-src/` source + committed `app/` build. react +
+  react-dom only (27 packages, 0 vulns). No root `package.json` by design.
+  Tokens copied from `index.html:36-43`. `noindex`. Live: `/app/` 200, inherits
+  root CSP unchanged, root `index.html` byte-identical.
+- Baseline to beat later: 60.2 KB gzip for an empty shell vs 112 KB brotli for
+  the whole live app.
+- ES `k30`/`k33` re-verified on Voicebox v0.5.0 — all three presets still
+  mispronounce; fault localised to the two words; nothing shipped.
+
 ## v2.16.1 — 2026-08-11 — "The dead mic path can't come back hot"
 
 - SpeechRecognition transcript layer gated off by default (`prxSTT`,
