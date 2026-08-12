@@ -1,0 +1,366 @@
+{
+  "PACK_EXTRA": {
+    "en": {
+      "p4_tag": "Keep in the car — use during and right after the stop",
+      "p4_h": "YOUR SCRIPT + THEIR INFO",
+      "say_h": "The only sentences you need — in this order",
+      "say": [
+        "“Good evening, officer.”",
+        "“My documents are displayed on the card — I’m reaching for the originals now.”",
+        "If questioned: “I’m not answering questions, officer.” Say it ONCE, out loud — this is what makes your silence count in court.",
+        "If asked to search: “I don’t consent to any searches.”",
+        "Told to step out, or to sign the ticket? Do it. Signing is a promise to appear — not an admission of guilt.",
+        "At the end: “Am I free to go?” — and only now, if you want it: “May I have your name and badge for my records?”"
+      ],
+      "cap_h": "Get their info — without saying a word",
+      "cap": [
+        "Got a ticket? The officer’s name and badge are printed on it. Keep it — that’s the whole ID.",
+        "NO ticket? At release — after “Am I free to go?” — ask once, calmly: “May I have your name and badge for my records?”",
+        "Refused? Say “No problem, officer,” drive off, and capture the rest — the refusal itself goes in your memo.",
+        "When the lights come on: glance at the clock. Note the cross-streets. Read the patrol-car number in your mirror.",
+        "During the handover, read the shoulder patch — the AGENCY matters more than the name.",
+        "A passenger’s hands are free — they may record and take notes the entire stop.",
+        "Within 5 minutes, record a voice memo: time, place, car #, agency, officer description, exact words. With no ticket this memo IS your record — time + place + agency identifies the officer from dispatch logs."
+      ],
+      "ask_h": "Asking for their info — and every pushback",
+      "ask": [
+        "Safe moments to ask: right after your documents come back, or at release. Never during the approach, never mid-command.",
+        "Mid-stop: “Officer, when you have a second — may I get your name?” · At release: “Thank you. Before you go — your name and badge, please?”",
+        "“Why do you need that?” → “Just for my records, officer.” Pressed again? Drop it.",
+        "“It’s on the ticket.” / “You’ll get it later.” → “Understood, thank you.” Stop — it IS on the ticket.",
+        "Flat refusal, or “Are you a lawyer now?” → “No problem, officer.” Never re-ask a refusal; never match sarcasm.",
+        "“Stop talking,” or any raised voice → silence, nod, hands visible. A command ends all asking — permanently.",
+        "Want one respectful press — the ceiling? “Officer, you’re a public servant, and I’m asking respectfully — for my records.” That is the LAST ask. Never “or I’ll get your manager” — an ultimatum turns a request into a roadside contest you can’t win.",
+        "A supervisor is NOT a right at a stop — demanding one prolongs YOUR detention. Save it for active misconduct only: “Officer, I’d like a supervisor here, please.” Once, calmly.",
+        "THE RULE: Comply first. Ask at the pause. Ask once, thank twice. Refused? The paperwork knows their name."
+      ],
+      "arr_h": "If you are arrested",
+      "arr": [
+        "Say it out loud, once: “I am using my right to stay silent. I want a lawyer.” Then stop talking.",
+        "Everything is recorded — jail calls, the car, the room. Talk to no one but your lawyer.",
+        "Don’t sign anything or waive any right until your lawyer is there.",
+        "The roadside balance/eye tests and the official station breath/blood test are NOT the same thing — your state's rules card (page 2) says exactly what refusing each one costs in YOUR state.",
+        "Never physically resist, even if the arrest is wrong. You win later, in court."
+      ],
+      "ph_h": "Phrases that hurt you",
+      "ph": [
+        "“I only had two beers.” — you just confessed. Don’t estimate, don’t explain.",
+        "“Sure, go ahead.” — that’s legal consent to a search. Say: “I don’t consent to searches.”",
+        "“I was only going a little over.” — never admit or guess your speed.",
+        "A false name or fake ID — that’s a new crime, worse than the stop.",
+        "Shouting “I know my rights!” — stay calm; let the card speak."
+      ],
+      "log_h": "After-the-stop log — fill within 24 hours",
+      "log": [
+        "Officer name",
+        "Badge #",
+        "Patrol-car #",
+        "Agency / department",
+        "Date & time",
+        "Location",
+        "Reason given for the stop",
+        "Searched? (Y/N)",
+        "K9 / drug dog called? (Y/N)",
+        "Told you were free to go? (Y/N)",
+        "Witnesses (name + phone)",
+        "Injuries or damage"
+      ],
+      "claim_h": "Deadline — don’t lose your case",
+      "cut_h": "Cut-out strips — tape to your window card if they apply to you",
+      "cut1": "I AM DEAF. I READ LIPS — PLEASE WRITE IT DOWN OR SHOW ME.",
+      "cut2": "THE NAME AND PHOTO ON MY ID ARE MINE. MY APPEARANCE MAY DIFFER.",
+      "cut3": "I DO NOT WISH TO ANSWER QUESTIONS. I DO NOT CONSENT TO A SEARCH.",
+      "p5_tag": "Family plan — fill out, keep at home",
+      "fp_h": "FAMILY EMERGENCY PLAN",
+      "fp": [
+        "Children’s names & birthdates",
+        "Who may pick up the kids — list at least 2 people (name · phone · relationship)",
+        "Caregiver authorization / power of attorney — where it’s kept",
+        "Where key documents are kept",
+        "My A-number (if any): A-",
+        "Attorney / legal aid (name + phone)",
+        "Local rapid-response hotline"
+      ],
+      "fpg_h": "Set it up now",
+      "fp_g": [
+        "Sign a caregiver authorization or power of attorney NOW so a trusted adult can legally pick up your kids — schools and hospitals ask for it.",
+        "Keep passports, birth certificates and immigration papers in one place your emergency contact can reach. Give them copies.",
+        "Memorize ONE phone number — your phone may be taken. Teach it to your kids too.",
+        "Find your local rapid-response network before you need it and write it above.",
+        "New driver in the house? Read Page 1's script out loud together and take turns playing the officer — saying the words once under zero pressure makes them easier to say for real."
+      ],
+      "ns_h": "Never show · never say",
+      "ns": [
+        "Never hand over a foreign passport or matrícula at a traffic stop — show a valid U.S. license or ID instead if you have one. A U.S. status document (green card, work permit, valid visa) is fine to show; a foreign one mainly proves foreign birth.",
+        "Never lie, never show fake documents — that’s a separate federal crime (18 U.S.C. §1001, §1546), on top of anything else going on.",
+        "Never sign a voluntary departure or removal form without a lawyer — not even if you’re told it ends things faster. A stipulated removal order cannot be appealed and can bar you from returning for 10 years or more.",
+        "You never have to say where you were born or what your status is. But know the trade: staying silent is your right, and it can also make the stop longer or send you to a second inspection area. Silence is not the same as being released."
+      ],
+      "chk_h": "Border Patrol checkpoint (up to 100 miles inland)",
+      "chk": [
+        "A fixed checkpoint can stop every car without any reason to suspect you — that part is settled law (Martinez-Fuerte, 1976). What you owe is brief: a question or two, and possibly a document showing your right to be here.",
+        "NEVER drive away from a checkpoint. Leaving is a federal felony (18 U.S.C. §758). Obey where to park — that is separate from answering questions.",
+        "They cannot search your car without your consent or probable cause. Say it plainly: “I don't consent to a search.” Refusing is not suspicious and does not, by itself, give them a reason.",
+        "Being sent to “secondary” is not an arrest and is not consent. You can obey where to pull over and still decline questions and searches.",
+        "A roving patrol on the open road is different from a checkpoint — out there an agent needs a specific reason to suspect your car. How you look or where your family is from is never enough (Brignoni-Ponce, 1975).",
+        "Rules on paper are not a promise. Agents do overstep — long detentions, searches, profiling. Knowing the words protects your case; it cannot force someone to follow them."
+      ],
+      "con": [
+        "Mexican Consulate Houston — (713) 271-6800",
+        "Mexican Consulate Atlanta — (404) 266-2233",
+        "Mexican Consulate New York — (212) 217-6400",
+        "Mexico 24-hr line (CIAM), from the U.S. — 1-855-463-6395",
+        "Other country? Search “[your country] consulate” and write it here: __________"
+      ],
+      "pp_h": "For parents — if you get the call",
+      "pp": [
+        "Breathe first. Your child needs you clear, not panicked.",
+        "Don’t drive to the scene angry — one arrest can become two.",
+        "Call your lawyer or a legal-aid line FIRST.",
+        "Write down: where they’re held, the agency, officer names/badges, the charge, the time.",
+        "Tell your child: say the words, then stay silent. No questions, no signatures without a lawyer."
+      ],
+      "p6_tag": "After the ticket — keep at home",
+      "p6_h": "THE CASE STARTS NOW",
+      "tk_h": "The ticket — don’t let it spiral",
+      "tk": [
+        "Your ticket has a respond-by date — read it now, not later.",
+        "Ignoring it = failure to appear: bench warrant + license suspension.",
+        "A $150 ticket becomes handcuffs at your next stop. Don’t let it spiral.",
+        "Many tickets can be answered by mail or online — check the back.",
+        "Equipment “fix-it” tickets are often dismissed with proof of repair. Ask.",
+        "Can’t make court? Call the court BEFORE the date — not after."
+      ],
+      "tow_h": "If they tow your car",
+      "tow": [
+        "Police may inventory everything inside without a warrant — arguing won’t stop it.",
+        "Ask WHERE it’s being towed. Get it in writing.",
+        "Retrieve the car FAST — storage fees grow every day.",
+        "You may usually collect personal items from the lot — ask.",
+        "Photograph the car’s condition before it leaves and when you get it back."
+      ],
+      "phn_h": "Your phone",
+      "phn": [
+        "Use a passcode, not Face/fingerprint — courts protect what you KNOW more than what you ARE.",
+        "If arrested, power the phone OFF.",
+        "Never unlock it or consent to a phone search without a lawyer.",
+        "Police need a warrant to search your phone (Riley v. California).",
+        "A calm “I don’t consent to a search of my phone” is enough."
+      ],
+      "trap_h": "Traps to hear coming",
+      "trap": [
+        "“You don’t mind if I look around?” — a nod is consent. Say: “I don’t consent to searches.”",
+        "“Everything in here yours?” — stay silent. Claiming it ties you to whatever’s found.",
+        "“If you’ve got nothing to hide…” — silence is not guilt. Stay quiet anyway.",
+        "Small talk about where you’re coming from or going = evidence. Skip it."
+      ],
+      "ev_h": "Evidence vanishes — move fast",
+      "ev": [
+        "Bodycam/dashcam footage is often deleted in 30–90 days. Move first.",
+        "Request preservation in writing FAST — a public-records request works.",
+        "Save YOUR photos and video somewhere off the phone tonight.",
+        "Within 48 hours give your lawyer: ticket copy, incident log, photos, witness numbers.",
+        "Stay off social media about the stop — posts become evidence."
+      ],
+      "cr_h": "If it’s a crash, not a stop",
+      "cr": [
+        "Anyone hurt? Call 911 first.",
+        "Photograph everything — cars, plates, scene, injuries — before anything moves.",
+        "Exchange license, insurance, plate. Never discuss fault — even “I’m sorry” counts.",
+        "Get witness names and numbers before they drive away.",
+        "Ask how to obtain the police report — write down the report number.",
+        "Call your insurer the same day. Delay hurts your claim."
+      ]
+    },
+    "es": {
+      "p4_tag": "Guarde en el carro — úselo durante y justo después de la parada",
+      "p4_h": "SU GUION + LOS DATOS DEL OFICIAL",
+      "say_h": "Las únicas frases que necesita — en este orden",
+      "say": [
+        "“Buenas noches, oficial.”",
+        "“Mis documentos están a la vista en la tarjeta — voy a alcanzar los originales ahora.”",
+        "Si le preguntan: “No voy a responder preguntas, oficial.” Dígalo UNA vez, en voz alta — eso es lo que hace que su silencio cuente en la corte.",
+        "Si piden registrar: “No doy consentimiento para ningún registro.”",
+        "¿Le ordenan salir o firmar la multa? Hágalo. Firmar es una promesa de comparecer — no una admisión de culpa.",
+        "Al final: “¿Puedo irme?” — y solo ahora, si lo desea: “¿Me da su nombre y número de placa para mis registros?”"
+      ],
+      "cap_h": "Obtenga sus datos — sin decir una palabra",
+      "cap": [
+        "¿Le dieron multa? El nombre y la placa del oficial vienen impresos. Guárdela — ahí está toda la identificación.",
+        "¿SIN multa? Al final — después de “¿Puedo irme?” — pregunte una vez, con calma: “¿Me da su nombre y placa para mis registros?”",
+        "¿Se niega? Diga “No hay problema, oficial,” váyase y capture el resto — la negativa misma va en su nota.",
+        "Cuando vea las luces: mire el reloj. Note las calles. Lea el número de la patrulla en su espejo.",
+        "Durante la entrega, lea el parche del hombro — la AGENCIA importa más que el nombre.",
+        "Las manos del pasajero están libres — puede grabar y tomar notas toda la parada.",
+        "A los 5 minutos, grabe una nota de voz: hora, lugar, no. de patrulla, agencia, descripción del oficial, palabras exactas. Sin multa, esa nota ES su registro — hora + lugar + agencia identifica al oficial en los registros del despacho."
+      ],
+      "ask_h": "Cómo pedir sus datos — y cada respuesta",
+      "ask": [
+        "Momentos seguros para preguntar: justo cuando le devuelven sus documentos, o al final. Nunca durante la aproximación, nunca en medio de una orden.",
+        "Durante la parada: “Oficial, cuando tenga un momento — ¿me da su nombre?” · Al final: “Gracias. Antes de irse — ¿su nombre y placa, por favor?”",
+        "“¿Para qué lo quiere?” → “Solo para mis registros, oficial.” ¿Insiste? Déjelo.",
+        "“Viene en la multa.” / “Se lo darán después.” → “Entendido, gracias.” Pare — sí viene en la multa.",
+        "Negativa rotunda, o “¿Ahora es abogado?” → “No hay problema, oficial.” Nunca vuelva a pedir tras una negativa; no responda al sarcasmo.",
+        "“Deje de hablar,” o cualquier voz alzada → silencio, asienta, manos visibles. Una orden termina las preguntas — para siempre.",
+        "¿Quiere insistir una vez, con respeto — el límite? “Oficial, usted es un servidor público, y se lo pido con respeto — para mis registros.” Esa es la ÚLTIMA vez. Nunca “o llamo a su supervisor” — un ultimátum convierte la petición en una disputa que no puede ganar.",
+        "Un supervisor NO es un derecho en una parada — exigirlo alarga SU detención. Resérvelo solo para abusos activos: “Oficial, quisiera un supervisor aquí, por favor.” Una vez, con calma.",
+        "LA REGLA: Cumpla primero. Pregunte en la pausa. Pregunte una vez, agradezca dos. ¿Se negó? El papeleo sabe su nombre."
+      ],
+      "arr_h": "Si lo arrestan",
+      "arr": [
+        "Dígalo en voz alta, una vez: “Estoy usando mi derecho a guardar silencio. Quiero un abogado.” Luego deje de hablar.",
+        "Todo se graba — las llamadas de la cárcel, el auto, la sala. Hable solo con su abogado.",
+        "No firme nada ni renuncie a ningún derecho hasta que su abogado esté presente.",
+        "Las pruebas de equilibrio/ojos en la calle y la prueba oficial de aliento/sangre en la estación NO son lo mismo — la tarjeta de reglas de su estado (página 2) dice exactamente qué cuesta negarse a cada una en SU estado.",
+        "Nunca se resista físicamente, aunque el arresto sea injusto. Se gana después, en la corte."
+      ],
+      "ph_h": "Frases que le hacen daño",
+      "ph": [
+        "“Solo tomé dos cervezas.” — acaba de confesar. No calcule, no explique.",
+        "“Claro, adelante.” — eso es consentimiento legal para registrar. Diga: “No doy consentimiento para registros.”",
+        "“Solo iba un poco más rápido.” — nunca admita ni adivine su velocidad.",
+        "Un nombre falso o identificación falsa — es un delito nuevo, peor que la parada.",
+        "Gritar “¡Conozco mis derechos!” — mantenga la calma; deje que la tarjeta hable."
+      ],
+      "log_h": "Registro después de la parada — llene en 24 horas",
+      "log": [
+        "Nombre del oficial",
+        "No. de placa",
+        "No. de patrulla",
+        "Agencia / departamento",
+        "Fecha y hora",
+        "Lugar",
+        "Razón dada para la parada",
+        "¿Registraron? (Sí/No)",
+        "¿Llamaron un perro K9? (Sí/No)",
+        "¿Le dijeron que podía irse? (Sí/No)",
+        "Testigos (nombre + teléfono)",
+        "Lesiones o daños"
+      ],
+      "claim_h": "Plazo — no pierda su caso",
+      "cut_h": "Tiras para recortar — péguelas a su tarjeta de ventana si le aplican",
+      "cut1": "SOY SORDO/A. LEO LOS LABIOS — POR FAVOR ESCRÍBALO O MUÉSTREMELO.",
+      "cut2": "EL NOMBRE Y LA FOTO DE MI IDENTIFICACIÓN SON MÍOS. MI APARIENCIA PUEDE SER DISTINTA.",
+      "cut3": "NO DESEO RESPONDER PREGUNTAS. NO CONSIENTO UN REGISTRO.",
+      "p5_tag": "Plan familiar — llénelo y guárdelo en casa",
+      "fp_h": "PLAN FAMILIAR DE EMERGENCIA",
+      "fp": [
+        "Nombres y fechas de nacimiento de los niños",
+        "Quién puede recoger a los niños — anote al menos 2 personas (nombre · teléfono · parentesco)",
+        "Autorización de cuidador / poder (POA) — dónde se guarda",
+        "Dónde se guardan los documentos clave",
+        "Mi número A (si tiene): A-",
+        "Abogado / ayuda legal (nombre + teléfono)",
+        "Línea local de respuesta rápida"
+      ],
+      "fpg_h": "Prepárelo hoy",
+      "fp_g": [
+        "Firme HOY una autorización de cuidador o un poder para que un adulto de confianza pueda recoger legalmente a sus hijos — escuelas y hospitales lo piden.",
+        "Guarde pasaportes, actas de nacimiento y papeles de inmigración en un solo lugar que su contacto pueda alcanzar. Déle copias.",
+        "Memorice UN número de teléfono — pueden quitarle el celular. Enséñeselo a sus hijos también.",
+        "Ubique su red local de respuesta rápida antes de necesitarla y escríbala arriba.",
+        "¿Hay un conductor nuevo en casa? Lean juntos en voz alta el guion de la Página 1 y túrnense para hacer de oficial — decir las palabras una vez sin presión hace que sea más fácil decirlas de verdad."
+      ],
+      "ns_h": "Nunca muestre · nunca diga",
+      "ns": [
+        "Nunca entregue un pasaporte extranjero ni una matrícula en una parada de tráfico — muestre una licencia o identificación de EE. UU. si la tiene. Un documento de estatus de EE. UU. (green card, permiso de trabajo, visa vigente) sí se puede mostrar; uno extranjero sobre todo prueba que nació fuera.",
+        "Nunca mienta ni muestre documentos falsos — eso es un delito federal aparte (18 U.S.C. §1001, §1546), además de lo que ya esté pasando.",
+        "Nunca firme una salida voluntaria ni un formulario de deportación sin un abogado — ni aunque le digan que así termina más rápido. Una orden de deportación estipulada no se puede apelar y puede impedirle regresar por 10 años o más.",
+        "Nunca tiene que decir dónde nació ni cuál es su estatus. Pero sepa el costo: guardar silencio es su derecho, y también puede alargar la parada o mandarlo a una segunda inspección. El silencio no es lo mismo que quedar libre."
+      ],
+      "chk_h": "Retén de la Patrulla Fronteriza (hasta 100 millas tierra adentro)",
+      "chk": [
+        "Un retén fijo puede parar cada auto sin ninguna razón para sospechar de usted — eso es ley establecida (Martinez-Fuerte, 1976). Lo que debe es breve: una pregunta o dos, y quizá un documento que muestre su derecho a estar aquí.",
+        "NUNCA se vaya manejando de un retén. Irse es un delito federal grave (18 U.S.C. §758). Obedezca dónde estacionarse — eso es distinto de responder preguntas.",
+        "No pueden registrar su auto sin su consentimiento o causa probable. Dígalo claro: «No doy consentimiento para un registro.» Negarse no es sospechoso y no les da, por sí solo, una razón.",
+        "Que lo manden a la inspección «secundaria» no es un arresto ni es consentimiento. Puede obedecer dónde orillarse y aun así negarse a preguntas y registros.",
+        "Una patrulla móvil en la carretera abierta es distinta de un retén — allá el agente necesita una razón específica para sospechar de su auto. Su apariencia o de dónde es su familia nunca basta (Brignoni-Ponce, 1975).",
+        "Las reglas en papel no son una promesa. Los agentes sí se exceden — detenciones largas, registros, perfilamiento. Conocer las palabras protege su caso; no obliga a nadie a cumplirlas."
+      ],
+      "con": [
+        "Consulado de México en Houston — (713) 271-6800",
+        "Consulado de México en Atlanta — (404) 266-2233",
+        "Consulado de México en Nueva York — (212) 217-6400",
+        "Línea 24 h de México (CIAM), desde EE. UU. — 1-855-463-6395",
+        "¿Otro país? Busque “consulado de [su país]” y escríbalo aquí: __________"
+      ],
+      "pp_h": "Para padres — si recibe la llamada",
+      "pp": [
+        "Respire primero. Su hijo lo necesita con la mente clara, no en pánico.",
+        "No maneje al lugar con enojo — un arresto puede volverse dos.",
+        "Llame PRIMERO a su abogado o a una línea de ayuda legal.",
+        "Anote: dónde lo tienen, la agencia, nombres/placas de oficiales, el cargo y la hora.",
+        "Dígale a su hijo: di las palabras y guarda silencio. Sin preguntas ni firmas sin abogado."
+      ],
+      "p6_tag": "Después de la multa — guarde en casa",
+      "p6_h": "EL CASO EMPIEZA AHORA",
+      "tk_h": "La multa — no deje que crezca",
+      "tk": [
+        "Su multa tiene fecha límite para responder — léala hoy, no después.",
+        "Ignorarla = falta de comparecencia: orden de arresto + licencia suspendida.",
+        "Una multa de $150 se vuelve esposas en la próxima parada. No la deje crecer.",
+        "Muchas multas se responden por correo o en línea — revise el reverso.",
+        "Las multas de equipo (“fix-it”) a menudo se anulan con prueba de reparación. Pregunte.",
+        "¿No puede ir a la corte? Llame ANTES de la fecha — no después."
+      ],
+      "tow_h": "Si se llevan su auto (grúa)",
+      "tow": [
+        "La policía puede inventariar todo el interior sin orden judicial — discutir no lo impedirá.",
+        "Pregunte A DÓNDE se lo llevan. Pídalo por escrito.",
+        "Recupere el auto RÁPIDO — el corralón cobra cada día.",
+        "Normalmente puede recoger sus pertenencias personales — pregunte.",
+        "Fotografíe la condición del auto antes de que se lo lleven y al recogerlo."
+      ],
+      "phn_h": "Su teléfono",
+      "phn": [
+        "Use contraseña, no cara ni huella — las cortes protegen más lo que SABE que lo que ES.",
+        "Si lo arrestan, APAGUE el teléfono.",
+        "Nunca lo desbloquee ni dé consentimiento para registrarlo sin abogado.",
+        "La policía necesita una orden judicial para registrar su teléfono (Riley v. California).",
+        "Un tranquilo “No doy consentimiento para registrar mi teléfono” es suficiente."
+      ],
+      "trap_h": "Trampas que debe reconocer",
+      "trap": [
+        "“¿No le importa si echo un vistazo?” — asentir es consentir. Diga: “No doy consentimiento para registros.”",
+        "“¿Todo esto es suyo?” — guarde silencio. Aceptarlo lo liga a lo que encuentren.",
+        "“Si no tiene nada que esconder…” — el silencio no es culpa. Calle de todos modos.",
+        "La charla sobre de dónde viene o a dónde va = evidencia. Evítela."
+      ],
+      "ev_h": "La evidencia desaparece — actúe rápido",
+      "ev": [
+        "El video policial suele borrarse en 30–90 días. Actúe primero.",
+        "Pida por escrito que lo conserven, RÁPIDO — una solicitud de registros públicos funciona.",
+        "Guarde SUS fotos y videos fuera del teléfono esta misma noche.",
+        "En 48 horas entregue a su abogado: copia de la multa, su registro, fotos, teléfonos de testigos.",
+        "No hable de la parada en redes sociales — las publicaciones se vuelven evidencia."
+      ],
+      "cr_h": "Si es un choque, no una parada",
+      "cr": [
+        "¿Hay heridos? Llame primero al 911.",
+        "Fotografíe todo — autos, placas, la escena, lesiones — antes de mover nada.",
+        "Intercambie licencia, seguro y placa. Nunca hable de culpa — hasta un “lo siento” cuenta.",
+        "Anote nombres y teléfonos de los testigos antes de que se vayan.",
+        "Pregunte cómo obtener el informe policial — anote el número.",
+        "Llame a su aseguradora el mismo día. La demora daña su reclamo."
+      ]
+    },
+    "claims": {
+      "DEFAULT": {
+        "en": "Deadlines to sue a police department, city or state are <b>much shorter than a normal lawsuit deadline</b> — in many places a written notice is due within <b>30 to 90 days</b> of the incident, and missing it can end a valid case before it starts. <b>Amparo has not verified your state's deadline yet.</b> If you were hurt or your rights were violated, contact a lawyer or your state's ACLU affiliate <b>this week</b> — not next month.",
+        "es": "Los plazos para demandar a un departamento de policía, ciudad o estado son <b>mucho más cortos que los de una demanda normal</b> — en muchos lugares hay que presentar un aviso escrito en <b>30 a 90 días</b> del incidente, y perderlo puede terminar un caso válido antes de empezar. <b>Amparo aún no ha verificado el plazo de su estado.</b> Si resultó herido o violaron sus derechos, contacte a un abogado o a la filial de ACLU de su estado <b>esta semana</b> — no el mes que viene."
+      },
+      "TX": {
+        "en": "Hurt by police or government? You may have to file a written notice FAST — Texas default is 6 months, and many cities are shorter: <b>Houston requires notice within 90 days.</b> Miss it and you can lose that claim — but federal civil-rights claims (like excessive force, 42 U.S.C. §1983) have NO notice deadline and a longer time limit, so missing 90 days does not kill every case. See a lawyer immediately either way.<br><i class=\"stq\">“…not later than six months after the day that the incident…occurred…A city's charter and ordinance provisions requiring notice within a charter period permitted by law are ratified and approved.” — Civ. Prac. &amp; Rem. Code §101.101</i>",
+        "es": "¿Dañado por la policía o el gobierno? Quizá deba presentar un aviso escrito RÁPIDO — el plazo de Texas es 6 meses, y muchas ciudades son más cortas: <b>Houston exige el aviso en 90 días.</b> Si lo pierde, puede perder ese reclamo — pero los reclamos federales de derechos civiles (como fuerza excesiva, 42 U.S.C. §1983) NO tienen plazo de aviso y dan más tiempo, así que perder los 90 días no mata todos los casos. Vea a un abogado de inmediato de todos modos.<br><i class=\"stq\">Texto de la ley (en inglés): “…not later than six months after the day that the incident…occurred…A city's charter and ordinance provisions requiring notice within a charter period permitted by law are ratified and approved.” — Código Civil Práctico y de Remedios §101.101</i>"
+      },
+      "GA": {
+        "en": "To sue a city you must send written “ante litem” notice within <b>6 months</b> (O.C.G.A. §36-33-5) — a county within <b>12 months</b> (§36-11-1), and the State of Georgia within <b>12 months</b> with strict delivery rules (§50-21-26). Federal civil-rights claims (42 U.S.C. §1983) have NO notice deadline. Miss a deadline and that claim may be barred — see a lawyer immediately.<br><i class=\"stq\">“Within six months of the happening of the event…the person…having the claim shall present the claim in writing to the governing authority of the municipal corporation.” — O.C.G.A. §36-33-5(b) · “Notice of a claim shall be given in writing within 12 months of the date the loss was discovered or should have been discovered.” — O.C.G.A. §50-21-26</i>",
+        "es": "Para demandar a una ciudad debe enviar aviso escrito “ante litem” en <b>6 meses</b> (O.C.G.A. §36-33-5) — a un condado en <b>12 meses</b> (§36-11-1), y al Estado de Georgia en <b>12 meses</b> con reglas estrictas de entrega (§50-21-26). Los reclamos federales de derechos civiles (42 U.S.C. §1983) NO tienen plazo de aviso. Si pierde un plazo, ese reclamo puede quedar bloqueado — vea a un abogado de inmediato.<br><i class=\"stq\">Texto de la ley (en inglés): “Within six months of the happening of the event…the person…having the claim shall present the claim in writing to the governing authority of the municipal corporation.” — O.C.G.A. §36-33-5(b) · “Notice of a claim shall be given in writing within 12 months of the date the loss was discovered or should have been discovered.” — O.C.G.A. §50-21-26</i>"
+      },
+      "NY": {
+        "en": "To sue a city or the NYPD you must serve a <b>Notice of Claim within 90 days</b> (Gen. Mun. Law §50-e). Suing the State — including State Police — runs through the Court of Claims on different rules, with deadlines just as short (often 90 days). And federal civil-rights claims (42 U.S.C. §1983) need NO notice of claim and allow up to 3 years — missing 90 days does not kill every case. See a lawyer right away.<br><i class=\"stq\">“…the notice of claim shall comply with and be served in accordance with the provisions of this section within ninety days after the claim arises.” — General Municipal Law §50-e</i>",
+        "es": "Para demandar a una ciudad o al NYPD debe presentar un <b>Aviso de Reclamo en 90 días</b> (Gen. Mun. Law §50-e). Demandar al Estado — incluida la Policía Estatal — pasa por la Court of Claims con reglas distintas, con plazos igual de cortos (a menudo 90 días). Y los reclamos federales de derechos civiles (42 U.S.C. §1983) NO requieren aviso de reclamo y dan hasta 3 años — perder los 90 días no mata todos los casos. Vea a un abogado enseguida.<br><i class=\"stq\">Texto de la ley (en inglés): “…the notice of claim shall comply with and be served in accordance with the provisions of this section within ninety days after the claim arises.” — Ley Municipal General §50-e</i>"
+      }
+    }
+  }
+}

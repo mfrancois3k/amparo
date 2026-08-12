@@ -1,0 +1,109 @@
+{
+  "PREP_STEPS": [
+    {
+      "key": "stop",
+      "en": {
+        "title": "Stop safe",
+        "short": "Stop safe",
+        "why": "Hazard lights on, pull fully onto the right shoulder or a well-lit, open spot, away from moving traffic. You can go a short distance to somewhere safe and lit before you stop.",
+        "ticks": [
+          "Hazards on",
+          "Off the traffic lane, somewhere lit"
+        ]
+      },
+      "es": {
+        "title": "Deténgase seguro",
+        "short": "Deténgase",
+        "why": "Encienda las luces intermitentes y oríllese por completo al carril derecho o a un lugar bien iluminado y abierto, lejos del tránsito. Puede avanzar un poco hasta un lugar seguro e iluminado antes de detenerse.",
+        "ticks": [
+          "Intermitentes encendidas",
+          "Fuera del carril, en un lugar iluminado"
+        ]
+      }
+    },
+    {
+      "key": "settle",
+      "en": {
+        "title": "Settle the car",
+        "short": "Settle the car",
+        "why": "Put it in park and turn the music off so you can hear the officer. If it's dark, turn on your interior dome light — letting them see your hands is one of the calmest, most protective things you can do.",
+        "ticks": [
+          "Park · radio off",
+          "Dark out? Dome light ON"
+        ],
+        "night": true
+      },
+      "es": {
+        "title": "Calme el auto",
+        "short": "Calme el auto",
+        "why": "Ponga el auto en estacionar y apague la música para oír al oficial. Si está oscuro, encienda la luz interior — dejar que vean sus manos es de lo más calmante y protector que puede hacer.",
+        "ticks": [
+          "En estacionar · radio apagada",
+          "¿Está oscuro? Luz interior ENCENDIDA"
+        ],
+        "night": true
+      }
+    },
+    {
+      "key": "window",
+      "en": {
+        "title": "Open the window",
+        "short": "Open the window",
+        "why": "Roll the driver's window down about halfway now — enough to talk and pass documents. Doing it early means you're not making a motion near the door when the officer walks up.",
+        "ticks": [
+          "Window halfway, before they arrive"
+        ]
+      },
+      "es": {
+        "title": "Baje la ventanilla",
+        "short": "Baje la ventanilla",
+        "why": "Baje ahora la ventanilla del conductor hasta la mitad — lo suficiente para hablar y pasar documentos. Hacerlo temprano evita que haga un movimiento cerca de la puerta cuando el oficial se acerque.",
+        "ticks": [
+          "Ventanilla a la mitad, antes de que llegue"
+        ]
+      }
+    },
+    {
+      "key": "phone",
+      "en": {
+        "title": "Set phone & papers",
+        "short": "Set phone & papers",
+        "why": "Get your phone in its mount and recording — then leave it (never raise a phone in your hand at the window). And get your license, registration and insurance to one easy spot. If they're in the glovebox, don't dig — tell the officer where they are first.",
+        "ticks": [
+          "Phone mounted & recording — not in hand",
+          "Papers in one spot, glovebox closed"
+        ]
+      },
+      "es": {
+        "title": "Teléfono y papeles",
+        "short": "Teléfono y papeles",
+        "why": "Ponga el teléfono en su soporte y grabando — luego déjelo (nunca levante el teléfono en la mano en la ventanilla). Y tenga su licencia, registro y seguro en un solo lugar fácil. Si están en la guantera, no hurgue — primero dígale al oficial dónde están.",
+        "ticks": [
+          "Teléfono en el soporte y grabando — no en la mano",
+          "Papeles en un solo lugar, guantera cerrada"
+        ]
+      }
+    },
+    {
+      "key": "hands",
+      "en": {
+        "title": "Hands on the wheel",
+        "short": "Hands on the wheel",
+        "why": "This is the end state. Hands on top of the wheel, visible, still. You're done moving. Breathe. You reach for nothing else until the officer directs you — and you say what you're about to do first.",
+        "ticks": [
+          "On top of the wheel, still",
+          "Reach for nothing until told"
+        ]
+      },
+      "es": {
+        "title": "Manos en el volante",
+        "short": "Manos al volante",
+        "why": "Este es el estado final. Manos sobre el volante, visibles, quietas. Ya terminó de moverse. Respire. No busca nada más hasta que el oficial lo indique — y primero diga lo que va a hacer.",
+        "ticks": [
+          "Sobre el volante, quietas",
+          "No busque nada hasta que le digan"
+        ]
+      }
+    }
+  ]
+}

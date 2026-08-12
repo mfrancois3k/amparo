@@ -1,0 +1,35 @@
+{
+  "EDITION": "2026-C",
+  "ED_REPLACE": "07/2027",
+  "REVIEW": {
+    "org": "",
+    "founder": "Michael Francois",
+    "founderRole": "Founder",
+    "founderNote": "",
+    "contact": "hello@amparohq.com",
+    "siteUrl": "amparohq.com",
+    "emailEnabled": false,
+    "attorneys": {
+      "TX": {
+        "name": "",
+        "bar": "",
+        "date": "",
+        "edition": ""
+      },
+      "GA": {
+        "name": "",
+        "bar": "",
+        "date": "",
+        "edition": ""
+      },
+      "NY": {
+        "name": "",
+        "bar": "",
+        "date": "",
+        "edition": ""
+      }
+    }
+  },
+  "FINAL_SCENARIOS_ENABLED": false,
+  "DOOR_MODULE_ENABLED": false
+}
