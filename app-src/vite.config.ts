@@ -66,27 +66,46 @@ export default defineConfig({
            globPatterns would find are already scoped to outDir (../app),
            so this can never reach into root's files by accident. */
         globPatterns: ['**/*.{js,css,html,svg}'],
-        /* Runtime cache-first for the shared root assets /app renders but
-           does not own — own cache names so Move 0.2's root SW cleanup
-           (which deletes every cache NOT named 'amparo-v3') can never touch
-           them, and vice versa: this SW only ever manages caches it named
-           itself, never root's 'amparo-v3'. */
+        /* Runtime cache for the shared root assets /app renders but does not
+           own. Cache names deliberately do NOT start with "amparo-" — this
+           loop's blind-spot audit caught a real bug in the first draft's
+           comment here: root's activate handler (sw.js:38) deletes every
+           cache matching `k.startsWith('amparo-') && k !== 'amparo-v3'`,
+           a PREFIX match, not "every cache but amparo-v3" as the old comment
+           here claimed. 'amparo-app-audio'/'amparo-app-img' both matched
+           that prefix, so root's own daily-redeploy sweep was silently
+           deleting /app's runtime caches — the exact opposite of the
+           isolation this was supposed to guarantee. Renamed below to fall
+           genuinely outside root's prefix. */
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/[^/]+\/audio\/.*\.mp3$/,
+            /* Audio clips are genuinely immutable content (240 pre-recorded
+               officer lines, replaced only by re-recording under a new id,
+               never edited in place) — CacheFirst is correct here. */
             handler: 'CacheFirst',
             options: {
-              cacheName: 'amparo-app-audio',
+              cacheName: 'app-audio-v1',
               expiration: { maxEntries: 300, maxAgeSeconds: 60 * 60 * 24 * 365 },
               cacheableResponse: { statuses: [0, 200] },
             },
           },
           {
             urlPattern: /^https:\/\/[^/]+\/img\/.*/,
-            handler: 'CacheFirst',
+            /* StaleWhileRevalidate, not CacheFirst — also found by this
+               loop's audit: /img filenames are STABLE, not content-hashed
+               (proven via git history: officer-f.jpg's bytes changed under
+               the same filename between two commits an hour apart, before
+               any SW existed to make it worse). CacheFirst-for-a-year on a
+               mutable-content/stable-name asset serves stale images
+               indefinitely with no revalidation path; StaleWhileRevalidate
+               serves the cached copy immediately (same speed/offline
+               behavior) while refetching in the background, so a real
+               content change is picked up on the NEXT load instead of never. */
+            handler: 'StaleWhileRevalidate',
             options: {
-              cacheName: 'amparo-app-img',
-              expiration: { maxEntries: 60, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              cacheName: 'app-img-v1',
+              expiration: { maxEntries: 60, maxAgeSeconds: 60 * 60 * 24 * 30 },
               cacheableResponse: { statuses: [0, 200] },
             },
           },

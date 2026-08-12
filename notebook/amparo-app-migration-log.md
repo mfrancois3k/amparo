@@ -1004,3 +1004,53 @@ been verified, and been logged. What remains is not migration work — it's
 a promotion decision: whether and when `/app` becomes the default entry at
 `/`, and in what order the ~20 deferred items above get built before that
 happens.
+
+---
+
+## Post-Phase-6 fix — loop round after v2.20.0
+
+The QA + loop pass that closed out Phase 6 also ran the three background
+reports one more time. The blind-spot audit (scoped specifically at the new
+service worker, `/app`'s first ever) found a real CRITICAL bug in Move
+6.1's own work, contradicting that move's own stated design goal — fixed
+immediately, same session:
+
+- **Cache-name collision with root's own cleanup sweep.** Move 6.1's log
+  entry claimed the runtime cache names (`amparo-app-audio`/`amparo-app-img`)
+  were chosen specifically so root's cache-cleanup (Move 0.2, `sw.js:38`)
+  "can never touch them." That claim was WRONG — misread of root's own
+  logic. Root's activate handler deletes every cache matching
+  `k.startsWith('amparo-') && k !== 'amparo-v3'` — a PREFIX test, not "every
+  cache except amparo-v3." Both new names started with `amparo-`, so root's
+  own daily-redeploy sweep was silently deleting `/app`'s runtime caches —
+  the exact opposite of the isolation the move claimed to guarantee.
+  Renamed to `app-audio-v1`/`app-img-v1` (no `amparo-` prefix at all).
+  Verified: neither name appears anywhere in root's `sw.js` deletion
+  pattern; live-checked the rebuilt `/app/sw.js` contains the corrected
+  names via direct grep.
+- **`/img` filenames are stable, not content-hashed — proven via git
+  history**, same audit: `officer-f.jpg`'s bytes genuinely changed under
+  the identical filename between two commits roughly an hour apart, before
+  any service worker existed to make the consequence worse. A year-long
+  `CacheFirst` on a mutable-content/stable-name asset has no revalidation
+  path and would serve stale images indefinitely if that recurred. Switched
+  `/img/**` from `CacheFirst` to `StaleWhileRevalidate` (serves the cached
+  copy immediately — same speed, same offline behavior — while refetching
+  in the background, so a real content change is picked up on the next
+  load instead of never) and shortened its expiry from 365 to 30 days.
+  `/audio/**` stays `CacheFirst` — those clips are genuinely immutable
+  (replaced only by re-recording under a new id, never edited in place).
+- **`onRegisterError` added** to `registerSW.ts` for symmetry with root's
+  own fully-silent registration catch (index.html:5773) — the audit's third
+  finding (a Workbox precache install failing silently on a partial deploy)
+  isn't newly fixable without changing the underlying philosophy this whole
+  migration has kept consistently: an infra hiccup degrades to plain
+  network passthrough, never alarms the user. Named as a decision on
+  record, not left as an accidental gap.
+
+### Verification
+Full check suite (extractor, storage, service-worker, practice-engine —
+18/18) and build pass. Live-verified: registered the rebuilt `/app/sw.js`
+against the production preview server; `grep -o 'cacheName:"[^"]*"'
+app/sw.js` confirms both cache names in the shipped worker are
+`app-audio-v1`/`app-img-v1`, neither matching root's deletion prefix.

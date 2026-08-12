@@ -18,5 +18,14 @@ export function registerAppServiceWorker(): void {
     onOfflineReady() {
       window.dispatchEvent(new Event(OFFLINE_READY_EVENT))
     },
+    /* Root's registration is fully try/catch-silent too (index.html:5773's
+       .catch(()=>{})) — this matches that, not a gap. Named explicitly
+       rather than omitted so the silence is a decision on record: if a
+       Workbox precache entry 404s (partial deploy, CDN edge inconsistency —
+       found by this loop's blind-spot audit), the whole install fails with
+       no signal today. Root's own bet throughout this migration is that an
+       infra hiccup should degrade to plain network passthrough, never alarm
+       the user — same bet here, not a new one. */
+    onRegisterError() { /* silent, matching root's own registration catch */ },
   })
 }
