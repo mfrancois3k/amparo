@@ -36,6 +36,52 @@
       {
         "o": "“Do you know why I stopped you?”",
         "y": "“No, officer, I don't.” You're not required to guess — a simple, honest “no” avoids admitting to anything."
+      },
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      {
+        "o": "“License and registration. Slowly.”",
+        "y": "Announce the reach, move slowly, stay minimal."
+      },
+      {
+        "o": "“Where are you coming from?”",
+        "y": "State your rights calmly, or answer minimally — both are sound."
+      },
+      {
+        "o": "“Step out. Hands where I can see them.”",
+        "y": "Narrate that you're complying, move slowly, keep hands visible."
+      },
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      {
+        "o": "“Citizenship?”",
+        "y": "Decline calmly, or answer briefly — but never volunteer where you've been."
+      },
+      {
+        "o": "“Where were you born?”",
+        "y": "You don't have to answer. Never lie, and never hand over a foreign document."
+      },
+      {
+        "o": "“Mind if I take a look in the trunk?”",
+        "y": "“I don't consent to a search.” They need your consent or probable cause."
+      },
+      {
+        "o": "“Pull over to secondary.”",
+        "y": "Comply with where to park. Keep declining questions. Never drive away."
       }
     ],
     "es": [
@@ -74,6 +120,52 @@
       {
         "o": "“¿Sabes por qué te detuve?”",
         "y": "“No, oficial, no lo sé.” No tienes que adivinar — un simple y honesto “no” evita admitir algo."
+      },
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      {
+        "o": "«Licencia y registro. Despacio.»",
+        "y": "Anuncia el movimiento, muévete despacio, sé mínimo."
+      },
+      {
+        "o": "«¿De dónde vienes?»",
+        "y": "Ejerce tus derechos con calma, o responde lo mínimo — ambas cosas son válidas."
+      },
+      {
+        "o": "«Bájate. Manos donde pueda verlas.»",
+        "y": "Narra que estás cooperando, muévete despacio, mantén las manos visibles."
+      },
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      {
+        "o": "«¿Ciudadanía?»",
+        "y": "Niégate con calma, o responde breve — pero nunca ofrezcas dónde estuviste."
+      },
+      {
+        "o": "«¿Dónde nació usted?»",
+        "y": "No tienes que responder. Nunca mientas, y nunca entregues un documento extranjero."
+      },
+      {
+        "o": "«¿Le molesta si reviso la cajuela?»",
+        "y": "«No doy consentimiento para un registro.» Necesitan tu consentimiento o causa probable."
+      },
+      {
+        "o": "«Oríllese a la inspección secundaria.»",
+        "y": "Obedece dónde estacionarte. Sigue negándote a preguntas. Nunca te vayas manejando."
       }
     ]
   },
@@ -711,6 +803,175 @@
       "react": {
         "en": "So you admit it. Interesting.",
         "es": "Así que lo admites. Interesante."
+      }
+    },
+    "20": {
+      "bothGood": true,
+      "g": {
+        "en": "“Yes, officer. My documents are in the glovebox — I’m reaching now.”",
+        "es": "«Sí, oficial. Mis documentos están en la guantera — voy a alcanzarlos ahora.»"
+      },
+      "b": {
+        "en": "Move slowly, hands visible, and hand them over without a word.",
+        "es": "Muévete despacio, manos a la vista, y entrégalos sin decir palabra."
+      },
+      "gc": {
+        "en": "Announcing your movements before you make them is exactly right — it keeps your hands readable.",
+        "es": "Anunciar tus movimientos antes de hacerlos es lo correcto — mantiene tus manos previsibles."
+      },
+      "bc": {
+        "en": "Slow, visible, minimal — textbook. His reaction is not about what you did.",
+        "es": "Lento, visible, mínimo — de manual. Su reacción no es por lo que hiciste."
+      },
+      "react": {
+        "en": "I didn’t ask for a speech. Just do it.",
+        "es": "No pedí un discurso. Solo hazlo."
+      },
+      "react2": {
+        "en": "Why are you so quiet? Got something to hide?",
+        "es": "¿Por qué tan callado? ¿Escondes algo?"
+      }
+    },
+    "21": {
+      "bothGood": true,
+      "g": {
+        "en": "“I’d prefer not to answer questions, officer. Am I free to go?”",
+        "es": "«Prefiero no responder preguntas, oficial. ¿Puedo irme?»"
+      },
+      "b": {
+        "en": "“Home, officer.” — brief, calm, nothing more.",
+        "es": "«A casa, oficial.» — breve, en calma, nada más."
+      },
+      "gc": {
+        "en": "Asserting silence and asking if you’re free to leave is your right — calmly stated, as you did.",
+        "es": "Ejercer el silencio y preguntar si puedes irte es tu derecho — dicho con calma, como lo hiciste."
+      },
+      "bc": {
+        "en": "Brief and non-committal is fine. His agitation isn’t a response to a mistake — there wasn’t one.",
+        "es": "Breve y sin comprometerte está bien. Su agitación no responde a un error — no lo hubo."
+      },
+      "react": {
+        "en": "You’ll go when I say you go.",
+        "es": "Te irás cuando yo diga."
+      },
+      "react2": {
+        "en": "That’s not what I asked. Don’t get smart with me.",
+        "es": "Eso no es lo que pregunté. No te pases de listo."
+      }
+    },
+    "22": {
+      "bothGood": true,
+      "g": {
+        "en": "“I’m not resisting. I’m stepping out now.” — move slowly, hands up.",
+        "es": "«No me resisto. Voy a bajarme ahora.» — muévete despacio, manos arriba."
+      },
+      "b": {
+        "en": "Comply immediately and silently, hands visible the whole time.",
+        "es": "Obedece de inmediato y en silencio, manos visibles todo el tiempo."
+      },
+      "gc": {
+        "en": "Narrating compliance while you comply is the safest possible move. You did everything right.",
+        "es": "Narrar que cooperas mientras cooperas es lo más seguro posible. Hiciste todo bien."
+      },
+      "bc": {
+        "en": "Immediate, calm, visible. There was no better choice available here.",
+        "es": "Inmediato, en calma, visible. No había mejor opción aquí."
+      },
+      "react": {
+        "en": "Move it.",
+        "es": "Muévete."
+      },
+      "react2": {
+        "en": "…",
+        "es": "…"
+      }
+    },
+    "30": {
+      "g": {
+        "en": "“I’m not answering questions, agent.”",
+        "es": "«No voy a responder preguntas, agente.»"
+      },
+      "b": {
+        "en": "“Just coming back from visiting family in Monterrey.”",
+        "es": "«Solo vengo de visitar a mi familia en Monterrey.»"
+      },
+      "gc": {
+        "en": "You can decline — that’s your right. Know the trade, though: silence can make the stop longer or send you to secondary. It is not a faster way out.",
+        "es": "Puedes negarte — es tu derecho. Pero sepa el costo: el silencio puede alargar la parada o mandarte a secundaria. No es una salida más rápida."
+      },
+      "bc": {
+        "en": "That one sentence handed him foreign travel he didn’t have. Never volunteer where you’ve been — and never invent anything either.",
+        "es": "Esa sola frase le entregó un viaje al extranjero que no tenía. Nunca ofrezcas dónde estuviste — y tampoco inventes nada."
+      },
+      "react": {
+        "en": "Where were you born?",
+        "es": "¿Dónde nació usted?"
+      }
+    },
+    "31": {
+      "g": {
+        "en": "“I’d rather not answer that, agent.”",
+        "es": "«Prefiero no responder eso, agente.»"
+      },
+      "b": {
+        "en": "Hand over your passport from home.",
+        "es": "Entrega tu pasaporte de tu país."
+      },
+      "gc": {
+        "en": "Right. You never have to say where you were born — and never lie about it either: a false answer to a federal officer is its own crime.",
+        "es": "Correcto. Nunca tienes que decir dónde naciste — y tampoco mientas: una respuesta falsa a un oficial federal es un delito aparte."
+      },
+      "bc": {
+        "en": "A foreign passport or matrícula mainly proves foreign birth. If you have a U.S. licence or status document, that’s the one to show — never the foreign one.",
+        "es": "Un pasaporte extranjero o una matrícula sobre todo prueba que naciste fuera. Si tienes licencia o documento de estatus de EE. UU., ese es el que muestras — nunca el extranjero."
+      },
+      "react": {
+        "en": "Mind if I take a look in the trunk?",
+        "es": "¿Le molesta si reviso la cajuela?"
+      }
+    },
+    "32": {
+      "g": {
+        "en": "“I don’t consent to a search, agent.”",
+        "es": "«No doy consentimiento para un registro, agente.»"
+      },
+      "b": {
+        "en": "“Sure, go ahead.”",
+        "es": "«Claro, adelante.»"
+      },
+      "gc": {
+        "en": "Exactly. At a checkpoint they cannot search your car without your consent or probable cause — and saying no does not give them either one.",
+        "es": "Exacto. En un retén no pueden registrar tu auto sin tu consentimiento o causa probable — y decir que no no les da ninguna de las dos."
+      },
+      "bc": {
+        "en": "“Sure” gives up a protection you never had to give up. Refusing is not suspicious, and refusing alone cannot justify a search.",
+        "es": "«Claro» cede una protección que no tenías que ceder. Negarte no es sospechoso, y negarte por sí solo no justifica un registro."
+      },
+      "react": {
+        "en": "Pull over to secondary.",
+        "es": "Oríllese a la inspección secundaria."
+      }
+    },
+    "33": {
+      "g": {
+        "en": "Pull over calmly where he points — and keep saying nothing.",
+        "es": "Oríllate con calma donde señala — y sigue sin decir nada."
+      },
+      "b": {
+        "en": "“You have no right to hold me.” — pull back onto the road.",
+        "es": "«No tiene derecho a detenerme.» — vuelve a la carretera."
+      },
+      "gc": {
+        "en": "Right. Secondary is not an arrest and it is not consent — you can obey where to park and still decline questions and searches.",
+        "es": "Correcto. La secundaria no es un arresto ni es consentimiento — puedes obedecer dónde estacionarte y aun así negarte a preguntas y registros."
+      },
+      "bc": {
+        "en": "Never drive away from a checkpoint — leaving is a federal felony. Obey the movement; keep declining the questions. Those are separate things.",
+        "es": "Nunca te vayas manejando de un retén — irse es un delito federal grave. Obedece el movimiento; sigue negándote a las preguntas. Son cosas distintas."
+      },
+      "react": {
+        "en": "…",
+        "es": "…"
       }
     }
   },

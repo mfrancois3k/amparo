@@ -156,6 +156,33 @@ if (missing.length) {
   process.exit(1);
 }
 
+/* Some banks are extended by later top-level assignment statements, not just
+   their initial `const` literal — PRACTICE.en/es and PRX_OPT gain hard-mode
+   (ci 20-22) and checkpoint (ci 30-33) entries this way (index.html:4511-4538,
+   4679-4705), same as PRX_OPT[3]/etc for the scored beats declared elsewhere.
+   A const-only slice misses these entirely: the runtime-synthesis bug class
+   documented in content/statesResolved.ts for STATES, except the fix belongs
+   in the extractor here — these are plain property assignments merging into
+   an object literal already being exported, not a computed table that needs
+   its own resolver module at read time. Matched generically (`\d+`) rather
+   than hardcoding the current ci list, so a future beat added the same way is
+   picked up without editing this file again. */
+function sliceAllAssignStatements(pattern) {
+  const out = [];
+  const re = new RegExp(pattern.source, 'gm');
+  let m;
+  while ((m = re.exec(html))) {
+    const end = endOfStatement(html, m.index);
+    if (end < 0) continue;
+    out.push({ name: '(extend)', start: m.index, text: html.slice(m.index, end) });
+    re.lastIndex = end;
+  }
+  return out;
+}
+for (const pat of [/^PRACTICE\.(?:en|es)\[\d+\]=/, /^PRX_OPT\[\d+\]=/]) {
+  slices.push(...sliceAllAssignStatements(pat));
+}
+
 /* Multi-declarator statements (EDITION/ED_REPLACE) produce the SAME slice twice.
    Dedupe by source position so the script evaluates each statement once. */
 const byStart = new Map();

@@ -542,3 +542,93 @@ always shows "PILOT EDITION," matching root's current live behavior exactly.
 4. Root `index.html` untouched until documented parity, which is a separate decision.
 5. No Clerk, no Convex, no Stripe, no accounts.
 6. Abort rather than improvise if a move appears to require editing legal content.
+
+---
+
+## PHASE 5 — Practice engine
+
+## Move 5.1 — Engine core as an explicit FSM
+
+`engine/practiceEngine.ts` — pure state + transition functions (no DOM, no
+React, no audio) for the practice run lifecycle: `IDLE → PRE_FLIGHT →
+OFFICER_SPEAKING → AWAITING → BEAT_COMPLETE → DEBRIEF`. Ports G2 (deck
+building), G5 (`PRX_OPT` g/b/coach/react + `bothGood` hard-mode semantics),
+G6 (run FSM: per-level consent, crisis-skip alignment), G7 (divergence,
+selection-only) — index.html:4373-4762, 5119-5255, 5428-5491.
+
+### What shipped
+- `buildDeck()` — verbatim port of `prxBuildDeck` (fixed tracks for levels
+  3-7, tone-pool variant deal for 0-2, date-seeded curveball splice from the
+  2nd run of a level onward). `now`/`rng` are injectable for determinism
+  testing only; production callers omit both.
+- `isLocked()` / `selectLevel()` — the lock guard lives IN the transition
+  function, not a UI helper, per the wargame's explicit instruction ("styling
+  helpers don't refuse — the guard does").
+- `confirmWarn()` / `PRE_FLIGHT` phase — per-level consent gate (`prWarnOk`),
+  not a single global flag: clearing level 3's gate must not silently consent
+  a player into level 5 or 6, matching root's own fix for that exact bug
+  (index.html:4750-4755).
+- `pick()`, `markCrisis()`, `advance()`, `back()`, `again()`, `toLevels()` —
+  the run mechanics. `advance()` carries the `run[]`/`runIdx[]` split intact:
+  crisis-tier beats advance `idx` but are excluded from both arrays, so a
+  later read by shared index never misaligns (root's own inline warning
+  about this exact class of bug, index.html:4757-4761).
+- `divergeDeck()` — selection-only re-deal of the *next* beat's tone
+  (index.html:5209-5238 comment block explains the per-level escalation caps
+  in detail; ported as-is, immutable instead of root's in-place
+  `Object.assign` mutation).
+- Debrief bookkeeping (`runs`/`done`/`best`/`streak`) folded into `advance()`
+  from root's inline `practiceRender()` branch — returned as part of the new
+  state's `progress`, not written to storage directly; the caller (Move 5.2's
+  UI) persists it via `app_prx`, matching this project's storage-boundary
+  rule that root's `amparo_prx` stays read-only from `/app`.
+
+### Real defect found in the extraction tool, not the engine
+`PRACTICE.en/es[20-22, 30-33]` (hard-mode and checkpoint beat text) and
+`PRX_OPT[20-22, 30-33]` (their option sets, including `bothGood`) are added
+by top-level assignment statements AFTER the initial `const PRACTICE = {...}`
+/ `const PRX_OPT = {...}` literals (index.html:4511-4538, 4679-4705) — the
+same runtime-synthesis bug class as the STATES bug from Move 4.2, except this
+time the fix belongs in the extractor itself: `tools/extract-app-content.mjs`
+only sliced `const NAME` declarations, so `practice.json` silently shipped
+without any of the hard-mode or checkpoint beat content. Building the deck
+for level 3 or 4 would have thrown (`PRACTICE.en[20]` undefined) or rendered
+missing option text the moment Move 5.2 wires a UI to it. Fixed by extending
+the extractor to also slice every top-level `PRACTICE.(en|es)[N]=` and
+`PRX_OPT[N]=` assignment statement (matched generically, not hardcoded to the
+current ci list) and fold them into the same evaluated program, in source
+order. `practice.json` grew 33.6 kB → 43.5 kB; re-verified byte-identical
+against index.html (2437 strings, up from 2333).
+
+### Verification
+- `tools/practice-engine-check.mts` (new) — 17 checks: deck ci sequences for
+  all 8 levels (0-2 randomized-tone, 3-7 fixed tracks), curveball-splice
+  determinism for a fixed date, the lock gate (including level 6's extra
+  `done[5]` requirement), per-level consent persistence across re-entry,
+  crisis-skip `run[]`/`runIdx[]` alignment, debrief bookkeeping (including
+  the no-double-count case and hard mode's unscored `best`), `back()`
+  rewind, `again()`, and `bothGood` always scoring tier `g`. All pass.
+- `extract-app-content.mjs --verify` — PASS (2437 strings, EN/ES parity
+  intact, idempotent).
+- `app-storage-check.mts` / `sw-routing-check.mjs` — PASS, unchanged (no
+  storage or SW surface touched this move).
+- `tsc -b && vite build` — clean. Entry chunk unchanged (92.32 kB gz):
+  `practiceEngine.ts` is not imported by any screen yet, so it isn't in any
+  chunk at all — Move 5.2 is what wires it up and is where its bundle cost
+  will actually show.
+- `oxlint` — clean after fixing one violation: the first draft imported
+  `practice.json`'s default export, which the project's `no-restricted-
+  imports` rule blocks (default JSON imports drag the whole bank into the
+  chunk instead of tree-shaking per key — the rule's own message cites a
+  measured 0.51 kB vs 28.28 kB difference on `states.json`). Switched to
+  named imports.
+- No live browser verification this move — nothing renders yet; Move 5.2 is
+  where the practice UI exists to click through.
+
+### Deferred to Move 5.2
+Audio-driven `OFFICER_SPEAKING → AWAITING` gating (the phase names exist now;
+nothing yet drives the transition on a real clip/TTS event), crisis-phrase
+detection itself (G10 — `markCrisis()` exists as a pure transition, the
+12-phrase NFD/apostrophe-insensitive matcher that calls it does not), the
+typed-answer matcher (G9), and everything UI (scenario cards, chat thread,
+demeanor meter, score ring, results/debrief screens, mute/voice controls).
