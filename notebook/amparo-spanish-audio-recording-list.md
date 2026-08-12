@@ -34,6 +34,34 @@ says it correctly. Those two beats fall back to TTS until a human records them.
 **To finish:** record `k30` and `k33` in both voices by any means, drop them in
 `audio/es/{m,f}/`, and rerun the verifier at the bottom of this file.
 
+### Re-verified 2026-08-11 — still fails, on a newer Voicebox
+
+Retested on **Voicebox v0.5.0** (new profile system: `AmparoES-M`,
+`AmparoES-M2`, `AmparoES-F` — all three presets, not the raw kokoro voice ids
+used in the 2026-08-04 run). Generated via `voicebox.speak`, each clip
+transcribed back through `voicebox.transcribe` (Whisper `base`, `language=es`)
+and compared to source:
+
+| source | profile | heard as |
+|---|---|---|
+| `¿Ciudadanía?` | AmparoES-M | `¡Siu d'Avanía!` |
+| `¿Ciudadanía?` | AmparoES-M2 | `¡Tiu d'Avanía!` |
+| `¿Ciudadanía?` | AmparoES-F | `¡Siu d'Abanía!` |
+| `Ciudadanía` (bare, no `¿?`) | AmparoES-M | `¡Siu d'Avanía!` |
+| `Oríllese a la inspección secundaria.` | AmparoES-M | `Poríese a la inspección secundaria.` |
+
+Two things this settles. **The punctuation is not the cause** — the bare word
+fails identically, so it is the word itself, not the inverted `¿?`. And **the
+rest of the k33 sentence renders perfectly** ("a la inspección secundaria"),
+which localises the fault to `Oríllese` alone and rules out a general
+Spanish-quality problem. The failures also reproduce the 2026-08-04 artifacts
+almost character for character ("Tiu d'Avanía", "Poríese"), across a different
+profile system — so this is the model, not a bad profile or a bad run.
+
+No clips were written to `audio/es/`. **The decision stands: TTS fallback until
+a human records these two.** Do not retry with another preset; the next
+attempt worth making is a microphone.
+
 ## Why these were missing
 
 `audio/es/` has 49 clips against `audio/en/`'s 62. Three families were never
