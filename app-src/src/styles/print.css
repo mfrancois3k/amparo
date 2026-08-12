@@ -1,0 +1,113 @@
+/* Print pack (step 4). Ported verbatim from index.html:1030-1112 (pack CSS),
+ * 279-309 (thumbnails/split layout). Class names kept identical to root.
+ *
+ * `#printRoot{display:none}` + `@media print{#printRoot{display:block}}` is
+ * root's exact mechanism: the six full pages exist in the DOM at all times,
+ * hidden on screen, and the browser's own print pipeline handles pagination.
+ * /app's version of this file targets `#appPrintRoot` — a different id, so a
+ * user with BOTH the root tab and /app open printing at the same moment
+ * cannot collide (root's SW/storage isolation guarantees don't extend to two
+ * live tabs sharing a print dialog, but the id collision was a one-line fix
+ * once noticed).
+ */
+#appPrintRoot{display:none}
+@media print{
+  .app-wrap > *:not(#appPrintRoot){display:none !important}
+  #appPrintRoot{display:block}
+}
+
+.pp{width:8.27in;min-height:9.7in;padding:.32in .55in;background:var(--white);page-break-after:always;position:relative;font-family:-apple-system,"Segoe UI",Inter,sans-serif}
+#appPrintRoot .pp:last-child{page-break-after:auto}
+.pp-head{display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid var(--navy);padding-bottom:7px;margin-bottom:13px}
+.pp-brand{display:flex;align-items:center;gap:10px}
+.pp-brand svg{width:40px;height:40px}
+.pp-brand .n{font-size:19px;font-weight:900;color:var(--navy);letter-spacing:.4px;line-height:1.05}
+.pp-brand .t{font-size:7.5px;font-weight:800;letter-spacing:1.3px;color:var(--gold-ink);text-transform:uppercase}
+.pp-tag{font-size:11px;color:var(--muted);text-align:right}
+
+.place{display:flex;align-items:center;gap:8px;border:1.2px solid var(--gold);background:#fdf6e3;border-radius:8px;padding:3px 8px;margin-bottom:7px}
+.place svg{width:58px;height:34px;flex:none;display:block}
+.place .pt{font-size:9.3px;line-height:1.3;color:var(--ink)}
+.place .pt b{color:var(--navy);letter-spacing:.5px;font-size:8.8px;margin-right:4px}
+.place .pt span{display:block;color:var(--gold-ink);font-size:8.3px;margin-top:1px}
+
+.pp h1{font-size:23px;color:var(--navy);line-height:1.05;margin-bottom:2px}
+.pp .es-sub{font-size:15px;color:var(--gold-ink);font-weight:800;margin-bottom:12px}
+.step-row{display:flex;gap:11px;align-items:center;padding:2px 0;border-bottom:1px solid #eee7d6}
+.step-num{width:30px;height:30px;border-radius:9px;background:#fff;border:2.5px solid var(--navy);color:var(--navy);font-size:18px;font-weight:900;display:flex;align-items:center;justify-content:center;flex:none}
+.step-ico{width:32px;height:32px;flex:none;display:flex;align-items:center;justify-content:center}
+.step-ico svg{width:30px;height:30px}
+.step-tx .en{font-size:13px;font-weight:900;color:var(--ink)}
+.step-tx .es{font-size:10.3px;color:var(--gold-ink);font-weight:700}
+
+.coop{background:#fff;border:3px solid var(--navy);color:var(--navy);font-size:14px;font-weight:900;letter-spacing:.3px;line-height:1.4;padding:8px 11px;border-radius:9px;margin-bottom:8px}
+.p4grid{display:flex;gap:11px}
+.p4col{flex:1;min-width:0}
+.pbox{border:1.5px solid var(--line);border-radius:11px;padding:7px 10px;margin-bottom:7px;background:#fbf8f0}
+.pbox h3{font-size:11.5px;color:var(--navy);letter-spacing:.6px;margin-bottom:4px;text-transform:uppercase}
+.pbox li{font-size:10px;margin-left:12px;margin-bottom:2px;line-height:1.3}
+.pbox.warn{background:#fdf6e3;border-color:var(--gold)}
+.logline{font-size:10px;color:var(--ink);border-bottom:1px solid #cfc7b2;padding:4px 0 2px;display:flex;justify-content:space-between}
+.logline b{color:var(--gold-ink);font-weight:800}
+.cuth{font-size:9.5px;color:var(--gold-ink);font-weight:800;margin-top:7px;text-transform:uppercase;letter-spacing:.5px}
+.cutrow{display:flex;gap:10px;margin-top:5px}
+.cut{flex:1;border:1.5px dashed #b8ad8c;border-radius:9px;padding:7px;background:#fff;font-size:10px;font-weight:900;color:var(--navy);text-align:center;line-height:1.3}
+.pp-foot{margin-top:8px;font-size:9px;color:var(--muted);border-top:1px solid var(--line);padding-top:8px;line-height:1.45}
+
+.wcard{border:3px solid var(--navy);border-radius:14px;overflow:hidden}
+.wcard-band{background:#fff;color:var(--navy);border-bottom:3px solid var(--navy);padding:10px 18px;display:flex;justify-content:space-between;align-items:center}
+.wcard-band .b1{font-size:18px;font-weight:900;letter-spacing:.5px}
+.wcard-band .b2{font-size:11px;opacity:.85}
+.wcard-body{display:flex;gap:16px;padding:14px 16px}
+.docline{width:2.5in;flex:none;display:flex;align-items:center;text-align:center;border:1.5px dashed #b8ad8c;border-radius:9px;padding:14px 10px;background:#fbf8f0;font-size:10px;font-weight:800;letter-spacing:.6px;color:#6b4d0d;line-height:1.5}
+.rights{flex:1}
+.rights h2{font-size:21px;color:var(--navy);letter-spacing:.3px;margin-bottom:2px}
+.rights .amend{font-size:11px;color:var(--muted);margin-bottom:11px}
+.r-item{display:flex;gap:9px;margin-bottom:7px;align-items:flex-start}
+.r-item .n{width:22px;height:22px;border-radius:7px;background:var(--gold);color:var(--navy-deep);font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;flex:none;margin-top:1px}
+.r-item .en{font-size:14px;font-weight:900;line-height:1.3}
+.r-item .es{font-size:11px;color:var(--gold-ink);font-weight:700;line-height:1.25}
+.staterow{display:flex;gap:12px;margin-top:10px}
+.statebox{flex:1;border:1.5px solid var(--line);border-radius:11px;padding:9px 12px;background:#fbf8f0}
+.statebox h3{font-size:12.5px;color:var(--navy);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.statebox li{font-size:10.5px;margin-left:14px;margin-bottom:1px;line-height:1.3}
+.stq{display:block;font-size:9.3px;color:#565043;font-style:italic;line-height:1.32;margin-top:1px}
+.pbox .stq{font-size:9px}
+.vetting{flex:none;width:1.7in;border:1.5px solid var(--gold);border-radius:11px;padding:10px;background:#fdf6e3;font-size:10px;color:#6b4d0d;line-height:1.45}
+.qrbox{display:flex;align-items:center;gap:8px;margin-top:8px}
+
+.lifegrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.lifebox{border:1.5px solid var(--line);border-radius:10px;padding:8px 11px;background:#fbf8f0}
+.lifebox .n{font-size:12.5px;font-weight:900;color:var(--navy)}
+.lifebox .p{font-size:16px;font-weight:900;color:var(--navy);margin:2px 0}
+.lifebox .d{font-size:10px;color:var(--muted);line-height:1.4}
+
+.wallet{width:3.37in;border:1.5px dashed #b8ad8c;border-radius:10px;overflow:hidden;margin-bottom:12px}
+.wfold{border-top:1.5px dashed #b8ad8c;margin:7px -12px 6px;position:relative;height:0}
+.wfold span{position:absolute;right:8px;top:-7px;font-size:8.5px;color:#a2966d;background:#fff;padding:0 4px;font-weight:800}
+.wallet .wb{background:#fff;color:var(--navy);border-bottom:2.5px solid var(--navy);padding:5px 11px;font-size:11px;font-weight:900;letter-spacing:.4px}
+.wallet .wc{padding:8px 11px;font-size:10px;line-height:1.42}
+.wallet .wc b{color:var(--navy)}
+
+/* on-screen preview: thumbnail carousel + desktop split, index.html:279-309 */
+.thumbs{display:grid;grid-auto-flow:column;grid-auto-columns:80%;gap:12px;margin-top:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;-webkit-overflow-scrolling:touch}
+.thumb{scroll-snap-align:center;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--white)}
+.thumbs-hint{margin-top:2px}
+@media(min-width:900px){
+  .thumbs{grid-auto-flow:row;grid-template-columns:1fr 1fr;grid-auto-columns:auto;overflow-x:visible;scroll-snap-type:none}
+  .thumbs-hint{display:none}
+  .split{display:grid;grid-template-columns:1.15fr 1fr;gap:28px;align-items:start}
+  .split-right{position:sticky;top:18px}
+}
+.thumb .cap{padding:10px 13px;font-size:13px;font-weight:800;color:var(--navy);background:#f4f1e7;border-top:1px solid var(--line)}
+.mini{transform-origin:top left;pointer-events:none}
+.mini-wrap{overflow:hidden}
+
+.compare{background:#fdf6e3;border:1.5px solid var(--gold);border-radius:13px;padding:14px 15px;margin:14px 0;text-align:left}
+.compare h3{margin:0 0 6px;font-size:13.5px;color:#1B2A4A;letter-spacing:.2px}
+.compare .cmp-note{font-size:11.5px;color:#6b4d0d;line-height:1.5;margin:0 0 11px}
+.cmp-row{margin-bottom:9px}
+.cmp-row:last-of-type{margin-bottom:0}
+.cmp-label{font-weight:800;font-size:12.5px;color:#1B2A4A;margin-bottom:2px}
+.cmp-yes{display:block;font-size:11.5px;color:#1d4a2c;line-height:1.4}
+.cmp-foot{font-size:11.5px;font-weight:700;color:#1B2A4A;margin-top:10px;padding-top:10px;border-top:1px solid #f0dca8;line-height:1.5}

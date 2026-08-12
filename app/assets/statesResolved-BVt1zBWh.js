@@ -1,0 +1,1 @@
+import{l as e,n as t,r as n,s as r,t as i}from"./states-CVwPHSIa.js";var a=e,o=r,s=Object.fromEntries(Object.keys(a).map(e=>{let r=o[e];return[e,r?{...r,pending:!1}:{name:a[e],pending:!0,rules_en:t,rules_es:n,lifelines:i}]}));function c(e){return e&&s[e]||s.NY}export{c as t};

@@ -29,6 +29,7 @@ import './styles/shell.css'
 const StateStep = lazy(() => import('./screens/StateStep').then((m) => ({ default: m.StateStep })))
 const YouStep = lazy(() => import('./screens/YouStep').then((m) => ({ default: m.YouStep })))
 const LifelinesStep = lazy(() => import('./screens/LifelinesStep').then((m) => ({ default: m.LifelinesStep })))
+const PrintStep = lazy(() => import('./screens/PrintStep').then((m) => ({ default: m.PrintStep })))
 const Eyebrow = lazy(() => import('./components/Eyebrow').then((m) => ({ default: m.Eyebrow })))
 
 type Pack = { state: string | null }
@@ -49,7 +50,7 @@ function Shell() {
        analytics (wargames/15 §2), so the call is deleted rather than stubbed. */
   }
 
-  const showEyebrow = route.name === 'state' || route.name === 'you' || route.name === 'lifelines'
+  const showEyebrow = route.name === 'state' || route.name === 'you' || route.name === 'lifelines' || route.name === 'print'
 
   return (
     <div className="app-wrap">
@@ -114,7 +115,10 @@ function Shell() {
             />
           ) : null}
           {route.name === 'lifelines' ? (
-            <LifelinesStep t={t} state={pack.state} onBack={() => navigate({ name: 'you' })} />
+            <LifelinesStep t={t} state={pack.state} onBack={() => navigate({ name: 'you' })} onNext={() => navigate({ name: 'print' })} />
+          ) : null}
+          {route.name === 'print' ? (
+            <PrintStep t={t} state={pack.state} onBack={() => navigate({ name: 'lifelines' })} />
           ) : null}
         </Suspense>
       </main>

@@ -456,6 +456,85 @@ recorded in Phase 3.
 
 ---
 
+## Move 4.3 — Print/pack system
+
+The six-page printed pack (`PrintPack.tsx`) and its screen (`PrintStep.tsx`),
+wired as `lifelines → print`. This was the largest single move in Phase 4 —
+ported `buildPrint()` (index.html:4033-4237) plus the step===4 render block
+(index.html:3323-3414).
+
+### What shipped
+- `content/icons.json` — new extraction group (`LOGO`, `ICONS`, `PLACE_ICONS`),
+  added to `extract-app-content.mjs`'s `GROUPS`. Pure SVG markup, still
+  mechanically sliced rather than hand-copied — a mistyped path datum is a
+  silent visual defect, and the no-hand-transcription rule is cheaper to apply
+  uniformly than to re-justify per file.
+- `styles/print.css` — verbatim port of the pack CSS (index.html:1030-1112)
+  plus the thumbnail/split layout CSS (index.html:279-309). Targets
+  `#appPrintRoot` instead of root's `#printRoot` so a user with both the root
+  tab and `/app` open printing at the same instant can't collide.
+- `components/PrintPack.tsx` — all six pages as JSX. Two fields carry real
+  embedded markup from the extracted banks (`STATES.*.rules_*`'s `<i
+  class="stq">` statute-quote spans, and `PACK_EXTRA.claims.*`'s `<b>` tag) —
+  those two, and only those two, use `dangerouslySetInnerHTML` on static
+  extracted content, never on a user-entered field. Every other user-facing
+  string is a plain JSX text child, auto-escaped by React — a stricter
+  guarantee than root's own `esc()` helper gives for the six user-entered
+  fields (name/ec/ecp/ec2/ecp2/att).
+- `screens/PrintStep.tsx` — compare box, thumbnail carousel, docs row (reuses
+  `DocsOverlay`), print button, pdf-help disclosure toggle. Thumbnails use the
+  same clone-and-scale mechanism as root (index.html:3391-3406): the six
+  hidden `#appPrintRoot` pages are cloned and CSS-scaled into each thumbnail
+  slot, so a thumbnail can never drift from what actually prints.
+- `LifelinesStep`'s Continue button now navigates to `print` instead of
+  linking out to `/`.
+- `nav.ts` gained the `'print'` route (the `ui.json` `STEP_SLUG` bank already
+  had the slug reserved at index 4).
+
+### Real defect found in root, not replicated
+`buildPrint()` page 6 (index.html:4207) renders `${PX.con_h}` as a box
+header, but `PACK_EXTRA.en`/`PACK_EXTRA.es` have no `con_h` key anywhere —
+confirmed by grepping the full source, not just the extracted JSON. Root's
+template-literal interpolation coerces that to the literal string
+`"undefined"`, so every printed pack today shows the word "undefined" as that
+box's header, in both languages. Not something to hand-author a replacement
+string for (the no-authored-user-facing-text rule holds even for one-off
+fixes), so `PrintStep`'s box degrades to icon-only (`📞`) instead of
+reproducing the glitch. Verified live: `document.querySelectorAll('#appPrintRoot
+.pbox h3')` shows every other box's real extracted header text and this one
+alone as bare `"📞"` — no literal "undefined" anywhere in `/app`.
+
+### Deferred, logged not omitted
+No demo banner (no demo mode in `/app`). No post-print rail (practice-hub
+links point at Phase 5, unbuilt; email button gated by
+`REVIEW.emailEnabled=false`; restart/printForFamily/reprint-reminder actions
+have no destination yet). No print-feedback prompt — needs its own
+analytics-free storage decision, deferred with the rail rather than stubbed.
+`isReviewed`/`reviewLine` (index.html:2590-2596) ported as pure functions but
+are a dead path today: every `REVIEW.attorneys[*].name` is `""`, so the pack
+always shows "PILOT EDITION," matching root's current live behavior exactly.
+
+### Verification
+- `extract-app-content.mjs --verify` — PASS (2333 strings verified present in
+  index.html, EN/ES structure identical, icons.json now included).
+- `app-storage-check.mts` — PASS (13 assertions, unchanged; `PrintStep` reads
+  `app_you`/`app_docs`, writes nothing new).
+- `sw-routing-check.mjs` — PASS (12 assertions, unchanged).
+- `tsc -b && vite build` — clean. Entry chunk held flat at **92.32 kB gz**
+  (was 92.16 kB); new `PrintStep-*.js` chunk is 20.26 kB gz, lazy-loaded only
+  on reaching step 4 — never touches the entry bundle.
+- `oxlint` — clean, no warnings.
+- Live browser session (Texas, name filled): state map → You (name "Maria
+  Gonzalez") → Lifelines (confirmed Texas-specific 211/AG hotline, matching
+  Move 4.2's fix) → Print. Verified in the rendered DOM: page 1 header shows
+  "Texas · Maria Gonzalez"; compare box, docs row, print button, and the
+  pdf-help toggle all render and the toggle opens/closes correctly; page 6's
+  claims box shows real bolded Texas-specific deadline text with no literal
+  `<b>`/`<i>` tags leaking as text; the `con` box (root's `con_h` defect)
+  shows icon-only, not "undefined". Zero console errors throughout.
+
+---
+
 ## Standing constraints (unchanged, every phase)
 1. No model-authored officer dialogue, statutes, or legal phrases — extraction only.
 2. Nothing leaves the device. `/app` beta ships **zero** analytics.

@@ -60,6 +60,12 @@ const GROUPS = {
   // Structural tables: no prose, but the app needs them and retyping a slug or
   // a field id silently breaks routing or a form.
   'ui.json':         ['STEP_SLUG', 'DOCS', 'CARRY_F'],
+  // Pure SVG markup — no legal text, but still extracted mechanically rather
+  // than hand-copied: a single mistyped path datum is a silent visual defect
+  // in the printed pack, and "never hand-transcribe" is cheaper to apply
+  // uniformly than to re-justify per file. LOGO is a template literal (no
+  // interpolation), the other two are plain objects of SVG strings.
+  'icons.json':      ['LOGO', 'ICONS', 'PLACE_ICONS'],
   'map.json':        ['US_PATHS', 'SM_LBL', 'SM_BOX'],
   'prep.json':       ['PREP_STEPS'],
   'practice.json':   [

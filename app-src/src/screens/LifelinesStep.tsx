@@ -4,12 +4,11 @@
  */
 import { useEffect, useRef, useState } from 'react'
 import type { Bank } from '../i18n'
-import { STATES, TAGNAMES, SCEN } from '../content/states.json'
+import { TAGNAMES, SCEN } from '../content/states.json'
+import { resolveState } from '../content/statesResolved'
 import { useLang } from '../i18n'
 import '../styles/lifelines.css'
 
-type Lifeline = { n: string; n_es?: string; p: string; d_en: string; d_es: string; tags: readonly string[] }
-const ALL_STATES = STATES as Record<string, { lifelines: readonly Lifeline[] }>
 const TAGS = TAGNAMES as Record<'en' | 'es', Record<string, string>>
 type ScenItem = { ic: string; t: string; d: string; dTX?: string }
 const SCENARIOS = SCEN as { en: readonly ScenItem[]; es: readonly ScenItem[] }
@@ -25,15 +24,19 @@ function lifeContact(raw: string | undefined): { type: 'tel' | 'web' | 'none'; h
   return { type: 'none', href: null }
 }
 
-type Props = { t: Bank; state: string | null; onBack: () => void }
+type Props = { t: Bank; state: string | null; onBack: () => void; onNext: () => void }
 
-export function LifelinesStep({ t, state, onBack }: Props) {
+export function LifelinesStep({ t, state, onBack, onNext }: Props) {
   const { lang } = useLang()
   const [tab, setTab] = useState<0 | 1>(0)
   const trackRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState(0)
 
-  const st = ALL_STATES[state ?? 'NY'] ?? ALL_STATES.NY
+  /* resolveState synthesizes all 51 states the way root does at runtime — a
+     raw STATES lookup only has three real entries (TX/GA/NY) and silently
+     fell back to New York's lifelines for every other state. See
+     content/statesResolved.ts for how that shipped and was caught. */
+  const st = resolveState(state)
   const lifelines = st.lifelines
   const scenarios = SCENARIOS[lang]
   const count = tab === 0 ? lifelines.length : scenarios.length
@@ -124,9 +127,8 @@ export function LifelinesStep({ t, state, onBack }: Props) {
       {/* Not gated, matching root's reasoning verbatim: the one real completed-
           funnel user in this product's history said "I skip all of that" —
           forcing a swipe through every card before Continue would have blocked
-          the one person who ever finished. Destination is Move 4.3 (print);
-          an honest link to the live app until then, not a callback stub. */}
-      <a className="btn gold" style={{ marginTop: 18 }} href="/">{t.l_btn}</a>
+          the one person who ever finished. */}
+      <button className="btn gold" style={{ marginTop: 18 }} onClick={onNext}>{t.l_btn}</button>
     </div>
   )
 }
