@@ -85,9 +85,6 @@ function Shell() {
               picked={pack.state}
               onPick={pickState}
               onBack={() => navigate({ name: 'welcome' })}
-              /* Step 2 (You) is Move 4.1. Until it exists Continue stays on this
-                 screen rather than pretending to advance. */
-              onNext={() => {}}
             />
           </Suspense>
         )}

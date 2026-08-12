@@ -314,6 +314,48 @@ stepper and travelling state pill arrive with Move 4.1, when there is more than
 one step to move between. Root's `sr_state_selected` analytics call is deleted,
 not stubbed — `/app` ships zero analytics.
 
+**Added after QA caught the omission:** root's **law-watch strip** (Appendix A
+row A10) is also absent — the line reading "Statute sources auto-checked
+daily…", fed by a `law-status.json` fetch. `/app` neither renders it nor makes
+that request. Deferred deliberately: the strip asserts a freshness check, and
+asserting it in a build that does not perform the check is precisely the
+badge-that-lied precedent hard rule 3 exists for. It returns when `/app` fetches
+`law-status.json` itself. Recorded here because it was omitted silently the
+first time, which is the part that was wrong.
+
+### QA round — two independent agents, both after deploy
+**Code review** (`f0d4819`) found **seven** defects, all in code written this
+session: a model-authored `aria-label` that also *displaced* root's real
+`English`/`Español` labels; a caption reading the legend string instead of
+root's; 102 tab stops where root has 51; a redesigned confirmed chip that
+dropped the `non-scaling-stroke` keeping RI/DE/DC legible; `CITED` correct only
+by accident; four CSS drifts in a file claiming a verbatim port; and a language
+precedence divergence on a *corrupt* `sr_save`. Fixed in `fbad6ae`.
+
+**E2E** (also `f0d4819`, so it independently re-found the tab-stop issue) added
+two more:
+- **`<html lang>` never updated on mount.** The assignment lived only inside
+  `setLang`, so every path resolving to Spanish *without a click* — persisted
+  `app_lang`, inherited `sr_save.lang`, browser sniff — rendered the whole page
+  in Spanish inside `<html lang="en">`. The same defect the banner's `lang="es"`
+  fixes, at document scope. Now an effect keyed on `lang`.
+- **The Continue CTA was an enabled no-op.** `disabled={!picked}` with
+  `onNext={() => {}}`: pick a state and the primary button became live and
+  silent — contradicting the rule its sibling screen states in a comment. Now a
+  disabled button until a state is picked, then an anchor to the live app,
+  matching how Welcome routes every unported destination.
+
+What it confirmed held, under adversarial testing: **zero external hosts**
+(three ways, plus a `securitypolicyviolation` listener that stayed empty), the
+six root keys **byte-identical by sha256** after a full session, `amparo-v3`
+containing only root's shell at the same hash as before, one SW registration,
+welcome strings string-identical to root in both languages, and the
+collapsed-map a11y tested by focusability rather than node count — all 102
+targets returning zero client rects with `.focus()` landing on none. It also
+measured the sliver-target claim rather than accepting it: `/app` RI label
+4.97×4.00 px vs root's 4.94×4.00 — genuine parity, worst case DC's path at
+1.05×1.28 px. Still far below WCAG 2.5.8's 24×24, and still a product decision.
+
 ---
 
 ## Standing constraints (unchanged, every phase)
