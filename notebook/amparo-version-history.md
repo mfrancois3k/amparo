@@ -8,6 +8,17 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.19.0 — 2026-08-12 — "Phase 5 closes: the whole funnel practices out loud"
+
+`/app` Phases 5.1-5.3 (`234cea5`..`2dc99cc`) — practice engine FSM, its UI +
+audio, overlay a11y framework (focus trap/inert/Escape). Full funnel now
+built end to end. Real bugs found and fixed: extractor silently dropped
+hard-mode/checkpoint content; crisis-tier UI never rendered; two strings
+had unescaped embedded markup; photo-upload controls were keyboard-
+unreachable (root has this too, not backported). Two independent QA
+passes (EN/TX+NY, ES/GA fresh-session) found zero further defects. See
+`notebook/amparo-app-migration-log.md` for full per-move detail.
+
 ## v2.18.0 — 2026-08-12 — "The pack prints, the engine's on paper"
 
 `/app` Phases 3-5.1 (`f0d4819`..`eaeac7e`), tagged as one batch after full

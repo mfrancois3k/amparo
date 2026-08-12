@@ -6,6 +6,42 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.19.0 — 2026-08-12
+
+v2.19.0 — "Phase 5 closes: the whole funnel practices out loud"
+
+`/app` Phases 5.1-5.3 (`234cea5`..`2dc99cc`) — the practice engine, its UI and
+audio, and the overlay accessibility framework. This finishes Phase 5 of
+`wargames/15`; the full funnel (welcome → state → you → lifelines → print →
+practice) is now built end to end.
+
+- **Practice engine core** (Move 5.1): the run FSM as pure state +
+  transitions — deck building, per-level consent gates, crisis-skip score
+  alignment, selection-only divergence. Found and fixed a real extractor gap
+  along the way: hard-mode and checkpoint beat content was added by
+  assignment statements the const-only slicer never saw, so it silently
+  shipped without any of that content.
+- **Practice UI + audio** (Move 5.2): level select, live-beat chat thread,
+  demeanor meter, typed-answer matcher, crisis detection, results/debrief,
+  and officer audio (clip-then-TTS double fallback, mute/gender/voice-lang).
+  Found two real bugs via live verification: the crisis-tier reveal never
+  actually rendered its message (fell through to a normal coach box), and
+  two content strings with embedded `<br>`/`<b>` markup rendered as literal
+  text.
+- **Overlay/a11y framework** (Move 5.3): focus trap, inert background,
+  bidirectional Tab-wrap, focus restore, Escape-to-close — via a portal so
+  marking the app root inert doesn't also deafen the overlay. Found a real
+  keyboard-accessibility failure present in root too (photo-upload controls
+  were never in the tab order); fixed in `/app`, not backported to root.
+
+Two independent QA passes this cycle — one in English against Texas/New
+York with fresh and returning-user paths, one in Spanish against Georgia
+with a genuinely fresh (cleared-storage) session — found zero further
+defects. Full check suite (extractor, storage, service-worker, practice
+engine — 18 checks) and build pass throughout.
+
+No EDITION bump — no legal content touched.
+
 ## v2.18.0 — 2026-08-12
 
 v2.18.0 — "The pack prints, the engine's on paper"
