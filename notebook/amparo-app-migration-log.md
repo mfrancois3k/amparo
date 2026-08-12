@@ -64,7 +64,13 @@ does nothing, against 112 kB brotli for the entire live app.** That gap is the
 number the eventual promotion decision has to answer for.
 
 ## Phase 2 — content extraction + storage boundary
-**Committed 2026-08-11 · `cb30cd5` · NOT deployed**
+**Shipped 2026-08-11 · `cb30cd5` · deployed**
+
+Nothing in this phase is reachable by a user: the extracted content and the
+storage module are not imported by any component yet, so the deployed bundle is
+byte-identical to Phase 1's. Deploying it early is deliberate — it puts the
+invariants and their checks in CI's reach before the code that depends on them
+exists.
 
 ### Content: extraction, not transcription
 `tools/extract-app-content.mjs` slices the `const` **statements** for every
