@@ -195,6 +195,17 @@ export function writeApp(name: string, value: unknown): void {
   try { localStorage.setItem(APP_PREFIX + name, JSON.stringify(value)); } catch { /* quota or sandbox — in-memory only */ }
 }
 
+/**
+ * Like `writeApp`, but reports success. Root's `docsSave()` (index.html:3535-3543)
+ * returns a boolean specifically so `docPick` can roll a photo back and alert the
+ * user on quota failure rather than silently losing it — `writeApp`'s swallow-and-
+ * continue is wrong for that one call site, so it gets its own function instead of
+ * a signature change that would touch every other caller.
+ */
+export function writeAppReporting(name: string, value: unknown): boolean {
+  try { localStorage.setItem(APP_PREFIX + name, JSON.stringify(value)); return true; } catch { return false; }
+}
+
 export function removeApp(name: string): void {
   try { localStorage.removeItem(APP_PREFIX + name); } catch { /* ignore */ }
 }

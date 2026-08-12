@@ -1,4 +1,4 @@
-/* App shell. wargames/15 Phase 3, build order step 6.
+/* App shell. wargames/15 Phase 3-4, build order step 6.
  *
  * The beta banner below is the ONLY hand-written user-facing copy in /app.
  * Everything else — every label, every officer line, every legal phrase —
@@ -11,14 +11,25 @@ import { LangProvider } from './LangProvider'
 import { Welcome } from './screens/Welcome'
 import { REVIEW } from './content/meta.json'
 import { readApp, writeApp } from './services/storage'
-import type { Route } from './nav'
+import { stepIndex, type Route } from './nav'
 import './styles/shell.css'
 
-/* Lazy so map.json (45.6 kB, the largest bank) lands in its own chunk instead of
-   the entry bundle. Welcome is eager — it is the first paint. */
-const StateStep = lazy(() =>
-  import('./screens/StateStep').then((m) => ({ default: m.StateStep })),
-)
+/* Lazy per screen so the largest content banks (map.json 45.6 kB, states.json's
+   STATES 37.8 kB) land in their own chunks instead of the entry bundle. Welcome
+   is eager — it is the first paint.
+
+   Eyebrow is lazy too, and that is load-bearing, not incidental: it renders the
+   confirmed-state PILL via StateSilhouette, which imports content/map.ts — the
+   same module StateMap.tsx uses, holding all of US_PATHS. An eager Eyebrow
+   pulled that whole module into the entry chunk (measured: entry jumped from
+   91.76 kB to 116.13 kB gz, and the map path data that MUST live only in the
+   state-screen chunk showed up in the entry bundle instead). Eyebrow never
+   renders on Welcome — the only eager screen — so lazy-loading it costs nothing
+   on first paint and everything on the number that matters. */
+const StateStep = lazy(() => import('./screens/StateStep').then((m) => ({ default: m.StateStep })))
+const YouStep = lazy(() => import('./screens/YouStep').then((m) => ({ default: m.YouStep })))
+const LifelinesStep = lazy(() => import('./screens/LifelinesStep').then((m) => ({ default: m.LifelinesStep })))
+const Eyebrow = lazy(() => import('./components/Eyebrow').then((m) => ({ default: m.Eyebrow })))
 
 type Pack = { state: string | null }
 
@@ -37,6 +48,8 @@ function Shell() {
     /* Root fires sr_state_selected here (index.html:3843). /app ships zero
        analytics (wargames/15 §2), so the call is deleted rather than stubbed. */
   }
+
+  const showEyebrow = route.name === 'state' || route.name === 'you' || route.name === 'lifelines'
 
   return (
     <div className="app-wrap">
@@ -78,16 +91,32 @@ function Shell() {
       <main>
         {route.name === 'welcome' ? (
           <Welcome t={t} founder={REVIEW.founder} onStart={() => navigate({ name: 'state' })} />
-        ) : (
-          <Suspense fallback={<div className="card" />}>
+        ) : null}
+
+        <Suspense fallback={<div className="card" />}>
+          {showEyebrow ? (
+            <Eyebrow t={t} step={stepIndex(route)} state={pack.state} onPillClick={() => navigate({ name: 'state' })} />
+          ) : null}
+          {route.name === 'state' ? (
             <StateStep
               t={t}
               picked={pack.state}
               onPick={pickState}
               onBack={() => navigate({ name: 'welcome' })}
+              onNext={() => navigate({ name: 'you' })}
             />
-          </Suspense>
-        )}
+          ) : null}
+          {route.name === 'you' ? (
+            <YouStep
+              t={t}
+              onBack={() => navigate({ name: 'state' })}
+              onNext={() => navigate({ name: 'lifelines' })}
+            />
+          ) : null}
+          {route.name === 'lifelines' ? (
+            <LifelinesStep t={t} state={pack.state} onBack={() => navigate({ name: 'you' })} />
+          ) : null}
+        </Suspense>
       </main>
 
       <footer className="disclaimer">{t.disclaimer}</footer>

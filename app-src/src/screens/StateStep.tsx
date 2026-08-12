@@ -21,9 +21,10 @@ type Props = {
   picked: string | null
   onPick: (code: string) => void
   onBack: () => void
+  onNext: () => void
 }
 
-export function StateStep({ t, picked, onPick, onBack }: Props) {
+export function StateStep({ t, picked, onPick, onBack, onNext }: Props) {
   const [query, setQuery] = useState('')
   /* "Not your state?" re-opens the map without clearing the pick — root's
      uncollapseStateGrid (index.html:3952) keeps the original selection. */
@@ -109,17 +110,7 @@ export function StateStep({ t, picked, onPick, onBack }: Props) {
       {noMatch ? <p className="soon" role="status">{t.s_nomatch}</p> : null}
       {!collapsed ? <p className="soon">{t.s_soon}</p> : null}
 
-      {/* Step 2 (You) is Move 4.1. Until it exists this must not be an enabled
-          button that does nothing — Welcome.tsx states the rule ("a dead button
-          that looks alive is the 'convincing stub' this project keeps warning
-          about") and routes every unported destination to the live app, so this
-          screen follows the same pattern instead of contradicting its sibling.
-          Move 4.1 restores an onNext prop and swaps the anchor for a button. */}
-      {picked ? (
-        <a className="btn gold" href="/">{t.next} →</a>
-      ) : (
-        <button className="btn gold" disabled>{t.next} →</button>
-      )}
+      <button className="btn gold" onClick={onNext} disabled={!picked}>{t.next} →</button>
 
       {/* DEFERRED, logged not omitted: skipToPack (index.html:3266) needs the pack
           screen from Move 4.3, and finishLater (3267) writes an .ics reminder that

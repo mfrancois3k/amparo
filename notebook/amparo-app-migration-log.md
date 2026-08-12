@@ -358,6 +358,103 @@ measured the sliver-target claim rather than accepting it: `/app` RI label
 
 ---
 
+## Phase 4 — You step + document capture + Lifelines
+**Shipped 2026-08-12 · deployed**
+
+Moves 4.1 (You + docs) and 4.2 (Lifelines) together — the wargame separates
+them, but You's own Continue button is the entry to Lifelines, so shipping one
+without the other would have meant either a dead end or a stub.
+
+### Move 4.1 — You + document capture
+Ported from index.html:3271-3302 (form) and 3527-3637 (the docs system).
+Native `<input type="file" accept="image/*" capture="environment">` only — no
+`getUserMedia`, matching root's own design history (the 493-line guided
+capture engine deleted in v2.1.0). Photos land in their own `app_docs` key,
+separate from `app_you`, mirroring root's `sr_docs`/`sr_save` split so
+"delete my photos" can never take the rest of the pack with it.
+
+`docsShrink`'s downscale (1100px long edge, JPEG 0.72) ported verbatim.
+`docPick`'s quota-rollback needed a storage primitive that doesn't exist yet:
+`writeApp` swallows failures silently by design, but root's `docsSave()`
+returns a boolean specifically so a failed write can roll the photo back and
+alert the user. Added `writeAppReporting` as a second function rather than
+change `writeApp`'s signature for every other caller.
+
+The overlay is deliberately minimal — Escape closes, focus moves in on open
+and returns to the trigger on close — not root's full 7-overlay z-index/focus
+framework, which is Move 5.3's job and would be building ahead of the one
+overlay /app has today.
+
+**Not ported, and why:** `d_start`/`d_skip`/`d_deskhint` (guided-capture-only
+strings, confirmed orphaned — never referenced by `renderPapers()` in current
+source, leftover from the same deleted engine). The "remind me tomorrow" `.ics`
+link inside the overlay (`d_later`/`downloadFinishReminder()`) — deferred with
+`finishLater()`, both `.ics` writers belong with the pack flow. The optional
+email field — gated behind `REVIEW.emailEnabled`, which is `false` today, and
+would route through a Netlify function that doesn't exist in /app.
+
+### Move 4.2 — Lifelines
+Ported from index.html:3304-3320, `llTab`/`llSync`/`llGo` (3871-3919),
+`lifeContact` (3852-3859). Segmented tabs over one scroll-snap track; dots and
+the count follow scroll position as the single source of truth, same as root
+— no separate "current index" state to drift from what's on screen. Continue
+is deliberately never gated, for root's own stated reason: the one real
+completed-funnel user in this product's history said "I skip all of that,"
+and forcing a swipe through every card first would have blocked the one
+person who ever finished.
+
+### A real bug, caught by browser testing before commit
+**You's Continue button was wrongly disabled.** Root's next step from You is
+**Lifelines** (`saveInfo()` → `goM(3)`, index.html:3995), not Print — but this
+screen was written assuming Print was the destination (Move 4.3, not yet
+built) and disabled Continue on that wrong assumption, even though Lifelines
+was built in this same phase. Caught by driving the actual navigation chain in
+a browser rather than trusting the code. Fixed: both Continue and "Skip this"
+now route to Lifelines, matching `skipInfo()`'s identical destination
+(`goM(3)` — root's own comment notes the skip path needs no extra state,
+since every info field already initializes empty).
+
+### A second regression, caught the same way
+**Eyebrow (eager) pulled the whole map module into the entry chunk.** The
+travelling state pill renders a `StateSilhouette`, which imports
+`content/map.ts` — the same module `StateMap.tsx` uses, holding all of
+`US_PATHS`. Measured: entry chunk jumped from the Phase-3 baseline of
+91.76 kB gz to 116.13 kB, and a probe string from `map.json` that must only
+ever appear in the state-screen chunk showed up in the entry bundle instead.
+Fixed by lazy-loading `Eyebrow` alongside the screens — it never renders on
+Welcome, the only eager screen, so this costs nothing on first paint. Entry
+back to **92.16 kB gz** (well within the 91.76 kB baseline's rounding). New
+`states-*.js` shared chunk (8.48 kB gz) holds `STATES`/`US_STATE_NAMES`,
+loaded once and shared across `Eyebrow`, `StateStep` and `LifelinesStep`.
+
+### Storage after a full session
+`app_save`, `app_you`, `app_docs`, `app_lang` — all `app_*`, verified via
+`app-storage-check.mts` (13 assertions, unchanged) plus a live browser session
+confirming field values and photo slots survive a reload.
+
+### One thing logged as environmental, not fixed
+The lifelines dot-navigation (`goTo`, ported from root's `llGo`) calls
+`scrollTo({behavior:'smooth'})`, which did not animate in this session's
+preview browser — confirmed NOT React-specific by reproducing the identical
+non-movement with a plain, non-React `element.scrollTo({behavior:'smooth'})`
+call in the same tab. `behavior:'auto'` on the same element moved correctly,
+and the underlying scroll-SYNC mechanism (dots and count following a real
+scroll position) was verified independently and works: setting `scrollLeft`
+directly and firing a `scroll` event correctly updated the active dot and the
+count to "3 of 7". Root uses the identical `scrollTo({behavior:'smooth'})`
+call, so this reads as a browser-automation-environment quirk with animated
+scrollTo, not a port defect — but it could not be verified against a real
+device in this session. Settle with a real phone or a non-automated desktop
+browser before treating dot-tap as fully proven.
+
+### Deferred, logged not omitted
+Print (Move 4.3) — the You and Lifelines Continue buttons both currently have
+somewhere real to go (each other), so nothing in this phase is a dead end.
+`skipToPack` and the `.ics` writers remain the only unbuilt destinations, as
+recorded in Phase 3.
+
+---
+
 ## Standing constraints (unchanged, every phase)
 1. No model-authored officer dialogue, statutes, or legal phrases — extraction only.
 2. Nothing leaves the device. `/app` beta ships **zero** analytics.
