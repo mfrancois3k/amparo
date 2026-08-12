@@ -2,10 +2,16 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "amparo-static",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["-y", "http-server", ".", "-p", "4173", "-c-1"],
+      "name": "app-preview",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "preview", "--prefix", "app-src", "--", "--port", "4173", "--strictPort"],
       "port": 4173
+    },
+    {
+      "name": "app-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "app-src", "--", "--port", "5173", "--strictPort"],
+      "port": 5173
     }
   ]
 }

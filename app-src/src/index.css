@@ -1,0 +1,32 @@
+/* Design tokens — copied VERBATIM from index.html:36-43 (wargames/15 Move 2.3).
+   These are the product's palette, not a starting point: the dark
+   charcoal/amber "panic palette" from the outside blueprint was rejected
+   (wargames/14 row 5). Its literal colour values are banned constants that the
+   verification suite greps for — deliberately not written out here, so the grep
+   has no false positive to teach people to ignore. Keep this block in sync with
+   root by re-copying, never by editing here. */
+:root {
+  --navy:#1B2A4A; --navy-deep:#121e38; --gold:#E8B84B; --gold-soft:#F3D48A;
+  --cream:#FAF6EE; --white:#FFFFFF; --ink:#22293a; --muted:#64707d;
+  /* --gold is a background/border colour: 1.9:1 as text. Use --gold-ink for text. */
+  --gold-ink:#6b4d0d;
+  --ok:#2f8f5b; --line:#e5e0d4; --radius:18px;
+  --ease-out:cubic-bezier(.22,.8,.36,1); --ease-spring:cubic-bezier(.34,1.45,.5,1);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  background:var(--cream);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Root's convention: an `sr-motion` class on <html> means the user asked for
+   reduced motion, and every animation checks it rather than each component
+   re-querying the media query. Ported now so no animation ships without it. */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+}
