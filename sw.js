@@ -29,15 +29,39 @@ self.addEventListener('install', e => {
 self.addEventListener('activate', e => {
   e.waitUntil(
     caches.keys()
-      .then(ks => Promise.all(ks.filter(k => k !== C).map(k => caches.delete(k))))
+      /* Prefix-scoped, NOT "everything that isn't C". This handler used to delete
+         every cache on the origin, which would have wiped the /app build's
+         Workbox precache (workbox-*) on every deploy — and a cron commits to
+         this repo daily, so /app would have silently lost offline capability
+         once a day while still claiming to have it. Old amparo-v1/v2 shells
+         still get cleaned, which is all this was ever for. See wargames/15. */
+      .then(ks => Promise.all(ks.filter(k => k.startsWith('amparo-') && k !== C).map(k => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });
 
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
-  const url = e.request.url;
-  const isAsset = url.includes('/audio/') || url.includes('/img/') || url.endsWith('og.png');
+
+  let u;
+  try { u = new URL(e.request.url); } catch (err) { return; }
+  const sameOrigin = u.origin === self.location.origin;
+
+  /* /app is the strangler build (wargames/15). It owns its own service worker,
+     its own scope and its own caches — this one must not touch it. Without this
+     guard, ONE online visit to /app would hand its HTML to the navigation
+     handler below, which stores every successful navigation under CORE — so the
+     root app's offline fallback would start serving the wrong app. Leave this in
+     place for as long as anything is served from /app. */
+  if (sameOrigin && (u.pathname === '/app' || u.pathname.startsWith('/app/'))) return;
+
+  /* Pathname-anchored and same-origin. The old test was a substring match on the
+     whole URL (`url.includes('/img/')`), which would capture any third-party URL
+     that merely CONTAINED /img/ into this cache, and would have grabbed
+     /app/img/* too. */
+  const isAsset = sameOrigin && (
+    u.pathname.startsWith('/audio/') || u.pathname.startsWith('/img/') || u.pathname === '/og.png'
+  );
 
   // Page navigations: NETWORK-FIRST so a new deploy shows immediately; cache is
   // only the offline fallback. (The old cache-first behavior is why updates
