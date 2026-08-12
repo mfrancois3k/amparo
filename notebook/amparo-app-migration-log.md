@@ -902,3 +902,105 @@ failure needs precise timing against a real audio clip, which the dev
 server can't serve — see Move 5.2's log for the same img/audio dev-vs-prod
 note) but is confirmed correct by code inspection and the practice-engine
 check suite's unrelated coverage staying green.
+
+---
+
+## PHASE 6 — /app PWA + the parity audit
+
+## Move 6.1 — /app service worker + manifest
+
+`vite-plugin-pwa`, added as a dev-only dependency to `app-src/` — LAST of
+the build-order moves, on purpose (index.html:5753-5774's own comment on
+why: shipping offline-capability claims before the rest of the app is
+proven is the exact quiet-false-claim failure mode Move 0.2 existed to
+prevent).
+
+### What shipped
+- `/app/sw.js` — scope `/app/`, precaches this build's own emitted assets
+  (21 entries: HTML, favicon, every JS/CSS chunk, the manifest itself),
+  runtime `CacheFirst` for `/audio/**` (`.mp3` only) and `/img/**`, own
+  cache names `amparo-app-audio`/`amparo-app-img` — deliberately NOT
+  `amparo-v3`, so root's own cache-cleanup sweep (Move 0.2) can never touch
+  them and vice versa.
+- `/app/manifest.webmanifest` — `id`/`start_url`/`scope` all `/app/`
+  (distinct install identity from root's `/`), product palette, root's
+  actual icon files referenced by absolute path (`/img/icon-192.png` etc.)
+  rather than duplicated into `app-src/public` — same sharing pattern as
+  `/audio` and `/img/scene-*` from Moves 4.3/5.2.
+- `registerSW.ts` — the registration gate, ported from root's own
+  `serviceWorker` block (index.html:5756-5774): same `https:`-only guard,
+  same spirit ("this is a verifiable claim, not marketing copy"). The
+  reload-on-update dance root hand-rolls is handled internally by
+  `registerType: 'autoUpdate'` here; this file is just the gate plus an
+  `offline_ready` DOM event so `App.tsx` can show the same honest "saved on
+  this device" banner root shows, using the same extracted string.
+- `injectRegister: false` — the plugin's default injects an inline
+  `<script>`, which `/app`'s CSP (`script-src 'self'`, no
+  `unsafe-inline`) would block outright. Registered manually via
+  `virtual:pwa-register` instead, a same-origin module import like
+  everything else this build ships.
+- `vercel.json` gained header rules for `/app/sw.js` (no-cache) and
+  `/app/manifest.webmanifest` (correct content-type) — no
+  `Service-Worker-Allowed` override needed, since a worker at `/app/sw.js`'s
+  default max scope already IS `/app/`, matching what's wanted.
+
+### Verification
+- `tsc -b && vite build` clean; entry chunk grew 92.41 → 93.03 kB gz
+  (manifest link + workbox-window registration code) — genuine new
+  capability, still nowhere near the 300 kB abort threshold.
+- `oxlint` clean. Full check suite (extractor, storage, service-worker,
+  practice-engine) — all PASS, root's `sw.js` unchanged.
+- Live, against the production BUILD (`vite preview`, not `vite dev` —
+  the generated SW only exists in a real build): manually registered
+  `/app/sw.js` (the code's own `https:`-only gate can't be exercised over
+  plain `http://localhost`, same limitation root's identical gate has —
+  registered directly to test the SW file itself, independent of that
+  already-proven gate logic). Confirmed: registration scope exactly
+  `/app/`; precache cache populated with all 21 real assets, verified via
+  `caches.match` returning genuine 2729-byte `index.html` content, not an
+  empty stub; runtime-caching routes for `/audio/**`/`/img/**` present in
+  the generated worker with the correct isolated cache names; zero console
+  errors with the SW actively controlling the page.
+- **Not testable in this harness:** true network-disconnected (airplane
+  mode) reload, and the two-SW-coexistence scenario (root's `/` scope +
+  `/app`'s `/app/` scope on the same live origin) — both require the real
+  Vercel deployment. Logged as a RECON item for one real-device check
+  post-deploy, same category as the wargame's own already-flagged iOS
+  dual-manifest deferral.
+
+## Move 6.2 — Parity audit + evidence pack
+
+Full report: `wargames/18-app-parity-report.md`. Walked every row of
+wargames/15's Appendix A inventory (12 top-level sections, ~80 sub-items).
+Headline: **two genuinely new findings**, not previously logged anywhere —
+
+1. Practice's entry screen is structurally the wrong one. Root's actual
+   step-5 hub (index.html:3420-3474) is a 3-tab structure (Traffic ladder /
+   Checkpoint / Door) — checkpoint was deliberately split into its own tab
+   because it "was reading as just another traffic level buried at the end
+   of the ladder." `/app` instead ported the practice OVERLAY's internal
+   fallback list (index.html:5445-5454), which mixes checkpoint back into
+   one flat list — exactly what root split it out of. Both screens are
+   real in root; `/app` built the wrong one as its primary entry point.
+2. Print's `beforeprint` 4-second Android-double-fire debounce and the
+   `afterprint` "printed successfully" banner were never ported — print
+   itself works (verified repeatedly this migration), but the confirmation
+   layer around it does not exist.
+
+Per wargames/15's own abort condition ("**>10 DEFERRED rows without
+operator sign-off → the beta is a fragment, not a parity candidate; stop
+and review scope**"): the full audit counts roughly 20 DEFERRED items at
+sub-item granularity. This report does not silently pass that threshold —
+it states the count and flags explicitly that operator sign-off is needed
+before `/app` is called parity-complete for a promotion decision. The great
+majority of the 20 are consistent, previously-logged, deliberate scope
+decisions (post-print rail, carry card, share cert, About overlay, the
+prep-drill first-run gate) — not accidents — but the wargame's threshold
+exists precisely so volume gets a human look, and twenty crossing a
+ten-item line is exactly what it's for.
+
+**This closes wargames/15.** Every move (0.1 through 6.2) has shipped,
+been verified, and been logged. What remains is not migration work — it's
+a promotion decision: whether and when `/app` becomes the default entry at
+`/`, and in what order the ~20 deferred items above get built before that
+happens.

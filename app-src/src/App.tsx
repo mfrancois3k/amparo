@@ -5,13 +5,14 @@
  * arrives from index.html via tools/extract-app-content.mjs, hash-matched
  * (wargames/15 §0.2). Do not add a string here; add it to the extractor.
  */
-import { lazy, Suspense, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { useLang, useT } from './i18n'
 import { LangProvider } from './LangProvider'
 import { Welcome } from './screens/Welcome'
 import { REVIEW } from './content/meta.json'
 import { readApp, writeApp } from './services/storage'
 import { stepIndex, type Route } from './nav'
+import { OFFLINE_READY_EVENT } from './registerSW'
 import './styles/shell.css'
 
 /* Lazy per screen so the largest content banks (map.json 45.6 kB, states.json's
@@ -40,6 +41,13 @@ function Shell() {
   const { lang, setLang } = useLang()
   const [route, setRoute] = useState<Route>({ name: 'welcome' })
   const [pack, setPack] = useState<Pack>(() => readApp<Pack>('save', { state: null }))
+  const [offlineReady, setOfflineReady] = useState(false)
+
+  useEffect(() => {
+    const onReady = () => setOfflineReady(true)
+    window.addEventListener(OFFLINE_READY_EVENT, onReady)
+    return () => window.removeEventListener(OFFLINE_READY_EVENT, onReady)
+  }, [])
 
   const navigate = (to: Route) => setRoute(to)
 
@@ -127,6 +135,7 @@ function Shell() {
         </Suspense>
       </main>
 
+      {offlineReady ? <p className="soon" style={{ marginTop: 6 }} role="status">{t.offline_ready}</p> : null}
       <footer className="disclaimer">{t.disclaimer}</footer>
     </div>
   )
