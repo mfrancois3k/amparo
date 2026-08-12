@@ -432,20 +432,21 @@ loaded once and shared across `Eyebrow`, `StateStep` and `LifelinesStep`.
 `app-storage-check.mts` (13 assertions, unchanged) plus a live browser session
 confirming field values and photo slots survive a reload.
 
-### One thing logged as environmental, not fixed
-The lifelines dot-navigation (`goTo`, ported from root's `llGo`) calls
-`scrollTo({behavior:'smooth'})`, which did not animate in this session's
-preview browser — confirmed NOT React-specific by reproducing the identical
-non-movement with a plain, non-React `element.scrollTo({behavior:'smooth'})`
-call in the same tab. `behavior:'auto'` on the same element moved correctly,
-and the underlying scroll-SYNC mechanism (dots and count following a real
-scroll position) was verified independently and works: setting `scrollLeft`
-directly and firing a `scroll` event correctly updated the active dot and the
-count to "3 of 7". Root uses the identical `scrollTo({behavior:'smooth'})`
-call, so this reads as a browser-automation-environment quirk with animated
-scrollTo, not a port defect — but it could not be verified against a real
-device in this session. Settle with a real phone or a non-automated desktop
-browser before treating dot-tap as fully proven.
+### Correction: the dot-navigation "environmental quirk" was a flaky test, not a real issue
+The previous entry here reported that `goTo`'s `scrollTo({behavior:'smooth'})`
+did not animate and filed it as an unverified environment quirk. That report
+was wrong, and re-testing found the actual cause: the first test batch fired
+several overlapping `scrollTo`/reload/dispatch calls back to back with no
+settle time, which left stale animation state that suppressed the next
+`scrollTo`. Isolated and re-run cleanly — `scrollLeft = 0`, a short wait, THEN
+one `scrollTo({behavior:'smooth'})` — the animation ran correctly every time:
+13 samples showing clean progression (39→214→359→442→475→499→507→511) settling
+at the scroll-snapped position. Repeated through the actual dot **button
+click** (not a manual replication) with the same clean result: `activeDotIndex:
+2`, `"3 of 5"`. Dot-tap navigation is fully proven, no code change needed. The
+lesson worth keeping: a failing check needs to be isolated and re-run before
+it's trusted, in both directions — the same discipline that caught real bugs
+elsewhere in this phase almost produced a false report here.
 
 ### Deferred, logged not omitted
 Print (Move 4.3) — the You and Lifelines Continue buttons both currently have
