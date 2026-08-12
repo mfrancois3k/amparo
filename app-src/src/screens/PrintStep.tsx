@@ -2,13 +2,12 @@
  * Ported from index.html:3323-3414 (step===4 render block).
  *
  * Scope cuts vs root, matching the deferred-and-logged pattern (not silent
- * omission): no demo banner (no demo mode in /app), no post-print rail
- * (practice-hub links point at Phase 5, unbuilt), no email button
- * (REVIEW.emailEnabled=false), no restart/printForFamily/reprint-reminder
- * actions, no print-feedback prompt (needs its own analytics-free storage
- * decision, deferred with the rail). Kept: compare box, thumbnails, docs
- * row, print button, and the pdf-help disclosure toggle — all cheap, all
- * real extracted strings, no unbuilt destination behind any of them.
+ * omission): no demo banner (no demo mode in /app), no full post-print rail
+ * (email button, restart/printForFamily/reprint-reminder, print-feedback
+ * prompt — each needs its own decision, still deferred). Kept: compare box,
+ * thumbnails, docs row, print button, the pdf-help disclosure toggle, and —
+ * now that Move 5.2 built the destination — a single practice CTA using
+ * root's own `prx_open_cta` string, same as root's rail's first link.
  */
 import { useEffect, useRef, useState } from 'react'
 import type { Bank } from '../i18n'
@@ -21,9 +20,9 @@ import '../styles/print.css'
 
 type CmpRow = { label: string; yes: string }
 
-type Props = { t: Bank; state: string | null; onBack: () => void }
+type Props = { t: Bank; state: string | null; onBack: () => void; onNext: () => void }
 
-export function PrintStep({ t, state, onBack }: Props) {
+export function PrintStep({ t, state, onBack, onNext }: Props) {
   const { lang } = useLang()
   const [info] = useState<YouInfo>(() => readApp<YouInfo>('you', EMPTY_INFO))
   const [docs, setDocs] = useState<Docs>(() => readApp<Docs>('docs', {}))
@@ -116,6 +115,8 @@ export function PrintStep({ t, state, onBack }: Props) {
           <button className={`btn ${printed ? 'ghost' : 'gold'}`} onClick={() => window.print()}>
             🖨 {t.v_print_pdf}
           </button>
+
+          <button className={`btn ${printed ? 'gold' : 'ghost'}`} onClick={onNext}>{t.prx_open_cta}</button>
 
           <button className="linkbtn" style={{ marginTop: 10 }} onClick={() => setHelpOpen((v) => !v)}>{t.pdf_q}</button>
           {helpOpen ? (

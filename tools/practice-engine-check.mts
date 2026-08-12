@@ -148,6 +148,21 @@ check('completing a scored level writes runs/done/best/streak; unscored levels n
   assert.equal(s2.progress.runs[0], 1);
 });
 
+check('cbDay is stamped only when the completed run actually dealt a curveball', () => {
+  const withCurve = { ...emptyProgress(), runs: { 0: 1 } }; // 2nd run of level 0 -> curveball deal
+  let s = selectLevel(initialState(withCurve), 0, FIXED_DATE, seededRng(1));
+  s = officerFinished(s);
+  assert.ok(s.deck.some((b) => b.curve), 'fixture deck should contain a curveball');
+  for (let i = 0; i < s.deck.length; i++) { s = pick(s, true); s = advance(s, FIXED_DATE, seededRng(1)); }
+  assert.equal(s.progress.cbDay, '2026-08-12');
+
+  let s0 = selectLevel(initialState(), 0, FIXED_DATE, seededRng(1)); // 1st run -> no curveball
+  s0 = officerFinished(s0);
+  assert.ok(!s0.deck.some((b) => b.curve));
+  for (let i = 0; i < s0.deck.length; i++) { s0 = pick(s0, true); s0 = advance(s0, FIXED_DATE, seededRng(1)); }
+  assert.equal(s0.progress.cbDay, undefined);
+});
+
 check('hard mode (level 3, unscored) completes without writing a best score', () => {
   let s = selectLevel(initialState({ ...emptyProgress(), done: { 0: true, 1: true, 2: true } }), 3, FIXED_DATE, seededRng(1));
   assert.equal(s.phase, 'PRE_FLIGHT'); // level >= 2 always gates on consent, hard mode included

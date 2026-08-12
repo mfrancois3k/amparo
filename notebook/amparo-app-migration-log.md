@@ -632,3 +632,126 @@ detection itself (G10 — `markCrisis()` exists as a pure transition, the
 12-phrase NFD/apostrophe-insensitive matcher that calls it does not), the
 typed-answer matcher (G9), and everything UI (scenario cards, chat thread,
 demeanor meter, score ring, results/debrief screens, mute/voice controls).
+
+---
+
+## Move 5.2 — Practice UI + audio
+
+The practice screens themselves (`PracticeStep.tsx`, `PracticeLevelSelect.tsx`,
+`PracticeBeat.tsx`, `PracticeDebrief.tsx`), officer audio (`usePracticeAudio.ts`),
+and the two pieces of run mechanics 5.1 explicitly deferred: the typed-answer
+matcher (G9, `matchTypedAnswer`) and crisis-phrase detection (G10,
+`isCrisisText`). Ported G8/G9/G10/G11 per the wargame's action bullet —
+index.html:4796-4944 (audio + crisis), 5418-5643 (practiceRender).
+
+### What shipped
+- `styles/practice.css` — the `prx-`/`prc-` prefixed classes ported verbatim
+  from index.html:395-770. Deliberately NOT ported: `#practiceOverlay`'s
+  modal backdrop, its scoped dark-card theme, and the tone-atmosphere border
+  glow. Root needs those because practice is a full-screen modal reachable
+  from several entry points in its SPA; `/app` has practice as step 5 of one
+  linear funnel, so it reuses the same light `.card` shell every other step
+  already uses. Everything that renders CONTENT is ported; the container
+  chrome is not — logged as a structural adaptation, not a content cut.
+- `usePracticeAudio.ts` — the clip-then-TTS double-fallback latch, mute (own
+  `app_mute` key, independent from root's `amparo_muted`), gender and
+  voice-language preferences, and the 12-second idle-freeze offer (replay or
+  leave, never an escalation). `SpeechRecognition` stays unported, per
+  wargames/14 — root's own `PRX_SR` is dead code as of v2.16.1.
+- `practiceEngine.ts` gained `matchTypedAnswer()` (G9) and `isCrisisText()`
+  (G10, in the audio module) plus `splitKeyPhrases()` for highlighting the
+  model line's quoted key phrases — all pure functions, ported verbatim.
+- `PracticeLevelSelect.tsx` — the scenario cards, lock icons, best-score
+  badges, streak banner.
+- `PracticeBeat.tsx` — chat thread, demeanor meter, progress rail, audio
+  controls, options + typed-answer disclosure, coach/model/citation.
+- `PracticeDebrief.tsx` — scored results (score/grid/stats/breakdown) and the
+  unscored hard-mode debrief (never a scoreboard, by design). The carry card
+  (G12) and share cert (G13) are out of this move's scope per the wargame's
+  own action bullet — their buttons are omitted rather than shipped dead;
+  the level-2 "next level" progression CTA (a plain in-scope navigation) is
+  wired.
+- `PrintStep.tsx` gained a "Practice the script" CTA using root's own
+  `prx_open_cta` string — the post-print rail stays otherwise deferred
+  (email/restart/family/reminder actions each need their own decision), but
+  the destination this one link needs now exists.
+- App wiring: `nav.ts` gained the `'practice'` route; `App.tsx` lazy-loads
+  `PracticeStep`.
+
+### Real bug caught by live verification: crisis reveal never rendered
+`markCrisis()` (Move 5.1) correctly set `curTier: 'x'` and suppressed the
+score/match UI, but `PracticeBeat`'s answered-branch had no special case for
+it at all — it fell through to the normal opt-based coach/model text, same as
+any other answer. Typing an actual crisis phrase ("I want to die honestly")
+during live verification produced a plain "good answer" coach box instead of
+the 988 line. Root hides this because it patches the coach `<div>` via
+`querySelector` after the normal render (index.html:5105); the React port
+needed an explicit `state.curTier === 'x'` branch instead, since there is no
+DOM to reach into afterward. Fixed and re-verified live: the same input now
+shows only `prx_crisis` ("...you don't have to carry it alone. You can call
+or text 988...") with no scoring language, no key-phrase grading, no
+citation.
+
+### Real bug caught: two more strings with embedded HTML, unhandled
+Grepped every extracted string bank for `<br` / `<b>` after finding the
+crisis gap, rather than waiting for the next one to surface live:
+- `ab_founder_note` (rendered in the debrief footer) carries paragraph breaks
+  as literal `<br><br>` — root gets real line breaks because it builds this
+  via `innerHTML`; the naive `<p>{t.ab_founder_note}</p>` port showed the
+  literal characters. Fixed by splitting on `<br><br>` into separate `<p>`
+  tags — plain paragraph structure, not markup worth a `dangerouslySetInnerHTML`
+  review surface for.
+- `prx_resource` (the crisis-resource line under every debrief) has
+  interleaved `<b>988</b>`/`<b>aclu.org</b>` tags and an `&amp;` entity —
+  same treatment as `PrintPack`'s statute-quote/claims fields:
+  `dangerouslySetInnerHTML` on static extracted content, justified inline.
+- Checked every other `<br>`/`<b>`-carrying key (`doc_resource`, `pi_body`,
+  `lawchk`, `lawchk_flag`, `c_ub_chrome/safari/firefox`) against every
+  currently-built screen — none are rendered anywhere yet, so nothing else
+  needed fixing this move. Left for whichever future move builds those
+  screens to catch the same way.
+
+### Noted, not fixed: browser CSP/worker console warning
+Live verification surfaced a recurring console error — `Creating a worker
+from 'blob:...' violates ... "script-src 'self'"` — whenever the TTS
+fallback path fires (audio clips 404 in the Vite dev server, which doesn't
+serve root's sibling `/audio` directory; confirmed separately that
+`amparohq.com/img/scene-1.jpg` loads correctly in production, same origin as
+`/app`). This appears to be this Chromium build's own internal
+`speechSynthesis` implementation spinning up a Worker via a blob URL — not
+something this code creates. Root's CSP is equally `script-src 'self'` (plus
+trusted hosts), so root would hit the identical warning under the same
+conditions. Non-blocking: mute, gender, voice-lang controls, and the rest of
+the run all worked correctly through it. Flagged rather than chased further
+— would need a real production audio clip (not a 404) to confirm whether it
+also fires on the success path, which dev can't test.
+
+### Deferred, logged not omitted
+G1 (intro + prep drill + tap-to-place recall — its own mini-engine, gates
+first-ever run) and G12/G13 (carry card, share cert) are not listed in the
+wargame's Move 5.1/5.2 action bullets at all — not silently dropped, just
+never assigned to a move yet. `practiceIntroOpen()`'s first-run gate
+(index.html:2977) means `/app`'s practice entry currently skips straight to
+the level tiles every time, which is a real behavior gap for a true
+first-ever visitor; logged for whichever move claims G1.
+
+### Verification
+- `tsc -b && vite build` — clean. Entry chunk held flat at **92.39 kB gz**
+  (was 92.32 kB before this move); new `PracticeStep-*.js` chunk is
+  17.82 kB gz, lazy-loaded only past the print step.
+- `oxlint` — clean.
+- `extract-app-content.mjs --verify` / `app-storage-check.mts` /
+  `sw-routing-check.mjs` / `practice-engine-check.mts` — all PASS, unchanged
+  from Move 5.1 (this move added no new content extraction or storage
+  surface beyond `app_prx`/`app_mute`/`app_voice`/`app_voiceLang`, all
+  `app_*`-namespaced).
+- Live browser session: full run through Level 0 (Calm stop) twice —
+  multiple-choice picks, the typed-answer matcher (verified "Passed — you
+  hit 2 of 2 key words" with correct citation), crisis detection (before and
+  after the fix), the date-seeded curveball firing on the 2nd run with the
+  correct banner, debrief with correct score **excluding** the crisis beat
+  from the denominator (2/4, not 2/5), the level-2 progression CTA, and
+  returning to level-select to confirm the best-score badge (🟩4/6) and the
+  lock gate (Hard Mode locked, Checkpoint correctly never gated). Zero
+  uncaught exceptions; only the noted CSP/worker warning and expected
+  dev-only 404s (audio/img paths that resolve fine in production).

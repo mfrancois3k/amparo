@@ -30,6 +30,7 @@ const StateStep = lazy(() => import('./screens/StateStep').then((m) => ({ defaul
 const YouStep = lazy(() => import('./screens/YouStep').then((m) => ({ default: m.YouStep })))
 const LifelinesStep = lazy(() => import('./screens/LifelinesStep').then((m) => ({ default: m.LifelinesStep })))
 const PrintStep = lazy(() => import('./screens/PrintStep').then((m) => ({ default: m.PrintStep })))
+const PracticeStep = lazy(() => import('./screens/PracticeStep').then((m) => ({ default: m.PracticeStep })))
 const Eyebrow = lazy(() => import('./components/Eyebrow').then((m) => ({ default: m.Eyebrow })))
 
 type Pack = { state: string | null }
@@ -118,7 +119,10 @@ function Shell() {
             <LifelinesStep t={t} state={pack.state} onBack={() => navigate({ name: 'you' })} onNext={() => navigate({ name: 'print' })} />
           ) : null}
           {route.name === 'print' ? (
-            <PrintStep t={t} state={pack.state} onBack={() => navigate({ name: 'lifelines' })} />
+            <PrintStep t={t} state={pack.state} onBack={() => navigate({ name: 'lifelines' })} onNext={() => navigate({ name: 'practice' })} />
+          ) : null}
+          {route.name === 'practice' ? (
+            <PracticeStep t={t} onBack={() => navigate({ name: 'print' })} />
           ) : null}
         </Suspense>
       </main>

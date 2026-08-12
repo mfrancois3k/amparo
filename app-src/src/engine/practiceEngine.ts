@@ -46,6 +46,9 @@ export interface DeckBeat {
 interface OptionSide { en: string; es: string }
 export interface PrxOption {
   g: OptionSide; b: OptionSide; gc?: OptionSide; bc?: OptionSide; react?: OptionSide
+  /** Hard mode's second reaction line, used when the "alt" side was picked
+      (index.html:4525 etc) — bothGood options react differently per side. */
+  react2?: OptionSide
   bothGood?: boolean
 }
 
@@ -68,11 +71,45 @@ export function prxCard(ci: number, lang: Lang): { o: string; y: string } {
   return PRACTICE[lang][ci]
 }
 
+/** Ported from prxTypeAnswer's scoring (index.html:5108-5116) — generous,
+    accent/apostrophe-insensitive, never a fail state. `card.y` is the
+    reviewed model line; quoted phrases inside it are the key words scored
+    against. G9. */
+export interface TypedMatch { hits: number; total: number; good: boolean }
+export function matchTypedAnswer(raw: string, modelY: string): TypedMatch {
+  const norm = (s: string) => ' ' + s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/'/g, '').replace(/[^a-z0-9ñ ]/gi, ' ') + ' '
+  const h = norm(raw), hw = h.trim().split(/\s+/)
+  const phrases = (modelY.match(/“([^”]+)”/g) || []).map((s) => s.replace(/[“”]/g, ''))
+  const words = [...new Set(norm(phrases.join(' ')).split(/\s+/).filter((w) => w.length > 3))]
+  const hit = (w: string) => h.includes(' ' + w + ' ') || hw.some((x) => x.length > 3 && x.slice(0, 4) === w.slice(0, 4) && Math.abs(x.length - w.length) <= 3)
+  const hits = words.filter(hit).length, total = words.length
+  return { hits, total, good: total > 0 && hits >= Math.ceil(total / 2) }
+}
+
+/** Highlight quoted key phrases in a model line — ported from prxKeys
+    (index.html:5082). Returns segments for the caller to render, rather than
+    an HTML string: /app has no innerHTML surface for this content. */
+export function splitKeyPhrases(s: string): Array<{ text: string; key: boolean }> {
+  const parts: Array<{ text: string; key: boolean }> = []
+  let last = 0
+  const re = /“([^”]+)”/g
+  let m: RegExpExecArray | null
+  while ((m = re.exec(s))) {
+    if (m.index > last) parts.push({ text: s.slice(last, m.index), key: false })
+    parts.push({ text: `“${m[1]}”`, key: true })
+    last = m.index + m[0].length
+  }
+  if (last < s.length) parts.push({ text: s.slice(last), key: false })
+  return parts
+}
+
 export interface PracticeProgress {
   done: Record<number, boolean>
   runs: Record<number, number>
   best: Record<number, string>
   streak: { last: string; n: number }
+  /** Date (YYYY-MM-DD) a curveball was last dealt — index.html:5485. */
+  cbDay?: string
 }
 
 export function emptyProgress(): PracticeProgress {
@@ -258,6 +295,7 @@ function completeRun(state: EngineState, now: Date): EngineState {
     done: { ...progress.done, [level]: true },
     best,
     streak,
+    cbDay: state.deck.some((x) => x.curve) ? today : progress.cbDay,
   }
   return { ...state, phase: 'DEBRIEF', runLogged: true, progress: nextProgress }
 }
