@@ -226,6 +226,96 @@ browser environment; settle with a normal incognito window before fixing.
 
 ---
 
+## Phase 3 — welcome screen + geographic state map
+**Committed 2026-08-12 · NOT yet deployed**
+
+Designed by four agents (three independent specs + an adversarial critique that
+reconciled them) before any code was written. The critique caught two errors in
+already-committed Phase-1/2 work and one chain of reasoning that changed the
+whole shape of the move.
+
+### Decisions, settled before code
+`screens/` (not `steps/`) · context+hooks in `i18n.ts`, provider in
+`LangProvider.tsx` · **named JSON imports only**, lint-enforced · navigation
+*contract* now, hash router deferred to Phase 4 · Phase 3 writes `app_lang` and
+`app_save.state`, nothing else · welcome's gold CTA navigates in-app ·
+`document.title` unchanged (still "preview build") · baseline stated as
+**gzip -9**, not Vite's build-report gzip, because three specs quoted three
+different numbers for the same file.
+
+### The finding that reshaped the move: F3 is unexecutable
+The wargame pre-registered fork F3 — "if React fights the imperative
+choreography, wrap the existing vanilla map verbatim." That option **does not
+exist**, and only became visibly impossible after `/app` got its own CSP:
+
+- Root ships every map handler as an inline attribute injected via `innerHTML`
+  (`onclick="pickState('AL')"`, `index.html:3232`). `script-src 'self'` blocks
+  inline handlers, so a verbatim wrap renders a correct-looking map that is
+  **completely dead to input**, with 51 CSP violations.
+- The choreography F3 protects is absent anyway: root's collapse timeline needs
+  GSAP, GSAP loads from cdnjs, and the same CSP forbids it. Root's own no-GSAP
+  path is an instant swap — that is what `/app` ships.
+
+So the clean React port was not merely preferred, it was the only option — and
+it is *smaller* than feared, because the alphabetical 51-button grid is never
+visible in root either (`index.html:212`), so the port deletes it entirely.
+
+### Two errors this phase corrected in earlier commits
+1. **The `sr-motion` comment shipped in Phase 1 was backwards.** It said the
+   class means "the user asked for reduced motion". `SR.arm()`
+   (`index.html:1397-1400`) adds it only when GSAP loaded **and** reduced-motion
+   is off — it means "GSAP owns motion", and `:not(.sr-motion)` is the fallback
+   branch. An implementer trusting that comment would have gated the entrance
+   wave behind a class that can never be set in `/app`, and it would simply
+   never have played.
+2. **The CSP comment was over-general.** It said Vercel applies the first
+   matching header *block*. Precedence is per header **key** — provable from
+   `vercel.json` alone, since four later blocks set `Cache-Control` while
+   relying on the first block for CSP. The `/app` block was dead because
+   `/(.*)` already set that key, not because later blocks never apply.
+
+### Bugs avoided, and how each was verified
+- **Labels stacking at 0,0** — no `getBBox` anywhere. `SM_BOX` already *is* that
+  measurement (`index.html:3731-3734` records it being baked in), so labels
+  compute at module scope and render in the same JSX pass as the paths.
+  Verified: `labelsAtZero: 0`, RI offset-right at x=892 with `anchor=start`.
+- **Search re-mounting 51 paths** — verified by *node identity*, not by eye:
+  the same DOM node for TX before and after a search (`sameNodeAfterSearch:
+  true`), path count stable at 51, 50 dimmed on "tex", 0 after clearing.
+- **51 phantom tab stops when collapsed** (critique risk R2) — verified by
+  focusability, not a DOM count: the hidden holder computes `display:none`,
+  paths have zero client rects, and `.focus()` on a path does not land.
+- **The entrance wave** uses `backwards` instead of root's `forwards`, which is
+  what root's own comment (`181-186`) says it wanted: `forwards` held opacity:1
+  in the animations cascade layer so `.nomatch{opacity:.1}` could never win and
+  search dimming silently died. Root works around it with a 950 ms class swap.
+
+### Measured
+Entry **270.07 kB raw / 91.76 kB gzip**; `StateStep` chunk **48.48 kB / 16.89 kB
+gzip**, holding `map.json`. That is 31% of the wargame's 300 kB gz abort
+threshold. Verified by probe string that the map path data is in the lazy chunk
+and **absent from the entry chunk**. `CITED` (three key names, ~20 bytes,
+extractor-derived) replaced importing `STATES` on the map path — measured at
+5.98 kB gzip for three strings.
+
+### Observed, not fixed: sliver-state tap targets
+At 375 px, RI's label measures **5×4 px** — far below the 44 px minimum. This is
+root parity, not a regression: root's SVG scales down whole and its own comment
+(`index.html:204-206`) concedes small-state polygons stop being realistic
+targets below 380 px, naming the offset labels and the search box as the honest
+paths. The search box is ported. Changing the map's visual design to enlarge
+sliver targets is a product decision, not a migration one — logged here rather
+than decided mid-port.
+
+### Deferred, logged not omitted
+`skipToPack` (`index.html:3266`, needs the pack screen from Move 4.3) and
+`finishLater()` (`3267`, writes an `.ics` and belongs with the pack flow). The
+stepper and travelling state pill arrive with Move 4.1, when there is more than
+one step to move between. Root's `sr_state_selected` analytics call is deleted,
+not stubbed — `/app` ships zero analytics.
+
+---
+
 ## Standing constraints (unchanged, every phase)
 1. No model-authored officer dialogue, statutes, or legal phrases — extraction only.
 2. Nothing leaves the device. `/app` beta ships **zero** analytics.

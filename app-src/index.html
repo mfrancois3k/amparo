@@ -6,11 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#1B2A4A" />
     <!-- /app's own CSP, tighter than root's, delivered here rather than in
-         vercel.json for a measured reason: Vercel applies the FIRST matching
-         header block, so an appended `/app/(.*)` rule is dead config (verified
-         by curl against production), and the alternative — narrowing root's
-         `/(.*)` rule with a negative lookahead — edits the one rule protecting
-         the live product.
+         vercel.json for a measured reason: for a header key already set by an
+         earlier matching block, the FIRST match wins. Root's `/(.*)` block
+         already sets Content-Security-Policy, so an appended `/app/(.*)` block
+         setting the same key is dead config — verified by curl against
+         production. (Precedence is per header KEY, not per block: the later
+         `/sw.js` and `/(audio|img)/(.*)` blocks in vercel.json do apply, because
+         they set Cache-Control, which the first block never sets. An earlier
+         version of this comment said whole blocks were dead, which is wrong and
+         would have made four of the six blocks in that file look pointless.)
+         The alternative — narrowing root's `/(.*)` rule with a negative
+         lookahead — edits the one rule protecting the live product.
 
          A page enforces EVERY policy it is served, so this combines with root's
          header and the effective policy is the intersection: the strictest of

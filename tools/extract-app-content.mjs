@@ -199,6 +199,32 @@ for (const [file, names] of Object.entries(GROUPS)) {
 files['t.en.json'] = plain(evaluated[I18N].en);
 files['t.es.json'] = plain(evaluated[I18N].es);
 
+/* Derived, not sliced. `CITED` is the list of states with real reviewed statute
+   content; every other state renders the federal floor. Root asks this by testing
+   membership in STATES, but STATES carries all the rule text — importing it just
+   to learn three key names costs ~6 kB gzipped in the map chunk. Twenty bytes
+   here instead. Kept in sync by construction: it is computed from STATES. */
+files['meta.json'].CITED = Object.keys(evaluated.STATES);
+
+/* The map's labels are positioned from SM_BOX, which holds bounding boxes that
+   were measured once from the rendered paths and baked in. If a state is ever
+   added to or removed from US_PATHS without SM_BOX following, labels land in the
+   wrong place — silently, and only for that state. Root cannot catch this; here
+   it is two lines and runs in CI with no browser. */
+{
+  const pathKeys = Object.keys(evaluated.US_PATHS).sort();
+  const boxKeys = Object.keys(evaluated.SM_BOX).sort();
+  const onlyPaths = pathKeys.filter(k => !boxKeys.includes(k));
+  const onlyBoxes = boxKeys.filter(k => !pathKeys.includes(k));
+  if (onlyPaths.length || onlyBoxes.length) {
+    console.error('extract: US_PATHS and SM_BOX disagree — map labels would be misplaced.');
+    if (onlyPaths.length) console.error(`  in US_PATHS but not SM_BOX: ${onlyPaths.join(', ')}`);
+    if (onlyBoxes.length) console.error(`  in SM_BOX but not US_PATHS: ${onlyBoxes.join(', ')}`);
+    console.error('  Regenerate SM_BOX: render the map, then read getBBox() off every .sm-st.');
+    process.exit(1);
+  }
+}
+
 /* Nothing that JSON cannot represent may reach disk. This is an ALLOWLIST of the
    JSON types, not a denylist of Set/Map — an earlier version checked only those
    two and let RegExp, Date, functions, `undefined` and NaN/Infinity through, each

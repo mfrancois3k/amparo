@@ -1,0 +1,79 @@
+/* State map — ported from index.html:165-206 and 819-836.
+ *
+ * Class names are kept identical to root so the two can be diffed. Two
+ * deliberate changes, both consequences of /app's environment:
+ *
+ * 1. Every `html:not(.sr-motion)` prefix is DROPPED. In root that class means
+ *    "GSAP is armed" (index.html:1397-1400), so `:not(.sr-motion)` selects the
+ *    CSS-keyframe fallback. /app is permanently in that branch — GSAP loads from
+ *    a CDN and this build's CSP is `script-src 'self'` — so the prefix would only
+ *    ever be noise. The reduced-motion @media block in index.css is the real gate.
+ *
+ * 2. `smIn` uses `backwards`, not `forwards`, and root's pre-paint guard rule is
+ *    gone. Root's comment at 181-186 documents the bug `forwards` caused: it held
+ *    opacity:1 in the animations cascade layer after the wave finished, which
+ *    outranks ordinary rules, so `.nomatch{opacity:.1}` could never win and search
+ *    filtering silently stopped dimming anything. Root works around it by stripping
+ *    .smgo on a 950ms timer. `backwards` applies the from-state during the delay
+ *    only and releases the property when the animation ends, which is what root
+ *    actually wanted — it makes both the guard rule and the timer's dimming
+ *    purpose unnecessary. The timer is kept anyway (see StateMap) because .smgo
+ *    still gates whether the wave plays at all.
+ */
+
+.sm-wrap{margin:10px 0 4px}
+/* No `display` here, deliberately: the wrapper is hidden with the native `hidden`
+   attribute when a state is picked, and any display value would beat the UA's
+   [hidden]{display:none} and un-hide 51 focusable paths. */
+
+.sm-map{display:block;width:100%;height:auto;padding:10px 8px;background:linear-gradient(160deg,#fdfbf5,#f4efe2);border:1.5px solid var(--line);border-radius:16px}
+
+.sm-st{fill:#fffdf8;stroke:#c9c1ab;stroke-width:1;cursor:pointer;
+  transition:fill .18s,stroke .18s,filter .22s var(--ease-out),opacity .25s}
+.sm-st:hover,.sm-st:focus-visible{fill:#f6e5b8;stroke:var(--gold);stroke-width:1.8;outline:none;
+  filter:drop-shadow(0 3px 6px rgba(232,184,75,.55))}
+.sm-st.cited{fill:#eecb74;stroke:#c99e2e}
+.sm-st.cited:hover,.sm-st.cited:focus-visible{fill:var(--gold)}
+.sm-st.sel{fill:var(--navy);stroke:var(--navy)}
+.sm-st.sel{animation:smSel .5s var(--ease-spring)}
+@keyframes smSel{0%{filter:brightness(1)}40%{filter:brightness(1.5)}100%{filter:brightness(1)}}
+
+.sm-st.nomatch,.sm-lb.nomatch{opacity:.1;pointer-events:none}
+
+.sm-lb{font:800 13px/1 ui-monospace,'Cascadia Mono','Roboto Mono',Menlo,monospace;fill:#3c4c72;
+  letter-spacing:.3px;cursor:pointer;pointer-events:all;paint-order:stroke;stroke:#fdfbf5;stroke-width:2.5px;transition:opacity .25s}
+.sm-lb.cited{fill:#5d3f04}
+
+/* Entrance: the country surfaces west to east off each state's real centroid.
+   Per-element delay is set inline from LABELS[].delayMs. */
+.smgo .sm-st,.smgo .sm-lb{animation:smIn .5s var(--ease-out) backwards}
+@keyframes smIn{from{opacity:0}to{opacity:1}}
+
+.sm-cap{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:34px;margin-top:8px;padding:6px 12px;
+  border:1.5px dashed var(--line);border-radius:10px;background:#fffdf8}
+.sm-cap .nm{font-weight:800;color:var(--navy);font-size:14px;transition:opacity .18s}
+.sm-cap .tag{font-size:11px;font-weight:800;padding:3px 9px;border-radius:99px;flex:none}
+.sm-cap .tag.cited{background:var(--gold);color:var(--navy)}
+.sm-cap .tag.fed{background:#eef1f7;color:#3c4c72}
+
+.sm-legend{display:flex;gap:12px;margin-top:7px;font-size:11px;color:var(--muted);font-weight:700}
+.sm-legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:4px;vertical-align:-1px;border:1px solid #c99e2e}
+.sm-legend .lg-c i{background:var(--gold)}
+.sm-legend .lg-f i{background:var(--white);border-color:#ddd6c4}
+
+.state-search{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;font-size:15px;margin-top:14px;background:var(--white);color:var(--ink)}
+.state-search:focus{outline:none;border-color:var(--navy)}
+
+/* Confirmed-state chip. Root builds this out of the alphabetical grid's buttons
+   (index.html:3246-3251); that grid is never visible in its expanded form
+   (index.html:212 — `.state-grid:not(.collapsed){display:none}`), so /app ships
+   only the collapsed form and the grid does not exist here at all. */
+.state-confirmed{display:flex;align-items:center;gap:12px;width:100%;text-align:left;
+  margin-top:6px;padding:12px 14px;border:2px solid var(--navy);border-radius:14px;
+  background:var(--white);cursor:default;font-family:inherit}
+.state-confirmed .cf-shape{width:46px;height:46px;flex:none}
+.state-confirmed .cf-shape path{fill:var(--navy)}
+.state-confirmed .badge{display:inline-flex;align-items:center;justify-content:center;
+  width:20px;height:20px;border-radius:50%;background:var(--ok);color:#fff;font-size:12px;font-weight:800;flex:none}
+.state-confirmed .nm{font-weight:800;color:var(--navy);font-size:16px}
+.state-confirmed .ab{margin-left:auto;font-weight:800;color:var(--muted);font-size:13px}

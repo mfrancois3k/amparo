@@ -3,6 +3,26 @@
   "plugins": ["react", "typescript", "oxc"],
   "rules": {
     "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
+    "react/only-export-components": ["warn", { "allowConstantExport": true }],
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": [
+              "**/content/states.json",
+              "**/content/map.json",
+              "**/content/practice.json",
+              "**/content/pack-extra.json",
+              "**/content/prep.json",
+              "**/content/meta.json",
+              "**/content/ui.json"
+            ],
+            "importNames": ["default"],
+            "message": "Import NAMED keys from content JSON, never the default. Vite tree-shakes named JSON keys per top-level key but keeps the whole object for a default import — measured on this repo: `import { US_STATE_NAMES } from states.json` is 0.51 kB gzip, `import states from states.json` is 28.28 kB. A default import silently drags every bank it touches into the chunk. NOTE: t.en.json / t.es.json are deliberately NOT in this list — a language bank is consumed whole (all 463 keys), so there is nothing for per-key shaking to remove, and `Bank = typeof en` from the default import is what gives compile-time-checked keys."
+          }
+        ]
+      }
+    ]
   }
 }

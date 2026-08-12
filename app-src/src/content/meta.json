@@ -31,5 +31,10 @@
     }
   },
   "FINAL_SCENARIOS_ENABLED": false,
-  "DOOR_MODULE_ENABLED": false
+  "DOOR_MODULE_ENABLED": false,
+  "CITED": [
+    "TX",
+    "GA",
+    "NY"
+  ]
 }

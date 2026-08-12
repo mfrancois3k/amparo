@@ -24,9 +24,17 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
-/* Root's convention: an `sr-motion` class on <html> means the user asked for
-   reduced motion, and every animation checks it rather than each component
-   re-querying the media query. Ported now so no animation ships without it. */
+/* Reduced motion. NOTE — root's `sr-motion` class means the OPPOSITE of what its
+   name suggests, and an earlier version of this comment had it backwards:
+   `SR.arm()` (index.html:1397-1400) adds `sr-motion` only when GSAP has loaded
+   AND reduced-motion is off, i.e. it means "GSAP is armed and owns motion". The
+   `:not(.sr-motion)` branch is root's CSS-keyframe fallback.
+
+   /app is permanently in that fallback branch: GSAP is loaded from cdnjs, and
+   this build's CSP is `script-src 'self'` with no CDN, so it structurally cannot
+   load here. Do NOT port `html:not(.sr-motion)` prefixes and do NOT gate any
+   animation on `.sr-motion` — it will never be set, so the animation would never
+   play. The media query below is the real reduced-motion gate. */
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
 }
