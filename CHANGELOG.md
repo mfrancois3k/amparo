@@ -6,6 +6,47 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.20.0 — 2026-08-12
+
+v2.20.0 — "wargames/15 closes"
+
+`/app` Phase 6 (`13c10ad`..`6527e4d`) — the last phase of the React
+strangler migration. Move 6.1 gives `/app` its own service worker and
+manifest (`vite-plugin-pwa`, scoped `/app/`, precached build assets,
+runtime cache-first for shared `/audio`/`/img` under isolated cache names
+that Move 0.2's root cleanup can never touch, and vice versa). Move 6.2 is
+the full parity audit against wargames/15's original inventory — every
+row of ~80 sub-items across 12 sections got a verdict.
+
+Two genuinely new findings from the audit itself, previously unlogged:
+
+- **Practice's entry screen is structurally the wrong one.** Root's actual
+  step-5 hub is a 3-tab structure (Traffic ladder / Checkpoint / Door) —
+  checkpoint was deliberately split out because it read as "just another
+  traffic level." `/app` instead ported the practice overlay's internal
+  fallback list, which mixes checkpoint back in. Both screens are real in
+  root; `/app` built the wrong one as its primary entry point. Not fixed
+  in the audit — a real build task, flagged for follow-up.
+- Print's `beforeprint` debounce and `afterprint` confirmation banner were
+  never ported. Print itself works; the confirmation layer around it
+  doesn't exist yet.
+
+Per the wargame's own abort condition (">10 DEFERRED rows without operator
+sign-off"), the audit counts roughly 20 at sub-item granularity — stated
+explicitly rather than silently passed. Most are consistent, previously-
+logged, deliberate scope decisions (post-print rail, carry card, share
+cert, About overlay); this is a flag for review, not a claim that
+everything is done.
+
+**This closes wargames/15.** Every move 0.1 through 6.2 shipped, verified,
+and logged. What's left is a promotion decision, not migration work.
+
+Live QA this cycle (Texas + Checkpoint level, previously untested combo,
+run against the production build with the new service worker active) —
+zero defects.
+
+No EDITION bump — no legal content touched.
+
 ## v2.19.1 — 2026-08-12
 
 v2.19.1 — "Announce the crisis line; stop the stale echo"

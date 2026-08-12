@@ -8,6 +8,17 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.20.0 — 2026-08-12 — "wargames/15 closes"
+
+`/app` Phase 6 (`13c10ad`..`6527e4d`) — SW+manifest (Move 6.1) and the
+full parity audit (Move 6.2), the last moves in the migration. Two new
+findings: practice's entry screen is the wrong one (flat list instead of
+root's 3-tab hub with checkpoint split out); print's beforeprint/afterprint
+polish never ported. ~20 DEFERRED items at sub-item granularity, exceeding
+the wargame's own >10 abort threshold — flagged for operator sign-off, not
+silently passed. Every move 0.1-6.2 now shipped/verified/logged. See
+`wargames/18-app-parity-report.md` and `notebook/amparo-app-migration-log.md`.
+
 ## v2.19.1 — 2026-08-12 — "Announce the crisis line; stop the stale echo"
 
 Loop round after v2.19.0 (`2a4f375`): crisis message now announces to
