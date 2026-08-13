@@ -103,6 +103,24 @@ no generative AI, and no runtime text generation anywhere in the product.**
 - The code carries this as an explicit design constraint, quoted from the source:
   *"deliberately NOT runtime-generated: a lawyer can sign a static bank, never an
   LLM improvising police dialogue."*
+- **A concrete, independently verifiable instance of this.** One hostile-tone
+  variant reachable through the selection mechanism above (a consent-to-search
+  line) was removed from the bank in an earlier release, when it was
+  mechanically unreachable under the deck configuration at the time. A later,
+  unrelated release changed the deck configuration in a way that made it
+  reachable again. We then restored the removed variant — and the restored
+  text is **byte-identical to the original**: recovered verbatim from the
+  product's version-control history at the operator's explicit direction, not
+  re-authored, paraphrased, or generated. The recovery was independently
+  verified two ways before shipping: the restored text was diffed against the
+  original commit, and the pre-recorded human voice audio for that line
+  (which had never been deleted) was separately transcribed and confirmed to
+  match the restored text word-for-word. Both the removal and the restoration
+  are individual, dated commits in the product's git history and can be
+  inspected directly: removal `f205531`, restoration `bcd2645`. We include
+  this specific example, rather than only describing the mechanism in the
+  abstract, because it is externally checkable — counsel does not have to
+  take our description of "closed, static, curated bank" on faith.
 
 **Consequence for review:** the complete corpus a reviewer would need to read is
 finite, static, and printable. It does not change between users or between runs.

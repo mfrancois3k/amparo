@@ -59,6 +59,13 @@ The MCP surface has **no clone tool**. To create a new preset profile:
 **Any new profile gets the Rule 1 treatment before bulk use:** generate one clip,
 transcribe it, compare. Do not batch 24 clips against an unverified profile.
 
+**Confirmed against the live app's MCP settings screen, 2026-08-13 (Voicebox
+v0.5.0):** the desktop app's "Default playback voice" is `(none)`, and the
+per-agent binding for `claude-code` shows `(default)` — i.e. nothing is
+actually bound. **Always pass `profile` explicitly in every `voicebox.speak`
+call.** Do not rely on a default resolving to the right language/gender —
+today it would resolve to nothing.
+
 ---
 
 ## How to drive it
@@ -174,10 +181,18 @@ revisions is still in the tree. If a new line reuses one of those ids, it
 silently inherits audio *of different words* — and nothing in the build catches
 it, because the file resolves fine.
 
-Confirmed case: `v2_4` has clips in **all four** voice folders, dated
-2026-07-22/23, with text in `tools/VOICE_LINES.md:47`. No reference to `v2_4`
-exists in `index.html`. If a newly authored line is given id `v2_4`, it ships
-with the old audio.
+`v2_4`, `v0_4`, `v0_5`, `v1_4`, `v1_5`, `v4_4` were all exactly this — orphaned
+2026-07-22/23, restored to `PRX_VAR` 2026-08-13 (`v2.21.6`/`v2.21.7`) once their
+audio was round-tripped through `voicebox.transcribe` and confirmed to match
+the text recovered from git. They are no longer orphans; do not re-flag them.
+
+**Still orphaned as of 2026-08-13:** `v8_4` and `v8_5` — audio exists in
+`audio/en/{f,m}/`, but **no text for them exists anywhere in the working
+tree**, not even in `VOICE_LINES.md`. Their text is only recoverable by
+transcribing the clips (already done once, informally, in chat — not yet
+committed anywhere) or from git history at `f205531`. If a newly authored line
+is ever given either id, it ships with old audio of unknown-without-checking
+words.
 
 Always run this before assigning an id:
 
