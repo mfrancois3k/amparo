@@ -41,6 +41,12 @@ export interface DeckBeat {
   id: string
   curve?: Curveball
   setter?: { en: string; es: string }
+  /** true = the bad option renders first. Set once at deal time in buildDeck,
+      ported from index.html:4819+ (see that file for the full rationale) —
+      before this, root and /app both showed the correct answer in the same
+      screen position on every beat N of every run, training "which side" not
+      "which words." Read this, never derive from `state.idx % 2`. */
+  swap: boolean
 }
 
 interface OptionSide { en: string; es: string }
@@ -53,7 +59,7 @@ export interface PrxOption {
 }
 
 const PRACTICE = PRACTICE_RAW as Record<Lang, Record<number, { o: string; y: string }>>
-const PRX_LEVELS = PRX_LEVELS_RAW as { ids: number[]; rate: number }[]
+const PRX_LEVELS = PRX_LEVELS_RAW as { ids: number[] }[]
 const PRX_UNSCORED = new Set(PRX_UNSCORED_RAW as number[])
 const PRX_VAR = PRX_VAR_RAW as unknown as Record<number, Variant[]>
 const PRX_CURVE = PRX_CURVE_RAW as unknown as Curveball[]
@@ -163,11 +169,11 @@ export function buildDeck(
   now: Date = new Date(),
   rng: () => number = Math.random,
 ): DeckBeat[] {
-  if (level === 3) return PRX_HARD.map((h) => ({ ...h }))
-  if (level === 4) return PRX_CHK.map((h) => ({ ...h }))
-  if (level === 5) return PRX_WAIT.map((h) => ({ ...h }))
-  if (level === 6) return PRX_NOSTOP.map((h) => ({ ...h }))
-  if (level === 7) return PRX_DOOR.map((h) => ({ ...h }))
+  if (level === 3) return PRX_HARD.map((h) => ({ ...h, swap: rng() < 0.5 }))
+  if (level === 4) return PRX_CHK.map((h) => ({ ...h, swap: rng() < 0.5 }))
+  if (level === 5) return PRX_WAIT.map((h) => ({ ...h, swap: rng() < 0.5 }))
+  if (level === 6) return PRX_NOSTOP.map((h) => ({ ...h, swap: rng() < 0.5 }))
+  if (level === 7) return PRX_DOOR.map((h) => ({ ...h, swap: rng() < 0.5 }))
 
   const L = PRX_LEVELS[level]
   const tones: Tone[] = ([['calm'], ['curt'], ['curt', 'hostile'], ['hostile']] as Tone[][])[level]
@@ -177,8 +183,8 @@ export function buildDeck(
     const pool = (PRX_VAR[ci] || []).filter((v) => tones.includes(v.tone))
     const v = pool.length ? pick(pool) : null
     return v
-      ? { ci, officer: { en: v.en, es: v.es }, tone: v.tone, id: v.id }
-      : { ci, officer: { en: PRACTICE.en[ci].o, es: PRACTICE.es[ci].o }, tone: tones[0], id: 'c' + ci }
+      ? { ci, officer: { en: v.en, es: v.es }, tone: v.tone, id: v.id, swap: rng() < 0.5 }
+      : { ci, officer: { en: PRACTICE.en[ci].o, es: PRACTICE.es[ci].o }, tone: tones[0], id: 'c' + ci, swap: rng() < 0.5 }
   })
 
   /* One curveball from the 2nd run of a level onward, date-seeded so every
@@ -189,7 +195,7 @@ export function buildDeck(
     const seed = now.getFullYear() * 372 + (now.getMonth() + 1) * 31 + now.getDate()
     const cb = PRX_CURVE[seed % PRX_CURVE.length]
     deck.splice(1 + (seed % (deck.length - 1)), 0, {
-      ci: cb.answerBeat, officer: { en: cb.en, es: cb.es }, tone: cb.tone, curve: cb, id: cb.id,
+      ci: cb.answerBeat, officer: { en: cb.en, es: cb.es }, tone: cb.tone, curve: cb, id: cb.id, swap: rng() < 0.5,
     })
   }
   return deck

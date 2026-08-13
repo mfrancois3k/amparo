@@ -134,7 +134,7 @@ export function PracticeBeat({ t, lang, state, meta, audio, onPick, onTypeAnswer
             {beat.curve ? ` · ${t.prx_curve}` : ''}
           </div>
           <p className="prc-intro" style={{ margin: '0 0 2px' }}>{t.prx_pick}</p>
-          {state.idx % 2 === 0 ? (
+          {!beat.swap ? (
             <>
               <button type="button" className="prx-opt" onClick={() => onPick(true)}>{opt ? opt.g[lang] : card.y}</button>
               {opt ? <button type="button" className="prx-opt" onClick={() => onPick(false)}>{opt.b[lang]}</button> : null}
