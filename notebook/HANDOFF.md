@@ -411,21 +411,22 @@ session, one open, one design decision recorded so it isn't re-litigated.
   hub's — `llTab()` already patches buttons in place, so there was no
   focus-loss problem, just a missing attribute + handler.
 
-**OPEN:**
-- **Root recomputes every `PRX_VAR` audio id from array position at load**
-  (`index.html:4791`, `Object.keys(PRX_VAR).forEach(b=>PRX_VAR[b].forEach((v,i)=>v.id='v'+b+'_'+i))`)
-  — the hand-typed `id:` literals in the array are cosmetic there. `/app` has
-  no equivalent step; it trusts whatever literal id the extractor pulled from
-  source text. Proven exploitable, not exploited: swapping two ids' literals
-  passed extraction, `--verify`, and all 21 `practice-engine-check` assertions
-  clean. Today this is harmless — every id from the `v2_4`/`v0_4`-family
-  restores was independently confirmed to match its array position — but a
-  future manual restore with a position/id mismatch would self-heal in root
-  and silently ship wrong audio in `/app`, and nothing today would catch it.
-  `STATES` has a resolver for this exact class of gap (`statesResolved.ts`);
-  `PRX_VAR` doesn't. Cheap fix, not yet done: add the same recompute (or a
-  static reachability/consistency check) somewhere `/app`'s content pipeline
-  runs.
+~~**Root recomputes every `PRX_VAR` audio id from array position at load;
+`/app` had no equivalent.**~~ **FIXED 2026-08-13, v2.21.9.**
+`practiceEngine.ts` now mirrors `index.html:4791/4817/4818` exactly. Turned
+out to be two consequences, not one — the latent one this loop's audit found
+(a future position/id mismatch would self-heal in root, ship wrong audio in
+`/app`, proven exploitable via an id-swap test, not exploited today), and a
+**live** one the audit's own swap test never surfaced: `PRX_CURVE` entries
+have **no `id` typed in source at all** — it exists only as the recompute's
+output. Extraction can't invent what was never written, so every curveball
+beat had `id===undefined` in `/app`, and `usePracticeAudio.ts`'s `if
+(beat.id)` guard correctly fell back to TTS — **every curveball in `/app` has
+been playing robotic speech instead of the recorded human clip, since
+curveballs shipped.** Confirmed live via `buildDeck()`, before (`undefined`)
+and after (`"c4"`, well-formed). Added a 22nd `practice-engine-check`
+assertion, proven to have teeth by disabling the fix first and confirming the
+right failure message before shipping it green.
 
 **DECIDED, recorded so it isn't re-opened:** should Level 0 or Level 1 ever be
 allowed to escalate to hostile, now that hostile content exists in their

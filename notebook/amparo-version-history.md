@@ -8,6 +8,17 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.21.9 — 2026-08-13 — "Every curveball in /app was speaking TTS instead of the recorded clip"
+
+`/app` now recomputes `PRX_VAR`/`PRX_CURVE`/`PRX_HARD` ids from array
+position, matching root. `PRX_CURVE` had NO literal id in source at all —
+every curveball beat had `id===undefined` in `/app` and silently fell back to
+TTS instead of the recorded clip, since curveballs shipped. Confirmed live
+before/after via `buildDeck()`. Also closes a latent id-swap exploit the prior
+loop's audit proved. Adds a 22nd `practice-engine-check` assertion, proven to
+catch both by disabling the fix first and confirming the right failure. No
+content change.
+
 ## v2.21.8 — 2026-08-13 — "The keyboard fix that only landed on one of two tabs"
 
 Lifelines tablist gets the arrow/Home/End nav the hub tablist got in v2.21.4 —

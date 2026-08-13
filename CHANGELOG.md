@@ -6,6 +6,48 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.21.9 — 2026-08-13
+
+v2.21.9 — "Every curveball in /app was speaking TTS instead of the recorded clip"
+
+Closes the id-recompute gap the previous loop's blind-spot audit found. Root
+never trusts a hand-typed `id:` literal in `PRX_VAR`, `PRX_CURVE`, or
+`PRX_HARD` — it recomputes every one from array position or `ci` at load
+(`index.html:4791`, `:4817`, `:4818`), so a mistyped literal there is
+cosmetic, self-healed on every render. `/app`'s `practiceEngine.ts` only cast
+the extracted JSON and used whatever literal the extractor pulled from
+source text, with no equivalent step.
+
+Two consequences, and one of them was live, not latent. `PRX_CURVE` entries
+have **no `id` typed in source at all** — it exists only as
+`index.html:4817`'s recompute output. Extraction can't invent what was never
+written, so every curveball beat had `id === undefined` in `/app`.
+`usePracticeAudio.ts`'s `if (beat.id)` guard correctly treats that as "no
+clip" and falls back to TTS — meaning **every curveball in `/app` has been
+playing robotic speech instead of the recorded human clip root plays for the
+identical line, since curveballs shipped.** Confirmed via a direct
+`buildDeck()` call before the fix (`id: undefined`) and after (`id: "c4"`,
+reachable, well-formed).
+
+The other consequence is latent, not live: a future manual `PRX_VAR` restore
+with a position/id mismatch would silently ship wrong audio in `/app` while
+root kept playing correctly. Proven exploitable — an id swap passed
+extraction, `--verify`, and all 21 `practice-engine-check` assertions clean —
+but confirmed not exploited today, since every id from this session's
+restores matches its array position.
+
+`PRX_HARD`'s literal ids already match `'h'+ci` for every entry, so its
+recompute is a no-op today — kept anyway for the same reason root keeps it:
+free insurance against future drift. `PRX_CHK`/`PRX_WAIT`/`PRX_NOSTOP`/
+`PRX_DOOR` get no such treatment in root either, so `/app` trusting their
+literal ids stays correct parity, not an oversight.
+
+Also adds a 22nd `practice-engine-check` assertion that would have caught
+both bugs — neither made any of the other 21 fail. Proved it has teeth before
+shipping: disabled the fix, confirmed the new check fails with the exact
+"has no id" message, restored the fix, confirmed clean again. No content
+changed. All four suites pass, `tsc` clean.
+
 ## v2.21.8 — 2026-08-13
 
 v2.21.8 — "The keyboard fix that only landed on one of two tabs"
