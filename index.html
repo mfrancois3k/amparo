@@ -312,6 +312,7 @@
   .lawcheck{font-size:11.5px;color:var(--muted);margin-top:18px;text-align:center;line-height:1.5}
   .lawcheck .dot{display:inline-block;width:7px;height:7px;border-radius:99px;background:var(--ok);margin-right:6px;vertical-align:middle}
   .lawcheck.flag .dot{background:var(--gold)}
+  .lawcheck.partial .dot{background:var(--muted)}
   .lawcheck b{color:var(--ink);font-weight:800}
   .linkbtn{display:block;width:100%;background:none;border:0;color:var(--navy);font-size:13.5px;font-weight:800;cursor:pointer;margin-top:12px;padding:6px;text-decoration:underline;opacity:.82}
   /* Author display rules beat the UA's [hidden]{display:none} — so a .linkbtn
@@ -1964,6 +1965,7 @@ const T = {
     i_ec2_a11y:"Backup contact name", i_ecp2_a11y:"Backup contact phone",
     lawchk:"Statute sources auto-checked daily — last check <b>{d}</b>. This checks whether the source text moved, not that the law is correct.",
     lawchk_flag:"A source statute changed on <b>{d}</b> and is under review. The rules shown were last reviewed by a person on the date below.",
+    lawchk_partial:"Statute sources checked daily — {r} of {w} were reachable on the last check, <b>{d}</b>. This checks whether the source text moved, not that the law is correct.",
     s_pending:"federal ✓", s_pending_t:"Your federal rights are verified and shown. This state's own statutes are still being checked.",
     i_ec2:"Backup contact name", i_ec2_ph:"A second person who'd answer",
     i_ecp2:"Backup contact phone", i_ecp2_ph:"(555) 555-5555",
@@ -1971,8 +1973,9 @@ const T = {
     i_email:"Email (optional)", i_email_ph:"For your receipt + law-change alerts (kept only at our email service)",
     i_email_note:"Your receipt confirms your pack — it carries only your name, state and edition. Your photos and documents are never emailed; they stay on this device.",
     em_btn:"📧 Email my receipt", em_sending:"Sending…", em_sent:"✓ Receipt sent to", em_fail:"Couldn’t send right now — your pack still works. Try again in a minute.",
+    app_err_t:"This screen didn’t load. Your pack is safe — try again.",
     em_add:"Want a receipt in your inbox? Add your email on the “You” step.",
-    done_t:"Pack sent to your printer", done_s:"Your receipt is on its way to",
+    done_t:"Your pack is ready for the glovebox", done_s:"Your receipt is on its way to",
     d_title:"Add your documents", d_sub:"Photos of your license and insurance get printed inside the window card — the officer sees them without you reaching for anything.",
     d_priv:"These photos never leave your device — they go straight into your printout and nowhere else. They are never uploaded and never emailed.",
     d_visual:"Printed photos are a visual aid only — always carry and hand over your real license and documents when asked.",
@@ -2307,6 +2310,7 @@ const T = {
     i_ec2_a11y:"Nombre del contacto de respaldo", i_ecp2_a11y:"Teléfono del contacto de respaldo",
     lawchk:"Fuentes legales revisadas automáticamente a diario — última revisión <b>{d}</b>. Comprueba si el texto de la ley cambió, no que la ley sea correcta.",
     lawchk_flag:"Una ley fuente cambió el <b>{d}</b> y está en revisión. Las reglas mostradas fueron revisadas por una persona en la fecha de abajo.",
+    lawchk_partial:"Fuentes legales revisadas a diario — {r} de {w} estuvieron accesibles en la última revisión, <b>{d}</b>. Comprueba si el texto de la ley cambió, no que la ley sea correcta.",
     s_pending:"federal ✓", s_pending_t:"Tus derechos federales están verificados y se muestran. Las leyes propias de este estado aún se están revisando.",
     i_ec2:"Nombre del contacto de respaldo", i_ec2_ph:"Una segunda persona que conteste",
     i_ecp2:"Teléfono del contacto de respaldo", i_ecp2_ph:"(555) 555-5555",
@@ -2314,8 +2318,9 @@ const T = {
     i_email:"Correo electrónico (opcional)", i_email_ph:"Para tu recibo + avisos de cambios de ley (guardado solo en nuestro servicio de correo)",
     i_email_note:"Tu recibo confirma tu paquete — solo lleva tu nombre, tu estado y la edición. Tus fotos y documentos nunca se envían por correo; se quedan en este dispositivo.",
     em_btn:"📧 Enviarme mi recibo", em_sending:"Enviando…", em_sent:"✓ Recibo enviado a", em_fail:"No se pudo enviar ahora — tu paquete sigue funcionando. Intenta en un minuto.",
+    app_err_t:"Esta pantalla no cargó. Tu paquete está seguro — inténtalo de nuevo.",
     em_add:"¿Quieres un recibo en tu correo? Agrega tu email en el paso “Tú”.",
-    done_t:"Paquete enviado a la impresora", done_s:"Tu recibo va en camino a",
+    done_t:"Tu paquete está listo para la guantera", done_s:"Tu recibo va en camino a",
     d_title:"Agrega tus documentos", d_sub:"Las fotos de tu licencia y seguro se imprimen dentro de la tarjeta de ventana — el oficial las ve sin que tengas que buscar nada.",
     d_priv:"Estas fotos nunca salen de tu dispositivo — van directo a tu impresión y a ningún otro lugar. Nunca se suben ni se envían por correo.",
     d_visual:"Las fotos impresas son solo una ayuda visual — siempre lleva y entrega tu licencia y documentos reales cuando te los pidan.",
@@ -4293,12 +4298,24 @@ function renderLawCheck(){
      than a date that would imply a check that never happened. */
   if(!el||!st||!st.lastChecked) return;
   const _t=t(), flagged=(st.needsReview||[]).length>0;
+  /* Found 2026-08-13: this badge said "auto-checked daily" on days when only
+     3 of 4 sources were reachable (Georgia 403s the CI runner — unreachable
+     11 of the last 14 days) and never once said so. reachedSources/
+     sourcesWatched were computed and shipped in law-status.json the whole
+     time; nothing here read them. Same shape as hard rule 3's precedent: a
+     badge that keeps making a claim after the thing it depends on quietly
+     stopped being fully true. flagged still takes visual priority — a source
+     that actually changed is more urgent than one that was merely
+     unreachable. */
+  const partial=!flagged && typeof st.reachedSources==='number' && typeof st.sourcesWatched==='number'
+    && st.reachedSources<st.sourcesWatched;
   let d=st.lastChecked;
   try{ d=new Intl.DateTimeFormat(lang==='es'?'es':'en',{day:'numeric',month:'long',year:'numeric'})
          .format(new Date(st.lastChecked+'T12:00:00Z')); }catch(e){}
-  el.className='lawcheck'+(flagged?' flag':'');
+  el.className='lawcheck'+(flagged?' flag':(partial?' partial':''));
+  const msg=flagged?_t.lawchk_flag:(partial?_t.lawchk_partial:_t.lawchk);
   el.innerHTML='<span class="dot" aria-hidden="true"></span>'+
-    (flagged?_t.lawchk_flag:_t.lawchk).replace('{d}',d);
+    msg.replace('{d}',d).replace('{r}',st.reachedSources).replace('{w}',st.sourcesWatched);
   el.style.display='block';
 }
 (function(){
@@ -4320,6 +4337,12 @@ window.addEventListener('beforeprint',()=>{
      One print must equal one event, so debounce rather than trust the browser. */
   if(pr && pr.children.length && Date.now()-_lastPrintEv>4000){
     _lastPrintEv=Date.now();
+    /* Named honestly: this fires when the OS print dialog OPENS, not when the
+       user clicks Print in it. No browser exposes a print-vs-cancel signal —
+       afterprint fires on Cancel too, same as Print, in every browser. Do not
+       "fix" this by moving the event to afterprint; that changes nothing, since
+       afterprint has the identical ambiguity. If the funnel ever needs a truer
+       number, it has to come from a UI-level confirmation ask, not this event. */
     ph('sr_pack_printed',{state:data.state||'none',lang:lang,edition:EDITION});
   }
 });
@@ -5843,6 +5866,16 @@ if('serviceWorker' in navigator&&location.protocol==='https:'){
     if(el){ el.textContent=t().offline_ready; el.style.display='block'; }
   }).catch(()=>{});
 }
+/* afterprint fires whether the user clicked Print OR Cancel in the OS dialog —
+   every browser, no exception, no signal to tell them apart. done_t used to
+   read "Pack sent to your printer", which is simply false on Cancel. It now
+   describes the PACK's readiness ("ready for the glovebox"), which is true
+   either way, instead of asserting an outcome nothing here can verify. Hard
+   rule 3: never claim verification that didn't happen. The postPrintActions
+   reveal below (practice CTA, feedback prompt) staying unconditional on this
+   same ambiguous signal is a deliberate, separate call — unlocking "what's
+   next" on a print ATTEMPT is a reasonable proxy even when Cancelled; asserting
+   the print SUCCEEDED in copy the user reads is not. */
 window.addEventListener('afterprint',()=>{
   const _t=t();
   const b=document.getElementById('printedBanner');
