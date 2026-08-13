@@ -360,6 +360,12 @@
         "es": "Ábrame la cajuela. No hay problema, ¿verdad?",
         "tone": "curt",
         "id": "v2_3"
+      },
+      {
+        "en": "If there's nothing in there, this takes two minutes. Can I search it or not?",
+        "es": "Si no hay nada ahí, esto toma dos minutos. ¿Puedo revisar o no?",
+        "tone": "hostile",
+        "id": "v2_4"
       }
     ],
     "3": [

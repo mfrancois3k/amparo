@@ -2591,7 +2591,7 @@ const REVIEW = {
    level and its printed section added, and the "lowers your risk" claim
    reworded to what the evidence supports. Content changed, so the edition
    moves and any attorney badge drops until that state is re-reviewed. */
-const EDITION="2026-C", ED_REPLACE="07/2027";
+const EDITION="2026-D", ED_REPLACE="07/2027";
 function isReviewed(st){ const a=REVIEW.attorneys[st]; return !!(a && a.name && a.edition===EDITION); }
 function reviewLine(st){
   const a=REVIEW.attorneys[st]||{};
@@ -4503,7 +4503,15 @@ const PRX_VAR={
  2:[{en:"You don't mind if I take a quick look in the car, right?",es:"No le molesta si le echo un vistazo rápido al carro, ¿verdad?",tone:"calm",id:'v2_0'},
     {en:"Mind if I take a look inside? Just routine.",es:"¿Le importa si reviso adentro? Es pura rutina.",tone:"calm",id:'v2_1'},
     {en:"I'm going to check the vehicle. That okay with you?",es:"Voy a revisar el vehículo. ¿Está de acuerdo?",tone:"curt",id:'v2_2'},
-    {en:"Pop the trunk for me. You're fine with that, right?",es:"Ábrame la cajuela. No hay problema, ¿verdad?",tone:"curt",id:'v2_3'}],
+    {en:"Pop the trunk for me. You're fine with that, right?",es:"Ábrame la cajuela. No hay problema, ¿verdad?",tone:"curt",id:'v2_3'},
+    /* Restored 2026-08-13. Deleted by f205531 (2026-08-03) as unreachable
+       after the v2.7.2 level merge; v2.14.0 then shipped divergent turns,
+       the feature that reaches it. Same text, same tone, as originally
+       authored — not model-generated. Audio already existed in all four
+       voice folders and was round-tripped through voicebox.transcribe
+       before restoring: matches this text exactly. See HANDOFF and
+       notebook/amparo-voice-generation-workflow.md. */
+    {en:"If there's nothing in there, this takes two minutes. Can I search it or not?",es:"Si no hay nada ahí, esto toma dos minutos. ¿Puedo revisar o no?",tone:"hostile",id:'v2_4'}],
  3:[{en:"Sir, I need you to step out of the vehicle for me.",es:"Señor, necesito que se baje del vehículo, por favor.",tone:"calm",id:'v3_0'},
     {en:"Go ahead and step out of the car, please.",es:"Bájese del carro, por favor.",tone:"calm",id:'v3_1'},
     {en:"Step out of the vehicle.",es:"Bájese del vehículo.",tone:"curt",id:'v3_2'},
