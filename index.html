@@ -2591,7 +2591,7 @@ const REVIEW = {
    level and its printed section added, and the "lowers your risk" claim
    reworded to what the evidence supports. Content changed, so the edition
    moves and any attorney badge drops until that state is re-reviewed. */
-const EDITION="2026-D", ED_REPLACE="07/2027";
+const EDITION="2026-E", ED_REPLACE="07/2027";
 function isReviewed(st){ const a=REVIEW.attorneys[st]; return !!(a && a.name && a.edition===EDITION); }
 function reviewLine(st){
   const a=REVIEW.attorneys[st]||{};
@@ -4495,11 +4495,25 @@ const PRX_VAR={
  0:[{en:"License and registration, please.",es:"Licencia y registro, por favor.",tone:"calm",id:'v0_0'},
     {en:"Good evening. I'm going to need your license, registration, and proof of insurance.",es:"Buenas noches. Voy a necesitar su licencia, el registro y la prueba de seguro.",tone:"calm",id:'v0_1'},
     {en:"License and registration.",es:"Licencia y registro.",tone:"curt",id:'v0_2'},
-    {en:"Documents. License, registration. Let's go.",es:"Documentos. Licencia, registro. Vamos.",tone:"curt",id:'v0_3'}],
+    {en:"Documents. License, registration. Let's go.",es:"Documentos. Licencia, registro. Vamos.",tone:"curt",id:'v0_3'},
+    /* Restored 2026-08-13, same batch as v2_4 -- deleted by f205531
+       (2026-08-03), text/audio recovered the same way. UNLIKE v2_4, this one
+       is NOT currently reachable: prxBuildDeck's tone pool for Level 0 is
+       ['calm'] only, and Level 0 has no PRX_DIVERGE entry at all. In the bank
+       for attorney review and for whenever the bank/level design changes; not
+       yet selectable by any live path. Do not read its presence as proof it
+       plays -- verify against prxBuildDeck's tones array before assuming so. */
+    {en:"License. Registration. Now, please.",es:"Licencia. Registro. Ahora, por favor.",tone:"hostile",id:'v0_4'},
+    {en:"I've asked twice. License and registration. Hand them over.",es:"Ya se lo pedí dos veces. Licencia y registro. Entréguemelos.",tone:"hostile",id:'v0_5'}],
  1:[{en:"So, where are you coming from tonight?",es:"A ver, ¿de dónde viene esta noche?",tone:"calm",id:'v1_0'},
     {en:"Where you headed? Coming from somewhere fun?",es:"¿Para dónde va? ¿Viene de algún lado divertido?",tone:"calm",id:'v1_1'},
     {en:"Where are you coming from?",es:"¿De dónde viene?",tone:"curt",id:'v1_2'},
-    {en:"Coming from where? It's a simple question.",es:"¿Viene de dónde? Es una pregunta sencilla.",tone:"curt",id:'v1_3'}],
+    {en:"Coming from where? It's a simple question.",es:"¿Viene de dónde? Es una pregunta sencilla.",tone:"curt",id:'v1_3'},
+    /* Restored 2026-08-13, same batch and same caveat as v0_4/v0_5: NOT
+       reachable today. Level 1's tone pool is ['curt'] only, and Level 1's
+       PRX_DIVERGE entry only targets calm/curt, never hostile. */
+    {en:"Where were you tonight? Don't make this difficult.",es:"¿Dónde estuvo esta noche? No lo haga difícil.",tone:"hostile",id:'v1_4'},
+    {en:"I asked where you're coming from. Answer me.",es:"Le pregunté de dónde viene. Contésteme.",tone:"hostile",id:'v1_5'}],
  2:[{en:"You don't mind if I take a quick look in the car, right?",es:"No le molesta si le echo un vistazo rápido al carro, ¿verdad?",tone:"calm",id:'v2_0'},
     {en:"Mind if I take a look inside? Just routine.",es:"¿Le importa si reviso adentro? Es pura rutina.",tone:"calm",id:'v2_1'},
     {en:"I'm going to check the vehicle. That okay with you?",es:"Voy a revisar el vehículo. ¿Está de acuerdo?",tone:"curt",id:'v2_2'},
@@ -4520,7 +4534,11 @@ const PRX_VAR={
  4:[{en:"Have you had anything to drink tonight?",es:"¿Ha tomado algo esta noche?",tone:"calm",id:'v4_0'},
     {en:"Just a couple beers, right? Be honest with me.",es:"Solo un par de cervezas, ¿verdad? Sea honesto conmigo.",tone:"calm",id:'v4_1'},
     {en:"How much have you had to drink?",es:"¿Cuánto ha tomado?",tone:"curt",id:'v4_2'},
-    {en:"I can smell it. How many drinks?",es:"Se le siente el olor. ¿Cuántos tragos?",tone:"curt",id:'v4_3'}],
+    {en:"I can smell it. How many drinks?",es:"Se le siente el olor. ¿Cuántos tragos?",tone:"curt",id:'v4_3'},
+    /* Restored 2026-08-13, same batch and same caveat: NOT reachable today.
+       ci:4 only appears in Level 1's ids, and Level 1's tone pool is ['curt']
+       only -- Level 2 (the only hostile-capable level) never deals ci:4. */
+    {en:"How many. Give me a number.",es:"Cuántos. Deme un número.",tone:"hostile",id:'v4_4'}],
  5:[{en:"I need your signature here. It's not an admission of guilt.",es:"Necesito su firma aquí. No es una admisión de culpa.",tone:"calm",id:'v5_0'},
     {en:"Sign at the bottom, please. It just means you received the citation.",es:"Firme abajo, por favor. Solo confirma que recibió la citación.",tone:"calm",id:'v5_1'},
     {en:"Sign here.",es:"Firme aquí.",tone:"curt",id:'v5_2'},

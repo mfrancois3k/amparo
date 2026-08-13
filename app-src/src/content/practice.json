@@ -308,6 +308,18 @@
         "es": "Documentos. Licencia, registro. Vamos.",
         "tone": "curt",
         "id": "v0_3"
+      },
+      {
+        "en": "License. Registration. Now, please.",
+        "es": "Licencia. Registro. Ahora, por favor.",
+        "tone": "hostile",
+        "id": "v0_4"
+      },
+      {
+        "en": "I've asked twice. License and registration. Hand them over.",
+        "es": "Ya se lo pedí dos veces. Licencia y registro. Entréguemelos.",
+        "tone": "hostile",
+        "id": "v0_5"
       }
     ],
     "1": [
@@ -334,6 +346,18 @@
         "es": "¿Viene de dónde? Es una pregunta sencilla.",
         "tone": "curt",
         "id": "v1_3"
+      },
+      {
+        "en": "Where were you tonight? Don't make this difficult.",
+        "es": "¿Dónde estuvo esta noche? No lo haga difícil.",
+        "tone": "hostile",
+        "id": "v1_4"
+      },
+      {
+        "en": "I asked where you're coming from. Answer me.",
+        "es": "Le pregunté de dónde viene. Contésteme.",
+        "tone": "hostile",
+        "id": "v1_5"
       }
     ],
     "2": [
@@ -424,6 +448,12 @@
         "es": "Se le siente el olor. ¿Cuántos tragos?",
         "tone": "curt",
         "id": "v4_3"
+      },
+      {
+        "en": "How many. Give me a number.",
+        "es": "Cuántos. Deme un número.",
+        "tone": "hostile",
+        "id": "v4_4"
       }
     ],
     "5": [
