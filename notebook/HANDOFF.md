@@ -56,7 +56,10 @@ REVERTED note below before touching this again).
 - Live at https://www.amparohq.com/ — static, Vercel, no backend anywhere.
 - **A second app now exists at `/app`** — same origin, same repo. See the next
   section. Root at `/` is still the default entry and the live product.
-- `EDITION = "2026-C"`. An attorney signs a **specific** edition; any legal
+- `EDITION = "2026-D"` (bumped from `2026-C` on 2026-08-13 to restore `v2_4`,
+  below — currently inert, `isReviewed()` confirmed `false` for every state
+  both before and after, since zero attorneys have a filled entry). An
+  attorney signs a **specific** edition; any legal
   content change bumps EDITION and automatically drops every attorney badge.
 - **Zero attorneys engaged.** Badge scaffold exists, never filled.
 - TX/GA/NY have real cited statutes. The other 47 + DC show the verified federal
@@ -69,8 +72,9 @@ REVERTED note below before touching this again).
 - **Divergent turns (v2.14.0):** on Level 1, a good answer de-escalates the
   NEXT officer line to the calm-tone variant; on Level 2, a mistake escalates
   to hostile. Selection only, from the same static attorney-reviewable variant
-  bank — no new content. L2's arrest beat currently has zero hostile variants
-  in the bank, so that leg is inert until one is authored (flagged, not fixed).
+  bank — no new content. **Fixed at `ci:2` in v2.21.6** (restored `v2_4`, see
+  open issue #8). `ci:7` (arrest) is still empty and that leg is still inert —
+  genuine authoring, not restorable, still needs you.
 - **Geographic US state map (v2.11.0)** replaced the old alphabetical button
   list entirely — real state shapes from public-domain path data, sliver
   states (RI/DE/DC/NJ/CT/MA/NH) tappable via their labels. Picked state now
@@ -240,48 +244,37 @@ inflated. Re-read the funnel over a clean window before treating it as exact.
    stress.
 7. **Georgia has no statute source reachable from CI** (403s the runner) — not
    re-verified since 2026-08-04; check the daily cron log before trusting this.
-8. **L2 divergence's hostile leg is inert — now at BOTH hops.** Re-verified
-   2026-08-13 against the bank, not assumed: `PRX_VAR[2]` and `PRX_VAR[7]` are
-   both `[calm, calm, curt, curt]`. Since Level 2 became 3 beats (`[3,2,7]`,
-   v2.20.2) there are two divergence transitions and the hostile leg is dead at
-   both. `PRX_VAR[3]` is the only hostile line in the traffic bank and it is
-   L2's *opening* beat, which divergence never targets — so all hostility a L2
-   player sees is decided before they answer anything. **This is the single
-   highest-value open content item.** Exact ask, both EN+ES, entry shape
-   `{en, es, tone:'hostile', id}`: one line for `ci:2` (consent-to-search,
-   suggested id `v2_4`) and one for `ci:7` (arrest, suggested id `v7_4`).
-   Cannot be model-authored — see hard rule 1. Spec in `wargames/21`.
-   - **Understated, corrected 2026-08-13:** L2 divergence is inert in **both**
-     directions, not just the hostile leg. The good leg targets `curt`, and
-     ci 2 / ci 7 have *only* curt variants, so the "already there" short-circuit
-     fires first. Authoring `v2_4`/`v7_4` fixes the bad leg; the good leg stays
-     a structural no-op regardless.
-   - **HALF OF TASK 1 IS NOT AN AUTHORING TASK. Found 2026-08-13.** The `ci:2`
-     consent-to-search hostile line **already exists, human-authored, EN+ES**,
-     and was deleted from `PRX_VAR` by `f205531` (2026-08-03) as "unreachable":
-     ```
-     {en:"If there's nothing in there, this takes two minutes. Can I search it or not?",
-      es:"Si no hay nada ahí, esto toma dos minutos. ¿Puedo revisar o no?", tone:"hostile"}
-     ```
-     Its audio is still in the tree in **all four** voice folders, and
-     round-tripping it through `voicebox.transcribe` returns that exact EN text
-     and the ES text modulo Whisper's dropped `¿`/`?`. So the audio matches the
-     line and is ready to use. **This is a restore decision for you, not a
-     writing task, and hard rule 1 is not engaged** — it is your own previously
-     shipped content, recoverable verbatim from git.
-   - **The circular history worth knowing:** the v2.7.2 level merge made 8
-     hostile lines unreachable → `f205531` pruned them → v2.14.0 then added
-     divergent turns, the feature that would have reached them. The lines were
-     deleted for being unreachable and then a feature was built that needed them.
-   - **`ci:7` (arrest, `v7_4`) is genuinely empty.** Beat 7 was never in the
-     pruned set (0, 1, 2, 4, 8 were). No line, no audio. That half is real
-     authoring and still blocked on you.
-   - **Also pruned, also still have audio:** `v0_4`, `v0_5`, `v1_4`, `v1_5`,
-     `v4_4` (text in `tools/VOICE_LINES.md`), plus `v8_4`/`v8_5` — which have
-     **EN audio but no text anywhere in the working tree**, recoverable only
-     from `f205531` or by transcription. Nothing in `tools/` checks audio
-     against the bank, which is why this sat unnoticed. See
-     `notebook/amparo-voice-generation-workflow.md`.
+8. ~~**L2 divergence's hostile leg was inert at `ci:2`.**~~ **FIXED 2026-08-13,
+   v2.21.6.** `v2_4` restored to `PRX_VAR[2]` at your explicit instruction —
+   same text as originally authored, recovered from git (`f205531` deleted it
+   2026-08-03 as "unreachable" before v2.14.0 shipped divergent turns, the
+   feature that reaches it), not model-generated. `EDITION` bumped
+   `2026-C`→`2026-D` per hard rule 4 — confirmed inert live, `isReviewed()`
+   returns `false` for every state both before and after, since zero
+   attorneys have a filled review entry yet.
+   - **Verified as a real transition, not just data presence.** A first check
+     on a freshly-built L2 deck looked hostile before *and* after diverging —
+     which would have been a false positive, since `prxBuildDeck`'s L2 tone
+     pool is `['curt','hostile']` and a random build can land on `v2_4` with no
+     divergence involved. Forced beat 1 (`ci:2`) to its `curt` starting variant,
+     ran the actual `prxDiverge('b')` path, confirmed a real
+     `curt`→`hostile`/`v2_4` transition.
+   - **`ci:7` (arrest) is still genuinely empty.** Beat 7 was never in the
+     pruned set (0, 1, 2, 4, 8 were) — no line, no audio, ever existed. Real
+     authoring, cannot be model-authored (hard rule 1), still blocked on you.
+     Same shape as the restored line: `{en, es, tone:'hostile', id:'v7_4'}`.
+     Spec in `wargames/21`.
+   - **The good leg of L2 divergence is still a structural no-op**, unaffected
+     by this fix. It targets `curt`, and `ci:2`/`ci:7` already have only `curt`
+     variants (now plus one `hostile` at `ci:2`), so the "already there"
+     short-circuit fires first. Would need a design decision, not a content one.
+   - **Also pruned by `f205531`, also still have audio, NOT restored this
+     round:** `v0_4`, `v0_5`, `v1_4`, `v1_5`, `v4_4` (text in
+     `tools/VOICE_LINES.md`), plus `v8_4`/`v8_5` — **EN audio but no text
+     anywhere in the working tree**, recoverable only from `f205531` or by
+     transcription. Ask explicitly if any of these should follow the same
+     restore. Nothing in `tools/` checks audio against the bank, which is why
+     these sat unnoticed. See `notebook/amparo-voice-generation-workflow.md`.
 9. **Checkpoint has no variant pool, no curveball, no divergence** — flagged in
    `wargames/12`, re-confirmed in `wargames/21`: it is a tab, not yet a module.
    One fixed 4-beat deck, identical every run.

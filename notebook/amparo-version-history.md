@@ -8,6 +8,16 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.21.6 — 2026-08-13 — "Restored, not authored"
+
+Restores the `ci:2` hostile consent-to-search line at the operator's explicit
+instruction — recovered verbatim from git (`f205531` deleted it 2026-08-03,
+before divergent turns shipped and made it reachable), not model-authored.
+`EDITION` → `2026-D`, confirmed inert (zero attorneys have a filled review
+entry). Verified the real divergence transition, not just data presence, by
+forcing a non-hostile starting beat before diverging. `ci:7` (arrest) remains
+genuinely empty and still needs the operator.
+
 ## v2.21.5 — 2026-08-13 — "Three more claims stopped outliving what they claimed about"
 
 Print banner no longer says "sent to your printer" on `afterprint`, which fires

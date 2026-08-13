@@ -6,6 +6,46 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.21.6 — 2026-08-13
+
+v2.21.6 — "Restored, not authored"
+
+Restores the `ci:2` (consent-to-search) hostile officer line at Michael's
+explicit instruction, closing half of the open TASK 1 item and the highest-
+value content gap the v2.21.3 module review found.
+
+`f205531` (2026-08-03) deleted this line from `PRX_VAR[2]` as "unreachable"
+after the v2.7.2 level merge — before v2.14.0 shipped divergent turns, the
+feature that reaches it. Same text as originally authored, recovered from git
+rather than written by a model: *"If there's nothing in there, this takes two
+minutes. Can I search it or not?"* / *"Si no hay nada ahí, esto toma dos
+minutos. ¿Puedo revisar o no?"* Its audio survived the deletion in all four
+voice folders and was round-tripped through `voicebox.transcribe` before
+restoring — matches the text exactly. No orphan audio left behind: `v2_4` is
+now referenced.
+
+`EDITION` moves `2026-C` → `2026-D` per hard rule 4. Currently inert —
+`REVIEW.attorneys` has zero filled entries, so `isReviewed()` returns `false`
+for every state both before and after, confirmed live rather than assumed.
+
+Verified the actual fix, not just the data: a first check on a freshly-built
+Level 2 deck showed hostile before *and* after diverging, which would have
+been a false positive — `prxBuildDeck`'s Level 2 tone pool is
+`['curt','hostile']`, so a random build can land on `v2_4` with no divergence
+involved. Forced the starting beat to its `curt` variant, ran the real
+`prxDiverge('b')` path the game itself calls on a wrong answer, and confirmed
+a genuine `curt` → `hostile` transition.
+
+`ci:7` (arrest) is untouched — it was never in the set `f205531` pruned, so
+there is no line and no audio to recover. That half is real authoring and
+still needs Michael, not an AI. The good leg of Level 2 divergence also
+remains a structural no-op, a separate and unaddressed issue: it targets
+`curt`, and both beats now have only `curt`/`hostile` variants, so the
+"already there" short-circuit still fires first.
+
+All four check suites pass. `app/` rebuilt because the build output is
+committed.
+
 ## v2.21.5 — 2026-08-13
 
 v2.21.5 — "Three more claims stopped outliving what they claimed about"
