@@ -6,6 +6,43 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.21.0 — 2026-08-13
+
+v2.21.0 — "Checkpoint gets its own tab back"
+
+Closes the parity audit's #1 finding. `/app` had ported the wrong screen as
+its practice entry point: the practice overlay's internal flat fallback
+list, instead of root's actual step-5 hub. Root splits the Border Patrol
+checkpoint into its own tab precisely because it "was reading as just
+another traffic level buried at the end of the ladder" — and the flat list
+is the exact shape it was split out of. Three separate reviews flagged it
+(the parity audit, a module design review, and a focus group) before this
+rebuild.
+
+The hub now matches root: three module tabs (Traffic stop / Checkpoint / At
+your door), a progress bar counting only the four numbered traffic rungs,
+checkpoint's own context note in place of that bar, the door tab's honest
+"Not built yet — and we won't fake it" panel, and the green pick-pulse that
+lets a tapped card register before the next screen replaces it. The old flat
+list is deleted rather than left reachable — keeping it as the in-run
+"All scenarios" destination would have reintroduced the mixed-in checkpoint
+one click deeper.
+
+**Real bug fixed alongside it:** best scores were compared by numerator
+only, which was safe until Level 2's denominator changed from 2 to 3 in
+v2.20.2. A returning player's stored `2/2` survived a `2/3`, so the hub
+would show a best score the level can no longer produce. A best recorded
+against a different deck length is incomparable, not unbeaten — it's now
+replaced outright, with same-shape comparisons unchanged.
+
+**Content drift now has a gate.** The extraction verifier had no CI job, no
+git hook, and no npm script — root-to-`/app` sync depended on someone
+remembering to run it. Harmless while root was locked from edits; real once
+v2.20.2 made root editable. `--verify` now runs as the first step of the
+build, proven to fail it on injected drift before being trusted.
+
+No EDITION bump — no legal content touched.
+
 ## v2.20.2 — 2026-08-13
 
 v2.20.2 — "Level 2 gets a middle"

@@ -8,6 +8,16 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.21.0 — 2026-08-13 — "Checkpoint gets its own tab back"
+
+Closes the parity audit's #1 finding (`f1af062`): `/app`'s practice entry
+was the overlay's flat fallback list, not root's 3-tab step-5 hub — which
+re-mixed checkpoint into the traffic ladder it was deliberately split out
+of. New `PracticeHub.tsx`; flat list deleted; `.ll-seg` moved to shared
+`shell.css`. Also fixed a stale-best-score bug that v2.20.2's denominator
+change made live, and put the extraction verifier in front of `npm run
+build` so root/`/app` drift can't ship silently.
+
 ## v2.20.2 — 2026-08-13 — "Level 2 gets a middle"
 
 First-ever root `index.html` edit this migration (operator-approved,
