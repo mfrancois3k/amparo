@@ -20,6 +20,18 @@ import {
   buildDeck, isLocked, selectLevel, confirmWarn, officerFinished, pick, markCrisis,
   advance, back, again, toLevels, initialState, emptyProgress, PRX_UNSCORED,
 } from '../app-src/src/engine/practiceEngine.ts';
+import { readRootPractice } from '../app-src/src/services/storage.ts';
+
+/** Minimal localStorage stand-in — the migration under test reads root's key. */
+class FakeStore {
+  private m: Map<string, string>;
+  constructor(seed: Record<string, string> = {}) { this.m = new Map(Object.entries(seed)); }
+  get length() { return this.m.size; }
+  key(i: number) { return [...this.m.keys()][i] ?? null; }
+  getItem(k: string) { return this.m.has(k) ? this.m.get(k)! : null; }
+  setItem(k: string, v: string) { this.m.set(k, String(v)); }
+  removeItem(k: string) { this.m.delete(k); }
+}
 
 let failures = 0, total = 0;
 const check = (label: string, fn: () => void) => {
@@ -153,26 +165,57 @@ check('completing a scored level writes runs/done/best/streak; unscored levels n
   assert.equal(s2.progress.runs[0], 1);
 });
 
-check('a stored best from a DIFFERENT deck length is replaced, not compared (stale-best)', () => {
-  // "2/2" is a perfect run under the OLD 2-beat level 2. Under the current
-  // 3-beat deck it is incomparable, not unbeaten — root's numerator-only
-  // compare would keep it forever and display a score the level cannot produce.
-  const stale = { ...emptyProgress(), done: { 0: true, 1: true, 2: true }, best: { 2: '2/2' } };
-  let s = selectLevel(initialState(stale), 2, FIXED_DATE, seededRng(1));
+check('a worse run NEVER displaces a best, whatever the denominators (regression)', () => {
+  // This pins the bug an earlier "replace when the denominator differs" rule
+  // introduced. run.length is NOT a per-level constant: crisis-tier beats are
+  // excluded from it, and the daily curveball adds one on levels 0-1. Any rule
+  // keyed on it therefore deletes real bests. A worse run must never win.
+  const held = { ...emptyProgress(), done: { 0: true, 1: true, 2: true }, best: { 2: '3/3' } };
+  let s = selectLevel(initialState(held), 2, FIXED_DATE, seededRng(1));
   s = confirmWarn(s);
   s = officerFinished(s);
   assert.equal(s.deck.length, 3);
-  for (let i = 0; i < 3; i++) { s = pick(s, i === 0); s = advance(s, FIXED_DATE, seededRng(1)); }
+  for (let i = 0; i < 3; i++) { s = pick(s, false); s = advance(s, FIXED_DATE, seededRng(1)); }
   assert.equal(s.phase, 'DEBRIEF');
-  assert.equal(s.progress.best[2], '1/3', 'stale 2/2 must be replaced by the current-shape result');
+  assert.equal(s.progress.best[2], '3/3', 'a 0/3 run must not displace a 3/3 best');
 
-  // Same-shape runs still use root's compare: a worse score must NOT overwrite.
-  const fresh = { ...emptyProgress(), done: { 0: true, 1: true, 2: true }, best: { 2: '3/3' } };
-  let s2 = selectLevel(initialState(fresh), 2, FIXED_DATE, seededRng(1));
-  s2 = confirmWarn(s2);
-  s2 = officerFinished(s2);
-  for (let i = 0; i < 3; i++) { s2 = pick(s2, false); s2 = advance(s2, FIXED_DATE, seededRng(1)); }
-  assert.equal(s2.progress.best[2], '3/3', 'a worse same-shape run must not displace the best');
+  // The curveball path: level 0's 2nd run deals 6 beats where the 1st dealt 5.
+  // A great 5/5 must survive a poor 6-beat run — this is the ordinary replay
+  // path, and the old rule wiped it here.
+  const curve = { ...emptyProgress(), runs: { 0: 1 }, best: { 0: '5/5' } };
+  let c = selectLevel(initialState(curve), 0, FIXED_DATE, seededRng(1));
+  c = officerFinished(c);
+  assert.ok(c.deck.some((b) => b.curve), 'fixture must deal a curveball');
+  assert.notEqual(c.deck.length, 5, 'curveball must change the dealt deck length');
+  for (let i = 0; i < c.deck.length; i++) { c = pick(c, false); c = advance(c, FIXED_DATE, seededRng(1)); }
+  assert.equal(c.progress.best[0], '5/5', 'a curveball run must not wipe a better best');
+
+  // A genuinely better run still wins.
+  const beat = { ...emptyProgress(), done: { 0: true, 1: true, 2: true }, best: { 2: '1/3' } };
+  let b = selectLevel(initialState(beat), 2, FIXED_DATE, seededRng(1));
+  b = confirmWarn(b);
+  b = officerFinished(b);
+  for (let i = 0; i < 3; i++) { b = pick(b, true); b = advance(b, FIXED_DATE, seededRng(1)); }
+  assert.equal(b.progress.best[2], '3/3', 'a better run must win');
+});
+
+check('v3 migration drops a level-2 best banked under the old 2-beat deck', () => {
+  // The genuine staleness problem, handled where it belongs: a one-time
+  // migration, not a rule in the hot comparison path.
+  (globalThis as unknown as { localStorage: FakeStore }).localStorage = new FakeStore({
+    amparo_prx: JSON.stringify({ done: { 2: true }, runs: { 2: 4 }, best: { 2: '2/2' }, streak: { last: '', n: 0 }, v: 2 }),
+  });
+  const migrated = readRootPractice();
+  assert.equal(migrated.best[2], undefined, 'a /2 best is not expressible on the 3-beat deck');
+  assert.equal(migrated.done[2], true, 'the level WAS completed — only its score is dropped');
+  assert.equal(migrated.runs[2], 4, 'run count is history, not a score');
+  assert.equal(migrated.v, 3);
+
+  // Already-current bests are untouched, and the migration is idempotent.
+  (globalThis as unknown as { localStorage: FakeStore }).localStorage = new FakeStore({
+    amparo_prx: JSON.stringify({ done: {}, runs: {}, best: { 2: '2/3' }, streak: { last: '', n: 0 }, v: 3 }),
+  });
+  assert.equal(readRootPractice().best[2], '2/3', 'a /3 best must survive');
 });
 
 check('cbDay is stamped only when the completed run actually dealt a curveball', () => {

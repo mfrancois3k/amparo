@@ -45,6 +45,11 @@ export function PracticeStep({ t, onBack }: Props) {
   const { lang } = useLang()
   const audio = usePracticeAudio()
   const [state, setState] = useState<EngineState>(() => initialState(readApp<PracticeProgress>('prx', emptyProgress())))
+  /* Held here, not in PracticeHub: the hub unmounts for the duration of a
+     drill, so hub-local state would forget which module tab you came from.
+     Root gets this for free from a module-scope `_hubTab` (index.html:3864)
+     because its hub is a modal that never unmounts. */
+  const [hubTab, setHubTab] = useState(0)
   const [meta, setMeta] = useState<ResponseMeta>(EMPTY_META)
   const spokenKeyRef = useRef('')
 
@@ -132,7 +137,8 @@ export function PracticeStep({ t, onBack }: Props) {
           generic `prx_title` heading this screen used with the flat list is
           gone — root's step 5 never showed it. */}
       {state.phase === 'IDLE' ? (
-        <PracticeHub t={t} progress={state.progress} onPick={selectLevelHandler} onBack={onBack} />
+        <PracticeHub t={t} progress={state.progress} onPick={selectLevelHandler} onBack={onBack}
+          tab={hubTab} onTabChange={setHubTab} />
       ) : null}
 
       {state.phase === 'PRE_FLIGHT' ? (

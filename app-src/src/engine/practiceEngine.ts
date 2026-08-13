@@ -285,19 +285,20 @@ function completeRun(state: EngineState, now: Date): EngineState {
     ? progress.streak
     : { last: today, n: progress.streak.last === yesterday ? progress.streak.n + 1 : 1 }
   const score = state.run.filter((x) => x === 'g').length
-  /* Root compares numerators only (`sc>parseInt(prx.best[...])`,
-     index.html:5484) — fine while a level's denominator never changes, which
-     was true until Level 2 went from 2 beats to 3. A stored "2/2" (perfect on
-     the old deck) then survives a "2/3", so the hub shows a best the level can
-     no longer produce. A best recorded against a DIFFERENT deck length isn't a
-     worse score, it's an incomparable one: replace it outright, and only fall
-     back to root's numerator compare when the shapes actually match.
-     Found by focus group 13 reading this against the Level 2 fix. */
+  /* Numerator-only, matching root (index.html, `sc>parseInt(prx.best[...])`).
+     A previous version of this file compared DENOMINATORS too and replaced the
+     best whenever they differed — reasoning that a "2/2" banked on the old
+     2-beat Level 2 could never be beaten by a "2/3". That was wrong, and the
+     QA fan-out caught it in three independent places: `run.length` is not a
+     per-level constant. Crisis-tier ('x') beats are excluded from `run` (see
+     advance() below), so disclosing distress SHRINKS it; the daily curveball
+     GROWS it on levels 0-1 (see buildDeck). The rule therefore deleted real
+     bests on the ordinary replay path (a 5/5 overwritten by a 1/6) and demoted
+     players specifically for using the crisis path.
+     The genuine problem — one level's definition changing — is handled by a
+     one-time migration instead; see readRootPractice's v3 block and root's. */
   const stored = progress.best[level]
-  const storedTotal = stored ? Number(stored.split('/')[1]) : NaN
-  const comparable = !!stored && storedTotal === state.run.length
-  const beats = comparable ? score > parseInt(stored, 10) : true
-  const best = !PRX_UNSCORED.has(level) && beats
+  const best = !PRX_UNSCORED.has(level) && (!stored || score > parseInt(stored, 10))
     ? { ...progress.best, [level]: `${score}/${state.run.length}` }
     : progress.best
   const nextProgress: PracticeProgress = {

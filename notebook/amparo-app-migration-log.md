@@ -1212,3 +1212,115 @@ restored and re-verified green.
   `🟩 2/3` with the correct new denominator. Spanish verified equivalently
   ("Ahora ensáyalo.", "Parada de tráfico / Retén / En tu puerta",
   "4 de 4 completados", "Volver a mi paquete"). Zero new console errors.
+
+---
+
+## The stale-best "fix" was itself a regression — reverted, done properly
+
+**I shipped a bug to the live product today and a fanned-out QA pass caught
+it.** Recording it plainly, because the failure mode is more useful than the
+fix.
+
+### What went wrong
+v2.21.0 and v2.21.1 changed the best-score compare in `/app` and then root:
+if a stored best's DENOMINATOR differed from the just-finished run's, treat it
+as incomparable and replace it. The reasoning looked sound — Level 2 went from
+2 beats to 3, so a banked `"2/2"` could never be beaten by a `"2/3"`.
+
+The premise was false. **`run.length` is not a per-level constant:**
+- crisis-tier (`'x'`) beats are excluded from `run`, so disclosing distress
+  SHRINKS the denominator;
+- the daily curveball adds a beat on levels 0-1 from the second run onward, so
+  it GROWS.
+
+So the rule fired constantly on ordinary play and deleted real bests. Two
+independent reproductions from the QA fan-out:
+- Level 0: a `5/5` overwritten by a `1/6` on the very first replay — the
+  curveball path, i.e. the happy path on the most-played level.
+- Level 2: a `3/3` replaced by a `2/2` after a run in which the player typed a
+  crisis phrase. The app demoted someone **for using the crisis disclosure** —
+  the one interaction here that must never cost anyone anything.
+
+Pre-fix behaviour kept both bests (numerator-only: `1 > 5` and `2 > 3` are
+false), so this was a pure self-inflicted regression, shipped to root and
+`/app` simultaneously. A blind-spot audit independently found the same code
+also DIVERGED between the two apps on malformed input (root's `String()`
+wrapper survives; `/app`'s bare `stored.split()` throws, and `/app` has no
+ErrorBoundary — a white-screened debrief).
+
+### What shipped now
+- **Both implementations reverted** to root's original numerator-only compare.
+  The fragile denominator parsing is gone entirely, which closes the
+  regression, the root-vs-`/app` divergence, and the crash together.
+- **The real problem handled where it belongs — a one-time migration.** Level
+  2's *definition* changed; that is a data-shape event, not a comparison rule.
+  Root gets a `v3` block beside its existing `v2` index-shift; `/app` mirrors
+  it in `readRootPractice`. A `best[2]` whose denominator is `2` is dropped —
+  not rescaled, since a `2/2` is not evidence of a `2/3`, the same reasoning
+  `v2` used when it dropped a removed level rather than remapping it.
+  `done`/`runs` are untouched: the level *was* completed, only its score is no
+  longer expressible. Denominator-guarded, so it is a no-op for anyone already
+  on `/3`.
+- **The old regression test asserted the wrong behaviour** and was rewritten to
+  pin the correct invariant: a worse run never displaces a best, *whatever* the
+  denominators — with explicit coverage of the curveball path that the old rule
+  broke. Plus migration tests in both check suites.
+
+### Also fixed this round (all from the same review wave)
+- **Hub tab did not survive a run** (module review HIGH, focus group golden
+  #1). `PracticeHub` held tab state locally, but the hub unmounts for the
+  duration of a drill — finish a Checkpoint, tap "← All scenarios", land on
+  the Traffic ladder. Exactly the recombination the tab split exists to
+  prevent. Ownership lifted to `PracticeStep`. Verified live: ran Checkpoint,
+  returned, still on `Checkpoint:true`.
+- **Locked cards were unreachable** (focus group golden #2). I had used the
+  native `disabled` attribute; root deliberately uses `aria-disabled` + `title`
+  and omits the handler, because native `disabled` drops the card out of the
+  tab order AND suppresses the title — which is the only text explaining the
+  lock. Root's own note (`index.html:5433-5435`) is that hiding gated levels
+  made them undiscoverable. Now matches root. Verified live: focusable,
+  announces "Finish the first three to unlock", click still refused.
+- **Uncleaned `setTimeout`** in the hub's pick-pulse — now cleared on unmount,
+  so a fast exit can't fire `onPick` against a dead component.
+- **False parity claim corrected.** My comment said the reduced-motion check
+  ported root's `sr-motion` branch. It does not: `sr-motion` means "GSAP is
+  armed", not "reduced motion" — `index.css` already warns about that exact
+  inversion. The behaviour is right; the citation was wrong, and a wrong
+  citation is worse than none because the next reader trusts it.
+- **Dead CSS removed** — `.prx-list`/`.prx-lcard`/`.prx-lockhint` and their
+  tile art died with `PracticeLevelSelect.tsx`. `.prx-daily` deliberately kept:
+  the live beat screen still renders it.
+- **`app-storage-check` was lying about its own size** — a hardcoded
+  "13 assertions" while 14 checks ran, so every check added after it was
+  written went unreported. Now counted.
+
+### Two agent reports contradicted each other again
+`wargames/20` claimed Level 2's new `ci:3 → ci:2` divergence hop is "fully
+live (both curt and hostile variants exist)". Checked the bank directly:
+`PRX_VAR[2]` is `[calm, calm, curt, curt]` — **no hostile variant**. The
+focus group was right, the module review wrong; `wargames/21` states it
+correctly. Level 2's bad-pick leg is dead at BOTH hops. Unchanged conclusion:
+this is the already-open `PRX_VAR` content gap (needs authored officer
+dialogue, operator chose to leave it), now known to cover `ci:2` as well as
+`ci:7`.
+
+### A note on the QA run itself
+An audit agent proved the build gate works by corrupting `ui.json` — and left
+it corrupted. The very gate it was testing then failed the next build, which
+is the system working, but the lesson is that read-only instructions to agents
+need to be enforced rather than requested. Restored by re-extraction; `git
+diff` on the content banks is clean.
+
+### Verification
+- `npm run check` — content verify PASS, storage **14** checks, sw-routing 12,
+  practice-engine **21** (all new/rewritten tests included).
+- `tsc -b && vite build` + `oxlint` — clean.
+- **Root, live in the browser**: all inline scripts syntax-checked first (3 JS
+  blocks, 0 errors); seeded a pre-fix `v2` profile with a stale `2/2` and
+  confirmed it migrates to `v3` with the best dropped and `done`/`runs`
+  preserved; then confirmed the regression is gone in both directions — a
+  crisis-disclosure run (denominator 2 vs 3) left a `3/3` intact, and a
+  curveball replay (6-beat deck) left a `5/5` intact — while a genuinely
+  better run still won (`1/3` → `3/3`). Test state cleared afterward.
+- **`/app`, live**: tab persistence and locked-card behaviour verified as
+  described above; no new console errors.

@@ -29,8 +29,9 @@ const store = new FakeStorage();
 (globalThis as unknown as { localStorage: FakeStorage }).localStorage = store;
 
 const STATES = new Set(['TX', 'GA', 'NY']);
-let failures = 0;
+let failures = 0, total = 0;
 const check = (label: string, fn: () => void) => {
+  total++;
   try { fn(); } catch (err) { failures++; console.error(`FAIL ${label}\n      ${(err as Error).message.split('\n')[0]}`); }
 };
 
@@ -82,8 +83,36 @@ check('amparo_prx index shift: hard mode 4->3, checkpoint 5->4, old 3 dropped', 
   assert.equal(p.best[3], '3/3', "hard mode's best must land on the new index 3");
   assert.equal(p.best[4], '2/4', "checkpoint's best must land on the new index 4");
   assert.equal(p.runs[4], 7);
-  assert.equal(p.v, 2, 'the result is stamped v2 so it is not shifted twice');
+  /* v1 data runs the whole chain in one read — the shift, then v3's level-2
+     best drop — so it lands stamped v3, not v2. The stamp is what stops either
+     step running twice. */
+  assert.equal(p.v, 3, 'the result is stamped with the LATEST version so no step repeats');
   assert.deepEqual(p.streak, { last: '2026-08-01', n: 3 }, 'streak is untouched by the shift');
+});
+
+check('amparo_prx v3: a level-2 best from the old 2-beat deck is dropped, completion kept', () => {
+  /* Level 2 went from 2 beats to 3, so a "/2" best cannot be expressed on the
+     current deck and the numerator compare could never replace it. Dropped
+     rather than rescaled — a 2/2 is not evidence of a 2/3. */
+  store.setItem('amparo_prx', JSON.stringify({
+    done: { 2: true }, best: { 0: '5/5', 2: '2/2' }, runs: { 2: 4 },
+    streak: { last: '', n: 0 }, v: 2,
+  }));
+  const p = readRootPractice();
+  assert.equal(p.best[2], undefined, 'a /2 best is not expressible on the 3-beat deck');
+  assert.equal(p.best[0], '5/5', 'other levels are untouched');
+  assert.equal(p.done[2], true, 'the level WAS completed — only its score is dropped');
+  assert.equal(p.runs[2], 4, 'run count is history, not a score');
+  assert.equal(p.v, 3);
+});
+
+check('amparo_prx v3 is idempotent and leaves a current /3 best alone', () => {
+  store.setItem('amparo_prx', JSON.stringify({
+    done: { 2: true }, best: { 2: '2/3' }, runs: { 2: 1 }, streak: { last: '', n: 0 }, v: 3,
+  }));
+  const p = readRootPractice();
+  assert.equal(p.best[2], '2/3', 'a best already on the current deck shape survives');
+  assert.equal(p.v, 3);
 });
 
 check('amparo_prx already at v2 is not shifted again', () => {
@@ -150,5 +179,8 @@ check('app keys round-trip under the app_ prefix', () => {
   assert.equal(store.getItem('app_demo'), null, 'clearApp must remove app keys');
 });
 
-console.log(failures === 0 ? 'app-storage-check: PASS (13 assertions)' : `app-storage-check: ${failures} FAILED`);
+/* Counted, not hardcoded — the literal that used to live here said 13 while
+   14 checks were running, so it silently under-reported every check added
+   after it was written. */
+console.log(failures === 0 ? `app-storage-check: PASS (${total} checks)` : `app-storage-check: ${failures}/${total} FAILED`);
 process.exit(failures === 0 ? 0 : 1);

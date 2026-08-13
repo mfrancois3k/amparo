@@ -4791,6 +4791,23 @@ prx.best=prx.best||{}; prx.streak=prx.streak||{last:'',n:0};
     prx.v=2; prxSave();
   }catch(e){}
 })();
+/* v3: level 2's deck went from 2 beats to 3 (ci:2 inserted between the exit
+   order and the arrest). A best banked under the old 2-beat deck is out of
+   /3 — the hub would print "2/2" for a level that can no longer produce a
+   /2 score, and the numerator compare above can never replace it.
+   Dropped rather than rescaled: a 2/2 is not evidence of a 2/3, and inventing
+   one would be inventing progress — the same reasoning the v2 block used when
+   it dropped the removed level rather than remapping it. done/runs are left
+   alone; the level WAS completed, only its score is no longer expressible.
+   Denominator-guarded so it is a no-op for anyone whose best is already /3. */
+(function(){
+  try{
+    if(prx.v>=3) return;
+    const b=prx.best&&prx.best[2];
+    if(typeof b==='string' && b.split('/')[1]==='2') delete prx.best[2];
+    prx.v=3; prxSave();
+  }catch(e){}
+})();
 function prxSave(){ try{ localStorage.setItem('amparo_prx',JSON.stringify(prx)); }catch(e){} }
 
 const prxTTS=('speechSynthesis' in window);
@@ -5481,16 +5498,18 @@ function practiceRender(){
       const sc=prRun.filter(x=>x==='g').length;
       /* Unscored levels never write a best. Guarding only the display sites
          left the value in localStorage waiting for the next reader to leak it. */
-      /* The compare is numerator-only, which is correct ONLY while a level's
-         denominator never changes — and level 2's did (2 beats -> 3, when ci:2
-         was inserted between the exit order and the arrest). A stored "2/2"
-         then outlives a "2/3" forever, because 2>2 is false, and the hub shows
-         a best the level can no longer produce. A best recorded against a
-         DIFFERENT deck length isn't a worse score, it's an incomparable one:
-         replace it, and only compare numerators when the shapes match. */
-      const _pb=prx.best[prLevel], _pbTotal=_pb?parseInt(String(_pb).split('/')[1],10):NaN;
-      const _sameShape=!!_pb && _pbTotal===prRun.length;
-      if(!PRX_UNSCORED.has(prLevel) && (!_pb || !_sameShape || sc>parseInt(_pb))) prx.best[prLevel]=sc+'/'+prRun.length;
+      /* Numerator-only compare, deliberately. An earlier attempt at "replace the
+         best when the denominator differs" looked right — level 2 went 2 beats to
+         3, so a stored "2/2" could never be beaten by "2/3" — but it was wrong:
+         prRun.length is NOT a per-level constant. Crisis-tier ('x') beats are
+         excluded from prRun (:5245), so disclosing distress SHRINKS it, and the
+         daily curveball GROWS it on levels 0-1 (:4742). That rule therefore
+         deleted real bests on the ordinary replay path — a 5/5 replaced by a 1/6
+         — and demoted a player for using the crisis path, which is the last
+         interaction in this app that should ever cost someone something.
+         The actual problem was one level's definition changing, which is what a
+         migration is for; see the v3 block below. */
+      if(!PRX_UNSCORED.has(prLevel) && (!prx.best[prLevel]||sc>parseInt(prx.best[prLevel]))) prx.best[prLevel]=sc+'/'+prRun.length;
       if(prDeck.some(x=>x.curve)) prx.cbDay=new Date().toISOString().slice(0,10);
       prxSave();
       /* Unscored levels report completion without a score and without state.

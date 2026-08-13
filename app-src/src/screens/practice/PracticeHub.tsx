@@ -20,7 +20,7 @@
  * "← All scenarios" therefore returns HERE, and PracticeLevelSelect.tsx is
  * deleted rather than left as dead-but-reachable UI.
  */
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { Bank } from '../../i18n'
 import { PRX_LEVEL_IDS, PRX_UNSCORED } from '../../content/practice.json'
 import { isLocked, type PracticeProgress } from '../../engine/practiceEngine'
@@ -32,15 +32,26 @@ const CK = 4
     of them, which is the whole point of the split (index.html:3448-3452). */
 const RUNGS = [0, 1, 2, 3]
 
-type Props = { t: Bank; progress: PracticeProgress; onPick: (level: number) => void; onBack: () => void }
+type Props = {
+  t: Bank
+  progress: PracticeProgress
+  onPick: (level: number) => void
+  onBack: () => void
+  /* Tab selection is OWNED BY THE PARENT, not this component. Root's `_hubTab`
+     is module-scope (index.html:3864) and its hub is a modal that never
+     unmounts, so the tab outlives a drill. Here the hub unmounts the moment a
+     level starts, so component state would reset to Traffic on the way back —
+     finish a Checkpoint, tap "← All scenarios", and land on the traffic
+     ladder, which is precisely the recombination this rebuild existed to
+     prevent. Caught by the module review and focus group 14 independently. */
+  tab: number
+  onTabChange: (tab: number) => void
+}
 
-export function PracticeHub({ t, progress, onPick, onBack }: Props) {
-  /* Root keeps this in a module-scope `_hubTab` because its render is a
-     full innerHTML rebuild; component state is the direct equivalent. Tab
-     ORDER is root's: traffic, checkpoint, door — note root's string keys
-     run m1 / m3 / m2 in that order, which is not a typo. */
-  const [tab, setTab] = useState(0)
+export function PracticeHub({ t, progress, onPick, onBack, tab, onTabChange }: Props) {
   const [picked, setPicked] = useState<number | null>(null)
+  const pickTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  useEffect(() => () => { if (pickTimer.current) clearTimeout(pickTimer.current) }, [])
 
   const unscored = new Set(PRX_UNSCORED as number[])
   const onCheckpoint = tab === 1
@@ -48,15 +59,19 @@ export function PracticeHub({ t, progress, onPick, onBack }: Props) {
   const rungsDone = RUNGS.filter((i) => progress.done[i]).length
 
   /* Root's prPick (index.html:5141-5160): let the green pulse land before the
-     next screen replaces the card, but skip the wait entirely under reduced
-     motion — where there is no pulse to see, the delay is just latency. The
-     `picked` guard also eats the double-tap root had to fix twice. */
+     next screen replaces the card, then launch. Root branches on `sr-motion`,
+     which despite the name means "GSAP is armed" — NOT "reduced motion" (see
+     index.css's warning about that exact inversion). The reduced-motion check
+     here is therefore /app's own call, not a port of root's branch: with no
+     pulse rendered, the 260 ms wait would be pure latency. The `picked` guard
+     eats the double-tap root had to fix twice; the timer is cleared on unmount
+     so a fast exit can't fire onPick against a dead component. */
   const pick = (level: number) => {
     if (picked !== null) return
     const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
     if (reduced) { onPick(level); return }
     setPicked(level)
-    setTimeout(() => onPick(level), 260)
+    pickTimer.current = setTimeout(() => onPick(level), 260)
   }
 
   return (
@@ -70,9 +85,9 @@ export function PracticeHub({ t, progress, onPick, onBack }: Props) {
           why, rather than a "coming soon" implying a date nobody committed
           to (index.html:3430-3434). */}
       <div className="ll-seg" role="tablist">
-        <button type="button" role="tab" className={tab === 0 ? 'on' : ''} aria-selected={tab === 0} onClick={() => setTab(0)}>{t.hub_m1}</button>
-        <button type="button" role="tab" className={tab === 1 ? 'on' : ''} aria-selected={tab === 1} onClick={() => setTab(1)}>{t.hub_m3}</button>
-        <button type="button" role="tab" className={tab === 2 ? 'on' : ''} aria-selected={tab === 2} onClick={() => setTab(2)}>{t.hub_m2}</button>
+        <button type="button" role="tab" className={tab === 0 ? 'on' : ''} aria-selected={tab === 0} onClick={() => onTabChange(0)}>{t.hub_m1}</button>
+        <button type="button" role="tab" className={tab === 1 ? 'on' : ''} aria-selected={tab === 1} onClick={() => onTabChange(1)}>{t.hub_m3}</button>
+        <button type="button" role="tab" className={tab === 2 ? 'on' : ''} aria-selected={tab === 2} onClick={() => onTabChange(2)}>{t.hub_m2}</button>
       </div>
 
       {tab === 2 ? (
@@ -106,15 +121,21 @@ export function PracticeHub({ t, progress, onPick, onBack }: Props) {
               const status = locked ? t.hub_locked
                 : unscored.has(i) ? (done ? t.hub_done : t.hub_start)
                   : (best ? `🟩 ${best}` : (done ? t.hub_done : t.hub_start))
+              /* aria-disabled, NOT the native `disabled` attribute — root's
+                 choice (index.html:3467) and it is deliberate: native disabled
+                 drops the card out of the tab order AND suppresses its title,
+                 which is the only text that explains the lock. Root's own note
+                 at :5433-5435 is that hiding gated levels made them
+                 undiscoverable, so the card stays reachable and announces
+                 itself; only the click is refused. */
               return (
                 <button
                   key={i}
                   type="button"
                   className={`pr-card${locked ? ' lock' : ''}${done ? ' done' : ''}${picked === i ? ' picked' : ''}`}
-                  disabled={locked}
                   aria-disabled={locked}
                   title={locked ? t.hub_locked : undefined}
-                  onClick={() => pick(i)}
+                  onClick={locked ? undefined : () => pick(i)}
                 >
                   <span className="pr-ic" aria-hidden="true">{locked ? '🔒' : done ? '✓' : '▶'}</span>
                   <span className="pr-nm">{t[('prx_lvl' + (i + 1)) as keyof Bank] as string}</span>

@@ -143,7 +143,24 @@ export function readRootPractice(): RootPractice {
   prx.runs = prx.runs || {};
   prx.streak = prx.streak || { last: '', n: 0 };
 
-  if ((prx.v ?? 0) >= 2) return prx;
+  /* v3: level 2's deck went from 2 beats to 3 (ci:2 inserted between the exit
+     order and the arrest), so a best banked under the old deck is out of /3 —
+     the hub would print "2/2" for a level that can no longer produce a /2, and
+     the numerator-only compare can never replace it. Dropped rather than
+     rescaled, for the same reason v2 dropped a removed level instead of
+     remapping it: a 2/2 is not evidence of a 2/3. `done`/`runs` are untouched —
+     the level WAS completed, only its score is no longer expressible.
+     Denominator-guarded, so it is a no-op once a best is already /3. */
+  const dropStaleLevel2Best = (p: RootPractice): RootPractice => {
+    const b = p.best?.[2];
+    if (typeof b !== 'string' || b.split('/')[1] !== '2') return { ...p, v: 3 };
+    const next = { ...p.best };
+    delete next[2];
+    return { ...p, best: next, v: 3 };
+  };
+
+  if ((prx.v ?? 0) >= 3) return prx;
+  if ((prx.v ?? 0) >= 2) return dropStaleLevel2Best(prx);
 
   const shift = <T>(o: Record<string, T> | undefined): Record<string, T> => {
     if (!o) return {};
@@ -155,7 +172,7 @@ export function readRootPractice(): RootPractice {
     if (o[5] !== undefined) n[4] = o[5]; // checkpoint 5 -> 4
     return n;
   };
-  return { ...prx, done: shift(prx.done), runs: shift(prx.runs), best: shift(prx.best), v: 2 };
+  return dropStaleLevel2Best({ ...prx, done: shift(prx.done), runs: shift(prx.runs), best: shift(prx.best), v: 2 });
 }
 
 /** Root's captured document photos. Prefix-validated exactly as root's `docsRestore()` does. */
