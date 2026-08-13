@@ -8,6 +8,17 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.21.3 — 2026-08-13 — "Verified live, not read"
+
+`prx.best` escaped at both `innerHTML` sites (`5468`/`5588` — HANDOFF's cited
+`5451`/`5569` were a release stale), proven with a live injected payload.
+`/app` gets its first ErrorBoundary, above Suspense so a failed lazy chunk
+lands in it; proven by 404ing a real built chunk. Practice-hub and lifelines
+tablists now carry real tab↔tabpanel relationships in root and both `/app`
+ports, `/app` also gaining roving tabindex and arrow-key nav. No content
+change, `EDITION` unmoved. Adds the required Voicebox audio-generation
+workflow doc and the `v2_4` orphan-audio trap.
+
 ## v2.21.2 — 2026-08-13 — "The fix was the bug"
 
 QA fan-out caught a same-day regression: v2.21.0/v2.21.1's denominator-aware

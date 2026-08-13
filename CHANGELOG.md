@@ -6,6 +6,56 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.21.3 — 2026-08-13
+
+v2.21.3 — "Verified live, not read"
+
+Three fixes from the standing task list, each checked in a running browser
+rather than by reading the code — which is what caught that two of the three
+were filed against stale line numbers.
+
+`prx.best` was interpolated unescaped into `innerHTML` at two sites while a
+third escaped it with `esc()`. Self-XSS only, since the value is app-written,
+but the escaped sibling proves the intent and one of the two was on the results
+screen. HANDOFF cited `5451`/`5569`; at v2.21.2 the real sites were **`5468`
+and `5588`** — the numbers had drifted a release. Confirmed by planting an
+`<img onerror>` payload into `prx.best` and rendering both: zero elements
+created, payload rendered as literal text, handler never fired. `5401` was left
+alone on purpose — it is `fillText` on canvas, not `innerHTML`, and escaping it
+would corrupt the certificate image.
+
+`/app` had no ErrorBoundary anywhere, so a throw in any screen white-screened
+it. The new one sits **above** the Suspense boundary rather than inside it,
+because a lazy chunk that fails to load rejects into the nearest boundary above
+the one that suspended — and an offline chunk miss is the likeliest way it ever
+fires. It uses only the already-extracted `t.c_retry`, so the rule that nothing
+user-facing is hand-typed in `/app` still holds, and `console.error` is the
+entire report because `/app` ships zero analytics behind a `connect-src 'self'`
+CSP. Verified by renaming a real built chunk so its import 404s: the shell,
+header and language toggle all survived, the fallback rendered, and restoring
+the chunk let the retry recover the app completely.
+
+The practice hub's tablist announced "tab" with nothing to relate it to — no
+`aria-controls`, and the panel had no `tabpanel` role. Fixed in root and in both
+`/app` ports. The same defect sat one screen over on the lifelines tablist,
+whose `aria-controls` pointed at a `role="group"`; fixed there too rather than
+leaving the sibling broken. `/app` additionally gets roving tabindex and
+arrow/Home/End navigation, which root does not have — a deliberate divergence,
+recorded so it is not later mistaken for drift.
+
+No content moved: the extractor still verifies 2437 strings byte-identical, so
+`EDITION` is unchanged and no attorney badge drops. All four check suites pass.
+`app/` is rebuilt because the build output is committed.
+
+Also lands `notebook/amparo-voice-generation-workflow.md` — the now-required
+process for generating any audio, including the transcribe round-trip and an
+orphan-id trap found today (`v2_4` has clips in all four voice folders and text
+in `VOICE_LINES.md`, but no reference in `index.html`, so reusing that id would
+silently ship audio of different words). HANDOFF corrected on three verified
+points: the `/app` promotion's service-worker landmine, the stale bundle-size
+figures, and that L2 divergence is inert in *both* directions, not just the
+hostile leg.
+
 ## v2.21.2 — 2026-08-13
 
 v2.21.2 — "The fix was the bug"
