@@ -1324,3 +1324,46 @@ diff` on the content banks is clean.
   better run still won (`1/3` → `3/3`). Test state cleared afterward.
 - **`/app`, live**: tab persistence and locked-card behaviour verified as
   described above; no new console errors.
+
+---
+
+## Operator sign-off on the deferred list — 2026-08-13
+
+wargames/15's Move 6.2 abort condition (">10 DEFERRED rows without operator
+sign-off → the beta is a fragment, not a parity candidate") is now
+**cleared**. The operator reviewed and accepted the deferred list; recorded in
+full at the top of `wargames/18-app-parity-report.md`.
+
+Recorded honestly: it was a **bulk** sign-off on the list as a whole, not a
+documented item-by-item review. That distinction is written into the report
+itself so a future reader can't mistake "inside an accepted list" for "this
+specific item was individually decided".
+
+**19 accepted deferrals, not 20** — C6 (practice's entry screen was the wrong
+one) closed in v2.21.0 when the 3-tab hub was rebuilt. The audit's other new
+finding, F5 (print's `beforeprint` debounce / `afterprint` banner), is inside
+the sign-off and stays deferred.
+
+Shape of what was accepted: 12 not-built product-scope decisions (About
+overlay, carry card, share cert, prep-drill first-run gate, resume chip,
+stale-edition banners, `/app` 404, sitemap/og, clickable stepper nodes,
+"I'm stuck" strip, hard-truth overlay, share), 4 built-but-partial (post-print
+rail, print confirmation layer, restart/family/update flows, `skipToPack`),
+2 blocked on an unbuilt calendar channel (`finishLater`, the `.ics` writers),
+and 1 deferred by design (`sr_step_viewed`, because `/app` ships zero
+analytics as an enforced property).
+
+**Explicitly OUTSIDE this sign-off, still open:** `PRX_VAR[2]` and
+`PRX_VAR[7]` have no hostile-tone officer variants, so `PRX_DIVERGE[2]`'s
+bad-pick leg is a silent no-op at both hops on Level 2. This is not a scope
+deferral that can be signed off — it is missing attorney-reviewable content.
+No officer line in this product is ever model-authored (hard rule 1), so this
+stays open until a human supplies the two lines. The exact ask is specified in
+`wargames/21-hub-rebuild-modules.md`: two hostile-tone lines, one for `ci:2`
+(consent-to-search) and one for `ci:7` (arrest), each EN + ES, following the
+existing `PRX_VAR` entry shape (`{en, es, tone:'hostile', id}`).
+
+**Migration status: wargames/15 is closed and `/app` is a parity candidate.**
+What remains is a promotion decision — whether and when `/app` becomes the
+default entry at `/` — plus the accepted deferrals, to be built on their own
+schedule rather than as migration work.

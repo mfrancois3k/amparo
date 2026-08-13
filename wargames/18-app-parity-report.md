@@ -8,6 +8,50 @@ Verification date: 2026-08-12. Repo state: `main` at the commit immediately
 following Move 6.1 (`/app` service worker + manifest), before this report's
 own commit.
 
+---
+
+## ⚑ OPERATOR SIGN-OFF — 2026-08-13
+
+**Status: SIGNED OFF.** The operator reviewed the deferred list below and
+accepted it, clearing wargames/15's ">10 DEFERRED rows" abort condition. `/app`
+is a parity candidate; the remaining deferrals are accepted scope, not
+unknowns.
+
+Recorded exactly as given, so the audit trail stays honest: **this was a bulk
+sign-off on the list as a whole, not a recorded item-by-item review.** Anyone
+later asking "was item B7 individually considered?" should read this as "it was
+inside an accepted list", not as a specific decision about B7.
+
+**One item closed between the audit and the sign-off, so the count is 19, not
+20:** C6 (practice's entry screen was the wrong one) was FIXED in v2.21.0 — the
+3-tab hub was rebuilt, `PracticeLevelSelect.tsx` deleted, verified live in both
+languages. The other new finding from this audit, F5 (print's `beforeprint`
+debounce and `afterprint` banner), remains deferred and is covered by this
+sign-off.
+
+**The 19 accepted deferrals**, grouped by what they actually are:
+
+*Not built, product-scope decisions (12)* — A8 `/app` 404 page · A9 sitemap/og ·
+B1 + B3 + B4 resume chip, share, About entry, clickable stepper nodes · B5
+stale-edition/usage banners · B6 "I'm stuck" strip · B7 About overlay · B8
+hard-truth doc overlay · G1 intro + prep drill first-run gate · G12 carry card ·
+G13 share cert.
+
+*Built but partial (4)* — C5 post-print rail + print-feedback tap · F5
+`beforeprint` debounce + `afterprint` banner · F9 restart / print-for-family /
+update-stale flows · C2 `skipToPack` fast path.
+
+*Blocked on an unbuilt dependency (2)* — C3 `finishLater` and F7 the two `.ics`
+writers; both need the calendar-reminder channel that does not exist in `/app`.
+
+*Deferred by design, not a gap (1)* — C1's `sr_step_viewed` analytics, omitted
+because `/app` ships zero analytics as an enforced property.
+
+**Not covered by this sign-off** (still genuinely open, tracked separately):
+the `PRX_VAR[2]` / `PRX_VAR[7]` missing hostile-tone officer variants. That is a
+content-authoring gap requiring attorney-reviewable dialogue, not a scope
+deferral — see the standing rule that no officer line is ever model-authored.
+
 ## Headline finding first
 
 **Practice's entry point structurally diverges from root's current design.**
@@ -188,6 +232,10 @@ itself uses: **A8, A9(partial), B1(partial), B3(partial), B4(partial),
 B5, B6, B7, B8, C1(partial-analytics-only, by design), C2(skipToPack),
 C3(finishLater), C5(partial), C6, F5(beforeprint/afterprint — new
 finding), F7, F9, G1, G12, G13 — 20 items, well over 10.**
+
+> **RESOLVED 2026-08-13 — signed off by the operator; see the sign-off block
+> at the top of this report. C6 has since been fixed, leaving 19 accepted
+> deferrals.** The paragraph below is preserved as written at audit time.
 
 This audit does NOT stop and silently pass. Per the wargame's own abort
 condition, this is flagged explicitly: **the deferred list above needs
