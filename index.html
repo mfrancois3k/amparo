@@ -3313,8 +3313,8 @@ function render(){
       ${eyebrow()}
       <h1>${_t.l_title}</h1><p class="sub">${_t.l_sub}</p>
       <div class="ll-seg" role="tablist">
-        <button type="button" role="tab" id="llTab0" class="on" aria-selected="true" aria-controls="llTrack" onclick="llTab(0)">${_t.seg_lines}</button>
-        <button type="button" role="tab" id="llTab1" aria-selected="false" aria-controls="llTrack" onclick="llTab(1)">${_t.seg_covers}</button>
+        <button type="button" role="tab" id="llTab0" class="on" aria-selected="true" aria-controls="llTrack" onkeydown="llTabKey(event,0)" onclick="llTab(0)">${_t.seg_lines}</button>
+        <button type="button" role="tab" id="llTab1" aria-selected="false" aria-controls="llTrack" onkeydown="llTabKey(event,1)" onclick="llTab(1)">${_t.seg_covers}</button>
       </div>
       <div class="ll-track" id="llTrack" tabindex="0" role="tabpanel" aria-label="${_t.ll_aria}"></div>
       <div class="ll-nav" id="llNav"></div>
@@ -3929,11 +3929,35 @@ function llTab(i,skipEvent){
   nav.innerHTML = items.map((_,n)=>`<button type="button" class="ll-dot${n===0?' on':''}" aria-label="${_t.ll_dot.replace('{n}',n+1)}" onclick="llGo(${n})"></button>`).join('')
     + `<span class="ll-count" id="llCount" aria-live="polite">${_t.ll_count.replace('{n}',1).replace('{t}',items.length)}</span>`;
   foot.textContent = i===0 ? (_t.ll_tap+' · '+_t.l_more) : '';
+  /* Found by loop QA 2026-08-13: hub's tablist got roving tabindex + arrow
+     nav (hubTabKey) when its focus bug was fixed, but this sibling tablist —
+     same CSS class, same commit era — never got the keyboard half at all.
+     llTab() already patches these buttons in place rather than recreating
+     them, so there's no focus-loss problem to solve here, just the missing
+     attribute + handler. */
   ['llTab0','llTab1'].forEach((id,n)=>{const b=document.getElementById(id);
-    if(b){ b.classList.toggle('on',n===i); b.setAttribute('aria-selected',n===i?'true':'false'); }});
+    if(b){ b.classList.toggle('on',n===i); b.setAttribute('aria-selected',n===i?'true':'false');
+      b.setAttribute('tabindex',n===i?'0':'-1'); }});
   tr.scrollLeft=0;
   tr.addEventListener('scroll',llSync,{passive:true});
   if(!skipEvent) ph('sr_lifelines_tab',{tab:i===0?'lifelines':'covers',lang:lang});
+}
+/* Arrow/Home/End across this tablist, matching hubTabKey and the ARIA APG
+   Tabs pattern. Automatic activation (moving = selecting), same as the
+   existing click behaviour. Focus the new tab explicitly: unlike hub, the
+   button node survives the update (llTab() patches in place), but focus
+   doesn't follow a tabindex change on its own — the browser only moves focus
+   there if something asks it to. */
+function llTabKey(e,i){
+  const N=2; let n=null;
+  if(e.key==='ArrowRight') n=(i+1)%N;
+  else if(e.key==='ArrowLeft') n=(i+N-1)%N;
+  else if(e.key==='Home') n=0;
+  else if(e.key==='End') n=N-1;
+  if(n===null) return;
+  e.preventDefault();
+  llTab(n);
+  const b=document.getElementById('llTab'+n); if(b) b.focus();
 }
 /* Dots follow the swipe; tapping a dot scrolls to that card. Scroll position is
    the single source of truth — no duplicated "current index" state to drift. */
