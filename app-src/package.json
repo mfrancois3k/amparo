@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "verify:content": "node ../tools/extract-app-content.mjs --verify",
+    "build": "npm run verify:content && tsc -b && vite build",
+    "check": "npm run verify:content && npx tsx ../tools/app-storage-check.mts && node ../tools/sw-routing-check.mjs && npx tsx ../tools/practice-engine-check.mts",
     "lint": "oxlint",
     "preview": "vite preview"
   },

@@ -1,7 +1,11 @@
 /* Practice engine screen (step 5). wargames/15 Move 5.2. Orchestrates
- * practiceEngine.ts + usePracticeAudio against PracticeLevelSelect /
- * PracticeBeat / PracticeDebrief. Ported from index.html:5418-5643
- * (practiceRender), 4866-4890 (prxSpeak call sites).
+ * practiceEngine.ts + usePracticeAudio against PracticeHub / PracticeBeat /
+ * PracticeDebrief. Ported from index.html:5418-5643 (practiceRender),
+ * 4866-4890 (prxSpeak call sites), 3420-3483 (the hub).
+ *
+ * The IDLE phase renders the HUB (root's step-5 module tabs), not the flat
+ * level list this originally shipped with — see PracticeHub.tsx for why that
+ * was wrong and why there is now only one level-enumeration screen.
  */
 import { useEffect, useRef, useState } from 'react'
 import type { Bank } from '../i18n'
@@ -14,7 +18,7 @@ import {
 } from '../engine/practiceEngine'
 import { usePracticeAudio, isCrisisText } from '../engine/usePracticeAudio'
 import { PRX_CRISIS } from '../content/practice.json'
-import { PracticeLevelSelect } from './practice/PracticeLevelSelect'
+import { PracticeHub } from './practice/PracticeHub'
 import { PracticeBeat } from './practice/PracticeBeat'
 import { PracticeDebrief } from './practice/PracticeDebrief'
 import '../styles/practice.css'
@@ -124,11 +128,11 @@ export function PracticeStep({ t, onBack }: Props) {
         ) : null}
       </div>
 
+      {/* The hub renders root's own `hub_title`/`hub_sub` heading pair, so the
+          generic `prx_title` heading this screen used with the flat list is
+          gone — root's step 5 never showed it. */}
       {state.phase === 'IDLE' ? (
-        <>
-          <h1>{t.prx_title}</h1>
-          <PracticeLevelSelect t={t} progress={state.progress} onPick={selectLevelHandler} />
-        </>
+        <PracticeHub t={t} progress={state.progress} onPick={selectLevelHandler} onBack={onBack} />
       ) : null}
 
       {state.phase === 'PRE_FLIGHT' ? (

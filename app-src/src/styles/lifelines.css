@@ -10,11 +10,12 @@
 .st-pill .cf-shape{width:22px;height:22px}
 .sp-nm{font-size:12px;font-weight:700;color:var(--muted)}
 
-.ll-seg{display:flex;gap:6px;background:#f3f0e6;border-radius:12px;padding:4px;margin-top:12px}             /* :373 */
-.ll-seg button{flex:1;border:0;background:transparent;border-radius:9px;padding:9px 6px;
-  font-family:inherit;font-size:13px;font-weight:800;color:var(--muted);cursor:pointer;
-  min-height:40px;transition:background .25s var(--ease-out),color .25s var(--ease-out)}                    /* :374 */
-.ll-seg button.on{background:var(--white);color:var(--navy);box-shadow:0 2px 6px rgba(27,42,74,.1)}         /* :377 */
+/* .ll-seg moved to shell.css — root treats it as ONE shared segmented-control
+   grammar, not a lifelines-local style ("Reuses the .ll-seg segmented control
+   already established on step 3 rather than inventing a second tab grammar",
+   index.html:3430). It now has two consumers here too (this screen and the
+   practice hub), and the practice chunk cannot see a style that only loads
+   with the lifelines chunk. */
 
 .ll-track{display:flex;gap:11px;overflow-x:auto;scroll-snap-type:x mandatory;
   -webkit-overflow-scrolling:touch;scrollbar-width:none;padding:3px 1px 5px;margin-top:10px}                /* :380 */

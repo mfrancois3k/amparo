@@ -1105,3 +1105,110 @@ operator; the answer was to leave it open, logged, same as before.
   paths not served by the isolated dev server) and the pre-existing
   browser-TTS CSP worker warning (noted in Move 5.2's log, unrelated to
   this change).
+
+---
+
+## Practice hub rebuilt — the parity audit's #1 finding, closed
+
+wargames/18's parity audit found `/app` had ported the WRONG screen as its
+practice entry: the practice overlay's internal flat fallback list
+(index.html:5445-5454) instead of root's actual step-5 hub
+(index.html:3420-3483). wargames/19 and focus group 12 independently
+re-confirmed it. Root splits the Border Patrol checkpoint into its own tab
+precisely because it "was reading as just another traffic level buried at
+the end of the ladder" (index.html:3435-3439) — and the flat list is the
+exact shape it was split OUT of. Now rebuilt.
+
+### What shipped
+- `screens/practice/PracticeHub.tsx` (new) — root's three module tabs
+  (Traffic stop / Checkpoint / At your door, in root's own order), the
+  traffic-only progress bar counting the four numbered rungs, checkpoint's
+  own context note in place of that bar, the door tab's honest
+  "Not built yet — and we won't fake it" panel, the 2-up `.pr-grid` card
+  layout with lock/done/score states, and root's green pick-pulse before
+  navigation (skipped under `prefers-reduced-motion`, where there is no
+  pulse to see and the delay would just be latency).
+- `screens/practice/PracticeLevelSelect.tsx` — **deleted**, not left
+  reachable. Root needs two level screens because its practice overlay is a
+  modal covering the hub; `/app`'s practice is a route, so there is only one
+  place to return to. Keeping the flat list as the in-run "← All scenarios"
+  destination would have reintroduced the mixed-in checkpoint one click
+  deeper — the same bug, just hidden better. That link now returns to the
+  hub.
+- `.ll-seg` moved from `styles/lifelines.css` to `styles/shell.css`. Root
+  treats it as ONE shared segmented-control grammar across the lifelines
+  tabs and the hub tabs, deliberately ("rather than inventing a second tab
+  grammar", index.html:3430); in `/app` it was trapped in the lifelines lazy
+  chunk, invisible to the practice chunk. It now has two real consumers, so
+  it belongs in the shared sheet.
+- `styles/practice.css` gained the hub block (`.pr-grid`/`.pr-card`/
+  `.hub-progress`/`.pilot`), ported from index.html:346-372, 76.
+
+### Real bug found by focus group 13 and fixed: stale "best" score
+Root compares best scores by NUMERATOR ONLY —
+`sc > parseInt(prx.best[lvl])` (index.html:5484) — which is fine while a
+level's denominator never changes. Level 2's denominator just changed (2
+beats → 3). So a returning player's stored `"2/2"` (a perfect run on the
+OLD deck) survives a `"2/3"`, and the hub would display a best score the
+level can no longer produce. Reproduced before fixing:
+`parseInt("2/2") === 2`, new run scores 2 → `2 > 2` is false → stale value
+kept; only a `3/3` could ever displace it.
+
+Fixed in `practiceEngine.ts`'s `completeRun`: a stored best whose
+denominator differs from the current run's length was recorded against a
+different deck shape, so it is *incomparable*, not unbeaten — replace it
+outright. Root's numerator compare is preserved for the normal same-shape
+case. Regression check added covering both directions (stale value gets
+replaced; a genuinely worse same-shape run still does not displace a best).
+
+### Two agent reports disagreed — checked the source myself
+The module review (wargames/20) claimed the new `ci:3 → ci:2` divergence hop
+is "fully live (both curt and hostile variants exist)". Focus group 13
+claimed the opposite. Verified directly against `practice.json`:
+`PRX_VAR[2]` tones are `[calm, calm, curt, curt]` — **no hostile variant**.
+The focus group is right, the module review is wrong. Actual state of
+`PRX_DIVERGE[2]` (`{g:'curt', b:'hostile'}`) on the 3-beat deck:
+- good-pick leg (wants `curt`): live at both hops — `ci:2` and `ci:7` both
+  have curt variants.
+- bad-pick leg (wants `hostile`): **dead at both hops** — neither `ci:2` nor
+  `ci:7` has a hostile variant.
+
+So the Level 2 fix did not create a new problem; it widened the footprint of
+the already-open `PRX_VAR` hostile-variant content gap from one dead hop to
+two. Same category as the `PRX_VAR[7]` item the operator explicitly chose to
+leave open (fixing it requires authoring new officer dialogue, which this
+project never does). Logged here as an extension of that item, now known to
+cover `ci:2` as well as `ci:7`.
+
+### Blind-spot audit MEDIUM fixed: content drift had no automated gate
+The audit found `extract-app-content.mjs --verify` had no CI job, no git
+hook, and no npm script — sync between root and `/app`'s content banks
+depended entirely on a human remembering to re-run it. That gap was
+harmless while root was locked from edits; the Level 2 fix made root
+editable, which gave it teeth.
+
+`--verify` now runs as the FIRST step of `npm run build`, so a build cannot
+succeed against drifted content. Also added `npm run check` to run all four
+suites in one command. Proved the gate actually bites rather than assuming
+it: injected drift (reverted `/app`'s `PRX_LEVELS[2].ids` to `[3,7]` while
+leaving root at `[3,2,7]`) and confirmed the build exits 1 with
+`FAIL practice.json — differs from a fresh extraction (drift)`, then
+restored and re-verified green.
+
+### Verification
+- `npm run check` — all four suites PASS (content verify, storage 13,
+  sw-routing 12, practice-engine 20 including the two new regression checks).
+- `tsc -b && vite build` + `oxlint` — clean. Entry chunk 93.03 kB gz
+  (unchanged); `PracticeStep` chunk 18.20 kB gz (+0.35 for the hub, minus
+  the deleted flat list).
+- Live, both languages: hub renders root's heading pair; all three tabs
+  switch with correct `aria-selected`; traffic tab lists exactly the four
+  numbered rungs with **checkpoint correctly absent**; checkpoint tab shows
+  its own note and only its own card; door tab shows the honest unbuilt
+  panel; progress bar tracked 0/4 → 1/4 (0% → 25%) after a real run; the
+  pick-pulse lands before navigation; "← All scenarios" returns to the HUB;
+  a completed level shows ✓ + Done badge + `🟩 3/5`; Hard mode's stored
+  `3/3` stays suppressed as "Done" (`PRX_UNSCORED` guard); Level 2 displays
+  `🟩 2/3` with the correct new denominator. Spanish verified equivalently
+  ("Ahora ensáyalo.", "Parada de tráfico / Retén / En tu puerta",
+  "4 de 4 completados", "Volver a mi paquete"). Zero new console errors.

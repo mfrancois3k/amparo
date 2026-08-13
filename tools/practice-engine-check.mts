@@ -153,6 +153,28 @@ check('completing a scored level writes runs/done/best/streak; unscored levels n
   assert.equal(s2.progress.runs[0], 1);
 });
 
+check('a stored best from a DIFFERENT deck length is replaced, not compared (stale-best)', () => {
+  // "2/2" is a perfect run under the OLD 2-beat level 2. Under the current
+  // 3-beat deck it is incomparable, not unbeaten — root's numerator-only
+  // compare would keep it forever and display a score the level cannot produce.
+  const stale = { ...emptyProgress(), done: { 0: true, 1: true, 2: true }, best: { 2: '2/2' } };
+  let s = selectLevel(initialState(stale), 2, FIXED_DATE, seededRng(1));
+  s = confirmWarn(s);
+  s = officerFinished(s);
+  assert.equal(s.deck.length, 3);
+  for (let i = 0; i < 3; i++) { s = pick(s, i === 0); s = advance(s, FIXED_DATE, seededRng(1)); }
+  assert.equal(s.phase, 'DEBRIEF');
+  assert.equal(s.progress.best[2], '1/3', 'stale 2/2 must be replaced by the current-shape result');
+
+  // Same-shape runs still use root's compare: a worse score must NOT overwrite.
+  const fresh = { ...emptyProgress(), done: { 0: true, 1: true, 2: true }, best: { 2: '3/3' } };
+  let s2 = selectLevel(initialState(fresh), 2, FIXED_DATE, seededRng(1));
+  s2 = confirmWarn(s2);
+  s2 = officerFinished(s2);
+  for (let i = 0; i < 3; i++) { s2 = pick(s2, false); s2 = advance(s2, FIXED_DATE, seededRng(1)); }
+  assert.equal(s2.progress.best[2], '3/3', 'a worse same-shape run must not displace the best');
+});
+
 check('cbDay is stamped only when the completed run actually dealt a curveball', () => {
   const withCurve = { ...emptyProgress(), runs: { 0: 1 } }; // 2nd run of level 0 -> curveball deal
   let s = selectLevel(initialState(withCurve), 0, FIXED_DATE, seededRng(1));

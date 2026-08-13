@@ -22,6 +22,37 @@
 @keyframes bubbleIn{from{opacity:0;transform:translateY(6px) scale(.97)}to{opacity:1;transform:none}}
 @keyframes lockPulse{0%,100%{color:var(--muted);transform:scale(1)}40%{color:var(--navy);transform:scale(1.05)}}
 
+/* ---- practice hub (step 5 entry) ---- index.html:346-372, 76 ----
+   The module tabs' own control (.ll-seg) is in shell.css, shared with the
+   lifelines tabs exactly as root shares it. */
+.pr-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.pr-card{display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;
+  border:1.5px solid var(--line);border-radius:14px;padding:14px 13px;background:#fffdf8;
+  cursor:pointer;font-family:inherit;min-height:96px;transition:transform .25s var(--ease-spring),border-color .22s,box-shadow .25s var(--ease-out)}
+.pr-card:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:0 6px 16px rgba(232,184,75,.16)}
+/* Selection beat: the tapped card confirms green BEFORE the next screen
+   replaces it — root's note is about its overlay swallowing the tap, and a
+   route swap here does the same thing. One pulse, ~quarter second. */
+.pr-card.picked{border-color:var(--ok);box-shadow:0 0 0 3px rgba(47,143,91,.35),0 6px 16px rgba(47,143,91,.22)}
+.pr-card.picked{animation:prPicked .26s var(--ease-spring)}
+@keyframes prPicked{0%{transform:scale(1)}45%{transform:scale(1.04)}100%{transform:scale(1)}}
+.pr-card.lock{opacity:.55;cursor:default}
+.pr-card.lock:hover{transform:none;border-color:var(--line);box-shadow:none}
+.pr-card.done{border-color:#bcd8c2;background:#f4faf5}
+.pr-card .pr-ic{font-size:18px;line-height:1}
+.pr-card.done .pr-ic{color:var(--ok)}
+.pr-card .pr-nm{font-size:14px;font-weight:900;color:var(--navy);line-height:1.25}
+.pr-card .pr-st{font-size:11.5px;font-weight:800;color:var(--muted);margin-top:auto}
+.pr-card.done .pr-st{color:var(--ok)}
+.pr-donebadge{font-size:9.5px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;color:var(--ok);background:#dcefe1;border-radius:99px;padding:2px 7px;align-self:flex-start}
+.hub-progress{display:flex;align-items:center;gap:9px;margin-top:12px;font-size:12.5px;font-weight:800;color:var(--muted)}
+.hub-progress .bar{flex:1;height:6px;border-radius:99px;background:#ede8da;overflow:hidden}
+.hub-progress .bar i{display:block;height:100%;background:var(--ok);border-radius:99px;transition:width .4s var(--ease-out)}
+/* .pilot is root's notice block (index.html:76); the hub overrides its gold
+   gradient to the blue-grey informational variant inline, same as root does. */
+.pilot{background:linear-gradient(90deg,var(--gold-soft),#f7e3ae);border:1px solid var(--gold);border-radius:13px;padding:9px 14px;font-size:13.5px;color:#6b4d0d;margin:10px 0 4px;text-align:center;font-weight:700}
+.pilot.info{background:#eef1f7;border-color:#c3cde0;text-align:left;color:var(--ink)}
+
 /* ---- level select ---- */
 .prx-list{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
 .prx-lcard{display:flex;align-items:center;gap:12px;text-align:left;border:2px solid var(--line);background:var(--white);border-radius:14px;padding:10px 14px 10px 16px;cursor:pointer;font-family:inherit;position:relative;overflow:hidden;transition:transform .25s var(--ease-spring),border-color .25s}

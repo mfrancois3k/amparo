@@ -285,8 +285,19 @@ function completeRun(state: EngineState, now: Date): EngineState {
     ? progress.streak
     : { last: today, n: progress.streak.last === yesterday ? progress.streak.n + 1 : 1 }
   const score = state.run.filter((x) => x === 'g').length
-  const prevBest = progress.best[level] ? parseInt(progress.best[level], 10) : -1
-  const best = !PRX_UNSCORED.has(level) && score > prevBest
+  /* Root compares numerators only (`sc>parseInt(prx.best[...])`,
+     index.html:5484) — fine while a level's denominator never changes, which
+     was true until Level 2 went from 2 beats to 3. A stored "2/2" (perfect on
+     the old deck) then survives a "2/3", so the hub shows a best the level can
+     no longer produce. A best recorded against a DIFFERENT deck length isn't a
+     worse score, it's an incomparable one: replace it outright, and only fall
+     back to root's numerator compare when the shapes actually match.
+     Found by focus group 13 reading this against the Level 2 fix. */
+  const stored = progress.best[level]
+  const storedTotal = stored ? Number(stored.split('/')[1]) : NaN
+  const comparable = !!stored && storedTotal === state.run.length
+  const beats = comparable ? score > parseInt(stored, 10) : true
+  const best = !PRX_UNSCORED.has(level) && beats
     ? { ...progress.best, [level]: `${score}/${state.run.length}` }
     : progress.best
   const nextProgress: PracticeProgress = {
