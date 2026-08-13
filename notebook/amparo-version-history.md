@@ -8,6 +8,16 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.21.2 — 2026-08-13 — "The fix was the bug"
+
+QA fan-out caught a same-day regression: v2.21.0/v2.21.1's denominator-aware
+best-score compare deleted real scores, because run length varies with crisis
+disclosures (shrinks) and curveballs (grows) — including demoting a player for
+using the crisis path. Both apps reverted to the original compare; the genuine
+Level-2 staleness moved to a one-time `v3` migration. Also fixed: hub forgot
+its module tab after a drill, locked cards were keyboard-unreachable, a
+leaked timer, orphaned CSS, and a check script under-reporting its own size.
+
 ## v2.21.1 — 2026-08-13 — "Root gets the same correction"
 
 Second root edit of the migration (`b5ed755`): root had the identical

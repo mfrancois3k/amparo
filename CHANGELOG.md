@@ -6,6 +6,45 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.21.2 — 2026-08-13
+
+v2.21.2 — "The fix was the bug"
+
+A fanned-out QA pass caught a regression shipped to the live product earlier
+today. v2.21.0 and v2.21.1 changed the practice best-score compare to replace
+a stored best whenever its denominator differed from the finished run's — the
+reasoning being that Level 2's 2→3 beat change (v2.20.2) made a banked `2/2`
+permanently unbeatable.
+
+The premise was wrong. The run length is not a fixed property of a level:
+crisis-tier beats are excluded from it, so **disclosing distress shrinks the
+denominator**, and the daily curveball adds a beat on the first two levels, so
+replaying **grows** it. The rule therefore fired during ordinary play and
+deleted real scores — a `5/5` overwritten by a `1/6` on a routine replay, and
+a `3/3` replaced by a `2/2` after a player typed a crisis phrase. That second
+case is the one that matters: the app demoted someone for using the crisis
+disclosure, which is the last thing here that should ever cost anyone
+anything. Before the change, both scores survived.
+
+Both apps are reverted to the original compare, which also closes a
+root-vs-`/app` divergence on malformed stored values that the same review
+found (root tolerated them; `/app` threw, and has no error boundary). The
+genuine staleness problem is now handled where it belongs — a one-time
+migration alongside the existing one, dropping a Level 2 best that can no
+longer be expressed while keeping the completion and run count. The old test
+asserted the wrong behaviour and was rewritten to pin the right invariant: a
+worse run never displaces a best, whatever the denominators.
+
+Also fixed from the same review wave: the practice hub forgot which module tab
+you came from after a drill (finish a Checkpoint, return, land on the traffic
+ladder — the exact thing the tab split exists to prevent); locked scenario
+cards used the native `disabled` attribute, which dropped them out of the
+keyboard tab order and suppressed the only text explaining the lock; a
+leftover timer, some CSS orphaned by last release's deletion, and a check
+script that under-reported its own size.
+
+No EDITION bump — no legal content touched.
+
 ## v2.21.1 — 2026-08-13
 
 v2.21.1 — "Root gets the same correction"
