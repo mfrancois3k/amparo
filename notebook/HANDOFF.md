@@ -256,11 +256,31 @@ inflated. Re-read the funnel over a clean window before treating it as exact.
      ci 2 / ci 7 have *only* curt variants, so the "already there" short-circuit
      fires first. Authoring `v2_4`/`v7_4` fixes the bad leg; the good leg stays
      a structural no-op regardless.
-   - **`v2_4` is not a blank slate.** An EN line for that id already exists at
-     `tools/VOICE_LINES.md:47`, with audio in **all four** voice folders dated
-     2026-07-22/23, and **no reference in `index.html`** — an orphan. Reusing
-     the id ships stale audio of different words and no check catches it. There
-     is no `v7_4` line and no `v7_4` audio. See
+   - **HALF OF TASK 1 IS NOT AN AUTHORING TASK. Found 2026-08-13.** The `ci:2`
+     consent-to-search hostile line **already exists, human-authored, EN+ES**,
+     and was deleted from `PRX_VAR` by `f205531` (2026-08-03) as "unreachable":
+     ```
+     {en:"If there's nothing in there, this takes two minutes. Can I search it or not?",
+      es:"Si no hay nada ahí, esto toma dos minutos. ¿Puedo revisar o no?", tone:"hostile"}
+     ```
+     Its audio is still in the tree in **all four** voice folders, and
+     round-tripping it through `voicebox.transcribe` returns that exact EN text
+     and the ES text modulo Whisper's dropped `¿`/`?`. So the audio matches the
+     line and is ready to use. **This is a restore decision for you, not a
+     writing task, and hard rule 1 is not engaged** — it is your own previously
+     shipped content, recoverable verbatim from git.
+   - **The circular history worth knowing:** the v2.7.2 level merge made 8
+     hostile lines unreachable → `f205531` pruned them → v2.14.0 then added
+     divergent turns, the feature that would have reached them. The lines were
+     deleted for being unreachable and then a feature was built that needed them.
+   - **`ci:7` (arrest, `v7_4`) is genuinely empty.** Beat 7 was never in the
+     pruned set (0, 1, 2, 4, 8 were). No line, no audio. That half is real
+     authoring and still blocked on you.
+   - **Also pruned, also still have audio:** `v0_4`, `v0_5`, `v1_4`, `v1_5`,
+     `v4_4` (text in `tools/VOICE_LINES.md`), plus `v8_4`/`v8_5` — which have
+     **EN audio but no text anywhere in the working tree**, recoverable only
+     from `f205531` or by transcription. Nothing in `tools/` checks audio
+     against the bank, which is why this sat unnoticed. See
      `notebook/amparo-voice-generation-workflow.md`.
 9. **Checkpoint has no variant pool, no curveball, no divergence** — flagged in
    `wargames/12`, re-confirmed in `wargames/21`: it is a tab, not yet a module.
