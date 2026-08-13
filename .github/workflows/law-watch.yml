@@ -28,7 +28,15 @@ jobs:
         run: |
           set +e
           node tools/law-watch.mjs | tee check.log
-          echo "changed=$?" >> "$GITHUB_OUTPUT"
+          # PIPESTATUS[0], not $? -- $? is *tee's* exit code, which is always 0.
+          # law-watch.mjs's exit code is the entire "a statute changed" signal
+          # (law-watch.mjs:145), so reading tee's instead meant `changed` was
+          # permanently 0 and the review-issue step below could never fire.
+          # GitHub's default `run:` shell is `bash -e {0}` with no pipefail, so
+          # the pipeline does not propagate it either. Silent since the workflow
+          # was written; the site badge still flipped, so only the channel to a
+          # person was dead.
+          echo "changed=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
           exit 0
 
       - name: Commit the refreshed status

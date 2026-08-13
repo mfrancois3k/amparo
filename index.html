@@ -3438,9 +3438,9 @@ function render(){
            another traffic level buried at the end of the ladder), and the
            still-unbuilt door module. -->
       <div class="ll-seg" role="tablist">
-        <button type="button" role="tab" id="hubTab0" class="${_hubTab===0?'on':''}" aria-selected="${_hubTab===0}" aria-controls="hubPanel" onclick="hubTab(0)">${_t.hub_m1}</button>
-        <button type="button" role="tab" id="hubTab1" class="${_hubTab===1?'on':''}" aria-selected="${_hubTab===1}" aria-controls="hubPanel" onclick="hubTab(1)">${_t.hub_m3}</button>
-        <button type="button" role="tab" id="hubTab2" class="${_hubTab===2?'on':''}" aria-selected="${_hubTab===2}" aria-controls="hubPanel" onclick="hubTab(2)">${_t.hub_m2}</button>
+        <button type="button" role="tab" id="hubTab0" class="${_hubTab===0?'on':''}" aria-selected="${_hubTab===0}" aria-controls="hubPanel" tabindex="${_hubTab===0?0:-1}" onkeydown="hubTabKey(event,0)" onclick="hubTab(0)">${_t.hub_m1}</button>
+        <button type="button" role="tab" id="hubTab1" class="${_hubTab===1?'on':''}" aria-selected="${_hubTab===1}" aria-controls="hubPanel" tabindex="${_hubTab===1?0:-1}" onkeydown="hubTabKey(event,1)" onclick="hubTab(1)">${_t.hub_m3}</button>
+        <button type="button" role="tab" id="hubTab2" class="${_hubTab===2?'on':''}" aria-selected="${_hubTab===2}" aria-controls="hubPanel" tabindex="${_hubTab===2?0:-1}" onkeydown="hubTabKey(event,2)" onclick="hubTab(2)">${_t.hub_m2}</button>
       </div>
       <!-- One shared panel for all three tabs: hubTab() re-renders the whole hub,
            so the panel's contents are swapped rather than three panels toggled.
@@ -3867,7 +3867,32 @@ function lifeContact(p){
 let _llTab=0;
 /* Which practice MODULE the hub is showing. Same reasoning. */
 let _hubTab=0;
-function hubTab(i){ _hubTab=i; ph('sr_hub_module',{module:['traffic','checkpoint','door'][i]||'traffic',lang:lang}); render(); }
+/* render() rebuilds the whole card via innerHTML, so the button that was just
+   activated is a DIFFERENT node afterwards and focus lands on <body> — a
+   keyboard user loses their place and is dropped back at the top of the
+   document. llTab() avoids this by patching in place; the hub can't, because
+   changing tab changes the whole panel. So restore focus explicitly after the
+   rebuild. Without this the role="tab" markup announces a tabs contract the
+   hub doesn't actually honour. */
+function hubTab(i){
+  _hubTab=i;
+  ph('sr_hub_module',{module:['traffic','checkpoint','door'][i]||'traffic',lang:lang});
+  render();
+  const b=document.getElementById('hubTab'+i); if(b) b.focus();
+}
+/* Arrow/Home/End across the tab strip, matching /app's PracticeHub and the
+   ARIA APG Tabs pattern. Automatic activation (moving = selecting), which is
+   what the existing click behaviour already does. */
+function hubTabKey(e,i){
+  const N=3; let n=null;
+  if(e.key==='ArrowRight') n=(i+1)%N;
+  else if(e.key==='ArrowLeft') n=(i+N-1)%N;
+  else if(e.key==='Home') n=0;
+  else if(e.key==='End') n=N-1;
+  if(n===null) return;
+  e.preventDefault();
+  hubTab(n);
+}
 /* Both segments feed ONE track. Deliberately NOT gated: Continue stays live from
    the moment the step opens. The only real completed-funnel user in this product's
    history said "I skip all of that" — a rule that forces someone to swipe through
@@ -5800,7 +5825,20 @@ if('serviceWorker' in navigator&&location.protocol==='https:'){
     if(!navigator.serviceWorker.controller) return;
     if(_swReloaded) return; _swReloaded=true; location.reload();
   });
-  navigator.serviceWorker.register('sw.js').then(reg=>{ try{ reg.update(); }catch(e){} return navigator.serviceWorker.ready; }).then(()=>{
+  /* The chip claims "Saved on this device — works without internet." It used to
+     appear on `serviceWorker.ready` alone, which only means a worker is ACTIVE —
+     it says nothing about whether anything was actually cached. sw.js's install
+     swallows every cache failure (`c.add(...).catch(()=>{})` twice) so that it
+     can activate on a partial precache rather than not at all; the cost is that
+     `ready` resolves even when the shell was never stored, and the chip then
+     promised offline support that did not exist. That is the same shape as the
+     badge that read "sources auto-checked daily" while all four sources were
+     403ing — a claim outliving the thing it claimed about, which is hard rule 3.
+     Ask the cache directly instead of inferring it. */
+  navigator.serviceWorker.register('sw.js').then(reg=>{ try{ reg.update(); }catch(e){} return navigator.serviceWorker.ready; })
+    .then(()=>caches.match('./'))
+    .then(hit=>{
+    if(!hit) return;   // worker is live but the shell isn't cached — say nothing
     const el=document.getElementById('offlineReady');
     if(el){ el.textContent=t().offline_ready; el.style.display='block'; }
   }).catch(()=>{});

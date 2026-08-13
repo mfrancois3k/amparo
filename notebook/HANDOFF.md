@@ -322,6 +322,67 @@ inflated. Re-read the funnel over a clean window before treating it as exact.
     and language toggle survived, "Try again" fallback rendered, and after
     restoring the chunk the retry recovered the app fully.
 
+## Found by the v2.21.3 loop — 2026-08-13
+
+Three fixed in v2.21.4, four open. All verified against source or a live run,
+not inferred.
+
+**FIXED in v2.21.4:**
+- **The offline chip could lie about the core promise.** It appeared on
+  `serviceWorker.ready`, which only means a worker is *active* — and `sw.js`'s
+  install swallows every cache failure (`c.add(...).catch(()=>{})`, twice) so it
+  activates even on a total precache failure. So "✈️ Saved on this device —
+  works without internet" could show with nothing cached. Same shape as the
+  "sources auto-checked daily" badge that shipped while all four sources 403'd.
+  Now gated on `caches.match('./')`. Verified both directions: cached → chip
+  shows; worker active but shell absent → chip stays silent.
+  *Note `index.html:5789` gates the whole SW block on `location.protocol==='https:'`,
+  so none of this runs on `http://localhost` — test over HTTPS or exercise the
+  chain directly.*
+- **The daily cron's "open a review issue" step has never once fired.**
+  `.github/workflows/law-watch.yml` read `changed=$?` after
+  `node tools/law-watch.mjs | tee check.log` — that is *tee's* exit code, always
+  0. GitHub's default `run:` shell is `bash -e {0}`, no pipefail. Reproduced in
+  a real shell. `law-watch.mjs:145` makes the exit code the entire signal, so
+  the channel to a *person* was dead since the workflow was written. The site
+  badge did still flip, so it was not total silence. Fixed with `${PIPESTATUS[0]}`.
+- **Root's hub tablist destroyed keyboard focus.** `hubTab()` calls `render()`,
+  a full innerHTML rebuild, so the activated button becomes a different node and
+  focus fell to `<body>`. v2.21.3 had added `role="tab"` — the ARIA contract —
+  without the behaviour, which is arguably worse than the plain buttons before
+  it. Now restores focus after render and has roving tabindex + Arrow/Home/End,
+  matching `/app`. Verified live: focus survives activation, selection follows
+  arrows, panel `aria-labelledby` tracks.
+
+**OPEN, needs your call:**
+1. **The "3 printed" in 72→4→3 is "3 opened a print dialog."**
+   `sr_pack_printed` fires inside `beforeprint` (`index.html:4315`→`:4323`).
+   Worse, `afterprint` (`:5846`) fires on **Cancel** too, and commits
+   `hasPrinted=true`, `printedEdition=EDITION`, `persist()`, shows "Pack sent to
+   your printer", demotes the CTA and arms the stale-pack banner. So cancelling
+   the dialog tells the user their pack printed. Fixing it changes the meaning
+   of the funnel you have been measuring — that is a product decision, not a
+   cleanup.
+2. **Georgia has been unreachable 11 of the last 14 days** while the badge reads
+   "Statute sources auto-checked daily." `law-status.json` computes and ships
+   `reachedSources: 3 / sourcesWatched: 4`, and `renderLawCheck` never reads it.
+   The `lastChecked` guard only covers the all-four-fail case. Hard rule 3.
+3. **The ErrorBoundary fallback has no sentence.** `c_retry` is the *camera*
+   retry string (`index.html:2000`); there is no generic error string in the
+   463-key bank. `role="alert"` added so it is at least announced. The real fix
+   is one EN+ES sentence in `index.html` + re-extract — **not** blocked by hard
+   rule 1, since it is UI chrome rather than legal content, but the Spanish is
+   your wording, not a model's.
+4. **The four check suites are 47 assertions and zero behavioural.** Every one
+   passed on a build where root's keyboard nav was broken. Nothing in `tools/`
+   checks audio against the bank either, which is why 8 orphaned clips sat
+   unnoticed. Three prior reviews audited this exact tablist and missed it
+   because the defect was never in the markup.
+
+Also corrected: "2437 strings byte-identical" (used in the v2.21.3 notes) is
+imprecise — the gate reports **2437 verified present, 2292 byte-identical**, the
+rest via source escapes/entities.
+
 ## What was decided and should not be re-litigated
 
 - ~~**No React/Next rebuild.**~~ — **SUPERSEDED 2026-08-11 by operator
