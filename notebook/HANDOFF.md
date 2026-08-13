@@ -56,10 +56,11 @@ REVERTED note below before touching this again).
 - Live at https://www.amparohq.com/ — static, Vercel, no backend anywhere.
 - **A second app now exists at `/app`** — same origin, same repo. See the next
   section. Root at `/` is still the default entry and the live product.
-- `EDITION = "2026-D"` (bumped from `2026-C` on 2026-08-13 to restore `v2_4`,
-  below — currently inert, `isReviewed()` confirmed `false` for every state
-  both before and after, since zero attorneys have a filled entry). An
-  attorney signs a **specific** edition; any legal
+- `EDITION = "2026-E"` (bumped twice on 2026-08-13: `2026-C`→`2026-D` restoring
+  `v2_4`, `2026-D`→`2026-E` restoring `v0_4`/`v0_5`/`v1_4`/`v1_5`/`v4_4` — all
+  below. Both bumps currently inert, `isReviewed()` confirmed `false` for
+  every state both before and after, since zero attorneys have a filled
+  entry). An attorney signs a **specific** edition; any legal
   content change bumps EDITION and automatically drops every attorney badge.
 - **Zero attorneys engaged.** Badge scaffold exists, never filled.
 - TX/GA/NY have real cited statutes. The other 47 + DC show the verified federal
@@ -268,13 +269,25 @@ inflated. Re-read the funnel over a clean window before treating it as exact.
      by this fix. It targets `curt`, and `ci:2`/`ci:7` already have only `curt`
      variants (now plus one `hostile` at `ci:2`), so the "already there"
      short-circuit fires first. Would need a design decision, not a content one.
-   - **Also pruned by `f205531`, also still have audio, NOT restored this
-     round:** `v0_4`, `v0_5`, `v1_4`, `v1_5`, `v4_4` (text in
-     `tools/VOICE_LINES.md`), plus `v8_4`/`v8_5` — **EN audio but no text
+   - ~~**5 more pruned lines with surviving audio.**~~ **RESTORED 2026-08-13,
+     v2.21.7:** `v0_4`, `v0_5` (`ci:0`), `v1_4`, `v1_5` (`ci:1`), `v4_4`
+     (`ci:4`) — same recovery method, text from git, audio round-tripped
+     through `voicebox.transcribe` (all 5, both languages) before restoring.
+     **Read this carefully before assuming these are playable: they are NOT.**
+     Unlike `v2_4`, nothing live reaches them. `prxBuildDeck`'s tone pool is
+     `['calm']` for Level 0 and `['curt']` for Level 1 — hostile is never
+     dealt at either. Divergence only touches Level 2's own deck (`[3,2,7]`),
+     which contains none of `ci` 0, 1, or 4. Verified, not reasoned about:
+     built 500 real decks each for Levels 0 and 1, confirmed none of the five
+     ids were ever drawn. They exist in the bank for attorney review and for
+     whenever the bank/level design changes — not for anyone to point at as
+     evidence the game currently plays them.
+   - **`v8_4`/`v8_5` remain unrestored.** These have **EN audio but no text
      anywhere in the working tree**, recoverable only from `f205531` or by
-     transcription. Ask explicitly if any of these should follow the same
-     restore. Nothing in `tools/` checks audio against the bank, which is why
-     these sat unnoticed. See `notebook/amparo-voice-generation-workflow.md`.
+     transcription (already done once this session, in chat — not yet
+     committed). Ask explicitly if they should follow. Nothing in `tools/`
+     checks audio against the bank, which is why all of this sat unnoticed.
+     See `notebook/amparo-voice-generation-workflow.md`.
 9. **Checkpoint has no variant pool, no curveball, no divergence** — flagged in
    `wargames/12`, re-confirmed in `wargames/21`: it is a tab, not yet a module.
    One fixed 4-beat deck, identical every run.

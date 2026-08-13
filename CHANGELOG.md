@@ -6,6 +6,43 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.21.7 — 2026-08-13
+
+v2.21.7 — "Restored, still dormant"
+
+Restores five more of the eight hostile lines `f205531` pruned on 2026-08-03:
+`v0_4`, `v0_5` (`ci:0`, documents beat), `v1_4`, `v1_5` (`ci:1`, "coming from"
+beat), and `v4_4` (`ci:4`, drinking beat) — at Michael's explicit instruction.
+Same recovery method as v2.21.6's `v2_4`: text taken verbatim from git, not
+model-authored; audio survived the original deletion in all four voice folders
+and was round-tripped through `voicebox.transcribe` — all five lines, both
+languages, ten clips — before restoring. Every transcript matched the source
+text within Whisper's usual noise (dropped punctuation, split enclitic
+pronouns on the Spanish clips), the same class of artifact `v2_4`'s round-trip
+produced, not content drift.
+
+**Unlike `v2_4`, these five are not reachable by anything live today, and this
+release does not claim otherwise.** `prxBuildDeck`'s tone pool is `['calm']`
+for Level 0 and `['curt']` for Level 1 — hostile is never dealt at either.
+Divergence only touches Level 2's own deck (`[3,2,7]`), which contains none of
+`ci` 0, 1, or 4 — the beats these five belong to. Verified rather than
+reasoned about: built 500 real decks each for Levels 0 and 1 and confirmed
+none of the five ids were ever drawn. Each restored entry carries a comment
+saying so plainly, because "present in the bank" is not the same claim as
+"verified playable," and conflating them is exactly what this project's hard
+rule 3 exists to prevent.
+
+`EDITION` moves `2026-D` → `2026-E` per hard rule 4 — new legal-adjacent
+content, regardless of current reachability. Still inert: confirmed live that
+`isReviewed()` returns `false` for every state, both before and after.
+
+`ci:7` (arrest) remains untouched — never in the pruned set, still needs the
+operator to author it. `v8_4`/`v8_5` also remain unrestored: EN audio exists
+with no text anywhere in the working tree, recoverable only from `f205531` or
+by transcription, and were not part of this request.
+
+All four check suites pass.
+
 ## v2.21.6 — 2026-08-13
 
 v2.21.6 — "Restored, not authored"

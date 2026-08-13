@@ -8,6 +8,16 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.21.7 — 2026-08-13 — "Restored, still dormant"
+
+Restores 5 more pruned hostile lines (`v0_4`, `v0_5`, `v1_4`, `v1_5`, `v4_4`) at
+the operator's explicit instruction — same recovery method as v2.21.6, text
+from git, audio round-tripped and confirmed matching before restoring. Unlike
+`v2_4`, confirmed NOT reachable by any live path (Level 0/1 tone pools never
+include hostile; divergence only reaches Level 2's own deck). Verified by
+building 500 real decks and confirming none were ever dealt. `EDITION` →
+`2026-E`, inert. `ci:7` still empty, still needs the operator.
+
 ## v2.21.6 — 2026-08-13 — "Restored, not authored"
 
 Restores the `ci:2` hostile consent-to-search line at the operator's explicit
