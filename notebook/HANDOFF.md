@@ -1,7 +1,14 @@
 # Amparo — session handoff
 
 Paste this whole file as the first message of a new session. Everything in it
-was verified against the repo on 2026-08-11 at tag `v2.15.0`, not remembered.
+was verified against the repo on 2026-08-13 at tag `v2.21.2`, not remembered.
+
+> **Biggest change since the last handoff (v2.15.0):** a React/Vite port of the
+> whole app now exists and is live at `/app`, built by a 7-phase strangler
+> migration that is **complete**. The old handoff said "No React/Next rebuild —
+> do not re-litigate"; the operator explicitly superseded that decision. See
+> **The `/app` strangler** below before you act on anything framework-related.
+> Root `index.html` is still the live product at `/`.
 
 ---
 
@@ -31,6 +38,9 @@ it, and it is the product's only real moat.
 | `notebook/amparo-upl-engagement-memo.md` | UPL legal exposure, drafted, unsent |
 | `notebook/amparo-dv-clinician-engagement-memo.md` | door-module DV safety gate, drafted, unsent |
 | `CHANGELOG.md` | generated from tag annotations |
+| `notebook/amparo-app-migration-log.md` | **the `/app` migration, move by move** — what shipped, what broke, what was deferred. Long, but it is the record |
+| `wargames/15-react-strangler-migration.md` | the migration battle plan (7 phases, ~18 moves) + Appendix A, the full parity inventory |
+| `wargames/18-app-parity-report.md` | the final parity audit + the **operator sign-off** on 19 accepted deferrals |
 
 For the newest work specifically: `notebook/amparo-focus-group-08-divergent-turns.md`,
 `wargames/12-divergent-turns-modules.md`, and
@@ -40,9 +50,11 @@ For the door module's research trail: `wargames/10-final-boss-module-scaffold.md
 `notebook/amparo-door-raid-research-2026-08-04.md` (six bodycam videos, see the
 REVERTED note below before touching this again).
 
-## Current state — verified at v2.15.0, 2026-08-11
+## Current state — verified at v2.21.2, 2026-08-13
 
 - Live at https://www.amparohq.com/ — static, Vercel, no backend anywhere.
+- **A second app now exists at `/app`** — same origin, same repo. See the next
+  section. Root at `/` is still the default entry and the live product.
 - `EDITION = "2026-C"`. An attorney signs a **specific** edition; any legal
   content change bumps EDITION and automatically drops every attorney badge.
 - **Zero attorneys engaged.** Badge scaffold exists, never filled.
@@ -82,6 +94,51 @@ REVERTED note below before touching this again).
   batch was generated in v2.9.0 and then deleted in the revert below — do not
   expect to find it.)
 - No payment integration. No Stripe. No Convex deployed (chosen, not built).
+
+## The `/app` strangler — read before any framework/port work
+
+A full React 19 + Vite + TypeScript port of the app lives at `/app`. The
+migration (`wargames/15`) is **complete**: all moves 0.1 → 6.2 shipped,
+verified, and logged. It supersedes the old "no rebuild" decision.
+
+**Shape of it:**
+- Source in `app-src/`. Built output is **committed** to `app/` — the Vercel
+  project is zero-config static with no build step, so the build must be in the
+  repo. There is deliberately **no root `package.json`** (it would trip Vercel's
+  framework auto-detection and put root deploys at risk).
+- `app-src/` has its own `package.json`. Useful scripts:
+  - `npm run check` — runs all four check suites at once
+  - `npm run build` — **gated on the content verifier**; fails on content drift
+  - `npm run lint` / `npm run dev` / `npm run preview`
+- Four check suites in `tools/`: `extract-app-content.mjs --verify` (content),
+  `app-storage-check.mts` (14), `sw-routing-check.mjs` (12),
+  `practice-engine-check.mts` (21).
+
+**The non-negotiable rule of the port:** every user-facing string, officer line,
+statute and legal phrase in `/app` is **mechanically extracted** from
+`index.html` by `tools/extract-app-content.mjs` into `app-src/src/content/*.json`
+and verified byte-identical. Nothing user-facing is ever hand-typed in `/app`.
+If you change content, change it in `index.html` and re-run the extractor.
+
+**Other invariants, all enforced not just asserted:**
+- `/app` writes only `app_*` localStorage keys. Root's six keys are read-only
+  from `/app`, enforced by shape — `services/storage.ts` exposes no generic
+  key writer.
+- `/app` ships **zero analytics** (root has PostHog). Enforced by its own
+  stricter CSP (`connect-src 'self'`) in `app-src/index.html`, not just tested.
+- `/app` has its own service worker scoped `/app/`, with cache names
+  (`app-audio-v1`, `app-img-v1`) deliberately **not** starting with `amparo-`,
+  because root's `sw.js` activate handler deletes every cache matching that
+  prefix. That collision was a real shipped bug; don't reintroduce it.
+- `/audio` and `/img` are **shared** with root by absolute path, never
+  duplicated into `app-src/public`.
+
+**Parity:** signed off. `wargames/18` lists 19 accepted deferrals (About
+overlay, carry card, share cert, prep-drill first-run gate, post-print rail,
+`.ics` writers, etc.). They are accepted scope, not unknowns.
+
+**Not done, and deliberately so:** `/app` is **not** the default entry. Making
+it so is a live product decision that has not been taken.
 
 ### ⚠️ REVERTED — door module draft (read before touching PRX_DOOR again)
 
@@ -182,18 +239,43 @@ inflated. Re-read the funnel over a clean window before treating it as exact.
    stress.
 7. **Georgia has no statute source reachable from CI** (403s the runner) — not
    re-verified since 2026-08-04; check the daily cron log before trusting this.
-8. **L2 divergence's hostile leg is inert** (v2.14.0) — the arrest beat (ci 7)
-   has zero hostile variants in `PRX_VAR`. Structure is live, content isn't.
+8. **L2 divergence's hostile leg is inert — now at BOTH hops.** Re-verified
+   2026-08-13 against the bank, not assumed: `PRX_VAR[2]` and `PRX_VAR[7]` are
+   both `[calm, calm, curt, curt]`. Since Level 2 became 3 beats (`[3,2,7]`,
+   v2.20.2) there are two divergence transitions and the hostile leg is dead at
+   both. `PRX_VAR[3]` is the only hostile line in the traffic bank and it is
+   L2's *opening* beat, which divergence never targets — so all hostility a L2
+   player sees is decided before they answer anything. **This is the single
+   highest-value open content item.** Exact ask, both EN+ES, entry shape
+   `{en, es, tone:'hostile', id}`: one line for `ci:2` (consent-to-search,
+   suggested id `v2_4`) and one for `ci:7` (arrest, suggested id `v7_4`).
+   Cannot be model-authored — see hard rule 1. Spec in `wargames/21`.
 9. **Checkpoint has no variant pool, no curveball, no divergence** — flagged in
-   `wargames/12` as now reading thin next to a more dynamic traffic ladder.
+   `wargames/12`, re-confirmed in `wargames/21`: it is a tab, not yet a module.
+   One fixed 4-beat deck, identical every run.
+10. **`/app` promotion decision is open** — see the next-session tasks below.
+11. **Root's `prx.best` is interpolated unescaped into `innerHTML`** at
+    `index.html:5451` and `:5569`, while the sibling line at `:3478` escapes it
+    with `esc()`. Self-XSS only (the value is app-written), but the escaped
+    sibling proves intent. Two `esc()` calls close it. Found 2026-08-13,
+    unfixed.
+12. **`/app` has no ErrorBoundary anywhere.** A throw in a screen white-screens
+    it. Root is a single script and degrades differently. Found 2026-08-13.
 
 ## What was decided and should not be re-litigated
 
-- **No React/Next rebuild.** Measured: 1 request to interactive, 112KB brotli,
-  0 long tasks, CLS 0.00. A bundler renames every chunk per deploy, so prepaid
-  users re-download the app each release, and the privacy claim stops being
-  provable by view-source. The 1.2s parse is real — fix it by deferring the
-  practice engine and cutting dead analytics, not a framework.
+- ~~**No React/Next rebuild.**~~ — **SUPERSEDED 2026-08-11 by operator
+  decision.** The original reasoning (1 request to interactive, 112KB brotli,
+  0 long tasks, CLS 0.00; a bundler renames every chunk per deploy so prepaid
+  users re-download each release; the privacy claim stops being provable by
+  view-source) was and is technically sound — the operator chose a strangler
+  port at `/app` anyway, with explicit conditions: root stays live and
+  untouched until proven parity, content ported verbatim by mechanical
+  extraction, flags stay dark, no accounts/billing/analytics. That migration
+  is now complete. **The unresolved half of the original objection still
+  stands**: the entry bundle is ~93 kB gz against root's 112 kB brotli for the
+  *entire* app, and view-source no longer proves the privacy claim. Both are
+  inputs to the promotion decision, not settled questions.
 - **No runtime cloud TTS.** It needs a public API key or a server that logs who
   is rehearsing. Voices stay authoring-time MP3s + on-device fallback.
 - **Convex chosen** as the eventual Tier-2 backend, if monetization proceeds —
@@ -273,6 +355,94 @@ source before shipping it.** That check caught two unusable batches.
 5. Re-add both to NotebookLM (delete the old sources first).
 
 A daily cron commits to this repo — `git pull --rebase` before pushing.
+
+## Next session — paste-ready task sequence
+
+In priority order. Each block is a prompt you can paste as-is. **Do them one at
+a time** and let the verification finish before moving on; several of the worst
+bugs this project has had came from stacking changes without checking between.
+
+---
+
+**TASK 1 — the hostile officer lines (blocked on you, not the AI)**
+
+This one needs *you* to supply text; no AI on this project may author officer
+dialogue. Once you have the four strings:
+
+> Add the two missing hostile-tone officer variants to `PRX_VAR` in root
+> `index.html`. I am giving you the exact text — place it verbatim, change
+> no wording, no punctuation, no capitalisation:
+>
+> `ci:2` (consent-to-search), id `v2_4`:
+>   EN: "<paste>"
+>   ES: "<paste>"
+> `ci:7` (arrest), id `v7_4`:
+>   EN: "<paste>"
+>   ES: "<paste>"
+>
+> Then: re-run the extractor, confirm `--verify` passes byte-identical, run
+> `npm run check` in `app-src/`, and verify LIVE in the browser that Level 2's
+> bad-pick divergence leg now actually escalates to hostile at both hops
+> (`ci:3→ci:2` and `ci:2→ci:7`) instead of silently no-op'ing. Bump EDITION —
+> this is new legal-adjacent content — and note the attorney badges will drop.
+> Then `/amparo-loop hostile-variants`.
+
+---
+
+**TASK 2 — the `/app` promotion decision (a real product call, not a task)**
+
+Do NOT let an AI just flip this. Decide first, with these on the table:
+- entry bundle ~93 kB gz vs root's 112 kB brotli for the *whole* app
+- view-source no longer proves the privacy claim
+- 19 accepted-but-unbuilt deferrals (`wargames/18`), incl. About overlay, carry
+  card, share cert, prep-drill first-run gate, post-print rail
+- root has 42 analytics events; `/app` has zero, so promoting `/app` blinds the
+  funnel you have been measuring
+
+If you decide to go:
+
+> Walk me through what promoting `/app` to `/` actually requires, as a plan I
+> approve step by step before anything ships. Cover at minimum: the service
+> worker interaction between root's `/`-scoped SW and `/app`'s (existing users
+> have root's SW installed and it caches the shell), the localStorage story
+> (`/app` writes `app_*` and only READS root's six keys, so a promoted `/app`
+> would strand every existing user's saved pack unless it migrates them),
+> `noindex` removal, the manifest/install identity collision, and rollback.
+> Do not change anything yet.
+
+---
+
+**TASK 3 — cheap, safe, well-specified fixes (can be done in one pass)**
+
+> Fix these three, each verified separately, then `/amparo-loop small-fixes`:
+> 1. Root `index.html:5451` and `:5569` interpolate `prx.best` into `innerHTML`
+>    unescaped; `:3478` escapes it with `esc()`. Make all three consistent.
+> 2. `/app` has no ErrorBoundary — add one around the routed screens so a throw
+>    degrades instead of white-screening.
+> 3. `wargames/21` finding: the practice hub's tablist is structurally
+>    incomplete (tabs don't reference panels, the panel has no `tabpanel` role).
+
+---
+
+**TASK 4 — the two unsent memos (the real bottleneck on everything else)**
+
+Both are drafted and have been sitting unsent for over a week. They gate the
+practice engine's legal exposure and the entire door module:
+- `notebook/amparo-upl-engagement-memo.md`
+- `notebook/amparo-dv-clinician-engagement-memo.md`
+
+They do not need another edit. They need a recipient.
+
+---
+
+**Standing instruction worth repeating to any new AI on this project:**
+
+> Verify before asserting. This repo has a documented history of agent reports
+> being confidently wrong — including two review agents contradicting each
+> other about the same 4-line data structure on 2026-08-13, where the one that
+> sounded more authoritative was the wrong one. Check source yourself. If a
+> check fails, isolate and re-run it before trusting the failure, and equally
+> before trusting a pass.
 
 ## How I work
 
