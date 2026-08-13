@@ -6,6 +6,36 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.20.2 — 2026-08-13
+
+v2.20.2 — "Level 2 gets a middle"
+
+Three independent reviews across this migration (wargames 16, 17, 19) all
+converged on the same finding: practice Level 2 ("Ordered out") was a
+2-beat spike — straight from the exit order to the arrest, nothing between,
+right behind the heaviest consent gate in the app. Fixed by inserting the
+consent-to-search beat (`ci:2`) between them — reuses existing, already-
+reviewed content; no new dialogue authored.
+
+This is the first edit to root `index.html` in the entire migration. Root
+has stayed untouched by policy since Move 0; asked the operator explicitly
+before touching it, scoped to exactly one line
+(`PRX_LEVELS[2].ids`: `[3,7]` → `[3,2,7]`).
+
+The other open finding from the same reviews — the arrest beat (`ci:7`)
+still has no hostile-tone variant, so the divergence mechanic stays a
+no-op on Level 2's "bad pick" path — was explicitly left open. That fix
+needs genuinely new officer dialogue, which this project never authors
+(attorney-reviewable content only). Operator's call, logged.
+
+Live-verified in both languages: Level 2 now runs 3 beats, correct tone
+pool throughout, correct score/debrief. A regression check now pins the
+exact beat sequence so this can't silently regress. Full check suite
+(19/19) and build pass.
+
+No EDITION bump — no legal *interpretation* changed, only which already-
+reviewed beat plays in which slot.
+
 ## v2.20.1 — 2026-08-12
 
 v2.20.1 — "The cleanup sweep was eating its own sibling"

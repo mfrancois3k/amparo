@@ -8,6 +8,15 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.20.2 — 2026-08-13 — "Level 2 gets a middle"
+
+First-ever root `index.html` edit this migration (operator-approved,
+scoped to one line): `PRX_LEVELS[2].ids` `[3,7]` → `[3,2,7]`, fixing the
+3-review-confirmed 2-beat spike on practice Level 2. Reuses existing
+reviewed content, no new dialogue. `PRX_VAR[7]`'s missing hostile variant
+left open (needs new officer dialogue, operator's call). Live-verified
+both languages; regression check added.
+
 ## v2.20.1 — 2026-08-12 — "The cleanup sweep was eating its own sibling"
 
 Loop round after v2.20.0 (`20b12a9`): CRITICAL fix — /app's runtime cache
