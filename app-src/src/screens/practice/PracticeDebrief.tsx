@@ -79,7 +79,12 @@ export function PracticeDebrief({ t, lang, state, onAgain, onClose, onNextLevel 
   const bdRows = state.run.map((tier, ri) => {
     const d = state.deck[state.runIdx[ri]] // NOT deck[ri] — ri skips crisis beats
     const ln = d ? d.officer[lang] : ''
-    return { tier, ln: ln.length > 56 ? ln.slice(0, 56) + '…' : ln }
+    /* All-time miss count on a chronically-missed beat, only when this run
+       missed it too — mirrors index.html's bdRows exactly (see there for the
+       full rationale). Numeric only, no new copy: a repeat offender reads
+       the same in every language. */
+    const miss = (d && tier !== 'g') ? (state.progress.miss?.[d.ci] ?? 0) : 0
+    return { tier, ln: ln.length > 56 ? ln.slice(0, 56) + '…' : ln, miss }
   })
 
   return (
@@ -97,7 +102,12 @@ export function PracticeDebrief({ t, lang, state, onAgain, onClose, onNextLevel 
       <p className="prc-intro">{yCount ? t.prx_tip_y : t.prx_tip_all}</p>
       {sober ? <p className="prc-intro">{t.prx_done3}</p> : null}
       <div className="prx-bd">
-        {bdRows.map((r, i) => <div className="prx-bd-row" key={i}><span>{r.tier === 'g' ? '🟩' : '🟨'}</span><span>{r.ln}</span></div>)}
+        {bdRows.map((r, i) => (
+          <div className="prx-bd-row" key={i}>
+            <span>{r.tier === 'g' ? '🟩' : '🟨'}{r.miss >= 2 ? <b className="prx-bd-miss">×{r.miss}</b> : null}</span>
+            <span>{r.ln}</span>
+          </div>
+        ))}
       </div>
       {/* Share cert / run share (G13) is out of Move 5.2's scope, same as the
           carry card above — omitted rather than a dead button. The trophy

@@ -762,6 +762,9 @@
   .prx-bd{margin:6px 0 10px;text-align:left}
   .prx-bd-row{display:flex;gap:8px;font-size:13px;color:var(--ink);padding:5px 0;border-bottom:1px solid var(--line);align-items:center}
   .prx-bd-row:last-child{border-bottom:0}
+  /* All-time miss count on a chronically-missed beat — numeric only, no new
+     copy: a repeat offender reads the same in every language. */
+  .prx-bd-miss{font-size:11px;color:var(--gold);font-weight:800;margin-left:2px}
   .prx-master{background:#fdf6e3;border:1.5px solid var(--gold);border-radius:13px;padding:12px 14px;font-weight:800;color:#5c451a;margin:10px 0 4px}
   .prx-typerow{display:flex;gap:8px;margin:8px 0 4px}
   .prx-typerow input{flex:1;border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;font-size:15px;font-family:inherit;background:var(--white);color:var(--ink);min-width:0}
@@ -4889,6 +4892,18 @@ try{
   else Object.keys(raw).forEach(k=>{ if(raw[k]) prx.done[k]=true; }); // migrate v1 flat {level:true} shape
 }catch(e){}
 prx.best=prx.best||{}; prx.streak=prx.streak||{last:'',n:0};
+/* Miss-count per ci, all-time. prx_tip_y already tells a player to "turn 🟨
+   into 🟩" — but that advice pointed at nothing persistent: the breakdown it
+   sits above only ever showed the run that JUST ended, and prxAgain() wipes
+   prRun/prRunIdx for the next one. Nothing survived to tell a player "you
+   keep missing THIS beat specifically" across runs. This is that record —
+   incremented once per 'y' beat in prxAdvance(), saved at the same
+   run-completion checkpoint everything else in `prx` already uses, never
+   reset by prxAgain(). Not full spaced repetition (no scheduling, no
+   priority-weighted deal) — that's a real feature decision, not implied by
+   fixing "the record gets erased." This is the minimum that stops erasing it
+   and gives the existing advice something real to point at. */
+prx.miss=prx.miss||{};
 /* Level-index migration. prx.done/best/runs are keyed by NUMERIC level index, so
    removing the old index 3 ("The hard stop") silently re-points every returning user's
    saved progress: their Hard mode result would show up on Checkpoint. Runs once, guarded
@@ -5380,7 +5395,15 @@ function prxAdvance(){
   /* tier 'x' (crisis disclosure) is recorded as NOTHING — no square in the grid, no
      contribution to the score, nothing in the shareable summary. Anything else keeps
      the original good/miss behaviour. */
-  if(prCurTier!=='x'){ prRun.push(prCurTier==='g'?'g':'y'); prRunIdx.push(prIdx); }
+  if(prCurTier!=='x'){
+    const missed=prCurTier!=='g';
+    prRun.push(missed?'y':'g'); prRunIdx.push(prIdx);
+    /* All-time count, not just this run's — in-memory only until the
+       run-completion prxSave() (index.html:~5646) picks it up, same as
+       prx.best/prx.done/prx.cbDay. An abandoned run's misses are lost with
+       it, matching how an abandoned run's score was already never counted. */
+    if(missed){ const ci=prDeck[prIdx].ci; prx.miss[ci]=(prx.miss[ci]||0)+1; }
+  }
   prCurTier=null;
   prIdx++; prRevealed=false; practiceRender(); prxSpeak();
 }
@@ -5697,7 +5720,12 @@ function practiceRender(){
     const bdRows=prRun.map((t2,ri)=>{
       const d=prDeck[prRunIdx[ri]]; // NOT prDeck[ri] — ri skips crisis beats, prDeck doesn't
       const ln=d?d.officer[lang]:'';
-      return `<div class="prx-bd-row"><span>${t2==='g'?'🟩':'🟨'}</span><span>${esc(ln.length>56?ln.slice(0,56)+'…':ln)}</span></div>`;
+      /* ×N badge on a beat missed 2+ times all-time, not just now — prx.miss,
+         never reset by prxAgain(). Only on an actual miss this run: a beat
+         that's chronically missed but was JUST answered well doesn't need
+         the flag repeated at it. */
+      const m=(d&&t2!=='g')?(prx.miss[d.ci]||0):0;
+      return `<div class="prx-bd-row"><span>${t2==='g'?'🟩':'🟨'}${m>=2?`<b class="prx-bd-miss">×${m}</b>`:''}</span><span>${esc(ln.length>56?ln.slice(0,56)+'…':ln)}</span></div>`;
     }).join('');
     b.innerHTML=hdr+`<div class="prx-score">${score}<span>/${prRun.length}</span></div>
       <div class="prx-result">${grid}</div>

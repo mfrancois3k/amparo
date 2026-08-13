@@ -145,10 +145,19 @@ export interface PracticeProgress {
   streak: { last: string; n: number }
   /** Date (YYYY-MM-DD) a curveball was last dealt — index.html:5485. */
   cbDay?: string
+  /** Miss count per beat `ci`, all-time — ported from index.html's prx.miss
+      (added 2026-08-13, same commit as this one). Optional so progress saved
+      before this field existed still parses; every reader must guard with
+      `?? 0` / `?.[ci]`, never assume presence. Not full spaced repetition —
+      no scheduling, no priority-weighted deal — that's a real feature
+      decision. This is the minimum that stops the record being silently
+      dropped every `again()` and gives `prx_tip_y`'s existing advice
+      something persistent to point at. */
+  miss?: Record<number, number>
 }
 
 export function emptyProgress(): PracticeProgress {
-  return { done: {}, runs: {}, best: {}, streak: { last: '', n: 0 } }
+  return { done: {}, runs: {}, best: {}, streak: { last: '', n: 0 }, miss: {} }
 }
 
 /** Ported verbatim from the `isLocked` helpers (index.html:5190, 5436) — one
@@ -300,11 +309,19 @@ export function markCrisis(state: EngineState): EngineState {
 export function advance(state: EngineState, now: Date = new Date(), rng: () => number = Math.random): EngineState {
   if (state.phase !== 'BEAT_COMPLETE') return state
   const deck = divergeDeck(state.deck, state.idx, state.level, state.curTier, rng)
+  const missed = state.curTier !== 'x' && state.curTier !== 'g'
   const run = state.curTier !== 'x' ? [...state.run, state.curTier === 'g' ? 'g' as Tier : 'y' as Tier] : state.run
   const runIdx = state.curTier !== 'x' ? [...state.runIdx, state.idx] : state.runIdx
   const nextIdx = state.idx + 1
+  /* All-time, not just this run's — updated here (every miss) rather than
+     only at completeRun(), matching root's prxAdvance() cadence. Produces a
+     new `progress` reference on a miss, which PracticeStep.tsx's existing
+     writeApp effect persists automatically — no new persistence code. */
+  const progress = missed
+    ? { ...state.progress, miss: { ...state.progress.miss, [state.deck[state.idx].ci]: (state.progress.miss?.[state.deck[state.idx].ci] ?? 0) + 1 } }
+    : state.progress
   const base: EngineState = {
-    ...state, deck, run, runIdx, curTier: null, chosenGood: false, pickedAlt: false, idx: nextIdx,
+    ...state, deck, run, runIdx, progress, curTier: null, chosenGood: false, pickedAlt: false, idx: nextIdx,
   }
   if (nextIdx >= deck.length) return completeRun(base, now)
   return { ...base, phase: 'OFFICER_SPEAKING' }
