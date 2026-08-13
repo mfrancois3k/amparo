@@ -69,6 +69,27 @@ check('level 2: three beats [3,2,7], not the old two-beat [3,7] spike (wargames/
   assert.deepEqual(deck.map((b) => b.ci), [3, 2, 7]);
 });
 
+/* Found by loop QA 2026-08-13: PRX_VAR's literal `id` fields are cosmetic in
+   root (index.html:4791 recomputes every one from array position at load) —
+   practiceEngine.ts now mirrors that. PRX_CURVE has no literal id at all;
+   it exists ONLY as recompute output (index.html:4817), so a missing/skipped
+   recompute doesn't produce a wrong id here, it produces `undefined` —
+   exactly what shipped before this check existed: every curveball beat
+   silently fell back to TTS in /app while root played the correct clip.
+   Neither the id-swap exploit nor the undefined-id regression made any
+   OTHER assertion in this file fail — this is the only one that would. */
+check('every dealt beat across every randomized level has a defined, well-formed id', () => {
+  for (let level = 0; level < 3; level++) {
+    for (let seed = 0; seed < 20; seed++) {
+      const deck = buildDeck(level, { ...emptyProgress(), runs: { 0: 1, 1: 1, 2: 1 } }, new Date(2026, 0, 1 + seed), seededRng(seed));
+      for (const beat of deck) {
+        assert.ok(beat.id, `level=${level} seed=${seed} ci=${beat.ci} has no id (undefined/empty)`);
+        assert.ok(/^[vch]\w*\d+(_\d+)?$/.test(beat.id), `level=${level} seed=${seed} ci=${beat.ci} malformed id "${beat.id}"`);
+      }
+    }
+  }
+});
+
 check('level 3 (hard mode): fixed track, ids 20/21/22, never variant-randomized', () => {
   const deck = buildDeck(3, emptyProgress(), FIXED_DATE, seededRng(1));
   assert.deepEqual(deck.map((b) => b.ci), [20, 21, 22]);

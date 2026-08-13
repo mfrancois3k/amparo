@@ -65,6 +65,35 @@ const PRX_WAIT = PRX_WAIT_RAW as unknown as FixedBeat[]
 const PRX_NOSTOP = PRX_NOSTOP_RAW as unknown as FixedBeat[]
 const PRX_DOOR = PRX_DOOR_RAW as unknown as FixedBeat[]
 
+/* Root recomputes these three ids from array position/ci at load
+ * (index.html:4791,4817,4818) rather than trusting whatever literal was
+ * typed in the source array — so a mistyped id there is cosmetic, self-healed
+ * every load. The extractor pulls the literal text, not the runtime result of
+ * that recompute, so without this /app was trusting the raw literal directly.
+ * Two real consequences, found by loop QA 2026-08-13:
+ *   - Latent: a future manual PRX_VAR restore with a position/id mismatch
+ *     would silently ship wrong audio in /app while root kept playing
+ *     correctly. Proven exploitable (an id swap passed extraction, --verify,
+ *     and all 21 practice-engine-check assertions clean) but not live today —
+ *     every id from the v2_4/v0_4-family restores matches its position.
+ *   - Live: PRX_CURVE entries have NO id typed in source at all — it exists
+ *     ONLY as this recompute's output. Extraction can't invent it, so every
+ *     curveball beat had id===undefined in /app, which usePracticeAudio.ts's
+ *     `if (beat.id)` guard (correctly) treats as "no clip" and falls back to
+ *     TTS — meaning every curveball played robotic speech in /app while root
+ *     played the correct recorded clip for the identical line.
+ * PRX_HARD's literal ids already match 'h'+ci for every entry (verified), so
+ * this recompute is a no-op there today — kept anyway for the same reason
+ * root keeps it: parity if that ever drifts, at zero cost. PRX_CHK/PRX_WAIT/
+ * PRX_NOSTOP/PRX_DOOR get no such treatment in ROOT EITHER (checked — no
+ * matching forEach exists for any of them), so leaving /app trusting their
+ * literal ids is correct parity, not an oversight. */
+Object.keys(PRX_VAR).forEach((b) => {
+  PRX_VAR[Number(b)].forEach((v, i) => { v.id = `v${b}_${i}` })
+})
+PRX_CURVE.forEach((c, i) => { c.id = `c${i}` })
+PRX_HARD.forEach((h) => { h.id = `h${h.ci}` })
+
 export { PRX_UNSCORED, PRX_OPT, PRX_LEVELS }
 
 export function prxCard(ci: number, lang: Lang): { o: string; y: string } {
