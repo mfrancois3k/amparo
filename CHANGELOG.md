@@ -6,6 +6,55 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.21.4 — 2026-08-13
+
+v2.21.4 — "Claims that outlived what they claimed about"
+
+Three fixes from the v2.21.3 loop. All three are the same shape: something kept
+asserting a thing after the thing stopped being true.
+
+**The offline chip could lie about the core promise.** It appeared on
+`serviceWorker.ready`, which only means a worker is *active*. `sw.js`'s install
+deliberately swallows every cache failure (`c.add(...).catch(()=>{})`, twice) so
+it can activate on a partial precache rather than not at all — the cost being
+that `ready` resolves even when the shell was never stored. So "✈️ Saved on this
+device — works without internet" could appear with nothing cached. That is the
+product's central promise making a claim it never checked, the same failure as
+the badge that read "sources auto-checked daily" while all four sources were
+403ing. Now gated on `caches.match('./')`, verified in both directions: shell
+cached → chip shows; worker active but shell absent → chip stays silent. Worth
+knowing for the next person to test this: `index.html:5789` gates the whole
+service-worker block on `location.protocol==='https:'`, so none of it runs on
+`http://localhost`.
+
+**The daily cron's "open a review issue" step had never fired.** It read
+`changed=$?` after `node tools/law-watch.mjs | tee check.log`, which captures
+*tee's* exit code, not the script's — and `law-watch.mjs:145` makes that exit
+code the entire "a statute changed" signal. GitHub's default `run:` shell is
+`bash -e {0}` with no pipefail, so nothing propagated it either. Reproduced in a
+real shell before touching it. The site badge did still flip on drift, so this
+was never total silence — but the channel to a *person* was dead from the day
+the workflow was written. `${PIPESTATUS[0]}`.
+
+**Root's hub tablist destroyed keyboard focus.** `hubTab()` calls `render()`, a
+full innerHTML rebuild, so the button just activated is a different node
+afterwards and focus fell to `<body>`. v2.21.3 had added `role="tab"` — the ARIA
+contract — without the behaviour, which is arguably worse than the plain buttons
+that preceded it, because a screen reader now announces tabs semantics the hub
+did not honour. Now restores focus after the rebuild and carries roving tabindex
+plus Arrow/Home/End, matching `/app`.
+
+Also adds `role="alert"` to the `/app` ErrorBoundary fallback so a failure is
+announced at all. This does not close the gap — `c_retry` is the *camera* retry
+string and no generic error sentence exists in the 463-key bank.
+
+No content changed. `EDITION` unmoved. All four check suites pass. Four findings
+were left open deliberately and are recorded in HANDOFF, the sharpest being that
+`sr_pack_printed` fires on `beforeprint` — so "3 printed" in the 72→4→3 funnel is
+"3 opened a print dialog" — while `afterprint` fires on **Cancel** and still
+commits `hasPrinted`, telling a user who cancelled that their pack was sent to
+the printer.
+
 ## v2.21.3 — 2026-08-13
 
 v2.21.3 — "Verified live, not read"

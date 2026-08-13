@@ -8,6 +8,18 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.21.4 — 2026-08-13 — "Claims that outlived what they claimed about"
+
+Offline chip no longer promises "works without internet" off `serviceWorker.ready`
+alone — `sw.js` swallows cache failures and activates anyway, so the chip could
+appear with nothing cached; now gated on `caches.match('./')`. The daily
+law-watch cron read tee's exit code instead of the script's, so its review-issue
+step had never fired since the workflow was written (`${PIPESTATUS[0]}`). Root's
+hub tablist sent keyboard focus to `<body>` on every activation — v2.21.3 gave
+it the `role="tab"` contract without the behaviour; now restores focus with
+roving tabindex + arrow keys. `role="alert"` on the `/app` error fallback. No
+content change, `EDITION` unmoved.
+
 ## v2.21.3 — 2026-08-13 — "Verified live, not read"
 
 `prx.best` escaped at both `innerHTML` sites (`5468`/`5588` — HANDOFF's cited
