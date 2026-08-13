@@ -241,8 +241,18 @@ inflated. Re-read the funnel over a clean window before treating it as exact.
    robotic fallback. Needs a human read. See
    `notebook/amparo-spanish-audio-recording-list.md`.
 5. ~~Document-capture step not built~~ — **done, v2.10.0.** See Current State above.
-6. **No spaced repetition**, in a product whose whole premise is recall under
-   stress.
+6. ~~**No spaced repetition.**~~ **PARTIALLY ADDRESSED 2026-08-13, v2.21.11.**
+   `prx_tip_y` told a player to fix their 🟨 beats, but nothing persisted
+   which beats those were — `prxAgain()`/`again()` erased the run record every
+   time. Root and `/app` now track an all-time per-beat miss count (`prx.miss`
+   / `progress.miss`), surfaced as a numeric `×N` badge on chronically-missed
+   breakdown rows. Verified live in both, including a real click-through of
+   `/app`'s React UI, not just the engine. **This is not full spaced
+   repetition** — no scheduling, no priority-weighted deal, no review screen.
+   That remains open, and is genuinely a feature decision (what should the
+   product DO with a known weak beat — bias curveball selection toward it?
+   dedicated review mode? something else?), not implied by "stop erasing the
+   record."
 7. **Georgia has no statute source reachable from CI** (403s the runner) — not
    re-verified since 2026-08-04; check the daily cron log before trusting this.
 8. ~~**L2 divergence's hostile leg was inert at `ci:2`.**~~ **FIXED 2026-08-13,
@@ -437,6 +447,39 @@ gate or requires extending it — a product decision, not something implied by
 content merely existing in the bank. `wargames/21`, `/22`, and this round's
 `/23` all independently agree the tone ladder's current shape is correct and
 should not be restructured just because dormant content sits there.
+
+## Fixed from the pre-feature punch list — 2026-08-13
+
+Four items surfaced by the last blind-spot/module-review pass, before any new
+feature work. Three fixed, one genuinely blocked.
+
+- ~~**Correct answer always rendered in the same screen position.**~~
+  **FIXED, v2.21.10.** `index.html:5769` read `prIdx%2===0` — a pure function
+  of beat index, no randomness, so beat 0 always put the good answer on top
+  and beat 1 always put it on bottom, on every run, for every player.
+  Trained "which side to tap," not "which words are right." `/app`'s
+  `PracticeBeat.tsx` had ported the identical bug. Fixed with a `swap` field
+  set once per beat at deal time (same place `tone`/`id`/`curve` live), random
+  per deck, stable for as long as that beat is on screen. Verified live:
+  ~50/50 split across 200 decks in both codebases, DOM order checked against
+  the flag, confirmed stable across a same-beat re-render (voice/gender
+  toggle).
+- ~~**`PRX_LEVELS[].rate` was dead config.**~~ **FIXED, v2.21.10.** Confirmed
+  unread anywhere in either codebase beyond the unrelated `PRX_TONE.rate`
+  (TTS pitch/speed). Removed rather than wired up — making levels actually
+  escalate playback speed would need every level's pre-recorded clips
+  re-recorded at a faster pace, a product decision, not a one-line change.
+- ~~**No spaced repetition.**~~ **PARTIALLY FIXED, v2.21.11.** See open issue
+  6 above — per-beat miss tracking now persists across runs in both
+  codebases; the scheduling/review half remains a feature decision.
+- **Curveball drill coverage is inverted — still open, blocked on you.** 7 of
+  the 10 `PRX_CURVE` entries redirect to `ci:1` ("coming from"), 3 to `ci:2`
+  (search consent); `ci` 0, 4, 5, 6, 8 get **zero** curveball coverage —
+  including `ci:5`, the only state-specific beat in the whole traffic bank.
+  Confirmed the raw material already exists: `PRX_OPT[0/4/5/6/8]` all have
+  real, reviewed coach copy — the gap is specifically that no curveball
+  *officer line* was ever authored to redirect toward them. Writing one is
+  new dialogue + coaching text, squarely inside hard rule 1. Not attempted.
 
 ## What was decided and should not be re-litigated
 

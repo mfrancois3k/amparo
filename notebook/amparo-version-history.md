@@ -8,6 +8,27 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.21.11 — 2026-08-13 — "The record the results screen tells you to fix, kept getting erased"
+
+`prx.miss` (root) / `progress.miss` (`/app`) now persists an all-time
+per-beat miss count, surfaced as a numeric `×N` badge on chronically-missed
+breakdown rows — giving `prx_tip_y`'s existing advice something real to
+point at, since `prxAgain()`/`again()` previously erased the only record of
+it. Verified live in both: count survives a full run and a replay, badge
+renders correctly in root's DOM and in `/app`'s real React UI via a live
+click-through. Not full spaced repetition — no scheduling, that's a feature
+decision. Item 3 (curveball coverage) skipped — needs new officer dialogue,
+inside hard rule 1. No content change.
+
+## v2.21.10 — 2026-08-13 — "Fix the answer's screen position, delete the config nobody reads"
+
+Correct-answer button position is now randomized per beat (`swap`, set at
+deal time) instead of a fixed function of beat index — root and `/app` both
+trained "which side," not "which words," on every run of every level.
+Verified live: ~50/50 split across 200 decks, DOM order matches the flag,
+stable across a same-beat re-render. Also drops `PRX_LEVELS[].rate`, dead
+config confirmed unread anywhere. No content change.
+
 ## v2.21.9 — 2026-08-13 — "Every curveball in /app was speaking TTS instead of the recorded clip"
 
 `/app` now recomputes `PRX_VAR`/`PRX_CURVE`/`PRX_HARD` ids from array

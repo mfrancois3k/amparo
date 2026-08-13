@@ -6,6 +6,86 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.21.11 — 2026-08-13
+
+v2.21.11 — "The record the results screen tells you to fix, kept getting erased"
+
+Third of the four pre-feature punch-list items. Item 3 (curveball drill
+coverage skewed toward `ci 1`/`2`, zero coverage for `ci 0/4/5/6`) is **not**
+included — fixing it for real needs new officer dialogue and coaching text,
+which is inside hard rule 1's scope. Flagged, not faked.
+
+`prx_tip_y` already told a player *"Turn 🟨 into 🟩 — run it again... and land
+the highlighted words."* That advice pointed at nothing persistent: the
+breakdown above it only ever showed the run that had just ended, and
+`prxAgain()`/`again()` wipe the run record for the next one. Nothing
+remembered which beat a player kept missing across sessions.
+
+Root gets `prx.miss` — an all-time count per beat, incremented in
+`prxAdvance()` at the same point the run record already gets pushed,
+persisted at the existing run-completion save, never touched by
+`prxAgain()`. Surfaced as a small `×N` badge next to a chronically-missed
+beat's row in the breakdown — shown only when it was missed *again* this run
+and has 2+ misses all-time. Numeric only, no new translated copy, so it needs
+zero i18n work.
+
+`/app` gets the same shape, adapted to its pure-FSM architecture rather than
+copied verbatim: `miss` lives on `PracticeProgress`, updated immutably inside
+`advance()`, which produces a new `progress` reference the existing
+`writeApp` effect already persists — no new plumbing. This ends up **more
+resilient than root**: root only flushes at run-completion, so an abandoned
+run's misses can be lost if the tab closes first; `/app`'s effect fires on
+every miss.
+
+Verified live in both, not just read: simulated two full runs missing the
+same beat via direct engine calls — count reaches 1, survives run
+completion, survives the "again" reset, reaches 2 on the second miss. Then
+confirmed the actual rendered DOM: no badge after one miss, `×2` on exactly
+the right row after two, nowhere else. For `/app`, drove a real run through
+the live React UI — seeded a `miss:1` progress into localStorage, matched
+the real `PRX_OPT` text to click the correct "bad" answer (not assumed), and
+watched the badge render.
+
+Deliberately not full spaced repetition — no scheduling, no
+priority-weighted deal, no new screen. That's a real feature decision, not
+implied by "stop erasing the record." No content changed. All four suites
+pass, `tsc` clean.
+
+## v2.21.10 — 2026-08-13
+
+v2.21.10 — "Fix the answer's screen position, delete the config nobody reads"
+
+First two of four items from this session's pre-feature punch list.
+
+The correct answer always rendered in the same screen slot on every beat N
+of every level, every run, for every player — `index.html:5769` read
+`prIdx%2===0` to decide button order: a pure function of beat position, no
+randomness. Beat 0 always put the good answer on top; beat 1 always put it
+on bottom. That trains "which side to tap," not "which words are right," on
+a product whose entire premise is testing comprehension under stress.
+`/app`'s `PracticeBeat.tsx` had ported the identical bug.
+
+Fixed by adding `swap` to each beat object at deal time — same place
+`tone`/`id`/`curve` already live, not a new pattern. Random per deck, stable
+for as long as that beat is on screen (a voice/gender toggle re-renders
+without re-dealing — confirmed live), fresh again on the next deck with no
+cache to reset. `/app`'s `buildDeck()` draws `swap` from its existing
+injectable `rng`, not a separate `Math.random` call, so seeded-test
+determinism holds — ran the full 22-check suite specifically to confirm no
+assertion depended on the old rng call order, rather than assuming it.
+
+Verified live: 200-deck samples in both root and `/app` land roughly 50/50;
+the actual DOM button order was checked against the flag across six real
+renders in root; a gender-toggle re-render was confirmed not to flip it.
+
+Also removes `PRX_LEVELS[].rate`, dead since some earlier release — grepped
+both codebases for any read beyond the unrelated `PRX_TONE.rate` (TTS
+pitch/speed) and found none. Not wired up instead of removed: making levels
+actually escalate playback speed would need every level's pre-recorded clips
+re-recorded at a faster pace, not a one-line config change.
+
+No content changed. All four suites pass, `tsc` clean. `app/` rebuilt.
+
 ## v2.21.9 — 2026-08-13
 
 v2.21.9 — "Every curveball in /app was speaking TTS instead of the recorded clip"
