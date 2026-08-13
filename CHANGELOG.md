@@ -6,6 +6,29 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.21.1 — 2026-08-13
+
+v2.21.1 — "Root gets the same correction"
+
+`/app` fixed its stale-best-score bug in v2.21.0; root had the identical
+defect and, unlike `/app`, root is the live product. v2.20.2 changed Level
+2's deck from 2 beats to 3, which made root's numerator-only best-score
+compare wrong for real returning users: a stored `2/2` from the old deck
+outlives a `2/3` forever, because `2 > 2` is false — so the hub displays a
+best score the level can no longer produce. Root now matches `/app`: a best
+recorded against a different deck length is incomparable, not unbeaten, so
+it is replaced; same-shape comparisons are unchanged.
+
+Second root edit of this migration. Verified against the running root app,
+not just in isolation: seeded the exact returning-user state and confirmed
+the previously-failing case now writes `2/3`, then confirmed a deliberately
+worse same-shape run (`0/3` against a `3/3` best) still does not displace
+it — with the run counter incrementing to prove the run actually executed
+rather than silently no-op'ing. All inline scripts syntax-checked; full
+check suite green.
+
+No EDITION bump — no legal content touched.
+
 ## v2.21.0 — 2026-08-13
 
 v2.21.0 — "Checkpoint gets its own tab back"

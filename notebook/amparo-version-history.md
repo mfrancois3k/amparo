@@ -8,6 +8,14 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.21.1 — 2026-08-13 — "Root gets the same correction"
+
+Second root edit of the migration (`b5ed755`): root had the identical
+stale-best-score bug `/app` fixed in v2.21.0, and root is the live product.
+A stored `2/2` from the pre-v2.20.2 2-beat Level 2 outlived a `2/3` on the
+3-beat deck. Now matches `/app` — different-denominator bests are
+incomparable, not unbeaten. Verified on the live root app both directions.
+
 ## v2.21.0 — 2026-08-13 — "Checkpoint gets its own tab back"
 
 Closes the parity audit's #1 finding (`f1af062`): `/app`'s practice entry
