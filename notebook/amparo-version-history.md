@@ -8,6 +8,14 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.21.8 — 2026-08-13 — "The keyboard fix that only landed on one of two tabs"
+
+Lifelines tablist gets the arrow/Home/End nav the hub tablist got in v2.21.4 —
+found by this loop's own focus-group pass. Simpler than the hub's fix: `llTab()`
+already patches buttons in place rather than rebuilding the card, so only the
+missing `tabindex` + keydown handler needed adding. Verified live. No content
+change.
+
 ## v2.21.7 — 2026-08-13 — "Restored, still dormant"
 
 Restores 5 more pruned hostile lines (`v0_4`, `v0_5`, `v1_4`, `v1_5`, `v4_4`) at

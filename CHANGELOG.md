@@ -6,6 +6,28 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.21.8 — 2026-08-13
+
+v2.21.8 — "The keyboard fix that only landed on one of two tabs"
+
+Found by this loop's own focus-group pass: fixing the hub tablist's keyboard
+focus bug (v2.21.4) gave it roving tabindex and arrow/Home/End nav, but the
+sibling lifelines tablist — same CSS class, same commit era, one screen over —
+never got the keyboard half of that fix. Live-verified the gap first:
+dispatching `ArrowRight` on `llTab0` did nothing.
+
+The fix is smaller than the hub's, and it's worth knowing why: `llTab()`
+already patches its buttons in place rather than rebuilding the whole card —
+that's precisely why this tablist never hit the hub's focus-loss bug to begin
+with. So there was no node-replacement problem to solve, only a missing
+`tabindex` attribute and keydown handler. Wired into `llTab()`'s existing
+per-button loop, with `llTabKey` matching `hubTabKey`'s shape.
+
+Verified live: `ArrowRight` moves both focus and selection from `llTab0` to
+`llTab1`, tabindex flips correctly on both buttons, `Home` returns to
+`llTab0`. No content changed — this is behavior, not copy. All four check
+suites pass.
+
 ## v2.21.7 — 2026-08-13
 
 v2.21.7 — "Restored, still dormant"

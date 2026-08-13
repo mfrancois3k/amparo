@@ -395,6 +395,48 @@ Also corrected: "2437 strings byte-identical" (used in the v2.21.3 notes) is
 imprecise — the gate reports **2437 verified present, 2292 byte-identical**, the
 rest via source escapes/entities.
 
+## Found by the honesty-fixes-and-restores loop — 2026-08-13
+
+Verification pass over v2.21.4–v2.21.8 (offline chip, cron fix, hub focus,
+print/badge/ErrorBoundary honesty, `v2_4` + 5-line restore). One fixed same
+session, one open, one design decision recorded so it isn't re-litigated.
+
+**FIXED in v2.21.8:**
+- ~~**Lifelines tablist never got the keyboard nav the hub got.**~~ Fixing the
+  hub's focus bug in v2.21.4 added roving tabindex + arrow/Home/End — the
+  sibling tablist one screen over, same CSS class, same era, didn't. Found by
+  this loop's own focus-group pass. Verified the gap live before fixing
+  (`ArrowRight` on `llTab0` did nothing), then verified the fix live
+  (`ArrowRight` moves focus + selection, `Home` returns). Simpler fix than the
+  hub's — `llTab()` already patches buttons in place, so there was no
+  focus-loss problem, just a missing attribute + handler.
+
+**OPEN:**
+- **Root recomputes every `PRX_VAR` audio id from array position at load**
+  (`index.html:4791`, `Object.keys(PRX_VAR).forEach(b=>PRX_VAR[b].forEach((v,i)=>v.id='v'+b+'_'+i))`)
+  — the hand-typed `id:` literals in the array are cosmetic there. `/app` has
+  no equivalent step; it trusts whatever literal id the extractor pulled from
+  source text. Proven exploitable, not exploited: swapping two ids' literals
+  passed extraction, `--verify`, and all 21 `practice-engine-check` assertions
+  clean. Today this is harmless — every id from the `v2_4`/`v0_4`-family
+  restores was independently confirmed to match its array position — but a
+  future manual restore with a position/id mismatch would self-heal in root
+  and silently ship wrong audio in `/app`, and nothing today would catch it.
+  `STATES` has a resolver for this exact class of gap (`statesResolved.ts`);
+  `PRX_VAR` doesn't. Cheap fix, not yet done: add the same recompute (or a
+  static reachability/consistency check) somewhere `/app`'s content pipeline
+  runs.
+
+**DECIDED, recorded so it isn't re-opened:** should Level 0 or Level 1 ever be
+allowed to escalate to hostile, now that hostile content exists in their
+banks? **No.** The escalation-consent gate (`prWarnOk`, `index.html:5559`,
+"escalation is chosen, never sprung") is a deliberate safety contract
+currently scoped to Level 2+. Wiring hostile into L0/L1 either bypasses that
+gate or requires extending it — a product decision, not something implied by
+content merely existing in the bank. `wargames/21`, `/22`, and this round's
+`/23` all independently agree the tone ladder's current shape is correct and
+should not be restructured just because dormant content sits there.
+
 ## What was decided and should not be re-litigated
 
 - ~~**No React/Next rebuild.**~~ — **SUPERSEDED 2026-08-11 by operator
