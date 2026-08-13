@@ -77,7 +77,19 @@ const GROUPS = {
 // T is split into two files, one per language — the largest single bank.
 const I18N = 'T';
 
-const html = readFileSync(SRC, 'utf8');
+/* Newlines normalised to LF before anything reads this.
+   `core.autocrlf=true` is set on this repo and there is no .gitattributes, so
+   git rewrites index.html to CRLF whenever it touches the working tree — a
+   checkout, a rebase, a branch switch. The emitted JSON is always LF. Multi-line
+   extracted values (LOGO's template literal is the one that bites) therefore
+   stopped matching the source the moment git re-checked-out index.html, and the
+   verbatim check reported drift that did not exist.
+   That matters more than a bad error message: this check now gates `npm run
+   build`, and a gate that fails for reasons unrelated to content is a gate
+   people learn to bypass. Normalising here makes extraction byte-stable
+   regardless of how the file happens to be checked out — every index below,
+   every slice, and every comparison sees the same LF text. */
+const html = readFileSync(SRC, 'utf8').replace(/\r\n/g, '\n');
 
 /** Scan from `i` to the semicolon that ends this statement at bracket depth 0.
     Understands '…' "…" `…${…}…` // … and /* … *\/ — returns the index AFTER it. */
