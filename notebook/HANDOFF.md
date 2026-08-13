@@ -38,6 +38,7 @@ it, and it is the product's only real moat.
 | `notebook/amparo-upl-engagement-memo.md` | UPL legal exposure, drafted, unsent |
 | `notebook/amparo-dv-clinician-engagement-memo.md` | door-module DV safety gate, drafted, unsent |
 | `CHANGELOG.md` | generated from tag annotations |
+| `notebook/amparo-voice-generation-workflow.md` | **required before generating any audio** — Voicebox process, the transcribe round-trip, the orphan-id trap |
 | `notebook/amparo-app-migration-log.md` | **the `/app` migration, move by move** — what shipped, what broke, what was deferred. Long, but it is the record |
 | `wargames/15-react-strangler-migration.md` | the migration battle plan (7 phases, ~18 moves) + Appendix A, the full parity inventory |
 | `wargames/18-app-parity-report.md` | the final parity audit + the **operator sign-off** on 19 accepted deferrals |
@@ -250,17 +251,56 @@ inflated. Re-read the funnel over a clean window before treating it as exact.
    `{en, es, tone:'hostile', id}`: one line for `ci:2` (consent-to-search,
    suggested id `v2_4`) and one for `ci:7` (arrest, suggested id `v7_4`).
    Cannot be model-authored — see hard rule 1. Spec in `wargames/21`.
+   - **Understated, corrected 2026-08-13:** L2 divergence is inert in **both**
+     directions, not just the hostile leg. The good leg targets `curt`, and
+     ci 2 / ci 7 have *only* curt variants, so the "already there" short-circuit
+     fires first. Authoring `v2_4`/`v7_4` fixes the bad leg; the good leg stays
+     a structural no-op regardless.
+   - **`v2_4` is not a blank slate.** An EN line for that id already exists at
+     `tools/VOICE_LINES.md:47`, with audio in **all four** voice folders dated
+     2026-07-22/23, and **no reference in `index.html`** — an orphan. Reusing
+     the id ships stale audio of different words and no check catches it. There
+     is no `v7_4` line and no `v7_4` audio. See
+     `notebook/amparo-voice-generation-workflow.md`.
 9. **Checkpoint has no variant pool, no curveball, no divergence** — flagged in
    `wargames/12`, re-confirmed in `wargames/21`: it is a tab, not yet a module.
    One fixed 4-beat deck, identical every run.
 10. **`/app` promotion decision is open** — see the next-session tasks below.
-11. **Root's `prx.best` is interpolated unescaped into `innerHTML`** at
-    `index.html:5451` and `:5569`, while the sibling line at `:3478` escapes it
-    with `esc()`. Self-XSS only (the value is app-written), but the escaped
-    sibling proves intent. Two `esc()` calls close it. Found 2026-08-13,
-    unfixed.
-12. **`/app` has no ErrorBoundary anywhere.** A throw in a screen white-screens
-    it. Root is a single script and degrades differently. Found 2026-08-13.
+    **Researched 2026-08-13; one finding should shape the whole approach.**
+    The obvious small-diff promotion — a Vercel rewrite `/` → `/app/index.html`
+    — **silently converts a working offline app into a white screen for every
+    existing user.** Traced against source, not assumed: root's SW caches every
+    successful navigation under `CORE` (`sw.js:72`), so it would cache the React
+    shell; but the shell's assets are absolute `/app/assets/*` (`app/index.html:36`),
+    which hit root's `/app` passthrough guard (`sw.js:56`) and are therefore
+    **never cached**. Offline, the user gets the cached React shell with no JS —
+    an empty `<div id="root">`. Root's SW precaches 6 entries; `/app`'s 21 are
+    orphaned at scope `/app/`.
+    Two further rules that fall out of it: **`/sw.js` must never 404 and never
+    return HTML** (a non-JS response leaves the old worker permanently
+    unupdatable and in control of scope `/`), and `app/sw.js` currently has **no
+    `navigateFallbackDenylist`**, which is harmless at `/app/` but would swallow
+    `404.html` at `/`. Also: promotion strands every existing user's pack —
+    `/app` reads exactly **one** of root's six keys (`lang`, via `i18n.ts:54-56`);
+    `readRootPractice`/`readRootDocs`/`readRootPrefs` are defined and never
+    called. And 7 `href="/"` links on Welcome become self-links (verified live,
+    more than the 5 visible in source).
+11. ~~**Root's `prx.best` interpolated unescaped into `innerHTML`**~~ — **FIXED
+    2026-08-13.** Note the old line numbers here (`5451`/`5569`) were stale by
+    one release; the real sites at v2.21.2 were **`:5468`** and **`:5588`**.
+    Both now wrapped in `esc()`, matching the sibling at `:3478`. Verified live
+    with an injected `<img onerror>` payload at both sites: 0 elements created,
+    payload rendered as literal text, handler never fired. `:5401` was
+    deliberately left alone — it is `fillText` on canvas, not `innerHTML`.
+12. ~~**`/app` has no ErrorBoundary anywhere**~~ — **FIXED 2026-08-13.**
+    `app-src/src/components/ErrorBoundary.tsx`, wrapping `<main>`'s body in
+    `App.tsx` **above** the Suspense boundary (a lazy chunk that fails to load
+    rejects into the nearest boundary above the one that suspended). Uses only
+    the already-extracted `t.c_retry` string — no hand-typed copy, extraction
+    invariant intact. `console.error` only; nothing off-device. Verified live by
+    renaming the built `PracticeStep` chunk so its import 404s: shell, header
+    and language toggle survived, "Try again" fallback rendered, and after
+    restoring the chunk the retry recovered the app fully.
 
 ## What was decided and should not be re-litigated
 
@@ -272,10 +312,22 @@ inflated. Re-read the funnel over a clean window before treating it as exact.
   port at `/app` anyway, with explicit conditions: root stays live and
   untouched until proven parity, content ported verbatim by mechanical
   extraction, flags stay dark, no accounts/billing/analytics. That migration
-  is now complete. **The unresolved half of the original objection still
-  stands**: the entry bundle is ~93 kB gz against root's 112 kB brotli for the
-  *entire* app, and view-source no longer proves the privacy claim. Both are
-  inputs to the promotion decision, not settled questions.
+  is now complete. **One half of the original objection is now measured and
+  does not survive; the other does.**
+  - **Bundle size — objection retired, 2026-08-13.** The "112 kB brotli for the
+    entire app" figure was stale. Measured at v2.21.2 (node `zlib`, brotli q11):
+    root `index.html` is **545.5 kB raw / 180.9 kB gz / 145.7 kB br**. The whole
+    `/app` build is **508.4 kB / 173.6 kB / 147.8 kB br**; its entry js+css is
+    **272.4 kB / 91.5 kB gz / 76.7 kB br**. So `/app` is roughly **half the
+    bytes to first paint** and a wash on total (+1.4% br). The real figure to
+    watch is not the entry chunk but the **517.66 KiB / 21-entry precache**,
+    which is what a first-time roadside user actually pays.
+  - **View-source still stands, but is mislabelled.** `/app`'s browser-enforced
+    meta CSP (`connect-src 'self'`) makes the *privacy* claim easier to verify
+    than root's, which permits three third-party script origins and runs session
+    replay. What is genuinely lost is view-source auditability of the **legal
+    content** — statutes and officer lines are minified into the bundle. That is
+    the real cost and it has no current mitigation.
 - **No runtime cloud TTS.** It needs a public API key or a server that logs who
   is rehearsing. Voices stay authoring-time MP3s + on-device fallback.
 - **Convex chosen** as the eventual Tier-2 backend, if monetization proceeds —
@@ -336,14 +388,29 @@ hangs: kill only nlm's Chromes (`Get-CimInstance Win32_Process -Filter
 `notebooklm-mcp-cli`), then use the CDP method above. Verified both
 directions on 2026-08-11.
 
-**Voicebox** (voice generation) is a local app exposing JSON-RPC at
-`127.0.0.1:17493/mcp` while open — not a registered MCP. Drive it over HTTP; see
-`tools/voicebox_es.py`. Its MCP surface has no clone tool, but `POST /profiles`
-with `voice_type=preset` does. **Use native-language presets** — English-cloned
-voices reading Spanish produce audio its own Whisper cannot parse.
+**Voicebox** (voice generation). **The full standing workflow is
+`notebook/amparo-voice-generation-workflow.md` — read it before generating ANY
+audio.** It is the required process for every clip, in either language.
 
-**Always round-trip generated audio through `voicebox.transcribe` and compare to
-source before shipping it.** That check caught two unusable batches.
+Corrected 2026-08-13: Voicebox **is** a registered MCP now (`voicebox.speak`,
+`.transcribe`, `.list_profiles`, `.list_captures`). This file previously said it
+was not. It still only serves while the desktop app is open, at
+`127.0.0.1:17493/mcp`; `tools/voicebox_es.py` remains the reference batch driver
+and should be reused rather than rewritten.
+
+The three rules that file exists to enforce:
+1. **Generating a voice is not authoring a line.** The text must already exist in
+   `index.html` or `tools/VOICE_LINES.md`. See hard rule 1.
+2. **Always round-trip through `voicebox.transcribe` and compare to source before
+   shipping.** That check caught two unusable batches.
+3. **Use native-language profiles.** English-cloned voices reading Spanish
+   produce audio its own Whisper cannot parse.
+
+**Orphan-id trap, found 2026-08-13:** stale clips from older bank revisions are
+still in `audio/`. `v2_4` has clips in all four voice folders and text in
+`tools/VOICE_LINES.md:47`, but no reference in `index.html`. A newly authored
+line reusing that id silently ships the old audio, and no check catches it.
+Always `ls audio/*/*/<id>.mp3` before assigning an id.
 
 ## Release workflow
 

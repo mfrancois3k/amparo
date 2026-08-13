@@ -8,6 +8,7 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
 import { useLang, useT } from './i18n'
 import { LangProvider } from './LangProvider'
+import { ErrorBoundary } from './components/ErrorBoundary'
 import { Welcome } from './screens/Welcome'
 import { REVIEW } from './content/meta.json'
 import { readApp, writeApp } from './services/storage'
@@ -99,40 +100,47 @@ function Shell() {
       </p>
 
       <main>
-        {route.name === 'welcome' ? (
-          <Welcome t={t} founder={REVIEW.founder} onStart={() => navigate({ name: 'state' })} />
-        ) : null}
+        {/* Above the Suspense, not inside it: a lazy chunk that fails to load
+            rejects into the nearest boundary ABOVE the boundary that suspended,
+            and an offline chunk miss is the likeliest failure here. Wrapping
+            <main>'s whole body also covers eager Welcome. Everything outside —
+            header, language toggle, beta note, disclaimer — survives a throw. */}
+        <ErrorBoundary t={t}>
+          {route.name === 'welcome' ? (
+            <Welcome t={t} founder={REVIEW.founder} onStart={() => navigate({ name: 'state' })} />
+          ) : null}
 
-        <Suspense fallback={<div className="card" />}>
-          {showEyebrow ? (
-            <Eyebrow t={t} step={stepIndex(route)} state={pack.state} onPillClick={() => navigate({ name: 'state' })} />
-          ) : null}
-          {route.name === 'state' ? (
-            <StateStep
-              t={t}
-              picked={pack.state}
-              onPick={pickState}
-              onBack={() => navigate({ name: 'welcome' })}
-              onNext={() => navigate({ name: 'you' })}
-            />
-          ) : null}
-          {route.name === 'you' ? (
-            <YouStep
-              t={t}
-              onBack={() => navigate({ name: 'state' })}
-              onNext={() => navigate({ name: 'lifelines' })}
-            />
-          ) : null}
-          {route.name === 'lifelines' ? (
-            <LifelinesStep t={t} state={pack.state} onBack={() => navigate({ name: 'you' })} onNext={() => navigate({ name: 'print' })} />
-          ) : null}
-          {route.name === 'print' ? (
-            <PrintStep t={t} state={pack.state} onBack={() => navigate({ name: 'lifelines' })} onNext={() => navigate({ name: 'practice' })} />
-          ) : null}
-          {route.name === 'practice' ? (
-            <PracticeStep t={t} onBack={() => navigate({ name: 'print' })} />
-          ) : null}
-        </Suspense>
+          <Suspense fallback={<div className="card" />}>
+            {showEyebrow ? (
+              <Eyebrow t={t} step={stepIndex(route)} state={pack.state} onPillClick={() => navigate({ name: 'state' })} />
+            ) : null}
+            {route.name === 'state' ? (
+              <StateStep
+                t={t}
+                picked={pack.state}
+                onPick={pickState}
+                onBack={() => navigate({ name: 'welcome' })}
+                onNext={() => navigate({ name: 'you' })}
+              />
+            ) : null}
+            {route.name === 'you' ? (
+              <YouStep
+                t={t}
+                onBack={() => navigate({ name: 'state' })}
+                onNext={() => navigate({ name: 'lifelines' })}
+              />
+            ) : null}
+            {route.name === 'lifelines' ? (
+              <LifelinesStep t={t} state={pack.state} onBack={() => navigate({ name: 'you' })} onNext={() => navigate({ name: 'print' })} />
+            ) : null}
+            {route.name === 'print' ? (
+              <PrintStep t={t} state={pack.state} onBack={() => navigate({ name: 'lifelines' })} onNext={() => navigate({ name: 'practice' })} />
+            ) : null}
+            {route.name === 'practice' ? (
+              <PracticeStep t={t} onBack={() => navigate({ name: 'print' })} />
+            ) : null}
+          </Suspense>
+        </ErrorBoundary>
       </main>
 
       {offlineReady ? <p className="soon" style={{ marginTop: 6 }} role="status">{t.offline_ready}</p> : null}

@@ -22,6 +22,7 @@
  */
 import { useEffect, useRef, useState } from 'react'
 import type { Bank } from '../../i18n'
+import type { KeyboardEvent } from 'react'
 import { PRX_LEVEL_IDS, PRX_UNSCORED } from '../../content/practice.json'
 import { isLocked, type PracticeProgress } from '../../engine/practiceEngine'
 
@@ -31,6 +32,9 @@ const CK = 4
 /** The four numbered rungs the progress bar counts — checkpoint is not one
     of them, which is the whole point of the split (index.html:3448-3452). */
 const RUNGS = [0, 1, 2, 3]
+/** Module tabs: Traffic stop / Checkpoint / At your door — see the tablist
+    below. Drives the roving-tabindex arrow-key nav (ARIA APG Tabs pattern). */
+const HUB_TAB_COUNT = 3
 
 type Props = {
   t: Bank
@@ -74,6 +78,23 @@ export function PracticeHub({ t, progress, onPick, onBack, tab, onTabChange }: P
     pickTimer.current = setTimeout(() => onPick(level), 260)
   }
 
+  /* Roving tabindex + arrow-key nav (ARIA APG Tabs pattern, automatic
+     activation — matches the existing click-to-activate behavior instead of
+     introducing a second, manual-activation interaction mode). Only the
+     active tab sits in the page Tab order; Left/Right/Home/End move focus
+     AND selection among the three module tabs. */
+  const handleTabKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
+    let next: number | null = null
+    if (e.key === 'ArrowRight') next = (tab + 1) % HUB_TAB_COUNT
+    else if (e.key === 'ArrowLeft') next = (tab + HUB_TAB_COUNT - 1) % HUB_TAB_COUNT
+    else if (e.key === 'Home') next = 0
+    else if (e.key === 'End') next = HUB_TAB_COUNT - 1
+    if (next === null) return
+    e.preventDefault()
+    onTabChange(next)
+    document.getElementById(`hubTab${next}`)?.focus()
+  }
+
   return (
     <>
       <h1>{t.hub_title}</h1>
@@ -85,11 +106,12 @@ export function PracticeHub({ t, progress, onPick, onBack, tab, onTabChange }: P
           why, rather than a "coming soon" implying a date nobody committed
           to (index.html:3430-3434). */}
       <div className="ll-seg" role="tablist">
-        <button type="button" role="tab" className={tab === 0 ? 'on' : ''} aria-selected={tab === 0} onClick={() => onTabChange(0)}>{t.hub_m1}</button>
-        <button type="button" role="tab" className={tab === 1 ? 'on' : ''} aria-selected={tab === 1} onClick={() => onTabChange(1)}>{t.hub_m3}</button>
-        <button type="button" role="tab" className={tab === 2 ? 'on' : ''} aria-selected={tab === 2} onClick={() => onTabChange(2)}>{t.hub_m2}</button>
+        <button type="button" role="tab" id="hubTab0" className={tab === 0 ? 'on' : ''} aria-selected={tab === 0} aria-controls="hubPanel" tabIndex={tab === 0 ? 0 : -1} onClick={() => onTabChange(0)} onKeyDown={handleTabKeyDown}>{t.hub_m1}</button>
+        <button type="button" role="tab" id="hubTab1" className={tab === 1 ? 'on' : ''} aria-selected={tab === 1} aria-controls="hubPanel" tabIndex={tab === 1 ? 0 : -1} onClick={() => onTabChange(1)} onKeyDown={handleTabKeyDown}>{t.hub_m3}</button>
+        <button type="button" role="tab" id="hubTab2" className={tab === 2 ? 'on' : ''} aria-selected={tab === 2} aria-controls="hubPanel" tabIndex={tab === 2 ? 0 : -1} onClick={() => onTabChange(2)} onKeyDown={handleTabKeyDown}>{t.hub_m2}</button>
       </div>
 
+      <div role="tabpanel" id="hubPanel" aria-labelledby={`hubTab${tab}`}>
       {tab === 2 ? (
         <div className="pilot info" style={{ marginTop: 12 }}>
           <b>{t.hub_m2_h}</b><br /><span style={{ fontSize: 13 }}>{t.hub_m2_body}</span>
@@ -147,6 +169,7 @@ export function PracticeHub({ t, progress, onPick, onBack, tab, onTabChange }: P
           </div>
         </>
       )}
+      </div>
 
       <button type="button" className="btn ghost" style={{ marginTop: 16 }} onClick={onBack}>{t.hub_back_pack}</button>
     </>

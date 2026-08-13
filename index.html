@@ -3311,7 +3311,7 @@ function render(){
         <button type="button" role="tab" id="llTab0" class="on" aria-selected="true" aria-controls="llTrack" onclick="llTab(0)">${_t.seg_lines}</button>
         <button type="button" role="tab" id="llTab1" aria-selected="false" aria-controls="llTrack" onclick="llTab(1)">${_t.seg_covers}</button>
       </div>
-      <div class="ll-track" id="llTrack" tabindex="0" role="group" aria-label="${_t.ll_aria}"></div>
+      <div class="ll-track" id="llTrack" tabindex="0" role="tabpanel" aria-label="${_t.ll_aria}"></div>
       <div class="ll-nav" id="llNav"></div>
       <p class="soon" style="margin-top:8px" id="llFoot"></p>
       <button class="btn gold" style="margin-top:18px" onclick="goM(4)">${_t.l_btn}</button>
@@ -3438,10 +3438,14 @@ function render(){
            another traffic level buried at the end of the ladder), and the
            still-unbuilt door module. -->
       <div class="ll-seg" role="tablist">
-        <button type="button" role="tab" id="hubTab0" class="${_hubTab===0?'on':''}" aria-selected="${_hubTab===0}" onclick="hubTab(0)">${_t.hub_m1}</button>
-        <button type="button" role="tab" id="hubTab1" class="${_hubTab===1?'on':''}" aria-selected="${_hubTab===1}" onclick="hubTab(1)">${_t.hub_m3}</button>
-        <button type="button" role="tab" id="hubTab2" class="${_hubTab===2?'on':''}" aria-selected="${_hubTab===2}" onclick="hubTab(2)">${_t.hub_m2}</button>
+        <button type="button" role="tab" id="hubTab0" class="${_hubTab===0?'on':''}" aria-selected="${_hubTab===0}" aria-controls="hubPanel" onclick="hubTab(0)">${_t.hub_m1}</button>
+        <button type="button" role="tab" id="hubTab1" class="${_hubTab===1?'on':''}" aria-selected="${_hubTab===1}" aria-controls="hubPanel" onclick="hubTab(1)">${_t.hub_m3}</button>
+        <button type="button" role="tab" id="hubTab2" class="${_hubTab===2?'on':''}" aria-selected="${_hubTab===2}" aria-controls="hubPanel" onclick="hubTab(2)">${_t.hub_m2}</button>
       </div>
+      <!-- One shared panel for all three tabs: hubTab() re-renders the whole hub,
+           so the panel's contents are swapped rather than three panels toggled.
+           aria-labelledby therefore tracks the active tab, not a fixed id. -->
+      <div id="hubPanel" role="tabpanel" aria-labelledby="hubTab${_hubTab}">
       ${_hubTab===2?`<div class="pilot" style="background:#eef1f7;border-color:#c3cde0;text-align:left;display:block;margin-top:12px">
         <b>${_t.hub_m2_h}</b><br><span style="font-size:13px">${_t.hub_m2_body}</span>
       </div>`:(()=>{
@@ -3479,6 +3483,7 @@ function render(){
           </button>`;}).join('')}
       </div>`;
       })()}
+      </div>
       <button class="btn ghost" style="margin-top:16px" onclick="goM(4)">${_t.hub_back_pack}</button>
     </div>`;
   }
@@ -5465,7 +5470,7 @@ function practiceRender(){
       `<button class="prx-lcard${i===prLevel?' on':''}${isLocked(i)?' lock':''}"${isLocked(i)?` aria-disabled="true" title="${_t.prx_locked}"`:''} onclick="prxTab(${i})">
         <span class="tbg${i===3?' hardbg':''}${i===4?' chkbg':''}${i===5?' waitbg':''}${i===6?' nostopbg':''}" aria-hidden="true"${(i>=3)?'':` style="background-image:url('img/scene-${i+1}.jpg')"`}></span>
         <span class="lc-m"><span class="lc-t">${_t['prx_lvl'+(i+1)]}</span><span class="lc-d">${_t['prx_ld'+(i+1)]||''}</span></span>
-        <span class="lc-s">${isLocked(i)?'🔒':(PRX_UNSCORED.has(i)?(prx.done[i]?'✓':''):(prx.best[i]?`🟩${prx.best[i]}`:(prx.done[i]?'✓':'')))}</span></button>`).join('')}</div>
+        <span class="lc-s">${isLocked(i)?'🔒':(PRX_UNSCORED.has(i)?(prx.done[i]?'✓':''):(prx.best[i]?`🟩${esc(prx.best[i])}`:(prx.done[i]?'✓':'')))}</span></button>`).join('')}</div>
       ${mUnlocked?'':`<div class="prx-lockhint">🔒 ${_t.prx_locked}</div>`}
       ${prx.streak.n>1?`<div class="prx-daily">🔁 ${_t.prx_streak.replace('{n}',prx.streak.n)}</div>`:''}`;
     return;
@@ -5585,7 +5590,7 @@ function practiceRender(){
       ${sober&&!swan&&score===prRun.length&&prRun.length?`<p class="prc-intro"><b>${_t.prx_l3_perfect}</b></p>`:''}
       <div class="prx-stats">
         <div><b>🔁 ${prx.streak.n||1}</b><small>${_t.prx_st_days}</small></div>
-        <div><b>${prx.best[prLevel]||(score+'/'+prRun.length)}</b><small>${_t.prx_st_best}</small></div>
+        <div><b>${esc(prx.best[prLevel]||(score+'/'+prRun.length))}</b><small>${_t.prx_st_best}</small></div>
         <div><b>${[0,1,2].filter(i=>prx.done[i]).length}/3</b><small>${_t.prx_st_lvls}</small></div>
       </div>
       <p class="prc-intro">${swan?'':(yCount?_t.prx_tip_y:_t.prx_tip_all)}</p>

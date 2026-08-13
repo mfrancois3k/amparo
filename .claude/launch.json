@@ -12,6 +12,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev", "--prefix", "app-src", "--", "--port", "5173", "--strictPort"],
       "port": 5173
+    },
+    {
+      "name": "root",
+      "runtimeExecutable": "C:/Users/mfran/AppData/Local/hermes/hermes-agent/venv/Scripts/python.exe",
+      "runtimeArgs": ["-m", "http.server", "8000", "--bind", "127.0.0.1"],
+      "port": 8000
     }
   ]
 }

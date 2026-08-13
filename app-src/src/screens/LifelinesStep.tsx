@@ -4,6 +4,7 @@
  */
 import { useEffect, useRef, useState } from 'react'
 import type { Bank } from '../i18n'
+import type { KeyboardEvent } from 'react'
 import { TAGNAMES, SCEN } from '../content/states.json'
 import { resolveState } from '../content/statesResolved'
 import { useLang } from '../i18n'
@@ -12,6 +13,9 @@ import '../styles/lifelines.css'
 const TAGS = TAGNAMES as Record<'en' | 'es', Record<string, string>>
 type ScenItem = { ic: string; t: string; d: string; dTX?: string }
 const SCENARIOS = SCEN as { en: readonly ScenItem[]; es: readonly ScenItem[] }
+/** Tab count for the lifelines/scenarios segmented control's roving-tabindex
+    arrow-key nav (ARIA APG Tabs pattern). */
+const LL_TAB_COUNT = 2
 
 /** Ported verbatim from lifeContact (index.html:3852-3859) — decides whether a
     lifeline's contact string is a phone number, a URL, or plain text. */
@@ -71,6 +75,23 @@ export function LifelinesStep({ t, state, onBack, onNext }: Props) {
     tr.scrollTo({ left: card.offsetLeft - (tr.clientWidth - card.offsetWidth) / 2, behavior: 'smooth' })
   }
 
+  /* Roving tabindex + arrow-key nav (ARIA APG Tabs pattern, automatic
+     activation — matches the existing click-to-activate behavior instead of
+     introducing a second, manual-activation interaction mode). Only the
+     active tab sits in the page Tab order; Left/Right/Home/End move focus
+     AND selection between the two segments. */
+  const handleTabKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
+    let next: number | null = null
+    if (e.key === 'ArrowRight') next = (tab + 1) % LL_TAB_COUNT
+    else if (e.key === 'ArrowLeft') next = (tab + LL_TAB_COUNT - 1) % LL_TAB_COUNT
+    else if (e.key === 'Home') next = 0
+    else if (e.key === 'End') next = LL_TAB_COUNT - 1
+    if (next === null) return
+    e.preventDefault()
+    setTab(next as 0 | 1)
+    document.getElementById(`llTab${next}`)?.focus()
+  }
+
   return (
     <div className="card">
       <button className="back" aria-label={t.a11y_back} onClick={onBack}>← {t.a11y_back}</button>
@@ -79,13 +100,19 @@ export function LifelinesStep({ t, state, onBack, onNext }: Props) {
       <p className="sub">{t.l_sub}</p>
 
       <div className="ll-seg" role="tablist">
-        <button type="button" role="tab" className={tab === 0 ? 'on' : ''} aria-selected={tab === 0}
-          aria-controls="llTrack" onClick={() => setTab(0)}>{t.seg_lines}</button>
-        <button type="button" role="tab" className={tab === 1 ? 'on' : ''} aria-selected={tab === 1}
-          aria-controls="llTrack" onClick={() => setTab(1)}>{t.seg_covers}</button>
+        <button type="button" role="tab" id="llTab0" className={tab === 0 ? 'on' : ''} aria-selected={tab === 0}
+          aria-controls="llTrack" tabIndex={tab === 0 ? 0 : -1} onClick={() => setTab(0)} onKeyDown={handleTabKeyDown}>{t.seg_lines}</button>
+        <button type="button" role="tab" id="llTab1" className={tab === 1 ? 'on' : ''} aria-selected={tab === 1}
+          aria-controls="llTrack" tabIndex={tab === 1 ? 0 : -1} onClick={() => setTab(1)} onKeyDown={handleTabKeyDown}>{t.seg_covers}</button>
       </div>
 
-      <div className="ll-track" id="llTrack" ref={trackRef} tabIndex={0} role="group" aria-label={t.ll_aria}>
+      {/* No aria-labelledby to the active tab here (unlike the hub panel):
+          this element already carries a more useful accessible name via
+          aria-label (a swipe instruction — "Swipe sideways to see each
+          one") than the tab's own text would give it, and aria-labelledby
+          would silently replace — not supplement — that name per the
+          accname spec's precedence order. */}
+      <div className="ll-track" id="llTrack" ref={trackRef} tabIndex={0} role="tabpanel" aria-label={t.ll_aria}>
         {tab === 0 ? lifelines.map((L, i) => {
           const name = lang === 'es' && L.n_es ? L.n_es : L.n
           const raw = L.p === 'Coming soon' ? (lang === 'es' ? 'Próximamente' : 'Coming soon')
