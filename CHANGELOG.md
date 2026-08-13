@@ -6,6 +6,43 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.21.5 — 2026-08-13
+
+v2.21.5 — "Three more claims stopped outliving what they claimed about"
+
+Same failure shape as v2.21.4, three more instances. None touch officer
+dialogue or statute text — UI and status copy only.
+
+**The print banner said "Pack sent to your printer" on Cancel.** `afterprint`
+fires whether the user clicked Print or Cancel in the OS dialog — no browser,
+in any implementation, exposes a signal to tell them apart. That means this
+can't be fixed by moving the event or adding a check; the only honest fix is to
+stop asserting an outcome nothing here can verify. The banner now reads "Your
+pack is ready for the glovebox," true either way. Verified by dispatching
+`afterprint` directly with no print ever invoked — the literal Cancel case —
+and confirming the banner no longer claims delivery. `sr_pack_printed` itself
+is left where it is: relocating it buys no accuracy, since `afterprint` has the
+identical ambiguity, and renaming it would break continuity on an existing
+PostHog funnel definition, which is the operator's call to make, not a fix to
+land quietly.
+
+**The statute-source badge said "auto-checked daily" through 11 of the last 14
+days Georgia's source was unreachable.** `law-status.json` had computed and
+shipped `reachedSources`/`sourcesWatched` the whole time; `renderLawCheck`
+never read them. Now shows a distinct partial-check state ("3 of 4 were
+reachable") beneath the existing flagged state, so a source that actually
+changed still takes visual priority over one that was merely unreachable.
+Verified live in all three states.
+
+**`/app`'s ErrorBoundary fallback had no sentence.** It reused `c_retry`, the
+*camera* retry string, because no generic error copy existed anywhere in the
+463-key bank. Added `app_err_t` (EN+ES) through `index.html` and the extractor
+like every other `/app` string. Verified by 404ing a real built chunk — the
+sentence renders inside the existing `role="alert"` card.
+
+No legal content changed. `EDITION` unmoved. All four check suites pass; `tsc`
+clean.
+
 ## v2.21.4 — 2026-08-13
 
 v2.21.4 — "Claims that outlived what they claimed about"

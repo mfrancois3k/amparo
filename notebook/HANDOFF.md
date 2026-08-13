@@ -354,25 +354,31 @@ not inferred.
   matching `/app`. Verified live: focus survives activation, selection follows
   arrows, panel `aria-labelledby` tracks.
 
-**OPEN, needs your call:**
-1. **The "3 printed" in 72→4→3 is "3 opened a print dialog."**
-   `sr_pack_printed` fires inside `beforeprint` (`index.html:4315`→`:4323`).
-   Worse, `afterprint` (`:5846`) fires on **Cancel** too, and commits
-   `hasPrinted=true`, `printedEdition=EDITION`, `persist()`, shows "Pack sent to
-   your printer", demotes the CTA and arms the stale-pack banner. So cancelling
-   the dialog tells the user their pack printed. Fixing it changes the meaning
-   of the funnel you have been measuring — that is a product decision, not a
-   cleanup.
-2. **Georgia has been unreachable 11 of the last 14 days** while the badge reads
-   "Statute sources auto-checked daily." `law-status.json` computes and ships
-   `reachedSources: 3 / sourcesWatched: 4`, and `renderLawCheck` never reads it.
-   The `lastChecked` guard only covers the all-four-fail case. Hard rule 3.
-3. **The ErrorBoundary fallback has no sentence.** `c_retry` is the *camera*
-   retry string (`index.html:2000`); there is no generic error string in the
-   463-key bank. `role="alert"` added so it is at least announced. The real fix
-   is one EN+ES sentence in `index.html` + re-extract — **not** blocked by hard
-   rule 1, since it is UI chrome rather than legal content, but the Spanish is
-   your wording, not a model's.
+**FIXED in v2.21.5** (all three below were the top of this list):
+1. ~~**"3 printed" was "3 opened a print dialog."**~~ Cannot be fixed at the
+   signal level — no browser exposes a print-vs-cancel outcome, so moving or
+   renaming `sr_pack_printed` buys nothing (`afterprint` has the identical
+   ambiguity to `beforeprint`; left as-is, deliberately, to avoid breaking an
+   existing PostHog funnel definition without your sign-off). What *was*
+   fixable: the banner no longer asserts "Pack sent to your printer" on Cancel.
+   It now says "Your pack is ready for the glovebox" — true regardless of the
+   OS dialog's outcome. Verified by dispatching `afterprint` with no print ever
+   invoked. `hasPrinted`/`postPrintActions` still unlock on the same signal,
+   deliberately — unlocking "what's next" on a print *attempt* is a reasonable
+   proxy; asserting the print *succeeded* in copy the user reads was the actual
+   violation.
+2. ~~**Georgia badge said "auto-checked daily" through 11 of 14 down days.**~~
+   `renderLawCheck` now reads `reachedSources`/`sourcesWatched` and shows a
+   distinct partial-check state ("3 of 4 were reachable") under the existing
+   flagged state, which still takes visual priority. Verified live in all three
+   states (full / partial / flagged).
+3. ~~**ErrorBoundary had no sentence.**~~ Added `app_err_t`, EN+ES, through
+   `index.html` and the extractor — UI chrome, not legal content, so hard rule 1
+   doesn't apply, but the wording still went through the same pipeline as every
+   other `/app` string rather than being hand-typed in the component. Verified
+   live by 404ing a real built chunk.
+
+**OPEN:**
 4. **The four check suites are 47 assertions and zero behavioural.** Every one
    passed on a build where root's keyboard nav was broken. Nothing in `tools/`
    checks audio against the bank either, which is why 8 orphaned clips sat

@@ -8,6 +8,16 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.21.5 — 2026-08-13 — "Three more claims stopped outliving what they claimed about"
+
+Print banner no longer says "sent to your printer" on `afterprint`, which fires
+on Cancel too and cannot be told apart from Print in any browser — the fix is
+to stop asserting an unknowable outcome, not chase a signal that doesn't exist.
+Statute badge now distinguishes "3 of 4 reachable" from "all checked," instead
+of claiming "auto-checked daily" through 11 of the last 14 days Georgia was
+down. `/app`'s ErrorBoundary gets its first sentence, extracted through
+`index.html` like every other string. No content change, `EDITION` unmoved.
+
 ## v2.21.4 — 2026-08-13 — "Claims that outlived what they claimed about"
 
 Offline chip no longer promises "works without internet" off `serviceWorker.ready`
