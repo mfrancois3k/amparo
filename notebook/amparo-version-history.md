@@ -8,6 +8,20 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.22.2 — 2026-08-13 — "The row hid the two safest targets"
+
+Loop findings, one round after the share sheet shipped. At 375×812 the row hid
+**Copy link and More entirely** (scrollbar suppressed, chevrons dropped, no
+affordance) — a regression between v2.22.0 and v2.22.1, which added two
+targets without revisiting the comment justifying the scroll. `flex-wrap`; all
+six now 100% visible, measured. Also: a Border Patrol checkpoint share no
+longer captions itself a traffic stop; `sr_drill_shared` → `sr_drill_share_opened`
+(the sheet moved it off the actual share); `prxShareCert` no longer treats a
+cancelled OS share as a save (pre-existing); `back()` now reverses a miss it
+recorded, +2 checks (24 total). Method note: layout geometry *is* measurable in
+the frozen preview tab even though compositing is not — that conflation is
+where the overflow hid.
+
 ## v2.22.1 — 2026-08-13 — "Facebook and X, on your call"
 
 Adds both to the share sheet after they were deliberately withheld from

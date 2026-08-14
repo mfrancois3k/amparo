@@ -6,6 +6,72 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.22.2 — 2026-08-13
+
+v2.22.2 — "The row hid the two safest targets"
+
+Everything here was found by the loop's own agents, one round after the share
+sheet shipped. The headline item is a regression introduced *between* the two
+share releases.
+
+**The share row hid Copy link and More on every real phone.** Measured at
+375×812 with `navigator.share` present: `scrollWidth` 474 against
+`clientWidth` 295 — X 75% cut, and the last two tiles at **0% visible**. The
+scrollbar is suppressed in both engines and the chevrons were deliberately
+dropped, so the only cue that anything existed offscreen was a half-cut fourth
+tile. The two hidden ones were **Copy link and More** — the only targets that
+send nothing to a third party, and More is the entire route to
+Signal/AirDrop/anything installed.
+
+Strictly a regression between the two share commits: v2.22.0's CSS comment
+justified dropping the chevrons with *"four targets only overflow on the
+narrowest phones"*; v2.22.1 added two more and never revisited it, leaving a
+comment that had stopped being true — the same "claim outlived what it claimed
+about" shape the previous several releases were fixing. Fixed with
+`flex-wrap`; all six targets now measure 100% visible at 375px, by
+`getBoundingClientRect` intersection rather than by eye.
+
+**Method note, worth more than the fix.** v2.22.0's notes wrote off "visual
+render" as unverifiable because the preview tab cannot composite frames. That
+was overstated: layout geometry (`getBoundingClientRect`, `scrollWidth`) works
+perfectly well in that frozen tab, and this defect was fully measurable there
+the entire time. Compositing and layout are not the same capability, and
+conflating them is exactly where this hid.
+
+**A Border Patrol checkpoint share captioned itself as a traffic stop.**
+`prx_share_taunt` asks *"do you know your rights at a traffic stop?"* and was
+appended unconditionally, so a level-4 run posted a checkpoint score under a
+traffic-stop caption. Dropped for levels 4 and 7 rather than replaced with a
+checkpoint-specific line — that would be new content, and the line above
+already reads "🚧 Checkpoint". Traffic levels keep it; verified both ways.
+**Flagged, not taken:** whether an immigration-checkpoint result should be one
+tap from a public post at all. `index.html:5737` already refuses to put
+score+state for sensitive levels into even the anonymous analytics, while the
+debrief offers a gold button to broadcast the same thing publicly.
+
+**`sr_drill_shared` had quietly become "a dialog appeared."** The sheet moved
+it off the actual share without renaming it — the same defect as
+`sr_pack_printed` firing on `beforeprint`. Renamed to
+`sr_drill_share_opened` rather than relocated: no browser reports whether a
+share completed, so "shared" is not knowable there. The destination tap is,
+and `sr_share_via` already records it.
+
+**`prxShareCert` treated a cancelled share as a save.** A bare `catch(e){}`
+swallowed `AbortError`, then force-downloaded the PNG and printed "Saved."
+Its sibling `carrySave` has handled this correctly all along. Pre-existing —
+it was carved out of the share sheet as a file-share path and that carve-out
+was never audited.
+
+**`back()` did not reverse a miss it had recorded.** `advance()` increments the
+miss counter at the same moment it pushes the run entry, but `back()` popped
+only the run entry — so exploring with Back accrued permanent `×N` badges on
+beats the player actually knows, the exact opposite of the counter's purpose.
+Fixed in both codebases, plus two `practice-engine-check` assertions (now 24)
+proven to fail without the fix.
+
+Also dismisses the sheet after a destination tap, deferred 250 ms so it does
+not race the navigation. No content changed. All four suites pass.
+
 ## v2.22.1 — 2026-08-13
 
 v2.22.1 — "Facebook and X, on your call"
