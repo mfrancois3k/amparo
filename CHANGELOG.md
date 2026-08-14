@@ -6,6 +6,39 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.22.4 — 2026-08-13
+
+v2.22.4 — "The verify claim, re-verified, and found wanting"
+
+Found by this loop's own focus group — live-verified against the exact build
+`v2.22.3` claimed to have already verified.
+
+**The clipboard-failure announcement was on the wrong element, for one of two
+Copy buttons.** `role="status"` was hardcoded onto `.sh-link` (the URL field's
+wrapper), but the sheet has two Copy affordances — that field's own button,
+and the row's separate Copy tile — and the visible text always updates on
+whichever one was actually tapped. Tap the row tile: the label changes
+correctly on screen, `.sh-link`'s subtree never does, and nothing gets
+announced — the exact silent failure this `role` existed to prevent, still
+happening from the other button.
+
+Fixed by setting the role on `lb` itself — the one node guaranteed to be both
+the live region and the thing that mutates, regardless of which Copy fired.
+Cleared on the 4s revert so a completed announcement doesn't leave a stray
+live region on a static button.
+
+Verified live for **both** trigger paths, not just the one that was broken:
+row tile → role lands on the tile's own label; link field's own button → role
+lands on the button directly. Both clear back to `null` after revert.
+
+Worth recording for whoever tests this next: the static preview server
+doesn't reload, and an initial check against its cached script read as a
+false negative on a fix that had already landed correctly on disk. Switching
+to a direct `file://` load (no HTTP cache layer at all) before trusting either
+a pass or a fail is what caught it.
+
+No content changed. All four suites pass, `tsc` clean.
+
 ## v2.22.3 — 2026-08-13
 
 v2.22.3 — "It showed a link and sent a score"

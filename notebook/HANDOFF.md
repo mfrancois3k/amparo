@@ -405,6 +405,44 @@ Also corrected: "2437 strings byte-identical" (used in the v2.21.3 notes) is
 imprecise — the gate reports **2437 verified present, 2292 byte-identical**, the
 rest via source escapes/entities.
 
+## Found by the e2e-qa loop — 2026-08-13
+
+A real end-to-end QA pass (actual clicks in a real visible browser, not
+synthetic state injection) ran clean — no bugs. The three fan-out agents then
+found one real accessibility bug (fixed, v2.22.4) and surfaced two genuine
+product-design questions, deliberately not resolved unilaterally.
+
+**FIXED, v2.22.4:** clipboard-failure `role="status"` was hardcoded to the
+wrong element for one of the share sheet's two Copy buttons — see CHANGELOG.
+
+**OPEN — design fork, needs your call:** does `back()` reversing a recorded
+miss let a player launder it? Verified live: miss beat → Continue (pushes the
+miss, advances) → Back (from the next beat's pre-answer screen — pops the
+just-pushed entry, reverses the miss, re-presents the SAME beat fresh) →
+answer correctly having just read the coaching. `prx.miss` ends at 0 and the
+grid shows 🟩, recording no real recall. This isn't new behavior I invented —
+Back has always let a player launder the visible SCORE this same way; v2.22.3
+just made `prx.miss` follow the same semantics the score already had, on the
+reasoning that a 🟩 square silently still counting as a lifetime miss would
+look like a bug. The module review disagrees, arguing Back should still
+undo the score (that's "let me retry") but NOT the miss count (that's meant
+to mean "beats I actually struggle with," which a peek-then-repeat doesn't
+demonstrate) — recommending only the miss-reversal half of `prxBack()`/
+`back()` be reverted, keeping every persistence fix. Both positions are
+internally consistent; this is philosophy, not a bug. Left as shipped
+pending your decision. See `wargames/25-e2e-qa-modules.md` §1-2 for the full
+trace and both arguments.
+
+**OPEN — flagged, not changed:** the share message preview is a byte-exact
+promise for WhatsApp/SMS/X, silently false for Facebook (link-only, by
+design — Facebook's sharer ignores passed text). The v2.22.3 commit reasoned
+this is "the safe direction to be wrong in" since it never UNDERSTATES what a
+target sends. The focus group's counter: it can still wrongly deter a
+cautious user from the one target that was always safe, since the full score
+sits visibly above a Facebook button that won't actually send it. No fix
+applied — differentiating the preview per-target is a real design option, not
+obviously worth its complexity, and not mine to decide unprompted.
+
 ## Found by the honesty-fixes-and-restores loop — 2026-08-13
 
 Verification pass over v2.21.4–v2.21.8 (offline chip, cron fix, hub focus,

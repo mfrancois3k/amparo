@@ -8,6 +8,15 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.22.4 — 2026-08-13 — "The verify claim, re-verified, and found wanting"
+
+Loop's focus group live-verified v2.22.3's own "verified live" claim and found
+the clipboard-failure message's `role="status"` was hardcoded to the wrong
+element — worked from the link field's own Copy button, silently announced
+nothing from the row's separate Copy tile, since the text always mutates on
+whichever button fired. Fixed by setting the role on the actual mutating node.
+Verified both trigger paths live. No content change.
+
 ## v2.22.3 — 2026-08-13 — "It showed a link and sent a score"
 
 Rest of the share-sheet loop findings. The sheet displayed a bare URL while
