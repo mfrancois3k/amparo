@@ -409,11 +409,18 @@
      it is open rather than the practice overlay underneath. */
   #docOverlay,#carryOverlay,#shareOverlay{z-index:97}
   .sh-card{max-width:420px}
-  /* Horizontal scroll rather than the reference's chevron buttons: with four
-     targets this only overflows on the narrowest phones, and a native swipe
-     beats two arrow controls that need scroll-position state to stay honest. */
-  .sh-row{display:flex;gap:6px;overflow-x:auto;padding:2px 0 10px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-  .sh-row::-webkit-scrollbar{display:none}
+  /* WRAP, not horizontal scroll. The first cut of this scrolled, on the
+     reasoning that four targets only overflow on the narrowest phones and a
+     swipe beats chevrons that need scroll-position state to stay honest. Then
+     Facebook and X were added and that reasoning was never revisited: measured
+     at 375x812 with "More" present, scrollWidth 474 vs clientWidth 295 put
+     **Copy link and More at 0% visible** with the scrollbar suppressed in both
+     engines and no chevrons — the only cue that anything existed offscreen was
+     a half-cut 4th tile. The hidden one was "More", i.e. the entire route to
+     Signal/AirDrop/anything installed. Wrapping shows every target at once at
+     any width and costs nothing; scroll affordance is the problem you get to
+     stop having. */
+  .sh-row{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;padding:2px 0 10px}
   .sh-t{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:6px;width:74px;background:none;border:0;padding:6px 2px;cursor:pointer;font-family:inherit;border-radius:12px}
   .sh-t:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
   .sh-t .ic{width:50px;height:50px;border-radius:99px;background:#eef1f7;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:21px;transition:transform .18s var(--ease-spring)}
@@ -5462,7 +5469,20 @@ function prxAdvance(){
 function prxBack(){
   if(prIdx<=0){ prxLevels(); return; }
   prxDropLast(); prxIdleN=0; prxSaidTxt=''; prxSaidKey=''; prxSaidHits=0; prxSaidTotal=0; prxSaidGood=false; prxChosen=''; prxChoseGood=false; prxPickedAlt=false;
-  prRun.pop(); prRunIdx.pop(); prIdx--; prRevealed=false; practiceRender(); prxSpeak();
+  /* Reverse the miss too, not just the score. prx.miss is incremented in
+     prxAdvance() at the same moment prRun/prRunIdx are pushed, so stepping
+     back has to undo both or the comment above ("dropping its recorded result
+     so a re-do re-scores cleanly") is only half true: the grid would forget
+     the miss while the all-time counter kept it, and a player who used Back
+     to explore would accrue ×N badges on beats they actually know. Popped
+     runIdx, not prIdx — crisis beats are never pushed, so runIdx is the only
+     thing that still maps a run entry back to its deck beat. */
+  const _bt=prRun.pop(), _bi=prRunIdx.pop();
+  if(_bt==='y'&&prDeck[_bi]){
+    const _ci=prDeck[_bi].ci;
+    if(prx.miss[_ci]>0){ prx.miss[_ci]--; if(!prx.miss[_ci]) delete prx.miss[_ci]; }
+  }
+  prIdx--; prRevealed=false; practiceRender(); prxSpeak();
 }
 /* ===== Carry card =====
    The artifact that leaves the screen: four lines, in the driver's own words,
@@ -5609,7 +5629,12 @@ async function prxShareCert(btn){
       await navigator.share({files:[file],text:_t.prx_share_taunt+' https://www.amparohq.com'});
       return;
     }
-  }catch(e){}
+  /* AbortError = the user dismissed the OS share sheet. The bare catch here
+     swallowed that and fell through to force-downloading the PNG and printing
+     "Saved.", i.e. cancelling produced a file and a claim that it was saved.
+     carrySave (below) already got this right; this path never did. Same
+     family as the print banner that asserted success on Cancel. */
+  }catch(e){ if(e&&e.name==='AbortError') return; }
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a'); a.href=url; a.download='amparo-rights.png';
   document.body.appendChild(a); a.click(); a.remove();
@@ -5620,8 +5645,28 @@ function prxShareRun(btn){
   const _t=t(), grid=prRun.map(x=>x==='g'?'🟩':'🟨').join('');
   /* The URL is passed separately rather than baked into the text, so the
      sheet's link field has something real to show and copy. */
-  const txt=`Amparo 🚔 ${_t['prx_lvl'+(prLevel+1)]}\n${grid} ${prRun.filter(x=>x==='g').length}/${prRun.length}\n${_t.prx_share_taunt}`;
-  ph('sr_drill_shared',{level:prLevel+1,state:data.state||'none',lang:lang});
+  /* prx_share_taunt asks "do you know your rights at a traffic stop?" — true
+     for the traffic ladder, FALSE for level 4, which is a Border Patrol
+     immigration checkpoint, and for the door module. Sharing a checkpoint run
+     was captioning it as a traffic stop: a factual error in outgoing,
+     user-visible text on a product whose whole discipline is not claiming
+     things that aren't so. Dropped rather than replaced with a
+     checkpoint-specific line, because that would be new content and the level
+     name in the line above already says "🚧 Checkpoint". Subtraction is the
+     safe half of this fix; whether an immigration-checkpoint result should be
+     one tap from a public post AT ALL is a separate operator call, flagged
+     not taken — note that :5737 already refuses to put score+state for
+     sensitive levels into even the anonymous analytics. */
+  const _nonTraffic=(prLevel===4||prLevel===7);
+  const txt=`Amparo 🚔 ${_t['prx_lvl'+(prLevel+1)]}\n${grid} ${prRun.filter(x=>x==='g').length}/${prRun.length}${_nonTraffic?'':'\n'+_t.prx_share_taunt}`;
+  /* `_opened`, not `sr_drill_shared`. Introducing the sheet moved this event
+     from "a share happened" to "a dialog appeared" without renaming it — the
+     same defect as sr_pack_printed firing on beforeprint, which this project
+     already decided it cares about. Renamed rather than relocated, because
+     there is no honest place to put the old name: no browser reports whether
+     a share completed, so "shared" is not knowable from here. The tap on a
+     destination is knowable and is recorded separately by sr_share_via. */
+  ph('sr_drill_share_opened',{level:prLevel+1,state:data.state||'none',lang:lang});
   shareOpen({text:txt,url:'https://www.amparohq.com'});
 }
 function practiceRender(){
@@ -5970,7 +6015,15 @@ function shareClose(){
 }
 /* Which destination was chosen — never the message body, which on the practice
    share carries the user's own score. */
-function shareVia(k){ ph('sr_share_via',{target:k,lang:lang}); }
+function shareVia(k){
+  ph('sr_share_via',{target:k,lang:lang});
+  /* Dismiss after the navigation has been handed off. Without this the sheet
+     is still sitting there when the user comes back from WhatsApp, reading as
+     "that didn't work" on the one screen where it did. Deferred rather than
+     immediate: closing synchronously inside the anchor's own click handler
+     races the navigation the anchor is there to perform. */
+  setTimeout(shareClose,250);
+}
 /* The link field says "link", so Copy copies the LINK, not the whole message.
    The target buttons above send the full text — that split is deliberate:
    a copy button under a field showing a URL must produce that URL. */

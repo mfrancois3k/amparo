@@ -310,6 +310,40 @@ check('toLevels() returns to IDLE without touching progress', () => {
 
 /* ---- bothGood (hard mode) never scores a miss ---- */
 
+/* Found by the share-sheet loop's module review, 2026-08-13: advance()
+   increments progress.miss at the same moment it pushes run/runIdx, but
+   back() popped run/runIdx and left miss inflated — so exploring with Back
+   accrued permanent ×N badges on beats the player actually knows, which is
+   the exact opposite of what the counter is for. None of the other 22 checks
+   failed on it: they cover run/runIdx alignment, never miss. */
+check('back() reverses a miss it recorded, not just the run entry', () => {
+  let s = selectLevel(initialState(), 0, FIXED_DATE, seededRng(1));
+  s = officerFinished(s);
+  const ci = s.deck[s.idx].ci;
+  s = pick(s, false);                       // miss it
+  s = advance(s, FIXED_DATE, seededRng(1));
+  assert.equal(s.progress.miss?.[ci], 1, 'advance() should have recorded the miss');
+  s = back(s);
+  assert.equal(s.progress.miss?.[ci] ?? 0, 0, 'back() must undo the miss it just recorded');
+  assert.deepEqual(s.run, [], 'run entry dropped too');
+  // and a correct retry must not resurrect it
+  s = officerFinished(s);
+  s = pick(s, true);
+  s = advance(s, FIXED_DATE, seededRng(1));
+  assert.equal(s.progress.miss?.[ci] ?? 0, 0, 'a good retry must leave the counter clean');
+});
+
+check('back() leaves an unrelated beat\'s miss count alone', () => {
+  let s = selectLevel(initialState(), 0, FIXED_DATE, seededRng(1));
+  const seeded = { ...emptyProgress(), miss: { 99: 4 } };
+  s = { ...s, progress: seeded };
+  s = officerFinished(s);
+  s = pick(s, false);
+  s = advance(s, FIXED_DATE, seededRng(1));
+  s = back(s);
+  assert.equal(s.progress.miss?.[99], 4, 'an unrelated ci must be untouched');
+});
+
 check('bothGood options always tier "g" regardless of which side is picked', () => {
   let s = selectLevel(initialState({ ...emptyProgress(), done: { 0: true, 1: true, 2: true } }), 3, FIXED_DATE, seededRng(1));
   s = confirmWarn(s);

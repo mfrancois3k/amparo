@@ -369,11 +369,30 @@ function completeRun(state: EngineState, now: Date): EngineState {
 export function back(state: EngineState): EngineState {
   if (state.phase !== 'BEAT_COMPLETE' && state.phase !== 'AWAITING' && state.phase !== 'OFFICER_SPEAKING') return state
   if (state.idx <= 0) return { ...state, phase: 'IDLE' }
+  /* Reverse the miss as well as the score — advance() increments progress.miss
+     at the same moment it pushes run/runIdx, so stepping back must undo both
+     or a player who uses Back to explore accrues ×N badges on beats they know.
+     Keyed off the popped runIdx, not idx: crisis beats are never pushed to
+     run, so runIdx is the only thing that still maps a run entry to its beat. */
+  const poppedTier = state.run[state.run.length - 1]
+  const poppedIdx = state.runIdx[state.runIdx.length - 1]
+  let progress = state.progress
+  const beat = state.deck[poppedIdx]
+  if (poppedTier === 'y' && beat) {
+    const cur = progress.miss?.[beat.ci] ?? 0
+    if (cur > 0) {
+      const miss = { ...progress.miss }
+      if (cur - 1 === 0) delete miss[beat.ci]
+      else miss[beat.ci] = cur - 1
+      progress = { ...progress, miss }
+    }
+  }
   return {
     ...state,
     idx: state.idx - 1,
     run: state.run.slice(0, -1),
     runIdx: state.runIdx.slice(0, -1),
+    progress,
     curTier: null, chosenGood: false, pickedAlt: false,
     phase: 'OFFICER_SPEAKING',
   }
