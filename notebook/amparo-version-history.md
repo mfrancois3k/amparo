@@ -8,6 +8,28 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.22.1 — 2026-08-13 — "Facebook and X, on your call"
+
+Adds both to the share sheet after they were deliberately withheld from
+v2.22.0 as an operator decision. They behave differently and it is documented
+in source: Facebook's sharer takes only the URL and renders from this page's
+`og:` tags, so a practice-result share posts **no score**; X's intent URL does
+carry the text. Verified by checking both hrefs for the score, not assumed.
+Inline SVG brand marks, no new strings, no content drift.
+
+## v2.22.0 — 2026-08-13 — "Share was a button that relabelled itself"
+
+Real share sheet replacing a bare `navigator.share()` that silently degraded
+to relabelling its own button on desktop. Adapts a supplied shadcn/React
+reference onto root's existing `.ab-card` overlay — target row, link field,
+copy — with targets chosen for this audience (WhatsApp, SMS, copy link, native
+sheet as "More"). Registers with the existing overlay a11y system (Escape,
+focus trap, `inert`, focus restore); `z-index:97` so it behaves when opened
+from inside the practice debrief. File shares (cert, carry card) keep their
+own `navigator.share({files})` path. Removes orphaned `w_shared`. Visual
+render unverified — the preview tab cannot composite frames. No content
+change, `EDITION` unmoved.
+
 ## v2.21.11 — 2026-08-13 — "The record the results screen tells you to fix, kept getting erased"
 
 `prx.miss` (root) / `progress.miss` (`/app`) now persists an all-time

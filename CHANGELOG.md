@@ -6,6 +6,108 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.22.1 — 2026-08-13
+
+v2.22.1 — "Facebook and X, on your call"
+
+Adds both to the share sheet. They were withheld from v2.22.0 deliberately —
+posting *"I'm rehearsing a police stop"* publicly is a materially different
+act from texting it to your kid, and the practice-result share carries the
+user's own score — and flagged as an operator decision rather than a default
+to pick quietly. The decision was made. The source comment that said
+"deliberately NO Facebook/X" is corrected in the same commit rather than left
+contradicting the code.
+
+**The two do not behave alike, and on this product that difference matters.**
+Facebook's sharer honours only `u`: it ignores any text passed and builds its
+card from this page's own `og:` tags (verified present — title, description,
+and a 1500×790 `og:image`). X's intent URL *does* carry the text. So on a
+practice-result share, **X posts the user's grid and score; Facebook posts
+only the link.** Confirmed empirically rather than reasoned about — both
+generated hrefs were checked for the score substring: absent from Facebook's,
+present in X's.
+
+`x.com` rather than `twitter.com` — the old host still redirects, but the
+canonical intent endpoint is `x.com` and one less hop matters on a phone with
+bad signal. Brand marks are inline SVG; there is no reasonable emoji for
+either and a bare letter "f" reads as a bug.
+
+No new strings — brand names are not translated, the same treatment WhatsApp
+already had, so the content verifier shows zero drift. The row now genuinely
+overflows on narrow screens with five targets plus "More" (verified
+`scrollWidth > clientWidth`), which is exactly what v2.22.0's
+`overflow-x:auto` was built for, so no layout change was needed.
+
+## v2.22.0 — 2026-08-13
+
+v2.22.0 — "Share was a button that relabelled itself"
+
+Replaces a bare `navigator.share()` call with a real share sheet, adapted from
+a supplied reference. The reference is a shadcn/React component
+(Dialog/Input/Checkbox, lucide icons); root is a single vanilla HTML file with
+none of those, so this ports the **pattern** — target row, link field, copy
+affordance — onto the existing `.ab-card` overlay rather than adding
+dependencies.
+
+**What was actually wrong:** `shareAmparo()` and `prxShareRun()` each inlined
+the same `navigator.share`-else-clipboard dance. On desktop, and on any
+browser without the Web Share API, that meant the button quietly relabelled
+itself to "Link copied" — no dialog, no choice of destination, no way to see
+what had been copied. Confirmed in the preview, where `navigator.share` is
+undefined: that is the degraded path, and it was the only path most desktop
+users ever saw.
+
+Adaptation decisions, since the reference's targets are explicitly
+placeholders (*"Replace these with real brand icons/links"*):
+
+- **WhatsApp and SMS.** This product spreads family-to-family, often across a
+  language line. Both are plain link navigations carrying only the message the
+  user chose to send — no SDK, no pixel, no third-party script, so the CSP's
+  `script-src` is not even implicated.
+- **`sms:?&body=`**, the one form both modern iOS and Android accept; the
+  iOS-only and Android-only variants each break the other platform.
+- **Dropped** "Start at 0:00" (no video) and "Embed" (nothing embeddable).
+- **Dropped the chevron scroll arrows** — a native swipe beats two arrow
+  controls that need scroll-position state to stay truthful.
+- **`navigator.share` kept as "More"** where it exists, so the native sheet
+  (AirDrop, Signal, anything installed) stays one tap away rather than being
+  replaced by a worse custom list.
+
+The link field shows the URL and Copy copies the URL; the target buttons send
+the full message. That split is deliberate — a copy button under a field
+displaying a link has to produce that link.
+
+Registered with the existing overlay accessibility system rather than
+hand-rolled, so Escape, focus trap, background `inert` and focus restore all
+come free. `z-index:97` like doc/carry, because the sheet can be opened from
+**inside** the practice debrief and `ovTop()` sorts on computed z-index —
+verified that Escape closes the sheet and leaves the practice overlay
+underneath open.
+
+File shares (carry card, mastery certificate) deliberately do **not** route
+here — they hand an actual PNG to `navigator.share({files})`, which a link
+sheet cannot represent.
+
+Also removes `w_shared`, orphaned by this change — it was the button-relabel
+string the sheet replaces. Same "delete or wire up, never leave inert"
+standard applied to `PRX_LEVELS.rate` earlier the same day.
+
+**Not verified: any visual render.** The preview tab reports
+`visibilityState: "hidden"`, so `requestAnimationFrame` never fires and
+screenshots cannot composite. Structure and behaviour were checked
+programmatically instead. Worth knowing for whoever tests next: in that
+environment GSAP-animated overlay **close** cannot complete at all —
+`SRMotion.overlayOut` sets a `__srClosing` latch and only clears it in the
+tween's `onComplete`, so a frozen ticker leaves every overlay permanently
+stuck open. That is pre-existing and affects untouched overlays identically;
+confirmed before assuming this change caused it.
+
+`/app` does not get this — its Welcome share is still an `href="/"` link to
+root, a pre-existing deferred item (`wargames/18`).
+
+No legal content changed; the new strings are UI chrome, so `EDITION` does not
+move.
+
 ## v2.21.11 — 2026-08-13
 
 v2.21.11 — "The record the results screen tells you to fix, kept getting erased"
