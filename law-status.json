@@ -1,12 +1,18 @@
 {
-  "lastChecked": "2026-08-13",
-  "lastAttempt": "2026-08-13",
-  "reachedSources": 3,
+  "lastChecked": "2026-08-14",
+  "lastAttempt": "2026-08-14",
+  "reachedSources": 4,
   "sourcesWatched": 4,
   "counts": {
     "ok": 3,
-    "unreachable": 1
+    "changed": 1
   },
-  "needsReview": [],
+  "needsReview": [
+    {
+      "state": "GA",
+      "cite": "O.C.G.A. §40-5-29",
+      "why": "changed"
+    }
+  ],
   "note": "Automated source-change check only. This does not verify that the law is correct — that requires a person."
 }
