@@ -6065,12 +6065,22 @@ async function shareCopy(btn){
     /* Clipboard can be denied outright (permission, or a non-secure/unfocused
        context). Selecting the field alone was the whole fallback and it read
        as nothing happening — the tap produced no visible change at all. Say
-       so, and leave the text selected so the manual copy is one keystroke. */
+       so, and leave the text selected so the manual copy is one keystroke.
+       Found 2026-08-13 by the loop's own focus group, live-verified: role
+       used to be hardcoded onto .sh-link (the URL field's wrapper), but there
+       are two Copy affordances — this field's own button, and the row's Copy
+       tile — and the text actually changes on whichever one was tapped. When
+       the row tile fired, .sh-link's subtree never changed, so nothing was
+       announced despite the visible text updating — the exact bug this
+       role="status" existed to prevent. Set it on `lb` itself: the one node
+       guaranteed to be both the live region and the thing that mutates,
+       regardless of which Copy was tapped. Cleared on revert so a completed
+       announcement doesn't leave a stray live region behind. */
     const f=document.getElementById('shLink'); if(f){ f.focus(); f.select(); }
     const lb=btn.querySelector('.lb')||btn;
+    lb.setAttribute('role','status');
     lb.textContent=_t.sh_copy_fail;
-    const w=document.querySelector('.sh-link'); if(w) w.setAttribute('role','status');
-    setTimeout(()=>{ lb.textContent=_t.sh_copy; },4000);
+    setTimeout(()=>{ lb.textContent=_t.sh_copy; lb.removeAttribute('role'); },4000);
   }
 }
 async function shareNative(){
