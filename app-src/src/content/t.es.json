@@ -246,6 +246,8 @@
   "sh_copied": "Copiado",
   "sh_link_a11y": "Enlace para compartir",
   "sh_close": "Cerrar",
+  "sh_preview": "Lo que vas a enviar",
+  "sh_copy_fail": "No se pudo copiar — está seleccionado, cópialo manualmente",
   "w_try": "🚔 Practica una parada completa — 2 minutos",
   "rail_more": "Más opciones",
   "next": "Continuar",

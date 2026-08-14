@@ -426,6 +426,16 @@
   .sh-t .ic{width:50px;height:50px;border-radius:99px;background:#eef1f7;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:21px;transition:transform .18s var(--ease-spring)}
   .sh-t:active .ic{transform:scale(.92)}
   .sh-t .lb{font-size:11.5px;color:var(--muted);font-weight:700;line-height:1.2;text-align:center}
+  /* The message the user is about to send, shown verbatim. This is the only
+     surface in the product that transmits anything outward, and it was
+     showing a bare URL while actually sending the user's practice grid and
+     score — on a product whose entire promise is that nothing leaves the
+     phone unless you send it. Shows the MAXIMUM payload: Facebook receives
+     only the link, so the preview overstates what that one target gets,
+     which is the safe direction to be wrong in. */
+  .sh-msgw{margin:0 0 10px}
+  .sh-msgw h4{font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 4px;font-weight:800}
+  .sh-msg{white-space:pre-wrap;word-break:break-word;font-size:12.5px;line-height:1.5;color:var(--ink);background:#fbf9f4;border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:10px;padding:8px 10px;max-height:132px;overflow:auto}
   .sh-link{display:flex;gap:8px;align-items:center;border:1.5px solid var(--line);border-radius:12px;background:#fbf9f4;padding:6px 6px 6px 12px}
   .sh-link input{flex:1;min-width:0;border:0;background:transparent;font-family:inherit;font-size:13.5px;color:var(--ink);padding:6px 0}
   .sh-link input:focus{outline:none}
@@ -1989,6 +1999,7 @@ const T = {
     w_share:"\ud83d\udce4 Send this to someone you love",
     sh_title:"Share Amparo", sh_sms:"Messages", sh_copy:"Copy link", sh_more:"More",
     sh_copied:"Copied", sh_link_a11y:"Link to share", sh_close:"Close",
+    sh_preview:"What you'll send", sh_copy_fail:"Couldn't copy — it's selected, copy it manually",
     w_try:"\ud83d\ude94 Practice a full stop \u2014 2 minutes", rail_more:"More options",
     next:"Continue", tagline:"Know your rights", pdf_hint:"No printer? In the print window, choose “Save as PDF” as the printer.", pdf_backup:"Save the PDF — it’s your backup. Reprint anytime without redoing anything.",
     tc_reviewed:"Attorney-reviewed", tc_private:"Photos stay on your device", tc_by:"By",
@@ -2336,6 +2347,7 @@ const T = {
     w_share:"📤 Envíaselo a alguien que quieres",
     sh_title:"Comparte Amparo", sh_sms:"Mensajes", sh_copy:"Copiar enlace", sh_more:"Más",
     sh_copied:"Copiado", sh_link_a11y:"Enlace para compartir", sh_close:"Cerrar",
+    sh_preview:"Lo que vas a enviar", sh_copy_fail:"No se pudo copiar — está seleccionado, cópialo manualmente",
     w_try:"🚔 Practica una parada completa — 2 minutos", rail_more:"Más opciones",
     next:"Continuar", tagline:"Conoce tus derechos", pdf_hint:"¿Sin impresora? En la ventana de impresión, elige “Guardar como PDF” como impresora.", pdf_backup:"Guarda el PDF — es tu respaldo. Reimprime cuando quieras sin rehacer nada.",
     tc_reviewed:"Revisado por abogado", tc_private:"Tus fotos quedan en tu dispositivo", tc_by:"Por",
@@ -5455,11 +5467,15 @@ function prxAdvance(){
   if(prCurTier!=='x'){
     const missed=prCurTier!=='g';
     prRun.push(missed?'y':'g'); prRunIdx.push(prIdx);
-    /* All-time count, not just this run's — in-memory only until the
-       run-completion prxSave() (index.html:~5646) picks it up, same as
-       prx.best/prx.done/prx.cbDay. An abandoned run's misses are lost with
-       it, matching how an abandoned run's score was already never counted. */
-    if(missed){ const ci=prDeck[prIdx].ci; prx.miss[ci]=(prx.miss[ci]||0)+1; }
+    /* All-time count, persisted immediately rather than waiting for the
+       run-completion prxSave(). Deferring it meant an abandoned run's misses
+       vanished, and — the actual defect — root and /app silently disagreed:
+       /app's writeApp effect fires on every progress change, so the same two
+       runs produced different counters depending on which app you used.
+       Aligned to /app because it is the one that cannot lose data; no
+       tools/ check covers root-vs-/app persistence cadence, so this stays a
+       comment rather than something a suite would catch. */
+    if(missed){ const ci=prDeck[prIdx].ci; prx.miss[ci]=(prx.miss[ci]||0)+1; prxSave(); }
   }
   prCurTier=null;
   prIdx++; prRevealed=false; practiceRender(); prxSpeak();
@@ -5480,7 +5496,11 @@ function prxBack(){
   const _bt=prRun.pop(), _bi=prRunIdx.pop();
   if(_bt==='y'&&prDeck[_bi]){
     const _ci=prDeck[_bi].ci;
-    if(prx.miss[_ci]>0){ prx.miss[_ci]--; if(!prx.miss[_ci]) delete prx.miss[_ci]; }
+    /* prxSave() here too, not just on the increment: the increment persists
+       immediately now, so a decrement that only touched memory left the
+       inflated count sitting in localStorage the moment the user walked away
+       mid-run. Both halves write, or neither should. */
+    if(prx.miss[_ci]>0){ prx.miss[_ci]--; if(!prx.miss[_ci]) delete prx.miss[_ci]; prxSave(); }
   }
   prIdx--; prRevealed=false; practiceRender(); prxSpeak();
 }
@@ -5994,9 +6014,15 @@ function shareOpen(opts){
   const more=!!navigator.share;
   o.querySelector('.ab-title').textContent=_t.sh_title;
   o.querySelector('.ab-x').textContent=_t.sh_close;
+  /* target="_blank" only on http(s). On `sms:` it opens a blank tab that then
+     hands off to the messaging app and leaves the empty tab stranded — non-http
+     schemes should navigate in place. rel stays on both: inert for sms:,
+     required for the rest. */
+  const anchor=x=>`<a class="sh-t" href="${x.href}"${/^https?:/.test(x.href)?' target="_blank"':''} rel="noopener noreferrer" onclick="shareVia('${x.k}')"><span class="ic" aria-hidden="true">${x.ic}</span><span class="lb">${esc(x.lb)}</span></a>`;
   document.getElementById('shareBody').innerHTML=
-    `<div class="sh-row">
-      ${tg.map(x=>`<a class="sh-t" href="${x.href}" target="_blank" rel="noopener noreferrer" onclick="shareVia('${x.k}')"><span class="ic" aria-hidden="true">${x.ic}</span><span class="lb">${esc(x.lb)}</span></a>`).join('')}
+    `<div class="sh-msgw"><h4>${esc(_t.sh_preview)}</h4><div class="sh-msg">${esc(msg)}</div></div>
+    <div class="sh-row">
+      ${tg.map(anchor).join('')}
       <button type="button" class="sh-t" onclick="shareCopy(this)"><span class="ic" aria-hidden="true">🔗</span><span class="lb">${esc(_t.sh_copy)}</span></button>
       ${more?`<button type="button" class="sh-t" onclick="shareNative()"><span class="ic" aria-hidden="true">⋯</span><span class="lb">${esc(_t.sh_more)}</span></button>`:''}
     </div>
@@ -6036,9 +6062,15 @@ async function shareCopy(btn){
     if(lb){ lb.textContent=_t.sh_copied; setTimeout(()=>{ lb.textContent=_t.sh_copy; },1600); }
     else { btn.textContent=_t.sh_copied; btn.classList.add('ok'); setTimeout(()=>{ btn.textContent=_t.sh_copy; btn.classList.remove('ok'); },1600); }
   }catch(e){
-    /* Clipboard can be denied outright. Select the field so the user can copy
-       it by hand rather than tapping a button that appears to do nothing. */
+    /* Clipboard can be denied outright (permission, or a non-secure/unfocused
+       context). Selecting the field alone was the whole fallback and it read
+       as nothing happening — the tap produced no visible change at all. Say
+       so, and leave the text selected so the manual copy is one keystroke. */
     const f=document.getElementById('shLink'); if(f){ f.focus(); f.select(); }
+    const lb=btn.querySelector('.lb')||btn;
+    lb.textContent=_t.sh_copy_fail;
+    const w=document.querySelector('.sh-link'); if(w) w.setAttribute('role','status');
+    setTimeout(()=>{ lb.textContent=_t.sh_copy; },4000);
   }
 }
 async function shareNative(){
