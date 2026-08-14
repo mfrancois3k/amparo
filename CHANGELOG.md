@@ -6,6 +6,52 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.22.3 — 2026-08-13
+
+v2.22.3 — "It showed a link and sent a score"
+
+The rest of the share-sheet loop's findings, after v2.22.2 took the overflow.
+
+**The sheet showed a link and sent a score.** The readonly field displayed the
+bare URL, while WhatsApp, SMS and X received the full message — the user's
+practice grid, level and score. On the only surface in this product that
+transmits anything outward, in a product whose whole promise is that nothing
+leaves the phone unless you send it, there was no way to see what you were
+about to send: `#shareBody` contained zero prose in either language. Added a
+verbatim preview of the outgoing message above the targets.
+
+The preview deliberately shows the **maximum** payload. Facebook receives only
+the link, so it overstates what that one target gets — the safe direction to
+be wrong in, and cheaper than per-target preview switching.
+
+**`sms:` carried `target="_blank"`.** A non-http scheme opened in a new tab
+hands off to the messaging app and strands the empty tab behind it. Now
+applied only to `http(s)` hrefs; `rel` stays on all of them (inert for `sms:`,
+required for the rest).
+
+**Clipboard failure was silent.** The catch selected the field and did nothing
+else, so a denied clipboard produced no visible change at all — the exact
+"fails quietly while looking fine" shape this project keeps fixing. It now
+says so, and leaves the text selected so the manual copy is one keystroke.
+
+**Root and `/app` disagreed on when a miss is persisted.** Root deferred to
+the run-completion `prxSave()`; `/app`'s `writeApp` effect fires on every
+progress change. The same two runs produced different counters depending on
+which app you used, and an abandoned run's misses vanished in root only.
+Aligned root to `/app` — the half that cannot lose data.
+
+That change then broke its own symmetry, caught by testing **storage** rather
+than memory: with the increment persisting immediately, `prxBack`'s decrement
+still only touched memory, so Back-then-walk-away left an inflated count in
+`localStorage`. Both halves write now. Verified end to end against
+`localStorage` — miss 1, back 0, good retry 0.
+
+Also caught in review before it shipped: a `/* */` comment placed inside a
+template literal, which would have rendered as literal text in the sheet.
+
+No content beyond two UI strings (`sh_preview`, `sh_copy_fail`), extracted
+through `index.html` like the rest. All four suites pass, `tsc` clean.
+
 ## v2.22.2 — 2026-08-13
 
 v2.22.2 — "The row hid the two safest targets"

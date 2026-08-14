@@ -8,6 +8,18 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.22.3 — 2026-08-13 — "It showed a link and sent a score"
+
+Rest of the share-sheet loop findings. The sheet displayed a bare URL while
+sending the user's grid, level and score — added a verbatim preview of the
+outgoing message (shows the maximum payload; Facebook gets only the link).
+`sms:` no longer opens and strands a blank tab. A denied clipboard now says so
+instead of looking like nothing happened. Root now persists a miss
+immediately, matching `/app`, which had silently produced different counters
+for the same two runs — and aligning that exposed an asymmetry (`prxBack`'s
+decrement only touched memory), found by testing `localStorage` rather than
+in-memory state.
+
 ## v2.22.2 — 2026-08-13 — "The row hid the two safest targets"
 
 Loop findings, one round after the share sheet shipped. At 375×812 the row hid
