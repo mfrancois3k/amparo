@@ -18,6 +18,12 @@
       "runtimeExecutable": "C:/Users/mfran/AppData/Local/hermes/hermes-agent/venv/Scripts/python.exe",
       "runtimeArgs": ["-m", "http.server", "8000", "--bind", "127.0.0.1"],
       "port": 8000
+    },
+    {
+      "name": "convex-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "convex", "--prefix", "app-src"],
+      "port": 3210
     }
   ]
 }

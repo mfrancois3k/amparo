@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 
+# Convex CLI local state (auth/cache) -- machine-specific, never shared.
+# convex/_generated/ is intentionally NOT ignored: it's regenerated types,
+# committed so collaborators/CI type-check without running `convex dev` first.
+.convex
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -1,0 +1,13 @@
+{
+  "name": "amparo-api",
+  "private": true,
+  "description": "Dependencies for Vercel serverless functions under /api. Not the app itself — app-src/package.json builds /app; root index.html has no build step.",
+  "dependencies": {
+    "stripe": "^17.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "@vercel/node": "^5.10.0",
+    "typescript": "^7.0.2"
+  }
+}

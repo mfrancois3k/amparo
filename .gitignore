@@ -1,0 +1,13 @@
+# Secrets — never commit these
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Dependencies
+node_modules/
+
+# Build artifacts not meant to be tracked (app-src builds INTO app/, which IS tracked)
+app-src/dist/
+app-src/node_modules/

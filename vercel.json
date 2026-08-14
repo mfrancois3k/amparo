@@ -6,7 +6,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://us-assets.i.posthog.com https://ph.amparohq.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; font-src 'self'; connect-src 'self' https://us.i.posthog.com https://us-assets.i.posthog.com https://ph.amparohq.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://us-assets.i.posthog.com https://ph.amparohq.com https://js.stripe.com https://divine-swine-18.clerk.accounts.dev; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://img.clerk.com; media-src 'self' blob:; font-src 'self'; connect-src 'self' https://us.i.posthog.com https://us-assets.i.posthog.com https://ph.amparohq.com https://api.stripe.com https://divine-swine-18.clerk.accounts.dev https://agreeable-gopher-346.convex.cloud wss://agreeable-gopher-346.convex.cloud https://agreeable-gopher-346.convex.site; frame-src https://js.stripe.com https://hooks.stripe.com https://divine-swine-18.clerk.accounts.dev; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
         },
         { "key": "Strict-Transport-Security", "value": "max-age=31536000; includeSubDomains; preload" },
         { "key": "X-Content-Type-Options", "value": "nosniff" },
