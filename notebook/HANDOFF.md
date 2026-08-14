@@ -532,6 +532,33 @@ nlm source add 944d5ba5-441e-4d95-8c3e-75f3988e9921 --file "C:/Users/mfran/Ai-Fo
 Adding the same filename creates a **second** source — it does not overwrite.
 Delete first: `nlm delete source <source-id> -y`.
 
+**⚠ The notebook is FULL at 52 sources, and the error you get does not say so.**
+Found 2026-08-13 after several wasted retries. A **net-new** `source add`
+fails with:
+
+```
+Error: Could not add file source: API error (code 3): INVALID_ARGUMENT
+Hint: File paths must be accessible on the machine running nlm or the MCP server.
+```
+
+That hint is **wrong and actively misleading** — the path is fine. Proven by
+elimination, not guessed: a 3-line throwaway file at a short `/tmp` path fails
+identically, immediately after a successful `nlm login`, while `nlm list
+sources` works normally in the same breath. What still works is
+**delete-then-add on a source that already exists** (net zero), which is why
+the standing refresh loop for CHANGELOG / version-history / HANDOFF keeps
+working and hides the problem.
+
+Consequence: `notebook/amparo-voice-generation-workflow.md` **is not in the
+notebook** and could not be added. Everything else is current.
+
+To add anything new, one of:
+- delete an obsolete source first to make room (several `wargames/*` files are
+  stale candidates — operator's call, not an agent's), or
+- raise the plan's source limit.
+
+Do not burn retries on this error again; check the source count first.
+
 **Auth, and this cost real time — read it.** `nlm` stores credentials at
 `~/.notebooklm-mcp-cli/profiles/default`. It does **not** use
 `~/.notebooklm/storage_state.json` — that belongs to the separate `notebooklm`
