@@ -8,6 +8,12 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.22.14 — 2026-08-16 — "The zip field that forgot itself"
+
+`persist()` never included `zip` in its save allowlist -- worked same-
+session, silently reverted on reload/resume/reprint. Found by this
+session's own blind-spot audit round 3, fixed, verified live.
+
 ## v2.22.13 — 2026-08-16 — "ZIP/county, pre-filled directory search"
 
 Optional ZIP/county field on You step (root + /app); feeds `zipParam` into

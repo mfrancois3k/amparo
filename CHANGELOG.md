@@ -6,6 +6,23 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.22.14 — 2026-08-16
+
+v2.22.14 — "The zip field that forgot itself"
+
+Found by this session's own closing blind-spot audit, not by a user report:
+`persist()`'s destructure allowlist (`index.html:3831`) never included the
+v2.22.13 `zip` field. `restore()` was already reading `s.zip` back correctly
+— it just never had anything to read, because `persist()` never wrote it.
+Worked perfectly same-session; silently reverted to blank on every reload,
+resume, or reprint — exactly the flows this app is built around
+(`window.__resumeStep`, `updateStalePack()`).
+
+Fixed by adding `zip` to the allowlist. Verified live: set state + zip,
+reloaded the page, confirmed `data.zip` came back populated (it did not,
+before the fix). `/app` was never affected — `writeApp()` always persists
+the full object, no allowlist to fall out of sync.
+
 ## v2.22.13 — 2026-08-16
 
 v2.22.13 — "ZIP/county, pre-filled directory search"
