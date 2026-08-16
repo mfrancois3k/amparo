@@ -88,6 +88,14 @@ function Shell() {
         </span>
       </header>
 
+      {/* Found by the 2026-08-16 loop: real funnel data showed the biggest
+          drop in the product is Welcome -> State (67% never pick a state),
+          and Mobbin research on trust-heavy apps showed the pattern that
+          works is a concrete privacy line visible BEFORE the ask. This used
+          to be hidden on the one screen that needed it most — now shown on
+          every step, matching root. */}
+      <div className="pilot">{t.pilotBanner}</div>
+
       <p className="beta-note">
         <strong>Preview build.</strong> The live app is at <a href="/">amparohq.com</a>.
         {/* lang="es" matters: this shows both languages inside an English

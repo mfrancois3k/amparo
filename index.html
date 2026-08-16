@@ -1826,6 +1826,7 @@ const T = {
     w_sub:"Amparo rehearses a police stop with you — out loud, with a real officer's lines — until the words come without thinking. Then it builds a pack for your glovebox, so they're there even if your mind goes blank.",
     w_b1:"Rehearse out loud, before you ever need it", w_b2:"Your state's rules and legal lifelines", w_b3:"A printed pack for the glovebox", w_b4:"Nothing you enter leaves your phone",
     w_btn:"Build my pack",
+    w_lifelines_shortcut:"Just need a lawyer or hotline number? →",
     /* document.title appeared nowhere in the JS, so a Spanish user's tab, bookmark,
        home-screen shortcut and share sheet all stayed English. */
     pageTitle:"Amparo — Know your rights at every traffic stop.",
@@ -2186,6 +2187,7 @@ const T = {
     w_sub:"Amparo ensaya una parada policial contigo — en voz alta, con las frases reales de un oficial — hasta que las palabras salgan sin pensar. Después arma un paquete para tu guantera, para que estén ahí aunque te quedes en blanco.",
     w_b1:"Ensaya en voz alta, antes de necesitarlo", w_b2:"Las reglas y líneas de ayuda de tu estado", w_b3:"Un paquete impreso para la guantera", w_b4:"Nada de lo que escribes sale de tu teléfono",
     w_btn:"Crear mi paquete",
+    w_lifelines_shortcut:"¿Solo necesitas un abogado o una línea de ayuda? →",
     pageTitle:"Amparo — Conoce tus derechos en cada parada de tráfico.",
     about_link:"\u00bfQui\u00e9n est\u00e1 detr\u00e1s de Amparo? \u2192",
     doc_link:"\u00bfPor qu\u00e9 la pr\u00e1ctica no puede hacer 100% segura una parada? \u2192",
@@ -3209,7 +3211,13 @@ function render(){
   if(stepChanged||langChanged) stepper(); // same-step data patches keep the stepper DOM (no done-pop replay)
   fbStrip();
   if(window.SRMotion&&stepChanged) SRMotion.stepper(step);
-  const _pilot=document.querySelector('.pilot'); if(_pilot) _pilot.style.display=step===0?'none':'block';
+  /* Found by the 2026-08-16 loop: real funnel data showed the biggest drop in
+     the whole product is Welcome -> State (67% of visitors never pick a
+     state), and Mobbin research on trust-heavy apps (Wysa, Citizen, mymind)
+     showed the pattern that works is a concrete privacy line visible BEFORE
+     the ask, not after someone has already committed. This banner used to be
+     the one thing hidden from the exact screen that needed it most. */
+  const _pilot=document.querySelector('.pilot'); if(_pilot) _pilot.style.display='block';
   const _bt=document.getElementById('brandTag'); if(_bt) _bt.textContent=t().tagline;
   const S=document.getElementById('screen');
   const _t=t();
@@ -3270,6 +3278,7 @@ function render(){
       <div class="trust-strip">${trustChips()}</div>
       ${window.__resumeStep?`<button class="btn" onclick="goM(${window.__resumeStep});window.__resumeStep=0">${_t.resume_btn}</button>`:''}
       <button class="btn gold" onclick="goM(1)">${_t.w_btn}</button>
+      <button class="linkbtn" style="margin-top:6px" onclick="goM(1)">${_t.w_lifelines_shortcut}</button>
       <button class="btn ghost" onclick="goM(5)">${_t.w_try}</button>
       <div class="lawnote small">${_t.law_marker}</div>
             <button class="linkbtn" onclick="viewSample()">👀 ${_t.w_sample}</button>
@@ -3939,6 +3948,17 @@ function lifeContact(p){
   if(digits.length>=3 && !/[a-z]{2,}/i.test(bare)) return {type:'tel',href:'tel:'+digits};
   return {type:'none',href:null};
 }
+/* The only Lifelines interaction that wasn't tracked: tab switches fire
+   sr_lifelines_tab (below), but tapping/clicking an actual phone number or
+   URL never fired anything, so there was no way to tell whether people who
+   reach step 3 actually use it. Index into STATES fresh at click time rather
+   than closing over the row, since llTab() rebuilds the whole track via
+   innerHTML on every language toggle. */
+function phLifelineClick(idx){
+  const L=(STATES[data.state||'NY'].lifelines||[])[idx]; if(!L) return;
+  const c=lifeContact(L.p);
+  ph('sr_lifeline_link_clicked',{state:data.state,name:L.n,type:c.type,lang:lang});
+}
 /* Which segment step 3 is showing. Module-level so switching tabs and re-rendering
    (a language toggle, say) keeps the user where they were instead of snapping back. */
 let _llTab=0;
@@ -3982,13 +4002,13 @@ function llTab(i,skipEvent){
   const _t=t(), st=STATES[data.state||'NY'];
   const items = i===0 ? st.lifelines : SCEN[lang];
   tr.innerHTML = i===0
-    ? st.lifelines.map(L=>{
+    ? st.lifelines.map((L,idx)=>{
         const raw=L.p==='Coming soon'?(lang==='es'?'Próximamente':'Coming soon'):(L.p==='Dial 211'&&lang==='es'?'Marca el 211':L.p);
         const c=lifeContact(L.p);
         return `<article class="ll-card">
           <div class="ln">${lnName(L)}</div>
           ${c.href
-            ? `<a class="ll-contact" href="${c.href}"${c.type==='web'?' target="_blank" rel="noopener noreferrer"':''}>${esc(raw)}</a>`
+            ? `<a class="ll-contact" href="${c.href}" onclick="phLifelineClick(${idx})"${c.type==='web'?' target="_blank" rel="noopener noreferrer"':''}>${esc(raw)}</a>`
             : `<div class="ll-contact pending">${esc(raw)}</div>`}
           <div class="ld">${lang==='es'?L.d_es:L.d_en}</div>
           <div class="lltags">${L.tags.map(tag=>`<span class="tag ${tag}">${TAGNAMES[lang][tag]}</span>`).join('')}</div>
