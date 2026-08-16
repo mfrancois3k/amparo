@@ -30,7 +30,7 @@
  */
 import { STATES, US_STATE_NAMES, BASE_RULES_EN, BASE_RULES_ES, BASE_LIFELINES, STATE_LEGAL_AID } from './states.json'
 
-export type Lifeline = { n: string; n_es?: string; p: string; d_en: string; d_es: string; tags: readonly string[] }
+export type Lifeline = { n: string; n_es?: string; p: string; zipParam?: string; d_en: string; d_es: string; tags: readonly string[] }
 export type StateEntry = {
   name: string
   pending: boolean
@@ -41,7 +41,7 @@ export type StateEntry = {
 
 const NAMES = US_STATE_NAMES as Record<string, string>
 const CITED_STATES = STATES as Record<string, Omit<StateEntry, 'pending'>>
-const LEGAL_AID = STATE_LEGAL_AID as Record<string, { n: string; p: string; d_en: string; d_es: string }>
+const LEGAL_AID = STATE_LEGAL_AID as Record<string, { n: string; p: string; zipParam?: string; d_en: string; d_es: string }>
 
 export const ALL_STATES: Readonly<Record<string, StateEntry>> = Object.fromEntries(
   Object.keys(NAMES).map((k) => {

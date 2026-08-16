@@ -1,0 +1,1 @@
+var e={name:``,ec:``,ecp:``,ec2:``,ecp2:``,att:``,zip:``},t=[{k:`lic_f`,t:`d_lic_f`,s:`d_lic_f_s`},{k:`lic_b`,t:`d_lic_b`,s:`d_lic_b_s`},{k:`ins_f`,t:`d_ins_f`,s:`d_ins_f_s`},{k:`ins_b`,t:`d_ins_b`,s:`d_ins_b_s`},{k:`reg`,t:`d_reg`,s:`d_reg_s`}];export{e as n,t};

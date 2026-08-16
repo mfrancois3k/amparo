@@ -233,6 +233,7 @@ export function PrintPack({ t, lang, code, you, docs }: Props) {
                   <><b>{lang === 'es' ? 'Contacto de respaldo' : 'Backup contact'}:</b> {you.ec2 || '____________________'} · {you.ecp2 || '____________'}<br /></>
                 ) : null}
                 {you.att ? <><b>{lang === 'es' ? 'Abogado / ayuda legal' : 'Attorney / legal aid'}:</b> {you.att}<br /></> : null}
+                {you.zip ? <><b>{lang === 'es' ? 'Código postal / condado' : 'ZIP / county'}:</b> {you.zip}<br /></> : null}
                 <b>{lang === 'es' ? 'No. de póliza / aseguradora' : 'Insurance policy # / company'}:</b> __________<br />
                 <b>{lang === 'es' ? 'Tel. del agente de seguros' : 'Insurance agent phone'}:</b> __________
               </div>
