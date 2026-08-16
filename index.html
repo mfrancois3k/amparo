@@ -886,14 +886,30 @@
   .ab-rev.ok{background:#eef7f0;border-color:#bcd8c2;color:var(--ok)}
 
   /* ============ CAMERA / DOC CAPTURE ============ */
-  .docrow{display:flex;align-items:center;gap:13px;border:1.5px solid var(--line);border-radius:14px;padding:13px 14px;margin-top:10px;background:#fffdf8;transition:all .3s var(--ease-out)}
+  /* flex-wrap added by the 2026-08-16 loop's UI/UX audit: at narrow widths
+     the status badge (.st) and the text column were competing for the same
+     line, squeezing .dt down to ~66px — narrow enough that even
+     overflow-wrap:break-word had to shatter "documents" mid-word, since
+     there was no longer a whole line's worth of room for it anywhere. Now
+     .st drops to its own line instead of stealing .dt's width. Verified
+     live at 340px: no more mid-word breaks, badge wraps cleanly below. */
+  .docrow{display:flex;flex-wrap:wrap;align-items:center;gap:13px;border:1.5px solid var(--line);border-radius:14px;padding:13px 14px;margin-top:10px;background:#fffdf8;transition:all .3s var(--ease-out)}
   .docrow:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 5px 14px rgba(232,184,75,.16)}
   .docrow .di{width:46px;height:46px;border-radius:12px;background:#f0ecdf;display:flex;align-items:center;justify-content:center;flex:none;font-size:20px;overflow:hidden}
   .docrow .di img{width:100%;height:100%;object-fit:cover}
-  /* min-width:0 — a flex child defaults to min-content width, so the longer
-     Spanish labels pushed the row past the card at 320px instead of wrapping. */
-  .docrow .dt{flex:1;min-width:0}
-  .docrow .dt .n,.docrow .dt .s{overflow-wrap:anywhere}
+  /* min-width:0 alone let the column shrink past its own content's width —
+     see the flex-wrap comment above for why that stopped being enough. A
+     real floor (not 0) is what actually keeps the label as whole words;
+     flex-wrap on the row is what gives the floor somewhere to come from
+     without pushing the row past the card. */
+  .docrow .dt{flex:1;min-width:140px}
+  /* Found by the 2026-08-16 loop's UI/UX audit: `anywhere` shatters short
+     words like "documents" mid-character once this column drops below
+     ~360px (confirmed via computed styles) -- exactly the You screen, worst
+     place for it, since it's where a stressed user photographs ID/insurance.
+     `break-word` still wraps long unbreakable strings without butchering
+     normal ones. */
+  .docrow .dt .n,.docrow .dt .s{overflow-wrap:break-word}
   .docrow .dt .n{font-size:15px;font-weight:800;color:var(--navy)}
   .docrow .dt .s{font-size:12px;color:var(--muted)}
   .docrow .st{font-size:12px;font-weight:800;padding:5px 11px;border-radius:99px;flex:none}
@@ -3334,7 +3350,7 @@ function render(){
            name the moment real text is typed, leaving a screen-reader user with an
            unnamed field mid-search. Flagged in two consecutive focus groups. -->
       <input type="text" id="stateSearch" class="state-search" aria-label="${_t.s_search}" placeholder="${_t.s_search}"
-             oninput="filterStates(this.value)" autocomplete="off" inputmode="text" ${_collapsed?'hidden':''}>
+             oninput="filterStates(this.value)" onkeydown="if(event.key==='Enter')stateSearchEnter()" autocomplete="off" inputmode="text" ${_collapsed?'hidden':''}>
       <div class="state-grid stagger${_collapsed?' collapsed':''}" id="stateGrid">
         ${(()=>{ const keys=Object.keys(STATES).sort((a,b)=>STATES[a].name.localeCompare(STATES[b].name));
           const pri=keys.filter(k=>!STATES[k].pending), rest=keys.filter(k=>STATES[k].pending);
@@ -3914,6 +3930,17 @@ function filterStates(q){
     }
     el.style.display=hasVisible?'':'none';
   });
+}
+/* Found by the 2026-08-16 loop's UI/UX audit: typing a full, unique state
+   name narrowed the grid to one match but still required finding and
+   tapping it — no keyboard way to finish. Only wired for the grid (`data-ab`
+   already holds each button's lowercase code), not the map: the map's tap
+   targets are a redundant path to the same 51 destinations for people who
+   think in geography, not names, so search narrowing it is enough; typed
+   text confirming a specific pin would need a second, different mechanism. */
+function stateSearchEnter(){
+  const visible=[...document.querySelectorAll('#stateGrid .state-btn')].filter(b=>!b.classList.contains('nomatch')&&!b.hidden);
+  if(visible.length===1) pickState(visible[0].dataset.ab.toUpperCase());
 }
 /* pickState used to call render(), which rebuilds the ENTIRE step-1 card —
    all 51+ buttons torn down and recreated — on every single tap. That is very

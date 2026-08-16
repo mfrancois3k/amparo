@@ -82,6 +82,12 @@ export function StateStep({ t, picked, onPick, onBack, onNext }: Props) {
           placeholder={t.s_search}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={(e) => {
+            /* Found by the 2026-08-16 loop's UI/UX audit, ported from root's
+               stateSearchEnter: typing a full unique state name narrowed the
+               map to one match but still required finding and tapping it. */
+            if (e.key === 'Enter' && matches?.size === 1) handlePick([...matches][0])
+          }}
           autoComplete="off"
           inputMode="text"
         />
