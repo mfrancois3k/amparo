@@ -6,6 +6,46 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.22.7 — 2026-08-16
+
+v2.22.7 — "The audit's diagnosis was half right"
+
+Fixes from this loop's blind-spot audit, focus group, and elite UI/UX audit
+(the "grand audit" against Mobbin, requested this pass):
+
+- **CRLF verify bug (real, pre-existing)**: `extract-app-content.mjs --verify`
+  never normalized `\r\n` on the on-disk comparison side, only the
+  `index.html` source side. A plain `git clone` on Windows
+  (`core.autocrlf=true`) rewrites the committed LF content JSON to CRLF,
+  which the byte comparison then read as content drift — proven with a
+  genuinely fresh clone that failed on **all 10 files**, including commits
+  from before this session. This session's repeated extractor re-runs had
+  been silently masking it locally. Fixed by mirroring the same
+  normalization already applied to the `html` source three lines up.
+- **State search, Enter-to-confirm**: typing a full unique state name
+  narrowed the picker to one match but still required finding and tapping
+  it. Enter now confirms when exactly one match remains (root + `/app`).
+- **Untracked shortcut click**: the new Welcome "lawyer or hotline" link
+  (v2.22.5) and the primary CTA called the identical handler with no way to
+  tell which one a visitor actually used — the funnel-data-justified fix
+  couldn't measure its own effect. Added a distinct
+  `sr_welcome_shortcut_clicked` event.
+- **Doc-row word-breaking, real root cause found**: the audit's first
+  diagnosis (`overflow-wrap:anywhere`) turned out not to be the actual
+  cause — verified live at 340px after swapping to `break-word` and
+  "documents" still shattered mid-word. Real cause: `.docrow .dt` had
+  `min-width:0` with no floor, so the status badge squeezed the text column
+  to ~66px, narrower than the word could fit even alone. Fixed with
+  `flex-wrap` on the row (badge drops to its own line) plus a real
+  `min-width:140px` floor — verified live, column grew to 173px, no more
+  mid-word breaks.
+- Fixed a stale code comment describing pilotBanner's pre-v2.22.5 (reversed)
+  behavior.
+
+Full audit reports: `notebook/amparo-blindspot-audit-2026-08-16.md`,
+`notebook/amparo-focus-group-19-welcome-trust-shortcut.md`,
+`notebook/amparo-ui-ux-audit-2026-08-16.md`, `wargames/26-welcome-trust-shortcut-modules.md`.
+
 ## v2.22.6 — 2026-08-16
 
 v2.22.6 — "Link to who already maintains it"

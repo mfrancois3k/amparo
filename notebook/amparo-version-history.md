@@ -8,6 +8,16 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.22.7 — 2026-08-16 — "The audit's diagnosis was half right"
+
+Blind-spot audit, focus group, and elite Mobbin UI/UX audit findings, fixed:
+a real pre-existing CRLF/LF bug in the content-verify tool (fresh clones
+always failed), Enter-to-confirm on state search, distinct click tracking
+for the Welcome shortcut, and a real flex layout bug squeezing the doc-row
+text to word-breaking width (root cause was min-width:0 + a competing badge,
+not the overflow-wrap value first suspected — verified live before and
+after). See CHANGELOG for full detail.
+
 ## v2.22.6 — 2026-08-16 — "Link to who already maintains it"
 
 Researched LSC.gov/LawHelp.org for a public dataset to cron-pull a pro bono
