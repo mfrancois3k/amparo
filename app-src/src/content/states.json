@@ -365,7 +365,7 @@
   "STATE_LEGAL_AID": {
     "AL": {
       "n": "AlabamaLegalHelp.org",
-      "p": "alabamalegalhelp.org/find-legal-help/directory",
+      "p": "www.alabamalegalhelp.org/find-legal-help/directory",
       "d_en": "Free official directory of legal help across Alabama — search by city, county, or ZIP. Always current.",
       "d_es": "Directorio oficial gratuito de ayuda legal en Alabama — busca por ciudad, condado o código postal. Siempre actualizado."
     },
@@ -377,7 +377,7 @@
     },
     "CA": {
       "n": "LawHelpCA.org",
-      "p": "lawhelpca.org/find-legal-help",
+      "p": "www.lawhelpca.org/find-legal-help",
       "d_en": "Free official directory of legal help across California — filterable by county or ZIP. Always current.",
       "d_es": "Directorio oficial gratuito de ayuda legal en California — filtrable por condado o código postal. Siempre actualizado."
     },
@@ -443,7 +443,7 @@
     },
     "MS": {
       "n": "MSLegalServices.org",
-      "p": "mslegalservices.org/find-legal-help/directory",
+      "p": "www.mslegalservices.org/find-legal-help/directory",
       "d_en": "Free official directory of legal help across Mississippi — search by city, county, or ZIP. Always current.",
       "d_es": "Directorio oficial gratuito de ayuda legal en Misisipi — busca por ciudad, condado o código postal. Siempre actualizado."
     },
@@ -455,7 +455,7 @@
     },
     "NC": {
       "n": "LawHelpNC.org",
-      "p": "lawhelpnc.org/get-help-from-a-lawyer",
+      "p": "www.lawhelpnc.org/get-help-from-a-lawyer",
       "d_en": "Free official directory of legal help across North Carolina — search by city, county, or ZIP. Always current.",
       "d_es": "Directorio oficial gratuito de ayuda legal en Carolina del Norte — busca por ciudad, condado o código postal. Siempre actualizado."
     },
@@ -473,7 +473,7 @@
     },
     "PA": {
       "n": "PALawHELP.org",
-      "p": "palawhelp.org/find-legal-help/directory",
+      "p": "www.palawhelp.org/find-legal-help/directory",
       "d_en": "Free official directory of legal help across Pennsylvania — search by city, county, or ZIP. Always current.",
       "d_es": "Directorio oficial gratuito de ayuda legal en Pensilvania — busca por ciudad, condado o código postal. Siempre actualizado."
     },

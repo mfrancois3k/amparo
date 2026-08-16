@@ -1,1 +1,0 @@
-import{c as e,n as t,r as n,s as r,t as i,u as a}from"./states-BcrOk04Z.js";var o=a,s=r,c=e,l=Object.fromEntries(Object.keys(o).map(e=>{let r=s[e];if(r)return[e,{...r,pending:!1}];let a=c[e],l=a?[{...a,tags:[`free`,`safe`]},...i]:i;return[e,{name:o[e],pending:!0,rules_en:t,rules_es:n,lifelines:l}]}));function u(e){return e&&l[e]||l.NY}export{u as t};
