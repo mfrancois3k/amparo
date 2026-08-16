@@ -3363,7 +3363,7 @@ function render(){
       <div class="trust-strip">${trustChips()}</div>
       ${window.__resumeStep?`<button class="btn" onclick="goM(${window.__resumeStep});window.__resumeStep=0">${_t.resume_btn}</button>`:''}
       <button class="btn gold" onclick="goM(1)">${_t.w_btn}</button>
-      <button class="linkbtn" style="margin-top:6px" onclick="ph('sr_welcome_shortcut_clicked',{lang:lang});goM(1)">${_t.w_lifelines_shortcut}</button>
+      <button class="linkbtn" style="margin-top:6px" onclick="ph('sr_welcome_shortcut_clicked',{lang:lang});_wantLifelinesShortcut=true;goM(1)">${_t.w_lifelines_shortcut}</button>
       <button class="btn ghost" onclick="goM(5)">${_t.w_try}</button>
       <div class="lawnote small">${_t.law_marker}</div>
             <button class="linkbtn" onclick="viewSample()">👀 ${_t.w_sample}</button>
@@ -3428,7 +3428,7 @@ function render(){
       <button type="button" class="linkbtn state-change" id="stateChangeLink" onclick="uncollapseStateGrid()" ${_collapsed?'':'hidden'}>${_t.s_change}</button>
       <p class="soon" id="stateNoMatch" style="display:none">${_t.s_nomatch}</p>
       <p class="soon" id="stateSoon" ${_collapsed?'hidden':''}>${_t.s_soon}</p>
-      <button class="btn gold" id="stateBottomNext" onclick="goM(2)" ${data.state?'':'disabled'}>${_t.next} →</button>
+      <button class="btn gold" id="stateBottomNext" onclick="stateContinue()" ${data.state?'':'disabled'}>${_t.next} →</button>
       <!-- Keisha (rideshare, between fares, no printer, no patience): the wizard is
            4 screens deep before anything usable. This skips You + Lifelines straight
            to the printable pack — same destination skipInfo() reaches from step 2,
@@ -3884,7 +3884,12 @@ function srReplayGuard(n){
     if(!srReplayDead && posthog.startSessionRecording) posthog.startSessionRecording();
   }catch(e){}
 }
-function go(n){srReplayGuard(n);step=n;persist();render();}
+/* Set by the Welcome "Just need a lawyer or hotline number?" link, consumed
+   once by stateContinue() to land on Lifelines instead of You. Cleared on
+   any return to Welcome so backing out of the flow can't silently skip You
+   on a later, unrelated Continue press. */
+let _wantLifelinesShortcut=false;
+function go(n){if(n===0)_wantLifelinesShortcut=false;srReplayGuard(n);step=n;persist();render();}
 let _navBusy=false;
 function goM(n){
   if(_navBusy) return;
@@ -4269,6 +4274,20 @@ function skipInfo(){
 function skipToPack(){
   ph('sr_state_fastpath',{lang:lang,state:data.state});
   goM(4);
+}
+/* State step's actual Continue handler. Normally just goM(2) (-> You), but
+   when the Welcome shortcut set _wantLifelinesShortcut, land on Lifelines
+   instead -- the whole point of that link was skipping the personal-info
+   step, not re-routing through it. One-shot: consumed here so it can't
+   affect a later, unrelated Continue press. */
+function stateContinue(){
+  if(_wantLifelinesShortcut){
+    _wantLifelinesShortcut=false;
+    ph('sr_welcome_shortcut_reached_lifelines',{state:data.state,lang:lang});
+    goM(3);
+    return;
+  }
+  goM(2);
 }
 function saveInfo(){
   data.name=document.getElementById('f_name').value;

@@ -13,9 +13,10 @@ type Props = {
   t: Bank
   founder: string
   onStart: () => void
+  onSkipToLifelines: () => void
 }
 
-export function Welcome({ t, founder, onStart }: Props) {
+export function Welcome({ t, founder, onStart, onSkipToLifelines }: Props) {
   const feats: Array<[string, string]> = [
     [t.w_b1, '🗣'], [t.w_b2, '📍'], [t.w_b3, '🖨'], [t.w_b4, '🔒'],
   ]
@@ -41,14 +42,17 @@ export function Welcome({ t, founder, onStart }: Props) {
 
       <button className="btn gold" onClick={onStart}>{t.w_btn}</button>
 
-      {/* Same destination as the primary CTA, not a shortcut past State —
-          resolveState(null) falls back to NY (see statesResolved.ts), so
-          skipping state selection would silently show the wrong state's
-          lifelines. This is a lower-commitment doorway into the same first
-          step, not a new route. Found by the 2026-08-16 loop's Mobbin
-          research: apps that surface a locator well put it near the top,
-          not buried with the other links below. */}
-      <button className="linkbtn" style={{ marginTop: 6 }} onClick={onStart}>{t.w_lifelines_shortcut}</button>
+      {/* Still goes through State — resolveState(null) falls back to NY (see
+          statesResolved.ts), so skipping state selection would silently show
+          the wrong state's lifelines. But unlike the primary CTA, this sets
+          the app-level "skip You" intent (App.tsx), so State's own Continue
+          lands on Lifelines instead of You. Originally called the same
+          onStart as the primary CTA — found by this loop's own focus group
+          to not actually be a shortcut at all, just a relabeled duplicate of
+          the main button. Found by the 2026-08-16 loop's Mobbin research:
+          apps that surface a locator well put it near the top, not buried
+          with the other links below. */}
+      <button className="linkbtn" style={{ marginTop: 6 }} onClick={onSkipToLifelines}>{t.w_lifelines_shortcut}</button>
 
       {/* Practice hub is Phase 5. Until then this is an honest link to the app
           that has it, not a button that does nothing. */}

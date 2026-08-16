@@ -43,6 +43,14 @@ function Shell() {
   const [route, setRoute] = useState<Route>({ name: 'welcome' })
   const [pack, setPack] = useState<Pack>(() => readApp<Pack>('save', { state: null }))
   const [offlineReady, setOfflineReady] = useState(false)
+  /* Set by Welcome's "Just need a lawyer or hotline number?" link, consumed
+     once by State's onNext to land on Lifelines instead of You — mirrors
+     root's _wantLifelinesShortcut. Reset on any return to Welcome so
+     backing out of the flow can't silently skip You on a later, unrelated
+     Continue press. Found by this loop's own focus group: the link
+     previously called the exact same handler as the primary CTA, so it
+     wasn't a shortcut at all. */
+  const [wantLifelinesShortcut, setWantLifelinesShortcut] = useState(false)
 
   useEffect(() => {
     const onReady = () => setOfflineReady(true)
@@ -50,7 +58,10 @@ function Shell() {
     return () => window.removeEventListener(OFFLINE_READY_EVENT, onReady)
   }, [])
 
-  const navigate = (to: Route) => setRoute(to)
+  const navigate = (to: Route) => {
+    if (to.name === 'welcome') setWantLifelinesShortcut(false)
+    setRoute(to)
+  }
 
   const pickState = (code: string) => {
     const next = { ...pack, state: code }
@@ -115,7 +126,12 @@ function Shell() {
             header, language toggle, beta note, disclaimer — survives a throw. */}
         <ErrorBoundary t={t}>
           {route.name === 'welcome' ? (
-            <Welcome t={t} founder={REVIEW.founder} onStart={() => navigate({ name: 'state' })} />
+            <Welcome
+              t={t}
+              founder={REVIEW.founder}
+              onStart={() => navigate({ name: 'state' })}
+              onSkipToLifelines={() => { setWantLifelinesShortcut(true); navigate({ name: 'state' }) }}
+            />
           ) : null}
 
           <Suspense fallback={<div className="card" />}>
@@ -128,7 +144,14 @@ function Shell() {
                 picked={pack.state}
                 onPick={pickState}
                 onBack={() => navigate({ name: 'welcome' })}
-                onNext={() => navigate({ name: 'you' })}
+                onNext={() => {
+                  if (wantLifelinesShortcut) {
+                    setWantLifelinesShortcut(false)
+                    navigate({ name: 'lifelines' })
+                    return
+                  }
+                  navigate({ name: 'you' })
+                }}
               />
             ) : null}
             {route.name === 'you' ? (
