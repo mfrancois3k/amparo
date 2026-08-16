@@ -2075,6 +2075,7 @@ const T = {
     i_ec2:"Backup contact name", i_ec2_ph:"A second person who'd answer",
     i_ecp2:"Backup contact phone", i_ecp2_ph:"(555) 555-5555",
     i_att:"Attorney or legal aid number (optional)", i_att_ph:"If you have one",
+    i_zip:"Your ZIP or county (optional)", i_zip_ph:"Helps narrow the legal-aid directory to your area", i_zip_note:"Printed on your pack for reference. For the states with a matching directory (NY, SC, DC so far), it also pre-fills the search on Lifelines.",
     i_email:"Email (optional)", i_email_ph:"For your receipt + law-change alerts (kept only at our email service)",
     i_email_note:"Your receipt confirms your pack — it carries only your name, state and edition. Your photos and documents are never emailed; they stay on this device.",
     em_btn:"📧 Email my receipt", em_sending:"Sending…", em_sent:"✓ Receipt sent to", em_fail:"Couldn’t send right now — your pack still works. Try again in a minute.",
@@ -2425,6 +2426,7 @@ const T = {
     i_ec2:"Nombre del contacto de respaldo", i_ec2_ph:"Una segunda persona que conteste",
     i_ecp2:"Teléfono del contacto de respaldo", i_ecp2_ph:"(555) 555-5555",
     i_att:"Número de abogado o ayuda legal (opcional)", i_att_ph:"Si tienes uno",
+    i_zip:"Tu código postal o condado (opcional)", i_zip_ph:"Ayuda a enfocar el directorio de ayuda legal en tu zona", i_zip_note:"Se imprime en tu paquete como referencia. Para los estados con un directorio compatible (NY, SC, DC por ahora), también rellena la búsqueda en Líneas de ayuda.",
     i_email:"Correo electrónico (opcional)", i_email_ph:"Para tu recibo + avisos de cambios de ley (guardado solo en nuestro servicio de correo)",
     i_email_note:"Tu recibo confirma tu paquete — solo lleva tu nombre, tu estado y la edición. Tus fotos y documentos nunca se envían por correo; se quedan en este dispositivo.",
     em_btn:"📧 Enviarme mi recibo", em_sending:"Enviando…", em_sent:"✓ Recibo enviado a", em_fail:"No se pudo enviar ahora — tu paquete sigue funcionando. Intenta en un minuto.",
@@ -2592,7 +2594,7 @@ const STATES = {
     rules_es:["Debe mostrar su licencia (VTL §507(2)), registro (§401(4)) y tarjeta de seguro (§319(3)) cuando el oficial se los pida — entregarlos es la forma segura de cumplir. No mostrar la licencia se trata como evidencia presuntiva de manejar sin licencia:<br><i class=\"stq\">Texto de la ley (en inglés): “Failure by a licensee to exhibit a license valid for operation…to any magistrate…peace officer…or police officer shall be presumptive evidence that he is not duly licensed.” — VTL §507(2)</i>","Puede guardar silencio más allá de entregar sus documentos — Nueva York no tiene ley de “identifíquese”.","En NYC, la ley Right to Know exige que los oficiales de NYPD se identifiquen y expliquen la parada; en muchas paradas deben ofrecer una tarjeta (la multa o el acta de arresto puede sustituirla). Antes de un registro por consentimiento deben decirle que puede negarse, y documentar su consentimiento.","Si le ordenan salir del vehículo — o bajar la ventana por completo — cumpla. Manos visibles, movimientos lentos, discuta después.","El silencio cubre preguntas — no pruebas químicas. Negarse a la prueba OFICIAL de aliento o sangre tras un arresto por DWI le cuesta la licencia al menos un año más una multa civil (VTL §1194), aunque nunca lo condenen. En la CALLE es distinto en NY: negarse a la prueba preliminar de aliento es en sí una infracción de tránsito (VTL §1194(1)(b)), y negarse a las pruebas de equilibrio/ojos puede mencionarse en la corte. Los retenes de sobriedad son legales en NY.<br><i class=\"stq\">Texto de la ley (en inglés): “…a revoked license…shall not be restored for at least one year after such revocation.” — VTL §1194(2)(d)(1)(a)</i>","¿Porta un arma con licencia? NY no exige que lo informe — nunca estire la mano hacia ella; si le preguntan, responda solo eso y siga instrucciones.","Nunca maneje con esta tarjeta montada en el parabrisas o ventanas delanteras (VTL §375(12-a)) — guárdela en la puerta y muéstrela solo después de detenerse.<br><i class=\"stq\">Texto de la ley (en inglés): “No person shall drive any motor vehicle with any sign or other nontransparent material…upon the front windshield or the sidewings or side windows…forward of or adjacent to the operator's seat.” — VTL §375(12-a)</i>"],
     lifelines:[
       {n:"211 New York", p:"Dial 211", d_en:"Free public referral line — connects you to local legal aid and services. Anyone can call.", d_es:"Línea pública gratuita de referencias — lo conecta con ayuda legal local. Cualquiera puede llamar.", tags:["free","safe"]},
-      {n:"LawHelpNY.org", p:"lawhelpny.org/find-legal-help", d_en:"Free official directory of legal help across New York — search by county or ZIP. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Nueva York — busca por condado o código postal. Siempre actualizado.", tags:["free","safe"]},
+      {n:"LawHelpNY.org", p:"lawhelpny.org/find-legal-help", zipParam:"coverage_area", d_en:"Free official directory of legal help across New York — search by county or ZIP. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Nueva York — busca por condado o código postal. Siempre actualizado.", tags:["free","safe"]},
       {n:"CCRB — police complaints (NYC only)", n_es:"CCRB — quejas contra la policía (solo NYC)", p:"1-800-341-2272", d_en:"Free complaint agency for NYPD officers only (stops, searches, force). Outside NYC, complain to the local department or NY State Police. Not a lawyer — it investigates. CCRB does not ask about immigration status.", d_es:"Agencia gratuita de quejas solo para oficiales de NYPD. Fuera de NYC, presente su queja al departamento local o a la Policía Estatal. No es un abogado — investiga. La CCRB no pregunta sobre estatus migratorio.", tags:["free","safe","hrs"]},
       {n:"NYS New Americans Hotline", n_es:"NYS — Línea para Nuevos Estadounidenses", p:"1-800-566-7636", d_en:"Free, confidential immigration help and referrals statewide (Mon–Fri). Any immigration status — interpreters available.", d_es:"Ayuda migratoria gratuita y confidencial en todo el estado (lun–vie). Cualquier estatus — hay intérpretes.", tags:["free","safe","hrs"]},
       {n:"Direct legal-aid line", n_es:"Línea directa de ayuda legal", p:"Coming soon", d_en:"Partnership pending — added the moment it's confirmed. Scan the QR for the live list.", d_es:"Alianza pendiente — se agrega al confirmarse. Escanea el QR para la lista actualizada.", tags:["soon"]}
@@ -2684,7 +2686,7 @@ const STATE_LEGAL_AID = {
   AL:{n:"AlabamaLegalHelp.org", p:"www.alabamalegalhelp.org/find-legal-help/directory", d_en:"Free official directory of legal help across Alabama — search by city, county, or ZIP. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Alabama — busca por ciudad, condado o código postal. Siempre actualizado."},
   AZ:{n:"AZLawHelp.org", p:"azlawhelp.org/directory", d_en:"Free official directory of legal help across Arizona — filterable by county. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Arizona — filtrable por condado. Siempre actualizado."},
   CA:{n:"LawHelpCA.org", p:"www.lawhelpca.org/find-legal-help", d_en:"Free official directory of legal help across California — filterable by county or ZIP. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en California — filtrable por condado o código postal. Siempre actualizado."},
-  DC:{n:"LawHelp.org — DC", p:"lawhelp.org/dc/find-legal-help", d_en:"Free official directory of legal help across Washington, DC — search by city, county, or ZIP. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Washington, DC — busca por ciudad, condado o código postal. Siempre actualizado."},
+  DC:{n:"LawHelp.org — DC", p:"lawhelp.org/dc/find-legal-help", zipParam:"location", d_en:"Free official directory of legal help across Washington, DC — search by city, county, or ZIP. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Washington, DC — busca por ciudad, condado o código postal. Siempre actualizado."},
   FL:{n:"FloridaLawHelp.org", p:"floridalawhelp.org/find-provider", d_en:"Free official directory of legal help across Florida — filterable by county. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Florida — filtrable por condado. Siempre actualizado."},
   IL:{n:"IllinoisLegalAid.org", p:"illinoislegalaid.org/get-legal-help", d_en:"Free official directory of legal help across Illinois — search by ZIP, filterable by county. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Illinois — busca por código postal, filtrable por condado. Siempre actualizado."},
   IN:{n:"Indiana Legal Help", p:"indianalegalhelp.org/get-help/", d_en:"Free official directory of legal help across Indiana — search by ZIP or county. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Indiana — busca por código postal o condado. Siempre actualizado."},
@@ -2700,7 +2702,7 @@ const STATE_LEGAL_AID = {
   OH:{n:"Ohio Legal Help", p:"ohiolegalhelp.org/find-your-legal-aid", d_en:"Free official directory of legal help across Ohio — filterable by county. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Ohio — filtrable por condado. Siempre actualizado."},
   OR:{n:"Oregon Law Help", p:"oregonlawhelp.org/Search-for-lawyers-legal-help", d_en:"Free official directory of legal help across Oregon — filterable by county. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Oregón — filtrable por condado. Siempre actualizado."},
   PA:{n:"PALawHELP.org", p:"www.palawhelp.org/find-legal-help/directory", d_en:"Free official directory of legal help across Pennsylvania — search by city, county, or ZIP. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Pensilvania — busca por ciudad, condado o código postal. Siempre actualizado."},
-  SC:{n:"LawHelp.org — SC", p:"lawhelp.org/sc/find-legal-help", d_en:"Free official directory of legal help across South Carolina — search by city, county, or ZIP. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Carolina del Sur — busca por ciudad, condado o código postal. Siempre actualizado."},
+  SC:{n:"LawHelp.org — SC", p:"lawhelp.org/sc/find-legal-help", zipParam:"location", d_en:"Free official directory of legal help across South Carolina — search by city, county, or ZIP. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Carolina del Sur — busca por ciudad, condado o código postal. Siempre actualizado."},
   TN:{n:"Justice For All TN", p:"justiceforalltn.org/resources/", d_en:"Free official directory of legal help across Tennessee — filterable by county. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Tennessee — filtrable por condado. Siempre actualizado."},
   VA:{n:"Virginia Law Help", p:"virginialawhelp.org/en/get-legal-help", d_en:"Free official directory of legal help across Virginia — filterable by city or county. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Virginia — filtrable por ciudad o condado. Siempre actualizado."},
   WA:{n:"Washington Law Help", p:"washingtonlawhelp.org/en/get-legal-help", d_en:"Free official directory of legal help across Washington — filterable by county. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Washington — filtrable por condado. Siempre actualizado."},
@@ -2985,7 +2987,7 @@ const PACK_EXTRA = {
 /* ============ APP STATE ============ */
 let lang='en';
 let step=0; // 0 welcome, 1 state, 2 info, 3 docs, 4 lifelines, 5 preview
-const data={state:null,name:"",ec:"",ecp:"",ec2:"",ecp2:"",att:"",email:"",lic_f:null,lic_b:null,ins_f:null,ins_b:null,reg:null,skipped:{lic:false,ins:false,reg:false}};
+const data={state:null,name:"",ec:"",ecp:"",ec2:"",ecp2:"",att:"",zip:"",email:"",lic_f:null,lic_b:null,ins_f:null,ins_b:null,reg:null,skipped:{lic:false,ins:false,reg:false}};
 /* Set true the moment the user actually hits Print — gates the secondary,
    post-print actions (reminder, family reprint, restart) so the print screen
    shows exactly one decision before printing and the rest only after. */
@@ -3455,6 +3457,17 @@ function render(){
           <input type="tel" id="f_ecp2" aria-label="${_t.i_ecp2_a11y}" autocomplete="tel" inputmode="tel" enterkeyhint="next" placeholder="${_t.i_ecp2_ph}" value="${esc(data.ecp2)}" oninput="data.ecp2=this.value;persist()">
         </div>
         <div><label for="f_att">${_t.i_att}</label><input type="tel" id="f_att" autocomplete="off" inputmode="tel" enterkeyhint="next" placeholder="${_t.i_att_ph}" value="${esc(data.att)}" oninput="data.att=this.value;persist()"></div>
+        <!-- Found by the 2026-08-16 loop, real user driven (the Rob Hannes
+             Messenger message): the actual fix for "help me find a lawyer
+             near me" is Lifelines' state directory link, already state-aware
+             -- but for the handful of states whose directory site takes a
+             real location query param (verified live: NY, SC, DC so far;
+             see zipParam on those lifeline entries), passing this through
+             narrows the search instead of landing on a blank form. Optional,
+             printed on the pack either way, so it's never a dead field even
+             for the other 45 states. -->
+        <div><label for="f_zip">${_t.i_zip}</label><input type="text" id="f_zip" autocomplete="postal-code" inputmode="text" enterkeyhint="next" placeholder="${_t.i_zip_ph}" value="${esc(data.zip)}" oninput="data.zip=this.value;persist()">
+          <p class="soon" style="text-align:left;margin-top:5px;font-size:12px">${_t.i_zip_note}</p></div>
         ${REVIEW.emailEnabled?`<div><label for="f_email">${_t.i_email}</label><input type="email" id="f_email" autocomplete="email" inputmode="email" enterkeyhint="done" placeholder="${_t.i_email_ph}" value="${esc(data.email)}" oninput="data.email=this.value.trim();persist()">
         <p class="soon" style="text-align:left;margin-top:5px;font-size:12px">🔒 ${_t.i_email_note}</p></div>`:''}
       </div>
@@ -3838,7 +3851,7 @@ function restore(){
       return;
     }
     if(s.state && STATES[s.state]) data.state=s.state; // whitelist — a corrupt state would silently print the wrong state's pack
-    data.name=s.name||""; data.ec=s.ec||""; data.ecp=s.ecp||""; data.ec2=s.ec2||""; data.ecp2=s.ecp2||""; data.att=s.att||""; data.email=s.email||"";
+    data.name=s.name||""; data.ec=s.ec||""; data.ecp=s.ecp||""; data.ec2=s.ec2||""; data.ecp2=s.ecp2||""; data.att=s.att||""; data.zip=s.zip||""; data.email=s.email||"";
     if(s.skipped) data.skipped=s.skipped;
     docsRestore(); // photos live under their own key so they can be deleted alone
     if(s.hasPrinted) hasPrinted=true;
@@ -4137,10 +4150,15 @@ function llTab(i,skipEvent){
     ? st.lifelines.map((L,idx)=>{
         const raw=L.p==='Coming soon'?(lang==='es'?'Próximamente':'Coming soon'):(L.p==='Dial 211'&&lang==='es'?'Marca el 211':L.p);
         const c=lifeContact(L.p);
+        /* zipParam entries (verified live per-state, see notebook/amparo-directory-feasibility-2026-08-16.md):
+           the visible link text stays the clean domain -- only the actual
+           href gets the query param, so the result is a filtered directory
+           without a cluttered-looking link on screen. */
+        const href=(c.href&&L.zipParam&&data.zip)?`${c.href}${c.href.includes('?')?'&':'?'}${L.zipParam}=${encodeURIComponent(data.zip)}`:c.href;
         return `<article class="ll-card">
           <div class="ln">${lnName(L)}</div>
-          ${c.href
-            ? `<a class="ll-contact" href="${c.href}" onclick="phLifelineClick(${idx})"${c.type==='web'?' target="_blank" rel="noopener noreferrer"':''}>${esc(raw)}</a>`
+          ${href
+            ? `<a class="ll-contact" href="${href}" onclick="phLifelineClick(${idx})"${c.type==='web'?' target="_blank" rel="noopener noreferrer"':''}>${esc(raw)}</a>`
             : `<div class="ll-contact pending">${esc(raw)}</div>`}
           <div class="ld">${lang==='es'?L.d_es:L.d_en}</div>
           <div class="lltags">${L.tags.map(tag=>`<span class="tag ${tag}">${TAGNAMES[lang][tag]}</span>`).join('')}</div>
@@ -4252,7 +4270,7 @@ function viewSample(){
 }
 function demoExit(){
   isDemo=false;
-  data.state=null; data.name=data.ec=data.ecp=data.ec2=data.ecp2=data.att=data.email='';
+  data.state=null; data.name=data.ec=data.ecp=data.ec2=data.ecp2=data.att=data.zip=data.email='';
   
   restore(); // bring back whatever real pack was saved before the demo
   step=0; render();
@@ -4296,6 +4314,7 @@ function saveInfo(){
   data.ec2=(document.getElementById('f_ec2')||{value:data.ec2}).value;
   data.ecp2=(document.getElementById('f_ecp2')||{value:data.ecp2}).value;
   data.att=document.getElementById('f_att').value;
+  data.zip=document.getElementById('f_zip').value.trim();
   data.email=(document.getElementById('f_email')||{value:''}).value.trim();
   persist();
   goM(3);
@@ -4307,7 +4326,7 @@ function loadImg(e,key){
   r.readAsDataURL(f);
 }
 
-function restart(){step=0;data.state=null;data.name=data.ec=data.ecp=data.ec2=data.ecp2=data.att=data.email="";emailSentTo='';emailBusy=false;hasPrinted=false;printedAt=null;printedEdition=null;printFeedbackGiven=false;usageFeedbackGiven=false;clearSave();render();}
+function restart(){step=0;data.state=null;data.name=data.ec=data.ecp=data.ec2=data.ecp2=data.att=data.zip=data.email="";emailSentTo='';emailBusy=false;hasPrinted=false;printedAt=null;printedEdition=null;printFeedbackGiven=false;usageFeedbackGiven=false;clearSave();render();}
 /* Print a second pack for a family member: keeps the state (families are almost
    always in the same one), clears everything personal — name, contacts, email,
    document photos — and drops straight into the "You" step instead of restarting
@@ -4446,7 +4465,8 @@ function buildPrint(){
           <b>${lang==='es'?'Nombre':'Name'}:</b> ${esc(data.name)||'____________________'}<br>
           <b>${lang==='es'?'Contacto de emergencia':'Emergency contact'}:</b> ${esc(data.ec)||'____________________'} · ${esc(data.ecp)||'____________'}<br>${data.ec2||data.ecp2?`
           <b>${lang==='es'?'Contacto de respaldo':'Backup contact'}:</b> ${esc(data.ec2)||'____________________'} · ${esc(data.ecp2)||'____________'}<br>`:''}${data.att?`
-          <b>${lang==='es'?'Abogado / ayuda legal':'Attorney / legal aid'}:</b> ${esc(data.att)}<br>`:''}
+          <b>${lang==='es'?'Abogado / ayuda legal':'Attorney / legal aid'}:</b> ${esc(data.att)}<br>`:''}${data.zip?`
+          <b>${lang==='es'?'Código postal / condado':'ZIP / county'}:</b> ${esc(data.zip)}<br>`:''}
           <b>${lang==='es'?'No. de póliza / aseguradora':'Insurance policy # / company'}:</b> __________<br>
           <b>${lang==='es'?'Tel. del agente de seguros':'Insurance agent phone'}:</b> __________
         </div>

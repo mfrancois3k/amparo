@@ -191,6 +191,7 @@
         {
           "n": "LawHelpNY.org",
           "p": "lawhelpny.org/find-legal-help",
+          "zipParam": "coverage_area",
           "d_en": "Free official directory of legal help across New York — search by county or ZIP. Always current.",
           "d_es": "Directorio oficial gratuito de ayuda legal en Nueva York — busca por condado o código postal. Siempre actualizado.",
           "tags": [
@@ -384,6 +385,7 @@
     "DC": {
       "n": "LawHelp.org — DC",
       "p": "lawhelp.org/dc/find-legal-help",
+      "zipParam": "location",
       "d_en": "Free official directory of legal help across Washington, DC — search by city, county, or ZIP. Always current.",
       "d_es": "Directorio oficial gratuito de ayuda legal en Washington, DC — busca por ciudad, condado o código postal. Siempre actualizado."
     },
@@ -480,6 +482,7 @@
     "SC": {
       "n": "LawHelp.org — SC",
       "p": "lawhelp.org/sc/find-legal-help",
+      "zipParam": "location",
       "d_en": "Free official directory of legal help across South Carolina — search by city, county, or ZIP. Always current.",
       "d_es": "Directorio oficial gratuito de ayuda legal en Carolina del Sur — busca por ciudad, condado o código postal. Siempre actualizado."
     },

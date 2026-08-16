@@ -59,8 +59,22 @@ export function YouStep({ t, onBack, onNext }: Props) {
         </div>
 
         <label htmlFor="f_att">{t.i_att}</label>
-        <input id="f_att" type="tel" autoComplete="off" inputMode="tel" enterKeyHint="done"
+        <input id="f_att" type="tel" autoComplete="off" inputMode="tel" enterKeyHint="next"
           placeholder={t.i_att_ph} value={info.att} onChange={(e) => field('att', e.target.value)} />
+
+        {/* Found by the 2026-08-16 loop, real user driven (the Rob Hannes
+            Messenger message): the fix for "help me find a lawyer near me"
+            is Lifelines' state directory link, already state-aware -- but
+            for states whose directory site takes a real location query
+            param (verified live: NY, SC, DC so far), passing this through
+            narrows the search instead of landing on a blank form.
+            LifelinesStep reads this same 'you' storage key to build the
+            enhanced link. Optional, printed on the pack either way, so it's
+            never a dead field even for the other 45 states. */}
+        <label htmlFor="f_zip">{t.i_zip}</label>
+        <input id="f_zip" type="text" autoComplete="postal-code" enterKeyHint="done"
+          placeholder={t.i_zip_ph} value={info.zip} onChange={(e) => field('zip', e.target.value)} />
+        <p className="soon" style={{ textAlign: 'left', marginTop: 5, fontSize: 12 }}>{t.i_zip_note}</p>
 
         {/* i_email / REVIEW.emailEnabled: root gates this field behind a flag that
             is false today (index.html:2578) and routes submissions through a

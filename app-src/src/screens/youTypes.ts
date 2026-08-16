@@ -3,9 +3,9 @@
  * Fast Refresh, same reasoning as the i18n.ts / LangProvider.tsx split.
  */
 export type YouInfo = {
-  name: string; ec: string; ecp: string; ec2: string; ecp2: string; att: string
+  name: string; ec: string; ecp: string; ec2: string; ecp2: string; att: string; zip: string
 }
-export const EMPTY_INFO: YouInfo = { name: '', ec: '', ecp: '', ec2: '', ecp2: '', att: '' }
+export const EMPTY_INFO: YouInfo = { name: '', ec: '', ecp: '', ec2: '', ecp2: '', att: '', zip: '' }
 
 export type Docs = Record<string, string>
 

@@ -8,6 +8,8 @@ import type { KeyboardEvent } from 'react'
 import { TAGNAMES, SCEN } from '../content/states.json'
 import { resolveState } from '../content/statesResolved'
 import { useLang } from '../i18n'
+import { readApp } from '../services/storage'
+import { EMPTY_INFO, type YouInfo } from './youTypes'
 import '../styles/lifelines.css'
 
 const TAGS = TAGNAMES as Record<'en' | 'es', Record<string, string>>
@@ -43,6 +45,14 @@ export function LifelinesStep({ t, state, onBack, onNext }: Props) {
   const st = resolveState(state)
   const lifelines = st.lifelines
   const scenarios = SCENARIOS[lang]
+  /* Found by the 2026-08-16 loop, real user driven (the Rob Hannes Messenger
+     message): for the handful of state directories with a verified location
+     query param (zipParam -- see statesResolved.ts), pass the ZIP/county
+     from step 2 through so the linked search lands pre-filtered instead of
+     on a blank form. Read once, not reactive to later edits: this screen
+     doesn't re-render on storage changes made elsewhere, same as `state`
+     being a prop rather than a live subscription. */
+  const [zip] = useState(() => readApp<YouInfo>('you', EMPTY_INFO).zip)
   const count = tab === 0 ? lifelines.length : scenarios.length
 
   /* Dots follow the swipe; tapping a dot scrolls to that card. Scroll position
@@ -118,11 +128,17 @@ export function LifelinesStep({ t, state, onBack, onNext }: Props) {
           const raw = L.p === 'Coming soon' ? (lang === 'es' ? 'Próximamente' : 'Coming soon')
             : (L.p === 'Dial 211' && lang === 'es' ? 'Marca el 211' : L.p)
           const c = lifeContact(L.p)
+          /* zipParam entries: the visible link text stays the clean domain --
+             only the actual href gets the query param, so the result is a
+             filtered directory without a cluttered-looking link on screen. */
+          const href = c.href && L.zipParam && zip
+            ? `${c.href}${c.href.includes('?') ? '&' : '?'}${L.zipParam}=${encodeURIComponent(zip)}`
+            : c.href
           return (
             <article className="ll-card" key={i}>
               <div className="ln">{name}</div>
-              {c.href ? (
-                <a className="ll-contact" href={c.href} {...(c.type === 'web' ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{raw}</a>
+              {href ? (
+                <a className="ll-contact" href={href} {...(c.type === 'web' ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{raw}</a>
               ) : (
                 <div className="ll-contact pending">{raw}</div>
               )}
