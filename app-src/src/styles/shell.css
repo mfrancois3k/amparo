@@ -62,6 +62,12 @@ h1{font-size:26px;color:var(--navy);letter-spacing:-.4px;margin-bottom:8px;line-
   min-height:40px;transition:background .25s var(--ease-out),color .25s var(--ease-out)}                    /* :374 */
 .ll-seg button.on{background:var(--white);color:var(--navy);box-shadow:0 2px 6px rgba(27,42,74,.1)}         /* :377 */
 
+/* pilot banner — ported verbatim from index.html:76. Hidden on welcome
+   (route.name === 'welcome'), same as root hides it at step===0
+   (index.html:3212) — no reassurance needed before there's anything to
+   reassure about yet. */
+.pilot{background:linear-gradient(90deg,var(--gold-soft),#f7e3ae);border:1px solid var(--gold);border-radius:13px;padding:9px 14px;font-size:13.5px;color:#6b4d0d;margin:10px 0 4px;text-align:center;font-weight:700}
+
 /* beta banner — /app only, not ported from root */
 .beta-note{background:var(--white);border:1.5px solid var(--line);border-left:5px solid var(--gold);border-radius:var(--radius);padding:14px 16px;font-size:13.5px;margin-bottom:16px}
 .beta-note a{color:var(--navy)}

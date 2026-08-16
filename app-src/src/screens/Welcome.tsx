@@ -41,6 +41,15 @@ export function Welcome({ t, founder, onStart }: Props) {
 
       <button className="btn gold" onClick={onStart}>{t.w_btn}</button>
 
+      {/* Same destination as the primary CTA, not a shortcut past State —
+          resolveState(null) falls back to NY (see statesResolved.ts), so
+          skipping state selection would silently show the wrong state's
+          lifelines. This is a lower-commitment doorway into the same first
+          step, not a new route. Found by the 2026-08-16 loop's Mobbin
+          research: apps that surface a locator well put it near the top,
+          not buried with the other links below. */}
+      <button className="linkbtn" style={{ marginTop: 6 }} onClick={onStart}>{t.w_lifelines_shortcut}</button>
+
       {/* Practice hub is Phase 5. Until then this is an honest link to the app
           that has it, not a button that does nothing. */}
       <a className="btn ghost" href="/">{t.w_try}</a>
