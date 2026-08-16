@@ -286,7 +286,7 @@
     .thumbs{grid-auto-flow:row;grid-template-columns:1fr 1fr;grid-auto-columns:auto;overflow-x:visible;scroll-snap-type:none}
     .thumbs-hint{display:none}
   }
-  .thumb{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--white);transition:transform .3s var(--ease-out),box-shadow .3s}
+  .thumb{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--white);transition:transform .3s var(--ease-out),box-shadow .3s;cursor:pointer}
   .thumb:hover{transform:translateY(-3px) scale(1.008);box-shadow:0 10px 26px rgba(27,42,74,.14)}
   .thumb .cap{padding:10px 13px;font-size:13px;font-weight:800;color:var(--navy);background:#f4f1e7;border-top:1px solid var(--line)}
   .mini{transform-origin:top left;pointer-events:none}
@@ -398,8 +398,8 @@
     cursor:pointer;transition:background .25s,transform .25s var(--ease-spring)}
   .ll-dot.on{background:var(--navy);transform:scale(1.3)}
   .ll-count{font-size:12px;font-weight:800;color:var(--muted);margin-left:6px}
-  #aboutOverlay,#practiceOverlay,#docOverlay,#prepOverlay,#pintroOverlay,#carryOverlay,#papersOverlay,#shareOverlay{position:fixed;inset:0;z-index:95;background:rgba(9,14,26,.6);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:20px}
-  #aboutOverlay.open,#practiceOverlay.open,#docOverlay.open,#prepOverlay.open,#pintroOverlay.open,#carryOverlay.open,#papersOverlay.open,#shareOverlay.open{display:flex;animation:camIn .35s var(--ease-out)}
+  #aboutOverlay,#practiceOverlay,#docOverlay,#prepOverlay,#pintroOverlay,#carryOverlay,#papersOverlay,#shareOverlay,#packZoomOverlay{position:fixed;inset:0;z-index:95;background:rgba(9,14,26,.6);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:20px}
+  #aboutOverlay.open,#practiceOverlay.open,#docOverlay.open,#prepOverlay.open,#pintroOverlay.open,#carryOverlay.open,#papersOverlay.open,#shareOverlay.open,#packZoomOverlay.open{display:flex;animation:camIn .35s var(--ease-out)}
   /* docOverlay and carryOverlay are opened FROM the other overlays, so they must
      paint above them — equal z-index left doc behind practice and it looked dead. */
   /* 97, not the default 95: the share sheet can be opened FROM the practice
@@ -814,6 +814,10 @@
   .prx-userwave i{width:4px;height:6px;background:var(--ok);border-radius:2px;opacity:.9;transition:height .06s linear}
   .prx-caption{font-size:13px;font-style:italic;color:var(--muted);min-height:18px;margin-top:4px}
   .ab-card{background:var(--cream);border-radius:20px;max-width:460px;width:100%;max-height:88vh;overflow:auto;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+  /* Wider than the default .ab-card: a US Letter page needs real room to be
+     legible, not the 460px other overlays (confirmations, forms) are sized for. */
+  .pack-zoom-card{max-width:640px}
+  .pack-zoom-card .ab-body{padding:14px}
   .ab-top{position:sticky;top:0;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:15px 18px}
   .ab-title{font-weight:900;font-size:16px}
   .ab-x{background:rgba(255,255,255,.15);border:0;color:#fff;font-size:12px;font-weight:800;padding:6px 12px;border-radius:8px;cursor:pointer}
@@ -1745,6 +1749,21 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
   </div>
 </div>
 
+<!-- Found by the 2026-08-16 loop's UI/UX audit: the thumbnail grid's .mini
+     clones were pointer-events:none by design (they're a passive preview,
+     not the real interactive page), which also meant there was no way to
+     check a page's actual content before spending paper/ink -- the OS print
+     sheet was the only real preview, after already committing to print.
+     This overlay reuses the exact same #printRoot .pp source the thumbnails
+     already clone from (packZoomOpen below), just at a size big enough to
+     read instead of a 80%-width carousel card. -->
+<div id="packZoomOverlay" role="dialog" aria-modal="true" aria-label="Page preview / Vista previa de la página">
+  <div class="ab-card pack-zoom-card">
+    <div class="ab-top"><div class="ab-title" id="packZoomTitle"></div><button class="ab-x" onclick="packZoomClose()">✕</button></div>
+    <div class="ab-body"><div class="mini-wrap" id="packZoomBody"></div></div>
+  </div>
+</div>
+
 <div id="aboutOverlay" role="dialog" aria-modal="true" aria-label="About Amparo / Acerca de Amparo">
   <div class="ab-card">
     <div class="ab-top"><div class="ab-title"></div><button class="ab-x" onclick="closeAbout()"></button></div>
@@ -2148,6 +2167,7 @@ const T = {
     stuck_r_look:"Just looking around",
     stuck_thanks:"Thank you — that tells us where to fix it.",
     stuck_close:"Close",
+    pack_zoom_close:"Close preview",
     prx_idle_h:"Take your time. Nothing here is timed, and nothing is being scored while you wait.",
     prx_idle_replay:"Say the line again",
     prx_idle_leave:"Step out of this stop",
@@ -2495,6 +2515,7 @@ const T = {
     stuck_r_look:"Solo estoy mirando",
     stuck_thanks:"Gracias — eso nos dice dónde arreglarlo.",
     stuck_close:"Cerrar",
+    pack_zoom_close:"Cerrar vista previa",
     prx_idle_h:"Tómate tu tiempo. Aquí nada tiene reloj, y no se está calificando nada mientras esperas.",
     prx_idle_replay:"Repetir la frase",
     prx_idle_leave:"Salir de esta parada",
@@ -3446,7 +3467,7 @@ function render(){
       <div class="split">
       <div class="split-left">
       <div class="thumbs stagger">
-        ${[1,2,3,4,5,6].map(n=>`<div class="thumb"><div class="mini-wrap" id="mw${n}"></div><div class="cap">${_t['v_pg'+n]}</div></div>`).join('')}
+        ${[1,2,3,4,5,6].map(n=>`<div class="thumb" role="button" tabindex="0" onclick="packZoomOpen(${n})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();packZoomOpen(${n})}"><div class="mini-wrap" id="mw${n}"></div><div class="cap">${_t['v_pg'+n]}</div></div>`).join('')}
       </div>
       <p class="soon thumbs-hint">${_t.v_swipe}</p>
       </div>
@@ -3996,6 +4017,36 @@ function phLifelineClick(idx){
   const c=lifeContact(L.p);
   ph('sr_lifeline_link_clicked',{state:data.state,name:L.n,type:c.type,lang:lang});
 }
+/* Found by the 2026-08-16 loop's UI/UX audit: the thumbnails are the only
+   preview a user gets before printing (real paper, real ink), and they were
+   pointer-events:none -- no way to check a page's actual content first.
+   Reuses the exact same #printRoot .pp source and scale-to-fit approach the
+   thumbnail-building code in render() already uses, just sized to be
+   readable instead of a small carousel card. Top-level, not nested inside
+   render() (an earlier version of this was and every onclick="packZoomOpen"
+   in the generated HTML — which runs in global scope — threw ReferenceError;
+   caught by actually calling window.packZoomOpen in a live browser, not by
+   re-reading the code, same lesson as the CRLF verify bug earlier this loop). */
+function packZoomOpen(n){
+  const pages=document.querySelectorAll('#printRoot .pp');
+  const pg=pages[n-1]; if(!pg) return;
+  const _t=t();
+  document.getElementById('packZoomTitle').textContent=_t['v_pg'+n]||'';
+  const body=document.getElementById('packZoomBody');
+  body.innerHTML='';
+  const clone=pg.cloneNode(true);
+  clone.classList.add('mini');
+  clone.style.display='block';
+  body.appendChild(clone);
+  const o=document.getElementById('packZoomOverlay');
+  o.classList.add('open');
+  const w=body.clientWidth||320;
+  const scale=w/(8.27*96);
+  clone.style.transform=`scale(${scale})`;
+  body.style.height=(10.6*96*scale)+'px';
+  ph('sr_pack_page_zoomed',{page:n,lang:lang});
+}
+function packZoomClose(){ document.getElementById('packZoomOverlay').classList.remove('open'); }
 /* Which segment step 3 is showing. Module-level so switching tabs and re-rendering
    (a language toggle, say) keeps the user where they were instead of snapping back. */
 let _llTab=0;
@@ -6297,7 +6348,7 @@ const OVERLAYS={
   pintroOverlay:practiceIntroClose, prepOverlay:prepClose,
   carryOverlay:carryClose, docOverlay:closeDoc, aboutOverlay:closeAbout,
   practiceOverlay:practiceClose, papersOverlay:closePapers,
-  shareOverlay:shareClose
+  shareOverlay:shareClose, packZoomOverlay:packZoomClose
 };
 const FOCUSABLE='a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
 let ovReturn=null;

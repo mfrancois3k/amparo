@@ -91,7 +91,8 @@
 
 /* on-screen preview: thumbnail carousel + desktop split, index.html:279-309 */
 .thumbs{display:grid;grid-auto-flow:column;grid-auto-columns:80%;gap:12px;margin-top:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;-webkit-overflow-scrolling:touch}
-.thumb{scroll-snap-align:center;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--white)}
+/* cursor:pointer added by the 2026-08-16 loop's UI/UX audit -- see PackZoomOverlay.tsx */
+.thumb{scroll-snap-align:center;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--white);cursor:pointer}
 .thumbs-hint{margin-top:2px}
 @media(min-width:900px){
   .thumbs{grid-auto-flow:row;grid-template-columns:1fr 1fr;grid-auto-columns:auto;overflow-x:visible;scroll-snap-type:none}

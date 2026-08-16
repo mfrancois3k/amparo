@@ -12,13 +12,14 @@
  * trigger; while open, Tab wraps inside the container and Escape closes.
  *
  * Root's z-order "topmost wins" logic (`ovTop()`) doesn't apply here either:
- * /app has exactly one overlay type live today (DocsOverlay), never nested,
- * so there is nothing to be topmost OVER. If a second overlay is ever
- * opened from inside DocsOverlay (root's doc/carry-over-practice case), this
- * hook's per-instance `inert` calls compose correctly on their own — the
- * outer overlay's container just needs to sit outside `#app-root` too (see
- * the portal note in DocsOverlay.tsx) — but re-deriving root's shared
- * topmost-picker is deferred until a second overlay actually exists.
+ * /app's overlays (DocsOverlay, and PackZoomOverlay added 2026-08-16) are
+ * never nested inside one another, so there is nothing to be topmost OVER.
+ * If a future overlay ever opens from inside another (root's
+ * doc/carry-over-practice case), this hook's per-instance `inert` calls
+ * compose correctly on their own — the outer overlay's container just needs
+ * to sit outside `#app-root` too (see the portal note in DocsOverlay.tsx) —
+ * but re-deriving root's shared topmost-picker is deferred until that
+ * actually happens.
  */
 import { useEffect } from 'react'
 

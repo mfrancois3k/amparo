@@ -15,6 +15,7 @@ import { useLang } from '../i18n'
 import { readApp } from '../services/storage'
 import { PrintPack } from '../components/PrintPack'
 import { DocsOverlay } from '../components/DocsOverlay'
+import { PackZoomOverlay } from '../components/PackZoomOverlay'
 import { DOC_SLOTS, EMPTY_INFO, type Docs, type YouInfo } from './youTypes'
 import '../styles/print.css'
 
@@ -29,6 +30,7 @@ export function PrintStep({ t, state, onBack, onNext }: Props) {
   const [papersOpen, setPapersOpen] = useState(false)
   const [printed, setPrinted] = useState(false)
   const [helpOpen, setHelpOpen] = useState(false)
+  const [zoomPage, setZoomPage] = useState<number | null>(null)
   const thumbsRef = useRef<HTMLDivElement>(null)
 
   const docsCount = Object.values(docs).filter(Boolean).length
@@ -82,7 +84,9 @@ export function PrintStep({ t, state, onBack, onNext }: Props) {
         <div className="split-left">
           <div className="thumbs stagger" ref={thumbsRef}>
             {captions.map((cap, i) => (
-              <div className="thumb" key={i}>
+              <div className="thumb" key={i} role="button" tabIndex={0}
+                onClick={() => setZoomPage(i + 1)}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setZoomPage(i + 1) } }}>
                 <div className="mini-wrap" />
                 <div className="cap">{cap}</div>
               </div>
@@ -131,6 +135,10 @@ export function PrintStep({ t, state, onBack, onNext }: Props) {
 
       {papersOpen ? (
         <DocsOverlay t={t} docs={docs} onChange={setDocs} onClose={() => setPapersOpen(false)} />
+      ) : null}
+
+      {zoomPage ? (
+        <PackZoomOverlay t={t} page={zoomPage} caption={captions[zoomPage - 1]} onClose={() => setZoomPage(null)} />
       ) : null}
 
       <PrintPack t={t} lang={lang} code={state} you={info} docs={docs} />
