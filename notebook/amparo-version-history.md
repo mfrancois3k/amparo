@@ -8,6 +8,13 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.22.8 — 2026-08-16 — "Tap-to-zoom, and a bug caught by actually clicking it"
+
+Print-pack thumbnails now open a readable full-size preview on tap (audit
+finding #3). Shipped with a real scoping bug (packZoomOpen nested inside
+render(), broke every onclick with ReferenceError) — caught by actually
+clicking a real thumbnail live, fixed before this entry existed.
+
 ## v2.22.7 — 2026-08-16 — "The audit's diagnosis was half right"
 
 Blind-spot audit, focus group, and elite Mobbin UI/UX audit findings, fixed:

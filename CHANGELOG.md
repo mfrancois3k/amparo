@@ -6,6 +6,27 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.22.8 — 2026-08-16
+
+v2.22.8 — "Tap-to-zoom, and a bug caught by actually clicking it"
+
+Third finding from this loop's UI/UX audit: print-pack thumbnails were
+`pointer-events:none` by design (a passive miniature, not the real page) —
+no way to check a page's actual content before spending paper and ink. Both
+root and `/app` now open a readable, full-size preview on tap, reusing the
+exact `#printRoot`/`#appPrintRoot .pp` source the thumbnails already clone
+from — same source of truth, no drift possible.
+
+Shipped with a real bug and fixed it before this entry existed: root's
+`packZoomOpen`/`packZoomClose` were first written nested inside `render()`,
+so every `onclick="packZoomOpen(n)"` in the generated HTML — which runs in
+global scope — threw `ReferenceError`. Caught by actually clicking a real
+thumbnail in a live browser and checking `window.packZoomOpen`'s type, not
+by re-reading the code — the same lesson as this loop's CRLF verify bug.
+Moved to top-level scope, re-verified with a real click dispatch (not a
+direct function call) and an Escape-key close through the shared overlay
+accessibility system.
+
 ## v2.22.7 — 2026-08-16
 
 v2.22.7 — "The audit's diagnosis was half right"
