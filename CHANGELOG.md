@@ -6,6 +6,42 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.22.9 — 2026-08-16
+
+v2.22.9 — "24 real directories, 24 honest no's"
+
+The operator asked for a cron job to build a per-state, per-county pro bono
+lawyer directory — same ask as v2.22.6, now at full 50-state scale, plus a
+detailed spec for a new parallel directory component. Same reasoning still
+applied (no public dataset exists to safely cron-pull from; see
+v2.22.6/v2.22.8's entries), but the underlying research — does each state
+actually run its own county-searchable tool, the way TX/GA/NY do — was
+worth doing properly instead of leaving 48 states on the generic national
+finder forever.
+
+4 parallel research agents WebFetch-verified all 48 non-cited states
+against the same bar as the existing TX/GA/NY entries: an actual working
+county/city/ZIP search, confirmed by fetching the page directly, not a
+phone number or a search-result snippet.
+
+- **24 states verified**: AL, AZ, CA, DC, FL, IL, IN, KY, LA, MD, MA, MI,
+  MN, MS, MT, NC, OH, OR, PA, SC, TN, VA, WA, WI each get their own
+  directory, prepended ahead of the national `lawhelp.org/find-help`
+  fallback.
+- **24 states checked and honestly ruled out** — not skipped. NV and OK
+  have real candidates blocked by Cloudflare/bot-detection and were left
+  genuinely unverified rather than bypassed; the rest were confirmed to be
+  static lists, hotline intake forms, or topic-only triage tools with no
+  location search. Full per-state list:
+  `notebook/amparo-directory-feasibility-2026-08-16.md`.
+
+Integrated as a new `STATE_LEGAL_AID` map into the existing
+`states.json`/`BASE_LIFELINES` system (root + `statesResolved.ts` mirror
+for `/app`) — no new component, no new content file, no cron job. Verified
+live: California and Ohio show their state-specific directory first,
+Wyoming and South Dakota correctly fall back to the national finder, and
+Texas's existing cited entry is untouched.
+
 ## v2.22.8 — 2026-08-16
 
 v2.22.8 — "Tap-to-zoom, and a bug caught by actually clicking it"

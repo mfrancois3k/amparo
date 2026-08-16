@@ -8,6 +8,15 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.22.9 — 2026-08-16 — "24 real directories, 24 honest no's"
+
+4 parallel research agents WebFetch-verified all 48 non-cited states for
+real county/ZIP-searchable legal-aid directories. 24 verified (AL, AZ, CA,
+DC, FL, IL, IN, KY, LA, MD, MA, MI, MN, MS, MT, NC, OH, OR, PA, SC, TN, VA,
+WA, WI) now show their own directory ahead of the national fallback; 24
+checked and honestly ruled out. No cron job, no scraper. See
+`notebook/amparo-directory-feasibility-2026-08-16.md`.
+
 ## v2.22.8 — 2026-08-16 — "Tap-to-zoom, and a bug caught by actually clicking it"
 
 Print-pack thumbnails now open a readable full-size preview on tap (audit
