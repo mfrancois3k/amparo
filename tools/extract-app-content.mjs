@@ -380,7 +380,13 @@ for (const [file, obj] of Object.entries(files)) {
   const path = join(OUT, file);
   if (VERIFY) {
     if (!existsSync(path)) { failures++; console.error(`FAIL ${file} — missing; run without --verify`); continue; }
-    const onDisk = readFileSync(path, 'utf8');
+    /* Same \r\n -> \n normalization as `html` above (line 92). Without it, a
+       plain `git clone`/checkout on Windows with core.autocrlf=true rewrites
+       these committed-LF files to CRLF on disk, and this comparison sees
+       that as content drift even though the actual strings are identical —
+       found by the 2026-08-16 loop's blind-spot audit via a genuinely fresh
+       clone, which failed on all 10 files including the prior commit. */
+    const onDisk = readFileSync(path, 'utf8').replace(/\r\n/g, '\n');
     if (onDisk !== text) { failures++; console.error(`FAIL ${file} — differs from a fresh extraction (drift)`); continue; }
   } else {
     mkdirSync(OUT, { recursive: true });

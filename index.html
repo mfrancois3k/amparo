@@ -3288,7 +3288,7 @@ function render(){
       <div class="trust-strip">${trustChips()}</div>
       ${window.__resumeStep?`<button class="btn" onclick="goM(${window.__resumeStep});window.__resumeStep=0">${_t.resume_btn}</button>`:''}
       <button class="btn gold" onclick="goM(1)">${_t.w_btn}</button>
-      <button class="linkbtn" style="margin-top:6px" onclick="goM(1)">${_t.w_lifelines_shortcut}</button>
+      <button class="linkbtn" style="margin-top:6px" onclick="ph('sr_welcome_shortcut_clicked',{lang:lang});goM(1)">${_t.w_lifelines_shortcut}</button>
       <button class="btn ghost" onclick="goM(5)">${_t.w_try}</button>
       <div class="lawnote small">${_t.law_marker}</div>
             <button class="linkbtn" onclick="viewSample()">👀 ${_t.w_sample}</button>
