@@ -3828,8 +3828,8 @@ function renderPapers(){
 function persist(){
   if(isDemo) return; // never let sample data overwrite a real saved pack
   try{
-    const {state,name,ec,ecp,ec2,ecp2,att,email,skipped}=data;
-    localStorage.setItem('sr_save', JSON.stringify({state,name,ec,ecp,ec2,ecp2,att,email,skipped,lang,step,hasPrinted,printedAt,printedEdition,printFeedbackGiven,usageFeedbackGiven}));
+    const {state,name,ec,ecp,ec2,ecp2,att,zip,email,skipped}=data;
+    localStorage.setItem('sr_save', JSON.stringify({state,name,ec,ecp,ec2,ecp2,att,zip,email,skipped,lang,step,hasPrinted,printedAt,printedEdition,printFeedbackGiven,usageFeedbackGiven}));
   }catch(e){}
 }
 function restore(){
