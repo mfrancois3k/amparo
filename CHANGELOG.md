@@ -6,6 +6,27 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.22.12 — 2026-08-16
+
+v2.22.12 — "Now it's actually a shortcut"
+
+Closed the last open item from focus group #19: the Welcome "Just need a
+lawyer or hotline number?" link and the primary "Build my pack" CTA called
+the identical handler, landing on the same State screen either way — not a
+shortcut, just a relabeled duplicate button.
+
+State selection still can't be skipped (`resolveState(null)` falls back to
+NY, so skipping it would silently show the wrong state's lifelines), but
+everything after it now can. The shortcut link sets a one-shot intent flag,
+consumed by State's own Continue to land directly on Lifelines instead of
+You. Root: `_wantLifelinesShortcut` + a new `stateContinue()` handler.
+`/app`: the same pattern as React state in `App.tsx`, threaded through a
+new `onSkipToLifelines` prop.
+
+Verified live on both root and `/app`: the primary CTA still lands on You
+normally (regression check), the shortcut link lands directly on Lifelines
+with the correct state's directory shown.
+
 ## v2.22.11 — 2026-08-16
 
 v2.22.11 — "The QR box that only worked for 3 states"

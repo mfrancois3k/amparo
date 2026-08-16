@@ -8,6 +8,14 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.22.12 — 2026-08-16 — "Now it's actually a shortcut"
+
+Closed FG19's open golden #1: Welcome's "lawyer or hotline" link called the
+same handler as the primary CTA (not a real shortcut). Now sets a one-shot
+flag consumed by State's Continue to land on Lifelines instead of You.
+State selection itself still required (resolveState(null) falls back to
+NY). Verified live on root and /app.
+
 ## v2.22.11 — 2026-08-16 — "The QR box that only worked for 3 states"
 
 Focus group #20 caught the print-pack QR mechanism was still TX/GA/NY-only
