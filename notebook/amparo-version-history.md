@@ -8,6 +8,14 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.22.11 — 2026-08-16 — "The QR box that only worked for 3 states"
+
+Focus group #20 caught the print-pack QR mechanism was still TX/GA/NY-only
+after v2.22.9 added 24 more directory states. Generated real QR codes for
+all 24 (qrcode npm package, actual URLs encoded, not placeholders). Also
+fixed a translated string (`pack_zoom_close`) that was authored but never
+wired to root's close button aria-label.
+
 ## v2.22.10 — 2026-08-16 — "www. matters"
 
 Second blind-spot audit round found 5 of v2.22.9's new state links (AL, CA,

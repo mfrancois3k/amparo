@@ -6,6 +6,28 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.22.11 — 2026-08-16
+
+v2.22.11 — "The QR box that only worked for 3 states"
+
+Second loop pass (focus group #20, run against v2.22.8/v2.22.9's work)
+found two real gaps, both verified before fixing:
+
+- **QR codes never extended to the 24 new directories.** v2.22.6 built the
+  print-pack QR mechanism for TX/GA/NY only; v2.22.9's 24 new
+  `STATE_LEGAL_AID` states got a directory link on the Lifelines screen but
+  no QR code on the printed pack, even though the QR box's own gate
+  (`QR[data.state]` truthy) would render it automatically the moment data
+  existed — nobody had generated the images. Generated real, scannable QR
+  codes for all 24 states (`qrcode` npm package, one-off script, each PNG
+  encoding the actual `https://` directory URL). `/app` picks this up for
+  free since `PrintPack.tsx` already imports `QR`/`QR_URL` from the same
+  extracted content. Verified live: California's print step renders a real
+  QR box with the correct caption.
+- **`pack_zoom_close` (v2.22.8's own translated string) was never wired
+  up** — root's print-preview close button had no `aria-label`, just the
+  bare "✕" glyph. Fixed, set dynamically per language.
+
 ## v2.22.10 — 2026-08-16
 
 v2.22.10 — "www. matters"
