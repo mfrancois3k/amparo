@@ -8,6 +8,14 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.22.5 — 2026-08-16 — "The reassurance nobody saw"
+
+Real PostHog funnel data (first pull this session) showed the actual
+bottleneck is Welcome→State (67% drop), not "You" as assumed. Restored
+`pilotBanner` to Welcome and added a low-commitment "just need a lawyer or
+hotline" link to the same first step, backed by Mobbin trust-pattern
+research. Also: root's Lifelines links now track clicks (`sr_lifeline_link_clicked`).
+
 ## v2.22.4 — 2026-08-13 — "The verify claim, re-verified, and found wanting"
 
 Loop's focus group live-verified v2.22.3's own "verified live" claim and found

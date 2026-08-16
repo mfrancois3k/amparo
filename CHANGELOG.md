@@ -6,6 +6,37 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.22.5 — 2026-08-16
+
+v2.22.5 — "The reassurance nobody saw"
+
+Real PostHog funnel data pulled for the first time this session (30 days,
+test-account traffic excluded): 9 real visitors reached Welcome, only 3
+reached State — a 67% drop before anyone does anything at all, the single
+biggest loss point in the entire product. This overturned an earlier
+anecdotal assumption that the drop-off was at the "You" step; that step
+actually has zero further loss once reached.
+
+Two fixes, both copy/positioning only, backed by Mobbin research on
+trust-heavy apps (Wysa, Citizen, mymind):
+
+- **`pilotBanner`** ("Free. Nothing you enter leaves your phone — no
+  account, no upload.") now renders on Welcome too, not just downstream
+  steps. It was the one reassurance line hidden from the exact screen
+  that needed it most — trust has to land before the ask, not after.
+- **New link**: "Just need a lawyer or hotline number?" placed directly
+  under the primary CTA on Welcome — a lower-commitment doorway into the
+  same first step (State is unavoidable; `resolveState(null)` falls back
+  to NY, so skipping it would silently show the wrong state's info).
+  Answers, in-product, the exact question a real stranger asked over
+  Facebook Messenger after finding the site and not realizing the
+  lifelines/directory screen already existed.
+
+Also shipped this pass (previous commit): root's Lifelines contact links
+now fire `sr_lifeline_link_clicked` — the one interaction on that screen
+that was never tracked, so the next funnel pull can show whether people
+who reach the directory actually use it.
+
 ## v2.22.4 — 2026-08-13
 
 v2.22.4 — "The verify claim, re-verified, and found wanting"
