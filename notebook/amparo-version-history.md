@@ -8,6 +8,14 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.22.6 — 2026-08-16 — "Link to who already maintains it"
+
+Researched LSC.gov/LawHelp.org for a public dataset to cron-pull a pro bono
+directory from — neither exists safely. Linked TX/GA/NY lifelines to their
+own county-search pages instead, added a national LawHelp.org finder to
+the 48-state fallback. No scraper, no new liability. See
+`notebook/amparo-directory-feasibility-2026-08-16.md`.
+
 ## v2.22.5 — 2026-08-16 — "The reassurance nobody saw"
 
 Real PostHog funnel data (first pull this session) showed the actual

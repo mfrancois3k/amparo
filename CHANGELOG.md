@@ -6,6 +6,33 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.22.6 — 2026-08-16
+
+v2.22.6 — "Link to who already maintains it"
+
+The operator asked for a cron job to build a per-state, per-county pro bono
+lawyer directory. Researched first (WebFetch/WebSearch, verified live)
+whether LSC.gov or LawHelp.org expose a public dataset safe to pull from —
+neither does. LSC's only downloadable data is funding allocation, not
+contact info; LawHelp.org has no public API. Building an original directory
+would mean scraping fragile UI or maintaining Amparo's own lawyer contact
+data — the exact referral-service liability risk already flagged this
+session. Full writeup: `notebook/amparo-directory-feasibility-2026-08-16.md`.
+
+Shipped instead, zero new data pipeline, zero new liability:
+
+- TX/GA/NY lifelines now link to those states' own county-searchable
+  directory pages (`texaslawhelp.org/directory`, `lawhelpny.org/find-legal-help`,
+  `georgialegalaid.org/find-legal-help`) instead of homepages
+- New `BASE_LIFELINES` entry (`lawhelp.org/find-help`) for the 48 states
+  with no researched lifelines yet — they previously had no LawHelp entry
+  at all
+- Printed-pack QR codes for TX/GA/NY updated to the same deep links
+
+Deliberately did not add a "county" input field — every linked tool already
+asks for county/ZIP itself; a field with nothing real behind it is the
+"convincing stub" pattern this codebase already warns against.
+
 ## v2.22.5 — 2026-08-16
 
 v2.22.5 — "The reassurance nobody saw"
