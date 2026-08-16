@@ -6,6 +6,30 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.22.13 — 2026-08-16
+
+v2.22.13 — "ZIP/county, pre-filled directory search"
+
+Real user driven: a stranger (Rob Hannes) messaged the operator on Facebook
+asking for help finding a pro bono lawyer near Hudson Valley, NY. The gap
+wasn't the directory itself — Lifelines was already state-aware — it was
+that the search always landed on a blank form instead of the user's actual
+location.
+
+Added an optional "Your ZIP or county" field to step 2 (You), on both root
+and `/app`. For the 3 state directories confirmed to support a real location
+query param (NY, SC, DC — verified live against lawhelpny.org before
+shipping), the ZIP now feeds into the Lifelines directory link as
+`?coverage_area=` (or each state's own `zipParam`). Every other state
+degrades gracefully to a plain link, same as before. The field is never a
+dead end even where no directory supports it — it's printed on the physical
+pack as reference either way.
+
+Verified live in browser on both surfaces: selecting New York, entering a
+real ZIP (10001), and reaching Lifelines produces
+`lawhelpny.org/find-legal-help?coverage_area=10001` — confirmed in a real
+tab to return actual filtered results ("24 Organization(s) found").
+
 ## v2.22.12 — 2026-08-16
 
 v2.22.12 — "Now it's actually a shortcut"

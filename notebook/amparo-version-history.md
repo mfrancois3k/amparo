@@ -8,6 +8,14 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.22.13 — 2026-08-16 — "ZIP/county, pre-filled directory search"
+
+Optional ZIP/county field on You step (root + /app); feeds `zipParam` into
+the Lifelines directory link for NY/SC/DC (only 3 verified), plain link
+elsewhere, always printed on the pack. Driven by a real Messenger support
+request (Rob Hannes, Hudson Valley NY). Verified live: real NY zip returns
+real filtered lawhelpny.org results.
+
 ## v2.22.12 — 2026-08-16 — "Now it's actually a shortcut"
 
 Closed FG19's open golden #1: Welcome's "lawyer or hotline" link called the
