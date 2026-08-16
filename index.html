@@ -2669,12 +2669,50 @@ const BASE_LIFELINES = [
   {n:"MigraWatch — United We Dream", p:"1-844-363-1423", d_en:"Free hotline to report ICE activity and get rapid-response, know-your-rights help. Any immigration status.", d_es:"Línea gratuita para reportar actividad de ICE y recibir ayuda de respuesta rápida. Cualquier estatus migratorio.", tags:["free","safe"]},
   {n:"988 Suicide & Crisis Lifeline", n_es:"988 Línea de Suicidio y Crisis", p:"988", d_en:"If a stop leaves you shaken. Free, 24/7, confidential — call or text.", d_es:"Si una parada lo deja alterado. Gratis, 24/7, confidencial — llame o envíe mensaje.", tags:["free","safe"]}
 ];
+/* Added 2026-08-16: state-specific legal-aid directories for the 48 states
+   without full researched content, verified one at a time (WebFetch/browser,
+   4 parallel research passes) against the same bar as TexasLawHelp/
+   GeorgiaLegalAid/LawHelpNY above — an actual working county/city/ZIP search,
+   not just a phone number or a static office list. Only 24 of 48 states
+   turned out to have one; the other 24 (checked, not skipped — see
+   notebook/amparo-directory-feasibility-2026-08-16.md for the full per-state
+   list of what was checked and ruled out) get the national lawhelp.org/
+   find-help finder from BASE_LIFELINES only, same as before this pass.
+   Prepended ahead of the national link when present, since it's the more
+   specific tool. */
+const STATE_LEGAL_AID = {
+  AL:{n:"AlabamaLegalHelp.org", p:"alabamalegalhelp.org/find-legal-help/directory", d_en:"Free official directory of legal help across Alabama — search by city, county, or ZIP. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Alabama — busca por ciudad, condado o código postal. Siempre actualizado."},
+  AZ:{n:"AZLawHelp.org", p:"azlawhelp.org/directory", d_en:"Free official directory of legal help across Arizona — filterable by county. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Arizona — filtrable por condado. Siempre actualizado."},
+  CA:{n:"LawHelpCA.org", p:"lawhelpca.org/find-legal-help", d_en:"Free official directory of legal help across California — filterable by county or ZIP. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en California — filtrable por condado o código postal. Siempre actualizado."},
+  DC:{n:"LawHelp.org — DC", p:"lawhelp.org/dc/find-legal-help", d_en:"Free official directory of legal help across Washington, DC — search by city, county, or ZIP. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Washington, DC — busca por ciudad, condado o código postal. Siempre actualizado."},
+  FL:{n:"FloridaLawHelp.org", p:"floridalawhelp.org/find-provider", d_en:"Free official directory of legal help across Florida — filterable by county. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Florida — filtrable por condado. Siempre actualizado."},
+  IL:{n:"IllinoisLegalAid.org", p:"illinoislegalaid.org/get-legal-help", d_en:"Free official directory of legal help across Illinois — search by ZIP, filterable by county. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Illinois — busca por código postal, filtrable por condado. Siempre actualizado."},
+  IN:{n:"Indiana Legal Help", p:"indianalegalhelp.org/get-help/", d_en:"Free official directory of legal help across Indiana — search by ZIP or county. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Indiana — busca por código postal o condado. Siempre actualizado."},
+  KY:{n:"Kentucky Justice Online", p:"kyjustice.org/help-near-you", d_en:"Free official directory of legal help across Kentucky — browse by county map or search. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Kentucky — explora por mapa de condado o busca. Siempre actualizado."},
+  LA:{n:"LouisianaLawHelp.org", p:"louisianalawhelp.org/find-legal-help/directory/", d_en:"Free official directory of legal help across Louisiana — location-aware map and search. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Luisiana — mapa y búsqueda según tu ubicación. Siempre actualizado."},
+  MD:{n:"Maryland Legal Aid", p:"mdlab.org/contact-us/", d_en:"Free official directory of legal help across Maryland — search by city, county, or ZIP. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Maryland — busca por ciudad, condado o código postal. Siempre actualizado."},
+  MA:{n:"Massachusetts Legal Resource Finder", p:"masslrf.org", d_en:"Free official directory of legal help across Massachusetts — answer a few questions to get matched to help near you. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Massachusetts — responde unas preguntas para encontrar ayuda cerca de ti. Siempre actualizado."},
+  MI:{n:"Michigan Legal Help", p:"michiganlegalhelp.org/organizations-and-courts/self-help-centers", d_en:"Free official directory of legal help across Michigan — filterable by county. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Míchigan — filtrable por condado. Siempre actualizado."},
+  MN:{n:"LawHelp Minnesota", p:"lawhelpmn.org/providers-and-clinics", d_en:"Free official directory of legal help across Minnesota — filterable by county. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Minnesota — filtrable por condado. Siempre actualizado."},
+  MS:{n:"MSLegalServices.org", p:"mslegalservices.org/find-legal-help/directory", d_en:"Free official directory of legal help across Mississippi — search by city, county, or ZIP. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Misisipi — busca por ciudad, condado o código postal. Siempre actualizado."},
+  MT:{n:"Montana LawHelp", p:"montanalawhelp.org/find-legal-providers", d_en:"Free official directory of legal help across Montana — filterable by county. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Montana — filtrable por condado. Siempre actualizado."},
+  NC:{n:"LawHelpNC.org", p:"lawhelpnc.org/get-help-from-a-lawyer", d_en:"Free official directory of legal help across North Carolina — search by city, county, or ZIP. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Carolina del Norte — busca por ciudad, condado o código postal. Siempre actualizado."},
+  OH:{n:"Ohio Legal Help", p:"ohiolegalhelp.org/find-your-legal-aid", d_en:"Free official directory of legal help across Ohio — filterable by county. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Ohio — filtrable por condado. Siempre actualizado."},
+  OR:{n:"Oregon Law Help", p:"oregonlawhelp.org/Search-for-lawyers-legal-help", d_en:"Free official directory of legal help across Oregon — filterable by county. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Oregón — filtrable por condado. Siempre actualizado."},
+  PA:{n:"PALawHELP.org", p:"palawhelp.org/find-legal-help/directory", d_en:"Free official directory of legal help across Pennsylvania — search by city, county, or ZIP. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Pensilvania — busca por ciudad, condado o código postal. Siempre actualizado."},
+  SC:{n:"LawHelp.org — SC", p:"lawhelp.org/sc/find-legal-help", d_en:"Free official directory of legal help across South Carolina — search by city, county, or ZIP. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Carolina del Sur — busca por ciudad, condado o código postal. Siempre actualizado."},
+  TN:{n:"Justice For All TN", p:"justiceforalltn.org/resources/", d_en:"Free official directory of legal help across Tennessee — filterable by county. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Tennessee — filtrable por condado. Siempre actualizado."},
+  VA:{n:"Virginia Law Help", p:"virginialawhelp.org/en/get-legal-help", d_en:"Free official directory of legal help across Virginia — filterable by city or county. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Virginia — filtrable por ciudad o condado. Siempre actualizado."},
+  WA:{n:"Washington Law Help", p:"washingtonlawhelp.org/en/get-legal-help", d_en:"Free official directory of legal help across Washington — filterable by county. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Washington — filtrable por condado. Siempre actualizado."},
+  WI:{n:"Wisconsin Law Help", p:"wislawhelp.org/legal-resource-directory", d_en:"Free official directory of legal help across Wisconsin — filterable by county. Always current.", d_es:"Directorio oficial gratuito de ayuda legal en Wisconsin — filtrable por condado. Siempre actualizado."}
+};
 /* Fill in every state we haven't researched. Researched states are untouched. */
 Object.keys(US_STATE_NAMES).forEach(k=>{
   if(STATES[k]) return;
+  const extra=STATE_LEGAL_AID[k];
   STATES[k]={name:US_STATE_NAMES[k], pending:true,
              rules_en:BASE_RULES_EN, rules_es:BASE_RULES_ES,
-             lifelines:BASE_LIFELINES};
+             lifelines:extra?[{...extra,tags:["free","safe"]},...BASE_LIFELINES]:BASE_LIFELINES};
 });
 
 const TAGNAMES = {

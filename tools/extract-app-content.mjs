@@ -50,7 +50,7 @@ const VERIFY = process.argv.includes('--verify');
    extractor always evaluates in source order regardless. */
 const GROUPS = {
   'meta.json':       ['EDITION', 'ED_REPLACE', 'REVIEW', 'FINAL_SCENARIOS_ENABLED', 'DOOR_MODULE_ENABLED'],
-  'states.json':     ['STATES', 'US_STATE_NAMES', 'BASE_RULES_EN', 'BASE_RULES_ES', 'BASE_LIFELINES', 'TAGNAMES', 'SCEN', 'QR', 'QR_URL'],
+  'states.json':     ['STATES', 'US_STATE_NAMES', 'BASE_RULES_EN', 'BASE_RULES_ES', 'BASE_LIFELINES', 'STATE_LEGAL_AID', 'TAGNAMES', 'SCEN', 'QR', 'QR_URL'],
   // PLACE is the bilingual "where it goes / how it's used" strip printed on all
   // six pack pages. It was missed on the first pass — found by an audit, not by
   // this tool, which is why the verbatim check below is now exhaustive rather

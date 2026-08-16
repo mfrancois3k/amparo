@@ -1,11 +1,12 @@
 /* The full 51-state table, synthesized exactly as root does it at runtime
- * (index.html:2547-2553):
+ * (index.html:2710-2715):
  *
  *   Object.keys(US_STATE_NAMES).forEach(k => {
  *     if (STATES[k]) return;
+ *     const extra = STATE_LEGAL_AID[k];
  *     STATES[k] = { name: US_STATE_NAMES[k], pending: true,
  *                    rules_en: BASE_RULES_EN, rules_es: BASE_RULES_ES,
- *                    lifelines: BASE_LIFELINES };
+ *                    lifelines: extra ? [{...extra, tags:["free","safe"]}, ...BASE_LIFELINES] : BASE_LIFELINES };
  *   });
  *
  * The extracted `STATES` literal in states.json holds only the three states
@@ -19,8 +20,15 @@
  * every non-cited state (48 of 51) showed New York's lifelines instead of the
  * federal floor. Caught by driving the app in a browser (picking California
  * and reading the rendered lifeline name), not by re-reading the code.
+ *
+ * STATE_LEGAL_AID added 2026-08-16: 24 of the 48 non-cited states have their
+ * own verified county/ZIP-searchable legal-aid directory (researched and
+ * WebFetch-confirmed one at a time — see
+ * notebook/amparo-directory-feasibility-2026-08-16.md). When present, it's
+ * prepended ahead of the generic BASE_LIFELINES entries as the more specific
+ * option; the other 24 states get BASE_LIFELINES only, same as before.
  */
-import { STATES, US_STATE_NAMES, BASE_RULES_EN, BASE_RULES_ES, BASE_LIFELINES } from './states.json'
+import { STATES, US_STATE_NAMES, BASE_RULES_EN, BASE_RULES_ES, BASE_LIFELINES, STATE_LEGAL_AID } from './states.json'
 
 export type Lifeline = { n: string; n_es?: string; p: string; d_en: string; d_es: string; tags: readonly string[] }
 export type StateEntry = {
@@ -33,13 +41,15 @@ export type StateEntry = {
 
 const NAMES = US_STATE_NAMES as Record<string, string>
 const CITED_STATES = STATES as Record<string, Omit<StateEntry, 'pending'>>
+const LEGAL_AID = STATE_LEGAL_AID as Record<string, { n: string; p: string; d_en: string; d_es: string }>
 
 export const ALL_STATES: Readonly<Record<string, StateEntry>> = Object.fromEntries(
   Object.keys(NAMES).map((k) => {
     const cited = CITED_STATES[k]
-    return [k, cited
-      ? { ...cited, pending: false }
-      : { name: NAMES[k], pending: true, rules_en: BASE_RULES_EN, rules_es: BASE_RULES_ES, lifelines: BASE_LIFELINES }]
+    if (cited) return [k, { ...cited, pending: false }]
+    const extra = LEGAL_AID[k]
+    const lifelines = extra ? [{ ...extra, tags: ['free', 'safe'] }, ...BASE_LIFELINES] : BASE_LIFELINES
+    return [k, { name: NAMES[k], pending: true, rules_en: BASE_RULES_EN, rules_es: BASE_RULES_ES, lifelines }]
   }),
 )
 
