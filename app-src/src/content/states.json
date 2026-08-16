@@ -33,9 +33,9 @@
         },
         {
           "n": "TexasLawHelp.org",
-          "p": "texaslawhelp.org",
-          "d_en": "Free official directory of legal help across Texas. Always current.",
-          "d_es": "Directorio oficial gratuito de ayuda legal en Texas. Siempre actualizado.",
+          "p": "texaslawhelp.org/directory",
+          "d_en": "Free official directory of legal help across Texas — filterable by county. Always current.",
+          "d_es": "Directorio oficial gratuito de ayuda legal en Texas — filtrable por condado. Siempre actualizado.",
           "tags": [
             "free",
             "safe"
@@ -116,9 +116,9 @@
         },
         {
           "n": "GeorgiaLegalAid.org",
-          "p": "georgialegalaid.org",
-          "d_en": "Free official directory of legal help across Georgia. Always current.",
-          "d_es": "Directorio oficial gratuito de ayuda legal en Georgia. Siempre actualizado.",
+          "p": "georgialegalaid.org/find-legal-help",
+          "d_en": "Free official directory of legal help across Georgia — routes by county. Always current.",
+          "d_es": "Directorio oficial gratuito de ayuda legal en Georgia — dirige según el condado. Siempre actualizado.",
           "tags": [
             "free",
             "safe"
@@ -190,9 +190,9 @@
         },
         {
           "n": "LawHelpNY.org",
-          "p": "lawhelpny.org",
-          "d_en": "Free official directory of legal help across New York. Always current.",
-          "d_es": "Directorio oficial gratuito de ayuda legal en Nueva York. Siempre actualizado.",
+          "p": "lawhelpny.org/find-legal-help",
+          "d_en": "Free official directory of legal help across New York — search by county or ZIP. Always current.",
+          "d_es": "Directorio oficial gratuito de ayuda legal en Nueva York — busca por condado o código postal. Siempre actualizado.",
           "tags": [
             "free",
             "safe"
@@ -307,6 +307,17 @@
     "⚠️ <b>Las reglas propias de su estado aún no están verificadas en Amparo.</b> Todo lo anterior es ley federal y aplica en todas partes. Lo que cambia según el estado — si debe dar su nombre, si negarse a firmar una multa puede llevar a un arresto, y si puede grabar audio sin avisarle al oficial — NO se muestra para su estado, porque no imprimimos una regla que no hemos verificado contra la ley."
   ],
   "BASE_LIFELINES": [
+    {
+      "n": "LawHelp.org — find help in your state",
+      "n_es": "LawHelp.org — encuentra ayuda en tu estado",
+      "p": "lawhelp.org/find-help",
+      "d_en": "Free national directory. Pick your state to find legal aid organizations near you, often filterable by county.",
+      "d_es": "Directorio nacional gratuito. Elige tu estado para encontrar organizaciones de ayuda legal cerca de ti, a menudo filtrable por condado.",
+      "tags": [
+        "free",
+        "safe"
+      ]
+    },
     {
       "n": "Find your state's ACLU affiliate",
       "n_es": "Encuentra la filial de ACLU de tu estado",
@@ -453,8 +464,8 @@
     "NY": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASIAAAEiCAIAAADS3EjhAAAFEklEQVR4nO3dwW0cRxBAUVFQGM7AoSheh6IMlMf46oMwgFD+qp7he1dhxeFyP/qwheqP67q+AKWv2w8A7yczyMkMcjKDnMwgJzPIyQxyMoOczCAnM8jJDHIyg5zMICczyMkMcjKDnMwgJzPIyQxy3yYv/uvv7//Xcxzi549/bv516/e9f6p79888+X3PfK86k7+C0wxyMoOczCAnM8jJDHIyg5zMICczyMkMcqMpkHuTb807k+mEM+cenjhv8b7Pxj2nGeRkBjmZQU5mkJMZ5GQGOZlBTmaQkxnkwimQe9037t2EQTdB0v3crf954omfjXtOM8jJDHIyg5zMICczyMkMcjKDnMwgJzPIrU2BPNFkF8iZ8xb8GU4zyMkMcjKDnMwgJzPIyQxyMoOczCAnM8iZAvlDuttkJv/zmTezvI/TDHIyg5zMICczyMkMcjKDnMwgJzPIyQxya1MgT5w/2Jqo6CZIzvTEz8Y9pxnkZAY5mUFOZpCTGeRkBjmZQU5mkJMZ5MIpkPdNJ0xMJki6197rpl4+22fDaQY5mUFOZpCTGeRkBjmZQU5mkJMZ5GQGuY/ruraf4SW2Jhu2NoW8b2NHx2kGOZlBTmaQkxnkZAY5mUFOZpCTGeRkBrnRLpCt/RYTk6mIyVM9cVaje6qtLSNbn0mnGeRkBjmZQU5mkJMZ5GQGOZlBTmaQkxnkwhth7m3NebxvwuDe1oaSMydItt4NpxnkZAY5mUFOZpCTGeRkBjmZQU5mkJMZ5EY3wmx9p36vmwM4c6/GmXMPZ7ILBF5LZpCTGeRkBjmZQU5mkJMZ5GQGOZlBbjQFMrG10eGJkxxnOnMnx5nvpNMMcjKDnMwgJzPIyQxyMoOczCAnM8jJDHLhFMiZ3/SfOX1y5lzL1sTM1iSHXSDwYDKDnMwgJzPIyQxyMoOczCAnM8jJDHLfth/g186c8+imE8681eV9t8ls/UZOM8jJDHIyg5zMICczyMkMcjKDnMwgJzPIjaZAztz30M15bM2InGnrvTpzI8s9pxnkZAY5mUFOZpCTGeRkBjmZQU5mkJMZ5MIbYSY+27zF1mTDmTtIJs78bDjNICczyMkMcjKDnMwgJzPIyQxyMoOczCC3tgvkiT+3s7Ub44m2bguacJpBTmaQkxnkZAY5mUFOZpCTGeRkBjmZQW40BXLm3oXOEzeUbN28M9HNtWzdYuM0g5zMICczyMkMcjKDnMwgJzPIyQxyMoPcI3eBdLb2TExee+b0yRMnZjpOM8jJDHIyg5zMICczyMkMcjKDnMwgJzPIjaZA7p35Tf9kcmUyydFNRXTTJxNP/Ou7EQYeTGaQkxnkZAY5mUFOZpCTGeRkBjmZQS6cArn32eYPtqYxOk98ZjfCwGvJDHIyg5zMICczyMkMcjKDnMwgJzPIrU2B8F9b0wn3tp5qMl/S7XqZcJpBTmaQkxnkZAY5mUFOZpCTGeRkBjmZQc4UyG84c/vF1h03E92cx5m39jjNICczyMkMcjKDnMwgJzPIyQxyMoOczCC3NgVy5r0t97oJg4mtSY4zf2732gmnGeRkBjmZQU5mkJMZ5GQGOZlBTmaQkxnkwimQMzdnTJx528jW+7z1bmzdRGMXCBxNZpCTGeRkBjmZQU5mkJMZ5GQGOZlB7uO6ru1ngJdzmkFOZpCTGeRkBjmZQU5mkJMZ5GQGOZlBTmaQkxnkZAY5mUFOZpCTGeRkBjmZQU5mkJMZ5P4FdsRnzEIYKLkAAAAASUVORK5CYII="
   },
   "QR_URL": {
-    "TX": "texaslawhelp.org",
-    "GA": "georgialegalaid.org",
-    "NY": "lawhelpny.org"
+    "TX": "texaslawhelp.org/directory",
+    "GA": "georgialegalaid.org/find-legal-help",
+    "NY": "lawhelpny.org/find-legal-help"
   }
 }
