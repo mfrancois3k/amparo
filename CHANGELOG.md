@@ -6,6 +6,24 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.22.10 — 2026-08-16
+
+v2.22.10 — "www. matters"
+
+Second blind-spot audit round (this loop's own follow-up check on v2.22.9's
+work) found 5 of the 24 new state legal-aid links used the naked domain
+instead of the `www.` subdomain the sites actually serve from — AL, MS, NC,
+PA 404'd, and CA failed TLS entirely (worse than a 404: looks like a
+security warning). These were the FIRST lifeline entry a user in those 5
+states would have seen.
+
+Independently re-verified all 5 `www.` variants load and show the real
+directory before fixing (not just trusting the audit's word), then
+spot-checked the other 17 states from v2.22.9: 14 confirmed live directly,
+the remaining 3 hit the same bot-detection gate already worked around by
+the original research agents via real browser rendering — not a new
+concern.
+
 ## v2.22.9 — 2026-08-16
 
 v2.22.9 — "24 real directories, 24 honest no's"

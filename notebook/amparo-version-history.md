@@ -8,6 +8,12 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.22.10 — 2026-08-16 — "www. matters"
+
+Second blind-spot audit round found 5 of v2.22.9's new state links (AL, CA,
+MS, NC, PA) missing the `www.` subdomain — 404s / a TLS failure for CA.
+Independently re-verified and fixed; spot-checked the rest of the batch.
+
 ## v2.22.9 — 2026-08-16 — "24 real directories, 24 honest no's"
 
 4 parallel research agents WebFetch-verified all 48 non-cited states for
