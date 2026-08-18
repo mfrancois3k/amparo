@@ -55,6 +55,12 @@ self.addEventListener('fetch', e => {
      place for as long as anything is served from /app. */
   if (sameOrigin && (u.pathname === '/app' || u.pathname.startsWith('/app/'))) return;
 
+  /* /arena is the standalone Practice Arena page (own storage, own audio).
+     Same reasoning as /app above: without this guard one visit to /arena/
+     would overwrite CORE with the arena's HTML and the offline fallback
+     would serve the wrong app. */
+  if (sameOrigin && (u.pathname === '/arena' || u.pathname.startsWith('/arena/'))) return;
+
   /* Pathname-anchored and same-origin. The old test was a substring match on the
      whole URL (`url.includes('/img/')`), which would capture any third-party URL
      that merely CONTAINED /img/ into this cache, and would have grabbed

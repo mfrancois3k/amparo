@@ -1928,6 +1928,8 @@ const T = {
     hub_start:"Start",
     hub_replay:"Run again",
     hub_back_pack:"Back to my pack",
+    hub_arena:"Practice Arena",
+    hub_arena_sub:"The full training ground — spoken officer lines, voice answers, streaks and badges. Opens in a new page; your state carries over.",
     hub_m1:"Traffic stop", hub_m2:"At your door", hub_m3:"Checkpoint",
     hub_ck_note:"A fixed Border Patrol checkpoint — not a traffic stop. Different rules, different questions. This scenario applies in all 50 states.",
     hub_m2_h:"Not built yet — and we won't fake it.",
@@ -2289,6 +2291,8 @@ const T = {
     hub_start:"Empezar",
     hub_replay:"Repetir",
     hub_back_pack:"Volver a mi paquete",
+    hub_arena:"Arena de Práctica",
+    hub_arena_sub:"El campo de entrenamiento completo — líneas del oficial habladas, respuestas por voz, rachas e insignias. Abre en otra página; su estado se conserva.",
     hub_m1:"Parada de tráfico", hub_m2:"En tu puerta", hub_m3:"Retén",
     hub_ck_note:"Un retén fijo de la Patrulla Fronteriza — no es una parada de tráfico. Reglas distintas, preguntas distintas. Este escenario aplica en los 50 estados.",
     hub_m2_h:"Todavía no está listo — y no vamos a fingir que sí.",
@@ -3668,6 +3672,14 @@ function render(){
       </div>`;
       })()}
       </div>
+      <!-- Practice Arena: the standalone gamified trainer at /arena/ (own page,
+           own storage under amparoArena). It reads sr_save.state as a fallback,
+           so the state picked here carries over without any handoff code. -->
+      <a class="pr-card" href="arena/" style="display:block;margin-top:16px;text-decoration:none" onclick="ph('sr_arena_opened',{state:data.state,lang:lang})">
+        <span class="pr-ic" aria-hidden="true">🎙</span>
+        <span class="pr-nm">${_t.hub_arena}</span>
+        <span class="pr-st">${_t.hub_arena_sub}</span>
+      </a>
       <button class="btn ghost" style="margin-top:16px" onclick="goM(4)">${_t.hub_back_pack}</button>
     </div>`;
   }
