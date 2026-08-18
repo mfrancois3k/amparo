@@ -6,6 +6,36 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.23.0 — 2026-08-18
+
+v2.23.0 — "The Practice Arena speaks"
+
+New standalone Practice Arena at `/arena/` — a user-supplied design
+(unpacked from its Claude-design bundler wrapper) turned into a shipped
+page: 24 scenario levels across traffic stops, passenger stops, trap
+questions, checkpoints and door knocks, with practice points, day streaks,
+scenario badges, a readiness score, a steadiness needle, timer pressure,
+gentle mode, and typed or spoken answers. Fully bilingual EN/ES.
+
+The headline: officer lines are *spoken*. All 198 unique officer lines
+(100 EN, 98 ES) were pre-generated with Voicebox — EN through the Miles
+cloned voice, ES through the AmparoES kokoro preset — shipped as 2.8MB of
+32kbps mono MP3s keyed by a hash of the exact rendered line text, with the
+browser's speechSynthesis as fallback. The voice stops the instant the
+user acts: choice click, typed submit, mic start, or freeze-timeout all
+funnel through one choke point that silences it. Verified live.
+
+Integration: fonts self-hosted (zero external requests), state carries
+over from the main app's save (postal→FIPS mapped, "NEW YORK (Statute
+Law)" confirmed live), the practice hub links to it in both languages,
+and the root service worker guards `/arena` out of its navigation cache —
+the same cache-poisoning bug the `/app` guard exists for.
+
+Known follow-ups: the arena's officer dialogue and legal-adjacent copy
+came from the design tool and belongs in the same attorney-review pile as
+the practice modules; its checkout buttons are a visual demo, not wired to
+real payments.
+
 ## v2.22.14 — 2026-08-16
 
 v2.22.14 — "The zip field that forgot itself"

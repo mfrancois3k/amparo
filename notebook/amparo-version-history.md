@@ -8,6 +8,13 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.23.0 — 2026-08-18 — "The Practice Arena speaks"
+
+Standalone gamified trainer at /arena (user-supplied design): 24 levels,
+points/streaks/badges, voice answers. All 198 officer lines pre-generated
+with Voicebox (Miles EN / kokoro ES); voice stops the instant the user
+answers. State carries over from the main app; SW guarded.
+
 ## v2.22.14 — 2026-08-16 — "The zip field that forgot itself"
 
 `persist()` never included `zip` in its save allowlist -- worked same-
