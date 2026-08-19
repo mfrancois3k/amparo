@@ -8,6 +8,15 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.26.1 — 2026-08-19 — "Saying only what the code does"
+
+Audit round: arena checkout gated (PAYMENTS_LIVE=false — Stripe worked but
+delivered nothing), ab_privacy/cmp_price/arena-fine rewritten honestly
+EN+ES, packs.remove + delete button (the upload was one-way), Sentry
+beforeSendFeedback (feedback bypassed every scrubber), /app error capture
+actually called. Also: amparohq.com had no MX at all — mail now routed
+free via ForwardEmail.
+
 ## v2.26.0 — 2026-08-19 — "A way to reach a human"
 
 Feedback widget on all three surfaces (anonymous allowed, EN+ES) backed by

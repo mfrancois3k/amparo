@@ -6,6 +6,51 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.26.1 — 2026-08-19
+
+v2.26.1 — "Saying only what the code does"
+
+Both closing audits of the v2.25/v2.26 round — the backend blindspot audit
+and focus group 24 — independently found the same four problems. Each was
+verified in source before being touched.
+
+- **The checkout could have charged for nothing.** Stripe Checkout worked
+  end to end, but `checkout=success` had zero readers anywhere in the repo,
+  no entitlement was granted, and no Script/Deep Pack artifact exists. Only
+  the test-mode key stood between that and taking real money for a product
+  that does not exist — so "the live key swap is the last step" was wrong;
+  fulfilment is. Added `PAYMENTS_LIVE=false`: the arena falls back to the
+  honest preview and never calls Stripe. Verified live — no network call, no
+  redirect, "Preview checkout" on the button.
+- **The privacy page still denied that accounts exist.** `ab_privacy` read
+  "Amparo keeps no accounts and no database of who you are… never uploaded,
+  so they can't be handed over even under pressure" — false since v2.25.0,
+  on the page where it matters most. `cmp_price` sold "No account" as a
+  headline feature and the arena's fine print claimed "no account, no
+  upload" for the whole product. All rewritten EN+ES to match the code,
+  including saying plainly that the server record could be handed over if
+  we were legally compelled. v2.26.0 fixed exactly this failure mode for the
+  banner and assumed it was finished.
+- **The pack upload was one-way.** `packs.save` uploads the user's support
+  network — name, two emergency contacts, attorney, ZIP — and nothing could
+  delete it; every "wipe" button on every surface reaches localStorage only.
+  Added a `packs.remove` mutation and a delete button, so the promise the
+  new privacy text makes is one the code keeps.
+- **Feedback submissions bypassed every scrubber.** Verified in
+  `@sentry/core`: `sendEvent` gates `beforeSend` on `isErrorEvent(event)`,
+  and the feedback integration sets `type:"feedback"` — so `delete
+  event.user`, the URL stripping and the cookie removal never ran on the one
+  payload the widget calls anonymous. Added `beforeSendFeedback`, and also
+  strip the User-Agent that `HttpContext` attaches to every event.
+- **/app had no error capture at all** — `armErrorReporting` was exported
+  and never called. Wired in `main.tsx`.
+
+Also this round: amparohq.com had **no MX records**, so `hello@`,
+`feedback@`, `orgs@` and `partners@` were all bouncing — including the
+address the feedback widget falls back to. Now routed free via
+ForwardEmail (MX + catch-all TXT on the existing Vercel DNS, no nameserver
+move).
+
 ## v2.26.0 — 2026-08-19
 
 v2.26.0 — "A way to reach a human"
