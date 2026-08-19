@@ -6,6 +6,49 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.24.1 — 2026-08-18
+
+v2.24.1 — "The consent answer finally fails everywhere"
+
+The consolidated round from focus group 23, wargames/30 and blindspot
+audit -02 — the three reports that verified v2.24.0 and found what it
+missed:
+
+- **Matcher v3.** v2.24.0's per-turn matcher still passed "yes go ahead
+  and search, I consent" on the 10+ turns whose correct line reduced to
+  ≤2 keywords. Now: keywords come from the correct line's quoted span,
+  apostrophes strip before tokenizing so "don't" survives, a polarity
+  guard means refusal lines never match answers with no negation, the
+  threshold is max(2, majority), a 4-char prefix match forgives
+  paraphrases, and action-only beats coach without scoring or heat.
+  Verified: the attack phrase now misses on all 38 refusal turns, and
+  typing a good line's exact quote scores (it didn't before — stage
+  directions poisoned the keyword pool).
+- **Swan gate at the only real entry point.** The v2.24.0 gate sat on
+  the level-tab click; sidebar picks, "practice another", the daily
+  drill and reloads all bypassed it. Now it lives in renderArena,
+  per-level, and declining drops to level 1. Swan finish also hides the
+  score, upsell list and buy buttons — root's full rule, not just the
+  confetti half.
+- **Daily drill leak.** The drill pool included held door levels and
+  its button set A.sit directly — it would have recommended door drills
+  starting Aug 26. Filtered.
+- **Soft-lock fix.** Navigating away mid-retry left `answering=true`
+  forever (every input dead until reload) and a pending 650ms commit
+  could fire into the next run. renderArena now resets both.
+- **Denominators.** Held levels no longer count against badges (20/20
+  reachable, was 20/24) or readiness (could never pass 88%).
+- **Honest strings.** Pressure copy no longer promises "10 seconds" the
+  code never gave (it's 6); the supervision button offers "the standing
+  warning", not "coaching"; the fine print says officer lines are
+  pre-recorded; the fabricated "$19 Vault Pass" and "vetted attorney —
+  free case review" upsell rows are gone; the shared arena-card
+  subtitle drops "your state carries over" (true on root, false on
+  /app).
+- Init-order fixes for the new code paths (var/function-declaration
+  hoisting, HELD_SITS above TOTAL) — caught live when the first cut
+  broke page init, fixed and re-verified.
+
 ## v2.24.0 — 2026-08-18
 
 v2.24.0 — "No trophy on the swan, here either"

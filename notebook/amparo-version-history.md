@@ -8,6 +8,15 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.24.1 — 2026-08-18 — "The consent answer finally fails everywhere"
+
+Consolidated FG23/wargames-30/blindspot-02 round: matcher v3 with
+polarity guard (attack phrase misses all 38 refusal turns), swan gate
+moved into renderArena + full no-trophy, daily-drill held-filter (would
+have recommended door levels Aug 26), answering soft-lock fix, held
+levels out of denominators, fabricated upsells removed, honest copy
+throughout.
+
 ## v2.24.0 — 2026-08-18 — "No trophy on the swan, here either"
 
 Arena P0 round (FG22 + wargames/29 + blindspot): per-turn free-text
