@@ -6,6 +6,43 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.24.0 — 2026-08-18
+
+v2.24.0 — "No trophy on the swan, here either"
+
+The consolidated P0 round from focus group 22, wargames/29 and the
+2026-08-18 blindspot audit — six behavior changes to the arena, every one
+verified live before shipping:
+
+1. **Free-text matcher rebuilt.** The old global 16-keyword list scored
+   "yes go ahead and search, I consent" as correct on any turn. Now each
+   typed/spoken answer is matched against that beat's own correct line
+   (majority word overlap, root's `prxCompareShow` approach). Crisis
+   language shows the 988 lifeline instead of a grade — ported from
+   root's `PRX_CRISIS` net.
+2. **Supervision-safe mode is visible and honest.** A persistent amber
+   banner above the arena replaces the prefix that scrolled away inside
+   the scene line, and the modal no longer promises coaching adjustment
+   that doesn't exist.
+3. **Door-knock scenarios held for review.** Locked in the scenario list
+   with the honest reason (attorney + DV-clinician reviewers) — parity
+   with root's `DOOR_MODULE_ENABLED=false`. Saved states and
+   auto-advance can't land there.
+4. **Checkout tells the truth.** "Preview complete — no charge was made"
+   instead of "Purchase confirmed!"; the fabricated receipt line and the
+   email field that fed it are gone; the button says "Preview checkout".
+5. **Swan levels gated and uncelebrated.** Hard mode (and step-out's
+   Tests & cuffs) now ask consent before entry and skip the
+   confetti/fanfare on finish — the same "no trophy on the swan" rule
+   root enforces.
+6. **Unverified state-law lines removed.** The per-state
+   duty-to-inform / stop-and-identify "you must" commands are out of the
+   render, preserved under `TODO_ATTORNEY` for the reviewer.
+
+Also per operator instruction: officer audio is now Voicebox-generated
+files ONLY — the speechSynthesis fallback is removed. All 198 lines
+ship; a missing file means a silent beat with the text still on screen.
+
 ## v2.23.2 — 2026-08-18
 
 v2.23.2 — "The honest version, honestly"

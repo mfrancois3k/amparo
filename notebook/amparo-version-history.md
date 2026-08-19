@@ -8,6 +8,15 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.24.0 — 2026-08-18 — "No trophy on the swan, here either"
+
+Arena P0 round (FG22 + wargames/29 + blindspot): per-turn free-text
+matcher + 988 crisis net, persistent supervision banner with honest
+copy, door scenarios held for attorney/DV review, checkout relabeled as
+preview (fabricated receipt removed), consent gate + no confetti on
+swan levels, unverified state-law lines pulled. Voicebox-only officer
+audio (speechSynthesis fallback removed per operator).
+
 ## v2.23.2 — 2026-08-18 — "The honest version, honestly"
 
 Arena audit fixes: false Google-Fonts and works-offline claims corrected,
