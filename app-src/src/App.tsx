@@ -6,6 +6,7 @@
  * (wargames/15 §0.2). Do not add a string here; add it to the extractor.
  */
 import { lazy, Suspense, useEffect, useState } from 'react'
+import { openFeedback } from './services/feedback'
 import { useLang, useT } from './i18n'
 import { LangProvider } from './LangProvider'
 import { ErrorBoundary } from './components/ErrorBoundary'
@@ -175,6 +176,12 @@ function Shell() {
       </main>
 
       {offlineReady ? <p className="soon" style={{ marginTop: 6 }} role="status">{t.offline_ready}</p> : null}
+      {/* Reach-a-human path, same as root's. /sentry.js (~47 kB gz) is injected
+          on tap only — nothing is downloaded or sent by a session that never
+          uses it. Falls back to mail if the bundle can't load. */}
+      <p className="reachus">
+        <button type="button" className="linklike" onClick={() => openFeedback(lang)}>{t.fb_reach}</button>
+      </p>
       <footer className="disclaimer">{t.disclaimer}</footer>
     </div>
   )

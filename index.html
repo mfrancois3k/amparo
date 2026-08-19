@@ -308,6 +308,9 @@
     .split-right{position:sticky;top:18px}
   }
 
+  .reachus{text-align:center;margin:10px 0 0}
+  .linklike{background:none;border:0;padding:6px 4px;font:inherit;font-size:13px;font-weight:700;color:#1B2A4A;text-decoration:underline;text-underline-offset:3px;cursor:pointer;min-height:44px}
+  .linklike:hover{color:#a87f1f}
   .disclaimer{font-size:12px;color:var(--muted);margin-top:24px;text-align:center;line-height:1.5}
   .lawcheck{font-size:11.5px;color:var(--muted);margin-top:18px;text-align:center;line-height:1.5}
   .lawcheck .dot{display:inline-block;width:7px;height:7px;border-radius:99px;background:var(--ok);margin-right:6px;vertical-align:middle}
@@ -1689,7 +1692,11 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
     </div>
     <div class="lang"><button id="langEN" class="on" aria-pressed="true" aria-label="English" onclick="setLang('en')">EN</button><button id="langES" aria-pressed="false" aria-label="Español" onclick="setLang('es')">ES</button></div>
   </header>
-  <div class="pilot" data-i="pilotBanner">Free. Nothing you enter leaves your phone — no account, no upload.</div>
+  <!-- Static text must MATCH the `pilotBanner` bank entry: setLang() only runs
+       on an explicit language toggle, so a first-time English visitor sees
+       exactly this markup and nothing re-writes it. v2.25.0 changed the bank
+       alone and left the old "no account, no upload" claim live here. -->
+  <div class="pilot" data-i="pilotBanner">Free. Everything stays on this phone unless you choose to save your pack to an optional free account. Photos never upload.</div>
   <div id="offlineReady" class="soon" style="display:none;margin-top:6px"></div>
   <div id="staleBanner" style="display:none"></div>
   <div id="usageBanner" style="display:none"></div>
@@ -1700,6 +1707,7 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
        Deliberately separate from the attorney-review line below: "sources
        checked" and "a person read this" are different claims. -->
   <p class="lawcheck" id="lawCheck" style="display:none"></p>
+  <p class="reachus"><button type="button" class="linklike" id="fbBtn" onclick="ph('sr_feedback_opened',{lang:lang});openFeedback()"></button></p>
   <p class="disclaimer" data-i="disclaimer">Amparo provides general legal information, not legal advice. Every rule is cited to the exact state statute so you can check it yourself; formal attorney sign-off per state is in progress. Phone numbers verified July 16, 2026.</p>
 </div>
 
@@ -1942,7 +1950,7 @@ const T = {
        label was hiding it. */
     v_print_pdf:"Print (AirPrint) or save as PDF",
     pdf_q:"\ud83d\udcd6 How do I save it as a PDF instead? \u25be",
-    acct_h:"Save my pack across devices",acct_why:"Works without an account, always. An optional free account saves this pack\u2019s text (state, names, numbers, ZIP) so a lost or wiped phone doesn\u2019t mean starting over. Document photos and practice history never leave this device \u2014 the server has no place to put them.",acct_signin:"Sign in to save my pack",acct_scope:"Only this pack\u2019s text is saved \u2014 never photos, never practice history.",acct_save:"\u2601 Save my pack",acct_saved:"\u2713 Saved",acct_restore:"\u2935 Restore my saved pack to this device",acct_err:"Couldn\u2019t save \u2014 check your connection and try again.",resume_btn:"\u21a9 Continue where you left off",
+    fb_reach:"Something wrong, or something missing? Tell us \u2014 anonymously is fine.",acct_h:"Save my pack across devices",acct_why:"Works without an account, always. An optional free account saves this pack\u2019s text (state, names, numbers, ZIP) so a lost or wiped phone doesn\u2019t mean starting over. Document photos and practice history never leave this device \u2014 the server has no place to put them.",acct_signin:"Sign in to save my pack",acct_scope:"Only this pack\u2019s text is saved \u2014 never photos, never practice history.",acct_save:"\u2601 Save my pack",acct_saved:"\u2713 Saved",acct_restore:"\u2935 Restore my saved pack to this device",acct_err:"Couldn\u2019t save \u2014 check your connection and try again.",resume_btn:"\u21a9 Continue where you left off",
     i_skip_all:"Skip this \u2014 just use my state",
     prx_open_cta:"\ud83c\udfb4 Practice the script \u2014 2 minutes",
     /* Four numbered rungs plus checkpoint, which is a different encounter rather than a
@@ -2300,7 +2308,7 @@ const T = {
     hub_progress:"{n} de {t} completados", hub_done_badge:"Hecho",
     v_print_pdf:"Imprimir (AirPrint) o guardar como PDF",
     pdf_q:"📖 ¿Cómo lo guardo como PDF? ▾",
-    acct_h:"Guardar mi paquete entre dispositivos",acct_why:"Funciona sin cuenta, siempre. Una cuenta gratuita opcional guarda el texto de este paquete (estado, nombres, números, código postal) para que perder o borrar el teléfono no signifique empezar de cero. Las fotos de documentos y el historial de práctica nunca salen de este dispositivo — el servidor no tiene dónde guardarlos.",acct_signin:"Iniciar sesión para guardar mi paquete",acct_scope:"Solo se guarda el texto de este paquete — nunca fotos, nunca historial de práctica.",acct_save:"☁ Guardar mi paquete",acct_saved:"✓ Guardado",acct_restore:"⤵ Restaurar mi paquete guardado en este dispositivo",acct_err:"No se pudo guardar — revise su conexión e intente de nuevo.",resume_btn:"↩ Continuar donde quedaste",
+    fb_reach:"¿Algo anda mal o falta algo? Díganoslo — puede ser anónimo.",acct_h:"Guardar mi paquete entre dispositivos",acct_why:"Funciona sin cuenta, siempre. Una cuenta gratuita opcional guarda el texto de este paquete (estado, nombres, números, código postal) para que perder o borrar el teléfono no signifique empezar de cero. Las fotos de documentos y el historial de práctica nunca salen de este dispositivo — el servidor no tiene dónde guardarlos.",acct_signin:"Iniciar sesión para guardar mi paquete",acct_scope:"Solo se guarda el texto de este paquete — nunca fotos, nunca historial de práctica.",acct_save:"☁ Guardar mi paquete",acct_saved:"✓ Guardado",acct_restore:"⤵ Restaurar mi paquete guardado en este dispositivo",acct_err:"No se pudo guardar — revise su conexión e intente de nuevo.",resume_btn:"↩ Continuar donde quedaste",
     i_skip_all:"Omitir — solo usar mi estado",
     prx_open_cta:"🎴 Practica el guion — 2 minutos",
     prx_lvl1:"😌 Parada tranquila", prx_lvl2:"😠 Oficial irritado", prx_lvl3:"🚨 Te ordenan salir", prx_lvl4:"🌒 Modo difícil", prx_lvl5:"🚧 Retén",
@@ -3023,6 +3031,7 @@ function setLang(l){
   document.getElementById('langES').setAttribute('aria-pressed',l==='es'?'true':'false');
   document.querySelector('.pilot').textContent=t().pilotBanner;
   document.querySelector('.disclaimer').textContent=t().disclaimer;
+  {const _fb=document.getElementById('fbBtn'); if(_fb)_fb.textContent=t().fb_reach;}
   /* The source-check badge lives outside #screen, so render() won't touch it —
      re-translate it here from the status already fetched. */
   renderLawCheck();
@@ -4572,6 +4581,8 @@ function buildPrint(){
    phone was landing in English the whole time, and the comment below already
    assumed a restore that wasn't happening. */
 restore();
+/* setLang() only runs on an explicit toggle, so label the feedback button at boot too */
+{const _fb=document.getElementById('fbBtn'); if(_fb)_fb.textContent=t().fb_reach;}
 try{document.title=t().pageTitle;}catch(e){}
 render();
 /* Arm/disarm replay for whatever step we restored into — a returning user resumed
@@ -6156,6 +6167,49 @@ function practiceClose(){
   if(prxTTS){ try{ speechSynthesis.cancel(); }catch(e){} }
   document.getElementById('practiceOverlay').classList.remove('open');
   if(step===4) render(); // post-print rail is staged on practice progress — refresh it
+}
+
+
+/* ============ FEEDBACK + ERROR REPORTING ============
+   A way to reach a human that does not need a mail client. The existing
+   mailto: links stay, but they silently do nothing on a phone with no mail
+   app configured -- which is how the one real support request this product
+   ever received arrived through Facebook Messenger instead.
+
+   /sentry.js is ~47 kB gzip, so it is NEVER loaded up front. Errors are
+   buffered by the few lines below and the bundle is injected only if
+   something actually breaks, or the moment the user taps Send feedback.
+   A session that works fine and writes nothing downloads nothing and
+   transmits nothing -- which is what the privacy note promises. */
+window.__sqErr=[]; window.__sLoad=null;
+function sentryLoad(){
+  if(window.__sLoad) return window.__sLoad;
+  window.__sLoad=new Promise(function(res,rej){
+    var s=document.createElement('script');
+    s.src='/sentry.js'; s.async=true;
+    s.onload=function(){res(window.AmparoFeedback)};
+    s.onerror=rej;
+    document.head.appendChild(s);
+  });
+  return window.__sLoad;
+}
+var __sFlushT;
+function sentryFlushSoon(){
+  clearTimeout(__sFlushT);
+  /* debounce: one broken render can fire a burst; ship them together */
+  __sFlushT=setTimeout(function(){
+    sentryLoad().then(function(a){ a&&a.flush(lang,window.__sqErr.splice(0)) })
+                .catch(function(){});
+  },2000);
+}
+addEventListener('error',function(e){ window.__sqErr.push({msg:e.message,err:e.error}); sentryFlushSoon(); });
+addEventListener('unhandledrejection',function(e){ window.__sqErr.push({reason:e.reason}); sentryFlushSoon(); });
+function openFeedback(){
+  sentryLoad().then(function(a){ a&&a.open(lang) }).catch(function(){
+    /* bundle blocked (offline, blocker) -- fall back to the mail path rather
+       than leaving the tap dead */
+    location.href='mailto:feedback@amparohq.com';
+  });
 }
 
 /* ============ FEEDBACK ============

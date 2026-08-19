@@ -73,3 +73,9 @@ h1{font-size:26px;color:var(--navy);letter-spacing:-.4px;margin-bottom:8px;line-
 /* beta banner — /app only, not ported from root */
 .beta-note{background:var(--white);border:1.5px solid var(--line);border-left:5px solid var(--gold);border-radius:var(--radius);padding:14px 16px;font-size:13.5px;margin-bottom:16px}
 .beta-note a{color:var(--navy)}
+
+/* Reach-a-human link in the footer. Mirrors root's .reachus/.linklike so the
+   two surfaces present the same affordance; 44px min-height is the tap target. */
+.reachus{text-align:center;margin:10px 0 0}
+.linklike{background:none;border:0;padding:6px 4px;font:inherit;font-size:13px;font-weight:700;color:var(--navy,#1B2A4A);text-decoration:underline;text-underline-offset:3px;cursor:pointer;min-height:44px}
+.linklike:hover{color:#a87f1f}

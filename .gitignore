@@ -11,3 +11,7 @@ node_modules/
 # Build artifacts not meant to be tracked (app-src builds INTO app/, which IS tracked)
 app-src/dist/
 app-src/node_modules/
+
+# Scratch: firecrawl research dumps and audio test artifacts — never shipped
+.firecrawl/
+test1.wav
