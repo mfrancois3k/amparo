@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1640" height="624" viewBox="0 0 1640 624" role="img" aria-label="Know Your Rights on the Road — Amparo">
+  <!--
+    Facebook page cover for "Know Your Rights on the Road".
+    1640x624 (2x of the 820x312 desktop slot). Facebook crops this SAME file to
+    roughly 640x360 on phones, cropping inward from the sides, so every element
+    below sits inside x=320..1320 — the central 1000px that survives both crops.
+    The outer 320px on each side is intentionally empty background.
+
+    Built from the real logo geometry in index.html (const LOGO) rather than
+    redrawn, so the mark is identical to the app's: navy #1B2A4A shelter roof
+    over a gold #E8B84B ring guarding a document. That is the brand idea —
+    amparo means refuge / legal protection — and it is why this is not a photo
+    of a card in a door pocket.
+  -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FAF6EE"/>
+      <stop offset="100%" stop-color="#F2ECDC"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1640" height="624" fill="url(#bg)"/>
+
+  <!-- Hairline gold rule, full-bleed: reads as a horizon on desktop and simply
+       vanishes off-frame on mobile. Nothing is lost when it is cropped. -->
+  <rect x="0" y="586" width="1640" height="3" fill="#E8B84B" opacity="0.55"/>
+
+  <!-- ===== Logo mark. Source paths from const LOGO, scale 1.55, placed left of
+       the wordmark. Original art sits in roughly a 120x120 box. ===== -->
+  <g transform="translate(352,168) scale(1.55)">
+    <g transform="rotate(-90 60 72)">
+      <circle cx="60" cy="72" r="27" fill="none" stroke="#E8B84B" stroke-width="10"/>
+    </g>
+    <path d="M36 78 C42 92 57 99 70 95 C77 93 83 88 86 81" fill="none" stroke="#E8B84B" stroke-width="10" stroke-linecap="round"/>
+    <g>
+      <path d="M46 49 h17 l10 10 v26 a3 3 0 0 1 -3 3 h-24 a3 3 0 0 1 -3 -3 v-33 a3 3 0 0 1 3 -3 z" fill="#1B2A4A"/>
+      <path d="M63 49 l10 10 h-10 z" fill="#F3D48A"/>
+      <rect x="51" y="67" width="15" height="3.4" rx="1.7" fill="#E8B84B"/>
+      <rect x="51" y="73.5" width="10" height="3.4" rx="1.7" fill="#E8B84B"/>
+    </g>
+    <g>
+      <path d="M14 61 L60 19 L106 61" fill="none" stroke="#1B2A4A" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="27" y="25" width="9.5" height="20" rx="1.5" fill="#1B2A4A"/>
+    </g>
+  </g>
+
+  <!-- ===== Wordmark + tagline ===== -->
+  <g font-family="Georgia, 'Times New Roman', serif">
+    <text x="608" y="268" font-size="82" font-weight="bold" fill="#1B2A4A" letter-spacing="-0.5">Know Your Rights</text>
+    <text x="608" y="356" font-size="82" font-weight="bold" fill="#1B2A4A" letter-spacing="-0.5">on the Road</text>
+
+    <!-- Gold underscore anchored under the second line, sized to it. -->
+    <rect x="610" y="382" width="228" height="6" rx="3" fill="#E8B84B"/>
+
+    <text x="608" y="446" font-size="34" fill="#2f3f5e">What your state&#8217;s traffic-stop law actually says &#8212;</text>
+    <text x="608" y="490" font-size="34" fill="#2f3f5e">quoted from the statute. <tspan fill="#1B2A4A" font-style="italic">Tambi&#233;n en espa&#241;ol.</tspan></text>
+
+    <text x="608" y="548" font-size="30" font-weight="bold" fill="#1B2A4A" letter-spacing="1.5">amparohq.com</text>
+  </g>
+</svg>
