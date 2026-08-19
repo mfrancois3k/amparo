@@ -8,6 +8,14 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.25.0 — 2026-08-19 — "The account that can't hold your photos"
+
+Clerk + Convex + Stripe wired end to end: opt-in save-my-pack (text
+fields only — the schema has no columns for photos or practice history),
+real hosted Checkout with server-side prices + signed-webhook
+fulfillment, guest checkout for the static surfaces, honest accounts-era
+trust copy. Test-mode key; live-key swap = real revenue.
+
 ## v2.24.1 — 2026-08-18 — "The consent answer finally fails everywhere"
 
 Consolidated FG23/wargames-30/blindspot-02 round: matcher v3 with

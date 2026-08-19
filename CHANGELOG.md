@@ -6,6 +6,44 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.25.0 — 2026-08-19
+
+v2.25.0 — "The account that can't hold your photos"
+
+Accounts and real payments, both opt-in, both narrow — Clerk + Convex +
+Stripe wired end to end and verified live:
+
+- **Convex backend** (project amparo-2751c): a `packs` table holding ONLY
+  the pack's text fields — there are no columns for document photos or
+  practice history, so no bug can ever sync them; the schema is the
+  privacy policy. A `purchases` table written solely by the Stripe
+  webhook.
+- **Clerk auth**: the existing Amparo Clerk app (its "convex" JWT
+  template was already waiting from Aug 11); publishable key only on the
+  client, secrets moved shell-to-shell into Convex env — never displayed,
+  never committed.
+- **Stripe, real**: hosted Checkout with prices defined server-side
+  (script $3.99 / deep $6.99 / tip $3) — the client can only name a
+  product. A guest `/checkout` endpoint for the static surfaces, and a
+  webhook (created via the Stripe API) that records fulfillment only from
+  the signed event. Test-mode key today; the live key swap is the last
+  step to real revenue.
+- **/app "Save my pack across devices"** on the print step: tap-to-load
+  lazy chunk so only users who want the account download the auth code;
+  Clerk's sign-in modal verified opening; save/restore for the pack's
+  text; new acct_* strings EN+ES.
+- **Arena checkout is real**: payNow POSTs to Convex and hands off to
+  Stripe's hosted page ("Pay $6.99" / "Secure checkout by Stripe"); a 503
+  or network failure falls back to the honest preview — never a fake
+  success.
+- **Trust copy rewritten for the accounts era**: the root banner now
+  reads "Everything stays on this phone unless you choose to save your
+  pack to an optional free account. Photos never upload." — the absolute
+  "no account" claims are gone everywhere, and the stale ES voice-engine
+  line the EN-only v2.24.1 fix missed is corrected.
+
+Strategy doc: notebook/amparo-accounts-payments-plan-2026-08-19.md.
+
 ## v2.24.1 — 2026-08-18
 
 v2.24.1 — "The consent answer finally fails everywhere"
