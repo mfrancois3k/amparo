@@ -1,5 +1,5 @@
 {
-  "pilotBanner": "Gratis. Nada de lo que escribes sale de tu teléfono — sin cuenta, sin subir nada.",
+  "pilotBanner": "Gratis. Todo se queda en este teléfono, salvo que elija guardar su paquete en una cuenta gratuita opcional. Las fotos nunca se suben.",
   "disclaimer": "Amparo ofrece información legal general, no asesoría legal. Cada regla cita el artículo exacto de la ley estatal para que usted mismo lo verifique; la revisión formal por un abogado en cada estado está en curso. Números verificados el 16 de julio de 2026.",
   "stepLabels": [
     "Estado",
@@ -109,6 +109,14 @@
   "hub_done_badge": "Hecho",
   "v_print_pdf": "Imprimir (AirPrint) o guardar como PDF",
   "pdf_q": "📖 ¿Cómo lo guardo como PDF? ▾",
+  "acct_h": "Guardar mi paquete entre dispositivos",
+  "acct_why": "Funciona sin cuenta, siempre. Una cuenta gratuita opcional guarda el texto de este paquete (estado, nombres, números, código postal) para que perder o borrar el teléfono no signifique empezar de cero. Las fotos de documentos y el historial de práctica nunca salen de este dispositivo — el servidor no tiene dónde guardarlos.",
+  "acct_signin": "Iniciar sesión para guardar mi paquete",
+  "acct_scope": "Solo se guarda el texto de este paquete — nunca fotos, nunca historial de práctica.",
+  "acct_save": "☁ Guardar mi paquete",
+  "acct_saved": "✓ Guardado",
+  "acct_restore": "⤵ Restaurar mi paquete guardado en este dispositivo",
+  "acct_err": "No se pudo guardar — revise su conexión e intente de nuevo.",
   "resume_btn": "↩ Continuar donde quedaste",
   "i_skip_all": "Omitir — solo usar mi estado",
   "prx_open_cta": "🎴 Practica el guion — 2 minutos",

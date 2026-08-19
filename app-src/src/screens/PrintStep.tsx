@@ -9,7 +9,7 @@
  * now that Move 5.2 built the destination — a single practice CTA using
  * root's own `prx_open_cta` string, same as root's rail's first link.
  */
-import { useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import type { Bank } from '../i18n'
 import { useLang } from '../i18n'
 import { readApp } from '../services/storage'
@@ -17,6 +17,9 @@ import { PrintPack } from '../components/PrintPack'
 import { DocsOverlay } from '../components/DocsOverlay'
 import { PackZoomOverlay } from '../components/PackZoomOverlay'
 import { DOC_SLOTS, EMPTY_INFO, type Docs, type YouInfo } from './youTypes'
+/* Save-my-pack loads Clerk+Convex — a heavy chunk — so it mounts only after
+   an explicit tap (main.tsx documents the bundle-size rule this follows). */
+const SavePack = lazy(() => import('./SavePack'))
 import '../styles/print.css'
 
 type CmpRow = { label: string; yes: string }
@@ -31,6 +34,7 @@ export function PrintStep({ t, state, onBack, onNext }: Props) {
   const [printed, setPrinted] = useState(false)
   const [helpOpen, setHelpOpen] = useState(false)
   const [zoomPage, setZoomPage] = useState<number | null>(null)
+  const [saveOpen, setSaveOpen] = useState(false)
   const thumbsRef = useRef<HTMLDivElement>(null)
 
   const docsCount = Object.values(docs).filter(Boolean).length
@@ -121,6 +125,13 @@ export function PrintStep({ t, state, onBack, onNext }: Props) {
           </button>
 
           <button className={`btn ${printed ? 'gold' : 'ghost'}`} onClick={onNext}>{t.prx_open_cta}</button>
+
+          <button className="linkbtn" style={{ marginTop: 10 }} onClick={() => setSaveOpen((v) => !v)}>☁ {t.acct_h} ▾</button>
+          {saveOpen ? (
+            <Suspense fallback={<p className="soon">…</p>}>
+              <SavePack t={t} state={state} />
+            </Suspense>
+          ) : null}
 
           <button className="linkbtn" style={{ marginTop: 10 }} onClick={() => setHelpOpen((v) => !v)}>{t.pdf_q}</button>
           {helpOpen ? (
