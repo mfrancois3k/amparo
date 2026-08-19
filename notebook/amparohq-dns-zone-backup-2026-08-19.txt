@@ -41,3 +41,20 @@ amparohq.com A: 216.198.79.1, 216.198.79.65  (public resolver also returned 64.2
 # nameservers elsewhere makes them static — if Vercel rotates those IPs, the apex
 # breaks silently. Any Vercel record on Cloudflare must be DNS-only (grey cloud),
 # never proxied.
+
+# --- Cloudflare migration, 2026-08-19 ---
+# Zone staged on Cloudflare (free plan), account Mfrancois3k@gmail.com.
+# All 13 records set to DNS ONLY (grey cloud) — proxying in front of Vercel
+# causes redirect loops and cert failures, so this is load-bearing, not taste.
+# Cloudflare's scan MISSED the `ph` CNAME (PostHog reverse proxy); re-added by
+# hand. Their own warning says custom subdomains can be missed — it was.
+#
+# Cloudflare nameservers assigned:
+#   ashton.ns.cloudflare.com
+#   athena.ns.cloudflare.com
+# Replacing:
+#   ns1.vercel-dns.com
+#   ns2.vercel-dns.com
+#
+# ROLLBACK: set the nameservers back to ns1/ns2.vercel-dns.com at the Vercel
+# registrar. The Vercel-side zone is untouched by this migration.
