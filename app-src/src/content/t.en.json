@@ -1,5 +1,5 @@
 {
-  "pilotBanner": "Free. Nothing you enter leaves your phone — no account, no upload.",
+  "pilotBanner": "Free. Everything stays on this phone unless you choose to save your pack to an optional free account. Photos never upload.",
   "disclaimer": "Amparo provides general legal information, not legal advice. Every rule is cited to the exact state statute so you can check it yourself; formal attorney sign-off per state is in progress. Phone numbers verified July 16, 2026.",
   "stepLabels": [
     "State",
@@ -109,6 +109,14 @@
   "hub_done_badge": "Done",
   "v_print_pdf": "Print (AirPrint) or save as PDF",
   "pdf_q": "📖 How do I save it as a PDF instead? ▾",
+  "acct_h": "Save my pack across devices",
+  "acct_why": "Works without an account, always. An optional free account saves this pack’s text (state, names, numbers, ZIP) so a lost or wiped phone doesn’t mean starting over. Document photos and practice history never leave this device — the server has no place to put them.",
+  "acct_signin": "Sign in to save my pack",
+  "acct_scope": "Only this pack’s text is saved — never photos, never practice history.",
+  "acct_save": "☁ Save my pack",
+  "acct_saved": "✓ Saved",
+  "acct_restore": "⤵ Restore my saved pack to this device",
+  "acct_err": "Couldn’t save — check your connection and try again.",
   "resume_btn": "↩ Continue where you left off",
   "i_skip_all": "Skip this — just use my state",
   "prx_open_cta": "🎴 Practice the script — 2 minutes",

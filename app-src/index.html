@@ -27,7 +27,12 @@
 
          `frame-ancestors` is intentionally absent — it is ignored in a meta
          policy, and root's header already sets it to 'none' for every path. -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'" />
+    <!-- Accounts era (2026-08-19): the save-my-pack feature loads Clerk's
+         runtime from the instance domain and talks to the Convex deployment
+         (https + websocket). Only those named hosts are added — everything
+         else stays 'self'. Both hosts change if the Clerk instance or Convex
+         deployment is ever swapped (they're also in .env.local). -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://divine-swine-18.clerk.accounts.dev; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://img.clerk.com; media-src 'self' blob:; font-src 'self'; connect-src 'self' https://divine-swine-18.clerk.accounts.dev https://grandiose-armadillo-240.convex.cloud wss://grandiose-armadillo-240.convex.cloud https://grandiose-armadillo-240.convex.site; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'" />
     <!-- noindex is load-bearing, not caution: the live app is at '/', and an
          indexed /app would split the funnel and rank a beta above the product.
          Remove only as part of a promotion decision (wargames/15 Move 6.2). -->
