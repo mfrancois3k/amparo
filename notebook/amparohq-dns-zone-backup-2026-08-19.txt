@@ -58,3 +58,24 @@ amparohq.com A: 216.198.79.1, 216.198.79.65  (public resolver also returned 64.2
 #
 # ROLLBACK: set the nameservers back to ns1/ns2.vercel-dns.com at the Vercel
 # registrar. The Vercel-side zone is untouched by this migration.
+
+# --- Email Routing staged 2026-08-19 (pre-activation) ---
+# Done, and safe to leave: none of it affects production, because the
+# Cloudflare zone is NOT authoritative until the nameservers move.
+#   - Destination address mfrancois3k@gmail.com  -> VERIFIED (auto, matches
+#     the Cloudflare account email; no confirmation mail needed)
+#   - Catch-all routing rule -> mfrancois3k@gmail.com -> ACTIVE
+#     Catch-all deliberately, not four separate rules: it covers hello@,
+#     feedback@, orgs@ and partners@ plus anything added later, with no
+#     maintenance.
+#
+# BLOCKED on the nameserver move. Cloudflare states plainly:
+#   "This zone must be active before you can enable Email Service."
+# Records it will add once active (currently all "Missing"):
+#   MX  amparohq.com  30  route1.mx.cloudflare.net.
+#   MX  amparohq.com  44  route2.mx.cloudflare.net.
+#   MX  amparohq.com  64  route3.mx.cloudflare.net.
+#   TXT cf2024-1._domainkey.amparohq.com  (DKIM)
+#
+# ORDER MATTERS on cleanup: do NOT delete the ForwardEmail MX/TXT until
+# Cloudflare's MX exist, or the domain has no MX at all.
