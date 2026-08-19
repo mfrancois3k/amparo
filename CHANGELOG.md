@@ -6,6 +6,34 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.23.1 — 2026-08-18
+
+v2.23.1 — "The arena fits in your pocket"
+
+Full three-surface E2E QA pass (root walkthrough EN+ES spot-checks, /app
+walkthrough, /arena full run: intro→tutorial→5-turn scenario→completion→
+persistence→free-text→language toggle→wipe control). Two fixes:
+
+- The arena forced a ~531px minimum layout width on phones: the mobile
+  breakpoint's `grid-template-columns:1fr` means `minmax(auto,1fr)`, so the
+  level-tab strip's min-content width inflated the whole track and a 375px
+  phone rendered zoomed out to ~71%. `minmax(0,1fr)` + `min-width:0` fixes
+  it — verified before/after in mobile emulation.
+- /app's practice hub never received the Practice Arena card that root
+  shipped in v2.23.0 (the EN/ES strings were already in the extracted
+  banks). Added and verified live.
+
+Also verified green: NY `?coverage_area=` link on both surfaces, CA plain
+link (no zipParam — correct), wallet-card ZIP line, QR box, print-zoom
+overlay + Escape + aria-label, Welcome shortcut, arena state carryover
+("NEW YORK (Statute Law)"), arena ES audio keying (u8sk0j.mp3), best-run
+persistence across reload, streak counter, prep-order gate.
+
+One observation logged for the module review (not fixed): the arena's
+free-text matcher scored a "remain silent + lawyer" answer with turn 1's
+canned "announcing movement" feedback — generous keyword matching worth a
+design look.
+
 ## v2.23.0 — 2026-08-18
 
 v2.23.0 — "The Practice Arena speaks"

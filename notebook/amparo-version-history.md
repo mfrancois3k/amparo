@@ -8,6 +8,12 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.23.1 — 2026-08-18 — "The arena fits in your pocket"
+
+E2E QA fixes: arena no longer forces ~531px min width on phones
+(minmax(0,1fr)); /app practice hub gained the arena card root already
+had. Full three-surface walkthrough otherwise green.
+
 ## v2.23.0 — 2026-08-18 — "The Practice Arena speaks"
 
 Standalone gamified trainer at /arena (user-supplied design): 24 levels,
