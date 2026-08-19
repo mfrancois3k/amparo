@@ -8,6 +8,15 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.26.0 — 2026-08-19 — "A way to reach a human"
+
+Feedback widget on all three surfaces (anonymous allowed, EN+ES) backed by
+self-hosted /sentry.js that NEVER loads eagerly — healthy sessions make zero
+Sentry requests. Errors only, no replay, hard-scrubbed. Also fixed: prod CSP
+pointed at a dead Convex deployment (checkout would have been blocked live),
+and v2.25.0's banner fix had missed the static HTML so EN first-timers still
+saw the false "no account" claim.
+
 ## v2.25.0 — 2026-08-19 — "The account that can't hold your photos"
 
 Clerk + Convex + Stripe wired end to end: opt-in save-my-pack (text

@@ -6,6 +6,43 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.26.0 — 2026-08-19
+
+v2.26.0 — "A way to reach a human"
+
+The one real support request this product ever received arrived through
+Facebook Messenger, because the existing mailto: links silently do nothing on
+a phone with no mail app configured. This fixes that.
+
+- **Feedback widget on all three surfaces** (root footer, arena footer, /app
+  footer), EN + ES, with name and email **optional** so a frightened user can
+  write anonymously. Verified end to end: a real submission arrived in Sentry
+  as "Anonymous User" carrying the exact message.
+- **Self-hosted `/sentry.js`** (built from `tools/sentry-entry.js`, 47 kB
+  gzip) — self-hosted for the same reason the arena's fonts are, so
+  `script-src 'self'` stays clean and nothing loads from a CDN.
+- **Never loaded eagerly.** A ~15-line inline shim buffers errors and injects
+  the bundle only if something actually breaks, or the moment the user taps
+  feedback. Verified: a healthy page load makes **zero** Sentry requests; a
+  synthetic throw lazy-loads the bundle, reports, and drains the queue.
+- **Privacy-scoped by construction**, which matters more here than anywhere:
+  errors only — **no session replay** (it would record the screen of someone
+  filling in their emergency contacts), no tracing, `sendDefaultPii:false`,
+  `ui.input` breadcrumbs dropped outright, URLs stripped of query and hash,
+  `event.user` deleted, and `allowUrls` limited to our own origins.
+
+Two real bugs surfaced while building it:
+
+- The **production CSP pointed at a dead Convex deployment**
+  (`agreeable-gopher-346`, which has no HTTP actions) left over from the
+  Aug 14 scaffold. Checkout would have been CSP-blocked in production even
+  though it works locally. Now points at the live deployment.
+- **v2.25.0's privacy-banner fix never reached English first-time visitors.**
+  It changed the `pilotBanner` bank entry but not the static HTML fallback,
+  and `setLang()` only runs on an explicit language toggle — so the old,
+  now-false "no account, no upload" claim was still on screen. The static
+  markup now matches the bank.
+
 ## v2.25.0 — 2026-08-19
 
 v2.25.0 — "The account that can't hold your photos"
