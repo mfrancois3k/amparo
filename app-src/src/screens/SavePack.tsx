@@ -24,8 +24,9 @@ function SavePanel({ t, state }: Props) {
   const { isSignedIn } = useUser()
   const { lang } = useLang()
   const save = useMutation(api.packs.save)
+  const removePack = useMutation(api.packs.remove)
   const cloud = useQuery(api.packs.get)
-  const [status, setStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle')
+  const [status, setStatus] = useState<'idle' | 'saving' | 'saved' | 'deleted' | 'error'>('idle')
 
   const handleSave = async () => {
     setStatus('saving')
@@ -33,6 +34,18 @@ function SavePanel({ t, state }: Props) {
       const you = readApp<YouInfo>('you', EMPTY_INFO)
       await save({ state, ...you, lang })
       setStatus('saved')
+    } catch {
+      setStatus('error')
+    }
+  }
+
+  const handleDelete = async () => {
+    /* FG24 golden #2: the upload was one-way until this existed. */
+    if (!confirm(t.acct_del_confirm)) return
+    setStatus('saving')
+    try {
+      await removePack({})
+      setStatus('deleted')
     } catch {
       setStatus('error')
     }
@@ -70,6 +83,11 @@ function SavePanel({ t, state }: Props) {
       {cloud ? (
         <button type="button" className="btn ghost" style={{ marginTop: 8 }} onClick={handleRestore}>
           {t.acct_restore}
+        </button>
+      ) : null}
+      {cloud ? (
+        <button type="button" className="btn ghost" style={{ marginTop: 8 }} onClick={handleDelete}>
+          {status === 'deleted' ? t.acct_deleted : t.acct_del}
         </button>
       ) : null}
       {status === 'error' ? <p className="soon" style={{ color: '#7a2e2e' }}>{t.acct_err}</p> : null}

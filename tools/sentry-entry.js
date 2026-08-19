@@ -88,13 +88,36 @@ function start(lang) {
       }
       return b
     },
+    /* Verified in @sentry/core: sendEvent gates beforeSend on
+       `isErrorEvent(event)`, and the feedback integration sets
+       type:"feedback". So beforeSend NEVER ran on a feedback submission —
+       the widget promised "anonymously is fine" while event.user, the full
+       URL and the user agent all went out unscrubbed. This hook is the one
+       Sentry actually calls for feedback. */
+    beforeSendFeedback(event) {
+      delete event.user
+      if (event.request) {
+        if (event.request.url) event.request.url = bareUrl(event.request.url)
+        delete event.request.cookies
+        delete event.request.query_string
+        if (event.request.headers) {
+          delete event.request.headers.Referer
+          delete event.request.headers['User-Agent']
+        }
+      }
+      if (event.contexts) delete event.contexts.browser
+      return event
+    },
     beforeSend(event) {
       if (event.request) {
         if (event.request.url) event.request.url = bareUrl(event.request.url)
         delete event.request.cookies
         delete event.request.data
         delete event.request.query_string
-        if (event.request.headers) delete event.request.headers.Referer
+        if (event.request.headers) {
+          delete event.request.headers.Referer
+          delete event.request.headers['User-Agent'] // HttpContext adds this to every event
+        }
       }
       delete event.user // never identify anyone
       return event

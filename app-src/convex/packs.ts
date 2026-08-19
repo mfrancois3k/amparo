@@ -45,3 +45,22 @@ export const get = query({
       .unique()
   },
 })
+
+/* Delete the saved pack. FG24 golden #2: v2.25.0 shipped an upload of the
+ * user's support network (name, two emergency contacts, attorney, ZIP) with
+ * no way to take it back — the wipe buttons on every surface only ever
+ * reached localStorage. For this user base a one-way upload is not
+ * acceptable, and the privacy text now promises this button exists. */
+export const remove = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity()
+    if (!identity) throw new Error('Not signed in')
+    const existing = await ctx.db
+      .query('packs')
+      .withIndex('by_user', (q) => q.eq('userId', identity.subject))
+      .unique()
+    if (existing) await ctx.db.delete(existing._id)
+    return { ok: true }
+  },
+})

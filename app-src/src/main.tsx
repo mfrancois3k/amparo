@@ -3,6 +3,8 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import { registerAppServiceWorker } from './registerSW.ts'
+import { armErrorReporting } from './services/feedback'
+import { readApp } from './services/storage'
 
 /* Clerk + Convex are installed and configured (app-src/.env.local, plus
    src/clerkAndConvex.ts for the wiring pattern) but deliberately NOT wrapped
@@ -22,4 +24,8 @@ createRoot(document.getElementById('root')!).render(
   </StrictMode>,
 )
 
+/* blindspot 2026-08-19 H3: this was exported but never called, so /app
+   shipped with no error capture at all. Buffers only — /sentry.js is
+   still fetched lazily, and only if something actually throws. */
+armErrorReporting(() => (readApp<string>('lang', 'en') === 'es' ? 'es' : 'en'))
 registerAppServiceWorker()

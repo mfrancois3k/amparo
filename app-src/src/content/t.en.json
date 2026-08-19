@@ -117,6 +117,9 @@
   "acct_save": "☁ Save my pack",
   "acct_saved": "✓ Saved",
   "acct_restore": "⤵ Restore my saved pack to this device",
+  "acct_del": "✖ Delete my saved pack from the server",
+  "acct_deleted": "✓ Deleted from the server",
+  "acct_del_confirm": "Delete the copy saved on our server? Your pack stays on this device — only the server copy is removed. This cannot be undone.",
   "acct_err": "Couldn’t save — check your connection and try again.",
   "resume_btn": "↩ Continue where you left off",
   "i_skip_all": "Skip this — just use my state",
@@ -281,7 +284,7 @@
   "ab_review_pending": "Every rule in Amparo is cited to the exact state statute or code section — check the number yourself, anytime. We're also having each state's content formally reviewed and signed off by a licensed attorney in that state before public launch. Until a state shows a green “Attorney-reviewed” badge, treat it as well-sourced general information, not legal advice.",
   "ab_state_pending": "attorney sign-off in progress — rules already cited to statute",
   "ab_privacy_h": "Your privacy",
-  "ab_privacy": "Amparo keeps no accounts and no database of who you are. Your contacts and document photos live only on your device and go straight into your printout — they are never uploaded, so they can't be handed over even under pressure. We count anonymous events (like how many packs get printed, and in which state) to prove the tool is used — never who you are, never what you typed, never your photos. If you choose to email yourself a receipt, only your name, state and email address pass through our email service to deliver it, and that's all. We never sell or share anything with any agency, including immigration authorities.",
+  "ab_privacy": "Amparo works with no account at all, and that is the default. If you choose to create one to save your pack across devices, it stores only your pack's text — state, names, phone numbers, ZIP — on our server, and that record could be handed over if we were legally compelled. You can delete it at any time from the same screen. Your document photos and your practice history are never uploaded, with or without an account: there is nowhere on the server to put them. We count anonymous events (like how many packs get printed, and in which state) to prove the tool is used — never who you are, never what you typed, never your photos. If you send us feedback, what you write reaches us, plus your name and email only if you fill them in. We never sell or share anything with any agency, including immigration authorities.",
   "ab_contact": "Contact",
   "s_title": "Which state do you drive in?",
   "s_sub": "Texas, Georgia and New York have their own statutes cited line by line. Every other state gets the federal rights that apply everywhere — marked so you know the difference.",
@@ -507,7 +510,7 @@
       "yes": "Who picks up your kids, where documents are kept, a script for parents if you get the call, plus consulate numbers."
     }
   ],
-  "cmp_price": "Free. No account, no card, no subscription — and nothing you enter leaves your phone.",
+  "cmp_price": "Free. No card, no subscription, and no account required — an account is optional, only for saving your pack across devices.",
   "pr_title": "IF YOU GET PULLED OVER",
   "pr_es": "",
   "prep_es": "",

@@ -117,6 +117,9 @@
   "acct_save": "☁ Guardar mi paquete",
   "acct_saved": "✓ Guardado",
   "acct_restore": "⤵ Restaurar mi paquete guardado en este dispositivo",
+  "acct_del": "✖ Borrar mi paquete guardado del servidor",
+  "acct_deleted": "✓ Borrado del servidor",
+  "acct_del_confirm": "¿Borrar la copia guardada en nuestro servidor? Su paquete permanece en este dispositivo — solo se elimina la copia del servidor. No se puede deshacer.",
   "acct_err": "No se pudo guardar — revise su conexión e intente de nuevo.",
   "resume_btn": "↩ Continuar donde quedaste",
   "i_skip_all": "Omitir — solo usar mi estado",
@@ -281,7 +284,7 @@
   "ab_review_pending": "Cada regla en Amparo cita el artículo exacto del código estatal — puedes verificar el número tú mismo, cuando quieras. Además, el contenido de cada estado está siendo revisado y aprobado formalmente por un abogado con licencia en ese estado antes del lanzamiento público. Hasta que un estado muestre la insignia verde “Revisado por abogado”, trátalo como información general bien documentada, no asesoría legal.",
   "ab_state_pending": "revisión de abogado en curso — reglas ya citadas a la ley",
   "ab_privacy_h": "Tu privacidad",
-  "ab_privacy": "Amparo no guarda cuentas ni una base de datos de quién eres. Tus contactos y fotos de documentos viven solo en tu dispositivo y van directo a tu impresión — nunca se suben, así que no pueden entregarse ni bajo presión. Contamos eventos anónimos (como cuántos paquetes se imprimen y en qué estado) para demostrar que la herramienta se usa — nunca quién eres, nunca lo que escribiste, nunca tus fotos. Si eliges enviarte un recibo por correo, solo tu nombre, tu estado y tu dirección de correo pasan por nuestro servicio de correo para entregarlo, y nada más. Nunca vendemos ni compartimos nada con ninguna agencia, incluidas las autoridades de inmigración.",
+  "ab_privacy": "Amparo funciona sin ninguna cuenta, y así es por defecto. Si eliges crear una para guardar tu paquete entre dispositivos, solo se guarda el texto de tu paquete — estado, nombres, teléfonos, código postal — en nuestro servidor, y ese registro podría entregarse si nos obligaran legalmente. Puedes borrarlo cuando quieras desde la misma pantalla. Tus fotos de documentos y tu historial de práctica nunca se suben, con cuenta o sin ella: no hay dónde guardarlos en el servidor. Contamos eventos anónimos (como cuántos paquetes se imprimen y en qué estado) para demostrar que la herramienta se usa — nunca quién eres, nunca lo que escribiste, nunca tus fotos. Si nos envías comentarios, llega lo que escribes, más tu nombre y correo solo si los pones. Nunca vendemos ni compartimos nada con ninguna agencia, incluidas las autoridades de inmigración.",
   "ab_contact": "Contacto",
   "s_title": "¿En qué estado manejas?",
   "s_sub": "Texas, Georgia y Nueva York tienen sus propias leyes citadas línea por línea. Los demás estados reciben los derechos federales que aplican en todas partes — marcados para que sepas la diferencia.",
@@ -507,7 +510,7 @@
       "yes": "Quién recoge a tus hijos, dónde están los documentos, un guion para los padres si reciben la llamada, y números de consulados."
     }
   ],
-  "cmp_price": "Gratis. Sin cuenta, sin tarjeta, sin suscripción — y nada de lo que escribes sale de tu teléfono.",
+  "cmp_price": "Gratis. Sin tarjeta, sin suscripción y sin cuenta obligatoria — la cuenta es opcional, solo para guardar tu paquete entre dispositivos.",
   "pr_title": "SI TE DETIENE LA POLICÍA",
   "pr_es": "IF YOU GET PULLED OVER",
   "prep_es": "BEFORE YOU DRIVE — SET THESE IN PLACE",
