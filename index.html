@@ -1670,6 +1670,82 @@
       session_recording:{maskAllInputs:true,maskTextInputs:true},
       person_profiles:'identified_only'
     });
+    /* Campaign attribution, first-touch. Every organic channel Amparo will use
+       (generated state pages, RSS, a Facebook page, a trade-press byline) is
+       worthless if we can't tell which one sent someone who then printed a
+       pack. The FIRST source that ever brought this browser here is the one
+       that gets credit, even when they return later by typing the url — which
+       is the normal path, because the pack is a "come back and finish it"
+       product. The two blocks below are the how, and both are load-bearing.
+
+       Deliberately NOT a Meta Pixel. PostHog is already loaded, already proxied
+       same-site, already covered by the CSP's connect-src, and already carries
+       the privacy posture v2.26.1 rewrote to be true. A Pixel would need
+       connect.facebook.net added to BOTH script-src and connect-src in
+       vercel.json, plus a privacy-page rewrite to match. Not worth it for a
+       channel we aren't paying for.
+
+       What's stored is campaign parameters WE put in our own urls, plus the
+       click id Facebook appends. They describe the link, not the person — no
+       document data, no contacts, nothing that survives the "could this
+       identify someone" test. Registered as super-properties, so all 53
+       existing ph() events inherit them and nothing below this line changed. */
+    try{
+      /* The ft_ prefix is NOT cosmetic — it is the whole reason this works.
+         utm_* and fbclid are reserved names in PostHog. Measured here against
+         _calculate_event_properties() with the SDK live: registering
+         first-touch under those exact names read back correctly from
+         get_property() but shipped the CURRENT url's value in the outgoing
+         payload instead. It looks wired up and silently isn't — the worst
+         failure shape there is, because the debug call agrees with you.
+         Renaming the keys makes the values survive to send time; that was the
+         only change needed, and it was verified both ways.
+
+         Last-touch is deliberately not duplicated here: every event already
+         carries $current_url with the live query string, so the arrival link
+         is recoverable in PostHog without storing it twice. ft_* answers the
+         one question $current_url can't — which campaign FIRST brought this
+         browser here, asked later, after they came back direct to finish the
+         pack. */
+      var _qs=new URLSearchParams(location.search), _attr={}, _n=0;
+      [['utm_source','ft_source'],['utm_medium','ft_medium'],['utm_campaign','ft_campaign'],
+       ['utm_content','ft_content'],['utm_term','ft_term'],['src','ft_src'],
+       ['ref','ft_ref'],['fbclid','ft_fbclid']]
+        .forEach(function(p){ var v=_qs.get(p[0]); if(v){ _attr[p[1]]=v.slice(0,120); _n++; } });
+      /* The guard is localStorage, not posthog.get_property, and not
+         register_once. Two separate reasons, both load-bearing:
+
+         1. register_once is per-KEY. A later paid click would inject its
+            fbclid into a visit whose utm_source is still the original organic
+            one — a record that reads as "organic visit carrying a Facebook
+            click id", which is worse than no attribution because it looks
+            real. First touch has to land or not land as one unit.
+         2. get_property can't be the guard: the PostHog bootstrap stub only
+            proxies "init capture register register_once unregister
+            opt_in_capturing opt_out_capturing". get_property isn't in that
+            list, so calling it here — before the real SDK finishes loading —
+            throws, and this whole block is inside a try that would swallow it
+            silently. A guard that silently fails open is not a guard.
+
+         So: one sentinel key, checked synchronously, set atomically. Only
+         claim first-touch when there IS a touch — registering a bare "direct"
+         on every cold load would burn the slot before a real campaign link
+         ever arrives, and that is the one thing this can never undo. */
+      var _stored=localStorage.getItem('amparo_ft');
+      if(posthog.register){
+        if(_stored){
+          /* Re-register every load rather than trusting PostHog to still hold
+             it. Its persistence can be cleared independently of ours (cookie
+             expiry, partial storage clear), and if that happened while the
+             sentinel survived, a one-shot guard would block the re-write and
+             lose the attribution permanently. Re-registering is idempotent. */
+          posthog.register(JSON.parse(_stored));
+        } else if(_n){
+          posthog.register(_attr);
+          localStorage.setItem('amparo_ft', JSON.stringify(_attr));
+        }
+      }
+    }catch(e){}
   }catch(e){}
 })();
 function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) return; if(window.posthog&&posthog.capture) posthog.capture(ev,props||{}); }catch(e){} }
