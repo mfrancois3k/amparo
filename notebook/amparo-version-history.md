@@ -8,6 +8,12 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.23.2 — 2026-08-18 — "The honest version, honestly"
+
+Arena audit fixes: false Google-Fonts and works-offline claims corrected,
+saveA() fails soft on blocked storage, wipe copy scoped honestly,
+user-typed chat text escaped (self-XSS).
+
 ## v2.23.1 — 2026-08-18 — "The arena fits in your pocket"
 
 E2E QA fixes: arena no longer forces ~531px min width on phones

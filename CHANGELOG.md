@@ -6,6 +6,25 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.23.2 — 2026-08-18
+
+v2.23.2 — "The honest version, honestly"
+
+Five fixes from the same-day blindspot audit, all in the arena and all
+verified live before shipping:
+
+- Privacy modal's "fonts load from Google Fonts" claim was false since
+  v2.23.0 self-hosted them — now says so (EN/ES + static copy).
+- Share message's "works offline" claim removed — the arena has no
+  service worker, and root's SW deliberately doesn't cache it.
+- `saveA()` now fails soft; storage-blocked browsers previously got a
+  fully dead page because the streak code calls it during init.
+- "Wipe my data" copy scoped to what it actually deletes (the arena's
+  own keys) instead of claiming to erase all Amparo data.
+- User-typed answers were rendered into the chat log unescaped
+  (session-only self-XSS) — now escaped, `<img onerror>` payload
+  verified inert.
+
 ## v2.23.1 — 2026-08-18
 
 v2.23.1 — "The arena fits in your pocket"
