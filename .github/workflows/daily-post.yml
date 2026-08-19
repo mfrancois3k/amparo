@@ -1,0 +1,52 @@
+name: Daily Facebook post
+
+# Runs on GitHub's infrastructure, not a laptop — same reasoning as the daily
+# statute source check. The point of this routine is that it keeps producing
+# without anyone being at a machine.
+#
+# SAFE BEFORE THE PAGE EXISTS. Without FB_PAGE_ID / FB_PAGE_TOKEN the script
+# writes the day's draft to content/facebook/ and publishes nothing. So this
+# can be merged and left running today; the day those two secrets are added,
+# it starts posting with a backlog of drafts already proving what it produces.
+on:
+  schedule:
+    - cron: '32 15 * * *'      # 15:32 UTC ≈ late morning US — off-the-hour to dodge the rush
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Override the post date (YYYY-MM-DD)'
+        required: false
+
+permissions:
+  contents: write              # commit the day's draft so there is a record of what was posted
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Guards the content pool itself, not just the publish call. If a rule
+      # edit in index.html ever breaks extraction, or a card-only line starts
+      # leaking into social, this fails BEFORE anything reaches the page —
+      # which is the only moment a bad post is still cheap to stop.
+      - name: Self-check the generator
+        run: node tools/daily-post.mjs --selftest
+
+      - name: Generate (and publish if credentials are configured)
+        env:
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
+        run: node tools/daily-post.mjs --publish ${{ inputs.date && format('--date {0}', inputs.date) || '' }}
+
+      - name: Commit the day's post record
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add content/facebook
+          git diff --staged --quiet || git commit -m "chore: daily post record ($(date -u +%F))"
+          git push
