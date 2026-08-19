@@ -1,0 +1,43 @@
+# amparohq.com zone as served by ns1.vercel-dns.com — captured 2026-08-19T19:02:21Z
+# Rollback reference before the Cloudflare nameserver move.
+
+amparohq.com MX:
+amparohq.com	MX preference = 10, mail exchanger = mx1.forwardemail.net
+amparohq.com	MX preference = 10, mail exchanger = mx2.forwardemail.net
+amparohq.com TXT:
+amparohq.com	text =
+amparohq.com NS:
+amparohq.com	nameserver = ns1.vercel-dns.com
+amparohq.com	nameserver = ns2.vercel-dns.com
+www.amparohq.com CNAME:
+www.amparohq.com	canonical name = cname.vercel-dns.com
+www.amparohq.com MX:
+www.amparohq.com	canonical name = cname.vercel-dns.com
+www.amparohq.com TXT:
+www.amparohq.com	canonical name = cname.vercel-dns.com
+www.amparohq.com NS:
+www.amparohq.com	canonical name = cname.vercel-dns.com
+ph.amparohq.com CNAME:
+ph.amparohq.com	canonical name = 67a01122b246953a6027.cf-prod-us-proxy.proxyhog.com
+ph.amparohq.com MX:
+ph.amparohq.com	canonical name = 67a01122b246953a6027.cf-prod-us-proxy.proxyhog.com
+ph.amparohq.com TXT:
+ph.amparohq.com	canonical name = 67a01122b246953a6027.cf-prod-us-proxy.proxyhog.com
+ph.amparohq.com NS:
+ph.amparohq.com	canonical name = 67a01122b246953a6027.cf-prod-us-proxy.proxyhog.com
+
+# --- Apex A records (Vercel anycast, auto-managed by Vercel while it hosts DNS) ---
+amparohq.com A: 216.198.79.1, 216.198.79.65  (public resolver also returned 64.29.17.65)
+
+# --- To recreate this zone on another DNS host ---
+# A     @    216.198.79.1        (Vercel apex; Vercel's documented value is 76.76.21.21)
+# A     @    216.198.79.65
+# CNAME www  cname.vercel-dns.com
+# CNAME ph   67a01122b246953a6027.cf-prod-us-proxy.proxyhog.com   (PostHog reverse proxy)
+# CAA   @    0 issue "pki.goog"
+# MX/TXT for mail are provider-specific and were added 2026-08-19 (ForwardEmail; blocked).
+#
+# WARNING: Vercel auto-manages the apex A records while it is the DNS host. Moving
+# nameservers elsewhere makes them static — if Vercel rotates those IPs, the apex
+# breaks silently. Any Vercel record on Cloudflare must be DNS-only (grey cloud),
+# never proxied.
