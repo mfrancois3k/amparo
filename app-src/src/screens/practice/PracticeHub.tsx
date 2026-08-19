@@ -171,6 +171,18 @@ export function PracticeHub({ t, progress, onPick, onBack, tab, onTabChange }: P
       )}
       </div>
 
+      {/* Practice Arena: the standalone gamified trainer at /arena/ (own page,
+          own storage). Root's hub grew this card at the same time
+          (index.html step-5 render); it reads the root app's sr_save.state as
+          a fallback, which /app does NOT write — so arriving from /app the
+          arena starts unset. Link stays because the trainer itself is fully
+          usable without a preset state. */}
+      <a className="pr-card" href="/arena/" style={{ display: 'block', marginTop: 16, textDecoration: 'none' }}>
+        <span className="pr-ic" aria-hidden="true">🎙</span>
+        <span className="pr-nm">{t.hub_arena}</span>
+        <span className="pr-st">{t.hub_arena_sub}</span>
+      </a>
+
       <button type="button" className="btn ghost" style={{ marginTop: 16 }} onClick={onBack}>{t.hub_back_pack}</button>
     </>
   )
