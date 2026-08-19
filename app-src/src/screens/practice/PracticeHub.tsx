@@ -172,11 +172,11 @@ export function PracticeHub({ t, progress, onPick, onBack, tab, onTabChange }: P
       </div>
 
       {/* Practice Arena: the standalone gamified trainer at /arena/ (own page,
-          own storage). Root's hub grew this card at the same time
-          (index.html step-5 render); it reads the root app's sr_save.state as
-          a fallback, which /app does NOT write — so arriving from /app the
-          arena starts unset. Link stays because the trainer itself is fully
-          usable without a preset state. */}
+          own storage). The arena reads root's sr_save.state as a fallback,
+          which /app does NOT write — so arriving from here it starts unset.
+          The shared hub_arena_sub string therefore makes no carryover claim
+          (FG23: the old "your state carries over" clause was true on root,
+          false here). */}
       <a className="pr-card" href="/arena/" style={{ display: 'block', marginTop: 16, textDecoration: 'none' }}>
         <span className="pr-ic" aria-hidden="true">🎙</span>
         <span className="pr-nm">{t.hub_arena}</span>

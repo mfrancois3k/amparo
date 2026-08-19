@@ -1,4 +1,4 @@
-import{a as e,d as t,i as n,n as r,o as i,r as a,s as o,u as s}from"./index-DSm3qi-N.js";import{a as c,i as l}from"./states-boJ87M8p.js";import{t as u}from"./statesResolved-DTXugmSr.js";import{n as d,t as f}from"./youTypes-C_-8F_W5.js";import{n as p,t as m}from"./DocsOverlay-CQa3ZBjn.js";var h=t(),g=`
+import{a as e,d as t,i as n,n as r,o as i,r as a,s as o,u as s}from"./index-C69mQdgo.js";import{a as c,i as l}from"./states-boJ87M8p.js";import{t as u}from"./statesResolved-DTXugmSr.js";import{n as d,t as f}from"./youTypes-C_-8F_W5.js";import{n as p,t as m}from"./DocsOverlay-BVBkh-Kj.js";var h=t(),g=`
   <g class="lg-mark">
     <g transform="rotate(-90 60 72)"><circle class="lg-ring" cx="60" cy="72" r="27" fill="none" stroke="#E8B84B" stroke-width="10"/></g>
     <path class="lg-hand" d="M36 78 C42 92 57 99 70 95 C77 93 83 88 86 81" fill="none" stroke="#E8B84B" stroke-width="10" stroke-linecap="round"/>
