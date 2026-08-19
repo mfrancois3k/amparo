@@ -44,17 +44,27 @@
     </g>
   </g>
 
-  <!-- ===== Wordmark + tagline ===== -->
+  <!-- ===== Wordmark + tagline =====
+       The NAME is deliberately scenario-neutral: the product already covers a
+       traffic stop and a checkpoint, "at your door" is in the hub marked "Not
+       built yet — and we won't fake it", and warrants and station questioning
+       are planned. A name tied to driving would have to be changed later, and
+       Facebook rate-limits page renames.
+
+       The TAGLINE is the opposite — it names only what ships TODAY. A name can
+       describe what the page is about; a tagline sitting above a follow button
+       reads as a claim about what you get, so it does not get to mention the
+       door until the door exists. -->
   <g font-family="Georgia, 'Times New Roman', serif">
-    <text x="608" y="268" font-size="82" font-weight="bold" fill="#1B2A4A" letter-spacing="-0.5">Know Your Rights</text>
-    <text x="608" y="356" font-size="82" font-weight="bold" fill="#1B2A4A" letter-spacing="-0.5">on the Road</text>
+    <text x="596" y="286" font-size="78" font-weight="bold" fill="#1B2A4A" letter-spacing="-0.5">What To Say</text>
+    <text x="596" y="374" font-size="78" font-weight="bold" fill="#1B2A4A" letter-spacing="-0.5">to Police</text>
 
     <!-- Gold underscore anchored under the second line, sized to it. -->
-    <rect x="610" y="382" width="228" height="6" rx="3" fill="#E8B84B"/>
+    <rect x="598" y="400" width="196" height="6" rx="3" fill="#E8B84B"/>
 
-    <text x="608" y="446" font-size="34" fill="#2f3f5e">What your state&#8217;s traffic-stop law actually says &#8212;</text>
-    <text x="608" y="490" font-size="34" fill="#2f3f5e">quoted from the statute. <tspan fill="#1B2A4A" font-style="italic">Tambi&#233;n en espa&#241;ol.</tspan></text>
+    <text x="596" y="462" font-size="33" fill="#2f3f5e">What the law actually says at a traffic stop or</text>
+    <text x="596" y="504" font-size="33" fill="#2f3f5e">checkpoint &#8212; quoted from the statute. <tspan fill="#1B2A4A" font-style="italic">En espa&#241;ol.</tspan></text>
 
-    <text x="608" y="548" font-size="30" font-weight="bold" fill="#1B2A4A" letter-spacing="1.5">amparohq.com</text>
+    <text x="596" y="560" font-size="30" font-weight="bold" fill="#1B2A4A" letter-spacing="1.5">amparohq.com</text>
   </g>
 </svg>
