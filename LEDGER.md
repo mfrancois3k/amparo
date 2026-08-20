@@ -1,5 +1,65 @@
 # LEDGER.md · wargame runs
 
+## 36 — Deep Pack hold + the Script Pack fulfilment bug it uncovered
+
+- **Date:** 2026-08-20 · **Commits:** `60806af`, `6d1147c`, `1ae8eb9` (local, not pushed)
+- **Trigger:** operator asked to "fix the Deep Pack renderer". The right answer turned out to be
+  *don't build it* — and looking for it surfaced a worse bug in the product that already sells.
+
+### The Deep Pack is held, not built
+
+Deep Pack ($6.99) was purchasable with no renderer anywhere in the repo. Two of its four promises
+cannot be written safely today: **courthouse directions** is per-state factual data that exists
+nowhere (inventing it sends someone to the wrong building on a court date), and the **ICE addendum**
+would draw on the door-knock drill that the arena itself gates behind `HELD_SITS={door:1}` pending
+attorney + DV-clinician review. Content too unreviewed to give away free must not be sold — which is
+what `notebook/amparo-accounts-payments-plan-2026-08-19.md` already said: *charging the most-scared
+user for the highest-stakes information is a betrayal.* This is blindspot **C1** and the choice
+`tasks/34` left open, resolved as its stated default. Held rather than deleted, because the plan
+expects it to survive as the flagship SKU once written.
+
+### The bigger find: the paid Script Pack rendered nothing on the default scenario
+
+`packDataFor` resolved decks by prefix-matching SCEN ids against the situation id. True for
+`door`/`pass`/`trap`/`step`; false for `traffic` (routine/intense/tension/hard) and `last30` (l301…).
+`traffic` is the **default** situation, and the redeem handler passes exactly that id — so the most
+common $3.99 purchase produced only *"That scenario has no pack yet."* Now resolved via `SIT.levels`;
+all six situations render in both languages.
+
+Second: entitlements were **write-only**. `hasEntitlement` had zero callers repo-wide and
+`renderScriptPack` was reachable from exactly one place — inside `/redeem`, moments after the Stripe
+redirect. Close the tab and the pack you paid for was gone for good. Added the missing read.
+
+### Defence in depth (from the blind-spot audit)
+
+The `held` gate initially guarded only checkout *creation*. `/checkout` is public, CORS `*`,
+unauthenticated — a session for a held product can be created by anyone reading the page source, and
+one created before the gate deploys stays payable indefinitely. `verifySession` now reports `held`,
+`/redeem` forwards it, and the arena refuses to grant a dead entitlement, telling the buyer they
+should not have been charged. The webhook still records the purchase on purpose: the trail is what
+makes a refund findable, and a `deep` row while `deep` is held **is** the alarm.
+
+### Test blind spot closed
+
+`test-fulfilment.mjs` passed 16/16 throughout the traffic bug — it only asserted `packDataFor`
+*exists*, via regex, and never resolved anything. Now 24/24, with per-situation resolution checks.
+Limit worth knowing: these are static checks on a file the suite does not execute.
+
+### Ordering hazard — matters before the Stripe key goes on
+
+**`npx convex deploy --prod` must run BEFORE `STRIPE_SECRET_KEY` is set on prod.** Otherwise prod
+accepts `deep` and can take a real charge for it via a direct POST, no browser needed.
+
+### Open / operator decisions
+
+- Refund copy now promises a refund to anyone charged for a held product — confirm the wording.
+- Focus group's remaining asks: no cadence on "in review"; the free-pack redirect inside the held
+  modal isn't clickable; the peek grid shows an ethics-gated tile and three merely-unwritten ones as
+  equally "coming soon".
+- Practice-module findings (separate from packaging): no non-simulated checklist route for
+  PTSD-sensitive users; Hard Mode consent uses a bare `confirm()`; "held" means two different things
+  across the app; the safety checklist never re-anchors at Hard Mode.
+
 ## 35 — GTM playbook (operator layer)
 
 - **Date:** 2026-08-20
