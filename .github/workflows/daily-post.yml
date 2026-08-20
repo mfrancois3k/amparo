@@ -41,7 +41,9 @@ jobs:
       # leaking into social, this fails BEFORE anything reaches the page —
       # which is the only moment a bad post is still cheap to stop.
       - name: Self-check the generator
-        run: node tools/daily-post.mjs --selftest
+        run: |
+          node tools/news-post.mjs --selftest
+          node tools/daily-post.mjs --selftest
 
       # Manual "verify" run: proves the stored secrets actually work — right
       # page, can post, token does not expire — by writing an UNPUBLISHED
@@ -62,7 +64,7 @@ jobs:
         env:
           FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
           FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
-        run: node tools/daily-post.mjs --publish ${{ inputs.date && format('--date {0}', inputs.date) || '' }}
+        run: node tools/news-post.mjs --publish ${{ inputs.date && format('--date {0}', inputs.date) || '' }}
 
       - name: Commit the day's post record
         if: inputs.mode != 'verify'
