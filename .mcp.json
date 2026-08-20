@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "muapi": {
+      "command": "node",
+      "args": [
+        "D:/npm-global/node_modules/muapi-cli/bin/muapi",
+        "mcp",
+        "serve"
+      ],
+      "env": {
+        "MUAPI_API_KEY": "${MUAPI_API_KEY}"
+      }
+    }
+  }
+}

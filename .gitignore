@@ -15,3 +15,6 @@ app-src/node_modules/
 # Scratch: firecrawl research dumps and audio test artifacts — never shipped
 .firecrawl/
 test1.wav
+
+# Generated post cards — rebuilt from tools/render-card.mjs on every run
+content/cards/
