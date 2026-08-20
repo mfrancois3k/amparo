@@ -263,7 +263,12 @@ export function choosePost(iso, counts = {}) {
 
 export function render(post, lang, timely, law) {
   const drill = DRILLS[post.drill][lang];
-  const url = `${ORIGIN}/arena/?utm_source=facebook&utm_medium=organic&utm_content=${post.id}_${lang}`;
+  /* Deep-link into the named drill rather than the menu. Every hook above
+     names a specific scenario, and landing on a list asks the reader to find
+     it again at the exact moment they had already decided. arena/index.html
+     validates the id and refuses held drills, so a stale link degrades rather
+     than breaking. */
+  const url = `${ORIGIN}/arena/?sit=${post.drill}&utm_source=facebook&utm_medium=organic&utm_content=${post.id}_${lang}`;
   return [
     post.hook[lang],
     '',
@@ -351,7 +356,9 @@ if (has('--selftest')) {
 
   const txt = render(POSTS[0], 'en', 0, 'LAW TEXT');
   ok(txt.includes('utm_source=facebook'), 'rendered post carries attribution');
-  ok(txt.includes('/arena/'), 'CTA points at the practice drill, not just the homepage');
+  ok(txt.includes('/arena/'), 'CTA points at the practice arena, not the homepage');
+  ok(txt.includes('?sit=trap&'), 'CTA deep-links into the named drill');
+  ok(!POSTS.some(p => !DRILLS[p.drill].live), 'no post can deep-link to a held drill');
   ok(!/<[a-z]/i.test(txt), 'no raw HTML survives into a post');
   const timelyTxt = render(POSTS[0], 'en', 12, 'LAW TEXT');
   ok(/carried 12 checkpoint announcements/.test(timelyTxt), 'aggregate appears, names nobody, and counts news reports rather than checkpoints');

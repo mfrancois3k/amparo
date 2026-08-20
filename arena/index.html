@@ -1043,6 +1043,26 @@ if(!A.sit||!SIT.find(x=>x.id===A.sit)){A.sit='traffic';A.lvl=0;}
 if(!A.done)A.done={};
 if(typeof A.lvl!=='number'||A.lvl<0||A.lvl>3)A.lvl=0;
 const HELD_SITS={door:1}; // held for attorney + DV-clinician review, same gate root keeps on its door module (DOOR_MODULE_ENABLED=false)
+/* ?sit=trap[&lvl=1] — deep link straight into one drill.
+   Every off-site link that says "practice the Admission Trap" used to land on
+   the situation list and ask the reader to find it again, which is the worst
+   possible moment to add a step: they arrived already decided.
+
+   Validated against SIT rather than trusted: an unknown id falls through to
+   whatever was saved, so a mistyped or stale link degrades to the normal
+   entry instead of a broken screen. HELD_SITS is re-checked here on purpose —
+   a link to a held drill must not be a way around the gate that the sidebar
+   and renderArena both enforce. */
+try{
+  const _q=new URLSearchParams(location.search);
+  const _s=(_q.get('sit')||'').toLowerCase();
+  if(_s && SIT.find(x=>x.id===_s) && !HELD_SITS[_s]){
+    A.sit=_s; A.lvl=0; A.turn=0; A.pts=0; A.hist=[];
+    const _l=parseInt(_q.get('lvl'),10);
+    const _max=(SIT.find(x=>x.id===_s).levels.length)-1;
+    if(Number.isInteger(_l)&&_l>=0&&_l<=Math.min(_max,3)) A.lvl=_l;
+  }
+}catch(e){}
 const TOTAL=SIT.filter(s=>!HELD_SITS[s.id]).reduce((n,s)=>n+s.levels.length,0); // held scenarios can't be completed, so they can't count against anyone
 function saveA(){try{localStorage.setItem(LSA,JSON.stringify(A));}catch(e){}}
 /* streak */

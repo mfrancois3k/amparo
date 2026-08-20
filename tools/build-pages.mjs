@@ -113,7 +113,7 @@ a{color:var(--accent)}
 @media(prefers-color-scheme:dark){:root{--ink:#e8eef7;--bg:#141b2b;--line:#2f3f5e;--quote:#8fa0bd;--accent:#E8B84B;--gold:#E8B84B;--warn:#f0dca8;--warnbg:#241f10}
 .cta{color:#1B2A4A}}`.trim();
 
-const page = ({ lang, title, desc, canonical, altHref, altLang, h1, intro, blocks, jsonld, footerNote, noindex }) => `<!doctype html>
+const page = ({ lang, title, desc, canonical, altHref, altLang, h1, intro, blocks, jsonld, footerNote, noindex, ogSlug }) => `<!doctype html>
 <html lang="${lang}">
 <head>
 <meta charset="utf-8">
@@ -126,7 +126,10 @@ ${altHref ? `<link rel="alternate" hreflang="${altLang}" href="${altHref}">\n<li
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:url" content="${canonical}">
 <meta property="og:type" content="article">
-<meta property="og:image" content="${ORIGIN}/og.png">
+<meta property="og:image" content="${ogSlug ? `${ORIGIN}/og/${ogSlug}.png` : `${ORIGIN}/og.png`}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="alternate" type="application/rss+xml" title="Amparo" href="${ORIGIN}/feed.xml">
 <style>
 ${CSS}
@@ -246,6 +249,10 @@ async function build() {
 
       files.set(path.join(ROOT, base, ab.toLowerCase(), 'index.html'), page({
         lang, title, desc, canonical: url, noindex,
+        /* Only indexable pages have a rendered share image — render-og.mjs skips
+           the thin ones, so pointing at one here would be a 404 in every link
+           preview. They fall back to the shared og.png. */
+        ogSlug: noindex ? null : `${base}-${ab.toLowerCase()}`,
         altHref: `${ORIGIN}/${other}/${ab.toLowerCase()}/`, altLang: lang === 'en' ? 'es' : 'en',
         h1: lang === 'en' ? `Your rights at a traffic stop in ${name}` : `Sus derechos en una parada de tráfico en ${name}`,
         intro,
@@ -272,7 +279,7 @@ async function build() {
       desc: lang === 'en'
         ? 'The federal floor: rules from the US Constitution and the Supreme Court that bind every state, each with the case it comes from.'
         : 'El piso federal: reglas de la Constitución de EE. UU. y la Corte Suprema que aplican en todos los estados, cada una con el caso del que proviene.',
-      canonical: url, altHref: `${ORIGIN}/${other}/${os}/`, altLang: lang === 'en' ? 'es' : 'en',
+      canonical: url, altHref: `${ORIGIN}/${other}/${os}/`, altLang: lang === 'en' ? 'es' : 'en', ogSlug: `${base}-${s}`,
       h1: lang === 'en' ? 'Your rights at a traffic stop in any US state' : 'Sus derechos en una parada de tráfico en cualquier estado',
       intro: lang === 'en'
         ? 'These come from the US Constitution and the Supreme Court, so they hold in all fifty states. What changes state by state is on each state’s own page.'
@@ -295,7 +302,7 @@ async function build() {
       desc: lang === 'en'
         ? 'Traffic-stop rights for all 50 states and DC. Three states verified against their own statutes; the rest show the federal rules that apply everywhere.'
         : 'Derechos en paradas de tráfico para los 50 estados y DC. Tres estados verificados con sus propias leyes; el resto muestra las reglas federales.',
-      canonical: hubUrl, altHref: `${ORIGIN}/${other}/`, altLang: lang === 'en' ? 'es' : 'en',
+      canonical: hubUrl, altHref: `${ORIGIN}/${other}/`, altLang: lang === 'en' ? 'es' : 'en', ogSlug: `${base}-hub`,
       h1: lang === 'en' ? 'Know your rights at a traffic stop' : 'Conozca sus derechos en una parada de tráfico',
       intro: lang === 'en'
         ? `Every state and DC has a page. ${done.length} are verified against that state’s own statutes; the rest show the federal rules that apply everywhere, plus an honest note about what has not been checked.`
@@ -327,7 +334,7 @@ async function build() {
       desc: lang === 'en'
         ? 'Who makes Amparo, why it exists, and exactly what it does and does not claim.'
         : 'Quién hace Amparo, por qué existe, y exactamente qué afirma y qué no.',
-      canonical: `${ORIGIN}/${aboutSlug}/`, altHref: `${ORIGIN}/${otherAbout}/`, altLang: lang === 'en' ? 'es' : 'en',
+      canonical: `${ORIGIN}/${aboutSlug}/`, altHref: `${ORIGIN}/${otherAbout}/`, altLang: lang === 'en' ? 'es' : 'en', ogSlug: aboutSlug,
       h1: lang === 'en' ? 'About Amparo' : 'Acerca de Amparo',
       intro: lang === 'en'
         ? 'Amparo builds a free, bilingual pack you print and keep in the glovebox: a card that speaks for you, your documents laid out, your state’s rules, and the words to say.'
@@ -367,7 +374,7 @@ async function build() {
       desc: lang === 'en'
         ? 'Amparo’s verification standard, the confidence levels behind every rule, the daily source check, and an honest statement of what has not been done yet.'
         : 'El estándar de verificación de Amparo, los niveles de confianza detrás de cada regla, la comprobación diaria de fuentes, y una declaración honesta de lo que aún no se ha hecho.',
-      canonical: `${ORIGIN}/${verifySlug}/`, altHref: `${ORIGIN}/${otherVerify}/`, altLang: lang === 'en' ? 'es' : 'en',
+      canonical: `${ORIGIN}/${verifySlug}/`, altHref: `${ORIGIN}/${otherVerify}/`, altLang: lang === 'en' ? 'es' : 'en', ogSlug: verifySlug,
       h1: lang === 'en' ? 'How we verify' : 'Cómo verificamos',
       intro: lang === 'en'
         ? 'Amparo publishes rules people rely on in a moment they cannot pause. This page states exactly how a rule gets published — and what has not been done yet.'
