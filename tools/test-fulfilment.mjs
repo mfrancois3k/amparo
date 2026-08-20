@@ -41,6 +41,25 @@ ok(/c\.p>=1&&c\.g===1/.test(arena), 'the pack uses the deck\'s own p:1/g:1 scori
 ok(/@media print/.test(arena), 'the pack is printable');
 ok(/not a law firm|no es un bufete/.test(arena), 'the pack carries the non-advice line');
 
+/* The assertion above only proves packDataFor EXISTS. It did exist, and it
+   still returned null for the default situation: it resolved decks by prefix-
+   matching SCEN ids against the situation id, which is true for door/pass/
+   trap/step but false for traffic (routine/intense/tension/hard) and last30
+   (l301…). A real Script Pack purchase on the default scenario rendered only
+   "That scenario has no pack yet." This suite passed 16/16 throughout.
+   So: resolve every situation the way the shipped code does and assert each
+   one actually lands on a deck with turns. */
+const sitIds = [...arena.matchAll(/\{id:'([a-z0-9]+)',icon:'[^']*',bg:'[^']*',title:\{[\s\S]{0,500}?levels:\[([^\]]*)\]/g)]
+  .map(m => ({ id: m[1], levels: [...m[2].matchAll(/'([^']+)'/g)].map(x => x[1]) }));
+const scenIds = new Set([...arena.matchAll(/\{id:'([a-z0-9]+)',icon:'[^']*',bg:'[^']*',title:\{/g)].map(m => m[1]));
+ok(sitIds.length >= 6, `situation list parsed from source (found ${sitIds.length})`);
+for (const s of sitIds) {
+  const resolves = scenIds.has(s.id) || s.levels.some(l => scenIds.has(l));
+  ok(resolves, `situation '${s.id}' resolves to a real deck, so its Script Pack can render`);
+}
+ok(/SIT\.find\(s=>s\.id===sitId\)/.test(arena),
+  'packDataFor resolves through SIT.levels, not a prefix match that silently missed traffic and last30');
+
 /* --- and the switch itself --- */
 ok(/const PAYMENTS_LIVE=false/.test(arena),
   'PAYMENTS_LIVE is still false — flipping it is a decision about attorney review, not about code');
