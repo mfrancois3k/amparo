@@ -1,5 +1,41 @@
 # LEDGER.md · wargame runs
 
+## 35 — GTM playbook (operator layer)
+
+- **Date:** 2026-08-20
+- **Doc:** `tasks/35-gtm-playbook.md`
+- **Trigger:** operator asked to translate a "Claude Code as a sales/marketing machine"
+  course into an executable plan for Amparo — order of operations, copy-paste prompts,
+  blindspots, money map, and the skills/routines to automate it.
+- **Not a wargame:** no move-by-move simulation, no red-team pass. It is the operator
+  layer on top of wargame 32 rev 4, which stays the plan of record.
+
+### What it establishes
+
+- Two audiences, one outbound target: partner **organizations** only. End users are never
+  emailed, enriched, or listed. Volume cold-email, lookalike sending domains, and Meta ads
+  are rejected with reasons (§5 blindspots 1–3, 6).
+- Money ranked by time-to-first-dollar: agency work (no gate) → Script Pack → org bulk
+  licensing → sponsorship → grants. Attorney sign-off gates everything but the first.
+- The reviewer Amparo needs is a **state criminal-defense / traffic attorney**, not an
+  immigration attorney — the published material is stop-and-identify and traffic law.
+- Vercel Hobby (non-commercial) is a revenue blocker, not a chore, and must move before
+  `PAYMENTS_LIVE`.
+- 22 blindspots with fixes; §6 specs three skills and two routines, incl. a **re-sign
+  trigger** so a statute diff in a signed state cannot leave an attorney's name over
+  unreviewed text.
+
+### Discovered during recon
+
+- **Track E is already built and untracked.** `tools/render-kyr-card.mjs` (283 lines,
+  `--selftest` byte-matching every quoted line against `arena/index.html`) plus `cards/`
+  — WhatsApp 1080×1080 EN/ES and the Avery 5371 ten-up duplex print PDF. Phase 2 in the
+  playbook was rewritten from "build" to "review and ship"; blindspot 21 flags the loss
+  risk. Deliberately NOT swept into this commit.
+- The close-out ritual was a silent no-op: `.claude/skills/amparo-loop` step 5 wrote to
+  the `amparo` notebook, which is full at 52 sources, with the broken `--file` flag.
+  Repaired in this commit — growth notebook + `--text` + `brain.js refresh`.
+
 ## 32 — Facebook as Amparo's primary traffic engine
 
 - **Date:** 2026-08-19

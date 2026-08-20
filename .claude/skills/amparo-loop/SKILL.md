@@ -40,12 +40,30 @@ Append the matching lookup-table entry — same version, same date, one-line
 description. Keep it shorter than the CHANGELOG entry; it's an index, not the
 doc.
 
-## 5. NotebookLM (best effort, non-blocking)
+## 5. NotebookLM + second brain (best effort, non-blocking)
+
+The **`amparo` notebook `944d5ba5…` is FULL at 52 sources** — every write fails
+with a misleading `INVALID_ARGUMENT` regardless of payload size, so sending
+there is a silent no-op. Write to the growth notebook instead. `--file` is
+broken for every path; only `--text` works, capped at ~24k chars through the
+Windows command line.
+
+Send **only the new CHANGELOG section** from step 3, not the 121KB file:
 ```bash
-notebooklm source add --notebook amparo --file CHANGELOG.md
+nlm source add 8d34f4af-aa7c-4a27-929c-480ddfc3fde1 --text "<new section>" --title "CHANGELOG vX.Y.Z"
 ```
-If this fails (not logged in, notebook doesn't exist yet), note it in your
-summary to the user and continue — never let this block steps 6-9.
+If the section exceeds ~24k chars, split it on headings and add each part
+separately. `nlm source delete` takes a **source id** as its first argument,
+not a notebook id.
+
+Then reindex the second brain so the new docs are findable by `brain.js find`:
+```bash
+cd .. && node brain/brain.js refresh
+```
+
+If either fails (not logged in — re-auth via the CDP method in
+`notebook/HANDOFF.md`), note it in your summary and continue. Never let this
+block steps 6-9.
 
 ## 6. Pick the next notebook filenames
 ```bash
