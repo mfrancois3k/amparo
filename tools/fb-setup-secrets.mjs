@@ -73,12 +73,23 @@ async function graph(pathname, params = {}) {
   return json;
 }
 
-/* Extend the token before doing anything else, when the app credentials are
-   available. This is the step that kept failing in the browser: the Access
-   Token Tool shows the EXTENDED token BELOW the button, while the original
-   stays in the box above it, so the un-extended one gets copied. Four
-   attempts, four short-lived tokens. Doing the exchange here removes the
-   opportunity for that mistake entirely.
+/* OPTIONAL. Extend the token here when app credentials happen to be present.
+   Most setups should NOT use this path — see below.
+
+   Correction to an earlier version of this comment, which claimed Meta's
+   browser "Extend Access Token" tool was broken. It is not. It was observed
+   working in the same session, producing a token valid to October 2026. The
+   failure was downstream: the extended token was generated and then the
+   un-extended one got copied instead, four times. Diagnosing that from expiry
+   data alone produced a wrong conclusion, and it was written here as fact.
+
+   PREFER THE BROWSER EXTEND. The App Secret is a different class of credential
+   from an access token: it does not expire, and App ID + App Secret together
+   can mint tokens, act as the app server-to-server, and reconfigure it. An
+   access token is scoped and rotates; this is the master key. Routing it
+   through an extra pair of hands to save one copy-paste is a bad trade, and
+   the safer path — extend in the browser, paste the result here — needs no
+   secret at all, because resolvePageToken accepts a user token directly.
 
    A short-lived token is not merely inconvenient — a page token inherits the
    lifetime of the user token it came from, so posting works for an hour and
