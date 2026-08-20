@@ -127,6 +127,7 @@ ${altHref ? `<link rel="alternate" hreflang="${altLang}" href="${altHref}">\n<li
 <meta property="og:url" content="${canonical}">
 <meta property="og:type" content="article">
 <meta property="og:image" content="${ORIGIN}/og.png">
+<link rel="alternate" type="application/rss+xml" title="Amparo" href="${ORIGIN}/feed.xml">
 <style>
 ${CSS}
 </style>
@@ -178,6 +179,9 @@ async function build() {
 
   const files = new Map();
   const indexable = [`${ORIGIN}/`];
+  /* Only pages worth subscribing to: real content, English only — a bilingual
+     feed of the same page twice reads as duplication to an aggregator. */
+  const feedEntries = [];
 
   const foot = lang => lang === 'es'
     ? `Edición ${esc(EDITION)}. Fuentes legales citadas verificadas por última vez el ${esc(checked)} — esa comprobación detecta cambios en la página de la ley, no confirma que la regla sea correcta. Amparo no es un bufete y esto no es asesoría legal. <a href="/derechos/">Todos los estados</a> · <a href="/como-verificamos/">Cómo verificamos</a> · <a href="/acerca/">Acerca de</a> · <a href="/">Amparo</a>`
@@ -249,6 +253,7 @@ async function build() {
         jsonld: faq(rules, lang, title), footerNote: foot(lang)
       }));
       if (!noindex) indexable.push(url);
+      if (!noindex && lang === 'en') feedEntries.push({ title, url, desc, date: checked });
     }
   }
 
@@ -278,6 +283,7 @@ async function build() {
       jsonld: faq(BASE[lang], lang, title), footerNote: foot(lang)
     }));
     indexable.push(url);
+    if (lang === 'en') feedEntries.push({ title, url, desc: 'The federal floor: rules from the US Constitution and the Supreme Court that bind every state, each with the case it comes from.', date: checked });
 
     const hubUrl = `${ORIGIN}/${base}/`;
     const done = Object.keys(NAMES).filter(a => STATES[a]);
@@ -398,9 +404,54 @@ async function build() {
       footerNote: foot(lang)
     }));
     indexable.push(`${ORIGIN}/${verifySlug}/`);
+    if (lang === 'en') feedEntries.push({
+      title: 'How we verify — Amparo',
+      url: `${ORIGIN}/${verifySlug}/`,
+      desc: 'The confidence ladder behind every rule, the daily source check and its stated limit, and an explicit account of what has not been done yet.',
+      date: checked
+    });
   }
 
   const today = new Date().toISOString().slice(0, 10);
+  /* ---- Move A4: RSS ----
+     Feedly, News Break and Flipboard ingest RSS, which makes this the one
+     aggregator channel that needs no application form and no human review.
+
+     Seeded from the generated pages rather than from statute changes alone.
+     law-status.json watches four sources and reports needsReview: [], so a
+     change feed would emit a handful of items a YEAR — technically a feed,
+     practically empty, and an empty feed is worse than none because it reads
+     as an abandoned site. Statute changes are a bonus item type on top of real
+     content, never the substance of it.
+
+     Deliberately NOT padded to manufacture cadence. Amparo is a reference, not
+     a newsroom; if an aggregator declines it for posting too rarely, that is
+     the correct outcome and the wargame's abort condition says so — inventing
+     a content calendar would convert a zero-maintenance asset into a permanent
+     obligation. */
+  const rssItems = feedEntries.map(e => `  <item>
+    <title>${esc(e.title)}</title>
+    <link>${e.url}</link>
+    <guid isPermaLink="true">${e.url}</guid>
+    <description>${esc(e.desc)}</description>
+    <pubDate>${new Date(e.date + 'T12:00:00Z').toUTCString()}</pubDate>
+  </item>`).join(String.fromCharCode(10));
+
+  files.set(path.join(ROOT, 'feed.xml'),
+    `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Amparo — what your state's traffic-stop law actually says</title>
+  <link>${ORIGIN}/</link>
+  <atom:link href="${ORIGIN}/feed.xml" rel="self" type="application/rss+xml"/>
+  <description>Traffic-stop rights by state, each rule quoted from the statute it comes from. Free and bilingual. Not a law firm; not legal advice.</description>
+  <language>en-us</language>
+  <lastBuildDate>${new Date(today + 'T12:00:00Z').toUTCString()}</lastBuildDate>
+${rssItems}
+</channel>
+</rss>
+`);
+
   files.set(path.join(ROOT, 'sitemap.xml'),
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
     indexable.map(u => `  <url>\n    <loc>${u}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${u === ORIGIN + '/' ? 'weekly' : 'monthly'}</changefreq>\n    <priority>${u === ORIGIN + '/' ? '1.0' : '0.8'}</priority>\n  </url>`).join('\n') +
