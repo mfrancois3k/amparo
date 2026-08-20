@@ -43,13 +43,16 @@ try {
   process.exit(1);
 }
 
-/* promotable_posts is the endpoint that returns unpublished drafts; /feed
-   alone does not list them. */
-const res = await fetch(`${GRAPH}/${ID}/promotable_posts?is_published=false&fields=id,message,created_time,is_published&limit=100&access_token=${encodeURIComponent(TOKEN)}`);
+/* /feed with a PAGE token returns unpublished drafts alongside published
+   posts, with is_published distinguishing them. promotable_posts was tried
+   first and this Page does not expose it — '(#100) Tried accessing nonexisting
+   field (promotable_posts)' — which is an app-permission-dependent edge, not
+   something worth requesting extra scopes to work around. */
+const res = await fetch(`${GRAPH}/${ID}/feed?fields=id,message,created_time,is_published&limit=100&access_token=${encodeURIComponent(TOKEN)}`);
 const json = await res.json();
 if (json?.error) { console.error(`Graph API — ${redact(json.error.message)}`); process.exit(1); }
 
-const all = json?.data || [];
+const all = (json?.data || []).filter(p => p.is_published === false);
 const targets = all.filter(p => p.message === TEST_MESSAGE && p.is_published === false);
 
 console.log(`unpublished posts on the page: ${all.length}`);
