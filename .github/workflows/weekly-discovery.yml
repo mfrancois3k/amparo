@@ -36,12 +36,16 @@ jobs:
       - name: Mine Wikipedia citation gaps
         run: node tools/citation-gaps.mjs
 
-      # B1 + B2. Exits 0 doing nothing when the key is absent, so the workflow
-      # stays green until the secret exists instead of mailing a failure every
-      # Monday for a step that was never switched on.
+      # B1 + B2. No API key: Marginalia for target discovery, GDELT for the
+      # republisher crawl. Marginalia throttles at roughly 50 consecutive
+      # queries, so each run takes a 10-query slice and stores a cursor —
+      # the full matrix is covered every five weeks.
+      #
+      # continue-on-error because a throttled week is a normal outcome, not a
+      # broken repo. The script refuses to overwrite good data with an empty
+      # file, so the cost of a throttled run is one skipped week.
       - name: Discover outreach targets and republishers
-        env:
-          FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
+        continue-on-error: true
         run: node tools/discover-targets.mjs
 
       - name: Commit what changed
