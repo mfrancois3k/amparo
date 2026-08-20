@@ -1,0 +1,30 @@
+name: Clean up Facebook test drafts
+
+# Removes the unpublished drafts that the verify runs create. Deletes only
+# posts whose message is byte-identical to the verification string AND which
+# are unpublished — nothing matched by prefix, keyword or date.
+#
+# Dry-run by default: the confirm input must be typed as "delete" for anything
+# to be removed, because this runs against a live Page and a deleted post does
+# not come back.
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type "delete" to actually remove them. Anything else lists only.'
+        required: true
+        default: 'list'
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Remove test drafts
+        env:
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
+        run: node tools/fb-cleanup-tests.mjs ${{ inputs.confirm == 'delete' && '--confirm' || '' }}
