@@ -1,6 +1,7 @@
 # 32 — Amparo's free organic traffic engine (Facebook demoted to Track D)
 
-**Wargame, not a plan. 2026-08-19, post-v2.26.1. Revision 2 — organic-first.**
+**Wargame, not a plan. 2026-08-19, post-v2.26.1. Revision 3 — organic-first, scenario-led.**
+**Revision 3 (2026-08-20) is recorded in §13; read it before executing Track C.**
 Mission brief: [`tasks/32-facebook-traffic-engine.md`](../tasks/32-facebook-traffic-engine.md).
 Executor: a mid-tier model (Sonnet) running this blind, plus one human (Michael) for the moves
 marked **HUMAN ONLY**.
@@ -534,3 +535,127 @@ real trap the attack pointed at.
 | 6 | Verification spelled out with pass criteria | **Pass** — §8 |
 | 7 | Survived a red-team pass; records the attack that failed and the patch | **Pass** — §9, three attacks, one failed, two landed and patched |
 | 8 | Executable blind | **Pass with one caveat** — Track C is HUMAN ONLY by design; the executor stops and flags. All of Tracks A and B are unambiguous and unattended. |
+
+---
+
+## 13. Revision 3 — what execution changed, and why (2026-08-20)
+
+Revision 2 was written before anything ran. Executing it broke three of its assumptions. This
+section records what actually shipped, so the document matches the repository rather than the
+intention.
+
+### 13a. Move C3's content engine was wrong, and was replaced
+
+Revision 2 said the Facebook page should "post from Track A's generated pages — content that is
+already attorney-verified." That was built (`tools/daily-post.mjs`, 46 posts from `STATES` and
+`BASE_RULES_*`) and it is factually unimpeachable. It would also have got close to zero reach,
+and the operator said so before the first post went out.
+
+Measured against the batch-1 digest's own findings, the format failed on every count that
+matters: a dense legal paragraph with no hook, no share trigger, and an outbound link in the
+post body — which Facebook down-ranks, a fact revision 2 itself recorded in Move C3's
+counter-move list and then did not act on.
+
+The diagnosis is worth keeping because it generalises: **the honesty constraint was allowed to
+determine the creative.** "Cannot state a false legal claim" is necessary, load-bearing, and not
+a content strategy. Optimising only for *safe* produced something nobody would ever see.
+
+`tools/news-post.mjs` replaces it, on one rule:
+
+> **The news chooses WHICH scenario to post. The news never supplies WHAT the post says.**
+
+No article is quoted, paraphrased, named or linked. A feed hit is a timing signal — if checkpoints
+are being announced this week, this is a good week to post the checkpoint drill. The words still
+come from `STATES` / `BASE_RULES_*`, verbatim.
+
+That inversion is the whole safety argument. The live Google News feed carries "Glasgow woman
+arrested after traffic stop" and "Civil rights lawsuit filed against Arkansas state trooper".
+Reacting to those means using a named person's worst day as an advertisement — wrong on its own
+terms, fraught while a case is open, and the fastest available route into the SIEP category that
+Fact 6 exists to avoid. Individual cases cannot enter the pipeline at all, because **no article
+text ever reaches a post.** The only thing derived from the feed is a count.
+
+Two things this move also got right that revision 2 had not considered:
+
+- **The CTA points at `/arena/`, not the homepage.** A three-minute drill is a better first ask
+  than a form, and the practice loop is the sticky half of the product.
+- **Promotion is gated on what exists.** `arena/index.html` carries `HELD_SITS={door:1}` — the
+  door-knock drills are with an attorney and a DV clinician. "At your door" and "we have a
+  warrant" are the strongest hooks in the entire scenario set and are excluded. **A drill that
+  cannot be practised cannot be advertised.**
+
+### 13b. Track B lost its API key requirement
+
+Revision 2 specified Firecrawl and accepted that B1/B2 would stay dormant until a key existed.
+The operator asked for a keyless tool. Seven providers were measured against a CI runner rather
+than assumed:
+
+| Provider | Result |
+|---|---|
+| Firecrawl | requires a key |
+| DuckDuckGo `/html`, lite.duckduckgo | HTTP 202, anti-bot page |
+| Mojeek | 200 with anti-bot content |
+| searx.be | 200, blocked page |
+| priv.au, searxng.site | HTTP 403 |
+| **Marginalia** | **200 with real results** |
+| **GDELT** | **200 JSON**, one request per five seconds |
+
+Marginalia is also the better index for B1 rather than merely the one that answered: it
+down-ranks commercial SEO content and favours small independent sites, which is exactly the
+population most likely to accept a contributed piece. GDELT indexes global news, making it the
+right corpus for B2 — "who republished this headline" is a news question, not a web-search one.
+
+**Measured limit:** Marginalia serves roughly 50 consecutive queries, then answers 200 carrying
+only its own navigation. B1 therefore takes a 10-query slice of the 50-query matrix per run and
+stores a cursor; the matrix is covered every five weeks.
+
+### 13c. Tooling that was not in the plan at all
+
+The plan assumed a Page token would be obtained and stored. In practice that step consumed most
+of the execution time and burned several credentials, because Meta shows a USER token in a large
+box and hides the PAGE token as one field inside a JSON response. Six attempts stored the wrong
+one. The tooling built in response is not marketing work, but it is load-bearing and undocumented
+anywhere else:
+
+| File | Why it exists |
+|---|---|
+| `tools/fb-token.mjs` | Accepts either token type and resolves to a Page token, so the common mistake stops being fatal |
+| `tools/fb-token-check.mjs` | Verifies credentials without printing them; writes an unpublished draft to prove the write path |
+| `tools/fb-diagnose.mjs` | Reads the token's metadata (type, expiry, scopes) without reading the token — ended four rounds of guessing |
+| `tools/fb-setup-secrets.mjs` | Carries the Page token from Meta into `gh secret set` without displaying it |
+| `tools/setup-facebook.ps1` + `SETUP-FACEBOOK.cmd` | Double-click launcher; collects token and App Secret via `Read-Host -AsSecureString` |
+| `tools/fb-cleanup-tests.mjs` | Deletes verification drafts by known id, after reading each back to confirm it matches |
+
+A `verify` mode was also added to the daily workflow, so the first thing that happens with a newly
+stored token is an unpublished draft rather than a surprise public post. It caught the wrong-token
+storage three times.
+
+### 13d. New abort conditions
+
+Added to §7, and both discovered during execution rather than planning:
+
+9. **Never react to an individual case.** No named person, no specific arrest, lawsuit, charge or
+   death may appear in or motivate a post. The allowlist-then-blocklist in `news-post.mjs` is the
+   mechanism; the rule is the reason.
+10. **Never advertise a held drill.** `HELD_SITS` is the source of truth. If a drill is with a
+    reviewer, it does not appear in a hook, a CTA or a link.
+
+### 13e. Recon closed or changed this round
+
+| # | Outcome |
+|---|---|
+| R3 | Closed — `/how-we-verify/` now states the attorney gap outright rather than inheriting a claim |
+| R5 | Closed — `STATES` is a clean top-level literal; extraction anchors on the column-0 terminator |
+| R6 | Closed — only TX/GA/NY are VERIFIED; `REVIEW.attorneys` is empty for all three |
+| R7 | **Void** — no search API key is used any more |
+| R8 | Closed — "Education website" |
+| R9 | Still open — the forward value of an Amparo email address is unmeasurable until fulfilment ships |
+| **New** | `/arena/` has **no deep-link support** (no `URLSearchParams` anywhere in the file), so "practice the Admission Trap" lands on the drill menu. A `?sit=` parameter is the single highest-value conversion fix outstanding. |
+
+### 13f. What remains untouched
+
+Tracks C1, C2 and C4 are unchanged and undone. C2 remains blocked on a sending domain (H8).
+Track D was never entered — no ad account, no spend, and **Move D2's SIEP category test was
+never run**, so Fact 6 remains a live unknown rather than a settled one. Nothing in this revision
+makes paid safer or nearer; it makes the organic engine load-bearing enough that paid stays
+optional.

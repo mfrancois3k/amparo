@@ -73,3 +73,44 @@ the App Secret without displaying it.
 **Recon closed this round:** R1, R2, R4 (no PDF generator — `window.print()`
 only), R5 (`STATES` is a clean literal), R6 (only TX/GA/NY are VERIFIED),
 R7 (no search API key configured), R8 (Education website category).
+
+### Revision 3 — execution status, end of 2026-08-20
+
+Revision 2 was graded before anything ran. This is the state after execution.
+Full narrative in `wargames/32-facebook-traffic-engine.md` §13.
+
+| Move | State | Evidence |
+|---|---|---|
+| A1 attribution | **live** | first-touch `ft_*` super-properties; two send-time bugs found in verification and fixed |
+| A2 publishing surface | **live** | 111 pages, 51 jurisdictions, 63 in sitemap, 48 noindexed as too thin |
+| A3 publisher posture | **live** | `/about/` + `/how-we-verify/` EN+ES; states the attorney gap outright |
+| A4 RSS | **live** | 29 items, English only, discovery link on every page |
+| B1 outreach discovery | built, **no yield yet** | keyless via Marginalia; last run throttled, first real yield expected on the Monday cron |
+| B2 republisher crawl | built, **idle** | keyless via GDELT; nothing to crawl for until a placement lands |
+| B3 citation mining | **live** | weekly, no key, 26 claims on first run |
+| C1 two pieces + pitches | **not started** | HUMAN ONLY — trade press blacklists detected-AI submissions |
+| C2 email capture | **blocked** | no sending domain (H8), no `RESEND_API_KEY` |
+| C3 Facebook page + posting | **live** | page created, token stored, posting verified, generator replaced — see below |
+| C4 aggregator submissions | **not started** | HUMAN ONLY, ~1 hour once; Feedly needs none, it ingests A4 |
+| D1–D6 paid | **never entered** | no ad account, no spend; **Move D2's SIEP test was never run**, so Fact 6 stays a live unknown |
+
+### Patches this round
+
+| What | Why |
+|---|---|
+| Move C3's generator replaced | The statute-quote format was factually perfect and would have got no reach. The honesty constraint had been allowed to determine the creative. Replaced with scenario-led posts timed by news, on the rule that the news picks WHICH scenario and never supplies WHAT is said. |
+| Track B search provider | Firecrawl (key) → Marginalia + GDELT (keyless). Seven providers measured against a CI runner; five were blocked outright. |
+| Two new abort conditions | Never react to an individual case; never advertise a held drill (`HELD_SITS={door:1}`). |
+| Six unplanned tools | Token handling consumed most of the execution time and burned several credentials. See §13c. |
+| `verify` mode on the daily workflow | So a new token's first act is an unpublished draft, not a surprise public post. Caught wrong-token storage three times. |
+
+### Open items, ranked by what they block
+
+1. **H5 attorney sign-off — unchanged and now larger.** In revision 1 it blocked ad spend. It now
+   sits behind 63 indexable pages and a daily post, all pointing at TX/GA/NY content that has not
+   met `state-law-matrix.md`'s own standard. `/how-we-verify/` states the gap honestly; stating it
+   is not closing it.
+2. **H8 sending domain** — one DNS setup unblocks C2 entirely.
+3. **`/arena/` deep links** — no `URLSearchParams` in the file, so every drill CTA lands on the
+   menu rather than the drill. Highest-value conversion fix outstanding.
+4. **C1 / C4** — the one-time human sprint. Everything upstream of it is now built.
