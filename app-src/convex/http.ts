@@ -100,7 +100,10 @@ http.route({
     if (!r.ok) {
       return new Response(JSON.stringify({ error: r.error }), { status: r.status, headers: { ...CORS, 'Content-Type': 'application/json' } })
     }
-    return new Response(JSON.stringify({ ok: true, product: r.product }), {
+    /* `held` rides along so the arena can say something true to someone who
+     * paid for a product that cannot be delivered, instead of granting a dead
+     * entitlement and rendering nothing. See PRODUCTS.held in stripe.ts. */
+    return new Response(JSON.stringify({ ok: true, product: r.product, held: 'held' in r ? r.held : false }), {
       status: 200,
       headers: { ...CORS, 'Content-Type': 'application/json' },
     })

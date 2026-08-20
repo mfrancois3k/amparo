@@ -128,7 +128,19 @@ export const verifySession = internalAction({
       const s = await stripe.checkout.sessions.retrieve(sessionId)
       if (s.payment_status !== 'paid') return { ok: false as const, status: 402, error: 'not paid' }
       const product = (s.metadata?.product as string) ?? 'unknown'
-      if (!PRODUCTS[product]) return { ok: false as const, status: 400, error: 'unknown product' }
+      const p = PRODUCTS[product]
+      if (!p) return { ok: false as const, status: 400, error: 'unknown product' }
+      /* Defence in depth. Refusing `held` at checkout CREATION only guards the
+       * path that goes through this code today; it does nothing about a session
+       * that already exists. /checkout is public, CORS `*`, and unauthenticated,
+       * so a session for a held product can be created by anyone who reads the
+       * page source — and one created before this gate deployed stays payable
+       * forever, since nothing re-validates after creation.
+       * The money is real either way, so the webhook still records the purchase:
+       * losing the trail would make a refund harder, and a `deep` row appearing
+       * while `deep` is held IS the alarm. What must not happen is granting an
+       * entitlement to something undeliverable and showing the buyer nothing. */
+      if (p.held) return { ok: true as const, product, held: true as const, amount: s.amount_total ?? 0 }
       return { ok: true as const, product, amount: s.amount_total ?? 0 }
     } catch {
       return { ok: false as const, status: 404, error: 'no such session' }
