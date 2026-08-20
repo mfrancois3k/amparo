@@ -15,26 +15,31 @@
 <meta property="og:image" content="https://www.amparohq.com/og.png">
 <style>
 /* Amparo's real palette, taken from const LOGO and the app's own CSS: navy
-   #1B2A4A, gold #E8B84B, cream #FAF6EE. Not a new scheme invented for these
-   pages — a visitor arriving from search must land somewhere that looks like
-   the product they are about to use, and the gold rule under each heading is
-   the same accent the logo's ring uses. */
-:root{--ink:#1c2740;--bg:#FAF6EE;--line:#e5dcc6;--quote:#2f3f5e;--accent:#1B2A4A;--gold:#E8B84B}
+   #1B2A4A, gold #E8B84B, cream #FAF6EE. */
+:root{--ink:#1c2740;--bg:#FAF6EE;--line:#e5dcc6;--quote:#2f3f5e;--accent:#1B2A4A;--gold:#E8B84B;--warn:#6b4f0a;--warnbg:#fdf6e3}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 Georgia,'Times New Roman',serif;padding:0 20px}
 main{max-width:44rem;margin:0 auto;padding:48px 0 72px}
 h1{font-size:clamp(1.7rem,1.2rem+2vw,2.4rem);line-height:1.2;margin:0 0 .35em;color:var(--accent)}
 h1::after{content:'';display:block;width:3.2rem;height:5px;border-radius:3px;background:var(--gold);margin-top:.45em}
-h2{font-size:1.15rem;margin:2.2em 0 .6em;font-family:system-ui,sans-serif}
+h2{font-size:1.2rem;margin:2.2em 0 .6em;font-family:system-ui,sans-serif;color:var(--accent)}
 .intro{font-size:1.05rem;color:var(--quote)}
-ol{padding-left:1.1em}
-li{margin:0 0 1.3em}
+ol,ul{padding-left:1.1em}
+li{margin:0 0 1.1em}
 .stq{display:block;margin-top:.5em;padding-left:.9em;border-left:3px solid var(--gold);color:var(--quote);font-size:.94em}
+.note{background:var(--warnbg);border:1.5px solid var(--gold);border-radius:12px;padding:16px 18px;margin:1.6em 0;color:var(--warn);font-size:.96rem;line-height:1.55}
+.note b{color:var(--accent)}
 .cta{display:inline-block;margin:1.4em 0;padding:.85em 1.4em;background:var(--accent);color:#FAF6EE;text-decoration:none;border-radius:8px;font-family:system-ui,sans-serif;font-size:1rem}
+.aid{margin:0 0 1.1em;padding-left:0;list-style:none}
+.aid li{margin:0 0 1em}
+.aid .n{font-weight:bold;color:var(--accent)}
+.aid .p{font-family:system-ui,sans-serif;font-size:.93em}
+.cols{columns:2;column-gap:2rem}
+.cols li{break-inside:avoid;margin:0 0 .5em}
+@media(max-width:34rem){.cols{columns:1}}
 footer{margin-top:3em;padding-top:1.4em;border-top:1px solid var(--line);font-size:.85rem;color:var(--quote);font-family:system-ui,sans-serif}
 a{color:var(--accent)}
-nav a{margin-right:1em}
-@media(prefers-color-scheme:dark){:root{--ink:#e8eef7;--bg:#141b2b;--line:#2f3f5e;--quote:#8fa0bd;--accent:#E8B84B;--gold:#E8B84B}
+@media(prefers-color-scheme:dark){:root{--ink:#e8eef7;--bg:#141b2b;--line:#2f3f5e;--quote:#8fa0bd;--accent:#E8B84B;--gold:#E8B84B;--warn:#f0dca8;--warnbg:#241f10}
 .cta{color:#1B2A4A}}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","name":"Your rights at a traffic stop in New York — Amparo","inLanguage":"en","mainEntity":[{"@type":"Question","name":"Rule 1","acceptedAnswer":{"@type":"Answer","text":"You must show your license (VTL §507(2)), registration (§401(4)) and insurance card (§319(3)) when an officer asks — handing them over is the safe way to comply. Failing to show your license is treated as presumptive evidence of driving unlicensed: “Failure by a licensee to exhibit a license valid for operation…to any magistrate…peace officer…or police officer shall be presumptive evidence that he is not duly licensed.” — VTL §507(2)"}},{"@type":"Question","name":"Rule 2","acceptedAnswer":{"@type":"Answer","text":"You may remain silent beyond providing your documents — New York has no stop-and-identify law."}},{"@type":"Question","name":"Rule 3","acceptedAnswer":{"@type":"Answer","text":"In NYC, the Right to Know Act requires NYPD officers to identify themselves and explain the stop; in many stops they must offer a business card (summons or arrest paperwork can substitute). Before a consent search they must tell you that you can refuse, and document your consent."}},{"@type":"Question","name":"Rule 4","acceptedAnswer":{"@type":"Answer","text":"If ordered out of the vehicle — or told to lower the window fully — comply. Hands visible, move slowly, argue later."}},{"@type":"Question","name":"Rule 5","acceptedAnswer":{"@type":"Answer","text":"Silence covers questions — not chemical tests. Refusing the official breath/blood test after a DWI arrest costs your license for at least a year plus a civil penalty (VTL §1194), even if you're never convicted. The ROADSIDE is different in NY: refusing the roadside breath screening is itself a traffic infraction (VTL §1194(1)(b)), and refusing balance/eye tests can be brought up in court. Sobriety checkpoints are legal in NY. “…a revoked license…shall not be restored for at least one year after such revocation.” — VTL §1194(2)(d)(1)(a)"}},{"@type":"Question","name":"Rule 6","acceptedAnswer":{"@type":"Answer","text":"Carrying a licensed firearm? NY does not require you to volunteer it — never reach toward it; if asked, answer that one question and follow instructions."}},{"@type":"Question","name":"Rule 7","acceptedAnswer":{"@type":"Answer","text":"Never drive with this card mounted on the windshield or front side windows (VTL §375(12-a)) — keep it in the door pocket and hold it up only after you've stopped. “No person shall drive any motor vehicle with any sign or other nontransparent material…upon the front windshield or the sidewings or side windows…forward of or adjacent to the operator's seat.” — VTL §375(12-a)"}}]}</script>
@@ -44,7 +49,7 @@ nav a{margin-right:1em}
 <h1>Your rights at a traffic stop in New York</h1>
 <p class="intro">Every rule below is quoted from the New York statute it comes from, so you can check it yourself. This is the same text Amparo prints onto a card for your glovebox.</p>
 <ol><li>You must show your license (VTL §507(2)), registration (§401(4)) and insurance card (§319(3)) when an officer asks — handing them over is the safe way to comply. Failing to show your license is treated as presumptive evidence of driving unlicensed:<br><i class="stq">“Failure by a licensee to exhibit a license valid for operation…to any magistrate…peace officer…or police officer shall be presumptive evidence that he is not duly licensed.” — VTL §507(2)</i></li><li>You may remain silent beyond providing your documents — New York has no stop-and-identify law.</li><li>In NYC, the Right to Know Act requires NYPD officers to identify themselves and explain the stop; in many stops they must offer a business card (summons or arrest paperwork can substitute). Before a consent search they must tell you that you can refuse, and document your consent.</li><li>If ordered out of the vehicle — or told to lower the window fully — comply. Hands visible, move slowly, argue later.</li><li>Silence covers questions — not chemical tests. Refusing the official breath/blood test after a DWI arrest costs your license for at least a year plus a civil penalty (VTL §1194), even if you're never convicted. The ROADSIDE is different in NY: refusing the roadside breath screening is itself a traffic infraction (VTL §1194(1)(b)), and refusing balance/eye tests can be brought up in court. Sobriety checkpoints are legal in NY.<br><i class="stq">“…a revoked license…shall not be restored for at least one year after such revocation.” — VTL §1194(2)(d)(1)(a)</i></li><li>Carrying a licensed firearm? NY does not require you to volunteer it — never reach toward it; if asked, answer that one question and follow instructions.</li><li>Never drive with this card mounted on the windshield or front side windows (VTL §375(12-a)) — keep it in the door pocket and hold it up only after you've stopped.<br><i class="stq">“No person shall drive any motor vehicle with any sign or other nontransparent material…upon the front windshield or the sidewings or side windows…forward of or adjacent to the operator's seat.” — VTL §375(12-a)</i></li></ol><a class="cta" href="/?utm_source=organic&amp;utm_medium=page&amp;utm_content=rights_ny">Build your free pack</a>
-<footer>Edition 2026-E. Cited legal sources last checked 2026-08-19 — that check detects when a statute page changes, it does not confirm the rule is correct. Amparo is not a law firm and this is not legal advice. <a href="/rights/">All states</a> · <a href="/">Amparo</a></footer>
+<footer>Edition 2026-E. Cited legal sources last checked 2026-08-19 — that check detects when a statute page changes, it does not confirm the rule is correct. Amparo is not a law firm and this is not legal advice. <a href="/rights/">All states</a> · <a href="/how-we-verify/">How we verify</a> · <a href="/about/">About</a> · <a href="/">Amparo</a></footer>
 </main>
 </body>
 </html>

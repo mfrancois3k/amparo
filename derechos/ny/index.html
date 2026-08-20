@@ -15,26 +15,31 @@
 <meta property="og:image" content="https://www.amparohq.com/og.png">
 <style>
 /* Amparo's real palette, taken from const LOGO and the app's own CSS: navy
-   #1B2A4A, gold #E8B84B, cream #FAF6EE. Not a new scheme invented for these
-   pages — a visitor arriving from search must land somewhere that looks like
-   the product they are about to use, and the gold rule under each heading is
-   the same accent the logo's ring uses. */
-:root{--ink:#1c2740;--bg:#FAF6EE;--line:#e5dcc6;--quote:#2f3f5e;--accent:#1B2A4A;--gold:#E8B84B}
+   #1B2A4A, gold #E8B84B, cream #FAF6EE. */
+:root{--ink:#1c2740;--bg:#FAF6EE;--line:#e5dcc6;--quote:#2f3f5e;--accent:#1B2A4A;--gold:#E8B84B;--warn:#6b4f0a;--warnbg:#fdf6e3}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 Georgia,'Times New Roman',serif;padding:0 20px}
 main{max-width:44rem;margin:0 auto;padding:48px 0 72px}
 h1{font-size:clamp(1.7rem,1.2rem+2vw,2.4rem);line-height:1.2;margin:0 0 .35em;color:var(--accent)}
 h1::after{content:'';display:block;width:3.2rem;height:5px;border-radius:3px;background:var(--gold);margin-top:.45em}
-h2{font-size:1.15rem;margin:2.2em 0 .6em;font-family:system-ui,sans-serif}
+h2{font-size:1.2rem;margin:2.2em 0 .6em;font-family:system-ui,sans-serif;color:var(--accent)}
 .intro{font-size:1.05rem;color:var(--quote)}
-ol{padding-left:1.1em}
-li{margin:0 0 1.3em}
+ol,ul{padding-left:1.1em}
+li{margin:0 0 1.1em}
 .stq{display:block;margin-top:.5em;padding-left:.9em;border-left:3px solid var(--gold);color:var(--quote);font-size:.94em}
+.note{background:var(--warnbg);border:1.5px solid var(--gold);border-radius:12px;padding:16px 18px;margin:1.6em 0;color:var(--warn);font-size:.96rem;line-height:1.55}
+.note b{color:var(--accent)}
 .cta{display:inline-block;margin:1.4em 0;padding:.85em 1.4em;background:var(--accent);color:#FAF6EE;text-decoration:none;border-radius:8px;font-family:system-ui,sans-serif;font-size:1rem}
+.aid{margin:0 0 1.1em;padding-left:0;list-style:none}
+.aid li{margin:0 0 1em}
+.aid .n{font-weight:bold;color:var(--accent)}
+.aid .p{font-family:system-ui,sans-serif;font-size:.93em}
+.cols{columns:2;column-gap:2rem}
+.cols li{break-inside:avoid;margin:0 0 .5em}
+@media(max-width:34rem){.cols{columns:1}}
 footer{margin-top:3em;padding-top:1.4em;border-top:1px solid var(--line);font-size:.85rem;color:var(--quote);font-family:system-ui,sans-serif}
 a{color:var(--accent)}
-nav a{margin-right:1em}
-@media(prefers-color-scheme:dark){:root{--ink:#e8eef7;--bg:#141b2b;--line:#2f3f5e;--quote:#8fa0bd;--accent:#E8B84B;--gold:#E8B84B}
+@media(prefers-color-scheme:dark){:root{--ink:#e8eef7;--bg:#141b2b;--line:#2f3f5e;--quote:#8fa0bd;--accent:#E8B84B;--gold:#E8B84B;--warn:#f0dca8;--warnbg:#241f10}
 .cta{color:#1B2A4A}}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","name":"Sus derechos en una parada de tráfico en New York — Amparo","inLanguage":"es","mainEntity":[{"@type":"Question","name":"Regla 1","acceptedAnswer":{"@type":"Answer","text":"Debe mostrar su licencia (VTL §507(2)), registro (§401(4)) y tarjeta de seguro (§319(3)) cuando el oficial se los pida — entregarlos es la forma segura de cumplir. No mostrar la licencia se trata como evidencia presuntiva de manejar sin licencia: Texto de la ley (en inglés): “Failure by a licensee to exhibit a license valid for operation…to any magistrate…peace officer…or police officer shall be presumptive evidence that he is not duly licensed.” — VTL §507(2)"}},{"@type":"Question","name":"Regla 2","acceptedAnswer":{"@type":"Answer","text":"Puede guardar silencio más allá de entregar sus documentos — Nueva York no tiene ley de “identifíquese”."}},{"@type":"Question","name":"Regla 3","acceptedAnswer":{"@type":"Answer","text":"En NYC, la ley Right to Know exige que los oficiales de NYPD se identifiquen y expliquen la parada; en muchas paradas deben ofrecer una tarjeta (la multa o el acta de arresto puede sustituirla). Antes de un registro por consentimiento deben decirle que puede negarse, y documentar su consentimiento."}},{"@type":"Question","name":"Regla 4","acceptedAnswer":{"@type":"Answer","text":"Si le ordenan salir del vehículo — o bajar la ventana por completo — cumpla. Manos visibles, movimientos lentos, discuta después."}},{"@type":"Question","name":"Regla 5","acceptedAnswer":{"@type":"Answer","text":"El silencio cubre preguntas — no pruebas químicas. Negarse a la prueba OFICIAL de aliento o sangre tras un arresto por DWI le cuesta la licencia al menos un año más una multa civil (VTL §1194), aunque nunca lo condenen. En la CALLE es distinto en NY: negarse a la prueba preliminar de aliento es en sí una infracción de tránsito (VTL §1194(1)(b)), y negarse a las pruebas de equilibrio/ojos puede mencionarse en la corte. Los retenes de sobriedad son legales en NY. Texto de la ley (en inglés): “…a revoked license…shall not be restored for at least one year after such revocation.” — VTL §1194(2)(d)(1)(a)"}},{"@type":"Question","name":"Regla 6","acceptedAnswer":{"@type":"Answer","text":"¿Porta un arma con licencia? NY no exige que lo informe — nunca estire la mano hacia ella; si le preguntan, responda solo eso y siga instrucciones."}},{"@type":"Question","name":"Regla 7","acceptedAnswer":{"@type":"Answer","text":"Nunca maneje con esta tarjeta montada en el parabrisas o ventanas delanteras (VTL §375(12-a)) — guárdela en la puerta y muéstrela solo después de detenerse. Texto de la ley (en inglés): “No person shall drive any motor vehicle with any sign or other nontransparent material…upon the front windshield or the sidewings or side windows…forward of or adjacent to the operator's seat.” — VTL §375(12-a)"}}]}</script>
@@ -44,7 +49,7 @@ nav a{margin-right:1em}
 <h1>Sus derechos en una parada de tráfico en New York</h1>
 <p class="intro">Cada regla aquí está citada de la ley de New York de la que proviene, para que usted mismo pueda verificarla. Este es el mismo texto que Amparo imprime en una tarjeta para su guantera.</p>
 <ol><li>Debe mostrar su licencia (VTL §507(2)), registro (§401(4)) y tarjeta de seguro (§319(3)) cuando el oficial se los pida — entregarlos es la forma segura de cumplir. No mostrar la licencia se trata como evidencia presuntiva de manejar sin licencia:<br><i class="stq">Texto de la ley (en inglés): “Failure by a licensee to exhibit a license valid for operation…to any magistrate…peace officer…or police officer shall be presumptive evidence that he is not duly licensed.” — VTL §507(2)</i></li><li>Puede guardar silencio más allá de entregar sus documentos — Nueva York no tiene ley de “identifíquese”.</li><li>En NYC, la ley Right to Know exige que los oficiales de NYPD se identifiquen y expliquen la parada; en muchas paradas deben ofrecer una tarjeta (la multa o el acta de arresto puede sustituirla). Antes de un registro por consentimiento deben decirle que puede negarse, y documentar su consentimiento.</li><li>Si le ordenan salir del vehículo — o bajar la ventana por completo — cumpla. Manos visibles, movimientos lentos, discuta después.</li><li>El silencio cubre preguntas — no pruebas químicas. Negarse a la prueba OFICIAL de aliento o sangre tras un arresto por DWI le cuesta la licencia al menos un año más una multa civil (VTL §1194), aunque nunca lo condenen. En la CALLE es distinto en NY: negarse a la prueba preliminar de aliento es en sí una infracción de tránsito (VTL §1194(1)(b)), y negarse a las pruebas de equilibrio/ojos puede mencionarse en la corte. Los retenes de sobriedad son legales en NY.<br><i class="stq">Texto de la ley (en inglés): “…a revoked license…shall not be restored for at least one year after such revocation.” — VTL §1194(2)(d)(1)(a)</i></li><li>¿Porta un arma con licencia? NY no exige que lo informe — nunca estire la mano hacia ella; si le preguntan, responda solo eso y siga instrucciones.</li><li>Nunca maneje con esta tarjeta montada en el parabrisas o ventanas delanteras (VTL §375(12-a)) — guárdela en la puerta y muéstrela solo después de detenerse.<br><i class="stq">Texto de la ley (en inglés): “No person shall drive any motor vehicle with any sign or other nontransparent material…upon the front windshield or the sidewings or side windows…forward of or adjacent to the operator's seat.” — VTL §375(12-a)</i></li></ol><a class="cta" href="/?utm_source=organic&amp;utm_medium=page&amp;utm_content=derechos_ny">Cree su paquete gratis</a>
-<footer>Edición 2026-E. Fuentes legales citadas verificadas por última vez el 2026-08-19 — esa comprobación detecta cambios en la página de la ley, no confirma que la regla sea correcta. Amparo no es un bufete y esto no es asesoría legal. <a href="/derechos/">Todos los estados</a> · <a href="/">Amparo</a></footer>
+<footer>Edición 2026-E. Fuentes legales citadas verificadas por última vez el 2026-08-19 — esa comprobación detecta cambios en la página de la ley, no confirma que la regla sea correcta. Amparo no es un bufete y esto no es asesoría legal. <a href="/derechos/">Todos los estados</a> · <a href="/como-verificamos/">Cómo verificamos</a> · <a href="/acerca/">Acerca de</a> · <a href="/">Amparo</a></footer>
 </main>
 </body>
 </html>

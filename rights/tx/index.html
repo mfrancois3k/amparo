@@ -15,26 +15,31 @@
 <meta property="og:image" content="https://www.amparohq.com/og.png">
 <style>
 /* Amparo's real palette, taken from const LOGO and the app's own CSS: navy
-   #1B2A4A, gold #E8B84B, cream #FAF6EE. Not a new scheme invented for these
-   pages — a visitor arriving from search must land somewhere that looks like
-   the product they are about to use, and the gold rule under each heading is
-   the same accent the logo's ring uses. */
-:root{--ink:#1c2740;--bg:#FAF6EE;--line:#e5dcc6;--quote:#2f3f5e;--accent:#1B2A4A;--gold:#E8B84B}
+   #1B2A4A, gold #E8B84B, cream #FAF6EE. */
+:root{--ink:#1c2740;--bg:#FAF6EE;--line:#e5dcc6;--quote:#2f3f5e;--accent:#1B2A4A;--gold:#E8B84B;--warn:#6b4f0a;--warnbg:#fdf6e3}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 Georgia,'Times New Roman',serif;padding:0 20px}
 main{max-width:44rem;margin:0 auto;padding:48px 0 72px}
 h1{font-size:clamp(1.7rem,1.2rem+2vw,2.4rem);line-height:1.2;margin:0 0 .35em;color:var(--accent)}
 h1::after{content:'';display:block;width:3.2rem;height:5px;border-radius:3px;background:var(--gold);margin-top:.45em}
-h2{font-size:1.15rem;margin:2.2em 0 .6em;font-family:system-ui,sans-serif}
+h2{font-size:1.2rem;margin:2.2em 0 .6em;font-family:system-ui,sans-serif;color:var(--accent)}
 .intro{font-size:1.05rem;color:var(--quote)}
-ol{padding-left:1.1em}
-li{margin:0 0 1.3em}
+ol,ul{padding-left:1.1em}
+li{margin:0 0 1.1em}
 .stq{display:block;margin-top:.5em;padding-left:.9em;border-left:3px solid var(--gold);color:var(--quote);font-size:.94em}
+.note{background:var(--warnbg);border:1.5px solid var(--gold);border-radius:12px;padding:16px 18px;margin:1.6em 0;color:var(--warn);font-size:.96rem;line-height:1.55}
+.note b{color:var(--accent)}
 .cta{display:inline-block;margin:1.4em 0;padding:.85em 1.4em;background:var(--accent);color:#FAF6EE;text-decoration:none;border-radius:8px;font-family:system-ui,sans-serif;font-size:1rem}
+.aid{margin:0 0 1.1em;padding-left:0;list-style:none}
+.aid li{margin:0 0 1em}
+.aid .n{font-weight:bold;color:var(--accent)}
+.aid .p{font-family:system-ui,sans-serif;font-size:.93em}
+.cols{columns:2;column-gap:2rem}
+.cols li{break-inside:avoid;margin:0 0 .5em}
+@media(max-width:34rem){.cols{columns:1}}
 footer{margin-top:3em;padding-top:1.4em;border-top:1px solid var(--line);font-size:.85rem;color:var(--quote);font-family:system-ui,sans-serif}
 a{color:var(--accent)}
-nav a{margin-right:1em}
-@media(prefers-color-scheme:dark){:root{--ink:#e8eef7;--bg:#141b2b;--line:#2f3f5e;--quote:#8fa0bd;--accent:#E8B84B;--gold:#E8B84B}
+@media(prefers-color-scheme:dark){:root{--ink:#e8eef7;--bg:#141b2b;--line:#2f3f5e;--quote:#8fa0bd;--accent:#E8B84B;--gold:#E8B84B;--warn:#f0dca8;--warnbg:#241f10}
 .cta{color:#1B2A4A}}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","name":"Your rights at a traffic stop in Texas — Amparo","inLanguage":"en","mainEntity":[{"@type":"Question","name":"Rule 1","acceptedAnswer":{"@type":"Answer","text":"You must show your license when stopped (Transp. Code §521.025). The statute says “display” — some drivers exhibit it through closed glass, but officers and courts often treat that as refusal. Handing it over is the safe way to comply. “…shall…display the license on the demand of a magistrate, court officer, or peace officer.” — Transp. Code §521.025"}},{"@type":"Question","name":"Rule 2","acceptedAnswer":{"@type":"Answer","text":"Get a ticket? Sign it. Signing is only a promise to appear, not an admission of guilt (§543.005) — once you sign, the officer must promptly release you. Refusing to sign is one of the few traffic offenses you can be arrested for. “To secure release, the person arrested must make a written promise to appear in court by signing the written notice.” — Transp. Code §543.005"}},{"@type":"Question","name":"Rule 3","acceptedAnswer":{"@type":"Answer","text":"Digital insurance on your phone is valid proof in Texas."}},{"@type":"Question","name":"Rule 4","acceptedAnswer":{"@type":"Answer","text":"You are not required to answer questions beyond identifying yourself when lawfully arrested (§38.02); passengers generally do not have to identify themselves unless arrested. But giving a FALSE name, address, or birthdate while lawfully detained is itself a crime (§38.02(b)). “A person commits an offense if he intentionally refuses to give his name, residence address, or date of birth to a peace officer who has lawfully arrested the person.” — Penal Code §38.02(a)"}},{"@type":"Question","name":"Rule 5","acceptedAnswer":{"@type":"Answer","text":"Carrying a handgun? Since Sept. 2021 most adults 21+ may carry without a license (HB 1927). If you DO hold an LTC and an officer asks for ID, the statute says to show the LTC too (Gov't Code §411.205 — the Legislature later repealed the criminal penalty, but showing it is the safe move). Either way: never reach toward the weapon — announce first, move slowly. “…the license holder shall display both the license holder's driver's license…and the license holder's handgun license.” — Gov't Code §411.205"}},{"@type":"Question","name":"Rule 6","acceptedAnswer":{"@type":"Answer","text":"Silence covers questions — not chemical tests. Refusing a breath/blood test after a DWI arrest triggers a license suspension (you have 15 days to request the hearing that contests it) — and police can still get a warrant for your blood. Roadside balance/eye tests before arrest are voluntary in Texas."}},{"@type":"Question","name":"Rule 7","acceptedAnswer":{"@type":"Answer","text":"Don't drive with this card mounted on the windshield or windows — keep it in the door pocket and present it once stopped."}}]}</script>
@@ -44,7 +49,7 @@ nav a{margin-right:1em}
 <h1>Your rights at a traffic stop in Texas</h1>
 <p class="intro">Every rule below is quoted from the Texas statute it comes from, so you can check it yourself. This is the same text Amparo prints onto a card for your glovebox.</p>
 <ol><li>You must show your license when stopped (Transp. Code §521.025). The statute says “display” — some drivers exhibit it through closed glass, but officers and courts often treat that as refusal. Handing it over is the safe way to comply.<br><i class="stq">“…shall…display the license on the demand of a magistrate, court officer, or peace officer.” — Transp. Code §521.025</i></li><li>Get a ticket? Sign it. Signing is only a promise to appear, not an admission of guilt (§543.005) — once you sign, the officer must promptly release you. Refusing to sign is one of the few traffic offenses you can be arrested for.<br><i class="stq">“To secure release, the person arrested must make a written promise to appear in court by signing the written notice.” — Transp. Code §543.005</i></li><li>Digital insurance on your phone is valid proof in Texas.</li><li>You are not required to answer questions beyond identifying yourself when lawfully arrested (§38.02); passengers generally do not have to identify themselves unless arrested. But giving a FALSE name, address, or birthdate while lawfully detained is itself a crime (§38.02(b)).<br><i class="stq">“A person commits an offense if he intentionally refuses to give his name, residence address, or date of birth to a peace officer who has lawfully arrested the person.” — Penal Code §38.02(a)</i></li><li>Carrying a handgun? Since Sept. 2021 most adults 21+ may carry without a license (HB 1927). If you DO hold an LTC and an officer asks for ID, the statute says to show the LTC too (Gov't Code §411.205 — the Legislature later repealed the criminal penalty, but showing it is the safe move). Either way: never reach toward the weapon — announce first, move slowly.<br><i class="stq">“…the license holder shall display both the license holder's driver's license…and the license holder's handgun license.” — Gov't Code §411.205</i></li><li>Silence covers questions — not chemical tests. Refusing a breath/blood test after a DWI arrest triggers a license suspension (you have 15 days to request the hearing that contests it) — and police can still get a warrant for your blood. Roadside balance/eye tests before arrest are voluntary in Texas.</li><li>Don't drive with this card mounted on the windshield or windows — keep it in the door pocket and present it once stopped.</li></ol><a class="cta" href="/?utm_source=organic&amp;utm_medium=page&amp;utm_content=rights_tx">Build your free pack</a>
-<footer>Edition 2026-E. Cited legal sources last checked 2026-08-19 — that check detects when a statute page changes, it does not confirm the rule is correct. Amparo is not a law firm and this is not legal advice. <a href="/rights/">All states</a> · <a href="/">Amparo</a></footer>
+<footer>Edition 2026-E. Cited legal sources last checked 2026-08-19 — that check detects when a statute page changes, it does not confirm the rule is correct. Amparo is not a law firm and this is not legal advice. <a href="/rights/">All states</a> · <a href="/how-we-verify/">How we verify</a> · <a href="/about/">About</a> · <a href="/">Amparo</a></footer>
 </main>
 </body>
 </html>

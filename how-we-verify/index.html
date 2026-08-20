@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How we verify — Amparo</title>
+<meta name="description" content="Amparo’s verification standard, the confidence levels behind every rule, the daily source check, and an honest statement of what has not been done yet.">
+<link rel="canonical" href="https://www.amparohq.com/how-we-verify/">
+<link rel="alternate" hreflang="es" href="https://www.amparohq.com/como-verificamos/">
+<link rel="alternate" hreflang="en" href="https://www.amparohq.com/how-we-verify/">
+<meta property="og:title" content="How we verify — Amparo">
+<meta property="og:description" content="Amparo’s verification standard, the confidence levels behind every rule, the daily source check, and an honest statement of what has not been done yet.">
+<meta property="og:url" content="https://www.amparohq.com/how-we-verify/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://www.amparohq.com/og.png">
+<style>
+/* Amparo's real palette, taken from const LOGO and the app's own CSS: navy
+   #1B2A4A, gold #E8B84B, cream #FAF6EE. */
+:root{--ink:#1c2740;--bg:#FAF6EE;--line:#e5dcc6;--quote:#2f3f5e;--accent:#1B2A4A;--gold:#E8B84B;--warn:#6b4f0a;--warnbg:#fdf6e3}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 Georgia,'Times New Roman',serif;padding:0 20px}
+main{max-width:44rem;margin:0 auto;padding:48px 0 72px}
+h1{font-size:clamp(1.7rem,1.2rem+2vw,2.4rem);line-height:1.2;margin:0 0 .35em;color:var(--accent)}
+h1::after{content:'';display:block;width:3.2rem;height:5px;border-radius:3px;background:var(--gold);margin-top:.45em}
+h2{font-size:1.2rem;margin:2.2em 0 .6em;font-family:system-ui,sans-serif;color:var(--accent)}
+.intro{font-size:1.05rem;color:var(--quote)}
+ol,ul{padding-left:1.1em}
+li{margin:0 0 1.1em}
+.stq{display:block;margin-top:.5em;padding-left:.9em;border-left:3px solid var(--gold);color:var(--quote);font-size:.94em}
+.note{background:var(--warnbg);border:1.5px solid var(--gold);border-radius:12px;padding:16px 18px;margin:1.6em 0;color:var(--warn);font-size:.96rem;line-height:1.55}
+.note b{color:var(--accent)}
+.cta{display:inline-block;margin:1.4em 0;padding:.85em 1.4em;background:var(--accent);color:#FAF6EE;text-decoration:none;border-radius:8px;font-family:system-ui,sans-serif;font-size:1rem}
+.aid{margin:0 0 1.1em;padding-left:0;list-style:none}
+.aid li{margin:0 0 1em}
+.aid .n{font-weight:bold;color:var(--accent)}
+.aid .p{font-family:system-ui,sans-serif;font-size:.93em}
+.cols{columns:2;column-gap:2rem}
+.cols li{break-inside:avoid;margin:0 0 .5em}
+@media(max-width:34rem){.cols{columns:1}}
+footer{margin-top:3em;padding-top:1.4em;border-top:1px solid var(--line);font-size:.85rem;color:var(--quote);font-family:system-ui,sans-serif}
+a{color:var(--accent)}
+@media(prefers-color-scheme:dark){:root{--ink:#e8eef7;--bg:#141b2b;--line:#2f3f5e;--quote:#8fa0bd;--accent:#E8B84B;--gold:#E8B84B;--warn:#f0dca8;--warnbg:#241f10}
+.cta{color:#1B2A4A}}
+</style>
+
+</head>
+<body>
+<main>
+<h1>How we verify</h1>
+<p class="intro">Amparo publishes rules people rely on in a moment they cannot pause. This page states exactly how a rule gets published — and what has not been done yet.</p>
+
+<h2>Three confidence levels</h2>
+<ul>
+<li><b>Verified</b> — quoted from an official legislature site or primary statute text. Only this level is ever published as a state rule.</li>
+<li><b>Likely</b> — the section number is corroborated by multiple independent secondary sources, but the raw statute text has not been fetched. Never published.</li>
+<li><b>Unverified</b> — not established. Never published in any form.</li>
+</ul>
+<h2>Why so few states</h2>
+<p>Three states — Texas, Georgia and New York — are published. Careful sourcing contradicted the widely-copied list of “stop and identify” states on four of the first ten states researched. That is the argument against generating state content quickly: the fast version would have been wrong in four places, and a driver would have been holding it at the window.</p>
+<h2>The daily source check</h2>
+<p>A scheduled job re-fetches every primary statute page behind a published rule and compares it to a stored hash. A change means a person has to re-read it. <b>It does not verify that the law is correct — no script can.</b> “Sources checked” and “reviewed by a person” are different claims, and this site keeps them separate on purpose.</p>
+<h2>What has not been done yet</h2>
+<div class="note"><b>No attorney has signed off on the current edition.</b> Amparo’s own standard is that a rule should also be reviewed by an attorney licensed in that state, tied to the specific edition reviewed. That has not happened yet — so no attorney badge appears anywhere on this site, and nothing here should be read as attorney-reviewed. Every published rule is quoted from primary statute text, which is a real standard, but it is a different and weaker one. Saying so is more useful to you than the alternative.</div>
+<h2>Found something wrong?</h2>
+<p>Write to <a href="mailto:hello@amparohq.com">hello@amparohq.com</a> with the state and the rule. Corrections are the highest-priority work here.</p>
+<footer>Edition 2026-E. Cited legal sources last checked 2026-08-19 — that check detects when a statute page changes, it does not confirm the rule is correct. Amparo is not a law firm and this is not legal advice. <a href="/rights/">All states</a> · <a href="/how-we-verify/">How we verify</a> · <a href="/about/">About</a> · <a href="/">Amparo</a></footer>
+</main>
+</body>
+</html>
