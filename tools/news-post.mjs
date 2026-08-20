@@ -206,10 +206,17 @@ const TIMELY = {
 };
 
 /* ---------- feed ---------- */
+/* Handles both shapes: Google News serves RSS <item>, Google Alerts serves
+   Atom <entry>. Alerts titles also arrive with <b> highlighting around the
+   matched terms, which the tag strip removes. */
 export function parseRssTitles(xml) {
-  return [...String(xml).matchAll(/<item[\s>][\s\S]*?<title[^>]*>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/gi)]
-    .map(m => m[1].replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').trim())
+  const src = String(xml);
+  const grab = re => [...src.matchAll(re)]
+    .map(m => m[1].replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&#39;/g, "'").replace(/&quot;/g, '"').trim())
     .filter(Boolean);
+  const items = grab(/<item[\s>][\s\S]*?<title[^>]*>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/gi);
+  const entries = grab(/<entry[\s>][\s\S]*?<title[^>]*>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/gi);
+  return items.length ? items : entries;
 }
 
 async function googleNews(q, lang) {
@@ -219,6 +226,15 @@ async function googleNews(q, lang) {
   const res = await fetch(url, { headers: { 'user-agent': UA, accept: 'application/rss+xml' } });
   if (!res.ok) throw new Error(`Google News HTTP ${res.status}`);
   return parseRssTitles(await res.text());
+}
+
+/* Operator-configured Google Alerts feeds, if any. Absent or empty is the
+   normal case and changes nothing — the built-in queries still run. */
+async function alertFeeds() {
+  try {
+    const j = JSON.parse(await readFile(path.join(ROOT, 'research', 'alert-feeds.json'), 'utf8'));
+    return (j.feeds || []).filter(f => f && f.url && f.drill && DRILLS[f.drill]?.live);
+  } catch { return []; }
 }
 
 /** Count safe timing signals per drill. Titles are counted and discarded. */
@@ -236,6 +252,22 @@ export async function readSignals() {
     } catch (e) { errors.push({ q, error: e.message }); }
     await sleep(1500);
   }
+
+  for (const f of await alertFeeds()) {
+    try {
+      const res = await fetch(f.url, { headers: { 'user-agent': UA, accept: 'application/atom+xml, application/rss+xml' } });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const titles = parseRssTitles(await res.text());
+      /* Same allowlist-then-blocklist as everything else. An alert query is
+         operator-written and could be looser than the built-in ones, so it gets
+         no extra trust — a feed full of arrest coverage contributes nothing. */
+      const norm = t => t.replace(/\s+[-–|]\s+[^-–|]{2,40}$/, '').toLowerCase().replace(/[^a-z0-9áéíóúñü ]/g, '').replace(/\s+/g, ' ').trim();
+      const uniq = new Set(titles.filter(isTimingSignal).map(norm));
+      counts[f.drill] = (counts[f.drill] || 0) + uniq.size;
+    } catch (e) { errors.push({ q: `alert:${f.label || f.drill}`, error: e.message }); }
+    await sleep(1500);
+  }
+
   return { counts, errors };
 }
 
@@ -364,6 +396,8 @@ if (has('--selftest')) {
   ok(/carried 12 checkpoint announcements/.test(timelyTxt), 'aggregate appears, names nobody, and counts news reports rather than checkpoints');
 
   ok(parseRssTitles('<item><title><![CDATA[Hello &amp; goodbye]]></title></item>')[0] === 'Hello & goodbye', 'RSS titles are CDATA-unwrapped and entity-decoded');
+  ok(parseRssTitles('<feed><entry><title>DUI <b>checkpoint</b> Friday</title></entry></feed>')[0] === 'DUI checkpoint Friday', 'Atom entries parse and Google Alerts bold-highlighting is stripped');
+  ok(parseRssTitles('<feed></feed>').length === 0, 'an empty feed yields nothing rather than throwing');
 
   let f = 0;
   for (const [v, m] of c) { console.log(`${v ? 'ok  ' : 'FAIL'}  ${m}`); if (!v) f++; }

@@ -1,0 +1,24 @@
+{
+  "_readme": [
+    "Google Alerts RSS feeds, used as extra TIMING SIGNALS by tools/news-post.mjs.",
+    "",
+    "The same rule applies to these as to every other feed in this project: the",
+    "news chooses WHICH scenario to post and never supplies WHAT the post says.",
+    "Nothing from an alert is quoted, linked or named. Only the count is used.",
+    "",
+    "HOW TO ADD ONE (each takes about a minute, and needs a Google account):",
+    "  1. google.com/alerts — type the query",
+    "  2. Show options -> Deliver to: RSS feed",
+    "  3. Create Alert, then click the RSS icon next to it",
+    "  4. Copy that feed url into the list below with the drill it should surface",
+    "",
+    "Why bother when Google News RSS already works: Alerts catches sources News",
+    "misses (blogs, .gov notices, small local outlets) and lets you tune a query",
+    "once rather than encoding it here. Empty list is fine — news-post falls back",
+    "to its built-in Google News queries and behaves exactly as before.",
+    "",
+    "drill must be one of: ck, traffic, step, pass, trap, last30.",
+    "NOT door — those drills are held for attorney and DV-clinician review."
+  ],
+  "feeds": []
+}
