@@ -204,16 +204,30 @@ shows a gap** — Moves 1-2 are mandatory regardless, near-zero-cost recon.
 
 | Move | State | Note |
 |---|---|---|
-| 1 | BLOCKED (hard stop) | **Measurement tools unreachable.** Both PSI keyless API (quota: 0 anon/day) and Lighthouse CLI (Chrome interstitial) failed on all four combos (root+app × mobile+desktop). Root cause: not performance, but infrastructure/WAF — Amparo is behind bot detection that blocks Google's own crawlers. This affects organic SEO + CrUX + Quality Score independently of performance. Escalated to Michael for Vercel/Cloudflare config audit. |
-| 2 | PARTIAL | Real Move 2 needs Move 1's PSI reports (blocked). Wrote a pre-baseline triage from the wargame's own static/grep recon instead — `notebook/amparo-cwv-findings-2026-08-20.md` — scope-tagging what's knowable without live numbers. Not a substitute; re-triage once Move 1 unblocks. |
-| 3 | done | Worktree `../amparo-cwv-fix` on branch `cwv-fix-pass`, clean checkout, isolated from any uncommitted files (repo was clean at branch time). |
-| 4a | done | Added `<link rel=preconnect>` for `cdnjs.cloudflare.com` (GSAP host, confirmed async+SRI untouched) and `ph.amparohq.com` (PostHog's actual proxied ingest host — confirmed byte-level in the SDK init, not guessed). Verified in-browser: 0 console errors, both links present in DOM. |
-| 4b | Pending Move 1 unblock | Needs above-the-fold confirmation + a baseline to catch a `loading="lazy"` regression against. Applying blind risks silently worsening LCP with no way to detect it. |
-| 5 | done | `cowork-artifact-meta` dead JSON block removed — fresh repo-wide grep found only the definition itself, matching the wargame's prediction. Verified in-browser: element absent from DOM, page renders identically. |
-| 6–7 | Pending Move 1 unblock | No baseline to compare against; nothing for Move 6 to verify or Move 7 to land beyond what's already committed. |
+| 1 | done, via documented fallback | Live site unmeasurable — **two independent blockers, both verified.** (a) Cloudflare WARP on the workstation blocks Vercel's whole IP range: `vercel.com`/`nextjs.org`/`sdk.vercel.ai`/`amparohq.com` all fail TLS in ~0.07 s while `example.com`/`google.com` return 200. This — not a WAF — caused the "Chrome interstitial" errors; an earlier entry blamed a WAF on this evidence and **was wrong**. (b) The live site genuinely returns **HTTP 403 to automated traffic**, verified from an external network; `robots.txt` is 403 too, so it's blanket. Not in `vercel.json` (grep clean), DNS straight to Vercel with no Cloudflare proxy → dashboard Firewall/Bot Protection. Could not read the setting (MCP can't list projects, no CLI auth). Measured instead via Move 6's own authorized fallback: local Lighthouse against a local static server, 3 runs × 2 form factors × 2 branches = 12 runs. |
+| 2 | done | Real triage on real data — `notebook/amparo-cwv-findings-2026-08-20.md`, 12 findings scope-tagged. Baseline mobile: **perf 48, LCP 6,034 ms, TBT 923 ms, CLS 0, FCP 4,087 ms**; desktop passes everything (95 / 1,245 / 107 / 0 / 750). CPU-bound — worst possible split for a phone-first product. |
+| 3 | done | Worktree `../amparo-cwv-fix` on `cwv-fix-pass`, clean checkout. |
+| 4a | done | Preconnect for `cdnjs.cloudflare.com` + `ph.amparohq.com` (PostHog host confirmed byte-level in the SDK init). Data later vindicated the aim: PostHog is real and costs 573 ms. |
+| 4b | **dropped — measured inert** | The wargame's static recon assumed images were the target. Data says otherwise: **CLS is already 0** (nothing for sizing attributes to fix) and the **LCP element is `div.stag`, a text div** (nothing for `fetchpriority` to fix). Doing it would have been busywork measuring as noise. |
+| 5 | done | `cowork-artifact-meta` dead block removed; fresh grep confirmed no other reference. |
+| 6 | **done — FAIL, logged not spun** | 3-run averages show no measurable change either way (mobile 48→45 perf, LCP 6,034→6,056, TBT 923→1,214). **TBT ranged 81–1,529 ms across all 12 runs** — every delta is inside that noise band. Per Move 6's abort condition: *"attempted, no clean win found this pass."* Instrument problem, not a bad fix: preconnect's whole benefit is DNS/TCP/TLS setup, measured against `127.0.0.1` which has none — Lighthouse modeled it at 61 ms, below the noise floor before any run started. |
+| 7 | commit exists, **not pushed** | `13338c1`, one file, correctly scoped. Push remains the human-confirm gate. No win claimed. |
 
-Commits on `cwv-fix-pass`: `13338c1` (Moves 4a+5, local only, not pushed).
+**What the data overturned:** the biggest reported opportunity — "Enable text compression, 446 kB /
+2,100 ms" — is a **localhost artifact**. Vercel compresses automatically, nothing in `vercel.json`
+disables it, and HANDOFF records the real figures (545.5 kB raw / 180.9 kB gz / **145.7 kB br**).
+Chasing it would have burned a whole fix pass on a phantom. Also retired: the multi-`<h1>` concern
+(SEO scores **100**).
 
-**Recommendation:** Michael to whitelist Google crawlers, re-run Move 1, then resume from Move 2 with real data — Moves 4b/6/7 pick up from there.
+**Real top lever, unaddressed:** PostHog blocks the main thread **573 ms** (~half of TBT), vs GSAP's
+36 ms. Loading-strategy change, no content/copy/statute involvement — but the analytics contract has
+five explicitly load-bearing privacy settings, so it needs its own recon, not a blind edit.
 
-**Reports:** `notebook/amparo-cwv-move-1-blocked-2026-08-20.md`, `notebook/amparo-cwv-findings-2026-08-20.md`
+**Escalations for Michael:** (1) Vercel dashboard Firewall/Bot Protection — the 403 contradicts the
+repo's own `robots.txt` ("Crawling it is the point"); unproven whether verified Googlebot is exempt.
+(2) WARP — exclude Vercel ranges to make local perf tooling usable. (3) The structural ceilings
+(style/layout 1,093 ms, script eval 1,507 ms, 174 kB unused JS) are the biggest numbers on the board
+but every one needs a build step this project has deliberately not adopted — that's the
+`/app`-promotion decision (HANDOFF #10), not this mission.
+
+**Reports:** `notebook/amparo-cwv-findings-2026-08-20.md`, `notebook/amparo-cwv-move-1-blocked-2026-08-20.md`
