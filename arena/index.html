@@ -1662,7 +1662,10 @@ function closePack(){ document.getElementById('packView').classList.remove('on')
   }catch(e){}
 })();
 
-const CHECKOUT_URL='https://grandiose-armadillo-240.convex.site/checkout';
+/* Production Convex deployment. Was the DEV deployment until 2026-08-20 —
+   dev deployments can be reset by the CLI and are not meant to carry real
+   traffic, which is a bad thing to discover after money moves. */
+const CHECKOUT_URL='https://stoic-falcon-22.convex.site/checkout';
 let _payProduct=null;
 function openPay(title,price,desc,product){
   _payProduct=product||null;
