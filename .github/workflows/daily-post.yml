@@ -13,6 +13,12 @@ on:
     - cron: '32 15 * * *'      # 15:32 UTC ≈ late morning US — off-the-hour to dodge the rush
   workflow_dispatch:
     inputs:
+      mode:
+        description: 'verify = check credentials, publish nothing. publish = post for real.'
+        required: true
+        default: verify
+        type: choice
+        options: [verify, publish]
       date:
         description: 'Override the post date (YYYY-MM-DD)'
         required: false
@@ -37,13 +43,29 @@ jobs:
       - name: Self-check the generator
         run: node tools/daily-post.mjs --selftest
 
-      - name: Generate (and publish if credentials are configured)
+      # Manual "verify" run: proves the stored secrets actually work — right
+      # page, can post, token does not expire — by writing an UNPUBLISHED
+      # draft. Nothing becomes visible and nothing needs deleting afterwards.
+      # This exists so the first thing that ever happens with a new token is
+      # not a surprise public post.
+      - name: Verify credentials only (publishes nothing)
+        if: inputs.mode == 'verify'
+        env:
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
+        run: node tools/fb-token-check.mjs --post-test
+
+      # The scheduled path has no inputs, so inputs.mode is empty and this
+      # runs — a cron firing must always publish.
+      - name: Generate and publish
+        if: inputs.mode != 'verify'
         env:
           FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
           FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
         run: node tools/daily-post.mjs --publish ${{ inputs.date && format('--date {0}', inputs.date) || '' }}
 
       - name: Commit the day's post record
+        if: inputs.mode != 'verify'
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
