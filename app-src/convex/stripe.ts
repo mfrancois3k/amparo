@@ -76,10 +76,44 @@ export const guestCheckout = internalAction({
         },
       ],
       metadata: { product, userId: 'guest' },
-      success_url: `${site}/arena/?checkout=success`,
+      /* {CHECKOUT_SESSION_ID} is substituted by Stripe on redirect. A guest has
+       * no account, so this id is the ONLY thing that ties the returning browser
+       * to a payment — without it there is no way to deliver anything to someone
+       * who checked out without signing in. */
+      success_url: `${site}/arena/?checkout=success&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${site}/arena/?checkout=cancelled`,
     })
     return { url: session.url }
+  },
+})
+
+/* Redemption for guest checkout. The browser comes back from Stripe holding a
+ * session id; this asks Stripe directly whether that session is paid and what
+ * it was for.
+ *
+ * Deliberately asks Stripe rather than trusting the redirect: the success_url
+ * is just a url, and anyone can type it. The webhook remains the system of
+ * record for the purchases table — this endpoint only answers "may this
+ * browser unlock the thing it just paid for", which is a question the webhook
+ * cannot answer in time, because the redirect usually beats the webhook.
+ *
+ * Returns no customer data. Only whether it is paid, and which product. */
+export const verifySession = internalAction({
+  args: { sessionId: v.string() },
+  handler: async (_ctx, { sessionId }) => {
+    const key = process.env.STRIPE_SECRET_KEY
+    if (!key) return { ok: false as const, status: 503, error: 'not configured' }
+    if (!/^cs_[A-Za-z0-9_]+$/.test(sessionId)) return { ok: false as const, status: 400, error: 'bad session id' }
+    const stripe = new Stripe(key)
+    try {
+      const s = await stripe.checkout.sessions.retrieve(sessionId)
+      if (s.payment_status !== 'paid') return { ok: false as const, status: 402, error: 'not paid' }
+      const product = (s.metadata?.product as string) ?? 'unknown'
+      if (!PRODUCTS[product]) return { ok: false as const, status: 400, error: 'unknown product' }
+      return { ok: true as const, product, amount: s.amount_total ?? 0 }
+    } catch {
+      return { ok: false as const, status: 404, error: 'no such session' }
+    }
   },
 })
 

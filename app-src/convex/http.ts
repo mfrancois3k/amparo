@@ -68,4 +68,37 @@ http.route({
   }),
 })
 
+/* Guest redemption. POST {sessionId} -> {ok, product}. Called by the arena
+ * when it comes back from Stripe carrying a session id.
+ *
+ * Rate-limiting note: the only thing an attacker can do here is ask whether a
+ * session id they already possess is paid. Ids are unguessable, the response
+ * carries no customer data, and nothing is written. */
+http.route({
+  path: '/redeem',
+  method: 'OPTIONS',
+  handler: httpAction(async () => new Response(null, { status: 204, headers: CORS })),
+})
+
+http.route({
+  path: '/redeem',
+  method: 'POST',
+  handler: httpAction(async (ctx, request) => {
+    let sessionId = ''
+    try {
+      sessionId = String(((await request.json()) as { sessionId?: string }).sessionId ?? '')
+    } catch {
+      return new Response(JSON.stringify({ error: 'bad request' }), { status: 400, headers: { ...CORS, 'Content-Type': 'application/json' } })
+    }
+    const r = await ctx.runAction(internal.stripe.verifySession, { sessionId })
+    if (!r.ok) {
+      return new Response(JSON.stringify({ error: r.error }), { status: r.status, headers: { ...CORS, 'Content-Type': 'application/json' } })
+    }
+    return new Response(JSON.stringify({ ok: true, product: r.product }), {
+      status: 200,
+      headers: { ...CORS, 'Content-Type': 'application/json' },
+    })
+  }),
+})
+
 export default http

@@ -247,6 +247,36 @@
   src: url("fonts/f8.woff2") format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+
+/* ---- Script Pack view ---- */
+#packView{position:fixed;inset:0;z-index:200;background:#FAF6EE;overflow:auto;display:none}
+#packView.on{display:block}
+.pkWrap{max-width:46rem;margin:0 auto;padding:28px 22px 60px;font-family:Georgia,'Times New Roman',serif;color:#1c2740}
+.pkHead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+.pkKicker{font-family:system-ui,sans-serif;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:#6b7a94;font-weight:600}
+.pkTitle{font-size:1.7rem;margin:.15em 0 0;color:#1B2A4A;line-height:1.15}
+.pkBtns{display:flex;gap:8px}
+.pkBtns button{font-family:system-ui,sans-serif;font-size:.9rem;padding:.55em 1em;border-radius:8px;border:1.5px solid #1B2A4A;background:#1B2A4A;color:#FAF6EE;cursor:pointer}
+.pkBtns button+button{background:#fffdf8;color:#1B2A4A}
+.pkH3{font-family:system-ui,sans-serif;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:#6b7a94;margin:1.9em 0 .5em;border-bottom:1px solid #e5dcc6;padding-bottom:8px}
+.pkList{padding-left:1.2em}
+.pkList li{margin:0 0 1.15em}
+.pkO{color:#6b7a94;font-style:italic}
+.pkS{margin:.3em 0}
+.pkW{font-size:.9rem;color:#5b6880}
+.pkCards{display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:10px}
+.pkCard{border:1.5px dashed #b9ae94;border-radius:8px;padding:12px 14px;min-height:9rem;display:flex;flex-direction:column;gap:8px;background:#fffdf8}
+.pkCardO{font-size:.82rem;color:#6b7a94;font-style:italic}
+.pkCardS{font-size:1rem;font-weight:bold;color:#1B2A4A;flex:1}
+.pkCardB{font-family:system-ui,sans-serif;font-size:.68rem;letter-spacing:.1em;color:#8a7a52}
+.pkFoot{margin-top:2em;padding-top:1em;border-top:1px solid #e5dcc6;font-family:system-ui,sans-serif;font-size:.8rem;color:#6b7a94}
+@media print{
+  body>*:not(#packView){display:none !important}
+  #packView{position:static;background:#fff}
+  .pkBtns{display:none}
+  .pkBreak{break-before:page}
+  .pkCard{break-inside:avoid}
+}
 </style>
 <style>
   *{box-sizing:border-box;}
@@ -1527,6 +1557,111 @@ document.getElementById('micBtn').onclick=()=>{
    between this and charging real money for a product that does not exist.
    Flip to true ONLY once a payer actually receives something. */
 const PAYMENTS_LIVE=false;
+
+/* ============================ FULFILMENT ============================
+   What a Script Pack buyer receives: a printable checklist and cut-out
+   flashcards for the scenario they just finished. That is exactly what the
+   purchase copy promises at line ~1562 ("Checklist + flashcards for the
+   scenario you just finished") — the artifact is built to the promise rather
+   than the promise being adjusted to the artifact.
+
+   NOTHING IS AUTHORED HERE. Every line in the pack is read out of SCEN: the
+   officer prompts, the choices already scored p:1/g:1 as the good moves, and
+   the existing feedback strings. It is a re-layout of content the reader has
+   already seen for free, which is what makes it honest to sell and what keeps
+   it inside the TODO_ATTORNEY convention — no new legal sentence enters the
+   product through this path.
+
+   PAYMENTS_LIVE is still false, and this code does not change that. It exists
+   so that flipping it becomes a decision about attorney review rather than a
+   decision to charge for nothing. See the note above.
+   ==================================================================== */
+const ENT_KEY='amparo_ent';
+function entitlements(){ try{ return JSON.parse(localStorage.getItem(ENT_KEY)||'{}'); }catch(e){ return {}; } }
+function grantEntitlement(product,sit){
+  try{
+    const e=entitlements();
+    e[product]=e[product]||[];
+    if(sit&&!e[product].includes(sit)) e[product].push(sit);
+    localStorage.setItem(ENT_KEY,JSON.stringify(e));
+  }catch(e){}
+}
+function hasEntitlement(product,sit){
+  const e=entitlements()[product];
+  return Array.isArray(e)&&(e.includes(sit)||e.includes('*'));
+}
+
+/* The good line for each turn is the choice already marked p:1 and g:1 in the
+   deck — the same judgement the drill scores against, not a second opinion. */
+function packDataFor(sitId,lang){
+  const sc=SCEN.filter(x=>x.id&&x.id.indexOf(sitId)===0);
+  const deck=SCEN.find(x=>x.id===sitId)||sc[0];
+  if(!deck||!deck.turns) return null;
+  const rows=[];
+  for(const t of deck.turns){
+    const good=(t.c||[]).filter(c=>c.p>=1&&c.g===1);
+    if(!good.length) continue;
+    rows.push({
+      officer:(t.o&&t.o[lang])||'',
+      say:good.map(c=>(c.t&&c.t[lang])||'').filter(Boolean),
+      why:(good[0].f&&good[0].f[lang])||''
+    });
+  }
+  return { title:(deck.title&&deck.title[lang])||sitId, scene:(deck.scene&&deck.scene[lang])||'', rows };
+}
+
+function renderScriptPack(sitId){
+  const lang=A.lang||'en';
+  const d=packDataFor(sitId,lang);
+  if(!d){ alert(lang==='en'?'That scenario has no pack yet.':'Ese escenario aún no tiene paquete.'); return; }
+  const T=lang==='en'
+    ? {h:'Script Pack',ck:'Checklist',fc:'Flashcards — cut along the lines',say:'Say',why:'Why',print:'Print',close:'Close',
+       foot:'Amparo is not a law firm and this is not legal advice. Every line here is from the drill you practised.'}
+    : {h:'Paquete de Guiones',ck:'Lista de verificación',fc:'Tarjetas — recorte por las líneas',say:'Diga',why:'Por qué',print:'Imprimir',close:'Cerrar',
+       foot:'Amparo no es un bufete y esto no es asesoría legal. Cada línea viene del ejercicio que practicó.'};
+  const esc=x=>String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const checklist=d.rows.map((r,i)=>
+    '<li><div class="pkO">'+esc(r.officer)+'</div>'+
+    r.say.map(x=>'<div class="pkS"><b>'+T.say+':</b> '+esc(x)+'</div>').join('')+
+    (r.why?'<div class="pkW">'+esc(r.why)+'</div>':'')+'</li>').join('');
+  const cards=d.rows.map(r=>
+    '<div class="pkCard"><div class="pkCardO">'+esc(r.officer)+'</div>'+
+    '<div class="pkCardS">'+esc(r.say[0]||'')+'</div>'+
+    '<div class="pkCardB">amparohq.com</div></div>').join('');
+  const w=document.getElementById('packView');
+  w.innerHTML='<div class="pkWrap"><div class="pkHead"><div><div class="pkKicker">'+esc(T.h)+'</div>'+
+    '<h2 class="pkTitle">'+esc(d.title)+'</h2></div>'+
+    '<div class="pkBtns"><button onclick="window.print()">'+T.print+'</button>'+
+    '<button onclick="closePack()">'+T.close+'</button></div></div>'+
+    '<h3 class="pkH3">'+T.ck+'</h3><ol class="pkList">'+checklist+'</ol>'+
+    '<h3 class="pkH3 pkBreak">'+T.fc+'</h3><div class="pkCards">'+cards+'</div>'+
+    '<p class="pkFoot">'+esc(T.foot)+'</p></div>';
+  w.classList.add('on');
+}
+function closePack(){ document.getElementById('packView').classList.remove('on'); }
+
+/* Redemption on return from Stripe. The redirect alone proves nothing — anyone
+   can type the success url — so the session id is checked against Stripe
+   server-side before anything unlocks. */
+(function(){
+  try{
+    const q=new URLSearchParams(location.search);
+    if(q.get('checkout')!=='success') return;
+    const sid=q.get('session_id')||'';
+    const clean=()=>history.replaceState(null,'',location.pathname);
+    if(!/^cs_[A-Za-z0-9_]+$/.test(sid)){ clean(); return; }
+    fetch(CHECKOUT_URL.replace(/\/checkout$/,'/redeem'),{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({sessionId:sid})
+    }).then(r=>r.ok?r.json():null).then(j=>{
+      clean();
+      if(!j||!j.ok) return;
+      grantEntitlement(j.product,A.sit);
+      if(j.product==='script') renderScriptPack(A.sit);
+    }).catch(()=>clean());
+  }catch(e){}
+})();
+
 const CHECKOUT_URL='https://grandiose-armadillo-240.convex.site/checkout';
 let _payProduct=null;
 function openPay(title,price,desc,product){
@@ -1689,4 +1824,5 @@ renderSide(); applyLang();
 </script>
 
 
+<div id="packView" aria-hidden="true"></div>
 </body></html>
