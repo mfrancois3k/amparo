@@ -44,3 +44,32 @@ draft's §8.
   Starting from zero followers is confirmed.
 - R6 (does Meta classify Amparo as SIEP?) is unsettleable from outside Meta. Move 8 is the
   check. No other move assumes an answer.
+
+### Execution status — 2026-08-20
+
+| Move | State | Note |
+|---|---|---|
+| A1 attribution | **done** | first-touch `ft_*` super-properties; two send-time bugs found and fixed in verification |
+| A2 publishing surface | **done** | 1 url -> 111 pages, 51 jurisdictions, 63 indexable |
+| A3 publisher posture | **done** | /about/ + /how-we-verify/ EN+ES; states the attorney gap outright |
+| A4 RSS | **done** | 29 items, English only, discovery link on every page |
+| B1 outreach discovery | built, dormant | needs `FIRECRAWL_API_KEY`; exits 0 without it |
+| B2 republisher crawl | built, dormant | same key; also needs a landed placement to crawl for |
+| B3 citation mining | **live** | weekly, no key required, 26 claims on first run |
+| C1 two pieces + pitches | **HUMAN ONLY** | trade press blacklists detected-AI submissions, permanently |
+| C2 email capture | **BLOCKED** | no `RESEND_API_KEY` and no sending domain (H8). Offer is "email me my link" — recon settled that no PDF generator exists |
+| C3 Facebook page | **done by operator** | page live, secrets stored, posting proven via unpublished draft |
+| C4 aggregator submissions | **HUMAN ONLY** | ~1 hour, once; Feedly needs none — it ingests A4's feed |
+| D1-D6 paid | deferred | unchanged; runs only if the operator chooses to spend |
+
+**Open blocker:** the stored Facebook token is `type USER` expiring 2026-08-20
+04:00 UTC. All scopes correct, posting verified working. The browser "Extend
+Access Token" step never applied across four attempts — the Access Token Tool
+renders the extended token BELOW the button while the original stays above it.
+Resolved by moving the `fb_exchange_token` exchange into
+`tools/fb-setup-secrets.mjs`, driven by `SETUP-FACEBOOK.cmd`, which collects
+the App Secret without displaying it.
+
+**Recon closed this round:** R1, R2, R4 (no PDF generator — `window.print()`
+only), R5 (`STATES` is a clean literal), R6 (only TX/GA/NY are VERIFIED),
+R7 (no search API key configured), R8 (Education website category).
