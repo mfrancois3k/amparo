@@ -1,0 +1,166 @@
+{
+  "_readme": "Topic queue mined from Wikipedia {{Citation needed}} tags. READ-ONLY: nothing here may be used to edit Wikipedia. Every claim is a legal claim and needs primary-statute verification plus the state-law-matrix.md gate before it can become an Amparo page.",
+  "generated": "2026-08-20",
+  "keywords": 12,
+  "articlesScanned": 63,
+  "found": 26,
+  "errors": [],
+  "gaps": [
+    {
+      "title": "Miranda v. Arizona",
+      "claim": "At issue was whether the Miranda warnings were actually compelled by the Constitution, or were rather merely measures enacted as a matter of judicial policy.",
+      "keyword": "Miranda warning",
+      "url": "https://en.wikipedia.org/wiki/Miranda_v._Arizona"
+    },
+    {
+      "title": "Miranda v. Arizona",
+      "claim": "He cited several cases demonstrating a majority of the then-current court, counting himself, and Justices Kennedy, O'Connor, and Thomas, as well as Rehnquist (who had just delivered a contrary opinion), \"[were] on record as believing that a violation of Miranda is not a violation of the Constitution.\"",
+      "keyword": "Miranda warning",
+      "url": "https://en.wikipedia.org/wiki/Miranda_v._Arizona"
+    },
+    {
+      "title": "Random checkpoint",
+      "claim": "Checkpoints are also often set near the exit points of public events where people have been drinking to prevent large numbers of drunk drivers from being released into traffic simultaneously from the event.",
+      "keyword": "police checkpoint",
+      "url": "https://en.wikipedia.org/wiki/Random_checkpoint"
+    },
+    {
+      "title": "Random checkpoint",
+      "claim": "There are various guidelines outlined by jurisdictional and international law for sobriety checkpoints;",
+      "keyword": "police checkpoint",
+      "url": "https://en.wikipedia.org/wiki/Random_checkpoint"
+    },
+    {
+      "title": "Random checkpoint",
+      "claim": "Law enforcement often posts or announces in advance that these checkpoints will occur and at what location.",
+      "keyword": "police checkpoint",
+      "url": "https://en.wikipedia.org/wiki/Random_checkpoint"
+    },
+    {
+      "title": "Random checkpoint",
+      "claim": "The machine used to perform a breath analysis is more sophisticated than the portable device that is used to administer a roadside RBT with the results of a breath analysis being used as evidence in court to prove a drunk driving charge.",
+      "keyword": "police checkpoint",
+      "url": "https://en.wikipedia.org/wiki/Random_checkpoint"
+    },
+    {
+      "title": "Random checkpoint",
+      "claim": "Trials of the program will be in Sydney's eastern suburbs.",
+      "keyword": "police checkpoint",
+      "url": "https://en.wikipedia.org/wiki/Random_checkpoint"
+    },
+    {
+      "title": "Random checkpoint",
+      "claim": "Trials of the program will be in Sydney's eastern suburbs. Drunk driving continues to be one of the main causes of road fatalities and injuries, responsible for 30 percent of road fatalities across Australia.",
+      "keyword": "police checkpoint",
+      "url": "https://en.wikipedia.org/wiki/Random_checkpoint"
+    },
+    {
+      "title": "Checkpoint Charlie",
+      "claim": "The East Germans referred officially to Checkpoint Charlie as the (\"Border Crossing Point\") .",
+      "keyword": "police checkpoint",
+      "url": "https://en.wikipedia.org/wiki/Checkpoint_Charlie"
+    },
+    {
+      "title": "Checkpoint Charlie",
+      "claim": "Western units were deployed in the middle of the night in early September with live armaments and vehicles, in order to enforce the ban.",
+      "keyword": "police checkpoint",
+      "url": "https://en.wikipedia.org/wiki/Checkpoint_Charlie"
+    },
+    {
+      "title": "Checkpoint Charlie",
+      "claim": "Gallery walls along Friedrichstraße and Zimmerstraße give information about escape attempts, how the checkpoint was expanded, and its significance during the Cold War, including the confrontation of Soviet and American tanks in 1961, and an overview of other important memorial sites and museums about the division of Germany and the wall.",
+      "keyword": "police checkpoint",
+      "url": "https://en.wikipedia.org/wiki/Checkpoint_Charlie"
+    },
+    {
+      "title": "Checkpoint Charlie",
+      "claim": "The city tried to save the tower but failed, as it was not classified as a historic landmark,",
+      "keyword": "police checkpoint",
+      "url": "https://en.wikipedia.org/wiki/Checkpoint_Charlie"
+    },
+    {
+      "title": "Checkpoint Charlie",
+      "claim": "The \"Mauermuseum - Museum Haus am Checkpoint Charlie\" was opened on 14 June 1963",
+      "keyword": "police checkpoint",
+      "url": "https://en.wikipedia.org/wiki/Checkpoint_Charlie"
+    },
+    {
+      "title": "Checkpoint Charlie",
+      "claim": "The museum is housed in part in the \"House at Checkpoint Charlie\" building by architect Peter Eisenman.",
+      "keyword": "police checkpoint",
+      "url": "https://en.wikipedia.org/wiki/Checkpoint_Charlie"
+    },
+    {
+      "title": "Rusik",
+      "claim": "His talent for sniffing out poached fish soon found him taking over the job of the police's canine team member. Rusik died in the line of duty in June 2003, when he was hit by a car during an inspection, immediately after searching a bus. He had apparently found smuggled sturgeon in the same car some time before, according to personnel at the police checkpoint.",
+      "keyword": "police checkpoint",
+      "url": "https://en.wikipedia.org/wiki/Rusik"
+    },
+    {
+      "title": "Terry v. Ohio",
+      "claim": "The rationale behind the Supreme Court decision revolves around the notion that, as the opinion argues, \"the exclusionary rule has its limitations.\" According to the court, the meaning of the rule is to protect persons from unreasonable searches and seizures aimed at gathering evidence, not searches and seizures for other purposes (like prevention of crime or personal protection of police officers).",
+      "keyword": "terry stop",
+      "url": "https://en.wikipedia.org/wiki/Terry_v._Ohio"
+    },
+    {
+      "title": "Terry v. Ohio",
+      "claim": "However, in Hiibel v. Sixth Judicial District Court of Nevada, , the court held that neither of these remarks was controlling in a situation in which a state law required a detained person to identify himself.",
+      "keyword": "terry stop",
+      "url": "https://en.wikipedia.org/wiki/Terry_v._Ohio"
+    },
+    {
+      "title": "Terry v. Ohio",
+      "claim": "This is known as \"frisking the lunge area,\" as an officer may protect himself by searching any areas from which the suspect could grab a weapon.",
+      "keyword": "terry stop",
+      "url": "https://en.wikipedia.org/wiki/Terry_v._Ohio"
+    },
+    {
+      "title": "Terry v. Ohio",
+      "claim": "To date, 24 states have passed such \"stop and identify\" laws.",
+      "keyword": "terry stop",
+      "url": "https://en.wikipedia.org/wiki/Terry_v._Ohio"
+    },
+    {
+      "title": "Stop-and-frisk in New York City",
+      "claim": "Giuliani (mayor 1994-2001) and Bratton presided over an expansion of the New York police department and a crackdown on low-level crimes, including fare evasion, public drinking, public urination, graffiti artists, and \"squeegee men\".",
+      "keyword": "terry stop",
+      "url": "https://en.wikipedia.org/wiki/Stop-and-frisk_in_New_York_City"
+    },
+    {
+      "title": "Implied consent",
+      "claim": "For a handheld field breath tester to be used as evidential breath testing, the device must be properly certified and calibrated, evidential procedures must be followed, and it may be necessary to administer an \"implied consent\" warning to the suspect prior to testing.",
+      "keyword": "implied consent law",
+      "url": "https://en.wikipedia.org/wiki/Implied_consent"
+    },
+    {
+      "title": "Drunk driving",
+      "claim": "In many jurisdictions, police officers can conduct field tests of suspects to look for signs of intoxication. There have been cases in Canada where officers have come upon a suspect who is unconscious after a crash and officers have taken a blood sample.",
+      "keyword": "implied consent law",
+      "url": "https://en.wikipedia.org/wiki/Drunk_driving"
+    },
+    {
+      "title": "Warrant (law)",
+      "claim": "The Parliament of Great Britain passed the Revenue Act 1767 (7 Geo. 3. c. 46) which reaffirmed the legality of writs of assistance, or general search warrants, and gave customs officials broad powers to search houses and businesses for smuggled goods. This law was one of the key acts of Great Britain which led to the American Revolution,",
+      "keyword": "search warrant",
+      "url": "https://en.wikipedia.org/wiki/Warrant_(law)"
+    },
+    {
+      "title": "Warrant (law)",
+      "claim": "The person being investigated, arrested, or having their property seized, pursuant to a warrant is given a copy of the warrant at the time of its execution.",
+      "keyword": "search warrant",
+      "url": "https://en.wikipedia.org/wiki/Warrant_(law)"
+    },
+    {
+      "title": "Fifth Amendment to the United States Constitution",
+      "claim": "The amendment has also been used by defendants and witnesses in criminal cases involving the American Mafia.",
+      "keyword": "custodial interrogation",
+      "url": "https://en.wikipedia.org/wiki/Fifth_Amendment_to_the_United_States_Constitution"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "If you do wish to say anything, what you say may be given in evidence.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    }
+  ]
+}

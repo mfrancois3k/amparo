@@ -1,0 +1,53 @@
+name: Weekly growth discovery
+
+# Wargame 32 Track B. Runs unattended and contacts nobody — it builds lists a
+# human triages later.
+#
+# Weekly, not daily, on purpose: the outreach-target list and the Wikipedia
+# citation backlog both move slowly, and there is no benefit to freshness that
+# would justify the extra API spend or the extra load on Wikipedia.
+on:
+  schedule:
+    - cron: '41 8 * * 1'       # Mondays 08:41 UTC — off-the-hour to dodge the rush
+  workflow_dispatch:
+
+permissions:
+  contents: write              # commit the refreshed growth/*.json
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Parsers first, network second. Both scripts extract text with regexes
+      # that real-world input breaks in ways fixtures do not, so a parser
+      # regression should fail here rather than quietly fill a queue with junk.
+      - name: Self-check the parsers
+        run: |
+          node tools/citation-gaps.mjs --selftest
+          node tools/discover-targets.mjs --selftest
+
+      # B3. No API key, no account — this is the piece that works from day one.
+      - name: Mine Wikipedia citation gaps
+        run: node tools/citation-gaps.mjs
+
+      # B1 + B2. Exits 0 doing nothing when the key is absent, so the workflow
+      # stays green until the secret exists instead of mailing a failure every
+      # Monday for a step that was never switched on.
+      - name: Discover outreach targets and republishers
+        env:
+          FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
+        run: node tools/discover-targets.mjs
+
+      - name: Commit what changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add growth
+          git diff --staged --quiet || git commit -m "chore: weekly growth discovery ($(date -u +%F))"
+          git push
