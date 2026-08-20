@@ -1,0 +1,19 @@
+# Keep internal working docs out of the public deploy.
+#
+# The repo root IS the deploy root (static, no build step), so anything tracked
+# here is served at amparohq.com/<path> unless excluded. These directories hold
+# strategy notes, funnel numbers, unresolved legal-exposure notes, and battle
+# plans — none of it is site content and none of it is linked from any route.
+#
+# Verified before excluding (2026-08-20): no href/src in index.html, app/ or
+# arena/ references any of these, and none appear as a path in sitemap.xml.
+# Live routes are: /, /about, /acerca, /como-verificamos, /derechos,
+# /how-we-verify, /rights, plus /app and /arena.
+
+notebook/
+tasks/
+wargames/
+
+# Same family — the wargame system's ledger and grading rubric, at repo root.
+LEDGER.md
+SUCCESS.md
