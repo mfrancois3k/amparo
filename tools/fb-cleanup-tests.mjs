@@ -1,23 +1,29 @@
 #!/usr/bin/env node
 /**
- * Removes the unpublished drafts that fb-token-check.mjs --post-test creates.
+ * Removes the unpublished drafts that fb-token-check.mjs --post-test created.
  *
- * SCOPE, deliberately narrow. This deletes a post only when ALL of these hold:
- *   1. its message is EXACTLY the verification string, character for character
- *   2. it is unpublished (is_published === false)
- *   3. the page returned it under promotable_posts for the configured page id
+ * TARGETED BY ID, not by search. Each verification run printed the id of the
+ * draft it created, and those ids are listed below. That is stricter than any
+ * filter: the script can only ever touch posts this project is known to have
+ * made, and cannot walk the Page's content at all.
  *
- * Nothing is matched by prefix, keyword, or date. A real post cannot satisfy
- * condition 1 unless someone deliberately types the test sentence verbatim,
- * and it would still have to be unpublished. Deleting a post is irreversible
- * and this runs against a live Page, so the filter is the safety mechanism —
- * not the caller's intent, not the operator's memory of which ones were tests.
+ * It also sidesteps a permission problem worth recording. Listing drafts needs
+ * a read endpoint, and both available ones refuse this app:
+ *   /promotable_posts -> (#100) Tried accessing nonexisting field
+ *   /feed             -> (#10) requires pages_read_engagement or Page Public
+ *                        Content Access
+ * The token does carry pages_read_engagement, so the block is the app being in
+ * Development Mode rather than a missing scope. Requesting Page Public Content
+ * Access — an App Review feature granting read access to public Page content —
+ * to tidy four test drafts would be a bad trade. Deleting a post you own needs
+ * only pages_manage_posts, which is already granted.
  *
- * Dry-run by default. --confirm is required to delete anything.
+ * SAFETY: each id is fetched first and deleted ONLY if the post still carries
+ * the exact verification message and is still unpublished. If that read fails
+ * for any reason, the post is SKIPPED rather than deleted blind — an
+ * unverifiable delete against a live Page is not worth the tidiness.
  *
- * Usage:
- *   node tools/fb-cleanup-tests.mjs            list what would be deleted
- *   node tools/fb-cleanup-tests.mjs --confirm  delete them
+ * Dry-run by default. --confirm is required.
  */
 import { resolvePageToken } from './fb-token.mjs';
 
@@ -26,14 +32,24 @@ const ID = process.env.FB_PAGE_ID;
 const RAW = process.env.FB_PAGE_TOKEN;
 const CONFIRM = process.argv.includes('--confirm');
 
-/* Must stay byte-identical to the string in fb-token-check.mjs. If that one is
-   ever reworded, this stops matching and the drafts are simply left alone —
-   which is the correct failure direction for a delete. */
+/* Byte-identical to the string in fb-token-check.mjs. If that is ever reworded
+   this stops matching and nothing is deleted — the correct failure direction. */
 const TEST_MESSAGE = 'Amparo posting check — unpublished draft, not visible to anyone. Safe to delete.';
+
+/* Post-id suffixes reported by the verify runs on 2026-08-20. Extra ids can be
+   passed as arguments; nothing is ever discovered automatically. */
+const KNOWN = [
+  '122104733283439182',
+  '122104737213439182',
+  '122104755267439182',
+  '122104804017439182'
+];
 
 if (!ID || !RAW) { console.error('FB_PAGE_ID and FB_PAGE_TOKEN must be set'); process.exit(2); }
 
 const redact = s => String(s).split(RAW).join('<redacted>');
+const extra = process.argv.filter(a => /^\d{6,}$/.test(a));
+const suffixes = [...new Set([...KNOWN, ...extra])];
 
 let TOKEN;
 try {
@@ -43,44 +59,52 @@ try {
   process.exit(1);
 }
 
-/* /feed with a PAGE token returns unpublished drafts alongside published
-   posts, with is_published distinguishing them. promotable_posts was tried
-   first and this Page does not expose it — '(#100) Tried accessing nonexisting
-   field (promotable_posts)' — which is an app-permission-dependent edge, not
-   something worth requesting extra scopes to work around. */
-const res = await fetch(`${GRAPH}/${ID}/feed?fields=id,message,created_time,is_published&limit=100&access_token=${encodeURIComponent(TOKEN)}`);
-const json = await res.json();
-if (json?.error) { console.error(`Graph API — ${redact(json.error.message)}`); process.exit(1); }
+console.log(`checking ${suffixes.length} known test drafts${CONFIRM ? '' : ' (dry run)'}\n`);
 
-const all = (json?.data || []).filter(p => p.is_published === false);
-const targets = all.filter(p => p.message === TEST_MESSAGE && p.is_published === false);
+let deleted = 0, skipped = 0, gone = 0;
 
-console.log(`unpublished posts on the page: ${all.length}`);
-console.log(`exact verification-message matches: ${targets.length}\n`);
-
-if (!targets.length) {
-  console.log('Nothing to delete.');
-  if (all.length) {
-    console.log('\nOther unpublished posts were found and are being LEFT ALONE:');
-    for (const p of all) console.log(`  ${p.id}  ${(p.message || '(no message)').slice(0, 70)}`);
+for (const suffix of suffixes) {
+  const postId = `${ID}_${suffix}`;
+  let post = null;
+  try {
+    const r = await fetch(`${GRAPH}/${postId}?fields=id,message,is_published&access_token=${encodeURIComponent(TOKEN)}`);
+    post = await r.json();
+  } catch (e) {
+    console.log(`SKIP    ${suffix} — network error: ${redact(e.message)}`);
+    skipped++; continue;
   }
-  process.exit(0);
-}
 
-for (const p of targets) console.log(`  ${p.id}  created ${p.created_time}`);
+  if (post?.error) {
+    /* Code 100 on a specific object usually means it no longer exists — an
+       already-deleted draft, which is success rather than a problem. */
+    const msg = post.error.message || '';
+    if (/does not exist|cannot be loaded|nonexisting/i.test(msg)) {
+      console.log(`GONE    ${suffix} — already deleted`);
+      gone++;
+    } else {
+      console.log(`SKIP    ${suffix} — ${redact(msg)}`);
+      skipped++;
+    }
+    continue;
+  }
 
-if (!CONFIRM) {
-  console.log('\nDry run — nothing deleted. Re-run with --confirm to delete these.');
-  process.exit(0);
+  if (post.message !== TEST_MESSAGE) {
+    console.log(`SKIP    ${suffix} — message does not match the verification string, leaving it alone`);
+    skipped++; continue;
+  }
+  if (post.is_published !== false) {
+    console.log(`SKIP    ${suffix} — this post is PUBLISHED, refusing to delete`);
+    skipped++; continue;
+  }
+
+  if (!CONFIRM) { console.log(`WOULD DELETE  ${suffix}`); continue; }
+
+  const del = await fetch(`${GRAPH}/${postId}?access_token=${encodeURIComponent(TOKEN)}`, { method: 'DELETE' });
+  const body = await del.json().catch(() => ({}));
+  if (del.ok && body?.success !== false) { console.log(`DELETED ${suffix}`); deleted++; }
+  else { console.log(`FAILED  ${suffix} — ${redact(body?.error?.message || `HTTP ${del.status}`)}`); skipped++; }
 }
 
 console.log('');
-let ok = 0, failed = 0;
-for (const p of targets) {
-  const del = await fetch(`${GRAPH}/${p.id}?access_token=${encodeURIComponent(TOKEN)}`, { method: 'DELETE' });
-  const body = await del.json().catch(() => ({}));
-  if (del.ok && body?.success !== false) { console.log(`deleted ${p.id}`); ok++; }
-  else { console.log(`FAILED ${p.id} — ${redact(body?.error?.message || `HTTP ${del.status}`)}`); failed++; }
-}
-console.log(`\n${ok} deleted, ${failed} failed.`);
-process.exit(failed ? 1 : 0);
+if (CONFIRM) console.log(`${deleted} deleted, ${gone} already gone, ${skipped} skipped.`);
+else console.log(`Dry run — nothing deleted. Re-run with --confirm.`);
