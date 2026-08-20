@@ -594,6 +594,39 @@ To add anything new, one of:
 
 Do not burn retries on this error again; check the source count first.
 
+**Confirmed again 2026-08-20, with the missing proof and a working escape hatch.**
+
+The 2026-08-13 note proved the cap by elimination. The direct proof: the *same*
+`source add --text` that fails on `944d5ba5` **succeeds on a notebook holding 9
+sources**, seconds apart, same credentials. It is capacity, not auth, not path,
+not file type.
+
+Two additions to the above:
+
+- **`--text` fails too**, not just `--file`. A five-word probe with a one-word
+  title is rejected identically. There is no payload small enough to slip past
+  a full notebook, so do not try shrinking the input.
+- **A second notebook is the escape hatch**, and does not require deleting
+  anything. Growth and distribution work now lives in
+  **`8d34f4af-aa7c-4a27-929c-480ddfc3fde1`** — "Amparo — growth & distribution"
+  (wargame 32 rev 4 in three parts, LEDGER.md, the community answer bank). The
+  cost is that build-log context and growth context are now in two notebooks;
+  the benefit is that nothing had to be deleted to make room.
+
+Also, on `nlm` itself, both hit while working around the cap:
+
+- **`nlm source add --file` fails for every path** — long, short
+  (`C:\nlm-upload\x.pdf`), forward or backslashed, and for a valid PDF as well
+  as a `.md`. Only `--text` works, which caps a source at roughly 24k characters
+  through the Windows command line. Split long documents on headings first;
+  `wargames/32` needed three parts.
+- **`nlm source delete` treats its FIRST argument as a source id**, not a
+  notebook id, despite the usage line reading `delete {notebook_id}`. Passing
+  `<notebook> <source>` announces "delete 2 sources", removes the real one and
+  errors on the other. It also prompts, so pipe `y` to it. (The older
+  `nlm delete source <id> -y` form referenced above is from a previous CLI
+  version and no longer exists — the command is `nlm source delete`.)
+
 **Auth, and this cost real time — read it.** `nlm` stores credentials at
 `~/.notebooklm-mcp-cli/profiles/default`. It does **not** use
 `~/.notebooklm/storage_state.json` — that belongs to the separate `notebooklm`
