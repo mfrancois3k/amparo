@@ -34,7 +34,7 @@
 import { execFileSync } from 'node:child_process';
 
 const GRAPH = 'https://graph.facebook.com/v21.0';
-const TOKEN = process.env.FB_USER_TOKEN;
+let TOKEN = process.env.FB_USER_TOKEN;
 const DRY = process.argv.includes('--dry-run');
 const wantIdx = process.argv.indexOf('--page');
 const WANT = wantIdx === -1 ? null : process.argv[wantIdx + 1];
@@ -71,6 +71,41 @@ async function graph(pathname, params = {}) {
   }
   if (!res.ok) die(`Graph API ${res.status} on ${pathname}: ${scrub(json?.error?.message || 'unknown error')}`);
   return json;
+}
+
+/* Extend the token before doing anything else, when the app credentials are
+   available. This is the step that kept failing in the browser: the Access
+   Token Tool shows the EXTENDED token BELOW the button, while the original
+   stays in the box above it, so the un-extended one gets copied. Four
+   attempts, four short-lived tokens. Doing the exchange here removes the
+   opportunity for that mistake entirely.
+
+   A short-lived token is not merely inconvenient — a page token inherits the
+   lifetime of the user token it came from, so posting works for an hour and
+   then stops silently on a schedule nobody is watching. */
+const APP_ID = process.env.FB_APP_ID;
+const APP_SECRET = process.env.FB_APP_SECRET;
+if (APP_ID && APP_SECRET) {
+  secrets.add(APP_SECRET);
+  const qs = new URLSearchParams({
+    grant_type: 'fb_exchange_token',
+    client_id: APP_ID,
+    client_secret: APP_SECRET,
+    fb_exchange_token: TOKEN
+  });
+  let json = null;
+  try {
+    const res = await fetch(`${GRAPH}/oauth/access_token?${qs}`);
+    json = await res.json();
+  } catch (e) { die(`network error extending token: ${scrub(e.message)}`); }
+  if (json?.error) die(`could not extend the token: ${scrub(json.error.message)}`);
+  if (!json?.access_token) die('extend returned no token');
+  secrets.add(json.access_token);
+  TOKEN = json.access_token;
+  console.log('ok  exchanged the short-lived token for a long-lived one');
+} else {
+  console.log('note: FB_APP_ID / FB_APP_SECRET not set — using the token as given.');
+  console.log('      If it is short-lived, the page token inherits that and posting stops.');
 }
 
 const me = await graph('/me', { fields: 'id,name' });

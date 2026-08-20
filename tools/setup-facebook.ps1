@@ -88,6 +88,26 @@ Write-Host ''
 Write-Host '  Working...' -ForegroundColor Cyan
 Write-Host ''
 
+# App ID is public; the diagnostic already read it off the stored token.
+$env:FB_APP_ID = '1062143259849090'
+
+Write-Host ''
+Write-Host '  STEP 4 - App Secret (this is what makes the token permanent)' -ForegroundColor Yellow
+Write-Host '    Opening your app settings...'
+Start-Process 'https://developers.facebook.com/apps/1062143259849090/settings/basic/'
+Write-Host ''
+Write-Host '    On that page find "App Secret", click Show, and copy it.'
+Write-Host '    Without it the token expires in about an hour and posting stops.'
+Write-Host ''
+$secureSecret = Read-Host '    Paste the App Secret here, then press Enter' -AsSecureString
+if ($secureSecret -and $secureSecret.Length -gt 0) {
+  $sbstr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($secureSecret)
+  try { $env:FB_APP_SECRET = [Runtime.InteropServices.Marshal]::PtrToStringBSTR($sbstr) }
+  finally { [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($sbstr) }
+} else {
+  Write-Host '    Skipped - the token will be used as-is and may expire.' -ForegroundColor Yellow
+}
+
 $env:FB_USER_TOKEN = $plain
 try {
   node tools/fb-setup-secrets.mjs --page 'What To Say to Police'
@@ -96,6 +116,8 @@ try {
   # Clear it from this process's environment either way, so a later command in
   # the same window cannot pick it up.
   Remove-Item Env:FB_USER_TOKEN -ErrorAction SilentlyContinue
+  Remove-Item Env:FB_APP_SECRET -ErrorAction SilentlyContinue
+  Remove-Item Env:FB_APP_ID -ErrorAction SilentlyContinue
   $plain = $null
   [GC]::Collect()
 }
