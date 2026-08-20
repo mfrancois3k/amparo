@@ -12,9 +12,26 @@ import Stripe from 'stripe'
  *
  * Prices are defined HERE, server-side, in cents. The client sends a product
  * id, never an amount. */
-const PRODUCTS: Record<string, { usd: number; name: string }> = {
+/* `held` = priced and named, but NOT yet deliverable. A held product is
+ * refused server-side, which is the only gate that matters: the client is not
+ * the only way to reach /checkout.
+ *
+ * Deep Pack is held because it promises four things and can deliver one.
+ * `renderScriptPack` is the only fulfilment renderer that exists; there is no
+ * Deep Pack renderer, so a buyer would get a localStorage flag and nothing
+ * else. Worse, two of the four promises cannot be written safely today:
+ *   - "courthouse directions" is per-state factual data that exists nowhere in
+ *     this repo. Inventing it sends someone to the wrong building on a court
+ *     date.
+ *   - the "ICE-encounter addendum" would draw on the door-knock drill, which
+ *     the arena itself gates behind `HELD_SITS={door:1}` pending attorney and
+ *     DV-clinician review. Content too unreviewed to give away free must not
+ *     be sold.
+ * Clear `held` only when a renderer exists AND its source content has passed
+ * that review. */
+const PRODUCTS: Record<string, { usd: number; name: string; held?: true }> = {
   script: { usd: 399, name: 'Amparo Script Pack' },
-  deep: { usd: 699, name: 'Amparo Deep Pack' },
+  deep: { usd: 699, name: 'Amparo Deep Pack', held: true },
   tip: { usd: 300, name: 'Support Amparo' },
 }
 
@@ -25,6 +42,7 @@ export const createCheckout = action({
     if (!identity) throw new Error('Sign in to purchase')
     const p = PRODUCTS[product]
     if (!p) throw new Error('Unknown product')
+    if (p.held) throw new Error('not available yet')
     const key = process.env.STRIPE_SECRET_KEY
     if (!key) throw new Error('Payments not configured yet')
     const site = process.env.SITE_URL ?? 'https://amparohq.com'
@@ -59,6 +77,7 @@ export const guestCheckout = internalAction({
   handler: async (_ctx, { product }) => {
     const p = PRODUCTS[product]
     if (!p) throw new Error('Unknown product')
+    if (p.held) throw new Error('not available yet')
     const key = process.env.STRIPE_SECRET_KEY
     if (!key) throw new Error('Payments not configured yet')
     const site = process.env.SITE_URL ?? 'https://amparohq.com'

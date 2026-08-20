@@ -59,7 +59,13 @@ http.route({
       })
     } catch (e) {
       const msg = e instanceof Error ? e.message : 'error'
-      const status = msg.includes('not configured') ? 503 : msg.includes('Unknown product') ? 400 : 500
+      const status = msg.includes('not configured')
+        ? 503
+        : msg.includes('Unknown product')
+          ? 400
+          : msg.includes('not available yet')
+            ? 409 // priced but held — see PRODUCTS.held in stripe.ts
+            : 500
       return new Response(JSON.stringify({ error: msg }), {
         status,
         headers: { ...CORS, 'Content-Type': 'application/json' },
