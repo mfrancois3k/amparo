@@ -205,8 +205,15 @@ shows a gap** — Moves 1-2 are mandatory regardless, near-zero-cost recon.
 | Move | State | Note |
 |---|---|---|
 | 1 | BLOCKED (hard stop) | **Measurement tools unreachable.** Both PSI keyless API (quota: 0 anon/day) and Lighthouse CLI (Chrome interstitial) failed on all four combos (root+app × mobile+desktop). Root cause: not performance, but infrastructure/WAF — Amparo is behind bot detection that blocks Google's own crawlers. This affects organic SEO + CrUX + Quality Score independently of performance. Escalated to Michael for Vercel/Cloudflare config audit. |
-| 2–7 | Pending Move 1 unblock | Cannot proceed to triage (Move 2) without baseline numbers. Architecture holds; execution halted at wargame abort condition. |
+| 2 | PARTIAL | Real Move 2 needs Move 1's PSI reports (blocked). Wrote a pre-baseline triage from the wargame's own static/grep recon instead — `notebook/amparo-cwv-findings-2026-08-20.md` — scope-tagging what's knowable without live numbers. Not a substitute; re-triage once Move 1 unblocks. |
+| 3 | done | Worktree `../amparo-cwv-fix` on branch `cwv-fix-pass`, clean checkout, isolated from any uncommitted files (repo was clean at branch time). |
+| 4a | done | Added `<link rel=preconnect>` for `cdnjs.cloudflare.com` (GSAP host, confirmed async+SRI untouched) and `ph.amparohq.com` (PostHog's actual proxied ingest host — confirmed byte-level in the SDK init, not guessed). Verified in-browser: 0 console errors, both links present in DOM. |
+| 4b | Pending Move 1 unblock | Needs above-the-fold confirmation + a baseline to catch a `loading="lazy"` regression against. Applying blind risks silently worsening LCP with no way to detect it. |
+| 5 | done | `cowork-artifact-meta` dead JSON block removed — fresh repo-wide grep found only the definition itself, matching the wargame's prediction. Verified in-browser: element absent from DOM, page renders identically. |
+| 6–7 | Pending Move 1 unblock | No baseline to compare against; nothing for Move 6 to verify or Move 7 to land beyond what's already committed. |
 
-**Recommendation:** Michael to whitelist Google crawlers, re-run Move 1, then resume from Move 2 with real data.
+Commits on `cwv-fix-pass`: `13338c1` (Moves 4a+5, local only, not pushed).
 
-**Report:** `notebook/amparo-cwv-move-1-blocked-2026-08-20.md`
+**Recommendation:** Michael to whitelist Google crawlers, re-run Move 1, then resume from Move 2 with real data — Moves 4b/6/7 pick up from there.
+
+**Reports:** `notebook/amparo-cwv-move-1-blocked-2026-08-20.md`, `notebook/amparo-cwv-findings-2026-08-20.md`
