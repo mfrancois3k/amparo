@@ -114,3 +114,33 @@ Full narrative in `wargames/32-facebook-traffic-engine.md` §13.
 3. **`/arena/` deep links** — no `URLSearchParams` in the file, so every drill CTA lands on the
    menu rather than the drill. Highest-value conversion fix outstanding.
 4. **C1 / C4** — the one-time human sprint. Everything upstream of it is now built.
+
+### Revision 4 — after research, 2026-08-20
+
+Three positions from revisions 1–3 were contradicted by evidence and are now
+reversed. Full panel and reasoning in `wargames/32-facebook-traffic-engine.md`
+§14.
+
+| Was | Is | Evidence |
+|---|---|---|
+| Facebook Page is the primary social channel | The **forwardable card** is what travels; WhatsApp is where | ILRC 10M Red Cards since Nov 2024 vs Notifica app ~8,500 first-week installs, discontinued Feb 2025; 54% of Latino adults use WhatsApp |
+| Compete in search bilingually on equal footing | **Spanish is the opportunity**; English is unwinnable unfunded | Live SERP: `know your rights traffic stop Texas` = 7 law firms + 1 course vendor, zero nonprofits. Spanish equivalent = PDFs, a community-college file, and a Peruvian news site ranking for a Texas query |
+| Email the 32 orgs Amparo cites | **Local affiliates**, timed to Labor Rights Week (last week of August) | ILRC verbatim: "The ILRC does not vet other production sources or content." CLINIC has 290 field offices in 47 states |
+
+**New tracks:** E (forwardable card — E1 WhatsApp-shaped image, E2 ILRC-format
+3.5×2in print PDF, E3 WhatsApp Channel) and F (ten accounts the operator must
+open personally, F1–F10).
+
+**Shipped this round:** the Script Pack artifact and guest fulfilment. A buyer
+now receives a printable checklist and flashcards built from the drill they
+finished, and `{CHECKOUT_SESSION_ID}` plus server-side verification ties a
+guest's payment to their browser. `PAYMENTS_LIVE` stays false and
+`tools/test-fulfilment.mjs` asserts it stays false while `REVIEW.attorneys` is
+empty — *FTC v. DoNotPay* (Jan 2025, $193,000) turned on selling legal output
+with no attorney retained to test accuracy.
+
+**Two constraints discovered that were not in any earlier revision:**
+- MCP servers cannot run in GitHub Actions. They are interactive; this
+  project's automation is cron. MCP belongs in the analyse loop, not publish.
+- Vercel Hobby is non-commercial only. A live paid pack makes it a $20/mo
+  requirement, which is an argument for mirroring to Cloudflare Pages.

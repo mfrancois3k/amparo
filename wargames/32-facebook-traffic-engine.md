@@ -1,7 +1,8 @@
 # 32 — Amparo's free organic traffic engine (Facebook demoted to Track D)
 
-**Wargame, not a plan. 2026-08-19, post-v2.26.1. Revision 3 — organic-first, scenario-led.**
-**Revision 3 (2026-08-20) is recorded in §13; read it before executing Track C.**
+**Wargame, not a plan. 2026-08-19, post-v2.26.1. Revision 4 — card-first, Spanish-first.**
+**Revision 3 is in §13. Revision 4 (§14) is written after research and supersedes
+the channel strategy in every earlier revision — read §14b before executing anything.**
 Mission brief: [`tasks/32-facebook-traffic-engine.md`](../tasks/32-facebook-traffic-engine.md).
 Executor: a mid-tier model (Sonnet) running this blind, plus one human (Michael) for the moves
 marked **HUMAN ONLY**.
@@ -659,3 +660,190 @@ Track D was never entered — no ad account, no spend, and **Move D2's SIEP cate
 never run**, so Fact 6 remains a live unknown rather than a settled one. Nothing in this revision
 makes paid safer or nearer; it makes the organic engine load-bearing enough that paid stays
 optional.
+
+---
+
+## 14. Revision 4 — the expert panel, and the strategy it broke (2026-08-20)
+
+Revisions 1–3 were written from the operator's brief and five videos. Revision 4
+is written after research, and the research contradicted the plan in three
+places that matter. This section records the panel that found the gaps, the
+pivot, and the accounts the operator has to open personally.
+
+### 14a. The panel
+
+Ten lenses, each asked the same question: *what is this plan missing that would
+be obvious to you and invisible to the person who wrote it?* The ones that
+found nothing are not listed; the ones below each found something the previous
+revisions had wrong.
+
+**The distribution strategist.** "You are optimising a product when the format
+is what travels. ILRC has distributed **10 million Red Cards since November
+2024** in 59 languages — a 3.5×2in card with a free print file. United We
+Dream's *Notifica app* had hundreds of millions of PR impressions and
+**~8,500 downloads in its first week**; it was discontinued in February 2025.
+Your atomic unit is wrong. The web tool should be the generator; the card is
+the payload."
+
+**The SEO specialist.** "I ran your queries. `know your rights traffic stop
+Texas` returns **seven criminal-defence law firms and one traffic-course
+vendor. Zero nonprofits, zero government.** That is a keyword class the
+best-funded content marketers in local legal SEO buy deliberately. You will not
+win it. But the Spanish SERP for the same intent returns ACLU NorCal, a
+community-college PDF, a state senate wallet-card PDF, `lawhelpca.org` — and, for
+a *Texas* query, a *Peruvian* news site. A foreign general-news domain
+outranking US legal aid for a US-state legal query is not competition, it is a
+vacuum."
+
+**The YMYL analyst.** "Legal content sits under Google's 'very high Page
+Quality' bar. You have no attorney sign-off, so you cannot buy authority — but
+you can borrow it. Quoting the statute with its section number makes the page's
+authority *the state legislature's*, not yours. That is already your
+architecture. Lean the whole way in: statute text, section number, and a link
+to the official state code on every card and every page."
+
+**Regulatory counsel.** "Two cases decide your monetisation. *FTC v. DoNotPay*,
+final order January 2025, **$193,000** — the findings were that the company did
+not test whether output matched a lawyer's and **did not retain attorneys** to
+check accuracy. And *Upsolve v. James*, Second Circuit, September 2025 — the
+injunction protecting free non-lawyer help on a **state-issued form** was
+**vacated**; UPL statutes are content-neutral and survive intermediate
+scrutiny. The line everywhere is: legal *information* is a statement of the
+law; legal *advice* applies law to a person's facts. Your architecture is on
+the right side of it. Charging money before an attorney has tested the output
+is the wrong side of the FTC order."
+
+**The community organiser.** "Every national door is shut and one of them says
+so out loud. ILRC, verbatim: *'The ILRC does not vet other production sources
+or content.'* LawHelp content comes from legal-aid partners under
+advisory-committee governance. LSC grantees are statutorily restricted from
+representing most non-citizens — the largest legal-aid network in the country
+is structurally awkward for an immigrant-focused tool. The local layer is
+wide open: **CLINIC has 290 field offices across 47 states**, CHIRLA runs a
+**Promotores** programme, Make the Road trained **11 partner CBOs** on peer
+education, and libraries already hand out ILRC material. Stop emailing
+headquarters."
+
+**The Spanish-language media strategist.** "**54% of Latino adults use
+WhatsApp**, against 22% of white adults. A study of 1,487 public Latino-led
+WhatsApp groups — roughly 800,000 users — found ~3,000 messages carrying Meta's
+forwarded-many-times indicator. Forwarding is the mechanic. A link asks for a
+browser; an image asks for nothing. Also: **Radio Bilingüe** runs ~30 owned
+stations and a daily call-in show, *Línea Abierta*, that covers immigrant
+rights and books subject-matter guests for free."
+
+**The platform-risk analyst.** "Anything on someone else's platform is a single
+point of political failure. **Padlet deleted People Over Papers** with no
+notice after public pressure. **Apple removed ICEBlock** — a million-plus
+downloads — in October 2025 after a DOJ demand. Your self-hosted site that
+prints a PDF is the most takedown-resistant shape this product can take. Do not
+migrate the core of it onto a platform to chase reach."
+
+**The automation architect.** "You are about to install MCP servers to automate
+publishing. **MCP servers do not run in GitHub Actions** — it is an interactive
+protocol that helps a person sitting in the editor, not a cron at 03:00. Your
+entire working stack is keyless cron. Keep writing thirty-line fetches for the
+publish loop and add MCP only for the analyse-and-decide loop. The one MCP that
+changes your economics is **Google Search Console**: proprietary data about
+your own site, free, and the only thing that answers 'is the Spanish version
+ranking'."
+
+**The product lead.** "People Over Papers: two people who met on TikTok, a
+Google Form, a Padlet, no funding, no institutional partner — **millions of
+visitors within months**. Notifica: an agency build with national press —
+8,500 installs. The difference is not quality. It is that one required
+installing something and the other required clicking a link someone you trust
+already sent you. Design for the forward, not the download."
+
+**The solo-operator lens.** "Your constraint is not money and it is not ideas.
+It is that plays 1, 2 and 8 of the growth plan cannot be delegated to anything
+you have built. Every hour spent adding a ninth automation is an hour not spent
+on the one email to one CLINIC field office that actually changes the number."
+
+### 14b. What the panel broke
+
+Three positions from revisions 1–3 are now wrong:
+
+| Was | Is |
+|---|---|
+| The Facebook Page is the primary social channel | The Page is a *distribution* surface. The **forwardable card** is the product that travels, and **WhatsApp** is where it travels. |
+| Compete in search, bilingually, on equal footing | English is saturated by law firms and is not winnable unfunded. **Spanish is the whole opportunity** and should get the majority of remaining effort. |
+| Email the 32 organisations Amparo already cites | Half of those are *national* bodies that have published a policy against adopting outside content. **Target local affiliates**, and time it to **Labor Rights Week, the last week of August**, when DOL's Consular Partnership Program already convenes consulates with community organisations. |
+
+### 14c. TRACK E — the forwardable card (new, and now the highest-leverage work)
+
+- **Move E1 — Ship a WhatsApp-shaped card.** One image per state per language,
+  sized to survive forwarding, carrying the statute quote and the section
+  number, with the URL as text rather than as the payload. The renderer that
+  makes the post cards already does this; the change is the aspect ratio, the
+  absence of anything requiring a click, and the fact that it must be legible
+  after two rounds of re-compression.
+  *Expected observation:* the card is readable at 40% zoom on a phone.
+  *Failure → counter:* text too small after WhatsApp's re-encode → raise the
+  minimum type size until it survives a round trip through an actual forward.
+
+- **Move E2 — Match ILRC's physical card format.** A 3.5×2in print PDF, because
+  anyone already printing Red Cards can then print Amparo's on the same
+  workflow with no new decisions. This is the single cheapest piece of
+  distribution compatibility available.
+
+- **Move E3 — Claim a WhatsApp Channel.** Free, unlimited followers, the
+  operator's phone number stays hidden, and it is publicly discoverable.
+  Messages expire after 30 days and there is no API, so it is manual — which
+  is acceptable because the payload is one image a week, not a feed.
+
+### 14d. TRACK F — accounts and credentials the operator must open personally
+
+None of these can be automated, and several of them gate everything above.
+
+| # | Account | Why | Cost | Notes |
+|---|---|---|---|---|
+| F1 | **Google Search Console** | The only free source of truth on whether the Spanish pages rank. Splits EN/ES by query. | Free | Verify amparohq.com; export before the **16-month** window deletes history |
+| F2 | **Bing Webmaster Tools** | The only free tool giving keyword volume *and* backlinks without owning-site restrictions | Free | Same verification |
+| F3 | **WhatsApp Channel** | 54% of the target audience; nobody in this niche has claimed one | Free | From the phone; number stays hidden |
+| F4 | **beehiiv (Launch)** | Unblocks C2. **2,500 subscribers, unlimited sends, custom domain, no card** | Free | The only free newsletter tier that is large, unbranded and un-metered per day |
+| F5 | **Sending domain DNS** (SPF/DKIM/DMARC) | H8. Without it, mail lands in spam and C2 is worthless | Free | On the domain you already own |
+| F6 | **Ahrefs Webmaster Tools** | 5,000 crawl credits/month, 1,000 backlinks — for your own site only | Free | Owned-site only is the whole business model; still the best free backlink data |
+| F7 | **Google Alerts** | Already wired into news-post via `research/alert-feeds.json` | Free | Deliver to **RSS**, not email |
+| F8 | **F5Bot** | Free, unlimited keywords, watches Reddit + Hacker News | Free | Complements the question monitor |
+| F9 | **Cloudflare Pages** (mirror) | **Vercel's Hobby tier restricts non-commercial use.** The moment a donation button or a paid pack exists, that is a $20/mo Pro requirement | Free | Static requests and bandwidth are free and unlimited. Worth mirroring regardless as takedown insurance |
+| F10 | **Attorney, per state** | `REVIEW.attorneys` is empty for TX, GA, NY. Gates: paid packs, legal-aid adoption, and YMYL authority | The real cost | Everything monetary downstream of this |
+
+**Deliberately NOT on this list:** Meta advertiser verification (Track D is
+deferred and the SIEP process attaches a real name and a **home address** to an
+immigration-adjacent campaign — a meaningful cost when the audience is
+immigrants), TikTok's Content Posting API (**unaudited clients post
+private-only**), and Oracle Always Free (**requires a card**, silently halved
+its allocation in June 2026, reclaims idle instances).
+
+### 14e. The revenue sequence, restated because it is the thing most likely to
+go wrong
+
+Traffic and revenue are different goals with different blockers, and only one of
+them is a marketing problem.
+
+1. **The artifact exists** — done 2026-08-20. A Script Pack buyer now receives a
+   printable checklist and flashcards built from the drill they finished.
+2. **Fulfilment works** — done. `{CHECKOUT_SESSION_ID}` on the success url,
+   server-side verification, entitlement granted only after Stripe confirms
+   payment.
+3. **An attorney signs an edition** — **not done, and it is the gate.** Not for
+   comfort: *FTC v. DoNotPay* turned on the absence of retained attorneys
+   testing output accuracy.
+4. **Then** `PAYMENTS_LIVE=true`, and `tools/test-fulfilment.mjs` stops
+   asserting that it must be false.
+5. **Then** scale traffic into it.
+
+Running step 5 before step 3 does not produce revenue. It produces one
+opportunity to burn an audience that arrived because it trusted a legal tool.
+
+### 14f. Recon closed and opened this round
+
+| # | Outcome |
+|---|---|
+| R9 | Still open, but now bounded: an email address's value cannot be measured until step 4 above |
+| **New** | The English SERP for this intent is **law-firm saturated** — verified by live query, not by a keyword tool |
+| **New** | Spanish-US keyword data is unreliable enough that vendors admit it; **live SERP inspection is better evidence than any difficulty score** |
+| **New** | National KYR distributors publish policies against adopting outside content; **local affiliates are the route** |
+| **New** | MCP servers cannot run in the CI cron that carries this project's automation |
+| **New** | Vercel Hobby is **non-commercial only** — a live paid pack changes the hosting requirement |
