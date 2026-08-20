@@ -154,8 +154,18 @@ function render(item, iso) {
 }
 
 async function publish(post) {
-  const id = process.env.FB_PAGE_ID, token = process.env.FB_PAGE_TOKEN;
-  if (!id || !token) return { published: false, reason: 'FB_PAGE_ID / FB_PAGE_TOKEN not set — draft only' };
+  const id = process.env.FB_PAGE_ID, raw = process.env.FB_PAGE_TOKEN;
+  if (!id || !raw) return { published: false, reason: 'FB_PAGE_ID / FB_PAGE_TOKEN not set - draft only' };
+  /* Accept a User token as well as a Page token. Meta shows the user token in
+     a box and hides the page token inside a JSON response, so the wrong one
+     gets stored routinely; exchanging it here costs one call and turns a
+     silent scheduled-job failure into a non-event. */
+  let token;
+  try {
+    const r = await resolvePageToken(raw, id);
+    token = r.token;
+    if (r.kind === 'user-exchanged') console.log(`(exchanged a user token for the "${r.name}" page token)`);
+  } catch (e) { return { published: false, reason: scrub(e.message, raw) }; }
   const res = await fetch(`${GRAPH}/${id}/feed`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },

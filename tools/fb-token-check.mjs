@@ -23,6 +23,8 @@
  *
  * Exit codes: 0 all good · 1 a check failed · 2 credentials not set.
  */
+import { resolvePageToken } from './fb-token.mjs';
+
 const GRAPH = 'https://graph.facebook.com/v21.0';
 const ID = process.env.FB_PAGE_ID;
 const TOKEN = process.env.FB_PAGE_TOKEN;
@@ -39,11 +41,23 @@ if (!ID || !TOKEN) {
   process.exit(2);
 }
 
+/* Accept either token type: resolve first, then run every check below against
+   the resolved PAGE token. Without this the checker reports three confusing
+   failures for one cause — a user token stored in the page-token slot. */
+let RESOLVED = TOKEN, KIND = 'page', PAGE_NAME = '';
+try {
+  const r = await resolvePageToken(TOKEN, ID);
+  RESOLVED = r.token; KIND = r.kind; PAGE_NAME = r.name;
+} catch (e) {
+  console.error(`FAIL  Could not resolve a usable Page token — ${String(e.message).split(TOKEN).join('<redacted>')}`);
+  process.exit(1);
+}
+
 const results = [];
 const check = (ok, label, detail) => { results.push({ ok, label, detail }); return ok; };
 
 async function get(pathname, params = {}) {
-  const qs = new URLSearchParams({ ...params, access_token: TOKEN });
+  const qs = new URLSearchParams({ ...params, access_token: RESOLVED });
   const res = await fetch(`${GRAPH}${pathname}?${qs}`);
   const json = await res.json().catch(() => ({}));
   /* Never let a Graph error body echo the token back into the console — it
@@ -75,7 +89,7 @@ if (me) {
 }
 
 try {
-  const dbg = await get('/debug_token', { input_token: TOKEN });
+  const dbg = await get('/debug_token', { input_token: RESOLVED });
   const d = dbg.data || {};
   const never = d.expires_at === 0 || d.expires_at === undefined;
   check(never, 'Token does not expire',
@@ -97,7 +111,7 @@ if (POST_TEST) {
       body: JSON.stringify({
         message: 'Amparo posting check — unpublished draft, not visible to anyone. Safe to delete.',
         published: false,
-        access_token: TOKEN
+        access_token: RESOLVED
       })
     });
     const json = await res.json().catch(() => ({}));
