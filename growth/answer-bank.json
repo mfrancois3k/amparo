@@ -1,0 +1,226 @@
+{
+  "_readme": "Paste-ready replies for real questions. Post them yourself, in your own name. Never automate a reply — the value of answering in a community is that a person answered.",
+  "generated": "2026-08-20",
+  "entries": [
+    {
+      "id": "why-pulled-over",
+      "drill": "trap",
+      "state": null,
+      "match": [
+        "why i pulled you over",
+        "why they pulled me over",
+        "do you know why",
+        "admit",
+        "admitted",
+        "said i was speeding",
+        "por que lo detuve",
+        "admiti"
+      ],
+      "q": {
+        "en": "Do I have to answer “do you know why I pulled you over?”",
+        "es": "¿Tengo que responder «sabe por qué lo detuve»?"
+      },
+      "replies": {
+        "en": "You don’t have to guess, and you don’t have to answer that one.\n\nSilence is your right, but you have to claim it out loud. Just going quiet is not enough — say it: “I'm using my right to remain silent.”\n\nBerghuis v. Thompkins, 560 U.S. 370 (2010); Salinas v. Texas, 570 U.S. 178 (2013)\n\nIf it helps, there’s a free 3-minute drill for this exact moment — the Admission Trap. No account, English or Spanish: https://www.amparohq.com/arena/?sit=trap&utm_source=community&utm_medium=answer&utm_content=why-pulled-over",
+        "es": "No tiene que adivinar, y no tiene que responder esa pregunta.\n\nEl silencio es su derecho, pero tiene que invocarlo en voz alta. Quedarse callado no basta — dígalo: «Estoy usando mi derecho a guardar silencio.»\n\nBerghuis v. Thompkins, 560 U.S. 370 (2010); Salinas v. Texas, 570 U.S. 178 (2013)\n\nSi le sirve, hay un ejercicio gratuito de 3 minutos para justo este momento — la Trampa de Admisión. Sin cuenta, en inglés o español: https://www.amparohq.com/arena/?sit=trap&utm_source=community&utm_medium=answer&utm_content=why-pulled-over"
+      }
+    },
+    {
+      "id": "stay-silent",
+      "drill": "traffic",
+      "state": null,
+      "match": [
+        "stay quiet",
+        "stay silent",
+        "remain silent",
+        "say nothing",
+        "not answer",
+        "plead the fifth",
+        "guardar silencio",
+        "callado"
+      ],
+      "q": {
+        "en": "Can I just stay quiet?",
+        "es": "¿Puedo simplemente quedarme callado?"
+      },
+      "replies": {
+        "en": "Silence works, but only if you say you’re using it. That part surprises people.\n\nSilence is your right, but you have to claim it out loud. Just going quiet is not enough — say it: “I'm using my right to remain silent.”\n\nBerghuis v. Thompkins, 560 U.S. 370 (2010); Salinas v. Texas, 570 U.S. 178 (2013)\n\nIf it helps, there’s a free 3-minute drill for this exact moment — the Traffic Stop drill. No account, English or Spanish: https://www.amparohq.com/arena/?sit=traffic&utm_source=community&utm_medium=answer&utm_content=stay-silent",
+        "es": "El silencio funciona, pero solo si dice que lo está usando. Eso sorprende a mucha gente.\n\nEl silencio es su derecho, pero tiene que invocarlo en voz alta. Quedarse callado no basta — dígalo: «Estoy usando mi derecho a guardar silencio.»\n\nBerghuis v. Thompkins, 560 U.S. 370 (2010); Salinas v. Texas, 570 U.S. 178 (2013)\n\nSi le sirve, hay un ejercicio gratuito de 3 minutos para justo este momento — el ejercicio de Parada de Tráfico. Sin cuenta, en inglés o español: https://www.amparohq.com/arena/?sit=traffic&utm_source=community&utm_medium=answer&utm_content=stay-silent"
+      }
+    },
+    {
+      "id": "out-of-car",
+      "drill": "step",
+      "state": null,
+      "match": [
+        "get out of the car",
+        "step out",
+        "ordered me out",
+        "made me exit",
+        "bajar del auto",
+        "salir del carro",
+        "me hizo bajar"
+      ],
+      "q": {
+        "en": "Can they make me get out of the car?",
+        "es": "¿Pueden obligarme a bajar del auto?"
+      },
+      "replies": {
+        "en": "Yes — and they don’t need a reason. This is settled and it catches almost everyone off guard.\n\nThe officer can order you — and your passengers — out of the car, even with no suspicion that anyone did anything wrong.\n\nPennsylvania v. Mimms, 434 U.S. 106 (1977); Maryland v. Wilson, 519 U.S. 408 (1997)\n\nIf it helps, there’s a free 3-minute drill for this exact moment — Step Out of the Car. No account, English or Spanish: https://www.amparohq.com/arena/?sit=step&utm_source=community&utm_medium=answer&utm_content=out-of-car",
+        "es": "Sí — y no necesitan una razón. Es ley establecida y sorprende a casi todos.\n\nEl oficial puede ordenarle a usted — y a sus pasajeros — bajar del auto, aunque no sospeche que alguien hizo algo malo.\n\nPennsylvania v. Mimms, 434 U.S. 106 (1977); Maryland v. Wilson, 519 U.S. 408 (1997)\n\nSi le sirve, hay un ejercicio gratuito de 3 minutos para justo este momento — Salir del Auto. Sin cuenta, en inglés o español: https://www.amparohq.com/arena/?sit=step&utm_source=community&utm_medium=answer&utm_content=out-of-car"
+      }
+    },
+    {
+      "id": "refuse-search",
+      "drill": "traffic",
+      "state": null,
+      "match": [
+        "refuse a search",
+        "consent to search",
+        "search my car",
+        "let them search",
+        "do i have to let",
+        "registrar mi auto",
+        "negarme a un registro"
+      ],
+      "q": {
+        "en": "Can I refuse a search?",
+        "es": "¿Puedo negarme a un registro?"
+      },
+      "replies": {
+        "en": "You can refuse, and refusing is not evidence of anything.\n\nYou can refuse a search — “I don't consent to any searches, officer.” Refusing is not evidence against you, and by itself it does not give an officer a reason to search.\n\nIf it helps, there’s a free 3-minute drill for this exact moment — the Traffic Stop drill. No account, English or Spanish: https://www.amparohq.com/arena/?sit=traffic&utm_source=community&utm_medium=answer&utm_content=refuse-search",
+        "es": "Puede negarse, y negarse no es prueba de nada.\n\nPuede negarse a un registro — «No doy consentimiento para ningún registro, oficial.» Negarse no es prueba en su contra, y por sí solo no le da al oficial una razón para registrar.\n\nSi le sirve, hay un ejercicio gratuito de 3 minutos para justo este momento — el ejercicio de Parada de Tráfico. Sin cuenta, en inglés o español: https://www.amparohq.com/arena/?sit=traffic&utm_source=community&utm_medium=answer&utm_content=refuse-search"
+      }
+    },
+    {
+      "id": "drug-dog",
+      "drill": "last30",
+      "state": null,
+      "match": [
+        "how long can they",
+        "kept me for",
+        "waiting for a dog",
+        "drug dog",
+        "k9",
+        "prolong",
+        "retenerme",
+        "perro antidrogas"
+      ],
+      "q": {
+        "en": "How long can they keep me there?",
+        "es": "¿Cuánto tiempo pueden retenerme?"
+      },
+      "replies": {
+        "en": "Once the reason for the stop is finished, holding you longer needs its own justification.\n\nA stop cannot be stretched out to wait for a drug dog unless there's separate reasonable suspicion. Once the reason for the stop is finished, holding you longer needs its own justification.\n\nRodriguez v. United States, 575 U.S. 348 (2015)\n\nIf it helps, there’s a free 3-minute drill for this exact moment — the Last 30 Seconds. No account, English or Spanish: https://www.amparohq.com/arena/?sit=last30&utm_source=community&utm_medium=answer&utm_content=drug-dog",
+        "es": "Una vez terminado el motivo de la parada, retenerlo más tiempo necesita su propia justificación.\n\nNo pueden alargar la parada para esperar a un perro antidrogas sin una sospecha razonable aparte. Una vez terminado el motivo de la parada, retenerlo más tiempo necesita su propia justificación.\n\nRodriguez v. United States, 575 U.S. 348 (2015)\n\nSi le sirve, hay un ejercicio gratuito de 3 minutos para justo este momento — los Últimos 30 Segundos. Sin cuenta, en inglés o español: https://www.amparohq.com/arena/?sit=last30&utm_source=community&utm_medium=answer&utm_content=drug-dog"
+      }
+    },
+    {
+      "id": "unlawful-order",
+      "drill": "last30",
+      "state": null,
+      "match": [
+        "illegal order",
+        "unlawful",
+        "they had no right",
+        "can i refuse to",
+        "resist",
+        "orden ilegal",
+        "no tenian derecho"
+      ],
+      "q": {
+        "en": "What if the order is illegal?",
+        "es": "¿Y si la orden es ilegal?"
+      },
+      "replies": {
+        "en": "Even then — you win later, on paper, with a lawyer. Nobody wins on the roadside.\n\nNever physically resist — not even an order you're sure is unlawful. You win later, on paper, with a lawyer. Nobody wins on the roadside.\n\nIf it helps, there’s a free 3-minute drill for this exact moment — the Last 30 Seconds. No account, English or Spanish: https://www.amparohq.com/arena/?sit=last30&utm_source=community&utm_medium=answer&utm_content=unlawful-order",
+        "es": "Aun así — se gana después, en papel, con un abogado. Nadie gana en la carretera.\n\nNunca se resista físicamente — ni siquiera a una orden que usted sabe que es ilegal. Se gana después, en papel, con un abogado. Nadie gana en la carretera.\n\nSi le sirve, hay un ejercicio gratuito de 3 minutos para justo este momento — los Últimos 30 Segundos. Sin cuenta, en inglés o español: https://www.amparohq.com/arena/?sit=last30&utm_source=community&utm_medium=answer&utm_content=unlawful-order"
+      }
+    },
+    {
+      "id": "sign-ticket-tx",
+      "drill": "last30",
+      "state": "TX",
+      "match": [
+        "sign the ticket",
+        "signing the ticket",
+        "refused to sign",
+        "firmar la multa",
+        "firmar el ticket"
+      ],
+      "q": {
+        "en": "Do I have to sign the ticket? (Texas)",
+        "es": "¿Tengo que firmar la multa? (Texas)"
+      },
+      "replies": {
+        "en": "In Texas, yes — and refusing is one of the few traffic offenses you can be arrested for.\n\nGet a ticket? Sign it. Signing is only a promise to appear, not an admission of guilt (§543.005) — once you sign, the officer must promptly release you. Refusing to sign is one of the few traffic offenses you can be arrested for.\n\n“To secure release, the person arrested must make a written promise to appear in court by signing the written notice.” — Transp. Code §543.005\n\nIf it helps, there’s a free 3-minute drill for this exact moment — the Last 30 Seconds. No account, English or Spanish: https://www.amparohq.com/arena/?sit=last30&utm_source=community&utm_medium=answer&utm_content=sign-ticket-tx",
+        "es": "En Texas, sí — y negarse es una de las pocas infracciones por las que pueden arrestarlo.\n\n¿Le dan una multa? Fírmela. Firmar es solo una promesa de comparecer, no una admisión de culpa (§543.005) — una vez firmada, el oficial debe dejarlo ir sin demora. Negarse a firmar es una de las pocas infracciones por las que pueden arrestarlo.\n\nTexto de la ley (en inglés): “To secure release, the person arrested must make a written promise to appear in court by signing the written notice.” — Código de Transporte §543.005\n\nSi le sirve, hay un ejercicio gratuito de 3 minutos para justo este momento — los Últimos 30 Segundos. Sin cuenta, en inglés o español: https://www.amparohq.com/arena/?sit=last30&utm_source=community&utm_medium=answer&utm_content=sign-ticket-tx"
+      }
+    },
+    {
+      "id": "passenger-id-tx",
+      "drill": "pass",
+      "state": "TX",
+      "match": [
+        "passenger",
+        "i was not driving",
+        "my friend was driving",
+        "do i have to give my name",
+        "ask for my id",
+        "pasajero",
+        "dar mi nombre"
+      ],
+      "q": {
+        "en": "I was the passenger — do I have to give my name? (Texas)",
+        "es": "Era el pasajero — ¿tengo que dar mi nombre? (Texas)"
+      },
+      "replies": {
+        "en": "It’s not the same rule as the driver’s, and it’s not the same in every state.\n\nYou are not required to answer questions beyond identifying yourself when lawfully arrested (§38.02); passengers generally do not have to identify themselves unless arrested. But giving a FALSE name, address, or birthdate while lawfully detained is itself a crime (§38.02(b)).\n\n“A person commits an offense if he intentionally refuses to give his name, residence address, or date of birth to a peace officer who has lawfully arrested the person.” — Penal Code §38.02(a)\n\nIf it helps, there’s a free 3-minute drill for this exact moment — the Passenger drill. No account, English or Spanish: https://www.amparohq.com/arena/?sit=pass&utm_source=community&utm_medium=answer&utm_content=passenger-id-tx",
+        "es": "No es la misma regla que la del conductor, ni es igual en todos los estados.\n\nNo está obligado a responder preguntas más allá de identificarse si es arrestado legalmente (§38.02); los pasajeros generalmente no tienen que identificarse a menos que sean arrestados. Pero dar un nombre, dirección o fecha de nacimiento FALSOS estando legalmente detenido es en sí un delito (§38.02(b)).\n\nTexto de la ley (en inglés): “A person commits an offense if he intentionally refuses to give his name, residence address, or date of birth to a peace officer who has lawfully arrested the person.” — Código Penal §38.02(a)\n\nSi le sirve, hay un ejercicio gratuito de 3 minutos para justo este momento — el ejercicio de Pasajero. Sin cuenta, en inglés o español: https://www.amparohq.com/arena/?sit=pass&utm_source=community&utm_medium=answer&utm_content=passenger-id-tx"
+      }
+    },
+    {
+      "id": "breath-test-tx",
+      "drill": "last30",
+      "state": "TX",
+      "match": [
+        "breath test",
+        "breathalyzer",
+        "blood test",
+        "field sobriety",
+        "refuse the test",
+        "prueba de aliento",
+        "alcoholemia"
+      ],
+      "q": {
+        "en": "Can I refuse a breath test? (Texas)",
+        "es": "¿Puedo negarme a la prueba de aliento? (Texas)"
+      },
+      "replies": {
+        "en": "Silence covers questions — it does not cover chemical tests, and the consequences are separate.\n\nSilence covers questions — not chemical tests. Refusing a breath/blood test after a DWI arrest triggers a license suspension (you have 15 days to request the hearing that contests it) — and police can still get a warrant for your blood. Roadside balance/eye tests before arrest are voluntary in Texas.\n\nIf it helps, there’s a free 3-minute drill for this exact moment — the Last 30 Seconds. No account, English or Spanish: https://www.amparohq.com/arena/?sit=last30&utm_source=community&utm_medium=answer&utm_content=breath-test-tx",
+        "es": "El silencio cubre preguntas — no cubre pruebas químicas, y las consecuencias son aparte.\n\nEl silencio cubre preguntas — no pruebas químicas. Negarse a la prueba de aliento o sangre tras un arresto por DWI suspende su licencia (tiene 15 días para pedir la audiencia que la disputa) — y la policía aún puede obtener una orden judicial para su sangre. Las pruebas de equilibrio/ojos en la calle, antes del arresto, son voluntarias en Texas.\n\nSi le sirve, hay un ejercicio gratuito de 3 minutos para justo este momento — los Últimos 30 Segundos. Sin cuenta, en inglés o español: https://www.amparohq.com/arena/?sit=last30&utm_source=community&utm_medium=answer&utm_content=breath-test-tx"
+      }
+    },
+    {
+      "id": "nyc-right-to-know",
+      "drill": "traffic",
+      "state": "NY",
+      "match": [
+        "badge number",
+        "identify themselves",
+        "business card",
+        "right to know",
+        "numero de placa",
+        "identificarse"
+      ],
+      "q": {
+        "en": "Does the officer have to identify themselves? (NYC)",
+        "es": "¿El oficial debe identificarse? (NYC)"
+      },
+      "replies": {
+        "en": "In New York City specifically, there are rules about this that most people have never heard of.\n\nIn NYC, the Right to Know Act requires NYPD officers to identify themselves and explain the stop; in many stops they must offer a business card (summons or arrest paperwork can substitute). Before a consent search they must tell you that you can refuse, and document your consent.\n\nIf it helps, there’s a free 3-minute drill for this exact moment — the Traffic Stop drill. No account, English or Spanish: https://www.amparohq.com/arena/?sit=traffic&utm_source=community&utm_medium=answer&utm_content=nyc-right-to-know",
+        "es": "Específicamente en la ciudad de Nueva York hay reglas sobre esto que casi nadie conoce.\n\nEn NYC, la ley Right to Know exige que los oficiales de NYPD se identifiquen y expliquen la parada; en muchas paradas deben ofrecer una tarjeta (la multa o el acta de arresto puede sustituirla). Antes de un registro por consentimiento deben decirle que puede negarse, y documentar su consentimiento.\n\nSi le sirve, hay un ejercicio gratuito de 3 minutos para justo este momento — el ejercicio de Parada de Tráfico. Sin cuenta, en inglés o español: https://www.amparohq.com/arena/?sit=traffic&utm_source=community&utm_medium=answer&utm_content=nyc-right-to-know"
+      }
+    }
+  ]
+}

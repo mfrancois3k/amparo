@@ -31,6 +31,8 @@ jobs:
         run: |
           node tools/citation-gaps.mjs --selftest
           node tools/discover-targets.mjs --selftest
+          node tools/answer-bank.mjs --selftest
+          node tools/question-monitor.mjs --selftest
 
       # B3. No API key, no account — this is the piece that works from day one.
       - name: Mine Wikipedia citation gaps
@@ -47,6 +49,16 @@ jobs:
       - name: Discover outreach targets and republishers
         continue-on-error: true
         run: node tools/discover-targets.mjs
+
+      # Regenerates paste-ready replies from the verified rules, then looks for
+      # real questions to answer. The monitor NEVER replies — it queues for a
+      # person. Reddit rate-limits hard, so it takes two searches a week and
+      # remembers where it stopped.
+      - name: Refresh the answer bank and scan for questions
+        continue-on-error: true
+        run: |
+          node tools/answer-bank.mjs
+          node tools/question-monitor.mjs
 
       - name: Commit what changed
         run: |

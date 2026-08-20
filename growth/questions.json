@@ -1,0 +1,45 @@
+{
+  "queue": [],
+  "handled": [],
+  "_readme": "Questions a human should answer, in their own name. NOTHING here is posted automatically and nothing should be. Move an item to \"handled\" once you have replied. Threads describing an arrest or an open case are filtered out on purpose — those need a lawyer, not a drill.",
+  "generated": "2026-08-20",
+  "errors": [
+    {
+      "sub": "legaladvice",
+      "error": "Reddit rate limit"
+    }
+  ],
+  "cursor": 2,
+  "unanswerable": [
+    {
+      "title": "19/yo First-time marijuana/paraphernalia charges, was studying law enforcement. Will this prevent me from getting a job in the field?",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1voya6h/19yo_firsttime_marijuanaparaphernalia_charges_was/",
+      "source": "r/legaladvice"
+    },
+    {
+      "title": "I think I was wrongfully terminated in Oregon, can you advise me on how to proceed?",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1vmyy14/i_think_i_was_wrongfully_terminated_in_oregon_can/",
+      "source": "r/legaladvice"
+    },
+    {
+      "title": "Rear ended while completely stopped in traffic, I am permanently disabled, got slightly injured and now my own insurance is offering me money, is this normal?",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1vlmlcp/rear_ended_while_completely_stopped_in_traffic_i/",
+      "source": "r/legaladvice"
+    },
+    {
+      "title": "Car Accident: disclose policy limits to other party?",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1vim6q1/car_accident_disclose_policy_limits_to_other_party/",
+      "source": "r/legaladvice"
+    },
+    {
+      "title": "Weird Traffic Ticket in New York this legal?",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1veuogc/weird_traffic_ticket_in_new_york_this_legal/",
+      "source": "r/legaladvice"
+    },
+    {
+      "title": "Pulled over for sudden stop at a red light, received a failure to signal citation (NY Traffic Law 1163C). Is there anything I can do to avoid the fine and points on my license?",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1vcafgn/pulled_over_for_sudden_stop_at_a_red_light/",
+      "source": "r/legaladvice"
+    }
+  ]
+}
