@@ -444,6 +444,20 @@ Ordered by cost-if-ignored. Each has the fix inline.
 22. **Google Ad Grants requires 501(c)(3).** If the nonprofit path is ever taken, that
     unlocks $10k/mo in search spend — the only paid channel that fits this project. Worth
     knowing before deciding entity structure.
+23. **Never deanonymize Amparo's own site visitors.** A B2B outreach course reviewed
+    2026-08-20 (`Outreach AI Automation Agents`, ExclusiveTechAccess) teaches exactly this
+    as its Module 6: RB2B identifies anonymous visitors in real time, resolves them to a
+    LinkedIn profile + verified email via Findymail/Unipile, then auto-sends a DM and a
+    personalized-video cold email — "all while you're sleeping." That pattern, applied to
+    amparohq.com, would identify and cold-contact people who came to a police-encounter
+    tool, plausibly *because* they didn't want to be found — a direct inversion of the
+    product's own promise ("your name, contacts and documents never leave your phone").
+    It also stacks on top of blindspot 3 (never build a lead list of individuals) and the
+    two-audience rule (§0): this is worse than an email list, since it doesn't even need
+    the visitor to opt in. **Hard no, regardless of who proposes it or which vendor
+    pitches it.** The rest of that course maps to a client's own outbound (agency work,
+    money-map item 1), never to Amparo's own users. See `tasks/36-fb-comment-dm-growth.md`
+    §9 for the matching guardrail on the end-user side.
 
 ---
 

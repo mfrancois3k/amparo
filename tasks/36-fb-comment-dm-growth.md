@@ -280,3 +280,27 @@ link-preview scrapers, **every link you send unfurls blank** — and a blank pre
 DM'd link is exactly what a scam looks like. Check this before spending a day on posts:
 paste `amparohq.com` into a Facebook post composer and see whether a preview card renders.
 Fix the Vercel firewall rule first if it does not.
+
+---
+
+## 9. Guardrail — never deanonymize a visitor to identify a DM target
+
+Reviewed 2026-08-20: a B2B outreach course (`Outreach AI Automation Agents`,
+ExclusiveTechAccess). Its Module 6 pattern — RB2B identifies an anonymous website
+visitor in real time, resolves them to a LinkedIn profile + verified email
+(Findymail/Unipile), then auto-sends a DM and a personalized-video cold email, unprompted
+— **must never be applied to amparohq.com or to this comment→DM loop.**
+
+The comment→DM mechanic in §1 stays inside the line this course crosses because the
+person **chose to comment** — that's the whole reason it's defensible. Any technique that
+identifies *who visited* or *who might want this* without them raising their hand first —
+scraping, IP/fingerprint resolution, third-party enrichment on a non-commenter — is a
+different category entirely, not a more efficient version of the same thing. It would
+directly invert the product's core promise: *"your name, contacts and documents never
+leave your phone."* Someone on this site is often there specifically because they don't
+want to be found.
+
+Applies regardless of source: a future course, a vendor pitch, or an operator idea that
+sounds like "what if we could find people who'd want this." The self-identification step
+(the comment) is load-bearing, not incidental. See `tasks/35-gtm-playbook.md` blindspot 23
+for the matching guardrail on the partner-org side.
