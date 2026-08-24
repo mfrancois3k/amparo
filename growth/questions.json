@@ -2,15 +2,60 @@
   "queue": [],
   "handled": [],
   "_readme": "Questions a human should answer, in their own name. NOTHING here is posted automatically and nothing should be. Move an item to \"handled\" once you have replied. Threads describing an arrest or an open case are filtered out on purpose — those need a lawyer, not a drill.",
-  "generated": "2026-08-20",
+  "generated": "2026-08-24",
   "errors": [
     {
-      "sub": "legaladvice",
+      "sub": "immigration",
       "error": "Reddit rate limit"
     }
   ],
-  "cursor": 2,
+  "cursor": 4,
   "unanswerable": [
+    {
+      "title": "Do I have a case? A cosmetic product I purchased caused a partial retina detachment in my eye. [Tampa, FL]",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1vt2062/do_i_have_a_case_a_cosmetic_product_i_purchased/",
+      "source": "r/AskLawyers"
+    },
+    {
+      "title": "[FL] Childhood SA in 2006/2007. Parents withdrew charges, but perp is now a wealthy tech exec and I have the full police case file. Is a civil suit viable?",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1vr9t8i/fl_childhood_sa_in_20062007_parents_withdrew/",
+      "source": "r/AskLawyers"
+    },
+    {
+      "title": "Was given a wrongful speeding ticket in Ellensburg Washington. Should I mitigate it or contest it?",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1vq46gj/was_given_a_wrongful_speeding_ticket_in/",
+      "source": "r/AskLawyers"
+    },
+    {
+      "title": "How do I file a sexual assault report?",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1vlp6f4/how_do_i_file_a_sexual_assault_report/",
+      "source": "r/AskLawyers"
+    },
+    {
+      "title": "World Record for Not Pooping? Is this malpractice? (IL)",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1vlngke/world_record_for_not_pooping_is_this_malpractice/",
+      "source": "r/AskLawyers"
+    },
+    {
+      "title": "NC license suspended over an out-of-state speeding ticket that is 100% not mine. What are my legal options?",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1vesgww/nc_license_suspended_over_an_outofstate_speeding/",
+      "source": "r/AskLawyers"
+    },
+    {
+      "title": "I was sold a lemon, can I resell with full transparency plus mechanic diagnostics, if yes then how? - VA, USA",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1vdmeyf/i_was_sold_a_lemon_can_i_resell_with_full/",
+      "source": "r/AskLawyers"
+    },
+    {
+      "title": "I was sold a lemon, can I resell with full transparency plus mechanic diagnostics, if yes then how? - VA, USA",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1vdm39r/i_was_sold_a_lemon_can_i_resell_with_full/",
+      "source": "r/AskLawyers"
+    },
+    {
+      "title": "Do I have a medical malpractice case",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1vd311z/do_i_have_a_medical_malpractice_case/",
+      "source": "r/AskLawyers"
+    },
     {
       "title": "19/yo First-time marijuana/paraphernalia charges, was studying law enforcement. Will this prevent me from getting a job in the field?",
       "url": "https://www.reddit.com/r/legaladvice/comments/1voya6h/19yo_firsttime_marijuanaparaphernalia_charges_was/",
