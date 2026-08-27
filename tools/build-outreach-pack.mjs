@@ -35,7 +35,8 @@ import { LINES } from './render-kyr-card.mjs';
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'), '..');
 const ORIGIN = 'https://www.amparohq.com';
 
-const u = (path_, content) => `${ORIGIN}${path_}?utm_source=flipboard&utm_medium=organic&utm_content=${content}`;
+const u = (path_, content, source = 'flipboard') => `${ORIGIN}${path_}?utm_source=${source}&utm_medium=organic&utm_content=${content}`;
+const ud = (path_, content) => u(path_, content, 'digg');
 
 /* ---------- Flipboard: real, checkable authorities only ----------
    No scraped or unattributed content. Every non-Amparo link below is a named
@@ -115,6 +116,22 @@ const REELS = [
   }
 ];
 
+/* ---------- Digg: content submission only, never vote-driving ----------
+   Digg ranks by genuine engagement (Wilson lower-bound). We submit content
+   and let it rank on its own merit — no self-dig, no vote requests, one
+   submission per day so the account never reads as a spam feed. */
+const DIGG_SUBMISSIONS = [
+  ['Your rights at a traffic stop in Texas', ud('/rights/tx/', 'digg_tx')],
+  ['Sus derechos en una parada de tráfico en Texas', ud('/derechos/tx/', 'digg_tx_es')],
+  ['Your rights at a traffic stop in New York', ud('/rights/ny/', 'digg_ny')],
+  ['Sus derechos en una parada de tráfico en Nueva York', ud('/derechos/ny/', 'digg_ny_es')],
+  ['Your rights at a traffic stop in Georgia', ud('/rights/ga/', 'digg_ga')],
+  ['Sus derechos en una parada de tráfico en Georgia', ud('/derechos/ga/', 'digg_ga_es')],
+  ['Your rights at a traffic stop (federal floor, any state)', ud('/rights/any-state/', 'digg_us')],
+  ['Sus derechos en cualquier estado (piso federal)', ud('/derechos/cualquier-estado/', 'digg_us_es')],
+  ['How we verify every rule we publish', ud('/how-we-verify/', 'digg_verify')]
+];
+
 function reelScript(r, lang) {
   const url = u('/arena/', `reel_${r.id}_${lang}`).replace('/arena/?', `/arena/?sit=${r.drill}&`);
   return lang === 'en' ? `
@@ -160,6 +177,11 @@ for (const r of REELS) {
   md.push(`### ${r.id}`, '```', reelScript(r, 'en').trim(), '```', '', '```', reelScript(r, 'es').trim(), '```', '');
 }
 
+md.push('---\n', '## Digg submissions — content only, never vote-driving\n');
+md.push('One submission per day, to whichever community/topic on Digg best fits it. No self-dig, no vote requests, no coordinated engagement — let it rank on its own merit. Description to use for every submission: "Plain-language rights info, state-specific, in English and Spanish — no signup, no login."\n');
+DIGG_SUBMISSIONS.forEach((s, i) => md.push(`${i + 1}. [${s[0]}](${s[1]})`));
+md.push('');
+
 await mkdir(path.join(ROOT, 'growth'), { recursive: true });
 await writeFile(path.join(ROOT, 'growth', 'outreach-pack.md'), md.join('\n') + '\n', 'utf8');
-console.log(`wrote growth/outreach-pack.md — ${FLIPBOARD_MAGS.length} magazines (${FLIPBOARD_MAGS.reduce((n, m) => n + m.seed.length, 0)} seed links), ${REELS.length} Reels scripts x2 languages`);
+console.log(`wrote growth/outreach-pack.md — ${FLIPBOARD_MAGS.length} magazines (${FLIPBOARD_MAGS.reduce((n, m) => n + m.seed.length, 0)} seed links), ${REELS.length} Reels scripts x2 languages, ${DIGG_SUBMISSIONS.length} Digg submissions`);

@@ -142,3 +142,19 @@ LLAMADO A LA ACCIÓN (15-30s):
   URL en pantalla: https://www.amparohq.com/arena/?sit=traffic&utm_source=flipboard&utm_medium=organic&utm_content=reel_refuse-search_es
 ```
 
+---
+
+## Digg submissions — content only, never vote-driving
+
+One submission per day, to whichever community/topic on Digg best fits it. No self-dig, no vote requests, no coordinated engagement — let it rank on its own merit. Description to use for every submission: "Plain-language rights info, state-specific, in English and Spanish — no signup, no login."
+
+1. [Your rights at a traffic stop in Texas](https://www.amparohq.com/rights/tx/?utm_source=digg&utm_medium=organic&utm_content=digg_tx)
+2. [Sus derechos en una parada de tráfico en Texas](https://www.amparohq.com/derechos/tx/?utm_source=digg&utm_medium=organic&utm_content=digg_tx_es)
+3. [Your rights at a traffic stop in New York](https://www.amparohq.com/rights/ny/?utm_source=digg&utm_medium=organic&utm_content=digg_ny)
+4. [Sus derechos en una parada de tráfico en Nueva York](https://www.amparohq.com/derechos/ny/?utm_source=digg&utm_medium=organic&utm_content=digg_ny_es)
+5. [Your rights at a traffic stop in Georgia](https://www.amparohq.com/rights/ga/?utm_source=digg&utm_medium=organic&utm_content=digg_ga)
+6. [Sus derechos en una parada de tráfico en Georgia](https://www.amparohq.com/derechos/ga/?utm_source=digg&utm_medium=organic&utm_content=digg_ga_es)
+7. [Your rights at a traffic stop (federal floor, any state)](https://www.amparohq.com/rights/any-state/?utm_source=digg&utm_medium=organic&utm_content=digg_us)
+8. [Sus derechos en cualquier estado (piso federal)](https://www.amparohq.com/derechos/cualquier-estado/?utm_source=digg&utm_medium=organic&utm_content=digg_us_es)
+9. [How we verify every rule we publish](https://www.amparohq.com/how-we-verify/?utm_source=digg&utm_medium=organic&utm_content=digg_verify)
+
