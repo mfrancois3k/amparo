@@ -43,7 +43,7 @@ const ud = (path_, content) => u(path_, content, 'digg');
    organisation's own published material — the same standard applied to the
    answer bank and the state pages: cite the primary source, never paraphrase
    it as if it were ours. */
-const FLIPBOARD_MAGS = [
+export const FLIPBOARD_MAGS = [
   {
     name: 'Know Your Rights — Texas & New York',
     desc: 'What the statute actually says at a traffic stop in TX and NY, quoted with the citation.',
@@ -95,7 +95,7 @@ const FLIPBOARD_MAGS = [
    Each script names the MISCONCEPTION it corrects, not a person or a clip.
    "Value" lines are pulled straight from LINES, so they cannot drift from
    what the card and the drill already say. */
-const REELS = [
+export const REELS = [
   {
     id: 'admission-trap',
     misconception: { en: 'People think “do you know why I pulled you over” is small talk.', es: 'La gente cree que «¿sabe por qué lo detuve?» es una charla casual.' },
@@ -120,7 +120,7 @@ const REELS = [
    Digg ranks by genuine engagement (Wilson lower-bound). We submit content
    and let it rank on its own merit — no self-dig, no vote requests, one
    submission per day so the account never reads as a spam feed. */
-const DIGG_SUBMISSIONS = [
+export const DIGG_SUBMISSIONS = [
   ['Your rights at a traffic stop in Texas', ud('/rights/tx/', 'digg_tx')],
   ['Sus derechos en una parada de tráfico en Texas', ud('/derechos/tx/', 'digg_tx_es')],
   ['Your rights at a traffic stop in New York', ud('/rights/ny/', 'digg_ny')],

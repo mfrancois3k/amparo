@@ -1,0 +1,40 @@
+{
+  "date": "2026-08-27",
+  "flipboard": {
+    "magazine": "Know Your Rights — Texas & New York",
+    "title": "Amparo — Your rights at a traffic stop in Texas",
+    "url": "https://www.amparohq.com/rights/tx/?utm_source=flipboard&utm_medium=organic&utm_content=mag_tx",
+    "index": 0,
+    "total": 27
+  },
+  "digg": {
+    "title": "Your rights at a traffic stop in Texas",
+    "url": "https://www.amparohq.com/rights/tx/?utm_source=digg&utm_medium=organic&utm_content=digg_tx",
+    "index": 0,
+    "total": 9
+  },
+  "reel": {
+    "due": true,
+    "id": "admission-trap",
+    "misconception": {
+      "en": "People think “do you know why I pulled you over” is small talk.",
+      "es": "La gente cree que «¿sabe por qué lo detuve?» es una charla casual."
+    },
+    "line": {
+      "id": "guess",
+      "label": {
+        "en": "IF ASKED “DO YOU KNOW WHY…”",
+        "es": "SI PREGUNTAN «SABE POR QUÉ…»"
+      },
+      "en": "“I’d rather not guess, officer.”",
+      "es": "«Prefiero no adivinar, oficial.»"
+    },
+    "drill": "trap",
+    "drillName": {
+      "en": "the Admission Trap",
+      "es": "la Trampa de Admisión"
+    },
+    "index": 0,
+    "total": 3
+  }
+}

@@ -208,7 +208,8 @@ async function findChrome() {
 }
 
 /* ---------- selftest ---------- */
-if (process.argv.includes('--selftest')) {
+const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
+if (isMain && process.argv.includes('--selftest')) {
   const c = []; const ok = (v, m) => c.push([v, m]);
   const arena = await readFile(path.join(ROOT, 'arena', 'index.html'), 'utf8');
   /* The arena escapes apostrophes as \u2019 inside single-quoted JS strings;
@@ -256,7 +257,6 @@ if (process.argv.includes('--selftest')) {
 }
 
 /* ---------- build ---------- */
-const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
 if (isMain) {
   await mkdir(OUT, { recursive: true });
   const chrome = await findChrome();
