@@ -847,3 +847,93 @@ opportunity to burn an audience that arrived because it trusted a legal tool.
 | **New** | National KYR distributors publish policies against adopting outside content; **local affiliates are the route** |
 | **New** | MCP servers cannot run in the CI cron that carries this project's automation |
 | **New** | Vercel Hobby is **non-commercial only** — a live paid pack changes the hosting requirement |
+
+## 15. Revision 5 — Flipboard + Digg, and the routine that runs them (2026-08-27)
+
+Revision 4 named Flipboard-style curation and community platforms as
+low-cost surface area but didn't build them. This revision does, and adds a
+fourth constraint the earlier revisions didn't need: **two of the new
+surfaces cannot be reached by CI at all**, because they require a real,
+already-logged-in human browser session, not an API token.
+
+### 15a. What shipped
+
+- `growth/outreach-pack.md` / `tools/build-outreach-pack.mjs` — 3 Flipboard
+  magazines (27 seed links: Amparo's own pages mixed with named, checkable
+  authorities — ACLU, ILRC, NILC, CLINIC, TexasLawHelp, CHIRLA, 211.org,
+  USAHello, United We Dream, LawHelpCA — never scraped or unattributed), 9
+  Digg submissions (own pages only), and 3 bilingual Reels scripts.
+- `tools/outreach-queue.mjs` — a pure state machine, no posting, no network.
+  Given a date, it returns exactly one Flipboard item, one Digg item, and
+  (every 7 days) one Reel script — idempotent per date, and an exhausted
+  list reports `done: true` with a reason rather than silently wrapping
+  around and re-serving old content as if it were new.
+- A Claude Code scheduled task, `amparo-daily-outreach`, daily at 09:00
+  local — **not a GitHub Actions cron**, which is the mechanism every other
+  Track A/B routine in this doc uses. GitHub's runners have no logged-in
+  Flipboard or Digg session and never will; a Claude Code routine driving
+  the operator's real Chrome (via `claude-in-chrome`, not the sandboxed
+  preview browser) is the only mechanism available that can carry a
+  persisted login across days.
+
+### 15b. Two things this revision explicitly declines, and why — same as
+revision 4's Track D reasoning, applied to new surfaces
+
+- **No coordinated Digg upvoting.** Digg ranks by a Wilson-lower-bound
+  engagement score; manufacturing votes to move that score is the same
+  category of abuse as Reddit vote brigading, on whichever platform it
+  targets. The routine's prompt hard-codes this as a rule it cannot deviate
+  from, not a suggestion.
+- **No Reels reacting to a specific trending clip.** This is the exact
+  case `tools/news-post.mjs` was already built to refuse (§3, Track A): the
+  signal picks WHICH pre-approved scenario, never WHAT the post says, and
+  no individual real case ever enters a post. A clip from the last 24-48h
+  is a real person, often mid legal process. The Reels scripts react to a
+  misconception *pattern* instead, sourced verbatim from the same `LINES`
+  the WhatsApp cards use, so the value line can never drift from the drill.
+
+### 15c. The unattended-posting decision, made explicitly rather than by
+default
+
+Every other automated routine in this document either posts through a real
+API (Track A, Facebook) or only ever prepares a list for a human to
+triage (Track B). This routine is a third thing: a Claude Code agent
+actually clicking "flip" and "submit" on a real logged-in account, once a
+day, with no per-post human confirmation. That is a deliberate choice, not
+an oversight — the operator asked for a routine specifically so this
+requires no daily attention, and set it up through Claude Code's own
+scheduled-task feature with full knowledge it runs unattended. The
+guardrails that make that acceptable are baked into the task prompt
+itself, not left to the run-time model's judgment:
+
+- Never attempts login, signup, or CAPTCHA-solving — stops and reports if
+  either site presents one, rather than trying to get past it.
+- Never digs/upvotes/likes anything, and never asks anyone to.
+- At most one Flipboard flip and one Digg submission per day, using the
+  queue script's title/url/description verbatim — no paraphrasing, no
+  added hashtags, no edited UTM parameters.
+- Commits only its own two record files (`content/outreach/<date>.json`,
+  `growth/outreach-queue-state.json`) — never stages anything else it
+  might find in the working tree.
+
+**Known open risk, not yet resolved:** whether `claude-in-chrome`'s browser
+session actually persists Flipboard/Digg cookies across separate scheduled
+runs on this machine has not been verified end to end — the first
+scheduled run (2026-08-27, ~09:08 local) is the first real test. If the
+session doesn't persist, the routine's own hard-login-rule means it
+degrades safely to "stopped, needs re-login" rather than failing silently
+or attempting a workaround. The tool's own setup guidance recommends a
+manual "Run now" once, to pre-approve the browser tools before the first
+unattended fire.
+
+### 15d. Also fixed in this pass
+
+`tools/render-kyr-card.mjs`'s `--selftest` block checked
+`process.argv.includes('--selftest')` at module scope, not gated by
+`isMain` — so any script that imports it (as `build-outreach-pack.mjs`
+does, for the verbatim `LINES`) while `--selftest` is anywhere in `argv`
+got `process.exit()`-ed before its own code ran. `outreach-queue.mjs` hit
+this immediately: its own selftest silently never executed, reporting
+render-kyr-card's 29 checks as if they were its own 12. Root cause fixed
+by gating the block on `isMain` like every other tool in this repo already
+does; not a scope change to render-kyr-card's own CLI behavior.
