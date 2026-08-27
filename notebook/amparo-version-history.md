@@ -960,6 +960,8 @@ with explicit ink. Tone atmosphere (v2.12.1) re-tuned for dark ground.
 | Dark practice card (scoped `#practiceOverlay` palette) | v2.15.0 |
 | `.prx-key` dark-mode contrast fix | v2.15.0 |
 | Lifeline phone number under 44px tap floor; 6 overlays closed with no fade (3 already had one) | v2.26.2 |
+| FG25 caught v2.26.2's own regression: 2 overlays visible at once in practice onboarding | v2.26.3 |
+| `.ll-dot` 44px miss, overlay safe-area insets, live reduced-motion listener | v2.26.3 |
 
 To restore any version exactly:
 ```bash

@@ -6,6 +6,43 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.26.3 — 2026-08-27
+
+v2.26.3 — "The fix that made closing feel expensive also made two overlays feel open"
+
+Focus group 25 (`notebook/amparo-focus-group-25-apple-design-polish.md`) audited v2.26.2
+line-for-line and found the animation fix had introduced a real regression, plus three
+smaller gaps in the same pattern family. All four fixed same-day.
+
+- **Practice-module onboarding briefly showed two full-screen overlays at once.** Three
+  call sites in the intro→prep→practice chain fired a close and the next open on the same
+  tick (`practiceIntroClose();prepOpen()` and two more) — harmless when both were instant,
+  but v2.26.2 made close a 290ms fade, so for a quarter-second the incoming overlay rendered
+  on top of the outgoing one still fading out. Gave `practiceIntroClose()`/`prepClose()` an
+  optional callback fired only once the close animation actually finishes, and moved the
+  three chained opens into it. Verified: all three transitions now close-then-open in strict
+  order, with GSAP disabled to make the ordering deterministic and testable.
+- **The lifelines carousel's own page dots were the same sub-44px miss** `.ll-contact` just
+  got fixed one component over. Same `::before` hit-area trick, now on `.ll-dot` too.
+- **The nine modal overlays' shared backdrop rule had no safe-area handling**, unlike `.app`
+  and the camera capture flow — content could sit 20px from notch/rounded-corner geometry
+  the rest of the page already accounts for. Added the same `max(20px, env(...))` padding
+  already used elsewhere.
+- **A code comment read as a blanket "nothing leaves the device" promise** next to an
+  analytics call that, by design, sends the state/language/hotline-name of every lifeline
+  tap. Reworded to say plainly what does and doesn't leave — no behavior change, no event
+  removed, just an honest comment.
+- Also: reduced-motion is now read live (`matchMedia(...).addEventListener('change', ...)`),
+  not just once at page load — a user who reaches for that OS setting mid-session, which
+  focus group 25 flagged as exactly when it matters most, no longer needs to reload to get
+  it. And a stale dev-facing comment ("seven close functions") now says nine.
+
+Not fixed, by choice — product/architecture calls, not bugs: whether the lifeline-tap
+analytics event should exist at all; the ~290ms close cost added to every overlay dismissal
+for time-pressured users; the standalone `/arena` app's independent (and unaudited) motion
+handling; a CSS-only fallback for closing when the GSAP CDN hasn't loaded yet. All in the
+focus-group report for whoever decides those.
+
 ## v2.26.2 — 2026-08-27
 
 v2.26.2 — "The number you call mid-stop should be easy to hit"

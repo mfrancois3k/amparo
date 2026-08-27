@@ -406,10 +406,12 @@
   .ll-contact.pending{font-size:15px;color:var(--muted);font-weight:800}
   .ll-nav{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:2px}
   .ll-dot{width:8px;height:8px;border-radius:50%;background:#ded7c2;border:0;padding:0;
-    cursor:pointer;transition:background .25s,transform .25s var(--ease-spring)}
+    position:relative;cursor:pointer;transition:background .25s,transform .25s var(--ease-spring)}
+  .ll-dot::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px}
   .ll-dot.on{background:var(--navy);transform:scale(1.3)}
   .ll-count{font-size:12px;font-weight:800;color:var(--muted);margin-left:6px}
-  #aboutOverlay,#practiceOverlay,#docOverlay,#prepOverlay,#pintroOverlay,#carryOverlay,#papersOverlay,#shareOverlay,#packZoomOverlay{position:fixed;inset:0;z-index:95;background:rgba(9,14,26,.6);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:20px}
+  #aboutOverlay,#practiceOverlay,#docOverlay,#prepOverlay,#pintroOverlay,#carryOverlay,#papersOverlay,#shareOverlay,#packZoomOverlay{position:fixed;inset:0;z-index:95;background:rgba(9,14,26,.6);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;
+    padding:max(20px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left))}
   #aboutOverlay.open,#practiceOverlay.open,#docOverlay.open,#prepOverlay.open,#pintroOverlay.open,#carryOverlay.open,#papersOverlay.open,#shareOverlay.open,#packZoomOverlay.open{display:flex;animation:camIn .35s var(--ease-out)}
   /* docOverlay and carryOverlay are opened FROM the other overlays, so they must
      paint above them — equal z-index left doc behind practice and it looked dead. */
@@ -1203,6 +1205,11 @@
   "use strict";
   var mqReduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
   var REDUCED  = !!(mqReduce && mqReduce.matches);
+  // The user most likely to reach for this OS setting does it mid-session, not
+  // before — a one-time read at load would leave them stuck with motion until
+  // they reload the tab. The CSS media query is already live; this makes the
+  // JS gate (OK(), below) match it.
+  if (mqReduce && mqReduce.addEventListener) mqReduce.addEventListener('change', function (e) { REDUCED = e.matches; });
   var ARMED    = false; // set once by SR.arm() when GSAP is confirmed loaded
   function G()  { return (typeof window !== 'undefined') ? window.gsap : null; }
   function OK() { return ARMED && !REDUCED && !!G(); }
@@ -1647,10 +1654,14 @@
 </script>
 <script>
 /* ============ ANALYTICS — anonymous event counts only ============
-   Counts events like "a pack was printed in TX (Spanish)" so usage can be
-   proven to reviewers and partners. NO autocapture, NO session recording,
-   NO names/contacts/photos — those never leave the device. Loads only on
-   http(s), never when opened as a local file. */
+   Counts events like "a pack was printed in TX (Spanish)" or "this named
+   hotline was tapped" so usage can be proven to reviewers and partners.
+   Event names and their params (state, language, which lifeline) DO leave
+   the device — that's the whole point of this file. What never leaves:
+   autocapture, session recording, and any name/contact/photo/document the
+   user enters — those stay local, full stop. No durable identity either
+   (person_profiles:'identified_only' below, zero identify() calls anywhere
+   in this file). Loads only on http(s), never when opened as a local file. */
 (function(){
   if(!/^https?:/.test(location.protocol)) return;
   try{
@@ -3259,14 +3270,17 @@ function practiceIntroOpen(){
     <h1 style="font-size:21px;margin:0 0 8px">${_t.pi_title}</h1>
     <p style="color:var(--ink);font-size:14px;line-height:1.6;margin:0 auto 14px;max-width:340px">${_t.pi_body}</p>
     <p class="soon" style="margin:0 auto 16px;max-width:340px">${_t.pi_disc}</p>
-    <button class="btn gold" style="width:100%" onclick="practiceIntroClose();prepOpen()">${_t.pi_start}</button>
+    <button class="btn gold" style="width:100%" onclick="practiceIntroClose(prepOpen)">${_t.pi_start}</button>
     <button class="linkbtn" style="margin-top:6px" onclick="showDoc()">${_t.doc_link}</button>`;
   o.classList.add('open');
   ph('sr_practice_intro_opened');
 }
-function practiceIntroClose(){
+/* next: optional callback, fired after the close finishes (not before) — lets a
+   caller chain straight into opening the next overlay without the two ever being
+   visible at once. Escape/the X button call this with no args, where it's a no-op. */
+function practiceIntroClose(next){
   const o=document.getElementById('pintroOverlay');
-  const fin=()=>o.classList.remove('open');
+  const fin=()=>{ o.classList.remove('open'); if(next) next(); };
   if(window.SRMotion&&SRMotion.overlayOut) SRMotion.overlayOut('#pintroOverlay','.ab-card',fin);
   else fin();
 }
@@ -3278,10 +3292,10 @@ function prepOpen(){
   prepRenderStep();
   ph('sr_prep_opened');
 }
-function prepClose(){
+function prepClose(next){
   document.getElementById('prepSheet').classList.remove('show');
   const o=document.getElementById('prepOverlay');
-  const fin=()=>o.classList.remove('open');
+  const fin=()=>{ o.classList.remove('open'); if(next) next(); };
   if(window.SRMotion&&SRMotion.overlayOut) SRMotion.overlayOut('#prepOverlay','.ab-card',fin);
   else fin();
 }
@@ -3305,7 +3319,7 @@ function prepRenderStep(){
     </div>`;
 }
 function prepNext(){ if(prepStepIdx<PREP_STEPS.length-1){ prepStepIdx++; prepRenderStep(); } else prepStartRecall(); }
-function prepBack(){ if(prepStepIdx>0){ prepStepIdx--; prepRenderStep(); } else { prepClose(); practiceIntroOpen(); } }
+function prepBack(){ if(prepStepIdx>0){ prepStepIdx--; prepRenderStep(); } else { prepClose(practiceIntroOpen); } }
 function prepStartRecall(){
   prepPlaced=[]; prepLastSeated=-1;
   prepBank=PREP_STEPS.map((_,i)=>i);
@@ -3356,7 +3370,7 @@ function prepCheckOrder(){
   document.getElementById('prepSheetBody').textContent=allRight?_t.prep_correct_b:_t.prep_wrong_b.replace('{n}',firstWrong+1).replace('{s}',prepMini(firstWrong));
   const btn=document.getElementById('prepSheetBtn');
   btn.textContent=allRight?_t.prep_correct_btn:_t.prep_wrong_btn;
-  btn.onclick=allRight?()=>{ sh.classList.remove('show'); prepClose(); ph('sr_prep_recall_done'); practiceOpen(); }:()=>sh.classList.remove('show');
+  btn.onclick=allRight?()=>{ sh.classList.remove('show'); prepClose(()=>{ ph('sr_prep_recall_done'); practiceOpen(); }); }:()=>sh.classList.remove('show');
   sh.classList.add('show');
   if(allRight) ph('sr_prep_recall_correct');
 }
@@ -6599,7 +6613,7 @@ window.addEventListener('afterprint',()=>{
    Every overlay already declared role="dialog" aria-modal="true", but none of it
    was true in practice: Escape did nothing, Tab wandered into the covered page
    behind the backdrop, and closing dropped focus to <body>. Handled centrally
-   here rather than in each of the seven close functions. Overlays are siblings
+   here rather than in each of the nine close functions. Overlays are siblings
    of #appRoot, so the background can simply be made inert while one is open. */
 const OVERLAYS={
   pintroOverlay:practiceIntroClose, prepOverlay:prepClose,
