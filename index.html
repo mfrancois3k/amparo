@@ -1080,6 +1080,11 @@
      ::before so the visual chip size is unchanged. */
   .prx-vbtn,.prx-hear{position:relative}
   .prx-vbtn::before,.prx-hear::before{content:"";position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);height:44px}
+  /* The lifeline phone number is the highest-stakes tap target in the product —
+     the number someone calls mid-stop — and sat at 34px, under this page's own
+     44px floor. Same ::before padding trick, visual size unchanged. */
+  .ll-contact{position:relative}
+  .ll-contact::before{content:"";position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);height:44px}
   /* overlay scroll containment (iOS scroll chaining / rubber-banding) */
   .ab-card,#camOverlay{overscroll-behavior:contain}
   .maskrow .sw::before{content:"";position:absolute;inset:-10px} /* 44px+ hit area for the mask toggle */
@@ -3259,7 +3264,12 @@ function practiceIntroOpen(){
   o.classList.add('open');
   ph('sr_practice_intro_opened');
 }
-function practiceIntroClose(){ document.getElementById('pintroOverlay').classList.remove('open'); }
+function practiceIntroClose(){
+  const o=document.getElementById('pintroOverlay');
+  const fin=()=>o.classList.remove('open');
+  if(window.SRMotion&&SRMotion.overlayOut) SRMotion.overlayOut('#pintroOverlay','.ab-card',fin);
+  else fin();
+}
 function prepOpen(){
   prepStepIdx=0;
   document.getElementById('prepTitle').textContent=t().prep_title;
@@ -3270,7 +3280,10 @@ function prepOpen(){
 }
 function prepClose(){
   document.getElementById('prepSheet').classList.remove('show');
-  document.getElementById('prepOverlay').classList.remove('open');
+  const o=document.getElementById('prepOverlay');
+  const fin=()=>o.classList.remove('open');
+  if(window.SRMotion&&SRMotion.overlayOut) SRMotion.overlayOut('#prepOverlay','.ab-card',fin);
+  else fin();
 }
 function prepStep(){ return lang==='es'?PREP_STEPS[prepStepIdx].es:PREP_STEPS[prepStepIdx].en; }
 function prepRenderStep(){
@@ -3893,7 +3906,10 @@ function openPapers(){
   if(window.SRMotion&&SRMotion.overlayIn) SRMotion.overlayIn('#papersOverlay','.ab-card');
 }
 function closePapers(){
-  document.getElementById('papersOverlay').classList.remove('open');
+  const o=document.getElementById('papersOverlay');
+  const fin=()=>o.classList.remove('open');
+  if(window.SRMotion&&SRMotion.overlayOut) SRMotion.overlayOut('#papersOverlay','.ab-card',fin);
+  else fin();
   render(); // status pill on the calling step reflects what was added
 }
 function papersStatus(){
@@ -4208,7 +4224,12 @@ function packZoomOpen(n){
   body.style.height=(10.6*96*scale)+'px';
   ph('sr_pack_page_zoomed',{page:n,lang:lang});
 }
-function packZoomClose(){ document.getElementById('packZoomOverlay').classList.remove('open'); }
+function packZoomClose(){
+  const o=document.getElementById('packZoomOverlay');
+  const fin=()=>o.classList.remove('open');
+  if(window.SRMotion&&SRMotion.overlayOut) SRMotion.overlayOut('#packZoomOverlay','.ab-card',fin);
+  else fin();
+}
 /* Which segment step 3 is showing. Module-level so switching tabs and re-rendering
    (a language toggle, say) keeps the user where they were instead of snapping back. */
 let _llTab=0;
@@ -5829,7 +5850,12 @@ function carryOpen(){
   o.classList.add('open');
   ph('sr_carry_opened',{lang:lang});
 }
-function carryClose(){ document.getElementById('carryOverlay').classList.remove('open'); }
+function carryClose(){
+  const o=document.getElementById('carryOverlay');
+  const fin=()=>o.classList.remove('open');
+  if(window.SRMotion&&SRMotion.overlayOut) SRMotion.overlayOut('#carryOverlay','.ab-card',fin);
+  else fin();
+}
 function carryBuild(){
   CARRY_F.forEach(([id])=>{ const el=document.getElementById(id); if(el) carryVals[id]=el.value.trim(); });
   carryDraw();
@@ -6249,7 +6275,10 @@ function practiceClose(){
   prxRecCancel(); prxDropLast();
   if(prxAudio){ try{ prxAudio.pause(); }catch(e){} prxAudio=null; }
   if(prxTTS){ try{ speechSynthesis.cancel(); }catch(e){} }
-  document.getElementById('practiceOverlay').classList.remove('open');
+  const o=document.getElementById('practiceOverlay');
+  const fin=()=>o.classList.remove('open');
+  if(window.SRMotion&&SRMotion.overlayOut) SRMotion.overlayOut('#practiceOverlay','.ab-card',fin);
+  else fin();
   if(step===4) render(); // post-print rail is staged on practice progress — refresh it
 }
 

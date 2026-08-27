@@ -959,6 +959,7 @@ with explicit ink. Tone atmosphere (v2.12.1) re-tuned for dark ground.
 | Loop reports: FG-08, `wargames/12`, blindspot-audit-2026-08-11 | v2.14.1 window |
 | Dark practice card (scoped `#practiceOverlay` palette) | v2.15.0 |
 | `.prx-key` dark-mode contrast fix | v2.15.0 |
+| Lifeline phone number under 44px tap floor; 6 overlays closed with no fade (3 already had one) | v2.26.2 |
 
 To restore any version exactly:
 ```bash

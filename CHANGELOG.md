@@ -6,6 +6,32 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.26.2 — 2026-08-27
+
+v2.26.2 — "The number you call mid-stop should be easy to hit"
+
+Ran the newly-installed `apple-design` skill (Emil Kowalski's fluid-interface
+principles, adapted from Apple's WWDC design talks) against the homepage.
+Two real findings, both fixed; everything else it checked — reduced-motion
+wiring, compositor-only animated properties, safe-area insets, the
+focus-trap/Escape/focus-restore work, size-specific letter-spacing — was
+already there.
+
+- **The lifeline phone number was under this page's own 44px tap-target
+  floor.** `.ll-contact` — the number someone calls mid-stop, the highest-
+  stakes tap target in the product — sat at 34px, missed by the pass that
+  hardened `.linkbtn`/`.back`/`.lang button`/etc. to 44px. Fixed with the
+  same invisible `::before` hit-area padding already used for the practice
+  voice toggles; visual size unchanged.
+- **6 of 9 modal overlays cut instantly on close instead of fading out.**
+  `docOverlay`, `aboutOverlay`, and `shareOverlay` already faded out via
+  `SRMotion.overlayOut()` (GSAP, with a no-GSAP/reduced-motion fallback) —
+  `pintroOverlay`, `prepOverlay`, `papersOverlay`, `packZoomOverlay`,
+  `carryOverlay`, and `practiceOverlay` didn't, so opening was a fade and
+  closing was a snap. Extended the same existing call to all six for a
+  symmetric open/close. Verified: no console errors, all 6 close functions
+  engage the GSAP path and fall back correctly with SRMotion disabled.
+
 ## v2.26.1 — 2026-08-19
 
 v2.26.1 — "Saying only what the code does"
