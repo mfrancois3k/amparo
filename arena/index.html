@@ -350,6 +350,10 @@
   .ring .num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:24px;line-height:1;color:#1B2A4A;}
   .ring .num small{font-size:9px;font-weight:800;letter-spacing:.08em;color:#a87f1f;margin-top:3px;text-align:center;}
   .chat{display:flex;flex-direction:column;gap:10px;margin:6px 0 16px;min-height:120px;}
+  .oRow{display:flex;align-items:flex-end;gap:8px;align-self:flex-start;max-width:88%;}
+  .oRow .bO{align-self:auto;max-width:100%;}
+  .copAv{width:34px;height:34px;border-radius:50%;object-fit:cover;flex:none;border:1.5px solid #E8B84B;background:#1B2A4A;}
+  .sceneImg{width:100%;max-height:130px;object-fit:cover;border-radius:12px;margin:8px 0 2px;border:1.5px solid #e5e0d4;display:block;}
   .bO{align-self:flex-start;max-width:82%;background:#1B2A4A;color:#FAF6EE;border-radius:14px 14px 14px 4px;padding:12px 15px;font-size:14.5px;line-height:1.5;animation:rise .35s ease both;}
   .bO small{display:block;font-size:10px;letter-spacing:.1em;font-weight:800;color:#E8B84B;margin-bottom:2px;}
   .bY{align-self:flex-end;max-width:82%;background:#fffaf0;border:1.5px solid #E8B84B;border-radius:14px 14px 4px 14px;padding:12px 15px;font-size:14.5px;line-height:1.5;color:#1B2A4A;animation:rise .35s ease both;}
@@ -525,6 +529,7 @@
       <div style="flex:1 1 260px;min-width:0;">
         <h1 style="display:flex;align-items:center;gap:10px;"><span data-i18n="practice">Practice</span><button class="helpBtn" id="helpBtn" title="How this works">?</button></h1>
         <p class="scene" id="sceneLine"></p>
+        <img id="sceneImg" class="sceneImg" alt="" loading="lazy" style="display:none">
       </div>
     </div>
     <div id="hud">
@@ -546,6 +551,7 @@
       <div class="freeRow">
         <input id="free" data-i18n-ph="freePh" placeholder="…or speak/type your answer">
         <button class="mic" id="micBtn" title="Speak">🎙</button>
+        <button class="mic" id="echoBtn" title="Record & hear yourself / Grábese y escúchese">🎧</button>
         <button class="sub" id="subBtn" data-i18n="submit">SUBMIT</button>
       </div>
     </div>
@@ -1056,13 +1062,35 @@ SCEN.push(
    {t:{en:'“You as well.” — leave, then log the stop',es:'«Igualmente.» — salir y luego anotar la parada'},p:1,g:1,f:{en:'You survived four traps with three sentences. That\u2019s the whole skill.',es:'Sobrevivió cuatro trampas con tres frases. Esa es toda la habilidad.'}},
    {t:{en:'Celebrate out the window',es:'Celebrar por la ventana'},p:-1,g:0,f:{en:'Provoked officers find reasons. Quiet exits win.',es:'Los oficiales provocados encuentran razones. Las salidas calladas ganan.'}}]}]}
 );
+/* Border Patrol checkpoint — ported VERBATIM from the pack builder's reviewed
+   bank (index.html PRX_CHK + PRX_OPT[30-33], removed there when step 5 became
+   the thank-you page). No new legal sentence was authored in this move.
+   Officer audio for these lines is copied from the same recorded clips
+   (audio/<hash>.mp3); the ES clips for beats 1 and 4 were never recorded, so
+   those two beats are silent in Spanish — text carries them. */
+SCEN.push(
+ {id:'chk1',title:{en:'Checkpoint',es:'Retén'},scene:{en:"Traffic slows. Cones, floodlights, a green-and-white SUV. Not local police — Border Patrol. Cars are waved through one at a time. Rehearsal only — not reviewed by an immigration attorney.",es:"El tráfico baja la velocidad. Conos, reflectores, una camioneta verde y blanca. No es la policía local — es la Patrulla Fronteriza. Pasan los autos uno por uno. Solo práctica — no revisado por un abogado de inmigración."},turns:[
+  {o:{en:'Citizenship?',es:'¿Ciudadanía?'},c:[
+   {t:{en:'“I’m not answering questions, agent.”',es:'«No voy a responder preguntas, agente.»'},p:1,g:1,f:{en:'You can decline — that’s your right. Know the trade, though: silence can make the stop longer or send you to secondary. It is not a faster way out.',es:'Puedes negarte — es tu derecho. Pero sepa el costo: el silencio puede alargar la parada o mandarte a secundaria. No es una salida más rápida.'}},
+   {t:{en:'“Just coming back from visiting family in Monterrey.”',es:'«Solo vengo de visitar a mi familia en Monterrey.»'},p:-1,g:0,f:{en:'That one sentence handed him foreign travel he didn’t have. Never volunteer where you’ve been — and never invent anything either.',es:'Esa sola frase le entregó un viaje al extranjero que no tenía. Nunca ofrezcas dónde estuviste — y tampoco inventes nada.'}}]},
+  {o:{en:'Where were you born?',es:'¿Dónde nació usted?'},c:[
+   {t:{en:'“I’d rather not answer that, agent.”',es:'«Prefiero no responder eso, agente.»'},p:1,g:1,f:{en:'Right. You never have to say where you were born — and never lie about it either: a false answer to a federal officer is its own crime.',es:'Correcto. Nunca tienes que decir dónde naciste — y tampoco mientas: una respuesta falsa a un oficial federal es un delito aparte.'}},
+   {t:{en:'Hand over your passport from home',es:'Entregar tu pasaporte de tu país'},p:-1,g:0,f:{en:'A foreign passport or matrícula mainly proves foreign birth. If you have a U.S. licence or status document, that’s the one to show — never the foreign one.',es:'Un pasaporte extranjero o una matrícula sobre todo prueba que naciste fuera. Si tienes licencia o documento de estatus de EE. UU., ese es el que muestras — nunca el extranjero.'}}]},
+  {o:{en:'Mind if I take a look in the trunk?',es:'¿Le molesta si reviso la cajuela?'},c:[
+   {t:{en:'“I don’t consent to a search, agent.”',es:'«No doy consentimiento para un registro, agente.»'},p:1,g:1,f:{en:'Exactly. At a checkpoint they cannot search your car without your consent or probable cause — and saying no does not give them either one.',es:'Exacto. En un retén no pueden registrar tu auto sin tu consentimiento o causa probable — y decir que no no les da ninguna de las dos.'}},
+   {t:{en:'“Sure, go ahead.”',es:'«Claro, adelante.»'},p:-1,g:0,f:{en:'“Sure” gives up a protection you never had to give up. Refusing is not suspicious, and refusing alone cannot justify a search.',es:'«Claro» cede una protección que no tenías que ceder. Negarte no es sospechoso, y negarte por sí solo no justifica un registro.'}}]},
+  {o:{en:'Pull over to secondary.',es:'Oríllese a la inspección secundaria.'},c:[
+   {t:{en:'Pull over calmly where he points — and keep saying nothing',es:'Orillarse con calma donde señala — y seguir sin decir nada'},p:1,g:1,f:{en:'Right. Secondary is not an arrest and it is not consent — you can obey where to park and still decline questions and searches.',es:'Correcto. La secundaria no es un arresto ni es consentimiento — puedes obedecer dónde estacionarte y aun así negarte a preguntas y registros.'}},
+   {t:{en:'“You have no right to hold me.” — pull back onto the road',es:'«No tiene derecho a detenerme.» — volver a la carretera'},p:-1,g:0,f:{en:'Never drive away from a checkpoint — leaving is a federal felony. Obey the movement; keep declining the questions. Those are separate things.',es:'Nunca te vayas manejando de un retén — irse es un delito federal grave. Obedece el movimiento; sigue negándote a las preguntas. Son cosas distintas.'}}]}]}
+);
 const SIT=[
  {id:'traffic',icon:'🚗',bg:'#1d3557',title:{en:'Traffic stop',es:'Parada de tráfico'},desc:{en:'You\u2019re driving and get pulled over.',es:'Va manejando y lo detienen.'},levels:['routine','intense','tension','hard']},
  {id:'door',icon:'🏠',bg:'#274156',title:{en:'At your door',es:'En su puerta'},desc:{en:'Officers knock at your home.',es:'Oficiales tocan a su casa.'},levels:['door1','door2','door3','door4']},
  {id:'pass',icon:'🧍',bg:'#7a4a12',title:{en:'Passenger seat',es:'Asiento de pasajero'},desc:{en:'You\u2019re not the driver.',es:'Usted no es el conductor.'},levels:['passenger','pass2','pass3','pass4']},
  {id:'trap',icon:'🎣',bg:'#4a3057',title:{en:'The admission trap',es:'La trampa de admisión'},desc:{en:'“Do you know why I stopped you?”',es:'«¿Sabe por qué lo detuve?»'},levels:['trap1','trap2','trap3','trap4'],names:{en:['😌 Calm','😠 Irritated','🔥 Pressure','🏆 Hard mode'],es:['😌 Calmado','😠 Irritado','🔥 Presión','🏆 Modo difícil']}},
  {id:'last30',icon:'⏱️',bg:'#1f4a44',title:{en:'The last 30 seconds',es:'Los últimos 30 segundos'},desc:{en:'Docs returned — then “one more question.”',es:'Documentos devueltos — y «una pregunta más».'},levels:['l301','l302','l303','l304'],names:{en:['😌 Calm','😠 Irritated','🔥 Pressure','🏆 Hard mode'],es:['😌 Calmado','😠 Irritado','🔥 Presión','🏆 Modo difícil']}},
- {id:'step',icon:'🚶',bg:'#5a2e1a',title:{en:'Step-out escalation',es:'Fuera del vehículo'},desc:{en:'“Step out of the car.” Now what?',es:'«Salga del vehículo.» ¿Y ahora?'},levels:['step1','step2','step3','step4'],names:{en:['😌 Calm','😠 Irritated','🚨 Tests & cuffs','🏆 Hard mode'],es:['😌 Calmado','😠 Irritado','🚨 Pruebas y esposas','🏆 Modo difícil']}}
+ {id:'step',icon:'🚶',bg:'#5a2e1a',title:{en:'Step-out escalation',es:'Fuera del vehículo'},desc:{en:'“Step out of the car.” Now what?',es:'«Salga del vehículo.» ¿Y ahora?'},levels:['step1','step2','step3','step4'],names:{en:['😌 Calm','😠 Irritated','🚨 Tests & cuffs','🏆 Hard mode'],es:['😌 Calmado','😠 Irritado','🚨 Pruebas y esposas','🏆 Modo difícil']}},
+ {id:'chk',icon:'🛂',bg:'#245a46',title:{en:'Border Patrol checkpoint',es:'Retén de la Patrulla Fronteriza'},desc:{en:'A different encounter — same rules in all 50 states.',es:'Un encuentro distinto — las mismas reglas en los 50 estados.'},levels:['chk1'],names:{en:['🛂 Checkpoint'],es:['🛂 Retén']}}
 ];
 const LVL={en:['😌 Calm','😠 Irritated','🚨 Ordered out','🏆 Hard mode'],es:['😌 Calmado','😠 Irritado','🚨 Orden de salir','🏆 Modo difícil']};
 const LVLD={en:['😌 Calm','😠 Irritated','📄 “We have a warrant”','🏆 Hard mode'],es:['😌 Calmado','😠 Irritado','📄 “Tenemos una orden”','🏆 Modo difícil']};
@@ -1218,7 +1246,7 @@ function renderArena(){
   if(A.hist.length===0){window.__BPM=72+A.lvl*15+(A.pressure?25:0);A.steadyRun=0;A.accSum=0;A.accN=0;window.__clockBonus=0;}
   updateHeart();
   const s=cur(), L=A.lang, mainMax=s.turns.filter(t=>!t.branch).length;
-  if(A.turn===0&&A.hist.length===0&&!A.safeSeen&&!window.__safeOK&&A.seenTut&&['traffic','pass','trap','last30','step'].includes(curSit().id)){document.getElementById('safeBg').classList.add('on');}
+  if(A.turn===0&&A.hist.length===0&&!A.safeSeen&&!window.__safeOK&&A.seenTut&&['traffic','pass','trap','last30','step','chk'].includes(curSit().id)){document.getElementById('safeBg').classList.add('on');}
   if(!A.asked&&A.seenTut){document.getElementById('supBg').classList.add('on');A.asked=true;saveA();}
   const _sb=document.getElementById('supBanner');
   if(_sb){_sb.classList.toggle('hiddenEl',!A.sup);if(A.sup)document.getElementById('supBannerTxt').textContent=T('supOn');}
@@ -1242,13 +1270,24 @@ function renderArena(){
   const mood=moods[L][A.lvl+1]||'';
   const oBg=['#1B2A4A','#19233d','#131c31','#0d1424'][A.lvl]||'#1B2A4A';
   const chat=document.getElementById('chat'); let html='';
+  /* Officer photo rides with every officer bubble (ported from the pack
+     builder's retired step-5 drill, img/officer-m.jpg — the male voice is the
+     one the recorded clips use). Decorative: alt stays empty. */
+  const copAv='<img class="copAv" src="../img/officer-m.jpg" alt="" loading="lazy">';
   A.hist.forEach(h=>{
-    html+='<div class="bO" style="background:'+oBg+';"><small>'+T('officer')+mood+'</small>'+h.o+'</div>';
+    html+='<div class="oRow">'+copAv+'<div class="bO" style="background:'+oBg+';"><small>'+T('officer')+mood+'</small>'+h.o+'</div></div>';
     html+='<div class="bY"><small>'+T('you')+'</small>'+escT(h.y)+'</div>';
     html+='<div class="fb '+(h.p>0?'good':'bad')+'">'+(h.p>0?'✓ '+T('good'):(h.g?'〰 ':'⚠ '+T('risky')))+' '+h.f+(h.p!==0?' ('+(h.p>0?'+':'')+h.p+')':'')+'</div>';
   });
-  if(!doneRun) html+='<div class="bO" style="background:'+oBg+';"><small>'+T('officer')+mood+'</small>'+((A.heat>=2&&A.turn>0)?'<i style="opacity:.7;font-size:12px;">'+T('cutOff')+'</i> ':'')+s.turns[A.turn].o[L]+'</div>';
+  if(!doneRun) html+='<div class="oRow">'+copAv+'<div class="bO" style="background:'+oBg+';"><small>'+T('officer')+mood+'</small>'+((A.heat>=2&&A.turn>0)?'<i style="opacity:.7;font-size:12px;">'+T('cutOff')+'</i> ':'')+s.turns[A.turn].o[L]+'</div></div>';
   chat.innerHTML=html;
+  /* Scene photo above the chat for vehicle scenarios (scene-1..4.jpg escalate
+     with level); the door module gets none — those photos are roadside. */
+  const si=document.getElementById('sceneImg');
+  if(si){
+    if(['traffic','pass','trap','last30','step','chk'].includes(curSit().id)){ si.src='../img/scene-'+(Math.min(A.lvl,3)+1)+'.jpg'; si.style.display='block'; }
+    else si.style.display='none';
+  }
   if(!doneRun){
     const spkKey=curSit().id+':'+A.lvl+':'+A.turn+':'+A.hist.length+':'+L;
     if(spkKey!==__spokeKey){__spokeKey=spkKey;const tmp=document.createElement('div');tmp.innerHTML=s.turns[A.turn].o[L];speakOfficer(tmp.textContent);}
@@ -1275,8 +1314,10 @@ function renderArena(){
   chat.scrollTop=chat.scrollHeight;
 }
 /* officer voicebox. Officer lines play ONLY from the pre-generated Voicebox
-   audio files (audio/<hash>.mp3 — all 198 EN+ES lines shipped, verified
-   0 missing against the runtime line dump). No speechSynthesis fallback,
+   audio files (audio/<hash>.mp3 — all 198 original EN+ES lines shipped,
+   verified 0 missing against the runtime line dump; the checkpoint scenario
+   adds 8 lines, of which the 2 ES clips k30/k33 were never recorded and stay
+   silent — onerror below already absorbs that). No speechSynthesis fallback,
    deliberately: a robot voice mid-drill breaks the rehearsal illusion worse
    than a silent beat does, and the text is always on screen anyway. The
    voice MUST go silent the instant the user answers — click, typed submit,
@@ -1551,6 +1592,39 @@ document.getElementById('micBtn').onclick=()=>{
   r.onend=()=>mb.classList.remove('live');
   r.onerror=()=>mb.classList.remove('live');
   r.start();
+};
+/* ---- record & hear yourself (ported from the pack builder's retired step-5
+   drill). Pure on-device: MediaRecorder → one playback → object URL revoked on
+   the next take. Separate from the scoring mic on purpose — this is delivery
+   rehearsal, not answer matching, and it never touches the speech engine. */
+UI.en.echoQ='Record your voice on this phone to hear how the line sounds? Nothing is saved or uploaded — it plays back once, on this device only.';
+UI.es.echoQ='¿Grabar su voz en este teléfono para escuchar cómo suena la línea? No se guarda ni se sube nada — se reproduce una vez, solo en este dispositivo.';
+UI.en.echoDenied='Mic blocked — no problem. Your own ears work fine.';
+UI.es.echoDenied='Micrófono bloqueado — no hay problema. Sus propios oídos funcionan bien.';
+UI.en.echoNo='Recording isn’t available in this browser.';
+UI.es.echoNo='La grabación no está disponible en este navegador.';
+let echoRec=null,echoUrl=null;
+document.getElementById('echoBtn').onclick=async()=>{
+  const b=document.getElementById('echoBtn');
+  if(echoRec){ try{echoRec.stop();}catch(e){} return; }
+  if(!navigator.mediaDevices||!window.MediaRecorder){ alert(T('echoNo')); return; }
+  if(!A.echoOk){ if(!confirm(T('echoQ'))) return; A.echoOk=true; saveA(); }
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+    stopVoice();
+    const chunks=[]; const r=new MediaRecorder(stream);
+    r.ondataavailable=e=>{ if(e.data&&e.data.size) chunks.push(e.data); };
+    r.onstop=()=>{
+      stream.getTracks().forEach(t=>t.stop());
+      echoRec=null; b.classList.remove('live'); b.textContent='🎧';
+      if(echoUrl){ try{URL.revokeObjectURL(echoUrl);}catch(e){} }
+      echoUrl=URL.createObjectURL(new Blob(chunks,{type:r.mimeType||'audio/webm'}));
+      new Audio(echoUrl).play().catch(()=>{});
+    };
+    echoRec=r; r.start(); b.classList.add('live'); b.textContent='■';
+    /* ponytail: 15s hard cap — a forgotten live mic is worse than a cut take */
+    setTimeout(()=>{ if(echoRec===r){ try{r.stop();}catch(e){} } },15000);
+  }catch(e){ alert(T('echoDenied')); }
 };
 /* ---- checkout (design demo) ---- */
 /* Real payments (2026-08-19): POST {product} to the Convex checkout endpoint;

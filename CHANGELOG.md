@@ -6,6 +6,40 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.27.0 — 2026-08-28
+
+v2.27.0 — "One practice surface, and a road that actually leads to it"
+
+The setup wizard and the Practice Arena were two products pretending not to know each
+other: step 5 ran its own 2,400-line drill engine, and a user who finished setup had no
+button anywhere that took them to the arena. Fixed by consolidation, not addition.
+
+- **Step 5 is now a Thank You page** (`THANK YOU` / `GRACIAS` in the stepper). Recap
+  chips (state rules, printed status, documents) + one gold CTA into `/arena/`. The
+  relative link keeps `sr_save` on the same origin, so the arena opens pre-tuned to the
+  user's state with zero handoff code.
+- **The in-page practice engine is deleted** — drill overlay, prep drill, carry card,
+  hub tabs, ~2,400 lines of JS/CSS/i18n. The arena is the only practice surface.
+  index.html dropped from 6,679 to ~4,240 lines.
+- **Persistent "Practice →" button**: reaching the thank-you page once sets
+  `amparo_setup_done`, which puts a navy pill beside every Back button on steps 1–4,
+  forever. Setup is now something you revisit only to change a setting.
+- **The arena absorbed what step 5 had that it lacked**: officer photo on every chat
+  bubble + level-escalating scene photos (`img/officer-m.jpg`, `img/scene-1..4.jpg`,
+  referenced same-origin); the 🎧 record-and-hear-yourself module (MediaRecorder,
+  on-device, one playback, 15s cap); and the Border Patrol checkpoint scenario, ported
+  VERBATIM from the reviewed PRX_CHK/PRX_OPT bank — no new legal sentence authored.
+  Checkpoint officer audio copied from the recorded clips into the arena's hash-named
+  store (2 ES clips were never recorded; those beats stay silent, text carries them).
+- **Upsell placement checked, kept**: the $3.99 Script Pack offer stays at scenario
+  completion — verified it fires for the new checkpoint scenario too (4/4 run shows it).
+- **Latent print bug found during the sweep**: pack page 1's headline rendered
+  `hub_title` ("Now rehearse it.") instead of the unused-but-intended `pr_title`
+  ("IF YOU GET PULLED OVER" / "SI TE DETIENE LA POLICÍA"). Fixed.
+- Welcome's "Practice a full stop" button now goes straight to the arena; step 4's
+  post-print CTA routes first-timers through the thank-you page and returning users
+  straight to the arena.
+
 ## v2.26.3 — 2026-08-27
 
 v2.26.3 — "The fix that made closing feel expensive also made two overlays feel open"
