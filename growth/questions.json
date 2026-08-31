@@ -2,14 +2,14 @@
   "queue": [],
   "handled": [],
   "_readme": "Questions a human should answer, in their own name. NOTHING here is posted automatically and nothing should be. Move an item to \"handled\" once you have replied. Threads describing an arrest or an open case are filtered out on purpose — those need a lawyer, not a drill.",
-  "generated": "2026-08-24",
+  "generated": "2026-08-31",
   "errors": [
     {
-      "sub": "immigration",
+      "sub": "legaladvicespanish",
       "error": "Reddit rate limit"
     }
   ],
-  "cursor": 4,
+  "cursor": 0,
   "unanswerable": [
     {
       "title": "Do I have a case? A cosmetic product I purchased caused a partial retina detachment in my eye. [Tampa, FL]",
