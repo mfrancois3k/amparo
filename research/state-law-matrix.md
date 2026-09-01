@@ -3618,6 +3618,139 @@ as Wis. Stat. §968.24. Illinois joins the officer-must-identify group.
 
 ---
 
+# COLUMN PASS 14: DUTY TO INFORM, FOURTH SWEEP (2026-09-01)
+
+Eleven jurisdictions scouted by direct fetch. Two findings here change the shape
+of the column and one crosses into the passenger column.
+
+## HAWAII — the most detailed duty in the project, and it EXPRESSLY REACHES PASSENGERS
+
+**HI** §134-9.2(b): "When a person carrying a firearm… **is stopped by a law
+enforcement officer or is a driver or passenger in a vehicle stopped by a law
+enforcement officer**, the person carrying a firearm **shall immediately
+disclose** to the law enforcement officer that the person is carrying a firearm,
+and shall, **upon request**: (1) **Identify the specific location of the
+firearm**; and (2) **Present** to the law enforcement offic[er the licence]…"
+**VERIFIED**. Added by Act 52 (2023).
+
+Three things no other state combines:
+1. **Proactive disclosure**, owed immediately on the stop.
+2. **Expressly reaches a passenger** in a stopped vehicle — the only firearm
+   provision in this project that names passengers at all.
+3. A duty to **identify the firearm's specific location** on request, which is a
+   physical-compliance instruction rather than a disclosure one.
+
+**This directly qualifies COLUMN PASS 13's finding.** That pass concluded
+passengers are not covered by driver-directed statutes and that any duty comes
+from criminal-code provisions conditioned on individualised suspicion. Hawaii is
+the counter-example: a **passenger-specific duty triggered by the vehicle's stop
+alone**, with no suspicion about the passenger required. The PASS 13 finding
+holds as a structural default; Hawaii is a documented exception to it, and any
+"passengers generally aren't covered" guidance must carve Hawaii out.
+
+## ALASKA — proactive, plus a duty to permit the weapon to be secured
+
+**AK** §11.61.220(a)(1)(A): a person commits misconduct involving weapons in the
+fifth degree if, "when contacted by a peace officer, the person fails to (i)
+**immediately inform the peace officer of that possession**; or (ii) **allow the
+peace officer to secure the deadly weapon**, or fails to secure the weapon at the
+direction of the peace officer, **during the duration of the contact**."
+**VERIFIED**
+
+Alaska joins Louisiana as the second state requiring not just disclosure but
+**submission to the weapon being taken or secured** for the length of the stop.
+
+## ARIZONA — an accuracy duty, not a disclosure duty
+
+**AZ** §13-3102(A)(1)(b): the offence includes "**failing to accurately answer the
+officer if the officer asks** whether the person is carrying a concealed deadly
+weapon". **VERIFIED**
+
+Note precisely what this is. Arizona does not require volunteering, and does not
+require answering — it criminalises answering **falsely** when asked. That is a
+third structural variant alongside proactive and on-request, and it means the
+common summary "Arizona requires you to tell the officer" is wrong twice over.
+
+## CONNECTICUT — the demand itself is conditioned
+
+**CT** §29-35(b): "The holder of a permit… shall carry such permit upon one's
+person while carrying such pistol or revolver. Such holder **shall present his or
+her permit upon the request of a law enforcement officer who has reasonable
+suspicion of a crime** for purposes of…" **VERIFIED**
+
+Unique so far: the duty is triggered not by a bare request but by a request from
+an officer **who has reasonable suspicion of a crime**. The scout flagged this as
+consistent with a post-2023 amendment and asked that currency be checked; that
+check is **not done**. Recorded as **VERIFIED text / UNVERIFIED currency**.
+
+## On-demand and carry-only, closed
+
+- **ME** 25 M.R.S. §2003(11): "Every permit holder… shall have the holder's permit
+  in the holder's immediate possession at all times when carrying a concealed
+  handgun and shall **display the same on demand of any law enforcement**
+  [officer]." **VERIFIED**
+- **MD** Pub. Safety §5-308: "A person to whom a permit is issued or renewed shall
+  **carry the permit in the person's possession** whenever the person carries,
+  wears, or transports a [handgun]." **VERIFIED** — a carry duty with **no
+  present-on-demand clause located**. The scout graded this MEDIUM because
+  mgaleg.maryland.gov is a JS shell and the official text was unreachable, so
+  currency against 2023 SB 1 is unconfirmed. **UNVERIFIED currency.**
+- **IA** §724.4D ("Carrying of dangerous weapons — **duty to cooperate** —
+  reasonable suspicion"). **VERIFIED** as to catchline and existence. Iowa's
+  §724.5 was replaced by 2021 HF 756 and now reads "Availability of permit not to
+  be construed as prohibition on unlicensed carrying" — a permitless-carry
+  rewrite confirmed on the official chapter listing. Any citation to Iowa §724.5
+  as a duty provision is stale.
+
+## MASSACHUSETTS — a catchline that promises a duty the body may no longer contain
+
+**MA** M.G.L. c. 140 §129C. The official catchline still reads "…**exhibiting
+license to carry, etc. on demand**". The body as served by both malegislature.gov
+and FindLaw's 1 Jan 2025 version runs to subsection (m) and **the scout could not
+locate an on-demand exhibit paragraph in it**, suspecting restructuring by Acts of
+2024 c. 135.
+
+I fetched it and reproduce the position rather than resolving it: the catchline
+contains the phrase, and the visible body opens with permissions to possess
+**without** a licence. **UNVERIFIED** — and flagged as a distinct hazard class:
+
+> **A catchline can outlive the provision it names.** Every technique in this
+> ledger that screens by catchline — including METHOD UNLOCK #3, the workhorse —
+> would record a false positive here. Index-first can produce a wrong *hit*, not
+> just a wrong miss.
+
+That is a second, worse limitation of index-first than the one recorded in PASS 9,
+and it should be read alongside it.
+
+## Not found, honestly graded
+
+- **DE**: §11-1441 body fetched, no duty; subchapter index renders section numbers
+  **without catchlines**, so no full-text sweep of §§1441-1456 was possible.
+  **UNVERIFIED**
+- **ID**: §18-3302 body read (26 subsections, none on officer notification) plus
+  chapter catchlines. Chapter-wide full-text search not completed. **UNVERIFIED**
+- **AL**: §13A-11-95 identified as sitting in Art. 3 Div. 4 "**Interaction With
+  Law Enforcement**", added by the 2022 permitless-carry act — **but Justia
+  returned a hard 403 and the body was never seen**. The scout marked URL VERIFIED
+  **false** and declined to treat the number as established. Separately confirmed
+  on a fetched page: §13A-11-73 was **REPEALED** by Act 2022-133 effective
+  1/1/2023. **UNVERIFIED** — and Alabama is now the outstanding jurisdiction in
+  two separate columns for host reasons alone.
+
+## Coverage
+
+Duty to inform: **34 of 51** verified. 17 outstanding.
+
+Four structural variants now, not three:
+1. **Proactive** — MI, NC, NE, LA, NJ, **HI**, **AK**.
+2. **On request / demand** — OH, OK, AR, IL, VA, TN, MN, MO, KY, FL, PA, ND, MS,
+   NV, NY, ME, CT (CT's request must itself rest on reasonable suspicion).
+3. **Accuracy-only** — **AZ**: no duty to volunteer or to answer, only not to
+   answer falsely.
+4. **Inverse legislated** — GA, SC.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -3642,10 +3775,10 @@ What is actually missing, by column, across all 51 jurisdictions:
   are not covered by driver-ID statutes anywhere examined, and any duty arises
   only from criminal-code provisions conditioned on individualised suspicion of
   that person. 38 jurisdictions unswept.
-- **Duty to inform (firearm)** — **27 of 51**. Three categories: proactive
-  (NJ's silence is a fourth-degree crime), on-request, and inverse-legislated
-  (GA, SC). Staleness runs BOTH ways — pre-2023 tables miss NJ entirely while
-  showing GA and OH duties that no longer exist.
+- **Duty to inform (firearm)** — **34 of 51**. FOUR structural variants:
+  proactive (NJ's silence is a fourth-degree crime; HI reaches PASSENGERS),
+  on-request, accuracy-only (AZ criminalises a false answer, not silence), and
+  inverse-legislated (GA, SC). Staleness runs both ways.
 - **Stop-and-identify** — the best-covered column after driver ID, and the one
   where careful sourcing already contradicted the widely-copied list on **four of
   the ten** states first researched.
@@ -3668,11 +3801,12 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 13): **263 VERIFIED**,
-13 LIKELY, 85 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1,
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 14): **270 VERIFIED**,
+13 LIKELY, 89 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1,
 104-162 passes 2-2i (sign citation 51 of 51), 174 pass 3, 181 pass 4,
 198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
-247 pass 11 (recording 50 of 51), 255 pass 12, 263 pass 13 (passenger ID). An earlier running count of "147 verified" reported during
+247 pass 11 (recording 50 of 51), 255 pass 12, 263 pass 13,
+270 pass 14 (duty to inform 34 of 51). An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
