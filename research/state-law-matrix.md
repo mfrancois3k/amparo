@@ -5623,6 +5623,173 @@ pass now running will close the gating question for the remaining 23.
 
 ---
 
+# COLUMN PASS 31: THE GATING RETROFIT, AND THREE CORRECTIONS TO THIS LEDGER (2026-09-01)
+
+## CORRECTION 1 — CALIFORNIA'S IMPERSONATION CITE WAS WRONG, AND IT FLIPS THE ANSWER
+
+PASS 27 recorded **CA Penal Code §26200(a)(5)** in the impersonation column. That
+was **wrong**, and the main process confirmed it by reading both sections.
+
+§26200(a) is a **conduct rule on concealed-carry licensees** — the list beginning
+"While carrying a firearm as authorized by a license… a licensee shall not do any
+of the following", of which (a)(5) is "Falsely represent to a person that the
+licensee is a peace officer." It binds **licensees**, not the public, and it is not
+an impersonation offence.
+
+California's actual provision is **PEN §538d(a)**: "Any person other than one who
+by law is given the authority of a law enforcement officer, who willfully wears,
+exhibits, or uses the authorized uniform, insignia, emblem, device, label,
+certificate, card, or writing, of a law enforcement officer, **with the intent of
+fraudulently impersonating** a law enforcement officer, **or of fraudulently
+inducing the belief that they are a law enforcement officer**, or who willfully and
+credibly impersonates a law enforcement officer through or on an internet
+website…" **VERIFIED**.
+
+**This flips California's classification.** PASS 27 implicitly treated it as
+ungated; §538d(a) is **gated on fraudulent purpose**. California moves into the
+gated group.
+
+The error's shape is worth naming: §26200(a)(5) was picked up **while reading a
+different column** (it surfaced during the CA duty-to-inform work) and was carried
+across into impersonation without asking whether it was the right *kind* of
+provision. **Adjacent-column contamination** — a real cite, real text, wrong
+column.
+
+## CORRECTION 2 — GEORGIA'S STOP-AND-IDENTIFY CITE
+
+The correct cite is **§16-10-25**, Category D. This **corrects any prior entry
+resting on §16-11-36**, which PASS 19 identified as the loitering false-positive
+and which the scout re-read in full to confirm: "refuses to identify himself"
+appears only at (b) as a circumstance that *may be considered*, alongside the
+mandatory dispel-alarm opportunity and a no-conviction bar. **Not a duty.**
+**VERIFIED**.
+
+**Currency caveat the scout raised and I am keeping:** `ga.elaws.us` serves a
+snapshot dated "Last Updated: August 20, 2013". Both sections' operative text is
+long-standing (1968/1989 and 1980), but a current-code recheck is cheap.
+**Currency UNVERIFIED.**
+
+## CORRECTION 3 — ALABAMA'S OFFICER-CONDITION TARGET WAS MISIDENTIFIED
+
+PASS 21 recorded that no reliable index of "Title 13A ch. 10 art. 3" was
+obtainable. **Article 3 is *Bribery and Corrupt Influence* (§§13A-10-60 to -63)** —
+the wrong article entirely. §13A-10-52 lives in **Article 2A, Intentionally Fleeing
+a Law Enforcement Officer** (§§13A-10-50 to -54).
+
+With the right article located, Alabama resolves as a **genuine null**:
+§13A-10-51's five-element definition of "law enforcement officer" carries **no
+uniform, marked-vehicle, or officer-identification element**, so Alabama's eluding
+family does **not** take shape (4). §15-10-3 (Arrest Without Warrant — the exact
+catchline where PA, MA and DE hide their shape-(1) conditions) was read in full,
+(a)(1)-(8), (b), (c): **no officer condition.** §32-2-22, the full Title 32 ch. 2
+art. 2 index, and the full Title 32 ch. 1 index likewise. **VERIFIED null.**
+
+And the host note that made it possible: "Justia served every one of these through
+the browser tool; the fetch-tool 403 did not recur."
+
+## THE GATING RETROFIT — 23 states assessed
+
+Only **four** of the 23 are gated, and the gate types differ in a way that decides
+outcomes:
+
+- **OR** §162.367(1) — "intent to obtain a benefit **or** to injure or defraud".
+- **CA** §538d(a) — fraudulent-impersonation purpose (per Correction 1).
+- **SD** §22-40-16 — **result-based**: "does any act **whereby another person is
+  injured or defrauded**". The same shape as NV §199.430, and the second
+  result-gated state found.
+- **OK** 21 §1533 — result-based, **but the result list is much wider**.
+
+### The Oklahoma / Nevada / South Dakota split is the finding
+
+Verified in body by the main process, **OK** §1533: "…and in such assumed character
+does any act **whereby another person is injured, defrauded, harassed, vexed or
+annoyed**…" **VERIFIED**.
+
+| State | Result list | Does a fright-only fake stop complete the offence? |
+|---|---|---|
+| **OK** | injured, defrauded, **harassed, vexed or annoyed** | **Yes** — "vexed or annoyed" is easily met |
+| **NV** | injured or defrauded | Doubtful |
+| **SD** | injured or defrauded | Doubtful |
+
+Three states use the same drafting *form* — a result element — and Oklahoma's
+choice of five words instead of two is the difference between a statute that
+reaches this conduct and two that may not. **A summary describing all three as
+"result-gated" would be accurate and useless.**
+
+Oklahoma also has the deepest vehicle provisions found: **(F)(1)** unmarked
+vehicle bearing OHP-style markings or lights (misdemeanor), **(F)(2)** vehicle plus
+false personation with the result gate (**Class C felony**), and **(G)(2)** "State
+Police" display.
+
+### Nineteen states are not gated at all
+
+NY, IA, MA, MI, NE, NH, AL, AZ, CO, CT, FL, GA, NJ, NM, VT, WV, DC, DE(3), KY —
+with two subtleties:
+
+- **DE** 11 §907: **(3) is bare conduct** (pretending to be a public servant, or
+  wearing/displaying ID, uniform or badge), while **(1) and (2) ARE gated** on
+  benefit or injure/defraud. **Subsection precision matters exactly as in
+  Tennessee.**
+- **KY** §519.055(1) is the one genuine ambiguity: submission or reliance "**to his
+  prejudice**" — a prejudice qualifier that is neither injure/defraud nor benefit.
+  Recorded **unclear**, not forced into a bucket.
+- **MI** §750.215 splits three ways: (1)(a) no mens rea, (1)(b) "unlawful purpose",
+  (1)(c) intent to compel an act against will.
+- **FL** §843.08 has no aggravated form internally, but its body cross-references
+  **§316.2397** (lights) and **§843.081** — a **separate** lights offence, not a
+  grading tier. Correctly not scored as a vehicle aggravation of §843.08.
+
+## Two limiters in Ohio worth carrying to the product
+
+**OH** §2921.29 was re-read to the end, and the tail carries limits the earlier
+entry did not record:
+- **(C)** caps the compellable answer at **name, address and date of birth**, and
+  **bars arrest for refusing anything beyond that**.
+- **(D)** exempts age and date of birth where age is an element of the suspected
+  offence.
+**VERIFIED**.
+
+Ohio is Category A — one of only two states where refusal is criminalised — and
+its own statute limits what may be compelled and forbids arrest for going further.
+That is the most user-relevant sentence in the entire stop-and-identify column,
+and it was sitting in the tail of a section this ledger had already recorded.
+**Read to the end** has now produced a finding four separate times.
+
+## SOUTH CAROLINA — an equipment mandate with no teeth in either direction
+
+**SC** §23-6-100(B)-(C): troopers must wear complete uniforms with badges displayed
+while on duty, and department vehicles must carry distinctive colours and emblems.
+**VERIFIED**. But there is **no consequence clause** — nothing conditions a stop,
+arrest, citation or evidentiary competence on compliance — **and no savings clause**
+of the Georgia §40-8-91(f) type either.
+
+The scout's characterisation is exact and worth preserving: it is "**the GA (b)-(c)
+half without teeth attached in either direction**", so it should not be scored as
+shape (1) or (2). Recorded as a **near-miss**, not a cell.
+
+Coverage of that negative: Title 17 ch. 13 pulled whole from the DOM (32,430 chars)
+and swept for uniform/marked/insignia/badge — **zero hits**; Title 23 ch. 1 (21
+sections) and ch. 6 (31 sections) likewise. Chapters not read are named.
+
+## Alaska and Wisconsin
+
+- **AK** — **Category D**. AS §11.56.800(a)(1)(B) is a knowing-falsity offence
+  conditioned on arrest, detention or investigation. **No demand-authorising
+  statute exists**: the complete Article 5 index (§§11.56.700-.845) and the
+  complete AS 12.25 Art. 1 arrests index (§§12.25.010-.160) were both read.
+  **VERIFIED**.
+- **WI** — **Category B confirmed**, and §968.24 independently re-confirms the
+  officer-condition entry: the officer-identification clause opens the section.
+
+## Coverage
+
+**Stop-and-identify: 51 of 51. COLUMN COMPLETE.** Fifth completed column.
+Officer condition: **51 of 51** with AL and SC as verified nulls. **Sixth
+completed column.**
+Impersonation: 51/51 located, **gating assessed for all 51**.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -5673,16 +5840,18 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after PASS 30):
-**340 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 102 UNVERIFIED.
-FOUR COLUMNS COMPLETE at 51/51: driver ID, sign citation, recording consent,
-duty to inform. Impersonation 51/51 located. Officer condition 49/51.
-Stop-and-identify 47/51. Passenger ID 40/51 swept.
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 31):
+**346 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 102 UNVERIFIED.
+SIX COLUMNS COMPLETE at 51/51: driver ID, sign citation, recording consent,
+duty to inform, stop-and-identify, officer condition.
+Impersonation 51/51 located with gating assessed for all 51.
+Passenger ID 40/51 swept.
 Progression: 81 breadth sweep, 97 pass 1, 104-162 passes 2-2i, 174 pass 3,
 181 pass 4, 198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
 247 pass 11, 255 pass 12, 263 pass 13, 270 pass 14, 273 pass 16, 276 pass 17,
 282 pass 18, 288 pass 19, 298 pass 20, 313 pass 21, 316 pass 23, 323 pass 24,
-325 pass 25, 327 pass 26, 330 pass 27, 334 pass 28, 339 pass 29, 340 pass 30. An earlier running count of "147 verified" reported during
+325 pass 25, 327 pass 26, 330 pass 27, 334 pass 28, 339 pass 29, 340 pass 30,
+346 pass 31. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
