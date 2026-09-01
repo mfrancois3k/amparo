@@ -3946,6 +3946,154 @@ graded negatives from this pass that need a fuller sweep rather than a first loo
 
 ---
 
+# COLUMN PASS 17: ALABAMA AND UTAH CRACKED, AND A SECOND HAND-POSITION STATUTE (2026-09-01)
+
+## ALABAMA — closed after eight hosts failed, via the Attorney General's own PDF
+
+Alabama had been outstanding in two columns for host reasons alone. Every route
+failed: Justia 403, FindLaw 404 on both URL forms with the section absent from its
+Title 13A index, law.onecle 404 (its chapter index stops at §13A-11-91, pre-2022
+vintage), lawserver 403, counselstack 429, alabama.public.law DNS failure,
+alison.legislature.state.al.us a JS shell, legiscan 403.
+
+The route that worked: the **Alabama Attorney General's own publication**,
+*Criminal Laws of Alabama*, 2024 Edition — an 11 MB PDF, too large for the fetch
+tool's cap, downloaded and searched locally. **Section numbers in it are encoded
+with en-dashes, so a hyphen search returns zero.**
+
+**AL** §13A-11-95, "Duty to inform law enforcement officer upon request when in
+possession of concealed pistol or firearm": "Any person who knowingly possesses a
+pistol or firearm concealed on or about his or her person **or in a vehicle
+occupied by the person**, and **who is asked by a law enforcement officer**
+operating in the line or scope of his or her official duties whether he or she is
+armed with a concealed pistol or firearm, **shall immediately inform** the law
+enforcement officer that the person is in possession of a pistol or firearm."
+(Act 2022-133, §3.) **VERIFIED — body, not catchline.**
+
+On-request shape: nothing is owed until the officer asks, and then the answer is
+owed immediately. Note it reaches a firearm "**in a vehicle occupied by the
+person**", which is broader than carrying on the person.
+
+I insisted on the body here rather than accepting the catchline, per the rule
+adopted in PASS 15. That was the right call for a different reason than expected:
+the catchline says "upon request", and so does the body — but reading the body is
+what surfaced the next finding, which the catchline gave no hint of.
+
+## ELEVENTH CROSS-STATE FINDING: a SECOND state codifies what to do with your hands
+
+Immediately following §13A-11-95 on the same page:
+
+**AL** §13A-11-96, "**Driver or occupant** of motor vehicle stopped for law
+enforcement purpose **prohibited from knowingly touching loaded handgun** except
+as directed": "(a) A person who is the driver **or occupant** of any motor vehicle
+that is stopped as a result of a traffic stop or as a result of a stop for
+another law enforcement purpose and who is transporting or has a loaded handgun
+in the motor vehicle or commercial motor vehicle **shall not knowingly touch the
+handgun**…" **VERIFIED**.
+
+PASS 3 recorded Ohio §2923.12(B)(2)-(3) as the only state codifying hand position
+and contact with the weapon during a stop, and flagged that the safe act and the
+intuitive act are opposites there. **Alabama is the second, and it is broader:**
+Ohio's applies to a concealed-handgun licensee; Alabama's reaches **any driver or
+occupant** of a stopped vehicle with a loaded handgun in it.
+
+The Arena scripts hand position as advice. In two states it is a criminal
+prohibition, and in Alabama it binds passengers too. A driver in Alabama who
+reaches for the weapon to hand it over, or to move it into view, commits an
+offence.
+
+## UTAH — the renumbering resolved, and the "protection" has a carve-out that voids it at a stop
+
+Utah was blocked, and its concealed-permit law moved to **Title 53 Chapter 5a,
+effective 5/7/2025**. `le.utah.gov` HTML returns a nav shell; the **PDFs are the
+readable channel**.
+
+**Trap confirmed**: FindLaw's §76-10-523.5 page now carries the catchline
+"Compliance with rules for secure facilities" and has nothing to do with permits
+or officers. Its successor is §53-5a-107. **Any chart citing 76-10-523.5 as
+Utah's duty-to-inform or display statute is wrong.**
+
+The whole of Chapter 5a (Parts 1–7, §§53-5a-101 through 53-5a-708) was scanned for
+display / demand / divulge / notify / inform. **The only hit is §53-5a-310(1)(e)**,
+and it is an inverse provision — with a carve-out that matters more than the rule:
+
+"(ii) A **governmental agency may not compel or attempt to compel** an individual
+who has been issued a concealed firearm permit **to divulge whether the
+individual: (A) has been issued a concealed firearm permit; or (B) is carrying a
+concealed firearm.** (iii) **Subsection (1)(e)(ii) does not apply to a law
+enforcement offic[er]**…" **VERIFIED**.
+
+**Read (iii) before (ii).** The protection runs against government agencies
+generally and is **expressly disapplied to law enforcement officers**. A summary
+saying "Utah bars agencies from making you divulge whether you're carrying" is
+true as written and **dangerously wrong at a traffic stop**, which is the only
+context this product cares about.
+
+This is the third instance in this project of a provision that reads as a
+protection until its final subsection is read — after Wash. RCW 46.08.065's
+law-enforcement exception and the eluding-offence family.
+
+Utah therefore has **no proactive, on-request, or accuracy-type duty** anywhere in
+Chapter 5a. **VERIFIED negative** — and it is a full-text negative over a whole
+chapter, the strongest grade of negative in this ledger.
+
+## Washington and Wyoming
+
+- **WA** RCW 9.41.050(1)(b): "Every licensee shall have his or her concealed
+  pistol license in his or her immediate possession at all times… and shall
+  **display the same upon demand to any police officer** or to any other person
+  when and if required by law to do so." **VERIFIED**.
+- **WY** W.S. §6-8-104(b): located in the official LSO Title 6 compress PDF at
+  p.184, catchline "Wearing or carrying concealed weapons; penalties; exceptions;
+  permits", with the carry-and-display-on-request sentence inside subsection (b).
+  The scout confirmed page and subsection but the operative sentence was not
+  quoted to me. **LIKELY** pending a body quote. FindLaw silently served the Title
+  6 chapter index instead of the section on both URL forms — the documented trap.
+
+## Full-text negatives, the strongest grade in this ledger
+
+These went beyond catchline screening and read actual bodies:
+
+- **NH** — **HIGH**. Full text of RSA ch. 159 (§§159:1–159:27) read, not just
+  catchlines. Word probes for inform/notify/disclose/divulge/exhibit/display/
+  demand/produce returned only "notify" at §159:6-b (address change to the issuing
+  authority). Title XII chapter list also read; six other firearm chapters
+  (159-A through 159-F) **not** full-texted. Upgrades PASS 12's index-level
+  negative.
+- **VT** — **MEDIUM-HIGH**. Full text of Title 13 ch. 85 (§§4001–4084) read. No
+  duty and no inverse provision. Vermont has **no carry-permit scheme**, so no
+  permit-production section exists to find — which is why every prior pass came
+  up empty.
+- **RI** — **MEDIUM-HIGH**. Full catchline index plus bodies of §§11-47-8, -9,
+  -11 and -28. §11-47-28 ("Arrest and detention for possession of firearms") is
+  the **opposite** of an inverse provision — it authorises investigative
+  detention. Rhode Island has neither a duty nor a protection.
+- **WV** — **MEDIUM**. Bodies of §§61-7-3, -4, -6, -7, -11a, -14, -17 read;
+  §61-7-4 has no carry/display clause **despite its catchline**. Official host
+  403s, FindLaw was the only channel. Twelve sections not individually read.
+- **MA** — **MEDIUM-HIGH**, and a **third independent confirmation** of the
+  catchline hazard: §129C body (a)–(m), §131 body, §129B body, and the full
+  Chapter 140 section index all read. The only catchlines matching
+  exhibit/demand/surrender are §129C (stale), §129D (surrender on
+  denial/revocation) and §131F½ (theatrical productions). No surviving duty in
+  c.140. c.269 not attempted.
+- **SD** — **MEDIUM**. Complete catchline listing for ch. 23-7 (~60 sections) and
+  ch. 22-14, plus bodies of §§23-7-8.1, 23-7-8.8 and 23-7-55. §23-7-8.8 is
+  **officer-facing and imposes no duty on the holder** — and the scout identified
+  it as "the section a secondary source's 'presented a permit or declared'
+  language traces to", i.e. the near-miss that would produce a wrong cell.
+
+## Coverage
+
+Duty to inform: **39 of 51** verified (adding AL, UT-negative, WA, plus DC
+pending). 12 outstanding.
+
+Alabama is now closed in this column. It remains outstanding in **recording
+consent** (§13A-11-31), where the same host wall applies — but the AG PDF route
+just proven should close it.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -3996,12 +4144,12 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 16): **273 VERIFIED**,
-13 LIKELY, 96 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1,
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 17): **276 VERIFIED**,
+14 LIKELY, 96 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1,
 104-162 passes 2-2i (sign citation 51 of 51), 174 pass 3, 181 pass 4,
 198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
 247 pass 11 (recording 50 of 51), 255 pass 12, 263 pass 13, 270 pass 14,
-270 pass 15 (currency), 273 pass 16 (duty to inform 35 of 51). An earlier running count of "147 verified" reported during
+273 pass 16, 276 pass 17 (duty to inform 39 of 51). An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
