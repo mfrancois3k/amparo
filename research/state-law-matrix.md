@@ -126,7 +126,7 @@ sign a citation.
 - **Licence display** — RSA 263:2. 48-hour safe harbour if a valid licence is
   later produced. **VERIFIED**
 - **Recording: ALL-PARTY** — RSA 570-A:2. **LIKELY**
-- **Sign citation** — **UNVERIFIED.** RSA 265:3 and 265:4 are not matches.
+- **Sign citation** — **UNVERIFIED**. RSA 265:3 and 265:4 are not matches.
 
 ### New Jersey
 - **Stop-and-identify: N** — no statewide statute. **LIKELY**
@@ -226,7 +226,7 @@ Researched 2026-08-31 against leginfo.legislature.ca.gov primary text.
   > in a place he or she has the right to be, does not constitute, in and of
   > itself, a violation of subdivision (a), nor does it constitute reasonable
   > suspicion to detain the person or probable cause to arrest the person."
-  **VERIFIED.** Note what this does beyond legalising the act: it forecloses the
+  **VERIFIED**. Note what this does beyond legalising the act: it forecloses the
   recording being used as the *basis* for a detention or an arrest. That is a
   stronger and more specific protection than the 9th Circuit line of authority
   the research request assumed would be the source.
@@ -260,7 +260,7 @@ Researched 2026-08-31 against leginfo.legislature.ca.gov primary text.
 
   *Fordyce v. City of Seattle*, 55 F.3d 436 (9th Cir. 1995), was named in the
   research request as likely authority. It was **not fetched this pass** and is
-  recorded here only as a lead. **UNVERIFIED.**
+  recorded here only as a lead. **UNVERIFIED**.
 - **Sign citation** — not researched this pass. Veh. Code §40302 is the likely
   starting point. **UNVERIFIED**
 
@@ -408,7 +408,7 @@ navigation/template page with no statute text. No primary text obtained.
 ### Tennessee — NOT ATTEMPTED
 Queued in batch 2 but not reached. Tennessee's code is published through a
 commercial host (LexisNexis), so expect the same access problem as IL/AZ.
-Target sections: T.C.A. §55-50-351 (licence exhibition). **UNVERIFIED.**
+Target sections: T.C.A. §55-50-351 (licence exhibition). **UNVERIFIED**.
 
 ### Wisconsin
 Researched 2026-08-31 against docs.legis.wisconsin.gov primary text.
@@ -888,7 +888,7 @@ Retrieved 2026-08-31 via codes.findlaw.com (legislature.vermont.gov serves a she
   motor vehicle." The section addresses possession and a grace period; it does
   **not** contain an exhibit-on-demand duty. **VERIFIED**
   Same split-section trap as Connecticut §14-213 — the production duty, if it
-  exists, lives elsewhere and was **NOT** located. **UNVERIFIED.**
+  exists, lives elsewhere and was **NOT** located. **UNVERIFIED**.
 
 ---
 
@@ -1239,6 +1239,133 @@ gencourt.state.nh.us, and RSA 570-A sits under **Title LVIII**, not LXII).
 
 ---
 
+# COLUMN PASS 2: REFUSING TO SIGN A CITATION (2026-09-01)
+
+The weakest column in the ledger, and the one where a wrong answer has the most
+immediate physical consequence: the user is at the roadside, holding a pen, and
+whatever they do next is irreversible within seconds.
+
+Six states pulled, chosen by population. They do not agree with each other, and
+the disagreement is not a matter of degree — it spans from "refusing is its own
+crime" to "refusing is expressly not grounds for arrest."
+
+## HEADLINE: this column has no national answer, and the spread is the finding
+
+Ranked from worst to best consequence for the driver who refuses:
+
+**1. Florida — refusing is a separate crime.**
+Fla. Stat. §318.14(2): a person cited for a mandatory-hearing or criminal traffic
+violation "**must sign and accept a citation indicating a promise to appear**."
+§318.14(3): "Any person who **willfully refuses to accept and sign** a summons as
+provided in subsection (2) **commits a misdemeanor of the second degree**."
+**VERIFIED**. Florida is the only one of the six that makes refusal itself an
+offence rather than a trigger for a different process.
+
+**2. California — refusing forces a custodial trip to a magistrate.**
+Cal. Veh. Code §40302: an arrested person "shall be taken without unnecessary
+delay before a magistrate" in any of several cases, including:
+- §40302(a) — "When the person arrested **fails to present both his or her
+  driver's license or other satisfactory evidence of his or her identity and an
+  unobstructed view of his or her full face for examination**."
+- §40302(b) — "When the person arrested **refuses to give his or her written
+  promise to appear**."
+**VERIFIED**. Note (a): California statutorily conditions release on showing your
+face as well as your licence. That is a distinct requirement no other state
+examined has, and it interacts badly with any generic "you don't have to do
+anything" framing.
+
+**3. Texas — signing is the condition of release.**
+Tex. Transp. Code §543.005: "**To secure release**, the person arrested must make
+a written promise to appear in court by **signing** the written notice prepared by
+the arresting officer." §543.004(a)(2) withholds the release-on-citation
+entitlement where "the person demands an immediate appearance before a magistrate
+or **refuses to make a written promise to appear**." §543.009(b): wilfully
+*violating* a promise already given is a misdemeanor — a separate matter from
+refusing to give one. **VERIFIED**.
+
+**4. Ohio — refusing removes the no-arrest protection.**
+R.C. §2935.26(A): for a minor misdemeanor the officer "**shall not arrest** the
+person, but shall issue a citation, **unless** one of the following applies: …
+(2) The offender **cannot or will not offer satisfactory evidence of the
+offender's identity**. (3) The offender **refuses to sign the citation**."
+**VERIFIED**.
+
+**5. Georgia — refusing costs a cash bond, and the officer must warn you first.**
+O.C.G.A. §40-13-2.1(a): the cited person "shall sign the citation to acknowledge
+receipt of the citation and of his or her obligation to appear for trial. **The
+officer shall advise the person that signing the citation is not an admission of
+guilt** and that failure to sign will result in the person having to **post a cash
+bond**. If the person refuses to sign the citation, it shall **constitute
+reasonable cause to believe that the person will not appear at trial** and the
+officer **may** bring the person before a judicial officer or traffic violations
+bureau to post a bond." **VERIFIED**.
+
+Georgia is the only state of the six that puts an affirmative duty on the
+*officer* to correct the exact misconception that drives most refusals. That
+duty is a fact a user can be told and can hold an officer to.
+
+**6. North Carolina — refusing is expressly protected.**
+N.C.G.S. §15A-302(d): "A copy of the citation shall be delivered to the person
+cited. … **Failure of the person cited to accept delivery of the citation shall
+not constitute grounds for an arrest or the requirement that he or she post a
+bond.**" **VERIFIED**. North Carolina citations carry no signature requirement at
+all, and the statute forecloses both consequences other states impose.
+
+**Michigan — partial, and recorded as a negative that is NOT a finding.**
+MCL §257.728, the citation-contents section, contains no signing requirement and
+no refusal consequence. That is what the section says; it is **not** evidence that
+Michigan imposes none, because the duty could sit in another section that was not
+checked. **UNVERIFIED**. Do not let this cell harden into "Michigan has no
+signature requirement" — that inference has not been earned.
+
+## Why this column is the most dangerous one to generalise
+
+Every other column in this matrix varies in *degree*. This one inverts. The same
+act — declining to sign — is a criminal offence in Florida and a statutorily
+protected choice in North Carolina, roughly 400 miles apart. A national script
+that says "you can refuse to sign, it's not an admission of guilt" is:
+- **True and useful** in Georgia, where the officer must tell you so anyway.
+- **True but expensive** in Georgia and California and Texas and Ohio, where it
+  costs you your release.
+- **Advice to commit a misdemeanor** in Florida.
+
+That last line is the reason this column cannot ship state-agnostic content under
+any circumstances, and it is the strongest concrete argument yet for the
+state-gating architecture over a single national script.
+
+## Second cross-column finding: ID refusal and signature refusal are the same switch
+
+In both California (§40302(a) and (b)) and Ohio (§2935.26(A)(2) and (3)), refusing
+to identify and refusing to sign appear as **adjacent items in the same list of
+exceptions** — the two ways a citation-and-release becomes a custodial arrest.
+They are drafted as one mechanism, not two.
+
+This matters for the product: the practice Arena treats "identify yourself" and
+"sign the citation" as separate beats. In at least two states, the statute treats
+them as the same decision point with the same consequence. Whether that pairing
+holds elsewhere is **UNVERIFIED** and worth checking, because if it generalises it
+changes how the scenario should be scripted.
+
+## Coverage after this pass
+
+Sign-citation: **6 of 51 verified** (CA, TX, FL, OH, GA, NC) plus MI partial.
+Previously 3 of the original ten. 45 outstanding — and given the polarity found
+here, extrapolation from these six to any unresearched state is not permissible.
+
+## Source notes
+
+`statutes.capitol.texas.gov` has been rebuilt as a JavaScript SPA. A plain `curl`
+of the `.htm` URL now returns the Angular app shell, not the statute — it looks
+like a successful 200-response fetch and contains no law. This is exactly the
+silent-failure mode flagged earlier in this ledger, and it has now bitten a
+source previously logged as good. **Texas must be read through the rendered
+browser with a wait**, never by fetch.
+
+`nysenate.gov` renders, but VTL §207 (uniform traffic summons) is not the
+signature provision; New York was not resolved and is not recorded.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -1255,9 +1382,10 @@ What is actually missing, by column, across all 51 jurisdictions:
   all-party states in COLUMN PASS 1 above). 37 outstanding, all one-party
   jurisdictions where the statutory risk is low by construction — an inference,
   not a verified cell. The high-risk subset of this column is now DONE.
-- **Refusing to sign a citation** — researched for **3** of the original ten,
-  essentially untouched since. ~48 outstanding. Already flagged as the weakest
-  column in the ledger.
+- **Refusing to sign a citation** — researched for **6** (CA, TX, FL, OH, GA, NC)
+  in COLUMN PASS 2, plus MI partial. 45 outstanding. This column INVERTS across
+  states — refusal is a misdemeanor in FL and expressly protected in NC — so no
+  unresearched state may be inferred from a researched one.
 - **Passenger ID** — spotty. Verified where the stop-and-identify section
   happened to address it; not systematically pursued.
 - **Duty to inform (firearm)** — researched for the original ten and a handful
@@ -1286,8 +1414,9 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-08-31, after COLUMN PASS 1): **97 VERIFIED**,
-11 LIKELY, 49 UNVERIFIED cells. Before that pass: 81 VERIFIED. An earlier running count of "147 verified" reported during
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 2): **104 VERIFIED**,
+11 LIKELY, 55 UNVERIFIED cells. Progression: 81 after the breadth sweep,
+97 after COLUMN PASS 1 (recording consent), 104 after COLUMN PASS 2 (sign citation). An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
