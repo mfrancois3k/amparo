@@ -4631,6 +4631,82 @@ Officer condition: **48 of 51**. Impersonation: **23**. "Lit place": **2 verifie
 
 ---
 
+# LIKELY-CELL RECONCILIATION (2026-09-01)
+
+A mechanical count found **14 cells still marked LIKELY**. Auditing each against
+later passes shows that **most are stale** — superseded by verified work that was
+recorded in a later section without updating the original marker.
+
+**This is a real defect in the ledger, not a research gap.** A reader encountering
+"Recording: ONE-PARTY — Minn. Stat. §626A.02. **LIKELY**" in an early section has
+no way to know that COLUMN PASS 5 verified it and COLUMN PASS 18 closed the whole
+column at 51/51. The append-only structure that keeps this file honest about its
+own history also lets superseded markers sit unchallenged.
+
+## SUPERSEDED — verified in a later pass, marker never updated
+
+These are **VERIFIED**; treat the LIKELY marker in the earlier section as historical:
+
+| Cell | Marked LIKELY in | Superseded by |
+|---|---|---|
+| **MS** §41-29-531(e) recording | early state entry | PASS 5 (body fetched) and PASS 18 (column complete 51/51) |
+| **MO** §542.402 recording | early state entry | PASS 5 (party / prior-consent limb quoted) |
+| **MN** §626A.02 recording | early state entry | PASS 5 (§626A.02(d) quoted) |
+| **NH** RSA §570-A:2 recording | early state entry | PASS 1 (§570-A:1(II) expectation limiter quoted) |
+| **MO** §302.181 licence display | early state entry | driver-ID column completed 51/51 |
+| **NJ** §39:3-29 licence display | early state entry | driver-ID column completed 51/51 |
+| **SD** §32-12-40 | PASS 2e (catchline only) | **PASS 18** — body fetched, and it revealed production may be made at the officer's office as well as in court |
+| **WI** §175.60(2g) | PASS 6 | **PASS 18** — body fetched, two-document requirement surfaced |
+| **CO** §18-12-204(2)(a) | PASS 6 | **PASS 18** — body fetched, two-document requirement and failure penalty surfaced |
+| **AK** §12.25.180 | PASS 2g (1993 text) | **PASS 2i** — current 2025 text retrieved; the 1993 version is superseded and must not be cited |
+
+Ten of fourteen. All now VERIFIED elsewhere in this file.
+
+## STILL GENUINELY OPEN
+
+- **WY** §6-8-104(b) — located at p.184 of the official LSO Title 6 PDF with the
+  carry-and-display sentence inside subsection (b), but **the operative sentence
+  has never been quoted**. A scout is on it. **LIKELY** stands.
+- **MI** §750.539c recording — a deliberate and correct LIKELY. The statute "reads
+  all-party on its face; courts read a participant exception into MCL §750.539a".
+  This is a **court-created** exception, not a statutory one. The ledger's own
+  note says to "footnote the court-created exception rather than labelling MI
+  identically to true one-party states", and that instruction stands. **This cell
+  should probably never become VERIFIED on statutory text alone** — it is the one
+  place in the recording column where the answer depends on case law the project
+  has not read.
+- **CA** passenger ID — "no statute located imposing a passenger identification
+  duty; §12951(b) is expressly limited to '[t]he driver'." **PASS 13** upgraded
+  the reasoning (California has no located stop-and-identify statute at all, and
+  the passenger question is structural) but did not convert this to a verified
+  positive, because **a negative cannot be verified into a positive**. Correctly
+  still LIKELY.
+- **NM** definitions for recording — no separate definitions section located, and
+  **PASS 11** established §30-12-1 is a physical-interference statute, not a
+  conversation-recording one. The LIKELY is now better characterised as a
+  verified negative about that section. Left as-is pending a full NM code sweep.
+
+## What this exposes about the ledger's structure
+
+The append-only design has been the right call — every correction in this file is
+traceable, and three propositions survived a bad citation because the reasoning
+was preserved rather than deleted (MI §257.311, AR §27-16-601, SD §32-12-39).
+
+But it has a failure mode: **the newest statement about a cell is at the bottom of
+a 4,700-line file, while the first statement is at the top, and nothing links
+them.** Anyone reading top-down gets the stale answer.
+
+**Rule adopted:** before this matrix is ever read for content rather than history,
+it needs a **generated current-state table** — one row per jurisdiction per
+column, carrying only the latest verified value and a pointer to the pass that
+established it. The narrative passes stay as the audit trail. That table does not
+exist yet and is now the highest-priority piece of work that is not research.
+
+Recording it here rather than building it now, because building it while nine
+columns are still moving would produce a table that is itself immediately stale.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -4681,13 +4757,14 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 21): **313 VERIFIED**,
-14 LIKELY, 100 UNVERIFIED cells. THREE COLUMNS COMPLETE at 51/51: driver ID,
-sign citation, recording consent. Officer condition 48 of 51.
+TALLY (counted mechanically, 2026-09-01, after LIKELY RECONCILIATION):
+**314 VERIFIED**, 16 LIKELY markers present (10 of them SUPERSEDED — see the
+reconciliation section), 100 UNVERIFIED. THREE COLUMNS COMPLETE at 51/51:
+driver ID, sign citation, recording consent. Officer condition 48 of 51.
 Progression: 81 breadth sweep, 97 pass 1, 104-162 passes 2-2i, 174 pass 3,
 181 pass 4, 198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
 247 pass 11, 255 pass 12, 263 pass 13, 270 pass 14, 273 pass 16, 276 pass 17,
-282 pass 18, 288 pass 19, 298 pass 20, 313 pass 21. An earlier running count of "147 verified" reported during
+282 pass 18, 288 pass 19, 298 pass 20, 314 pass 21. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
