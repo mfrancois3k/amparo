@@ -1855,12 +1855,129 @@ Four of the five are verified on current text. That is enough to treat the
 pairing as established and to act on it in the Arena's scripting, while Alaska
 stays out of any count until its current text is pulled.
 
+## COLUMN PASS 2h (2026-09-01): the last five, including Oklahoma
+
+**Oklahoma — cracked, and release is MANDATORY when three conditions hold.**
+Oklahoma resisted every previous method. The index page for Title 22 broke it:
+the operative section is **§22-1115.1A**, "Release on personal recognizance for
+traffic violation", which none of the earlier guesses (§22-1114.1, §6-112) came
+near.
+
+22 O.S. §1115.1A(A): "any person, whether a resident of this state or a
+nonresident, who is arrested by a law enforcement officer **solely for a
+misdemeanor violation of a state traffic law** or municipal traffic ordinance,
+**shall be released by the arresting officer upon personal recognizance if**:
+1. The arrested person **has been issued a valid license to operate a motor
+vehicle** by this state, another state jurisdiction within the United States,
+which is a participant in the **Nonresident Violator Compact**…;
+2. **The arresting officer is satisfied as to the identity of the arrested
+person** and certifies the date and time and the location of the violation, as
+evidenced by the **electronic signature of the officer**;
+3. The arrested person **acknowledges, as evidenced by the electronic signature
+of the person**…" **VERIFIED**
+
+Oklahoma is the only state found where release is **mandatory** rather than
+discretionary — but it is gated on holding a valid licence from a compact
+jurisdiction. **A driver without one falls outside the mandatory-release rule
+entirely.** That is the single most consequential conditional found in this
+column for the population this product serves, and it points the same way as
+Colorado §42-4-1707(6): the protections cluster around licence-holders.
+
+**Maine — the officer signs.**
+29-A M.R.S. §2601(1): the Uniform Summons and Complaint "must include, at a
+minimum, **the signature of the officer**, a brief description of the alleged
+offense, the time and place of the alleged offense and the time, place and date
+the person is to appear in court." **VERIFIED**
+
+**Vermont — the officer signs; two copies are handed over.**
+4 V.S.A. §1105(a): "A violation shall be charged upon a summons and complaint
+form approved and distributed by the Court Administrator. **The complaint shall
+be signed by the issuing officer or by the State's Attorney.** The original shall
+be filed with the Judicial Bureau; a copy shall be retained by the issuing
+officer…, and **two copies shall be given to the defendant**." The complaint must
+include "notice that a defendant **may request a hearing or accept the penalties
+without a hearing**, notice of the **fee for failure to answer within 21 days**…"
+**VERIFIED**. Vermont traffic violations are civil (23 V.S.A. §2302: no
+imprisonment, penalty capped at $1,000) and heard by the Judicial Bureau (4
+V.S.A. §1102(b)(1)).
+
+**District of Columbia — a civil infraction system, no signature anywhere.**
+D.C. Code §50-2302.04(a): "**The notice of infraction shall be the summons and
+complaint** for the purposes of this subchapter." §50-2302.04(b): it "shall
+contain information advising the person to whom it is issued of the manner in
+which and the time within which he may answer." §50-2302.05(a): "In answer to a
+notice of infraction, a person to whom the notice was issued **may**: (1) Admit,
+by payment of the civil fine…; (1A) Admit with an explanation; or (2) **Deny** the
+commission of the infraction", and (b)(1) a person charged with a moving
+violation "**may contest the charge by mail**". **VERIFIED**. No signature
+requirement appears in either section.
+
+**Tennessee — consequence resolved.**
+The §55-10-207 signing duty is disapplied by §55-10-207(b)(2) for "a person who
+is subject to arrest pursuant to §55-10-119". T.C.A. §55-10-119: "An officer
+**shall detain a driver without a warrant**, as provided in §40-7-103, and **bring
+the driver before a committing magistrate** if the driver: (1) Is involved in an
+accident resulting in: (A) Serious bodily injury… or (B) Death; (2) **Does not
+have a valid driver license**; **and** (3) **Does not have evidence of financial
+responsibility**…" **VERIFIED**
+
+Note the conjunctive "and" between (2) and (3): on the face of the text all three
+limbs must hold. That reading matters enormously — a disjunctive reading would
+make every unlicensed driver subject to mandatory detention in Tennessee. The
+text as printed is conjunctive. **Whether Tennessee courts read it that way is
+UNVERIFIED**, and this is precisely the kind of clause where a wrong reading is
+catastrophic for a user.
+
+## FIFTH CROSS-STATE FINDING: two states make you WRITE YOUR NAME
+
+Distinct from signing a citation, and missed by every prior pass:
+
+- **PA** 75 Pa.C.S. §6308(a): "The operator of any vehicle or any pedestrian
+  reasonably believed to have violated any provision of this title **shall stop
+  upon request or signal** of any police officer and shall, upon request,
+  **exhibit a registration card, driver's license and information relating to
+  financial responsibility**, or other means of identification…, and shall
+  **write their name in the presence of the police officer if so required for the
+  purpose of establishing identity**." **VERIFIED**
+- **VA** §46.2-104 — recorded earlier in this ledger: the driver must *write* his
+  name if required.
+
+So a script saying "you don't have to sign anything" is wrong in Pennsylvania and
+Virginia for a reason unrelated to citations: both states impose a **handwriting
+duty for identification**. Pennsylvania's provision also stacks three documents
+into one demand — registration, licence, and proof of financial responsibility —
+which is a driver-ID cell in its own right, and more than most states require.
+
+PA §6308(b) additionally authorises a stop where the officer "is engaged in a
+**systematic program of checking vehicles or drivers** **or** has **reasonable
+suspicion** that a violation of this title is occurring or has occurred" —
+checkpoint authority, a column this matrix does not have.
+
 ## Coverage after this pass
 
-Sign-citation: **42 of 51 verified** — CA, TX, FL, OH, GA, NC, VA, WA, NV, CO,
+Sign-citation: **47 of 51 verified** — CA, TX, FL, OH, GA, NC, VA, WA, NV, CO,
 NE, ID, AL, LA, MA, RI, OR, MO, NM, KY, MN, MD, WV, KS, WI, IL, MT, MI, HI, WY,
-ND, SD, NY, UT, NH, AZ, IN, CT, DE, NJ, MS, SC — plus PA and TN partial, and AK
-recorded but not current. Previously 37 of 51.
+ND, SD, NY, UT, NH, AZ, IN, CT, DE, NJ, MS, SC, ME, OK, DC, VT, TN.
+Previously 42 of 51.
+
+**Still outstanding (4):**
+- **AR** — Chapter 81 is "Citation and Arrest" and was reached; §16-81-104
+  (warrant), §16-81-105 (execution and service) and §16-81-106 (authority to
+  arrest) are all the wrong sections. Arkansas's citation procedure appears to
+  sit in the **Rules of Criminal Procedure** rather than the Code, which were not
+  searched.
+- **IA** — section identified as §805.1 "Issuance of citation — release" from the
+  chapter index. **Five** distinct legis.iowa.gov PDF paths now tried; every one
+  returns the chapter listing rather than the section. Iowa needs the rendered
+  browser.
+- **PA** — no citation-signature provision located in Title 75 Chapter 63.
+  Pennsylvania's citation procedure is substantially in the Rules of Criminal
+  Procedure. The §6308(a) write-your-name duty is verified and recorded above,
+  but it is a different thing.
+- **AK** — only the 1993 text retrieved. `touchngo.com` refused the connection;
+  `akleg.gov` is an SPA. Needs the rendered browser.
+
+All four are source problems, and all four have a known next move.
 
 **Still outstanding (8):** AR, DC, IA, ME, OK, VT, TN(consequence),
 PA(signature), plus AK(currency).
@@ -1972,10 +2089,11 @@ What is actually missing, by column, across all 51 jurisdictions:
   all-party states in COLUMN PASS 1 above). 37 outstanding, all one-party
   jurisdictions where the statutory risk is low by construction — an inference,
   not a verified cell. The high-risk subset of this column is now DONE.
-- **Refusing to sign a citation** — researched for **42** across COLUMN PASSES
-  2 through 2g, plus PA/TN partial and AK non-current. 8 outstanding. The column
-  INVERTS across states AND splits on two axes (signing vs accepting the
-  citation), so no unresearched state may be inferred from a researched one.
+- **Refusing to sign a citation** — researched for **47 of 51** across COLUMN
+  PASSES 2 through 2h. 4 outstanding (AR, IA, PA, AK), all source problems with a
+  known next move. The column INVERTS across states AND splits on two axes
+  (signing vs accepting the citation), so no unresearched state may be inferred
+  from a researched one.
 - **Passenger ID** — spotty. Verified where the stop-and-identify section
   happened to address it; not systematically pursued.
 - **Duty to inform (firearm)** — researched for the original ten and a handful
@@ -2004,10 +2122,10 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 2g): **150 VERIFIED**,
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 2h): **156 VERIFIED**,
 12 LIKELY, 64 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1
 (recording consent), 104 pass 2, 112 pass 2b, 124 pass 2c (harness), 133 pass 2d,
-137 pass 2e (PDF states), 145 pass 2f, 150 pass 2g (index-first). An earlier running count of "147 verified" reported during
+137 pass 2e (PDF states), 145 pass 2f, 150 pass 2g (index-first), 156 pass 2h. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
