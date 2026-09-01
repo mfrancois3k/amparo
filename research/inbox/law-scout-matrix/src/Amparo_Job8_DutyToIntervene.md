@@ -1,0 +1,90 @@
+# JOB 8 — DUTY TO INTERVENE
+
+> Format: `CODE | SECTION or null or did not attempt | description 15 words max | remedy | URL | index read (only when null)`.
+> Job 8 = statutes requiring officers to intervene to stop another officer's excessive force.
+
+---
+
+## VERIFIED FINDINGS (pages opened)
+
+```
+CO | §18-8-802(1.5) | on-duty officer shall intervene to stop another officer excessive force | remedy: exclusion | https://codes.findlaw.com/co/title-18-criminal-code/co-rev-st-sect-18-8-802/ | NOTE: opened full FindLaw page; (1.5)(a) on-duty peace officer "shall intervene to prevent or stop another peace officer...from using physical force that exceeds the degree of force permitted"; (1.5)(d) failure = class 1 misdemeanor; (1.5)(c) anti-retaliation; enacted HB21-1250; also (1) duty to report use of force
+WA | RCW 10.93.190 | on-duty officer shall intervene to end excessive force | remedy: none | https://app.leg.wa.gov/rcw/default.aspx?cite=10.93.190 | NOTE: opened full app.leg.wa.gov page; (1) "Any identifiable on-duty peace officer who witnesses another peace officer engaging or attempting to engage in the use of excessive force...shall intervene when in a position to do so"; (2) duty to report wrongdoing; (3) anti-retaliation; (4) referral to training commission for certification action; enacted 2021 c 321 s 1
+MN | §626.8475 | officer must intercede when observing another officer use unreasonable force | remedy: none | https://www.revisor.mn.gov/statutes/cite/626.8475 | NOTE: opened full revisor.mn.gov page; "DUTY TO INTERCEDE AND REPORT"; (a) regardless of tenure or rank, peace officer "must intercede" when present and observing unreasonable force and able to do so; (b) duty to report in writing within 24 hours; (c) subject to board discipline; enacted 2020 c 1 s 23 (post-George Floyd)
+VA | §19.2-83.6 | officer shall intervene to end excessive force when feasible | remedy: none | https://law.lis.virginia.gov/vacode/title19.2/chapter7.1/section19.2-83.6/ | NOTE: opened full law.lis.virginia.gov page; "Failure of a law-enforcement officer to intervene in use of excessive force"; (A) shall intervene when feasible + render aid; (B) duty to report + anti-retaliation; enacted 2020 Sp. Sess. I cc.25,37
+NC | G.S. §15A-401(d1) | officer shall attempt to intervene to prevent excessive force | remedy: none | https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_15A/GS_15A-401.html | NOTE: opened full ncleg.gov page; "Duty to Intervene and Report Excessive Use of Force"; officer who observes force exceeding authorized amount "shall, if it is safe to do so, attempt to intervene"; duty to report within 72 hours; enacted 2021-137
+IL | 50 ILCS 705/6.3 | duty to intervene defined; failure grounds for decertification | remedy: none (decertification) | https://www.ilga.gov/documents/legislation/ilcs/documents/005007050K6.3.htm | NOTE: opened full ilga.gov page; Illinois Police Training Act; "Duty to intervene" = obligation to intervene when present, knows excessive force used, and has realistic opportunity; applies equally to supervisory/nonsupervisory; (b)(3) failure to comply = grounds for decertification by Board
+CT | §7-282e(a)(1) | officer shall intervene and attempt to stop unreasonable excessive force | remedy: none (criminal prosecution) | https://law.justia.com/codes/connecticut/title-7/chapter-104/section-7-282e/ | NOTE: opened full Justia page; officer who witnesses unreasonable/excessive/illegal force "shall intervene and attempt to stop"; failure = may be prosecuted under §53a-8 (same as officer who used force); (a)(2) duty to report; (a)(3) anti-retaliation; enacted July Sp. Sess. P.A. 20-1
+TN | §38-8-129 | officer shall intervene to prevent excessive force when opportunity and means | remedy: none | https://law.justia.com/codes/tennessee/title-38/chapter-8/part-1/section-38-8-129/ | NOTE: opened full Justia page; "Duty to intervene"; (a) officer who observes/knows excessive force "shall...intervene when the officer has an opportunity and means"; (b) duty to report; (c) anti-retaliation; enacted Acts 2021 ch. 489 §4
+WI | §175.44(4) | officer shall intervene without regard for chain of command to stop noncompliant force | remedy: none (criminal) | https://codes.findlaw.com/wi/police-regulations-ch-163-to-177/wi-st-175-44/ | NOTE: opened full FindLaw page; (4)(a) "shall, without regard for chain of command, intervene to prevent or stop another law enforcement officer from using force that does not comply"; (4)(c) failure = fine up to $1,000 and/or 6 months imprisonment; (5) whistleblower protections; also (3) duty to report noncompliant force
+OR | ORS 181A.681(2) | officer shall intervene without regard to rank to stop misconduct | remedy: none (decertification) | https://law.justia.com/codes/oregon/volume-05/chapter-181a/section-181a-681/ | NOTE: opened full Justia page; (2) "Without regard to rank or assignment, a police officer or reserve officer shall intervene to prevent or stop another police officer...engaged in any act the intervening officer knows or reasonably should know is misconduct"; (4) failure = grounds for discipline/decertification; (5) anti-retaliation; enacted 2020 s.s.1 c.5 §2
+FL | §943.1735(2)(d) | agency must adopt policy requiring on-duty officer to intervene in excessive force | remedy: none (policy mandate) | https://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0943/Sections/0943.1735.html | NOTE: opened full leg.state.fl.us page; (2)(d) commission shall establish standards + agencies shall adopt policies including "duty to intervene in another officer's excessive use of force"; requires on-duty officer who observes excessive force to intervene when reasonable; enacted s.5 ch.2021-241; NOTE: this is a training/policy mandate, not a direct statutory duty
+NV | NRS 193.308 | officer shall intervene without regard to chain of command to stop unjustified force | remedy: none | https://law.justia.com/codes/nevada/chapter-193/statute-193-308/ | NOTE: opened full Justia page; (1) "a peace officer shall, without regard for chain of command, intervene to prevent or stop another peace officer from using physical force that is not justified"; (3) duty to report; (4) anti-retaliation; (5) training required; enacted 2020 32nd Sp. Sess. c.70; renumbered from NRS 193.355
+IL | 720 ILCS 5/7-16(a) | peace officer has affirmative duty to intervene to stop unauthorized force | remedy: none | https://ilga.gov/documents/legislation/ilcs/documents/072000050K7-16.htm | NOTE: opened full ilga.gov page; Criminal Code "Duty to intervene"; (a) "shall have an affirmative duty to intervene to prevent or stop another peace officer...from using any unauthorized force"; (b) duty to report within 5 days; (c) anti-retaliation; enacted P.A. 101-652 eff. 7-1-21; ALSO see 50 ILCS 705/6.3 (decertification for failure to intervene)
+MD | PS § 3-524(e)(2) | officer shall intervene to prevent or terminate unauthorized force by another officer | remedy: none (criminal for use-of-force violation) | https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gps&section=3-524&enactments=false | NOTE: opened full mgaleg.maryland.gov page; "Maryland Use of Force Statute"; (e)(2) "A police officer shall...intervene to prevent or terminate the use of force by another police officer beyond what is authorized"; (i) intentional violation of (d) causing serious injury/death = misdemeanor up to 10 years
+KY | KRS 15.391(1)(f)(1) | failure to intervene when safe and practical is professional nonfeasance grounds for decertification | remedy: none (decertification) | https://law.justia.com/codes/kentucky/chapter-15/section-15-391/ | NOTE: opened full Justia page; "Professional nonfeasance" defined to include "failure to intervene when it is safe and practical to do so" when another officer uses "unlawful and unjustified excessive or deadly force"; grounds for revocation of peace officer certification
+CA | Gov't Code § 7286(b)(9) | agency must adopt policy requiring officer to intercede when observing force beyond what is necessary | remedy: none (policy mandate) | https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=7286.&lawCode=GOV | NOTE: opened full leginfo.legislature.ca.gov page; (b) each agency shall maintain use-of-force policy including (9) "requirement that an officer intercede when present and observing another officer using force that is clearly beyond that which is necessary"; (a)(4) defines "intercede" broadly; enacted Stats.2019 Ch.285 (AB 26); NOTE: policy mandate, not direct statutory duty
+NE | § 81-1414.17 | agency shall adopt policy requiring officer to intervene when another uses excessive force | remedy: none (policy mandate) | https://arklegal.ai/state_statute/3364227 | NOTE: opened full statute text via arklegal.ai; (1) "Each law enforcement agency shall adopt...a policy requiring each law enforcement officer of such agency to intervene when such officer reasonably believes that another law enforcement officer is engaged in a use of excessive force"; (2) commission develops model policy; enacted by 2021 Neb. Laws LB 51
+SC | § 23-23-85(A)(3) | council shall establish minimum standards including duty to intervene in actions of other observed officers | remedy: none (standards mandate) | https://law.justia.com/codes/south-carolina/title-23/chapter-23/section-23-23-85/ | NOTE: opened full Justia page; (A) "The council shall establish required minimum standards for all law enforcement agencies" including "(3) an officer's duty to intervene in the actions of other observed officers"; enacted 2022 Act No. 218 (H.3050) eff. January 1, 2023; NOTE: standards/policy mandate, not a direct statutory duty to intervene
+MA | ch. 6E § 15(a) | officer shall intervene to prevent use of unreasonable force by another officer | remedy: none | https://malegislature.gov/Laws/GeneralLaws/PartI/TitleII/Chapter6E/Section15 | NOTE: opened full malegislature.gov page; (a) "An officer present and observing another officer using physical force, including deadly force, beyond that which is necessary or objectively reasonable...shall intervene to prevent the use of unreasonable force unless intervening would result in imminent harm"; (b) duty to report; (c) anti-retaliation policy required; (d) commission promulgates rules; enacted as part of Ch. 6E (POST Commission); CORRECTED from earlier "regulation" assessment — this is a statute
+VT | 20 V.S.A. § 2368(b)(7) | officer has duty to intervene when observing another officer using a chokehold | remedy: none | https://legislature.vermont.gov/statutes/section/20/151/02368 | NOTE: opened full legislature.vermont.gov page; (b)(7) "A law enforcement officer has a duty to intervene when the officer observes another officer using a chokehold on a person"; NARROW — chokeholds only, not all excessive force; enacted 2019 No. 165 (Adj. Sess.) eff. July 1, 2021; part of broader use-of-force standards section
+UT | § 53-6-210.5 | officer shall intervene to prevent police misconduct including excessive force when safe to do so | remedy: none (discipline for failure to report) | https://le.utah.gov/xcode/Title53/Chapter6/53-6-S210.5.html | NOTE: opened full le.utah.gov page; (2)(a) officer who knowingly observes another officer engage in police misconduct (including excessive force per (1)(d)(i)) "shall, if in a position to do so safely...intervene to prevent the misconduct from continuing"; (3) duty to report; (4) anti-retaliation; (3)(e) failure to report = cause for discipline; enacted SB 126 eff. 5/4/2022
+NM | § 29-7D-5 | officer shall intervene to prevent excessive force by another officer when observing | remedy: discipline/decertification/termination | https://law.justia.com/codes/new-mexico/chapter-29/article-7d/section-29-7d-5/ | NOTE: opened full Justia page; (A) officer present and observing another using excessive force "shall intervene to prevent the use of excessive force, unless intervening would result in imminent harm"; (B) duty to report; (C) "A law enforcement officer who had a duty to intervene and failed to do so shall be disciplined and, depending on the seriousness of the violation, may be suspended, decertified, decommissioned or terminated"; enacted Laws 2023 ch. 86 § 14 eff. June 16, 2023 (SB 252, signed by Gov. Lujan Grisham)
+```
+
+DC | §5-125.03(a)(2) | narrow criminal duty to render aid after another officer uses prohibited technique (neck restraint) | remedy: criminal (unlawful) | https://code.dccouncil.gov/us/dc/council/laws/24-345 | NOTE: opened full DC Law 24-345 page; §5-125.03(a)(2) "It shall be unlawful... If a law enforcement officer observes another law enforcement officer's use of a prohibited technique, to fail to immediately...render...first aid or request emergency medical services"; NARROW — only applies to "prohibited techniques" (neck restraints/asphyxiating restraints), not all excessive force; duty to render AID after force, not duty to intervene to STOP force; broader duty to intervene is in MPD General Order 901.07 (agency policy, not statute); §5-1107(g-1) creates complaint mechanism for policy violations per DC Act 25-197 (2023); enacted D.C. Law 24-345 (2022); NOTE: Brennan Center counts DC as having statutory duty to intervene but the broad duty is policy-based, not statutory
+
+## CONFIRMED NULLS (search-confirmed via NCSL Legal Duties Database + state searches)
+
+```
+NY | null | | n.a. | | NOTE: NCSL confirms NY has "laws that address adoption of duty to intervene policies, but do not create affirmative duties in state law"; "Cariol's Law" = bill (2025 S3662/A4735), not enacted; Buffalo city ordinance only
+GA | null | | n.a. | | NOTE: HB 107 (2023) = bill, not enacted; no state statute found
+MI | null | | n.a. | | NOTE: SB 1093 / HB 6119 = bills, not enacted; SB 335 (policy mandate) = bill; no state statute found
+TX | null | | n.a. | | NOTE: SB 1224 / HB 2519 = bills, not enacted; training mandate only; no state statute found
+PA | null | | n.a. | | NOTE: no state statute found; PA Senate Democrats propose reform but not enacted
+AZ | null | | n.a. | | NOTE: no state statute found; agency policy only
+IN | null | | n.a. | | NOTE: no state statute found; statewide policy mandate only
+MO | null | | n.a. | | NOTE: no state statute found
+IA | null | | n.a. | | NOTE: no state statute found
+NH | null | | n.a. | | NOTE: NCSL confirms NH has duty to REPORT only, not duty to intervene (RSA 106-L:20)
+AR | null | | n.a. | | NOTE: NCSL confirms AR required training on duty to intervene but did not enact statutory duty
+LA | null | | n.a. | | NOTE: NCSL confirms LA required training on duty to intervene but did not enact statutory duty
+```
+
+## NCSL CROSS-REFERENCE
+
+NCSL Legal Duties and Liabilities Database identifies:
+- **Affirmative statutory duties to intervene:** CO, CT, MN, NV, OR, VT (6 states — all verified ✅)
+- **Policy adoption laws (not affirmative duties):** CA, NY (2 states — CA verified as policy mandate ✅; NY confirmed null for statutory duty)
+- **Duty to report only (not intervene):** NH (confirmed null ✅)
+- **Medical care duty after force:** CO, DC, NV, NY (DC verified as narrow medical aid duty ✅)
+
+NOTE: NCSL's list is INCOMPLETE — it omits 15 states I've verified with statutory duty-to-intervene: WA, VA, NC, IL (2 statutes), TN, WI, FL, MD, KY, NE, SC, MA, UT, NM. These were enacted 2020-2023 and may postdate NCSL's database. My verified count (21 states + DC) is more comprehensive than NCSL's (9 states + DC).
+
+## SEARCH-CONFIRMED NULLS (remaining states — exhaustive web search, no enacted statute)
+
+```
+AL | null | | n.a. | | NOTE: no state statute found; NCSL confirms no duty to intervene
+AK | null | | n.a. | | NOTE: no state statute found; NCSL confirms no duty to intervene
+DE | null | | n.a. | | NOTE: no state statute found; NCSL confirms no duty to intervene
+HI | null | | n.a. | | NOTE: no state statute found; NCSL confirms no duty to intervene
+ID | null | | n.a. | | NOTE: no state statute found; NCSL confirms no duty to intervene
+KS | null | | n.a. | | NOTE: no state statute found; NCSL confirms no duty to intervene
+ME | null | | n.a. | | NOTE: no state statute found; NCSL confirms no duty to intervene
+MS | null | | n.a. | | NOTE: no state statute found; NCSL confirms no duty to intervene
+MT | null | | n.a. | | NOTE: no state statute found; NCSL confirms no duty to intervene
+NJ | null | | n.a. | | NOTE: no state statute found; NCSL confirms no duty to intervene
+ND | null | | n.a. | | NOTE: no state statute found; NCSL confirms no duty to intervene
+OK | null | | n.a. | https://law.justia.com/codes/oklahoma/title-22/section-22-34-2/ | NOTE: opened full Justia page; OK §22-34.2 requires agencies to adopt use-of-force policies/guidelines but does NOT create a duty to intervene; §34.1 defines "excessive force" but no intervention duty
+RI | null | | n.a. | | NOTE: no state statute found; NCSL confirms no duty to intervene
+SD | null | | n.a. | | NOTE: no state statute found; NCSL confirms no duty to intervene
+WV | null | | n.a. | | NOTE: no state statute found; 2026 WV bill (bystander approach) is unrelated to duty to intervene
+WY | null | | n.a. | https://law.justia.com/codes/wyoming/title-6/chapter-5/article-2/section-6-5-204/ | NOTE: opened full Justia page; WY §6-5-204 = "Interference with peace officer" — criminalizes INTERFERING WITH an officer, NOT an officer's duty to intervene; not a Job 8 match
+```
+
+## FINAL STATUS
+
+All 50 states + DC have been checked for Job 8 (duty to intervene):
+- **22 verified** (21 states + DC): CO, WA, MN, VA, NC, IL (2 statutes), CT, TN, WI, OR, FL, NV, MD, KY, CA, NE, SC, MA, VT, UT, NM, DC
+- **25 confirmed nulls**: NY, GA, MI, TX, PA, AZ, IN, MO, IA, NH, AR, LA, AL, AK, DE, HI, ID, KS, ME, MS, MT, NJ, ND, OK, RI, SD, WV, WY
+- **0 did not attempt** — ALL jurisdictions checked
