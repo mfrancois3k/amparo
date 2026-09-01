@@ -5556,6 +5556,73 @@ firearm-disclosure duty on any occupant.
 
 ---
 
+# PASS 30: NEVADA CLOSED — THE RESULT-GATE CONFIRMED (2026-09-01)
+
+PASS 28 held Nevada's impersonation cell **UNVERIFIED** rather than entering it on
+a scout's report, because `leg.state.nv.us/nrs/nrs-199.html` returns the chapter
+table of contents rather than the section body, and the claim — that the offence
+is **result**-gated — was the single most consequential unverified cell in the
+column.
+
+Closed via `nevada.public.law`, which serves the section body directly. FindLaw
+404s both URL forms for it (104-byte responses).
+
+**NV** NRS §199.430 ("Impersonation of officer"), full body: "Every person who
+shall falsely personate a public officer, civil or military, **or a police
+officer**, or a private individual having special authority by law to perform an
+act affecting the rights or interests of another, or who, without authority shall
+assume any uniform or badge by which such an officer or person is lawfully
+distinguished, and in such assumed character shall do any act purporting to be
+official, **whereby another is injured or defrauded**, shall be guilty of a gross
+misdemeanor." **VERIFIED**.
+
+## The scout was right, and this is the sharpest instance of the PASS 27 gap
+
+"Whereby another is injured or defrauded" is a **result element**, not an intent
+element. It is stricter than every other gate found in this column:
+
+| Gate type | States | What the prosecution must show |
+|---|---|---|
+| None | AK, HI, IL, IN, KS, ME, MS, MO, MT, ND, OH, PA, RI, SC, TX, UT, VA, WA, WI | the false personation itself |
+| Intent to injure/defraud | AR, LA, TN(a) | the defendant's **purpose** |
+| Intent to obtain benefit | MD, MN | the defendant's **purpose** |
+| Intent to compel action | WY | the defendant's **purpose** |
+| **Result: another injured or defrauded** | **NV** | **an actual outcome** |
+
+Every other gate can be satisfied by proving what was in the impersonator's head.
+Nevada's requires proving **what happened to the victim**. A person who runs a fake
+traffic stop in Nevada, terrifies the driver, and then leaves — taking nothing,
+touching no one — has arguably not completed §199.430 at all.
+
+Nevada also has **no vehicle-specific aggravated form** and no separate
+police-impersonation section; §199.430 is a single undivided sentence covering
+public officers generally, and it is a **gross misdemeanor**.
+
+**Contrast with North Carolina**, recorded in PASS 28: NC keys a **Class I felony**
+specifically to operating a vehicle with a blue light, with no gate at all. The two
+states sit at opposite ends of this column — and both are describing the same
+conduct.
+
+## Bounding this, again
+
+As in PASS 27: this is a statement about **the impersonation statute**, not about
+whether the conduct is punishable. Nevada prosecutors have kidnapping, false
+imprisonment, coercion and robbery statutes available, none of which carry this
+result element. The narrow and defensible point is that **§199.430 specifically may
+not reach a fake stop that produces no injury or defrauding** — which is exactly
+what "impersonating an officer is a crime in every state" conceals.
+
+**Currency note:** the source page records its own text as accessed 26 May 2025.
+Not re-derived against a dated official edition. **VERIFIED as to text; currency
+UNVERIFIED.**
+
+## Coverage
+
+Impersonation: **51 of 51 located**; intent-gating assessed for 28. The retrofit
+pass now running will close the gating question for the remaining 23.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -5606,16 +5673,16 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 29):
-**339 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 101 UNVERIFIED.
+TALLY (counted mechanically, 2026-09-01, after PASS 30):
+**340 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 102 UNVERIFIED.
 FOUR COLUMNS COMPLETE at 51/51: driver ID, sign citation, recording consent,
-duty to inform. Impersonation 50/51. Officer condition 49/51.
+duty to inform. Impersonation 51/51 located. Officer condition 49/51.
 Stop-and-identify 47/51. Passenger ID 40/51 swept.
 Progression: 81 breadth sweep, 97 pass 1, 104-162 passes 2-2i, 174 pass 3,
 181 pass 4, 198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
 247 pass 11, 255 pass 12, 263 pass 13, 270 pass 14, 273 pass 16, 276 pass 17,
 282 pass 18, 288 pass 19, 298 pass 20, 313 pass 21, 316 pass 23, 323 pass 24,
-325 pass 25, 327 pass 26, 330 pass 27, 334 pass 28, 339 pass 29. An earlier running count of "147 verified" reported during
+325 pass 25, 327 pass 26, 330 pass 27, 334 pass 28, 339 pass 29, 340 pass 30. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
