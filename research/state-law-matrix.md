@@ -4815,6 +4815,170 @@ unswept.
 
 ---
 
+# COLUMN PASS 24: STOP-AND-IDENTIFY — 14 STATES, AND A CORRECTION TO THIS LEDGER'S OWN FINDING (2026-09-01)
+
+## CORRECTION: NEBRASKA IS NOT A CATEGORY-A STATE. THIS LEDGER HAD IT WRONG.
+
+This file has carried Nebraska in **Category A — demand authorised AND refusal
+criminalised** since the first cross-state finding on stop-and-identify. That
+classification has been repeated in later passes and, worse, **was written into
+the briefs given to scouts**, so the error was being propagated outward.
+
+A scout read §29-829 to the end and reported it does not support Category A. I
+fetched the full body independently:
+
+**NE** §29-829 ("Stop and search of person for dangerous weapon; when authorized;
+peace officer, defined"): "A peace officer **may stop** any person in a public
+place whom he reasonably suspects of committing, who has committed, or who is
+about to commit a crime and **may demand of him his name, address and an
+explanation of his actions.** When a peace officer has stopped a person for
+questioning pursuant to this section and reasonably suspects he is in danger of
+life or limb, he may search such person for a dangerous weapon…" **VERIFIED**.
+
+**The word "refus" does not occur anywhere on the page — zero occurrences.** The
+section authorises the demand and attaches **no consequence to silence**.
+
+**Nebraska moves from Category A to Category B.** Category A now contains **OH
+§2921.29 and AZ §13-2412** — and Arizona's is itself doubly qualified (true full
+name only, and only after the officer advises that refusal is unlawful).
+
+### What this error cost, and how it survived
+
+Nebraska has appeared in this ledger's Category A list roughly a dozen times. It
+survived because:
+1. it entered as part of a **cross-state finding**, not as a per-state cell with a
+   quoted body — the finding cited the section number but never quoted the text;
+2. every later reference **copied the classification** rather than re-deriving it;
+3. it was then **embedded in scout instructions as established background**, which
+   is the worst place for an unverified claim, because scouts reasonably treat the
+   brief as ground truth.
+
+This is the same failure mode as the published lists this project has spent
+twenty passes correcting — **a classification propagating faster than the text
+that justifies it.** The ledger caught it only because a scout was instructed to
+"read to the end" and did.
+
+**Rule adopted:** a cross-state *finding* may not assert a per-state
+classification unless that state's cell carries quoted body text. Findings
+summarise cells; they must not create them. Every category list in this file is
+now suspect on the same grounds and needs a cell-by-cell audit — added to the
+follow-up list.
+
+## TENNESSEE — a new trap: the INTRODUCED bill differs from the ENACTED law
+
+**TN** §39-16-611 as enacted: "(a) A law enforcement officer **may ask** a person
+to identify themselves if the officer has reasonable suspicion… (b) …the officer
+**may ask** the suspect to provide the suspect's name verbally or to otherwise
+provide the suspect's name by other means. (c) A person commits an offense who
+**intentionally gives a false or fictitious name** to a law enforcement officer
+who has lawfully detained or arrested the person." **VERIFIED — Category D.**
+
+The scout traced the legislative history: the introduced bill (HB0055/SB0030,
+114th G.A.) contained **both** a refusal offence **and** a false-name offence.
+**Senate Amendment SA0344 struck the refusal clause before enactment** (Pub. Ch.
+409, eff. 1 July 2025). It confirmed the amendment through the legislature's own
+bill history after reading the introduced PDF.
+
+**Anyone reading the introduced text would code Tennessee as Category A.** The
+enacted text is Category D.
+
+This is a **fifth distinct trap class**, and the most subtle yet:
+
+| Trap | What it looks like | Detected by |
+|---|---|---|
+| MA §129C | catchline outlives provision | reading the body |
+| KS §75-7c03 | catchline dies with provision | comparing versions |
+| AL §32-5A-171 | host index mislabels section | reading the body |
+| FL `/Chapter316/All` | host asserts absence | per-section fetch |
+| **TN HB0055** | **bill text ≠ enacted text** | **checking amendment history** |
+
+Bill-tracking sites, news coverage, and advocacy summaries overwhelmingly quote
+**introduced** text, because that is what exists when a bill is newsworthy. For a
+statute enacted within the last year, the introduced version is the *most likely*
+thing a secondary source is repeating.
+
+**Rule adopted:** for any cell whose statute was enacted or amended in the last
+two years, the amendment history must be checked before the text is recorded.
+
+## Category D grows to fourteen — it is now the largest category in the column
+
+**CA** Penal §148.9 (two subsections, both false-representation during
+detention/arrest; no duty to speak) · **KY** §523.110 (false name/address/DOB
+with intent to mislead, **and the officer must first warn that false ID is
+criminal**) · **MI** §750.479c (concealment/false statements/false documents, and
+it **expressly preserves the right to decline to speak**) · **MO** §575.120 (false
+impersonation; subsec. 1 covers giving another's identity upon arrest) · **NJ**
+§2C:29-3(b)(4) (hindering one's own apprehension by false information; **silence
+appears nowhere in the section**) · **SD** §22-40-1 (impersonating another,
+fictitious name or false DOB, intent to deceive; full ch. 22-40 catchline index
+read, no identify-duty section in the chapter) · **TN** §39-16-611 · **MD** Crim.
+Law §9-502 (triggered by **arrest**, false statement only). All **VERIFIED**.
+
+**Michigan §750.479c is worth singling out**: it does not merely omit a refusal
+offence, it **expressly preserves the right to decline to speak**. That is the
+clearest statutory statement of the point in the entire column.
+
+Category D now holds **fourteen** states and is the largest in this column. It is
+also the one every published list miscounts.
+
+## Category C — duty attached to a specific act
+
+- **CT** §14-217: duty attaches to **operating** — name and address, produce
+  licence/registration/insurance, **and sign name on demand**; violation is an
+  infraction. **VERIFIED**. Connecticut joins VA §46.2-104 and PA §6308(a) in the
+  small group requiring the driver to **write or sign** their name.
+- **VT** 23 V.S.A. §1012 ("Obedience to enforcement officers"): duty attaches to
+  operating or being in charge of a motor vehicle where the officer reasonably
+  suspects a Title 23 violation; name + address + owner's name and address; **fine
+  up to $1,250 for refusal**, plus a separate $250 civil penalty for
+  licence/registration. **VERIFIED**. Vermont's is the **largest monetary penalty
+  found in this column** — and Vermont has repeatedly come up empty in other
+  columns, so this is a reminder that a state with no permit scheme and no wiretap
+  statute can still carry a stiff traffic-stop identification duty.
+- **MD** Transp. §16-112(c),(e) — display licence on demand while driving; (e)
+  bars a false name. **VERIFIED**. Maryland is in **both C and D**, in two
+  different codes. The scout checked both because of the Massachusetts lesson.
+- **WY** §31-7-116 — licence in immediate possession while driving, display on
+  demand, with digital-licence and produce-in-court provisions. **VERIFIED**, but
+  see the sourcing caveat below.
+
+## Category B additions
+
+- **HI** §291C-172: duty limited to persons detained for a chapter 291C (traffic)
+  violation, plus a narrower pedestrian subsection. **The section itself states no
+  penalty for refusal**; the chapter-wide penalty §291C-161 could supply one,
+  which would push Hawaii toward Category A. Recorded as **B, with the ambiguity
+  flagged** — **UNVERIFIED** as to which category ultimately governs.
+
+## Sourcing caveat worth keeping — Wyoming
+
+The scout could not obtain W.S. §31-7-116 from any statutory host: **FindLaw
+served the Title 31 index for both URL forms** (contradicting this ledger's own
+note that FindLaw's Title 31 served bodies while Title 6 served the index — so
+FindLaw's reliability is not even stable *within* a title over time), Justia and
+lawserver hard-403'd. It fell back to the **text of an amending bill**
+(wyoleg.gov 2025 HB0023, section text at p.7), where the section number and full
+text appear in the document body.
+
+That is a legitimate primary source and correctly labelled, but it is **a bill,
+not the code**, and after the Tennessee finding above it carries obvious risk.
+Wyoming's §31-7-116 is recorded **VERIFIED as to the text in that document** and
+**UNVERIFIED as to whether that text is what was ultimately enacted**.
+
+## Also recorded
+
+**WY** §6-5-204 body read in full: obstruction, resisting and disarming only —
+**zero mention of name, identification, or false information**. Wyoming has **no
+criminal-code identify duty**. A clean full-text negative. **VERIFIED**.
+
+## Coverage
+
+Stop-and-identify: **47 of 51**. Category D (false-statement only) is the largest
+at fourteen. Category A has shrunk to **two** — Ohio and Arizona — after the
+Nebraska correction.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -4865,14 +5029,14 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 23):
-**316 VERIFIED**, 16 LIKELY markers (10 SUPERSEDED — see reconciliation),
-100 UNVERIFIED. THREE COLUMNS COMPLETE at 51/51: driver ID, sign citation,
-recording consent. Officer condition 48/51. Passenger ID 26/51 swept.
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 24):
+**323 VERIFIED**, 16 LIKELY markers (10 SUPERSEDED), 101 UNVERIFIED.
+THREE COLUMNS COMPLETE at 51/51: driver ID, sign citation, recording consent.
+Officer condition 48/51. Stop-and-identify 47/51. Passenger ID 26/51 swept.
 Progression: 81 breadth sweep, 97 pass 1, 104-162 passes 2-2i, 174 pass 3,
 181 pass 4, 198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
 247 pass 11, 255 pass 12, 263 pass 13, 270 pass 14, 273 pass 16, 276 pass 17,
-282 pass 18, 288 pass 19, 298 pass 20, 313 pass 21, 316 pass 23. An earlier running count of "147 verified" reported during
+282 pass 18, 288 pass 19, 298 pass 20, 313 pass 21, 316 pass 23, 323 pass 24. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
