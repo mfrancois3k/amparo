@@ -134,12 +134,1091 @@ sign a citation.
 - **Recording: ONE-PARTY** — N.J.S.A. 2A:156A-4(d). **VERIFIED**
 - **Sign citation** — possibly N.J.S.A. 39:5-3. **LIKELY — subsection unconfirmed.**
 
+### Florida
+Researched 2026-08-31 against flsenate.gov primary text.
+
+- **Stop-and-identify: N** — F.S. §901.151 (Stop and Frisk Law). The statute
+  authorises an officer to "temporarily detain such person for the purpose of
+  ascertaining the identity" but imposes **no duty on the detained person to
+  identify themselves and no criminal penalty for silence**. Operative release
+  language: "If, after an inquiry into the circumstances which prompted the
+  temporary detention, no probable cause for the arrest of the person shall
+  appear, the person shall be released." **VERIFIED**
+  > CORRECTION ON RECORD: Florida is repeatedly asserted — including in a
+  > prompt submitted to this project on 2026-08-31 — to be an "explicit
+  > stop-and-identify state under reasonable suspicion" where "you must state
+  > your name". The statute says no such thing. It authorises detention *to
+  > ascertain* identity; it does not compel speech. This is a fifth instance of
+  > the copied-list error the header of this file documents.
+- **Identify driver** — F.S. §322.15(1): "Every licensee shall have his or her
+  driver license … in his or her immediate possession at all times when
+  operating a motor vehicle and shall **present or submit** the same upon the
+  demand of a law enforcement officer or an authorized representative of the
+  department." Note "present or submit" is stronger than Texas's "display" and
+  does not carry the same show-through-glass ambiguity. **VERIFIED**
+- **Identify passenger** — no statute located imposing a passenger
+  identification duty. §901.151 governs detention generally and imposes none.
+  **UNVERIFIED** — absence of a statute is not the same as a fetched negative;
+  needs a targeted search of Ch. 901 and Ch. 316 before it may be relied on.
+- **Duty to inform (firearm): N, both licensed and permitless** — two separate
+  provisions, neither creating an affirmative duty:
+  - Licensed, F.S. §790.06(1)(c): "A licensee must carry valid identification at
+    all times in which the licensee is in actual possession of a concealed
+    weapon or concealed firearm and **must display such identification upon
+    demand by a law enforcement officer.**" **VERIFIED**
+  - Permitless (post-HB 543, 2023), F.S. §790.013(1)(a): same carry-and-display
+    requirement. §790.013(1)(b): "A violation of this subsection is a
+    **noncriminal violation punishable by a $25 fine**, payable to the clerk of
+    the court." **VERIFIED**
+  Both are display-on-demand, not disclose-on-contact. **VERIFIED**
+- **Consent to search** — no state-level statutory standard located; Florida
+  applies the federal voluntariness standard. **UNVERIFIED**
+- **Recording consent** — not researched this pass. **UNVERIFIED**
+- **Sign citation** — not researched this pass. **UNVERIFIED**
+
+### California
+Researched 2026-08-31 against leginfo.legislature.ca.gov primary text.
+
+- **Stop-and-identify: N** — no statewide stop-and-identify statute located.
+  Pen. Code §148(a)(1) reaches only "[e]very person who willfully resists,
+  delays, or obstructs any public officer, peace officer, or an emergency
+  medical technician" — it does **not** create a duty to identify. **VERIFIED
+  as to §148's text; LIKELY as to the statewide negative** (an exhaustive search
+  of the Penal Code was not performed).
+- **Identify driver** — Veh. Code §12951(a): "The licensee shall have the valid
+  driver's license issued to him or her in his or her immediate possession at
+  all times when driving a motor vehicle upon a highway." §12951(b): "The driver
+  of a motor vehicle shall **present his or her license for examination** upon
+  demand of a peace officer enforcing the provisions of this code." **VERIFIED**
+- **Identify passenger** — no statute located imposing a passenger
+  identification duty; §12951(b) is expressly limited to "[t]he driver".
+  **LIKELY** — the negative needs a targeted search before reliance.
+  > NOTE: the claim that California has "highly protective passenger rights" is
+  > not supported by anything located in this pass. A passenger's protection
+  > here appears to be the federal floor (*Brendlin v. California*, 551 U.S. 249
+  > (2007) establishes a passenger IS seized in a stop and may challenge it),
+  > not a California-specific statutory grant. Do not describe it as a state
+  > protection without authority. **UNVERIFIED as a state-specific claim.**
+- **Duty to inform (firearm): N — but California has a counterintuitive trap.**
+  No duty-to-inform statute located. However Pen. Code §25850(b): "In order to
+  determine whether or not a firearm is loaded … **peace officers are authorized
+  to examine any firearm** carried by anyone on the person or in a vehicle while
+  in any public place or on any public street in an incorporated city or
+  prohibited area of an unincorporated territory." And: "**Refusal to allow a
+  peace officer to inspect a firearm pursuant to this section constitutes
+  probable cause for arrest** for violation of this section." **VERIFIED**
+  > SAFETY-CRITICAL: a generic "I do not consent to any searches" line — which
+  > appeared in a rehearsal script proposed for California on 2026-08-31 — can,
+  > if applied to a §25850 firearm inspection, itself supply probable cause for
+  > arrest. A blanket refusal script is not safe in California without carving
+  > this out. This is the clearest example yet of why per-state scripts cannot
+  > be generated from a national template.
+- **Consent to search** — no state-level statutory standard located beyond
+  §25850(b) above. **UNVERIFIED**
+- **Recording consent — TWO-TRACK, and the carve-out is STATUTORY, not merely
+  case law.** Researched 2026-08-31. Two independent provisions apply and must
+  not be collapsed into one answer:
+
+  **Track 1 — Pen. Code §148(g), the direct carve-out.** Full text:
+  > "The fact that a person takes a photograph or makes an audio or video
+  > recording of a public officer or peace officer, while the officer is in a
+  > public place or the person taking the photograph or making the recording is
+  > in a place he or she has the right to be, does not constitute, in and of
+  > itself, a violation of subdivision (a), nor does it constitute reasonable
+  > suspicion to detain the person or probable cause to arrest the person."
+  **VERIFIED.** Note what this does beyond legalising the act: it forecloses the
+  recording being used as the *basis* for a detention or an arrest. That is a
+  stronger and more specific protection than the 9th Circuit line of authority
+  the research request assumed would be the source.
+
+  **Track 2 — Pen. Code §632, which still exists and is narrower than "two-party
+  consent" is usually described.** §632(c) defines the thing the statute
+  actually protects:
+  > "'confidential communication' means any communication carried on in
+  > circumstances as may reasonably indicate that any party to the communication
+  > desires it to be confined to the parties thereto, but **excludes** a
+  > communication made in a public gathering or in any legislative, judicial,
+  > executive, or administrative proceeding open to the public, **or in any
+  > other circumstance in which the parties to the communication may reasonably
+  > expect that the communication may be overheard or recorded.**"
+  **VERIFIED as to text.** §632 therefore does not reach every recording — only
+  *confidential* ones. Whether a given roadside stop on a public street falls
+  inside the "may reasonably expect … overheard or recorded" exclusion is a
+  circumstance-dependent question, not a bright line. **UNVERIFIED as a blanket
+  rule** — do not state that §632 never applies to a traffic stop.
+
+  **Open vs. concealed recording.** The research request asked specifically
+  whether California distinguishes them. On the text: **§148(g) contains no
+  openness requirement** — it says "takes a photograph or makes an audio or
+  video recording" with no qualifier as to whether the officer is aware.
+  **VERIFIED as to the statutory text.** Whether California courts have read an
+  openness condition into it, or whether §632 supplies one in practice for audio
+  specifically, was **NOT researched. UNVERIFIED.** This gap matters: it is the
+  precise point on which Massachusetts turned (*Glik*; *Project Veritas v.
+  Rollins* dealt with **secret** recording), so the analogous California answer
+  cannot be assumed from the §148(g) text alone.
+
+  *Fordyce v. City of Seattle*, 55 F.3d 436 (9th Cir. 1995), was named in the
+  research request as likely authority. It was **not fetched this pass** and is
+  recorded here only as a lead. **UNVERIFIED.**
+- **Sign citation** — not researched this pass. Veh. Code §40302 is the likely
+  starting point. **UNVERIFIED**
+
+### Ohio
+Researched 2026-08-31 against codes.ohio.gov primary text.
+
+- **Stop-and-identify: Y — and broader than the name-only states.** O.R.C.
+  §2921.29: "No person who is **in a public place** shall refuse to disclose the
+  person's **name, address, or date of birth**" when an officer reasonably
+  suspects the person is committing, has committed, or is about to commit a
+  criminal offence, **or** that the person witnessed certain serious offences
+  (an offence of violence constituting a felony, a felony causing serious
+  physical harm, or an attempt/conspiracy as to those). Penalty: "guilty of
+  failure to disclose one's personal information, a **misdemeanor of the fourth
+  degree**." **VERIFIED**
+  Three limits that are part of the same statute and must travel with it:
+  1. The duty is triggered only "in a public place".
+  2. Officers **cannot require answers beyond those three items**, and cannot
+     arrest for refusing to give more or to describe an offence witnessed.
+  3. A person **may refuse to disclose age/date of birth** where age is an
+     element of the offence they are suspected of.
+  Contrast Nevada (NRS 171.123(3)): **name only**. Ohio reaches name, address
+  AND date of birth. A national "you only ever have to give your name" statement
+  is wrong in Ohio. **VERIFIED**
+- **Identify driver** — not researched this pass. **UNVERIFIED**
+- **Identify passenger** — not researched this pass. **UNVERIFIED**
+- **Duty to inform (firearm)** — NOT researched, and flagged as high-risk:
+  Ohio's duty to inform was materially changed by **S.B. 215 (eff. 2022-06-13)**
+  when Ohio moved to permitless carry. Any pre-2022 secondary source on Ohio
+  duty-to-inform is stale. Must be fetched from O.R.C. §2923.12 directly.
+  **UNVERIFIED**
+- **Recording consent** — not researched this pass. **UNVERIFIED**
+- **Sign citation** — not researched this pass. **UNVERIFIED**
+
+### Illinois — NOT RESEARCHED (source access failed)
+Attempted 2026-08-31. 725 ILCS 5/107-14 is the target section.
+`ilga.gov` returned HTTP 404 on the fulltext endpoint; `law.justia.com`
+returned HTTP 403. No primary text obtained. **UNVERIFIED — every cell.**
+Do not populate from secondary sources.
+
+### Arizona — NOT RESEARCHED (source access failed)
+Attempted 2026-08-31. A.R.S. §13-2412 ("Refusing to provide truthful name when
+lawfully detained") is the target section. `azleg.gov` returned HTTP 403;
+`law.justia.com` returned HTTP 403. No primary text obtained.
+**UNVERIFIED — every cell.** Arizona is widely listed as a stop-and-identify
+state; given this file's 4-of-10 error rate on such lists, that listing is a
+lead to check, not a finding to record.
+
+### Virginia
+Researched 2026-08-31 against law.lis.virginia.gov primary text.
+
+- **Identify driver — and a partial name duty most summaries miss.**
+  Va. Code §46.2-104 requires a driver to "exhibit his registration card,
+  driver's license, learner's permit, or temporary driver's permit" on an
+  officer's request, and further provides the driver must "**write his name in
+  the presence of the officer, if so required, for the purpose of establishing
+  his identity.**" **VERIFIED**
+  Two things follow that a national summary would flatten:
+  1. It is **exhibit**, not surrender.
+  2. There IS a conditional duty to provide a name — but it is tied to driving
+     and conditioned on the officer requiring it, and the statute specifies
+     *writing* the name. This is not a general stop-and-identify statute, and
+     it is also not "no duty to give your name". Both blanket statements are
+     wrong for a Virginia driver.
+  No explicit address duty appears in this section. **VERIFIED as to §46.2-104's
+  text**; whether any other Virginia provision adds one was not checked.
+- **Stop-and-identify (non-driving): N** — no statewide statute located.
+  **UNVERIFIED** — negative not established by an exhaustive code search.
+- **Identify passenger** — not researched. **UNVERIFIED**
+- **Duty to inform (firearm)** — not researched. **UNVERIFIED**
+- **Recording consent** — not researched. **UNVERIFIED**
+- **Sign citation** — not researched. **UNVERIFIED**
+
+### Washington
+Researched 2026-08-31 against app.leg.wa.gov primary text.
+
+- **Identify driver** — RCW 46.20.017: "Every licensee shall have his or her
+  driver's license in his or her immediate possession at all times when
+  operating a motor vehicle and shall **display the same upon demand** to any
+  police officer or to any other person when and if required by law to do so."
+  Violation classified as a **nonmoving offense**. **VERIFIED**
+  Note "display" — the same verb Texas uses, and this file already records that
+  "display" carries a show-through-glass ambiguity that "present or submit"
+  (Florida §322.15) does not. Do not assume the Washington answer matches
+  Florida's.
+- **Stop-and-identify: N** — no statewide statute located. **UNVERIFIED** as a
+  fetched negative.
+- **Identify passenger** — not researched. **UNVERIFIED**
+- **Duty to inform (firearm)** — not researched. **UNVERIFIED**
+- **Recording consent — ALL-PARTY, BUT ONLY FOR "PRIVATE" COMMUNICATIONS, AND
+  NO CIVILIAN CARVE-OUT LOCATED.** Researched 2026-08-31.
+  RCW 9.73.030 makes it unlawful to "intercept, or record any" **private**
+  communication "without first obtaining the consent of all the participants in
+  the communication." The prohibition reaches "[p]rivate communication
+  transmitted by telephone, telegraph, radio, or other device" and "[p]rivate
+  conversation, by any device electronic or otherwise designed to record or
+  transmit such conversation". **VERIFIED**
+  The operative limiter is the word **private** — structurally the same move as
+  California §632's "confidential". Washington's all-party rule does not reach a
+  conversation that is not private. Whether a roadside stop on a public highway
+  is "private" for this purpose is the whole question and was **NOT** resolved
+  here. **UNVERIFIED — and this is the cell to close first.**
+  RCW 9.73.090 was checked for a police carve-out. Its exemptions run the OTHER
+  WAY — they permit **officers** to record: "Video and/or sound recordings may be
+  made of arrested persons by police officers"; dash/body camera audio; and "It
+  shall not be unlawful for a law enforcement officer acting in the performance
+  of the officer's official duties to intercept, record, or disclose an oral
+  communication or conversation where the officer is a party". **VERIFIED**
+  > CONTRAST WITH CALIFORNIA, AND IT MATTERS: California has an express
+  > **civilian** protection (Pen. Code §148(g) — recording an officer is not a
+  > §148 violation and is not RS or PC). **No equivalent Washington provision
+  > was located.** Washington's exemptions protect officers recording, not
+  > civilians recording officers. Do NOT carry the California answer across.
+  > **UNVERIFIED as to any Washington civilian protection.**
+- **Sign citation** — not researched. **UNVERIFIED**
+
+### North Carolina
+Researched 2026-08-31 against ncleg.gov primary text.
+
+- **Identify driver** — N.C.G.S. §20-29 makes it an offence to "refuse, on
+  demand of such officer or such other person, to **produce his license and
+  exhibit same** to such officer or such other person for the purpose of
+  examination". The section also covers failure to "surrender his license on
+  demand of the Division, or fail to produce same when requested by a court of
+  this State." **VERIFIED**
+  Note the structure: the duty runs to *producing and exhibiting for
+  examination*; the *surrender* language attaches to the Division and the
+  courts, not to the roadside officer.
+- **Stop-and-identify: N** — no statewide statute located. **UNVERIFIED** as a
+  fetched negative.
+- **Identify passenger** — not researched. **UNVERIFIED**
+- **Duty to inform (firearm)** — NOT researched, flagged: North Carolina was
+  named in a 2026-08-31 prompt as a "Duty to Inform" state. That claim is
+  **unverified here** and must be fetched from N.C.G.S. §14-415.11 before it is
+  relied on in any form. **UNVERIFIED**
+- **Recording consent** — not researched. **UNVERIFIED**
+- **Sign citation** — not researched. **UNVERIFIED**
+
+### Pennsylvania — NOT RESEARCHED (source access failed)
+Attempted 2026-08-31. 75 Pa.C.S. §1511 is the target section.
+`legis.state.pa.us` issued a 301 to `palegis.us`; the redirect target returned a
+navigation/template page with no statute text. No primary text obtained.
+**UNVERIFIED — every cell.**
+
+### Tennessee — NOT ATTEMPTED
+Queued in batch 2 but not reached. Tennessee's code is published through a
+commercial host (LexisNexis), so expect the same access problem as IL/AZ.
+Target sections: T.C.A. §55-50-351 (licence exhibition). **UNVERIFIED.**
+
+### Wisconsin
+Researched 2026-08-31 against docs.legis.wisconsin.gov primary text.
+
+- **Stop-and-identify: DEMAND AUTHORISED, NO PENALTY IN THE STATUTE.**
+  Wis. Stat. §968.24: "After having identified himself or herself as a law
+  enforcement officer, a law enforcement officer may stop a person in a public
+  place for a reasonable period of time when the officer reasonably suspects
+  that such person is committing, is about to commit or has committed a crime,
+  and **may demand the name and address of the person and an explanation of the
+  person's conduct.**" **VERIFIED**
+  The statute authorises the demand. **It specifies no penalty for refusing.**
+  The section's annotations cite *Hiibel* for the proposition that a state *may*
+  criminalise refusal — which is a statement about what is constitutionally
+  permitted, not evidence that Wisconsin has done so. **VERIFIED as to text;
+  whether any other Wisconsin provision supplies a penalty was NOT checked —
+  UNVERIFIED.**
+- All other columns not researched. **UNVERIFIED**
+
+### Rhode Island
+Researched 2026-08-31 against rilegislature.gov primary text.
+
+- **Stop-and-identify: DEMAND AUTHORISED, CONSEQUENCE IS DETENTION, NOT A
+  CHARGE.** R.I.G.L. §12-7-1 permits an officer to "demand of the person his or
+  her name, address, business abroad, and destination." A person who fails to
+  identify "to the satisfaction of the peace officer" "may be further detained"
+  and "further questioned and investigated". **VERIFIED**
+  Refusal is **not stated as a crime**. The consequence is procedural — a longer
+  stop — not a charge. That is a materially different thing to tell someone than
+  "you will be arrested if you don't identify". **VERIFIED**
+- All other columns not researched. **UNVERIFIED**
+
+---
+
+## CROSS-STATE FINDING (2026-08-31): "stop and identify" is three categories, not two
+
+The single most repeated error in prompts submitted to this project is treating
+stop-and-identify as a binary. Primary text shows at least three distinct
+regimes, and the popular lists collapse all of them into "Y":
+
+**A. Demand authorised AND refusal criminalised.**
+  - Ohio §2921.29 — name, address, date of birth; 4th-degree misdemeanour.
+  - Nebraska §29-829 — name, address, explanation of actions.
+  - Arizona §13-2412 — **name only**, class 2 misdemeanour, and ONLY after the
+    officer has advised that refusal is unlawful.
+
+**B. Demand authorised, NO penalty for silence in the statute.**
+  - Wisconsin §968.24 — "may demand the name and address"; no penalty specified.
+  - Rhode Island §12-7-1 — refusal leads to *further detention*, not a charge.
+  - Florida §901.151 — detention "for the purpose of ascertaining the identity";
+    no duty to speak, no penalty.
+  - Utah §77-7-15 — "may demand … name, address, date of birth"; no penalty here.
+  - Illinois 725 ILCS 5/107-14 — "may demand the name and address"; none here.
+  - Delaware 11 §1902 — refusal → detention capped at 2 hours, expressly "not an
+    arrest"; not made a crime by the section.
+  SIX of the fetched states sit in this category, and every one of them appears
+  on the popular "stop and identify states" lists. That list is not measuring
+  what people think it measures: it captures states where an officer may ASK,
+  not states where silence is a crime.
+
+**C. Duty attaches only to a specific act, not to detention generally.**
+  - Virginia §46.2-104 — driver must exhibit licence and, "if so required",
+    *write* his name. Tied to driving, conditioned on the officer requiring it.
+  - Texas §38.02 (shipped) — duty attaches on **lawful arrest**, not detention;
+    giving a FALSE name while detained is separately an offence.
+
+A national script that says "you must give your name" is wrong for B and C.
+A national script that says "you never have to give your name" is wrong for A
+and C. There is no correct national sentence. This is the strongest single
+argument in this file against a generated per-state layer, and it is now
+supported by seven states of fetched primary text rather than by assertion.
+
+### Idaho
+Researched 2026-08-31 against legislature.idaho.gov primary text.
+
+- **Identify driver — STRONGEST VERB FOUND SO FAR: "surrender".**
+  Idaho Code §49-316: "Every licensee shall have his driver's license in his
+  immediate possession at all times when operating a motor vehicle and shall,
+  **upon demand, surrender the driver's license into the hands of a peace
+  officer** for his inspection." **VERIFIED**
+  This is not "display" and not "exhibit". Idaho requires the licence to be put
+  into the officer's hands. Any guidance suggesting a driver may keep hold of
+  the licence, or show it through glass, is wrong in Idaho.
+- All other columns not researched. **UNVERIFIED**
+
+### Minnesota — driver ID cell added
+- **Identify driver** — Minn. Stat. §171.08: "Every licensee shall have the
+  license in immediate possession at all times when operating a motor vehicle
+  and shall **display it upon demand** of a peace officer, an authorized
+  representative of the department, or an officer authorized by law to enforce
+  the laws relating to the operation of motor vehicles on public streets and
+  highways." **VERIFIED** (other Minnesota cells unchanged from the earlier pass)
+
+---
+
+## CROSS-STATE FINDING (2026-08-31): the licence-handover verb is not uniform
+
+Seven states of fetched text show a real spectrum in what a driver must
+physically do. These are not stylistic variations; they describe different acts.
+
+| State | Statute | Operative verb |
+|---|---|---|
+| Idaho | §49-316 | "**surrender** … into the hands of a peace officer" |
+| Florida | §322.15(1) | "**present or submit**" |
+| North Carolina | §20-29 | "**produce** … and **exhibit** … for the purpose of examination" |
+| Virginia | §46.2-104 | "**exhibit**" + "**write his name**, if so required" |
+| California | Veh. §12951(b) | "**present** … for examination" |
+| Washington | RCW 46.20.017 | "**display**" |
+| Minnesota | §171.08 | "**display**" |
+| Texas (shipped) | Transp. §521.025 | "**display**" — and the shipped entry already warns that
+  officers and courts often treat showing-through-glass as refusal |
+
+Consequence: there is no safe national sentence about handing over a licence
+either. "You don't have to hand it over, just show it" is wrong in Idaho on the
+statute's face. "Always surrender it" overstates the duty in the display states.
+This is the second independent axis (after stop-and-identify) on which a
+generated national template fails.
+
+### South Carolina
+- **Identify driver** — S.C. Code §56-1-190: "A licensee shall have his license
+  in his immediate possession at all times when operating a motor vehicle and
+  shall **display it upon demand** of an officer or agent of either the
+  Department of Motor Vehicles or the Department of Public Safety or a law
+  enforcement officer of the State." **VERIFIED**
+- All other columns not researched. **UNVERIFIED**
+
+### Oregon
+- **Identify driver — "present and deliver", with a criminal penalty.**
+  ORS 807.570(1)(b) makes it an offence where a person "[d]oes not **present and
+  deliver** such license or permit to a police officer when requested by the
+  police officer" — triggered on being lawfully stopped or detained while
+  driving, or where the vehicle was involved in an accident. Failure is a
+  **Class C misdemeanor**. **VERIFIED**
+  Note: "present and deliver" sits at the Idaho end of the spectrum, not the
+  "display" end, and unlike most display states it carries a criminal penalty
+  rather than an infraction.
+- All other columns not researched. **UNVERIFIED**
+
+### Connecticut
+- **Identify driver — the duty is SPLIT ACROSS TWO SECTIONS.**
+  C.G.S. §14-213 provides only: "Each operator of a motor vehicle shall **carry**
+  his operator's license while operating such vehicle." Failure to carry is an
+  **infraction**. **VERIFIED**
+  §14-213 does **not** contain a produce-on-demand duty. That requirement sits in
+  a separate section (§14-217, production of licence, registration and
+  insurance). **NOT FETCHED — UNVERIFIED.**
+  > METHOD NOTE: this is a trap for anyone researching by single section number.
+  > Citing §14-213 alone as "Connecticut's licence law" would state the carry
+  > duty and silently omit the production duty. Always check whether a state
+  > splits carry from produce.
+
+### Maryland
+- **Identify driver — conditioned on the officer being UNIFORMED.**
+  Md. Transp. §16-112: "Each individual driving a motor vehicle on any highway in
+  this State shall have his license with him." and "shall **display the license
+  to any uniformed police officer who demands it.**" **VERIFIED**
+  The word "uniformed" is a condition on the duty and appears in no other state
+  fetched so far. Not a detail to drop in summary.
+- All other columns not researched. **UNVERIFIED**
+
+### Michigan — driver ID cell added
+- **Identify driver — conditioned on the officer IDENTIFYING THEMSELVES.**
+  MCL §257.311: "The licensee shall have his or her operator's or chauffeur's
+  license, or the receipt described in section 311a, in his or her immediate
+  possession at all times when operating a motor vehicle, and shall **display
+  the same upon demand of any police officer, who shall identify himself or
+  herself as such.**" **VERIFIED** (other Michigan cells unchanged)
+
+---
+
+## CROSS-STATE FINDING (2026-08-31): the duty is sometimes CONDITIONED on the officer
+
+A third axis, distinct from the verb and from stop-and-identify. Some states
+attach express conditions to the officer's side of the demand:
+
+- **Maryland** §16-112 — duty runs to a "**uniformed** police officer".
+- **Michigan** §257.311 — duty runs to an officer "**who shall identify himself
+  or herself as such**".
+- **Wisconsin** §968.24 — the stop power itself begins "**After having
+  identified himself or herself as a law enforcement officer**".
+
+Whereas South Carolina, Minnesota, Washington and Texas state the duty with no
+condition on the officer at all.
+
+Three axes now, each independently fatal to a generated national template:
+  1. Stop-and-identify — three regimes (criminalised / no penalty / act-specific)
+  2. Licence handover — six different operative verbs, from "display" to
+     "surrender into the hands of"
+  3. Conditions on the officer — uniformed / self-identified / unconditioned
+
+### Utah
+Retrieved 2026-08-31 via rendered browser (le.utah.gov blocks plain fetch).
+
+- **Stop-and-identify: DEMAND AUTHORISED, NO PENALTY IN THIS SECTION.**
+  Utah Code §77-7-15: "A peace officer may stop any individual in a public place
+  when the officer has a reasonable suspicion to believe the individual has
+  committed or is in the act of committing or is attempting to commit a public
+  offense and **may demand the individual's name, address, date of birth, and an
+  explanation of the individual's actions.**" (Amended ch. 411, 2019) **VERIFIED**
+  Scope matches Ohio (name + address + DOB) but **no penalty appears in this
+  section**. Whether another Utah provision criminalises refusal was NOT checked.
+  **UNVERIFIED as to penalty.** Utah appears on the copied stop-and-identify
+  lists; on this section's text alone that listing is not supported.
+- All other columns not researched. **UNVERIFIED**
+
+### Illinois
+Retrieved 2026-08-31 via rendered browser (ilga.gov 404s on plain fetch).
+
+- **Stop-and-identify: DEMAND AUTHORISED, NO PENALTY IN THIS SECTION.**
+  725 ILCS 5/107-14(a): "A peace officer, **after having identified himself as a
+  peace officer**, may stop any person in a public place for a reasonable period
+  of time when the officer reasonably infers from the circumstances that the
+  person is committing, is about to commit or has committed an offense … and
+  **may demand the name and address of the person and an explanation of his
+  actions.** Such detention and temporary questioning will be conducted in the
+  vicinity of where the person was stopped." **VERIFIED**
+  No penalty for refusal appears in the section. **UNVERIFIED as to penalty.**
+- **STOP RECEIPT — an affirmative civilian right, unique among states fetched.**
+  725 ILCS 5/107-14(b): "Upon completion of any stop under subsection (a)
+  involving a frisk or search, and unless impractical, impossible, or under
+  exigent circumstances, **the officer shall provide the person with a stop
+  receipt which provides the reason for the stop and contains the officer's name
+  and badge number.**" (Source: P.A. 99-352, eff. 1-1-16.) **VERIFIED**
+  This is the only fetched provision so far that gives the civilian something
+  they can ASK FOR during the encounter. Worth surfacing to Illinois users if
+  the content layer ever ships — it is checkable, statutory, and actionable.
+- All other columns not researched. **UNVERIFIED**
+
+### Delaware
+Retrieved 2026-08-31 via rendered browser (delcode index page only, on plain fetch).
+
+- **Stop-and-identify: DEMAND AUTHORISED, CONSEQUENCE IS CAPPED DETENTION.**
+  11 Del. C. §1902(a): "A peace officer may stop any person abroad, or in a
+  public place, who the officer has reasonable ground to suspect is committing,
+  has committed or is about to commit a crime, and **may demand the person's
+  name, address, business abroad and destination.**"
+  §1902(b): "Any person so questioned who **fails to give identification** or
+  explain the person's actions to the satisfaction of the officer **may be
+  detained and further questioned and investigated.**"
+  §1902(c): "The total period of detention provided for by this section **shall
+  not exceed 2 hours. The detention is not an arrest and shall not be recorded
+  as an arrest in any official record.** At the end of the detention the person
+  so detained shall be released or be arrested and charged with a crime."
+  **VERIFIED**
+  Structurally Rhode Island's regime plus two protections RI lacks: a **hard
+  2-hour cap** and an express statement that the detention **is not an arrest
+  and is not recorded as one**. Refusal is not made a crime by this section.
+- All other columns not researched. **UNVERIFIED**
+
+---
+
+## METHOD UNLOCK (2026-08-31): the rendered browser beats plain fetch
+
+A large share of the "blocked" states were never blocked — their sites are
+JavaScript-rendered, so a plain HTTP fetch returns a navigation shell with HTTP
+200 and no statute. Loading the same URL in a rendered browser and reading the
+page text retrieved full statutory text for **Utah, Illinois and Delaware** on
+the first attempt, all three of which had previously failed.
+
+Implication for the remaining states: re-attempt the entire confirmed-bad list
+through the browser before treating any of them as unavailable. The earlier
+"~42% reachable" figure understates what is actually obtainable.
+
+Still genuinely unavailable:
+  - PDF-only publication (ND, IA, KY, WY, OK). PDF page rendering is not
+    installed in this environment, so the file downloads but cannot be read.
+  - Hosts that refuse the connection outright (ksrevisor.org, touchngo.com,
+    capitol.hawaii.gov).
+  - Vermont and Indiana returned shells even in the browser (VT served a generic
+    statutes landing page; IN was still rendering — retry with a wait).
+
+### Hawaii
+Retrieved 2026-08-31 via rendered browser (capitol.hawaii.gov 403s on plain fetch).
+
+- **Identify driver — and the officer has NO DISCRETION.**
+  H.R.S. §286-116(a): "Every licensee shall have a valid driver's license in the
+  licensee's immediate possession at all times, and a valid motor vehicle or
+  liability insurance identification card … when operating a motor vehicle, and
+  **shall display the same upon demand of a police officer. Every police officer
+  or law enforcement officer when stopping a vehicle or inspecting a vehicle for
+  any reason shall demand that the driver or owner display** the driver's or
+  owner's driver's license and insurance identification card." **VERIFIED**
+  Unique among the states fetched so far: the statute obliges the **officer** to
+  demand, not merely permit it. A Hawaii driver should expect the demand in
+  every stop as a matter of statute.
+  The section also expressly permits display of an **electronic** insurance card
+  on a mobile device (cross-referencing §291C-137). **VERIFIED**
+- All other columns not researched. **UNVERIFIED**
+
+---
+
+## CONFIRMED HARD BLOCKS (2026-08-31) — do not re-attempt without new tooling
+
+Distinguish these from JS-render failures, which the browser solved:
+
+- **Arizona** — azleg.gov sits behind a **Sucuri WAF** that blocklists the
+  originating IP outright ("Block ID: BLACK02"). Neither plain fetch nor
+  rendered browser passes. A.R.S. §13-2412 remains **UNVERIFIED**.
+- **West Virginia** — code.wvlegislature.gov returns a **Wordfence 403** to both
+  methods. §17B-2-9 remains **UNVERIFIED**.
+- **Kansas** — ksrevisor.org refuses the TCP connection (ECONNREFUSED).
+- **Alaska** — touchngo.com refuses the connection.
+- **PDF-only states** — ND, IA, KY, WY, OK. The files download but PDF page
+  rendering (poppler/pdftoppm) is not installed in this environment, so the text
+  cannot be read. This is a tooling gap, not a source problem: install
+  poppler-utils and these five become reachable.
+
+Partial / wrong-section, site itself reachable:
+- **South Dakota** — sdlegislature.gov renders correctly. §32-12-38 is
+  restriction-violation and §32-12-22 is driving-without-a-licence; neither is
+  the carry-and-display section. Correct section number not yet identified.
+- **Pennsylvania** — palegis.us renders the Title 75 frame but not section text
+  at the URL patterns tried. 75 Pa.C.S. §1511 still **UNVERIFIED**.
+- **Indiana** — iga.in.gov renders breadcrumbs only; content is loaded by a
+  script that did not complete within a 3-second wait. Retry with a longer wait
+  or a direct section endpoint.
+- **Vermont** — legislature.vermont.gov served a generic statutes landing page
+  in the browser as well as to plain fetch.
+
+### North Dakota
+Retrieved 2026-08-31 from ndlegis.gov PDF via pypdf extraction.
+
+- **Identify driver — accepts ELECTRONIC, and has a 14-day cure.**
+  N.D.C.C. §39-06-16 ("License to be carried and exhibited on demand"): "An
+  individual licensed to operate a motor vehicle shall have a **physical or
+  electronic** operator's license in the individual's immediate possession at
+  all times when operating a motor vehicle and shall **physically surrender or
+  electronically provide** an operator's license, upon demand of any court,
+  police officer, or a field deputy or inspector of the department. However, an
+  individual charged with violating this section **may not be convicted or
+  assessed any court costs if the individual produces within fourteen days** to
+  the office of the prosecutor where the matter is pending, a valid operator's
+  license issued to that individual." **VERIFIED**
+- All other columns not researched. **UNVERIFIED**
+
+### Iowa
+Retrieved 2026-08-31 from legis.iowa.gov PDF via pypdf extraction.
+
+- **Identify driver** — Iowa Code §321.174(3): "A licensee shall have the
+  licensee's driver's license in immediate possession at all times when
+  operating a motor vehicle and shall **display the same upon demand** of a
+  judicial magistrate, district associate judge, district judge, peace officer,
+  or examiner of the department." **VERIFIED**
+- All other columns not researched. **UNVERIFIED**
+
+### Wyoming
+Retrieved 2026-08-31 from wyoleg.gov PDF (542pp) via pypdf extraction.
+
+- **Identify driver — display, with a court cure.**
+  W.S. §31-7-116 ("Carrying and displaying"): "Every licensee shall have his
+  driver's license in his immediate possession at all times when driving a motor
+  vehicle and shall **display the license upon demand** of any judicial officer,
+  municipal court judge, any officer or agent of the division or any police
+  officer as defined in W.S. 31-5-102(a)(xxxiii). However, **no person charged
+  with violating this section shall be convicted if he produces in court a
+  driver's license previously issued to him and valid at the time of his
+  arrest.**" **VERIFIED**
+- **DIGITAL LICENCE — the driver does NOT have to hand over the phone.**
+  W.S. §31-7-115 requires the digital driver's licence be implemented "(ii) So
+  that there is **no need for the driver's license holder to relinquish
+  possession of the portable electronic device** in which the digital driver's
+  license is stored to present the digital driver's license." **VERIFIED**
+  Directly relevant to this product: in Wyoming the statute itself contemplates
+  the driver keeping hold of their phone while presenting a digital licence.
+  Whether other digital-licence states carry an equivalent provision is
+  **UNVERIFIED** and worth checking — ND (§39-06-16) and Hawaii (§286-116)
+  both permit electronic presentation but were not checked for this clause.
+- All other columns not researched. **UNVERIFIED**
+
+---
+
+## TOOLING FIX APPLIED (2026-08-31): PDF states are no longer blocked
+
+`pypdf` installed (pip, user-scope). PDF-only publication is no longer a
+barrier: ND, IA and WY were extracted and verified from PDF in one pass.
+Method: WebFetch the PDF (it saves the binary to the tool-results directory even
+when it cannot parse it), then extract with pypdf and regex for the section
+number. Wyoming's Title 31 is 542 pages / 1.1M characters and searched fine.
+
+Remaining PDF states to do the same for: **Kentucky, Oklahoma.** Note the
+earlier Kentucky attempt fetched the wrong section (KRS 211.736, Diabetes
+Research Board) — the URL's `id=` parameter is opaque, so the correct KRS
+section (186.510 area, carrying/exhibiting) must be located first.
+
+### Arizona
+Retrieved 2026-08-31 via codes.findlaw.com (azleg.gov IP-blocked by Sucuri).
+
+- **Stop-and-identify: Y — NAME ONLY, AND ONLY AFTER A WARNING.**
+  A.R.S. §13-2412: a person "shall state the person's true full name" when a
+  "peace officer who has lawfully detained the person based on reasonable
+  suspicion that the person has committed, is committing or is about to commit
+  a crime" requests it — **provided the person has been advised that refusal is
+  unlawful.** "A person who violates this section is guilty of a **class 2
+  misdemeanor**." **VERIFIED**
+  Two limits that must travel with it: the duty is **name only** (not address,
+  not date of birth, unlike Ohio/Utah), and it does not attach until the officer
+  has **advised that refusal is unlawful**. Arizona is a genuine Category A
+  state, but with a procedural precondition no summary carries.
+
+### Kansas
+Retrieved 2026-08-31 via codes.findlaw.com (ksrevisor.org refuses connections).
+
+- **Stop-and-identify: DEMAND AUTHORISED, NO PENALTY IN THIS SECTION.**
+  K.S.A. §22-2402(1): "a law enforcement officer may demand of the name, address
+  of such suspect and an explanation of such suspect's actions." §22-2402(2)
+  covers frisk on reasonable suspicion of danger. No penalty for refusal appears
+  in this section. **VERIFIED as to text; UNVERIFIED as to any penalty elsewhere.**
+
+### Alaska
+Retrieved 2026-08-31 via codes.findlaw.com (touchngo.com refuses connections).
+
+- **Identify driver — "present for inspection", infraction, with a cure.**
+  A.S. §28.15.131: "A licensee shall have the licensee's driver's license in
+  immediate possession at all times when driving a motor vehicle, and shall
+  **present the license for inspection** upon the demand of a peace officer."
+  Violation is an **infraction**; a defence exists where the person produces a
+  previously valid licence in court or to the citing officer. **VERIFIED**
+
+### Pennsylvania
+Retrieved 2026-08-31 via codes.findlaw.com (palegis.us renders frame only).
+
+- **Identify driver — "exhibit", with a 15-day cure.**
+  75 Pa.C.S. §1511(a): "Every licensee shall possess a driver's license issued
+  to the licensee at all times when driving a motor vehicle and shall **exhibit
+  the license upon demand by a police officer**." §1511(b) permits avoidance of
+  conviction where a valid licence is produced within **15 days** at police
+  headquarters or the issuing authority. **VERIFIED**
+
+### Indiana
+Retrieved 2026-08-31 via codes.findlaw.com (iga.in.gov never finishes rendering).
+
+- **Identify driver — PHYSICAL credential, and an express phone protection.**
+  Ind. Code §9-24-13-3: "The individual shall display the driver's license or
+  permit **in the form of a physical credential** upon demand of a court or a
+  police officer authorized by law to enforce motor vehicle rules." **VERIFIED**
+  The section further carries protections for **mobile credentials, prohibiting
+  officers from confiscating telecommunications devices or extracting data**
+  without proper legal authority. **VERIFIED as reported by the source; the exact
+  subsection text was not captured and should be re-pulled before use.**
+  Second state (with Wyoming) found to legislate about the driver's phone during
+  a stop. See the digital-licence note under Wyoming.
+
+### Colorado
+Retrieved 2026-08-31 via codes.findlaw.com.
+
+- **Stop-and-identify: REQUIREMENT AUTHORISED, NO PENALTY IN THIS SECTION.**
+  C.R.S. §16-3-103: a peace officer "may require him to give his **name and
+  address, identification if available, and an explanation of his actions**."
+  No criminal penalty for refusal appears in the section. **VERIFIED as to text;
+  UNVERIFIED as to penalty.**
+  Note the verb is "may require", stronger than the "may demand" states, yet the
+  section still carries no penalty — a good illustration that verb strength does
+  not track enforceability.
+
+### New Mexico — NOT a stop-and-identify state on this section
+Retrieved 2026-08-31 via codes.findlaw.com.
+
+- **§30-22-3 is a CONCEALMENT-WITH-INTENT offence, not an identify duty.**
+  N.M.S.A. §30-22-3 ("Concealing identity"): "Concealing one's true name or
+  identity, or disguising oneself **with intent to obstruct the due execution of
+  the law** or with intent to intimidate, hinder or interrupt any public officer
+  … in a legal performance of his duty". Penalty: "guilty of a **petty
+  misdemeanor**." **VERIFIED**
+  > CORRECTION: New Mexico appears on the copied stop-and-identify lists on the
+  > strength of this section. It does not impose a duty to identify — it
+  > criminalises *concealing* identity **with intent to obstruct**. Simply
+  > declining to answer, without concealment and without obstructive intent, is
+  > not what this section reaches. Sixth entry in this file's running correction
+  > of those lists.
+
+### Vermont
+Retrieved 2026-08-31 via codes.findlaw.com (legislature.vermont.gov serves a shell).
+
+- **Identify driver — POSSESSION ONLY in this section.**
+  23 V.S.A. §611: "Every licensee shall have his or her operator's license
+  certificate in his or her immediate possession at all times when operating a
+  motor vehicle." The section addresses possession and a grace period; it does
+  **not** contain an exhibit-on-demand duty. **VERIFIED**
+  Same split-section trap as Connecticut §14-213 — the production duty, if it
+  exists, lives elsewhere and was **NOT** located. **UNVERIFIED.**
+
+---
+
+## METHOD UNLOCK #2 (2026-08-31): codes.findlaw.com defeats the IP bans
+
+Every state previously recorded as a hard block was retrievable from FindLaw's
+mirror, which sits on unrelated infrastructure: **Arizona** (Sucuri IP blocklist),
+**Kansas** and **Alaska** (connection refused), plus **Pennsylvania**, **Indiana**
+and **Vermont** whose own sites serve shells. URL pattern:
+`https://codes.findlaw.com/<state>/<title-slug>/<state>-<code>-sect-<number>/`
+
+Order of attack for the remainder, cheapest first:
+  1. codes.findlaw.com  2. official site via plain fetch
+  3. official site via rendered browser  4. PDF + pypdf
+
+Not everything is on FindLaw — Louisiana CCrP art. 215.1 and West Virginia
+§17B-2-9 both 404'd on the slug patterns tried, so the slug needs checking per
+state rather than assuming.
+
+### Tennessee
+Retrieved 2026-08-31 via codes.findlaw.com (TN code is otherwise on a commercial host).
+
+- **Identify driver** — T.C.A. §55-50-351: "Every licensee shall have the
+  licensee's license in immediate possession at all times when operating a motor
+  vehicle and shall **display it upon demand**." Officers may demand exhibition;
+  violation is a **Class C misdemeanor**. **VERIFIED**
+
+### Alabama
+Retrieved 2026-08-31 via codes.findlaw.com.
+
+- **Identify driver** — Ala. Code §32-6-9: "Every licensee shall have his or her
+  license in his or her immediate possession at all times when driving a motor
+  vehicle and shall **display the same, upon demand of a judge of any court, a
+  peace officer, or a state trooper**." **VERIFIED**
+
+### West Virginia
+Retrieved 2026-08-31 via codes.findlaw.com (code.wvlegislature.gov Wordfence-blocked).
+
+- **Identify driver** — W.Va. Code §17B-2-9(a): "Every licensee shall have his or
+  her driver's license in such person's immediate possession at all times when
+  operating a motor vehicle and shall **display the same, upon demand of a
+  magistrate, municipal judge, circuit court judge, peace officer, or an
+  employee of the division**." **VERIFIED**
+
+### Louisiana
+Retrieved 2026-08-31 via codes.findlaw.com (legis.la.gov document IDs are opaque).
+
+- **Identify driver** — La. R.S. §32:411.1: "Any person lawfully possessed of a
+  driver's license … shall have such license in his immediate possession at all
+  times when driving a motor vehicle and shall **display it upon demand of any
+  officer or agent of the department or any police officer of the state, parish,
+  or municipality**." **VERIFIED**
+- **Stop-and-identify** — La. C.Cr.P. art. 215.1 is the target section and was
+  NOT retrieved (FindLaw 404 on the slugs tried). **UNVERIFIED**
+
+---
+
+## METHOD UNLOCK #3 (2026-08-31): read the chapter index before guessing a section
+
+All six remaining jurisdictions fell in a single pass using one move: fetch the
+chapter or subchapter INDEX, read the section catchlines, then fetch the one
+section whose own title says "carried and exhibited" / "in possession and shown
+on demand". Every prior failure on these six was a guessed section number, not
+an access failure:
+
+- **SD** — guessed §32-12-22, -31, -38. Index said **§32-12-39**.
+- **AR** — guessed §27-16-602 (that is "Driver's license required"). Index said
+  **§27-16-601**.
+- **ME** — the previous note predicted Chapter 23. Index said **Ch. 11 §1408**,
+  in subchapter 4, which the earlier truncated read had cut off.
+- **DC** — the previous note predicted "elsewhere in Title 50". It was a
+  *subsection* of the very section already dismissed as fees/examination:
+  **§50-1401.01(c)**.
+- **KY** — the LRC serves statutes as PDFs behind an opaque `id=`. Reading the
+  chapter index (`chapter.aspx?id=38025`) yielded the section's real link
+  (`id=53610`); `curl` + `pypdf` extracted it cleanly.
+- **OK** — §6-112 was the right guess, but only law.justia.com served it; both
+  FindLaw slug patterns 404.
+
+Guessing section numbers on these six went 0-for-6. Reading indexes went
+6-for-6. The index page is one cheap fetch and is the correct first request for
+any new jurisdiction.
+
+Two entries in the "Confirmed-bad" list are hereby **retracted**:
+`apps.legislature.ky.gov` and `sdlegislature.gov` both work. So does
+`legislature.maine.gov`, which was never the problem.
+
+### Kentucky
+Retrieved 2026-08-31 from apps.legislature.ky.gov (official LRC), PDF extracted
+with pypdf.
+
+- **Identify driver** — KRS 186.510: "The licensee shall have his or her license
+  in his or her immediate possession at all times when driving a motor vehicle
+  and shall **display it upon demand to a peace officer**, a member of the
+  Department of Kentucky State Police, or a field deputy or inspector of the
+  Department of Vehicle Regulation or Transportation Cabinet or, pursuant to KRS
+  67A.075 or 83A.088, a safety officer who is in the process of securing
+  information to complete an accident report." Effective 29 Jun 2023.
+  **VERIFIED**
+- Court-production defence: "It shall be a defense to any charge under this
+  section if the person so charged produces in court an operator's license,
+  issued to him or her before his or her arrest and valid at the time of his or
+  her arrest." **VERIFIED**
+
+### South Dakota
+Retrieved 2026-08-31 from sdlegislature.gov via the rendered browser.
+
+- **Identify driver** — SDCL §32-12-39: "Each licensee shall have a driver
+  license in the licensee's immediate possession at all times when operating a
+  motor vehicle and shall **display the driver license upon demand of a judge of
+  a court of record, a magistrate, a peace officer, or a field deputy or
+  inspector of the Department of Public Safety**. Any person violating the
+  provisions of this section commits a **petty offense**." **VERIFIED**
+- §32-12-40 is the companion court-production / expired-under-thirty-days cure
+  provision. Catchline read from the chapter index; text not fetched. **LIKELY**
+
+### Maine
+Retrieved 2026-08-31 from legislature.maine.gov.
+
+- **Identify driver** — 29-A M.R.S. §1408(1): a licensee "must have the license
+  in immediate possession when operating a motor vehicle. **Possession may be in
+  electronic form.**" **VERIFIED**
+- §1408(2): "On demand of a law enforcement officer, the licensee must **produce
+  the license or an electronic version of the license for inspection**. **The use
+  of a portable electronic device to provide license information does not
+  constitute consent for a law enforcement officer to access other contents of
+  the portable electronic device.**" **VERIFIED**
+- §1408(3): a person served with a Violation Summons and Complaint may have it
+  dismissed on satisfactory evidence they held a valid license at the time.
+  **VERIFIED**
+
+That second sentence of §1408(2) is the single most user-relevant sentence found
+in this entire sweep. Maine has legislated the exact scenario a phone-carrying
+driver walks into. Whether any other state has an equivalent has **not** been
+checked, and the absence of one elsewhere must not be inferred from its presence
+here.
+
+### Oklahoma
+Retrieved 2026-08-31 via law.justia.com (both FindLaw slug patterns 404).
+
+- **Identify driver** — 47 O.S. §6-112(A): "Every licensee shall have his or her
+  driver license in his or her immediate possession at all times when operating a
+  motor vehicle. Upon demand of a peace officer, the licensee shall **produce and
+  provide physical possession of the driver license to the peace officer**. Any
+  person violating this subsection shall, upon conviction, be guilty of a
+  **misdemeanor** and shall be punished as provided for in Section 17-101 of this
+  title." **VERIFIED**
+- §6-112(B): a person who produces in court, on or before the court date, a
+  license valid at the time of arrest is entitled to dismissal. **VERIFIED**
+
+### Arkansas
+Retrieved 2026-08-31 via law.justia.com.
+
+- **Identify driver** — A.C.A. §27-16-601(a): "A licensee shall have his or her
+  driver's license in his or her immediate possession at all times when operating
+  a motor vehicle and shall **display the driver's license upon demand of a
+  justice of the peace, a peace officer, or an employee of the Office of Driver
+  Services**." **VERIFIED**
+- §27-16-601(b): "No person charged with violating this section shall be
+  convicted if he or she produces in court a driver's license issued to him or
+  her and valid at the time of his or her arrest." **VERIFIED**
+- §27-16-602 is "Driver's license required" — a separate section, and NOT the
+  carry-and-display duty. An earlier pass recorded it as the target. Corrected.
+
+### District of Columbia
+Retrieved 2026-08-31 from code.dccouncil.gov.
+
+- **Identify driver** — D.C. Code §50-1401.01(c): a permit holder "shall have the
+  license or permit in his or her immediate possession at all times while
+  operating a motor vehicle in the District of Columbia and shall **exhibit the
+  license or permit to any police officer upon demand**. Any person who fails to
+  comply with the requirements of this subsection shall, upon conviction, be
+  **fined not less than $10 nor more than $50**." **VERIFIED**
+- That $10–$50 fine is the smallest penalty found in any of the 48 jurisdictions
+  researched.
+- **Separate finding, directly relevant to this product's audience** — D.C. Code
+  §50-1401.05 creates a **limited purpose driver's license, permit, or
+  identification card** for a District resident of more than 6 months who has not
+  been assigned a social security number, or who "has been assigned a social
+  security number but **cannot establish legal presence in the United States** at
+  the time of application," or who is ineligible to obtain one. Existence and
+  eligibility criteria: **VERIFIED**. What the card says on its face, what it may
+  and may not be used for, and how it is treated at a roadside stop: all
+  **UNVERIFIED**, and all of it matters enormously to exactly the person this
+  product is built for. Nothing about limited purpose licences goes anywhere near
+  users until that is researched and attorney-reviewed.
+
+## CROSS-STATE FINDING UPDATE (2026-08-31): the verb spectrum has new ends
+
+The licence-handover verb spectrum recorded earlier now has a clear strongest
+end and a clear weakest end, and they are not the ones previously assumed:
+
+- **Strongest: OK §6-112(A)** — "produce and **provide physical possession** of
+  the driver license to the peace officer." Oklahoma is explicit that holding the
+  card up is not enough; physical transfer is the statutory duty. This displaces
+  Idaho's "surrender into the hands of" as the most demanding formulation found.
+- **Weakest / most protective: ME §1408(2)** — "produce the license or an
+  electronic version of the license **for inspection**", expressly satisfiable
+  from a phone and expressly not a consent to search that phone.
+
+Both are quoted above. The gap between them is wide enough that a single
+national "hand the officer your licence" script is wrong at one end or the other,
+and the axis is not visible from any secondary source consulted so far.
+
+---
+
+## REMAINING WORK (as of 2026-08-31)
+
+**Breadth is done. Depth is not, and depth is what shipping requires.**
+
+All 50 states and DC now have at least one VERIFIED cell. Every one of those
+cells is the same cell: the driver's carry-and-display duty. That was the easiest
+column in the matrix — it is a single, plainly-titled section in every
+jurisdiction's motor vehicle code — and finishing it proves only that the
+retrieval method works, not that any state is ready.
+
+What is actually missing, by column, across all 51 jurisdictions:
+
+- **Recording consent** — researched for **2** (CA, WA). 49 outstanding. This is
+  the column with the widest real-world variation and the highest chance of a
+  wrong answer causing harm.
+- **Refusing to sign a citation** — researched for **3** of the original ten,
+  essentially untouched since. ~48 outstanding. Already flagged as the weakest
+  column in the ledger.
+- **Passenger ID** — spotty. Verified where the stop-and-identify section
+  happened to address it; not systematically pursued.
+- **Duty to inform (firearm)** — researched for the original ten and a handful
+  since. The TX entry in this ledger contradicts a claim submitted to this
+  project four times; that pattern will recur in other states and every one needs
+  primary text.
+- **Stop-and-identify** — the best-covered column after driver ID, and the one
+  where careful sourcing already contradicted the widely-copied list on **four of
+  the ten** states first researched.
+
+Next pass should go by COLUMN, not by state. The per-state fetch pattern is now
+solved and cheap; the remaining risk is entirely in the columns where secondary
+sources are known to be wrong. Recording consent first, since it is the column
+users are most likely to act on in the moment.
+
 ---
 
 ## Coverage
 
-Researched: NE, NV, MS, MO, MT, MA, MI, MN, NH, NJ (10 of 47 outstanding).
-Not started: the remaining 37 states plus DC.
+Researched: NE, NV, MS, MO, MT, MA, MI, MN, NH, NJ, FL, CA, OH, VA, WA, NC,
+WI, RI, ID, SC, OR, CT, MD, UT, IL, DE, HI, ND, IA, WY, AZ, KS, AK, PA, IN,
+CO, NM, VT, TN, AL, WV, LA, KY, SD, ME, OK, AR, DC (47 of 47 outstanding,
+plus DC — breadth complete).
+Nothing remains blocked at source. The retractions above (KY, SD, ME) closed the
+last three, and every earlier "blocked" state was subsequently sourced by one of
+the three method unlocks: the rendered browser, codes.findlaw.com, or
+curl + pypdf on PDF-only publishers.
+
+TALLY (counted mechanically, 2026-08-31): **81 VERIFIED**, 11 LIKELY,
+47 UNVERIFIED cells. An earlier running count of "147 verified" reported during
+this work was wrong — it was produced by a line-match that counted every
+`UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
+those are the single driver-ID column.
+
+**Breadth ≠ readiness.** All 51 jurisdictions have exactly one column filled
+(driver carry-and-display), the easiest of the six. Zero jurisdictions have a
+complete row. Zero are shippable. See REMAINING WORK for the by-column gap.
+
+MEASURED ACCESS across six batches: 14 of 33 states reachable (~42%).
+Confirmed-good, hit these first: flsenate.gov, leginfo.legislature.ca.gov,
+codes.ohio.gov, law.lis.virginia.gov, app.leg.wa.gov, ncleg.gov,
+docs.legis.wisconsin.gov, rilegislature.gov, legislature.idaho.gov,
+revisor.mn.gov, scstatehouse.gov, cga.ct.gov, mgaleg.maryland.gov,
+legislature.mi.gov, oregon.public.law (mirror — worked where the official
+oregonlegislature.gov ToC page did not).
+Confirmed-bad: ilga.gov, azleg.gov, law.justia.com, palegis.us, ksrevisor.org,
+delcode.delaware.gov, le.utah.gov, legislature.vermont.gov, legis.iowa.gov,
+apps.legislature.ky.gov, code.wvlegislature.gov, sdlegislature.gov,
+capitol.hawaii.gov (403), legis.la.gov, legislature.maine.gov (wrong sections
+returned; correct section number not yet identified).
+
+MEASURED SOURCE-ACCESS RATE across four batches: 10 of 22 states reachable
+(~45%). Confirmed-good domains, reuse these first: flsenate.gov,
+leginfo.legislature.ca.gov, codes.ohio.gov, law.lis.virginia.gov, app.leg.wa.gov,
+ncleg.gov, docs.legis.wisconsin.gov, rilegislature.gov, legislature.idaho.gov,
+revisor.mn.gov.
+Confirmed-bad: ilga.gov, azleg.gov, law.justia.com, palegis.us, ksrevisor.org,
+delcode.delaware.gov (index only), le.utah.gov (index only),
+legislature.vermont.gov (index only), legis.iowa.gov (PDF),
+apps.legislature.ky.gov (PDF), code.wvlegislature.gov (403),
+sdlegislature.gov (browser-check page).
+
+MEASURED SOURCE-ACCESS RATE across three batches: 6 of 16 states reachable
+(~38%). Failure modes seen, all of which return something rather than nothing:
+  - HTTP 404 / 403 (ilga.gov, azleg.gov, law.justia.com, ksrevisor.org refused)
+  - 301 to a navigation shell with no statute text (palegis.us)
+  - Chapter index pages that list section numbers but not text (delcode, le.utah.gov)
+  - PDF-only publication that does not extract (legis.iowa.gov, apps.legislature.ky.gov)
+The last three are the dangerous ones: they return HTTP 200 with plausible-looking
+content and no statute. An unattended loop cannot distinguish those from a
+successful fetch, which is precisely how a confident wrong cell gets written.
+
+Batch 2 (PA, NC, VA, WA, TN) sourced 3 of 5. Batch 1 (IL, OH, AZ, PA, NC)
+sourced 1 of 5. Combined: 4 of 10 states reachable on first attempt, and every
+reachable one was researched for ONE column (driver ID or stop-and-identify),
+not all six. Extrapolating honestly: the remaining 28 states plus DC represent
+well over a hundred more cells, gated on source access that fails roughly half
+the time and on per-state reading that cannot be batched away.
+
+SOURCE-ACCESS NOTE (2026-08-31): primary-text retrieval is not uniformly
+available. Working: flsenate.gov, leginfo.legislature.ca.gov, codes.ohio.gov.
+Blocked or wrong-path this pass: ilga.gov (404), azleg.gov (403),
+law.justia.com (403, both states). Roughly 3 of 5 attempted states in this batch
+could not be sourced. Any plan that assumes unattended state-by-state completion
+must budget for this: the binding constraint is source access and reading, not
+throughput.
+
+FL and CA (added 2026-08-31) were researched against primary legislature
+text for four columns only: stop-and-identify, driver ID, passenger ID and
+duty-to-inform. Their recording-consent and sign-citation cells are
+UNVERIFIED and were not attempted. Two findings from that pass are worth
+carrying forward:
+  1. Florida is NOT a stop-and-identify state. §901.151 permits detention to
+     ascertain identity and imposes no penalty for silence. The contrary
+     claim has now been submitted to this project twice.
+  2. California Pen. Code §25850(b) makes refusing a firearm inspection
+     probable cause for arrest — so a blanket "I do not consent to any
+     searches" script is actively unsafe there. Any national script template
+     must carve this out.
+  3. California's police-recording protection is STATUTORY (Pen. Code §148(g)),
+     not merely 9th Circuit case law, and it forecloses the recording being used
+     as reasonable suspicion or probable cause. But §632 is a separate track and
+     is not fully displaced: it reaches "confidential" communications only, and
+     whether a given roadside stop qualifies is circumstance-dependent. The
+     open-vs-concealed question — the exact axis Massachusetts turned on — is
+     still UNVERIFIED for California.
 
 Every one of the ten has at least one UNVERIFIED or LIKELY cell. **None is ready
 to ship.** The refusing-to-sign column is the weakest across the board — it was
