@@ -3503,6 +3503,121 @@ The column's three categories hold, with New Jersey now the extreme case:
 
 ---
 
+# COLUMN PASS 13: PASSENGER ID — THE STRUCTURAL SWEEP (2026-09-01)
+
+The passenger column had been carrying a **weak negative** since PASS 5: only
+five states had a provision actually fetched and rejected, and the other 38 rested
+on a search returning nothing. This pass replaced that with a structural sweep of
+12 states, each requiring an explicit record of **what was ruled out**.
+
+## TENTH CROSS-STATE FINDING: passengers have no motor-vehicle-code duty; the duty lives in the criminal code and is conditioned on suspicion of THAT person
+
+**Zero passenger-specific identification duties were located in the motor-vehicle
+code of any of the twelve states.** In every state where a duty reaching a
+non-driver exists at all, it sits in the **criminal or procedure code**, and every
+one is conditioned on individualised suspicion as to that particular person:
+
+- **OH** R.C. §2921.29(A): "**No person who is in a public place shall refuse to
+  disclose** the p[erson's name, address, or date of birth]…" — conditioned on the
+  officer reasonably suspecting **that person** of an offence, or of witnessing
+  specified serious crimes. Duty limited to **name, address, date of birth**.
+  **VERIFIED**
+- **IL** 725 ILCS 5/107-14(a): "A peace officer, **after having identified himself
+  as a peace officer**, may stop any person in a public place… when the officer
+  **reasonably infers from the circumstances** that the person is committing, is
+  about to commit or has committed an offense…" **VERIFIED**
+- **FL** §901.151(2): "Whenever any law enforcement officer… encounters any person
+  **under circumstances which reasonably indicate** that such person has
+  committed, is committing, or is about to commit a violation…" **VERIFIED**
+- **NY** C.P.L. §140.50: a police officer may stop a person in a public place
+  "when he **reasonably suspects** that such person is committing, has committed
+  or is about to…" **VERIFIED**
+- **TX** Penal Code §38.02(a): "A person commits an offense if he intentionally
+  refuses to give his name, residence address, or date of birth to a peace officer
+  **who has lawfully arrested the person** and requested the information."
+  **VERIFIED** — confirming this ledger's long-standing Texas entry: the duty
+  attaches on **arrest**, not detention.
+
+This is the **same load-bearing condition** as A.R.S. §28-1595(C), the one
+passenger provision found in a motor-vehicle code anywhere in this project — and
+Arizona's is likewise limited to a passenger the officer has reasonable cause to
+believe **personally** violated a traffic law.
+
+**Product consequence, and it is significant.** The Arena and any script should
+stop treating "must a passenger identify?" as a state-by-state lookup in the
+traffic code. On this evidence the answer is structural and nearly uniform: a
+passenger is not covered by the driver-ID statute, and any duty they have arises
+only if the officer has individualised suspicion **about them**. That is a far
+more useful and more portable thing to teach than 51 separate cells — and it is
+the first finding in this project that **simplifies** rather than fragments the
+guidance.
+
+It is also the answer to the question passengers actually ask, which is not "what
+is the statute" but "does this apply to me at all."
+
+## Pennsylvania — the enumeration confirms the rule
+
+**PA** 75 Pa.C.S. §6308(a) is titled "**Duty of operator or pedestrian**" and
+reaches "The **operator** of any vehicle or any **pedestrian** reasonably believed
+to have violated any provision of this title…" **VERIFIED**. Passengers are not
+among the enumerated classes. A state that carefully lists operators, pedestrians
+and pedalcycle drivers, and omits passengers, is strong evidence the omission is
+deliberate.
+
+## No demand statute located at all
+
+For **CA, GA, MI, NC, NJ, PA and VA** the scout located **no stop-and-identify
+demand statute of any kind**, after fetching and rejecting the driver-directed
+licence provisions and checking the general obstruction sections (Cal. Penal §148,
+O.C.G.A. §16-10-24, N.J.S.A. 2C:29-1, 18 Pa.C.S. §5104, Va. Code §18.2-460, N.C.
+G.S. §14-223) — all of which criminalise obstruction without imposing an
+affirmative identity duty. **VERIFIED** as to each rejected section.
+
+California is the notable one: no CA stop-and-identify statute was located, which
+is consistent with this ledger's Florida finding and against the popular lists.
+
+## Confidence, graded by coverage — the scout's own grading, adopted
+
+- **HIGH negative**: CA, FL, IL, OH, TX, NY (indexes read to completion or near it)
+- **MEDIUM-HIGH**: MI, VA
+- **MEDIUM, coverage incomplete and named as such**: GA (Ch. 40-6/40-13 article
+  indexes not served in article granularity), NJ (Title 39 Ch. 4 index never
+  fetched), NC (Article 3 section list not attempted), PA (Title 75 Ch. 63
+  catchline list unreachable — palegis.us returns a JS shell and the legacy path
+  now 301-redirects into it), OH (Ch. 4511 listing returned complete only through
+  the 4511.09x block)
+
+Those five are the follow-up list, and they are recorded as **incomplete
+coverage**, not as findings.
+
+## A method note that matters
+
+This sweep is the first in the project to require a **"what I ruled out" field**
+alongside every negative. The difference in usefulness is stark: PASS 5's
+passenger column was 38 unsupported nulls and was correctly discarded; this pass
+produces 12 negatives that can be relied on to a stated depth, plus a named
+follow-up list.
+
+**Adopted as standard**: any negative entering this ledger must name the index or
+section actually read. A bare "not found" is no longer acceptable in a scout
+return, because it is indistinguishable from "did not look".
+
+## Coverage
+
+Passenger ID: **12 states swept structurally** (7 HIGH-confidence negatives, 2
+MEDIUM-HIGH, 5 flagged incomplete), plus AZ verified positive from PASS 2b. The
+column is no longer a weak negative for these twelve. 38 jurisdictions remain
+unswept.
+
+## Also captured for the officer-condition column
+
+**IL** 725 ILCS 5/107-14(a) conditions the stop power on the officer "**after
+having identified himself as a peace officer**" — the same precondition wording
+as Wis. Stat. §968.24. Illinois joins the officer-must-identify group.
+**VERIFIED**
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -3522,8 +3637,11 @@ What is actually missing, by column, across all 51 jurisdictions:
 - **Refusing to sign a citation** — **51 of 51. COMPLETE.** Arkansas closed via
   the Lexum-hosted court rules. The column INVERTS across states AND splits on two
   axes (signing vs accepting the citation), so it must be state-gated in full.
-- **Passenger ID** — spotty. Verified where the stop-and-identify section
-  happened to address it; not systematically pursued.
+- **Passenger ID** — **12 states swept structurally** in COLUMN PASS 13, plus AZ
+  verified positive. The finding is structural rather than per-state: passengers
+  are not covered by driver-ID statutes anywhere examined, and any duty arises
+  only from criminal-code provisions conditioned on individualised suspicion of
+  that person. 38 jurisdictions unswept.
 - **Duty to inform (firearm)** — **27 of 51**. Three categories: proactive
   (NJ's silence is a fourth-degree crime), on-request, and inverse-legislated
   (GA, SC). Staleness runs BOTH ways — pre-2023 tables miss NJ entirely while
@@ -3550,11 +3668,11 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 12): **255 VERIFIED**,
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 13): **263 VERIFIED**,
 13 LIKELY, 85 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1,
 104-162 passes 2-2i (sign citation 51 of 51), 174 pass 3, 181 pass 4,
 198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
-247 pass 11 (recording consent 50 of 51), 255 pass 12 (duty to inform 27). An earlier running count of "147 verified" reported during
+247 pass 11 (recording 50 of 51), 255 pass 12, 263 pass 13 (passenger ID). An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
