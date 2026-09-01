@@ -1782,11 +1782,103 @@ Arena does not model at all. Indiana's rule is a flat bar on issuing the citatio
 not merely a defence. It is also expressly subject to exceptions that were **not
 retrieved**, so nothing here is close to user-ready.
 
+## COLUMN PASS 2g (2026-09-01): five more, via index-page-first
+
+Applying METHOD UNLOCK #3 to this column worked exactly as it did for the breadth
+sweep. Every one of these was blocked on *locating* the section, not reaching it:
+Iowa's is §805.1 "Issuance of citation — release"; Connecticut's is §54-1h in
+chapter 959; Delaware's sits inside the voluntary-assessment subsection of §703.
+
+**Connecticut — discretionary release on a written promise.**
+Conn. Gen. Stat. §54-1h: "Any person who has been arrested with or without a
+warrant for commission of a misdemeanor… may, **in the discretion of the arresting
+officer**, be issued a written complaint and summons and be **released on his
+written promise to appear** on a date and time specified." **VERIFIED**. No
+consequence for refusal is stated; the implication is simply no release, but that
+is inference and is **UNVERIFIED**.
+
+**Delaware — the acceptance axis, and a trap worth naming.**
+21 Del. C. §703(f)(4): "If a voluntary assessment is not issued or **the driver
+declines to accept the voluntary assessment**, the officer shall **follow the
+procedure for arrest** as set forth in Chapter 19 of Title 11." **VERIFIED**
+
+And the part that matters more, §703(f)(3): "**In lieu of paying** the voluntary
+assessment, a driver who has been given a voluntary assessment **may request a
+hearing by notifying, in writing, the court** or the voluntary assessment center…
+**within 30 days** of the date of arrest. If the driver makes a timely request for
+a hearing, the charge shall be prosecuted as if the voluntary assessment had not
+been permitted…" **VERIFIED**
+
+Delaware separates the two things drivers most often conflate. **Declining the
+paper at the roadside routes you to arrest procedure. Contesting the charge is a
+written request within 30 days.** Refusing at the roadside does not preserve any
+right — it forfeits the easy route and gains nothing. This is the single clearest
+statutory illustration of why the "signing is admitting guilt" misconception is
+dangerous, and it belongs in user-facing copy for Delaware if anything ever ships.
+
+**New Jersey — service, no signature.**
+N.J.S.A. §39:5-25: "**Any law enforcement officer may, instead of arresting an
+offender** as herein provided, **serve upon him a summons**." **VERIFIED**. The
+section otherwise concerns detention pending complaint and warrant for R.S.
+39:4-50 (DUI) and other violations.
+
+**Mississippi — the signature line belongs to the judge.**
+Miss. Code §63-9-21(3)(b): the ticket "shall contain a place for **the trial judge
+hearing the case or accepting the guilty plea**… **to sign**, stating that the
+person arrested either employed an attorney or waived his right to an attorney
+after having been properly advised…" **VERIFIED**. No driver-signature
+requirement appears in §63-9-21; whether one exists elsewhere in the Mississippi
+code was not checked, so "Mississippi requires no signature" is **UNVERIFIED**.
+
+**Alaska — the ID pairing a fifth time, but the text retrieved is from 1993.**
+AS §12.25.180(a), **as printed in the 1993 Alaska Statutes**: "When a person is
+stopped or contacted by a peace officer for the commission of a misdemeanor or
+the violation of a municipal ordinance, the person may, **in the discretion of the
+contacting peace officer**, be issued a citation instead of being taken before a
+judge or magistrate under AS 12.25.150, **unless (1) the person does not furnish
+satisfactory evidence of identity**; (2) the contacting office[r]…"
+
+**NOT VERIFIED AS CURRENT.** The source explicitly flagged newer versions (2023,
+2024, 2025) and the current text was not retrieved. Recorded as **LIKELY** on
+substance and **UNVERIFIED** as to currency. A 33-year-old snapshot is not a
+citable cell, and this one is logged specifically so it is not mistaken for one
+later.
+
+## The ID/citation pairing, fifth instance
+
+**CA** §40302(a),(b) · **OH** §2935.26(A)(2),(3) · **NE** §29-427 · **ID**
+§49-1407(1) · **AK** §12.25.180(a)(1) *(1993 text)*. In all five, failing to
+furnish satisfactory identification sits in the same exception list as the
+refusal that costs release, carrying the same consequence.
+
+Four of the five are verified on current text. That is enough to treat the
+pairing as established and to act on it in the Arena's scripting, while Alaska
+stays out of any count until its current text is pulled.
+
 ## Coverage after this pass
 
-Sign-citation: **37 of 51 verified** — CA, TX, FL, OH, GA, NC, VA, WA, NV, CO,
+Sign-citation: **42 of 51 verified** — CA, TX, FL, OH, GA, NC, VA, WA, NV, CO,
 NE, ID, AL, LA, MA, RI, OR, MO, NM, KY, MN, MD, WV, KS, WI, IL, MT, MI, HI, WY,
-ND, SD, NY, UT, NH, AZ, IN — plus PA, TN, NJ and SC partial. Previously 31 of 51.
+ND, SD, NY, UT, NH, AZ, IN, CT, DE, NJ, MS, SC — plus PA and TN partial, and AK
+recorded but not current. Previously 37 of 51.
+
+**Still outstanding (8):** AR, DC, IA, ME, OK, VT, TN(consequence),
+PA(signature), plus AK(currency).
+
+Source status on those eight, so the next pass does not repeat this one:
+- **IA** — section identified as §805.1 "Issuance of citation — release" from the
+  chapter index. Both PDF paths tried returned the chapter listing, not the
+  section. The section text itself has never been reached.
+- **OK** — 404s on every route tried: Justia (two slug forms), FindLaw (two
+  forms), and OSCN by CiteID. Oklahoma is the only state in this project that has
+  resisted every method.
+- **DC, VT, IA** — SPA shells on section URLs; the rendered browser works and was
+  used successfully for DC earlier in this project.
+- **ME, AR** — fetched cleanly, correct section not yet identified.
+- **SC** — §56-7-10 and §56-7-15 both retrieved; §56-7-15(A) establishes that the
+  uniform traffic ticket "may be used by law enforcement officers **to arrest** a
+  person for an offense that has been freshly committed", which is recorded, but
+  no signature or refusal clause appears in either section.
 
 **Still outstanding (13):** AK, AR, CT, DE, IA, ME, MS, NJ, OK, SC, TN
 (consequence), VT, DC.
@@ -1880,11 +1972,10 @@ What is actually missing, by column, across all 51 jurisdictions:
   all-party states in COLUMN PASS 1 above). 37 outstanding, all one-party
   jurisdictions where the statutory risk is low by construction — an inference,
   not a verified cell. The high-risk subset of this column is now DONE.
-- **Refusing to sign a citation** — researched for **37** across COLUMN PASSES
-  2 through 2f, plus PA/TN/NJ/SC partial. 13 outstanding, all blocked on locating
-  the right section rather than on access. The column INVERTS across states AND
-  splits on two axes (signing vs accepting the citation), so no unresearched
-  state may be inferred from a researched one.
+- **Refusing to sign a citation** — researched for **42** across COLUMN PASSES
+  2 through 2g, plus PA/TN partial and AK non-current. 8 outstanding. The column
+  INVERTS across states AND splits on two axes (signing vs accepting the
+  citation), so no unresearched state may be inferred from a researched one.
 - **Passenger ID** — spotty. Verified where the stop-and-identify section
   happened to address it; not systematically pursued.
 - **Duty to inform (firearm)** — researched for the original ten and a handful
@@ -1913,10 +2004,10 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 2f): **145 VERIFIED**,
-11 LIKELY, 61 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 2g): **150 VERIFIED**,
+12 LIKELY, 64 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1
 (recording consent), 104 pass 2, 112 pass 2b, 124 pass 2c (harness), 133 pass 2d,
-137 pass 2e (PDF states), 145 pass 2f. An earlier running count of "147 verified" reported during
+137 pass 2e (PDF states), 145 pass 2f, 150 pass 2g (index-first). An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
