@@ -5790,6 +5790,129 @@ Impersonation: 51/51 located, **gating assessed for all 51**.
 
 ---
 
+# COLUMN PASS 32: PASSENGER ID COMPLETE — AND UTAH WAS IN THE WRONG CATEGORY (2026-09-01)
+
+## CORRECTION: UTAH IS CATEGORY A, NOT B — the Nebraska error, inverted
+
+This ledger has carried Utah in **Category B** (demand authorised, no penalty for
+silence) on the strength of **§77-7-15**, the stop-authority provision.
+
+While verifying an unrelated passenger cell, the main process found the offence
+section:
+
+**UT** §76-8-301.5 ("Failure to disclose identity"): "(2) An actor commits failure
+to disclose identity if, during the period of time that the actor is **lawfully
+subjected to a stop as described in Section 77-7-15**: (a) a peace officer demands
+that the actor disclose the actor's **name or date of birth**; (b) the demand… is
+**reasonably related to the circumstances justifying the stop**; (c) the disclosure
+… **does not present a reasonable danger of self-incrimination** in the commission
+of a crime; and (d) the actor fails to disclose… **(3) A violation of Subsection
+(2) is a class B misdemeanor.**" **VERIFIED**.
+
+**Utah moves B → A.** Category A now holds **three** states: OH, AZ, UT.
+
+### This is the Nebraska error running the other way
+
+PASS 24 corrected Nebraska **A → B** after finding §29-829 attaches no consequence
+to silence. Utah is the same mistake inverted: **the state was classified from the
+stop-authority section without checking whether a separate section criminalises
+refusal.**
+
+Both errors share one cause. **The demand and the penalty are frequently in
+different titles** — Utah's demand is in Title 77 (criminal procedure) and its
+offence is in Title 76 (criminal code). Reading either alone yields a confident
+wrong category.
+
+**Rule adopted:** a stop-and-identify cell may not be categorised from the
+stop-authority section alone. Both the **demand** provision and any **offence**
+provision must be located, or the cell records which one was not found.
+
+Every Category B entry in this ledger now carries the same risk Nebraska and Utah
+did, and the list — WI, RI, FL, IL, DE, AL, CO, KS, NY, MT, NE — should be re-run
+against its state's criminal code before any of it is relied on. Recorded as a
+re-check list.
+
+### Utah's conditions are worth the product's attention
+
+Even as a Category A state, §76-8-301.5 is narrower than the label suggests:
+- the compellable answer is **name or date of birth** — not address;
+- the demand must be **reasonably related to the circumstances justifying the
+  stop**; and
+- **(2)(c) writes the self-incrimination limit into the statute itself** — no
+  offence is committed where disclosure "presents a reasonable danger of
+  self-incrimination in the commission of a crime".
+
+That third condition is unique in this column. Utah legislated the Fifth Amendment
+limit rather than leaving it to be argued, which is the kind of thing a
+category label erases entirely.
+
+Together with **OH** §2921.29(C) — which caps the answer at name/address/DOB and
+bars arrest for anything beyond — **two of the three Category A states carry
+express internal limits on what may be compelled.** The category is real but
+narrower than its name.
+
+## PASSENGER ID: 51 of 51. COLUMN COMPLETE.
+
+**Seventh completed column.** Ten states swept in this final pass; **no new
+passenger-reaching identification duty** located. The exception set is unchanged
+and final:
+
+- **AZ** §28-1595(C) · **WA** RCW §46.61.021(3) — traffic-code duties reaching a
+  non-driver, both hooked to that person's own infraction.
+- **IN** §34-28-5-3.5 — same shape, civil-procedure code.
+- **HI** §134-9.2(b) — the sole outlier: firearm disclosure triggered by the
+  **vehicle's** stop, with no suspicion about the passenger.
+
+**The finding, now established across all 51 jurisdictions:** a passenger is not
+covered by the driver-ID statute anywhere; any duty they carry arises only where
+the officer has individualised suspicion **about them** — with Hawaii the single
+exception.
+
+### Two occupant-reaching near-misses, correctly excluded
+
+- **SC** §56-5-1280: "Whenever the driver of a vehicle is physically incapable of
+  making an immediate or a written report of an accident… and there was **another
+  occupant in the vehicle** at the time of the accident capable of making a report,
+  **such occupant shall make** or cause to be made such report…" **VERIFIED**. A
+  genuine occupant duty — but **accident reporting triggered by the driver's
+  incapacity**, not identification at a stop.
+- **WV** §17C-19-2 reaches a non-driving **owner riding in the vehicle**, but
+  reallocates liability for the driver's traffic offence. Not an identification
+  duty and not passengers generally.
+
+Both are the kind of "occupant" hit that a keyword sweep would promote to a
+passenger duty. Both were fetched and rejected on the text.
+
+### Vermont confirms the term of art a third time
+
+**VT** 23 V.S.A. §1012(a) reads on "a person while operating **or in charge of** a
+motor vehicle"; (b) on "the operator". **VERIFIED**. The scout applied the PASS 29
+rule and did **not** code Vermont as passenger-reaching. Third state where that
+formula has now been correctly read.
+
+## THE BROWSER-PANE HAZARD ACTUALLY FIRED
+
+PASS 26 logged the risk. PASS 28 got independent corroboration. This pass, it
+**materialised**: the scout reported "a `javascript_tool` call executed against a
+**stale South Carolina page after a Kentucky navigate**."
+
+It caught the drift and re-ran. But this is no longer theoretical — an extraction
+**did** execute against the wrong state's page. The mitigation adopted in PASS 28
+(re-navigate immediately before every extraction) is now **mandatory rather than
+advisable**, and any concurrent-scout result that does not describe re-navigation
+should be treated as carrying a small but real risk of cross-state attribution.
+
+No incorrect cell is known to have entered the ledger from it. That is the scout's
+diligence, not the process's design, and the difference matters.
+
+## Coverage
+
+**SEVEN COLUMNS COMPLETE at 51/51**: driver ID, sign citation, recording consent,
+duty to inform, stop-and-identify, officer condition, **passenger ID**.
+Impersonation 51/51 located with gating assessed for all 51.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -5809,11 +5932,10 @@ What is actually missing, by column, across all 51 jurisdictions:
 - **Refusing to sign a citation** — **51 of 51. COMPLETE.** Arkansas closed via
   the Lexum-hosted court rules. The column INVERTS across states AND splits on two
   axes (signing vs accepting the citation), so it must be state-gated in full.
-- **Passenger ID** — **12 states swept structurally** in COLUMN PASS 13, plus AZ
-  verified positive. The finding is structural rather than per-state: passengers
-  are not covered by driver-ID statutes anywhere examined, and any duty arises
-  only from criminal-code provisions conditioned on individualised suspicion of
-  that person. 38 jurisdictions unswept.
+- **Passenger ID** — **51 of 51. COLUMN COMPLETE.** No passenger is covered by a
+  driver-ID statute anywhere; any duty arises only on individualised suspicion
+  about that person. Exceptions: AZ, WA, IN (traffic/procedure duties hooked to
+  the passenger's own infraction) and HI (triggered by the vehicle's stop alone).
 - **Duty to inform (firearm)** — **34 of 51**. FOUR structural variants:
   proactive (NJ's silence is a fourth-degree crime; HI reaches PASSENGERS),
   on-request, accuracy-only (AZ criminalises a false answer, not silence), and
@@ -5840,18 +5962,17 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 31):
-**346 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 102 UNVERIFIED.
-SIX COLUMNS COMPLETE at 51/51: driver ID, sign citation, recording consent,
-duty to inform, stop-and-identify, officer condition.
-Impersonation 51/51 located with gating assessed for all 51.
-Passenger ID 40/51 swept.
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 32):
+**349 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 102 UNVERIFIED.
+SEVEN COLUMNS COMPLETE at 51/51: driver ID, sign citation, recording consent,
+duty to inform, stop-and-identify, officer condition, passenger ID.
+Impersonation 51/51 located, gating assessed for all 51.
 Progression: 81 breadth sweep, 97 pass 1, 104-162 passes 2-2i, 174 pass 3,
 181 pass 4, 198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
 247 pass 11, 255 pass 12, 263 pass 13, 270 pass 14, 273 pass 16, 276 pass 17,
 282 pass 18, 288 pass 19, 298 pass 20, 313 pass 21, 316 pass 23, 323 pass 24,
 325 pass 25, 327 pass 26, 330 pass 27, 334 pass 28, 339 pass 29, 340 pass 30,
-346 pass 31. An earlier running count of "147 verified" reported during
+346 pass 31, 349 pass 32. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
