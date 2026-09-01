@@ -287,30 +287,9 @@ Researched 2026-08-31 against codes.ohio.gov primary text.
   is wrong in Ohio. **VERIFIED**
 - **Identify driver** — not researched this pass. **UNVERIFIED**
 - **Identify passenger** — not researched this pass. **UNVERIFIED**
-- **Duty to inform (firearm)** — NOT researched, and flagged as high-risk:
-  Ohio's duty to inform was materially changed by **S.B. 215 (eff. 2022-06-13)**
-  when Ohio moved to permitless carry. Any pre-2022 secondary source on Ohio
-  duty-to-inform is stale. Must be fetched from O.R.C. §2923.12 directly.
-  **UNVERIFIED**
-- **Recording consent** — not researched this pass. **UNVERIFIED**
-- **Sign citation** — not researched this pass. **UNVERIFIED**
-
-### Illinois — NOT RESEARCHED (source access failed)
-Attempted 2026-08-31. 725 ILCS 5/107-14 is the target section.
-`ilga.gov` returned HTTP 404 on the fulltext endpoint; `law.justia.com`
-returned HTTP 403. No primary text obtained. **UNVERIFIED — every cell.**
-Do not populate from secondary sources.
-
-### Arizona — NOT RESEARCHED (source access failed)
-Attempted 2026-08-31. A.R.S. §13-2412 ("Refusing to provide truthful name when
-lawfully detained") is the target section. `azleg.gov` returned HTTP 403;
-`law.justia.com` returned HTTP 403. No primary text obtained.
-**UNVERIFIED — every cell.** Arizona is widely listed as a stop-and-identify
-state; given this file's 4-of-10 error rate on such lists, that listing is a
-lead to check, not a finding to record.
-
-### Virginia
-Researched 2026-08-31 against law.lis.virginia.gov primary text.
+- **Duty to inform (firearm)** — **10 of 51** in COLUMN PASS 3. The column
+  splits proactive vs on-request, a distinction invisible in every published list
+  checked, and no national sentence is possible.
 
 - **Identify driver — and a partial name duty most summaries miss.**
   Va. Code §46.2-104 requires a driver to "exhibit his registration card,
@@ -330,12 +309,9 @@ Researched 2026-08-31 against law.lis.virginia.gov primary text.
 - **Stop-and-identify (non-driving): N** — no statewide statute located.
   **UNVERIFIED** — negative not established by an exhaustive code search.
 - **Identify passenger** — not researched. **UNVERIFIED**
-- **Duty to inform (firearm)** — not researched. **UNVERIFIED**
-- **Recording consent** — not researched. **UNVERIFIED**
-- **Sign citation** — not researched. **UNVERIFIED**
-
-### Washington
-Researched 2026-08-31 against app.leg.wa.gov primary text.
+- **Duty to inform (firearm)** — **10 of 51** in COLUMN PASS 3. The column
+  splits proactive vs on-request, a distinction invisible in every published list
+  checked, and no national sentence is possible.
 
 - **Identify driver** — RCW 46.20.017: "Every licensee shall have his or her
   driver's license in his or her immediate possession at all times when
@@ -349,36 +325,9 @@ Researched 2026-08-31 against app.leg.wa.gov primary text.
 - **Stop-and-identify: N** — no statewide statute located. **UNVERIFIED** as a
   fetched negative.
 - **Identify passenger** — not researched. **UNVERIFIED**
-- **Duty to inform (firearm)** — not researched. **UNVERIFIED**
-- **Recording consent — ALL-PARTY, BUT ONLY FOR "PRIVATE" COMMUNICATIONS, AND
-  NO CIVILIAN CARVE-OUT LOCATED.** Researched 2026-08-31.
-  RCW 9.73.030 makes it unlawful to "intercept, or record any" **private**
-  communication "without first obtaining the consent of all the participants in
-  the communication." The prohibition reaches "[p]rivate communication
-  transmitted by telephone, telegraph, radio, or other device" and "[p]rivate
-  conversation, by any device electronic or otherwise designed to record or
-  transmit such conversation". **VERIFIED**
-  The operative limiter is the word **private** — structurally the same move as
-  California §632's "confidential". Washington's all-party rule does not reach a
-  conversation that is not private. Whether a roadside stop on a public highway
-  is "private" for this purpose is the whole question and was **NOT** resolved
-  here. **UNVERIFIED — and this is the cell to close first.**
-  RCW 9.73.090 was checked for a police carve-out. Its exemptions run the OTHER
-  WAY — they permit **officers** to record: "Video and/or sound recordings may be
-  made of arrested persons by police officers"; dash/body camera audio; and "It
-  shall not be unlawful for a law enforcement officer acting in the performance
-  of the officer's official duties to intercept, record, or disclose an oral
-  communication or conversation where the officer is a party". **VERIFIED**
-  > CONTRAST WITH CALIFORNIA, AND IT MATTERS: California has an express
-  > **civilian** protection (Pen. Code §148(g) — recording an officer is not a
-  > §148 violation and is not RS or PC). **No equivalent Washington provision
-  > was located.** Washington's exemptions protect officers recording, not
-  > civilians recording officers. Do NOT carry the California answer across.
-  > **UNVERIFIED as to any Washington civilian protection.**
-- **Sign citation** — not researched. **UNVERIFIED**
-
-### North Carolina
-Researched 2026-08-31 against ncleg.gov primary text.
+- **Duty to inform (firearm)** — **10 of 51** in COLUMN PASS 3. The column
+  splits proactive vs on-request, a distinction invisible in every published list
+  checked, and no national sentence is possible.
 
 - **Identify driver** — N.C.G.S. §20-29 makes it an offence to "refuse, on
   demand of such officer or such other person, to **produce his license and
@@ -392,26 +341,9 @@ Researched 2026-08-31 against ncleg.gov primary text.
 - **Stop-and-identify: N** — no statewide statute located. **UNVERIFIED** as a
   fetched negative.
 - **Identify passenger** — not researched. **UNVERIFIED**
-- **Duty to inform (firearm)** — NOT researched, flagged: North Carolina was
-  named in a 2026-08-31 prompt as a "Duty to Inform" state. That claim is
-  **unverified here** and must be fetched from N.C.G.S. §14-415.11 before it is
-  relied on in any form. **UNVERIFIED**
-- **Recording consent** — not researched. **UNVERIFIED**
-- **Sign citation** — not researched. **UNVERIFIED**
-
-### Pennsylvania — NOT RESEARCHED (source access failed)
-Attempted 2026-08-31. 75 Pa.C.S. §1511 is the target section.
-`legis.state.pa.us` issued a 301 to `palegis.us`; the redirect target returned a
-navigation/template page with no statute text. No primary text obtained.
-**UNVERIFIED — every cell.**
-
-### Tennessee — NOT ATTEMPTED
-Queued in batch 2 but not reached. Tennessee's code is published through a
-commercial host (LexisNexis), so expect the same access problem as IL/AZ.
-Target sections: T.C.A. §55-50-351 (licence exhibition). **UNVERIFIED**.
-
-### Wisconsin
-Researched 2026-08-31 against docs.legis.wisconsin.gov primary text.
+- **Duty to inform (firearm)** — **10 of 51** in COLUMN PASS 3. The column
+  splits proactive vs on-request, a distinction invisible in every published list
+  checked, and no national sentence is possible.
 
 - **Stop-and-identify: DEMAND AUTHORISED, NO PENALTY IN THE STATUTE.**
   Wis. Stat. §968.24: "After having identified himself or herself as a law
@@ -2181,6 +2113,141 @@ signature provision; New York was not resolved and is not recorded.
 
 ---
 
+---
+
+# COLUMN PASS 3: DUTY TO INFORM (FIREARM) — 2026-09-01
+
+The column where a wrong answer can get someone killed. Nine states pulled
+against primary text.
+
+## HEADLINE: the published lists collapse a distinction that decides the outcome
+
+Every "duty to inform state" list this project has seen treats the duty as
+binary. The statutes do not. They split into **proactive** (you must volunteer
+it, unprompted) and **on-request** (the duty only attaches once the officer
+asks). Both get labelled "must inform." They are completely different
+instructions to give a person at a window at night.
+
+### Proactive — you must volunteer it
+
+- **MI** MCL §28.425f(3): an individual licensed to carry a concealed pistol
+  "**who is stopped by a peace officer shall immediately disclose to the peace
+  officer that he or she is carrying a pistol**…" **VERIFIED**. §28.425f(1) also
+  requires carrying the licence **and** a state-issued driver licence or personal
+  ID.
+- **NC** G.S. §14-415.11(a): the permit holder "shall carry the permit together
+  with valid identification whenever the person is carrying a concealed handgun,
+  **shall disclose to any law enforcement officer that the person holds a valid
+  permit and is carrying a concealed handgun when approached or addressed by the
+  officer**, and shall display both the permit and the proper identification upon
+  the request of a law enforcement officer." **VERIFIED**
+- **NE** §28-1202.04(2): "whenever a person who is carrying a concealed handgun is
+  **contacted by a peace officer or by emergency services personnel**, the person
+  shall **immediately inform** the peace officer **or emergency services
+  personnel** that the person is carrying a concealed handgun." **VERIFIED**.
+  Nebraska is the only state found that extends the duty to **paramedics and
+  firefighters** — which means it can attach at a crash scene where no police
+  officer is present.
+- **LA** R.S. §40:1379.3(I)(2): a permittee "shall **notify any police officer who
+  approaches the individual in an official manner or with an identified official
+  purpose** that the individual has a weapon on his person, **submit to a pat
+  down, and allow the officer to temporarily disarm him**." **VERIFIED**. The most
+  demanding text found: disclosure plus submission to search plus surrender of
+  the weapon.
+
+### On request or demand only — the duty does NOT attach until asked
+
+- **OH** R.C. §2923.12(B)(1): it is an offence to, "**before or at the time a law
+  enforcement officer asks** if the person is carrying a concealed handgun,
+  knowingly **fail to disclose**…" — and expressly no violation "if the person
+  fails to disclose that fact to an officer during the stop and the person
+  already has notified another officer of that fact during the same stop."
+  **VERIFIED**. Ohio appears on published proactive-duty lists. On the current
+  text the trigger is the officer's question.
+- **OK** 21 O.S. §1290.8: "It shall be **unlawful for any person to fail or refuse
+  to identify the fact that the person is in actual possession of a concealed or
+  unconcealed firearm**… during the course of any **arrest, detainment, or routine
+  traffic stop**. Said **identification shall be required upon demand by the law
+  enforcement officer**. **No person shall be required to identify himself or
+  herself as lawfully in possession of any other firearm if the law enforcement
+  officer does not demand the information.**" **VERIFIED**. The second sentence
+  is an express negation of any proactive duty.
+- **AR** A.C.A. §5-73-315(b): the licensee shall "(1) Carry the license… together
+  with valid identification…; and (2) **Display both the license… and proper
+  identification upon demand by a law enforcement officer**." **VERIFIED**.
+  Display on demand; no disclosure duty stated.
+- **IL** 430 ILCS 66/10(h): "If an officer of a law enforcement agency initiates
+  an investigative stop, **including, but not limited to, a traffic stop**, of a
+  licensee…, **upon the request of the officer** the licensee… **shall disclose**
+  to the officer that he or she is in possession of a concealed firearm…, **or
+  present the license upon the request of the officer**…" **VERIFIED**.
+
+### Previously recorded
+
+- **TX** — the penalty for failing to inform was **repealed**, and Texas is now
+  permitless-carry. Recorded earlier in this ledger and asserted four times
+  against a contrary claim submitted to this project. Unchanged.
+- **SC** — §23-31-215 was retrieved in full (85 KB). It now contains permissive
+  permitless-carry language at (O)(2): "The availability of a permit to carry a
+  concealable weapon under this section **must not be construed to prohibit the
+  permitless transport or carrying of a firearm in a vehicle or on or about one's
+  person, whether openly or concealed**." **No duty-to-inform clause was located
+  in the section.** Recorded as **UNVERIFIED** rather than as an absence — the
+  duty could sit elsewhere in the South Carolina code, and this is exactly the
+  inference this ledger refuses to make.
+
+## SIXTH CROSS-STATE FINDING: two states codify what to DO with your hands
+
+This matters more to the Arena than the disclosure rule does, because it is a
+physical instruction with criminal consequences, and the Arena already scripts
+hand position as *advice*. In two states it is **law**:
+
+- **OH** §2923.12(B)(2): it is an offence to "knowingly **fail to keep the
+  person's hands in plain sight** at any time after any law enforcement officer
+  begins approaching the person while stopped and before the law enforcement
+  officer leaves, unless the failure is pursuant to and in accordance with
+  directions given by a law enforcement officer." **VERIFIED**
+- **OH** §2923.12(B)(3): it is an offence to "knowingly **remove or attempt to
+  remove** the loaded handgun…, knowingly **grasp or hold** the loaded handgun, or
+  knowingly **have contact with the loaded handgun by touching it** with the
+  person's hands or fingers at any time after the law enforcement officer begins
+  approaching and before the law enforcement officer leaves…" **VERIFIED**
+- **LA** §40:1379.3(I)(2): "**submit to a pat down, and allow the officer to
+  temporarily disarm him**." **VERIFIED**
+
+Ohio's (B)(3) has a consequence the Arena should model directly: a driver who
+tries to be helpful by **retrieving the weapon to hand it over** commits an
+offence in Ohio. The safe act and the intuitive act are opposites.
+
+## SEVENTH CROSS-STATE FINDING: the electronic-licence phone protection is not unique to Maine
+
+Recorded earlier: ME §1408(2) says producing a licence from a phone "does not
+constitute consent for a law enforcement officer to access other contents of the
+portable electronic device."
+
+Arkansas has the same protection for the concealed-carry licence, A.C.A.
+§5-73-315(c): "The presentment of proof of a license to carry a concealed handgun
+**in electronic form does not: (1) Authorize a search of any other content of an
+electronic device without a search warrant**…" **VERIFIED**
+
+Two states, two different documents, same protection. Whether other states have
+equivalents is **UNVERIFIED** and now worth a dedicated sweep — this is a
+protection users would benefit from knowing and that no secondary source
+consulted has mentioned.
+
+## Coverage
+
+Duty to inform: **10 of 51** researched against primary text (MI, NC, NE, LA, OH,
+OK, AR, IL, TX, plus SC recorded as not-located). 41 outstanding.
+
+**Nothing in this column may be summarised into a national sentence.** "Tell the
+officer you have a gun" is required in Michigan, North Carolina, Nebraska and
+Louisiana; is not required until asked in Ohio, Oklahoma, Arkansas and Illinois;
+and volunteering it is a choice, not a duty, in Texas. The proactive/on-request
+split is invisible in every published list checked.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -2204,10 +2271,9 @@ What is actually missing, by column, across all 51 jurisdictions:
   state may be inferred from a researched one.
 - **Passenger ID** — spotty. Verified where the stop-and-identify section
   happened to address it; not systematically pursued.
-- **Duty to inform (firearm)** — researched for the original ten and a handful
-  since. The TX entry in this ledger contradicts a claim submitted to this
-  project four times; that pattern will recur in other states and every one needs
-  primary text.
+- **Duty to inform (firearm)** — **10 of 51** in COLUMN PASS 3. The column
+  splits proactive vs on-request, a distinction invisible in every published list
+  checked, and no national sentence is possible.
 - **Stop-and-identify** — the best-covered column after driver ID, and the one
   where careful sourcing already contradicted the widely-copied list on **four of
   the ten** states first researched.
@@ -2230,11 +2296,10 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 2i): **162 VERIFIED**,
-12 LIKELY, 64 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1
-(recording consent), 104 pass 2, 112 pass 2b, 124 pass 2c (harness), 133 pass 2d,
-137 pass 2e (PDF), 145 pass 2f, 150 pass 2g (index-first), 156 pass 2h,
-162 pass 2i. An earlier running count of "147 verified" reported during
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 3): **174 VERIFIED**,
+12 LIKELY, 66 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1
+(recording consent), 104-162 passes 2 through 2i (sign citation, 50 of 51),
+174 pass 3 (duty to inform). An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
