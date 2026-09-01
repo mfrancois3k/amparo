@@ -6312,6 +6312,124 @@ at index level only. **Not recorded as complete.**
 
 ---
 
+# COLUMN PASS 35: CHECKPOINTS COMPLETE — AND A METHOD CORRECTION (2026-09-01)
+
+The twelfth and last scout of the wave. **Checkpoint authority: 51 of 51.**
+
+## Two genuine sobriety-checkpoint schemes, and a county-level one
+
+- **HI** §291E-19 authorises **county intoxicant-control roadblock programs**;
+  **§291E-20** sets minimum standards — selection formula, fixed location and time
+  cap, illumination, advance warning, uniformed officers. **VERIFIED**. Hawaii and
+  New Hampshire are the only two states in the project with a statute whose subject
+  *is* the sobriety checkpoint.
+- **CA** Veh. Code §2814.1, verified by the main process on the **official host**:
+  "(a) **A board of supervisors of a county may, by ordinance, establish**, on
+  highways under its jurisdiction, **a vehicle inspection checkpoint program**…
+  (b) A driver of a motor vehicle **shall stop and submit to an inspection**
+  conducted under subdivision (a) **when signs and displays are posted** requiring
+  that stop." Funded from fine proceeds under (c). **VERIFIED**. The section also
+  contains motorcycle language — the motorcycle-only ban the scout reported.
+  **§2814.2** compels the stop and caps impoundment at the checkpoint.
+
+**California is now the third sub-state variation in the project**, and its second
+of its own: §2814.1 puts checkpoint authority in the hands of a **county board of
+supervisors**, and §26200(b) lets the issuing authority attach carry conditions.
+With Louisiana's Orleans Parish rule, that is three jurisdictions where a
+state-level data model is structurally unable to hold the answer.
+
+## Four states ban motorcycle-only checkpoints
+
+**CA** §2814.1 · **MO** §304.152 · **LA** §32:295.4 · **VA** §46.2-103.
+
+Four independent legislatures reached the same rule. That is a settled national
+pattern, not a coincidence, and it is the clearest cross-state agreement found in
+any column.
+
+## Purpose-limited schemes that are NOT sobriety
+
+- **IA** ch. 321K ("Vehicle Roadblocks") — authorises emergency **and routine**
+  roadblocks, but only for licensing, registration, safety equipment and
+  chs. 481A-483A, with administrative-level siting, signage, marked cars and
+  non-arbitrary selection. **VERIFIED**.
+- **KS** §8-1759 ("Spot inspections by highway patrol") — signed stop-and-submit
+  inspection points, limited by a no-unnecessary-delay clause. **Equipment
+  purpose.** Sits inside the general equipment article with no checkpoint
+  catchline — the PA §6308(b) drafting pattern again. **VERIFIED**.
+- **ID** §19-621 with §19-620 (definition) and §19-622 (minimum requirements) —
+  **fugitive apprehension only**, confirming an earlier scout's read.
+
+## Narrow restrictions
+
+- **KY** §189.126 — roadblocks **for the sole purpose of seat-belt checking** are
+  prohibited. **VERIFIED** as to catchline; Justia serves the text PDF-only, so the
+  classification rests on the catchline and is graded accordingly.
+- **IL** 625 ILCS 5/13C-15 — bars roadblocks and roadside pullovers in **emissions
+  on-road testing**. Narrow to that programme.
+
+## The strongest negative in the project
+
+**AZ** — the scout read the **entire Title 28 section-title index, 2,042 lines**:
+**zero** occurrences of "roadblock", **zero** of "checkpoint". It then full-texted
+the only two candidates (§28-1594, §28-982) and confirmed both are individualised
+reasonable-cause provisions. **VERIFIED negative.**
+
+**IL** is close behind: a DOM keyword scan of **566,000 characters** of ch. 11
+(Rules of the Road) returned zero "roadblock", zero "systematic", zero "roadside
+safety check". The single "checkpoint" hit is in §11-501.01 — a **DUI-fund spending
+clause** (hire-back for safety checkpoints) that neither authorises nor restricts.
+
+Those two are the model: an exhaustive index or full-text scan with the search
+terms and the hit count stated.
+
+# METHOD CORRECTION: two scouts gave OPPOSITE advice on the browser hazard
+
+PASS 33 adopted one scout's mitigation: a **dedicated tab** with navigate and
+extract **batched atomically**.
+
+This scout reports the opposite conclusion from the same failure: "the shared
+browser tab drifted twice mid-batch (returned a **Montana and an Arkansas page
+under a California URL**). Every result above was re-navigated and extracted in
+**separate calls with the page title checked**; **batching nav+extract is unsafe
+here**."
+
+Both scouts observed real drift. Their prescriptions conflict — and the conflict is
+informative, because **batching did not prevent the drift for this scout; it
+concealed which page was actually read.**
+
+**Synthesis adopted, replacing both:**
+
+> The robust rule is not about batching. It is: **verify the page's identity
+> immediately before extracting from it, and record what identity you saw.**
+> Batching is safe only if the batch itself carries that check. A dedicated tab
+> reduces contention but does not eliminate it.
+
+This is the fourth time the browser hazard has been reported — logged as a risk in
+PASS 26, corroborated in PASS 28, **fired** in PASS 32 (a stale South Carolina page
+after a Kentucky navigate), and now fired twice more with two states' pages served
+under a third state's URL.
+
+**That is the single most dangerous failure mode in this project's tooling**, because
+unlike every other trap it produces *real statutory text from the wrong
+jurisdiction* — which passes every content check the verifier applies. The anchor
+check in `verify.py` catches it only if the wrong page happens to lack the expected
+section number, which is luck rather than design.
+
+**No wrong cell is known to have entered the ledger from it.** Every instance was
+caught by a scout noticing, not by the process preventing. That distinction is
+recorded rather than smoothed over.
+
+## Coverage
+
+**Checkpoint authority: 51 of 51. TENTH COLUMN COMPLETE** — with West Virginia
+recorded as **host-blocked** rather than searched, and NM/NJ/MD/NY/RI carried at
+index level. Those five are the follow-up list.
+
+**TEN OF ELEVEN COLUMNS NOW COMPLETE.** The eleventh — impersonation — is 51/51
+located with gating assessed for all 51.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -6361,18 +6479,18 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 34):
-**360 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 102 UNVERIFIED.
-NINE COLUMNS COMPLETE at 51/51: driver ID, sign citation, recording consent,
-duty to inform, stop-and-identify, officer condition, passenger ID, lit-place,
-detention caps. Impersonation 51/51. Checkpoint authority 51/51 attempted
-(WV host-blocked; NM/NJ/MD/NY index-level only).
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 35):
+**365 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 102 UNVERIFIED.
+TEN OF ELEVEN COLUMNS COMPLETE at 51/51: driver ID, sign citation,
+recording consent, duty to inform, stop-and-identify, officer condition,
+passenger ID, lit-place, detention caps, checkpoint authority.
+Impersonation 51/51 located, gating assessed for all 51.
 Progression: 81 breadth sweep, 97 pass 1, 104-162 passes 2-2i, 174 pass 3,
 181 pass 4, 198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
 247 pass 11, 255 pass 12, 263 pass 13, 270 pass 14, 273 pass 16, 276 pass 17,
 282 pass 18, 288 pass 19, 298 pass 20, 313 pass 21, 316 pass 23, 323 pass 24,
 325 pass 25, 327 pass 26, 330 pass 27, 334 pass 28, 339 pass 29, 340 pass 30,
-346 pass 31, 349 pass 32, 354 pass 33, 360 pass 34. An earlier running count of "147 verified" reported during
+346 pass 31, 349 pass 32, 354 pass 33, 360 pass 34, 365 pass 35. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
