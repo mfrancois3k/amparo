@@ -5122,6 +5122,81 @@ Final shape of the column, all on verified primary text:
 
 ---
 
+# PASS 26: THE JUSTIA CLAIM AUDITED, AND UTAH'S OFFICER-CONDITION NULL (2026-09-01)
+
+## The Justia-via-browser claim, tested rather than adopted
+
+PASS 25 recorded a scout's finding that `law.justia.com` 403s the fetch tool but
+serves normally through the browser, and treated it as reframing this project's
+whole host record. That is a large claim to accept on one report, so the main
+process tested it directly.
+
+Fetched `law.justia.com/codes/indiana/title-35/article-47/chapter-2/` through the
+browser: **3,363 characters, full catchline index rendered** —
+"35-47-2-0.1. Repealed / 35-47-2-1. Carrying a Handgun Without Being Licensed…
+/ 35-47-2-1.5. Unlawful Carrying of a Handgun / 35-47-2-3. License Requirement…"
+
+**CONFIRMED.** The scout was right, and the "Justia is blocked" verdict carried in
+this ledger across many passes was wrong. It was a **tool** limitation recorded as
+a **host** limitation, and it propagated into scout briefs exactly as the Nebraska
+category error did.
+
+Two independent propagation failures of the same shape are now documented. Both
+were caught only because someone re-derived a claim instead of inheriting it.
+
+## UTAH — an officer-condition NULL, with an instructive internal contrast
+
+**UT** §41-6a-210(1)(a) (failure to respond to an officer's signal / fleeing): "An
+operator who receives a **visual or audible signal** from a law enforcement
+officer to bring the vehicle to a stop may not: (i) operate the vehicle in willful
+or wanton disregard of the signal…; or (ii) knowingly or intentionally attempt to
+flee or elude a law enforcement officer by vehicle or other means." Third-degree
+felony, minimum $1,000 fine. **VERIFIED**.
+
+**No uniform, badge, or vehicle-marking element anywhere in the trigger.** Utah's
+fleeing offence turns solely on the signal being visual or audible. It therefore
+belongs with the states that **decline** to build identifiability into the offence
+— alongside Iowa §321.279 ("marked **or unmarked**"), and against the fifteen
+states that do.
+
+The contrast inside the neighbouring section is what makes this worth recording:
+
+**UT** §41-6a-209(1): "A person may not willfully fail or willfully refuse to
+comply with any lawful order or direction of a: (a) **peace officer**; (b)
+firefighter; (c) flagger at a highway construction or maintenance site…; or (d)
+**uniformed** adult school crossing guard…" **VERIFIED**.
+
+Utah's legislature attached "uniformed" to the **school crossing guard** and not
+to the **peace officer**, in the same enumerated list, in the same sentence. That
+is as close to a deliberate drafting choice as this project can observe without
+legislative history: the drafters had the word in hand and applied it to one class
+and not the other.
+
+This strengthens Utah's null from "no condition found" to something closer to
+Iowa's express null. Recorded as a **strong null**, one grade below Iowa's — Iowa
+says "marked or unmarked" outright; Utah's is inferred from placement.
+
+## Ledger note: browser-pane contention between concurrent agents
+
+While the main process was using the browser pane, a tab it had navigated
+subsequently showed a page it never requested (an Arkansas chapter it had not
+opened). Background scouts share the pane.
+
+**Operational consequence, recorded so it is not rediscovered:** when scouts are
+running, the main process should verify through its own `curl`-based harness
+(`research/tools/verify.py`) rather than the browser pane. A tab that silently
+changes under you is a correctness hazard, not merely an inconvenience — a
+`javascript_exec` reading "the current page" could attribute one state's text to
+another. No such error is believed to have occurred here (the drift was noticed
+before any extraction was recorded), but the failure mode is real and cheap to
+avoid.
+
+## Coverage
+
+Officer condition: **49 of 51** with Utah recorded as a strong null.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -5172,16 +5247,16 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 25):
-**325 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 101 UNVERIFIED.
+TALLY (counted mechanically, 2026-09-01, after PASS 26):
+**327 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 101 UNVERIFIED.
 FOUR COLUMNS COMPLETE at 51/51: driver ID, sign citation, recording consent,
-DUTY TO INFORM. Officer condition 48/51. Stop-and-identify 47/51.
+duty to inform. Officer condition 49/51. Stop-and-identify 47/51.
 Passenger ID 26/51 swept. Impersonation 23/51.
 Progression: 81 breadth sweep, 97 pass 1, 104-162 passes 2-2i, 174 pass 3,
 181 pass 4, 198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
 247 pass 11, 255 pass 12, 263 pass 13, 270 pass 14, 273 pass 16, 276 pass 17,
 282 pass 18, 288 pass 19, 298 pass 20, 313 pass 21, 316 pass 23, 323 pass 24,
-325 pass 25. An earlier running count of "147 verified" reported during
+325 pass 25, 327 pass 26. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
