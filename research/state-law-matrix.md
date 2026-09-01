@@ -4707,6 +4707,114 @@ columns are still moving would produce a table that is itself immediately stale.
 
 ---
 
+# COLUMN PASS 23: PASSENGER ID, SWEEP 2 (2026-09-01)
+
+Thirteen states swept structurally, each with a recorded "what I ruled out" field.
+**One hit.**
+
+## WASHINGTON — the second motor-vehicle-code provision reaching a non-driver
+
+**WA** RCW §46.61.021(3): "**Any person** requested to identify himself or herself
+to a law enforcement officer **pursuant to an investigation of a traffic
+infraction** has a duty to identify himself or herself **and give his or her
+current address**." **VERIFIED**.
+
+And §46.61.021(1): "**Any person** requested or signaled to stop by a law
+enforcement officer for a traffic infraction **has a duty to stop**." **VERIFIED**.
+
+Both use "any person", not "driver" or "operator". Washington joins Arizona
+§28-1595(C) as a motor-vehicle-code duty that reaches a passenger — and like
+Arizona's, it is conditioned on the **investigation of a traffic infraction**,
+which is the individualised-suspicion hook.
+
+The scout correctly fetched and **rejected** RCW §46.61.020 ("Refusal to give
+information to or cooperate with officer") as driver-directed: its body reaches
+"any person **while operating or in charge of** any vehicle". Two adjacent
+sections, one driver-limited and one not — exactly the distinction this column
+exists to catch.
+
+## The sweep-1 structural finding survives, refined
+
+Across **25 states now swept** (12 in PASS 13, 13 here), the pattern holds:
+
+- **Three provisions** reach a non-driver by their own terms: **AZ** §28-1595(C)
+  and **WA** §46.61.021(3) in the motor-vehicle code, and **IN** §34-28-5-3.5 in
+  the civil-procedure code. **All three condition the duty on that person's own
+  violation or infraction.**
+- Everything else reaching a non-driver lives in the **criminal or procedure
+  code** and is conditioned on individualised suspicion: OH §2921.29, IL 725 ILCS
+  5/107-14, FL §901.151, NY C.P.L. §140.50, TX Penal §38.02, CO §16-3-103, KS
+  §22-2402, La. C.Cr.P. art. 215.1, NV §171.123 (Nevada's *Hiibel* provision), WI
+  §968.24.
+- **Nothing resembling HI §134-9.2(b)** — a duty triggered by the **vehicle's**
+  stop alone, with no suspicion about the passenger — was found in any of these
+  13. Hawaii remains the sole outlier of that shape.
+
+**The product statement therefore stands and is now better supported**: a
+passenger is not covered by the driver-ID statute, and any duty they have arises
+only where the officer has individualised suspicion **about them** — with Hawaii
+carved out, and with Arizona and Washington showing the hook can sit in the
+traffic code rather than the criminal code.
+
+## A NEW TRAP: a secondary host's own index can mislabel a section
+
+The scout followed an "arrest" lead in FindLaw's Alabama Title 32 index to
+**§32-5A-171** and found the body is "**MAXIMUM LIMITS**" — a speed-limit section.
+I re-fetched it independently and confirm: the section is titled MAXIMUM LIMITS
+and its body is about speed. **The index catchline did not match the section it
+pointed to.** **VERIFIED as a data error on the host.**
+
+This is a **different and worse failure than the two already documented**:
+
+| Trap | Nature | Detectable by |
+|---|---|---|
+| MA §129C — catchline outlives provision | genuine legislative history | reading the body |
+| KS §75-7c03 — catchline dies with provision | genuine legislative history | comparing versions |
+| **AL §32-5A-171 — index mislabels the section** | **host data error** | reading the body |
+
+The first two are facts about the law. This one is a fact about the *publisher*,
+and it means a chapter index on a secondary host cannot be trusted even to
+identify its own contents correctly. FindLaw additionally flagged that Alabama
+Title 32 index as **mid-update**.
+
+Combined with the PASS 21 discovery that `flsenate.gov/.../ChapterNNN/All`
+silently reports "no sections", the standing rule hardens: **an index is a lead
+generator and nothing more. Every cell must be confirmed in the section body, on
+a page whose section number matches what was sought.**
+
+## Twelve searched negatives, graded by actual coverage
+
+**MODERATE-HIGH** (chapter index read to completion plus targeted bodies):
+**MN** (ch. 169 index read; the only production-duty catchlines are plates,
+insurance, and rental agreements — none reach an occupant), **MO** (ch. 304 full
+catchline list ~100 sections, plus ch. 302), **NV** (NRS 484B and 483 indexes,
+plus five occupant-conduct sections fetched and rejected), **IN**.
+
+**MODERATE**: **CO**, **CT**, **KS**.
+
+**LOW to LOW-MODERATE**, with the gap named: **AL** (no reliable Title 32
+arrest-chapter index obtainable), **LA** (legis.la.gov returned only the Title 32
+heading with no chapter breakdown; FindLaw's LA title URL 404'd), **MD** (Title 26
+"Parties and Procedure on Citation, Arrest, Trial and Appeal" section index never
+obtained — two FindLaw URL forms returned the title index instead), **TN**
+(Title 55 ch. 8 index 404'd, and **no Tennessee criminal-code stop-and-identify
+section was fetched at all**), **WI** (ch. 346 index **truncated after 346.38**;
+sections 346.39–346.65 and subchapters VII–X never read).
+
+The scout listed its own gaps explicitly: KS ch. 8 art. 21 section list; MD
+Transp. Title 26 section list; TN Title 55 ch. 8 and any TN criminal-code identify
+section; CT Title 14 at section level; LA Title 32 chapter index; WI ch. 346
+subchapters VII–X. **Those six are the follow-up list**, and they are recorded as
+incomplete coverage rather than as findings.
+
+## Coverage
+
+Passenger ID: **26 of 51 swept structurally** (13 prior + 13 here), with **3
+verified positives** (AZ, WA, IN) and **1 outlier** (HI). 25 jurisdictions
+unswept.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -4757,14 +4865,14 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after LIKELY RECONCILIATION):
-**314 VERIFIED**, 16 LIKELY markers present (10 of them SUPERSEDED — see the
-reconciliation section), 100 UNVERIFIED. THREE COLUMNS COMPLETE at 51/51:
-driver ID, sign citation, recording consent. Officer condition 48 of 51.
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 23):
+**316 VERIFIED**, 16 LIKELY markers (10 SUPERSEDED — see reconciliation),
+100 UNVERIFIED. THREE COLUMNS COMPLETE at 51/51: driver ID, sign citation,
+recording consent. Officer condition 48/51. Passenger ID 26/51 swept.
 Progression: 81 breadth sweep, 97 pass 1, 104-162 passes 2-2i, 174 pass 3,
 181 pass 4, 198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
 247 pass 11, 255 pass 12, 263 pass 13, 270 pass 14, 273 pass 16, 276 pass 17,
-282 pass 18, 288 pass 19, 298 pass 20, 314 pass 21. An earlier running count of "147 verified" reported during
+282 pass 18, 288 pass 19, 298 pass 20, 313 pass 21, 316 pass 23. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
