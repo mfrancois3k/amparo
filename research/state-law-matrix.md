@@ -1633,11 +1633,82 @@ address at which the person will accept future mailings from the court."
 filed with the court, not to anything handed over at the roadside. This
 distinction is easy to lose and would produce a badly wrong user-facing sentence.
 
+## COLUMN PASS 2e (2026-09-01): the PDF states, and a mechanism this column had been missing
+
+**Wyoming — the promise is made by ACCEPTING the ticket, not signing it.**
+Wyo. Stat. §31-5-1205(d): "The person charged with the violation **may give his
+promise to appear in court by accepting at least one (1) copy of the written
+traffic citation** prepared by the officer…" **VERIFIED**
+
+And the consequence, §31-5-1204: the officer shall take the person before the
+court "in any of the following cases: (i) When the person **demands an immediate
+appearance before a judge**; or (ii) In any other event when the person is issued
+a traffic citation by a police officer and **refuses to give his promise to appear
+in court manifested by his refusal to accept the citation**." **VERIFIED**
+
+In Wyoming a driver's pen is irrelevant. Taking the piece of paper *is* the
+promise, and declining to take it *is* the refusal.
+
+**North Dakota — a permissive duty and a limit on local officers.**
+N.D.C.C. §39-07-07(1): on halting a driver the officer "**may**: a. Take the name
+and address of the individual; b. Take the license number of the individual's
+motor vehicle; and c. … issue a summons or otherwise notify the individual in
+writing to appear…" §39-07-07(2): "**A halting officer employed by a political
+subdivision of the state may not take an individual into cu[stody]**…"
+**VERIFIED** as far as quoted; the remainder of (2) was not captured and its
+conditions are **UNVERIFIED**.
+
+§39-07-09 is the exception list: "Offenses under which person halted **may not be
+entitled to release** upon promise to appear." §39-07-07 does not apply where the
+officer "has good reason to believe the person guilty of any felony", or where
+the officer "**acting within the officer's discretion, determines that it is
+inadvisable to release** the person upon a promise to appear" and the charge is
+one of a listed set — reckless driving, exceeding speed limits, driving while
+suspended or revoked, driving without liability insurance. **VERIFIED**
+
+North Dakota is the only state found where release turns on a bare
+"**inadvisable**" discretion standard attached to ordinary offences including
+plain speeding.
+
+## THIRD CROSS-STATE FINDING: signature and ACCEPTANCE are two different axes
+
+This column was framed as "refusing to sign". That framing is wrong for a
+substantial group of states, which attach the consequence to **refusing to accept
+the citation** — a physical act, not a signature:
+
+- **WY** §31-5-1204(ii) — refusal to accept manifests refusal to promise →
+  brought before the court.
+- **WV** §17C-19-3(7) — "**refuses to accept** the written notice to appear in
+  court as his or her promise to appear" → magistrate.
+- **NC** §15A-302(d) — "**Failure of the person cited to accept delivery** of the
+  citation shall **not** constitute grounds for an arrest or the requirement that
+  he or she post a bond."
+- **NV** §484A.630 — "**If a person… refuses to accept** a civil infraction
+  citation, the copy… signed by the peace officer… constitutes proof [of
+  service]." Refusal changes nothing.
+- **MD** §26-202(a)(5) sits across both axes: "refuses to **acknowledge its
+  receipt by signature**" — acceptance evidenced by signature.
+
+So the same underlying refusal splits two ways in two dimensions: **what act is
+refused** (signing vs accepting) and **what follows** (custody vs nothing). Two of
+these four acceptance states make it a custody trigger; the other two expressly
+forgive it.
+
+**Product consequence.** A user-facing question phrased as "do I have to sign?"
+does not reach Wyoming, West Virginia, North Carolina or Nevada at all — in those
+states the operative act is whether you take the paper. Any script, any Arena
+beat, and any per-state data field in this project must model **both** acts, or it
+will silently return "no signature required" for a state where physically
+declining the ticket lands you in front of a judge.
+
 ## Coverage after this pass
 
-Sign-citation: **29 of 51 verified** — CA, TX, FL, OH, GA, NC, VA, WA, NV, CO,
-NE, ID, AL, LA, MA, RI, OR, MO, NM, KY, MN, MD, WV, KS, WI, IL, MT, MI, HI —
-plus TN, NJ, SC and NY partial. Previously 21 of 51.
+Sign-citation: **31 of 51 verified** — CA, TX, FL, OH, GA, NC, VA, WA, NV, CO,
+NE, ID, AL, LA, MA, RI, OR, MO, NM, KY, MN, MD, WV, KS, WI, IL, MT, MI, HI, WY,
+ND — plus TN, NJ, SC and NY partial. Previously 29 of 51.
+
+**Still outstanding (20):** AK, AR, AZ, CT, DE, IA, IN, ME, MS, NH, NJ, NY, OK,
+PA, SC, SD, TN(consequence), UT, VT, DC.
 
 **Still outstanding (22):** AK, AR, AZ, CT, DE, IA, IN, ME, MS, ND, NH, NJ, NY,
 OK, PA, SC, SD, TN(consequence), UT, VT, WY, DC.
@@ -1719,11 +1790,10 @@ What is actually missing, by column, across all 51 jurisdictions:
   all-party states in COLUMN PASS 1 above). 37 outstanding, all one-party
   jurisdictions where the statutory risk is low by construction — an inference,
   not a verified cell. The high-risk subset of this column is now DONE.
-- **Refusing to sign a citation** — researched for **29** across COLUMN PASSES
-  2, 2b, 2c and 2d, plus TN/NJ/SC/NY partial. 22 outstanding. This column INVERTS
-  across states — refusal is a misdemeanor in FL, an express arrest trigger in MD,
-  and expressly protected in NC/VA — so no unresearched state may be inferred
-  from a researched one.
+- **Refusing to sign a citation** — researched for **31** across COLUMN PASSES
+  2 through 2e, plus TN/NJ/SC/NY partial. 20 outstanding. The column INVERTS
+  across states AND splits on two axes (signing vs accepting the citation), so no
+  unresearched state may be inferred from a researched one.
 - **Passenger ID** — spotty. Verified where the stop-and-identify section
   happened to address it; not systematically pursued.
 - **Duty to inform (firearm)** — researched for the original ten and a handful
@@ -1752,9 +1822,10 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 2d): **133 VERIFIED**,
-11 LIKELY, 58 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1
-(recording consent), 104 pass 2, 112 pass 2b, 124 pass 2c (harness), 133 pass 2d. An earlier running count of "147 verified" reported during
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 2e): **137 VERIFIED**,
+11 LIKELY, 59 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1
+(recording consent), 104 pass 2, 112 pass 2b, 124 pass 2c (harness), 133 pass 2d,
+137 pass 2e (PDF states). An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
