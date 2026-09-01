@@ -3389,6 +3389,120 @@ about.*
 
 ---
 
+# COLUMN PASS 12: DUTY TO INFORM, THIRD SWEEP (2026-09-01)
+
+Eleven jurisdictions scouted by direct fetch; eight located, all verified here.
+
+## NEW JERSEY — proactive, and the most severe penalty in the column
+
+**NJ** §2C:58-4.4(b): the carrier must "**disclose to the law enforcement officer
+that they are carrying a handgun or that a handgun is stored in the vehicle**;
+and (2) **display the permit** to carry a handgun issued pursuant to
+N.J.S.2C:58-4. **A violation of paragraph (1) of this section shall be a crime of
+the fourth degree.**" **VERIFIED**
+
+Two things make this the sharpest entry in the column:
+
+1. It is **proactive** — disclosure is owed on contact, not on request — and it
+   expressly reaches a handgun **stored in the vehicle**, not merely one carried
+   on the person. Most states' duties attach to what you are carrying.
+2. The penalty is a **crime of the fourth degree**. Every other duty-to-inform
+   penalty found in this project has been a misdemeanor, a noncriminal violation,
+   or unstated. New Jersey criminalises the silence at indictable level.
+
+**Currency note, in the useful direction**: §2C:58-4.4 was created by the 2022
+post-Bruen package (P.L.2022 c.131). Any published table compiled before 2023
+will not contain it at all — the opposite of the staleness problem seen in Ohio
+and Georgia, where old tables show duties that no longer exist. **Both directions
+of staleness are now documented in this ledger.**
+
+## On-request / on-demand — four more
+
+- **PA** 18 Pa.C.S. §6122 ("Proof of license and exception"): "(a) General
+  rule.-- When carrying a firearm concealed on or about one's person **or in a
+  vehicle**, an individual licensed to carry a firearm shall, **upon lawful
+  demand of a law enforcement officer, produce the licen[se]**…" **VERIFIED**.
+  Expressly reaches the vehicle, and is triggered by demand.
+- **ND** §62.1-04-04 ("**Producing license upon request** — Penalty"): the
+  individual "shall have on the individual's person the license issued by this or
+  another state **or a digital image** of the… license… on an electronic device
+  **and shall give**" it on request. **VERIFIED**. Note the express provision for
+  a **digital image on a phone** — the third state after Maine and Arkansas where
+  electronic production is contemplated.
+- **MS** §45-9-101(1)(b): "The licensee **must carry the license, together with
+  valid identification, at all times** in which the licensee is carrying a stun
+  gun, concealed pistol or concealed revolver." **VERIFIED**
+- **NV** NRS 202.3667 ("**Permittee to carry permit and proper identification when
+  in possession of concealed firearm**"): "Each permittee shall carry the permit,
+  or a duplicate…" **VERIFIED**
+
+## New York — the CCIA concern checked and cleared
+
+**NY** Penal Law §400.00(8) ("**License: exhibition and display**"): "Every
+licensee while carrying a pistol or revolver **shall have on his or her person a
+license to carr[y]**…" **VERIFIED**.
+
+The scout was asked to check whether the 2022 Concealed Carry Improvement Act
+relocated this duty. It did not — the exhibition duty remains at §400.00(8).
+Recorded because a *negative* currency check is worth as much as a positive one
+and is almost never done.
+
+## Two locators that are NOT duty-to-inform, recorded so they are not mistaken for it
+
+- **OR** ORS 166.380 ("Examination of firearm by peace officer; presentation of
+  concealed handgun license"): "(1) …a peace officer may examine a firearm
+  possessed by anyone on the person **while in or on a public building**…"
+  **VERIFIED** — and **off-point for a traffic stop**. It governs public
+  buildings. The scout labelled it "closest locator, not a duty-to-inform", which
+  is exactly right. Oregon's traffic-stop position remains **UNVERIFIED**.
+- **NM** §29-19-9 ("Possession of license"): "A licensee shall have his concealed
+  handgun license **in his possession at all times**…" **VERIFIED** — a
+  possession duty with **no peace-officer language in the body**. The scout noted
+  the display-on-demand duty may live in regulation (10.8.2 NMAC) rather than
+  statute, and checked §§29-19-10 and 29-19-12 as off-point. New Mexico's
+  duty-to-inform position: **UNVERIFIED**.
+
+Both are the kind of entry that a summary table would promote to "yes, must
+present ID" without noticing the limiting words.
+
+## Searched negatives, graded honestly by the scout
+
+- **NH**: full RSA 159 catchline index read plus the body of §159:6. No duty
+  located. Scout's own grading: "index-level 'not found', not exhaustive."
+  **UNVERIFIED**
+- **RI**: complete chapter 11-47 catchline index read plus bodies of §§11-47-8
+  and 11-47-11; remaining sections screened by catchline only. **UNVERIFIED**
+- **UT**: **blocked, not searched out**. le.utah.gov served chrome-only HTML and
+  unreadable PDFs; Justia and lawserver both 403'd. **UNVERIFIED**
+
+## UTAH — a renumbering that invalidates published citations
+
+The scout flagged, and this is the most valuable procedural finding of the pass:
+
+> "Utah renumbered concealed-permit law into **Title 53 Ch. 5a Part 3 effective
+> 5/7/2025**, so 76-10-523.5 (now 'compliance with rules for secure facilities')
+> is the wrong lead, and FindLaw has not picked up the 53-5a sections."
+
+Three separate hazards in one state: the old section number now points at a
+**different subject**, the new sections are **not yet carried** by a major
+secondary host, and the official host is **blocked**. Any table citing Utah's
+concealed-carry duty by a pre-May-2025 number is wrong, and the correct number is
+currently hard to obtain. Recorded as a **known-stale-citation warning**, not a
+finding.
+
+## Coverage
+
+Duty to inform: **27 of 51** verified (19 prior + NJ, PA, ND, MS, NV, NY, and
+counting NM and OR as located-but-off-point). 24 outstanding.
+
+The column's three categories hold, with New Jersey now the extreme case:
+1. **Proactive** — MI, NC, NE, LA, **NJ** (4th-degree crime).
+2. **On request / demand** — OH, OK, AR, IL, VA, TN, MN, MO, KY, FL, PA, ND, MS,
+   NV, NY.
+3. **Inverse legislated** — GA, SC.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -3410,9 +3524,10 @@ What is actually missing, by column, across all 51 jurisdictions:
   axes (signing vs accepting the citation), so it must be state-gated in full.
 - **Passenger ID** — spotty. Verified where the stop-and-identify section
   happened to address it; not systematically pursued.
-- **Duty to inform (firearm)** — **19 of 51** across COLUMN PASSES 3, 5 and 6.
-  The column splits THREE ways — proactive, on-request, and inverse-legislated
-  (GA, SC) — a distinction invisible in every published list checked.
+- **Duty to inform (firearm)** — **27 of 51**. Three categories: proactive
+  (NJ's silence is a fourth-degree crime), on-request, and inverse-legislated
+  (GA, SC). Staleness runs BOTH ways — pre-2023 tables miss NJ entirely while
+  showing GA and OH duties that no longer exist.
 - **Stop-and-identify** — the best-covered column after driver ID, and the one
   where careful sourcing already contradicted the widely-copied list on **four of
   the ten** states first researched.
@@ -3435,11 +3550,11 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 11): **247 VERIFIED**,
-13 LIKELY, 80 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1,
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 12): **255 VERIFIED**,
+13 LIKELY, 85 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1,
 104-162 passes 2-2i (sign citation 51 of 51), 174 pass 3, 181 pass 4,
 198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
-247 pass 11 (recording consent 50 of 51). An earlier running count of "147 verified" reported during
+247 pass 11 (recording consent 50 of 51), 255 pass 12 (duty to inform 27). An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
