@@ -2447,6 +2447,299 @@ Wisconsin.
 
 ---
 
+# COLUMN PASS 5: DELEGATED SCOUTING (2026-09-01)
+
+First use of subagents on this project. The architecture matters more than the
+yield, so it is recorded first.
+
+## The delegation contract
+
+The danger in delegating legal research is not laziness. It is **plausible
+fabricated statute text**, which is visually indistinguishable from the real
+thing and catastrophic if it reaches a user.
+
+Rule applied: **scouts return locators, never text.** Each scout was told
+explicitly that any statutory text it supplied would be discarded unread. Scouts
+returned `(state, section, URL, whether they actually fetched it)`. Every quoted
+cell below was fetched and extracted by the main process through
+`research/tools/verify.py`.
+
+Why this is safe: a fabricated *section number* dies on contact, because the
+fetch returns a catchline that does not match. Fabricated *text* can never enter,
+because no supplied text is read. The expensive, parallelisable part (finding the
+right section) is delegated; the part where errors are unrecoverable (reading the
+law) is not.
+
+It worked. One scout, asked for a table, correctly reported **"0 of 41
+established — I will not fill rows from memory"** rather than inventing
+plausible citations. That refusal is the behaviour the contract was designed to
+produce.
+
+## ARKANSAS — the last sign-citation gap, closed. 51 of 51.
+
+Arkansas had defeated five attempts. Its citation rule is a **court rule**, and
+`casetext.com` — the usual public host for state court rules — has shut down.
+
+Route that works, recorded for reuse: the Arkansas Judiciary publishes rules
+through the Lexum platform, **not** on arcourts.gov. The document is at
+`https://opinions.arcourts.gov/ark/cr/en/1879/1/document.do` (704 KB PDF, the
+complete Rules of Criminal Procedure). Discovery path:
+`opinions.arcourts.gov/ark/cr/en/nav_date.do?iframe=true` — the `?iframe=true`
+is required, without it the list is an empty JS shell.
+
+Fetched and extracted directly:
+
+**Ark. R. Crim. P. 5.2 (Authority to Issue Citations)**: "(a) A law enforcement
+officer in the field acting without a warrant who has reasonable cause to believe
+that a person has committed any misdemeanor **may issue a citation in lieu of
+arrest or continued custody**." **VERIFIED**
+
+**Ark. R. Crim. P. 5.3 (Form of Citation)**: "(a) Every citation issued to a
+person shall: … (vi) **except in case of an electronic citation, provide a space
+for the signature of the accused acknowledging his promise to appear**."
+**VERIFIED**
+
+**Ark. R. Crim. P. 5.4 (Procedure for Issuing Citations)**: "(a) In issuing a
+citation the officer shall **deliver one (1) copy of the citation to the
+accused**. (b) The officer shall **thereupon release the accused**…" **VERIFIED**
+
+Arkansas is a genuinely unusual cell: a signature **space** is required on paper
+citations, but Rule 5.4 directs release on delivery and does **not** condition
+release on the accused signing. Electronic citations require no signature space
+at all. Whether refusal has any consequence is **UNVERIFIED** — the rules do not
+say, and that silence is itself the finding.
+
+Reporter's Notes to the 2012 amendment also record that the requirement for the
+**issuing officer** to sign was removed that year. **VERIFIED**
+
+**Sign-citation column: 51 of 51.**
+
+## SOUTH CAROLINA — the duty-to-inform question, resolved the other way
+
+Recorded in COLUMN PASS 3 as "not located, do not infer absence." A scout swept
+Title 23 Ch. 31 and Title 16 Ch. 23 and found the opposite of a duty. Fetched and
+confirmed directly:
+
+**S.C. Code §23-31-245 (Openly carrying a weapon)**: "A person openly carrying a
+weapon in accordance with this article **does not give a law enforcement officer
+reasonable suspicion or probable cause to search, detain, or arrest the person**.
+This article does not prevent a law enforcement officer from searching,
+detaining, or arresting a person when he has a **particularized and objective
+basis** for suspecting the particular person stopped of criminal activity. **A
+person merely carrying a weapon in accordance with this article is not sufficient
+to justify a search, detention, or arrest.**" HISTORY: 2024 Act No. 111
+(H.3594), §19, eff. March 7, 2024 — the South Carolina Constitutional Carry Act.
+**VERIFIED**
+
+This explains why the earlier full retrieval of §23-31-215 came back with no
+notification duty: the 2024 Act removed the former permit-holder duty. The prior
+"UNVERIFIED — could be elsewhere" entry is now resolved: South Carolina has
+**affirmatively legislated the opposite**, and §23-31-245 is a protective
+provision structurally similar to Cal. Penal Code §148(g) on recording.
+
+## RECORDING CONSENT — 15 states upgraded from inference to verified text
+
+The ledger previously carried the 37 one-party states as "low risk **by
+construction** — an inference, not a verified cell." Fifteen are now verified.
+Every one confirms a participant may record, but the *mechanism* differs and the
+differences matter:
+
+**Participant / one-party exception (federal-model wording)** — lawful for a
+person not acting under colour of law to intercept "when the person is a party to
+the communication **or** when one of the parties has given prior consent":
+**HI** §803-42(3)(A) · **IA** §808B.2 · **MN** §626A.02(d) · **MS** §41-29-531(e)
+· **MO** §542.402(3) · **ID** §18-6702(d). All **VERIFIED**.
+
+**Presence-based limiter** — the offence requires the recorder to be *absent*:
+- **AZ** §13-3005(A)(2): unlawful to intercept "a conversation or discussion **at
+  which he is not present**… without the consent of a party". **VERIFIED**
+- **CO** §18-9-304(1): "Any person **not visibly present** during a conversation
+  or discussion commits eavesdropping if he: (a) Knowingly overhears or records
+  such conversation… **without the consent of at least one** [party]".
+  **VERIFIED**
+
+These are the same structure as Connecticut §53a-187(a)(2) ("by a person not
+present thereat"), recorded earlier as the largest correction of COLUMN PASS 1.
+Three states now share it.
+
+**Stacked limiters** — **GA** §16-11-62(1): unlawful for a person "**in a
+clandestine manner** intentionally to overhear, transmit, or record… the
+**private** conversation of another which shall originate in any **private
+place**". **VERIFIED**. Three independent limiters, each of which a roadside stop
+fails.
+
+**Sender-or-receiver consent** — **KS** §21-6101(a)(1): "Intercepting, **without
+the consent of the sender or receiver**, a message by telephone, telegraph,
+letter or other means of **private** communication". **VERIFIED**
+
+**Located but not yet resolved**: **AR** §5-60-120(a) (the exception clause was
+truncated in extraction), **KY** §526.020 (the operative definition lives in
+§526.010, not fetched), **AL** §13A-11-31 (host returned a 604-byte shell),
+**LA** §15:1303 (anchor format mismatch, page reachable). All **UNVERIFIED**
+pending a clean fetch.
+
+**Recording consent: 29 of 51** (14 prior + 15 here).
+
+## A caveat the passenger-ID scout raised, and which I am adopting verbatim
+
+The passenger scout returned 34 verified stop-and-identify section numbers, but
+flagged its own passenger column as unreliable:
+
+> "Passenger field is a **weak negative** across the board. Only NC, VA, WA, VT,
+> PA had a motor-vehicle provision actually fetched and rejected as
+> driver/operator-directed. The other 38 rest on targeted search returning
+> nothing, not on a per-state traffic-code index sweep."
+
+**That is the correct characterisation and no passenger cell is being recorded
+from it.** "A search found nothing" is not "no duty exists" — the distinction
+this ledger has enforced since the Florida finding. The passenger column stays at
+its prior coverage (AZ verified, plus whatever the stop-and-identify sections
+happened to address) and needs a dedicated index-sweep pass.
+
+The same scout also reported that index-first caught two would-be wrong
+citations: a search summary claimed Idaho Code §19-705 was an identification duty
+(it defines "fresh pursuit"), and PA §5124 was assumed before the index showed
+§4914. Both would have looked entirely plausible as guesses.
+
+## Host intelligence gathered across all scouts
+
+Confirmed newly working: `opinions.arcourts.gov/ark/cr/...` (Arkansas court
+rules, via Lexum); `sdlegislature.gov/api/Statutes/<sec>.html` (the plain-HTML
+endpoint — the normal `/Statutes/...` URL is a JS shell);
+`legis.state.pa.us/WU01/LI/LI/CT/HTM/<title>/00.<chapter>.<section>.000..HTM`
+(legacy PA path serving text where modern palegis.us serves chrome);
+`ok.elaws.us/os/<title>-<sec>`; `ga.elaws.us/law/section<n>`;
+`webserver.rilegislature.gov`; `mca.legmt.gov` (Montana moved from
+archive.legmt.gov); `revisor.mo.gov/main/OneChapter.aspx?chapter=NNN` for clean
+catchline indexes.
+
+Host moves: New Hampshire `gencourt.state.nh.us` → `gc.nh.gov`. Note the scouts
+placed RSA 594 under Title LIX while this ledger earlier placed RSA 570-A under
+Title LVIII — **both are correct**, they are different titles; do not "fix" one
+to match the other.
+
+Newly blocked to the scouts' toolchain: `akleg.gov`, `capitol.hawaii.gov`,
+`ksrevisor.gov`, `lawserver.com`, `touchngo.com`,
+`alisondb.legislature.state.al.us` (DNS gone).
+
+**A discrepancy worth recording rather than resolving:** every scout reported
+`law.justia.com` returning hard HTTP 403 on every attempt. From this machine
+Justia has worked throughout, subject only to the page-chrome trap. The block is
+therefore **toolchain-specific, not global** — which means a future run must
+re-test rather than trusting either verdict, and it is a reminder that
+"host is blocked" is a claim about a particular fetcher, not about the internet.
+
+---
+
+# COLUMN PASS 6: DUTY TO INFORM, SECOND SWEEP (2026-09-01)
+
+Nine more locators from a scout, all fetched and quoted here by the main process.
+The column now has **three** categories, not two — and the third is the one no
+published list has.
+
+## THIRD CATEGORY: states that legislated the INVERSE of a duty
+
+**GA** O.C.G.A. §16-11-137: "A person carrying a weapon **shall not be subject to
+detention for the sole purpose of investigating whether such person has a weapons
+carry license**, whether such person is exempt from having a weapons carry
+license pursuant to Code Section 16-11-130 or subsection (c) of Code Section
+16-11-127.1, or whether such person is a lawful weapons carrier as defined in
+Code Section 16-11-125.1." **VERIFIED**
+
+This section **formerly** required a carrier to disclose on demand. The 2022
+constitutional-carry amendment replaced that duty with a prohibition on the
+detention itself. Any secondary source describing Georgia as a "must inform on
+request" state is describing repealed law.
+
+**SC** §23-31-245 — recorded in COLUMN PASS 5, same shape, 2024 Act No. 111.
+
+So two states have now been found where the duty was not merely repealed but
+**replaced by its opposite**. Both changes are recent (2022, 2024). Both are the
+kind of change that leaves every pre-amendment summary table wrong in the most
+dangerous possible direction: telling a user they must speak when the legislature
+has just told the officer they may not detain.
+
+## DISPLAY-ON-DEMAND — seven more states, all on-request, none proactive
+
+These require carrying and **displaying a document**. None requires volunteering
+that a firearm is present:
+
+- **VA** §18.2-308.01(A): the permittee "shall have such permit on his person at
+  all times during which he is carrying a concealed handgun and shall **display
+  the permit and a photo identification**… **upon demand by a law-enforcement
+  officer**." **VERIFIED**
+- **TN** §39-17-1351(n)(1): "The permit holder shall have the permit in the
+  holder's immediate possession at all times when carrying a handgun… and shall
+  **display the permit on demand of a law [enforcement officer]**." **VERIFIED**.
+  This is the **enhanced-permit** section; Tennessee has permitless carry and the
+  permitless provision was **not** confirmed. Scope **UNVERIFIED**.
+- **MN** §624.714 subd. 1b(a): "The holder of a permit to carry **must have the
+  permit card and a driver's license, state identification card, or other
+  government-issued photo identification in immediate possession** at all times
+  when carrying a pistol and **must display the permit card and identification
+  document upo[n demand]**." **VERIFIED**
+- **MO** §571.121: "shall carry the concealed carry permit… at all times the
+  person is carrying a concealed firearm and shall **display** the concealed carry
+  permit and a state or federal government-issued photo identificati[on]."
+  **VERIFIED**. Missouri has permitless carry, so this permit-based section may
+  not reach all carriers. Scope **UNVERIFIED**.
+- **KY** §237.110(15): "The licensee shall **carry the license at all times** the
+  licensee is carrying a concealed firearm or other deadly weapon and shall
+  **display the license**…" **VERIFIED**
+- **CO** §18-12-204(2)(a) and **WI** §175.60(2g) — both fetched and
+  anchor-confirmed; Wisconsin's catchline is "Carrying a concealed weapon;
+  possession and **display** of license document or authorization". The operative
+  display clauses were not cleanly isolated in extraction. **LIKELY**, pending a
+  targeted re-fetch.
+
+## FLORIDA — requires displaying ID, not disclosing the weapon
+
+**FL** §790.06(1)(c): "A licensee **must carry valid identification** at all times
+in which the licensee is in actual possession of a concealed weapon or concealed
+firearm and **must display such identification upon demand by a law enforcement
+officer**. Violations of the provisions of this subsection shall constitute a
+**noncriminal violation**…" **VERIFIED**
+
+Two things a summary would flatten and get wrong: the duty attaches to
+**identification**, not to the firearm — nothing requires the licensee to say a
+weapon is present — and the penalty is expressly **noncriminal**. Florida's
+parallel unlicensed-carry provision after the 2023 permitless-carry act is
+§790.013(1), **not fetched**, so Florida's rule for an unlicensed carrier is
+**UNVERIFIED**.
+
+## Three states ruled out, and the distinction between the two ways of ruling out
+
+The scout reported "not found" for Indiana, Kansas and Montana, and — correctly —
+distinguished why:
+
+- **KS** and **MT**: the complete article/part **catchline index** was read
+  (K.S.A. ch. 75 art. 7c, §§75-7c01–75-7c27; MCA Title 45 ch. 8 pt. 3,
+  §§45-8-301–45-8-377) and no notification catchline exists. That is a
+  **searched negative** — meaningful, though still not a guarantee the duty is
+  not elsewhere in the code.
+- **IN**: stopped by **host blocking**, not by an exhausted index. `iga.in.gov` is
+  a JS shell and FindLaw's per-section URLs fall back to a title index. A search
+  lead pointed at IC 35-47-2-24, and the scout explicitly declined to report it
+  as the answer.
+
+All three are **UNVERIFIED**. But the first two are worth more than the third,
+and conflating them would be exactly the error this ledger keeps catching.
+
+## Coverage
+
+Duty to inform: **19 of 51** with verified text (MI, NC, NE, LA, OH, OK, AR, IL,
+TX from PASS 3; GA, SC, VA, TN, MN, MO, KY, FL from PASSES 5–6; CO, WI LIKELY).
+32 outstanding.
+
+**The column now splits three ways**, and no national sentence survives any of
+them:
+1. **Proactive** — must volunteer, unprompted: MI, NC, NE, LA.
+2. **On request / on demand** — nothing owed until asked: OH, OK, AR, IL, VA, TN,
+   MN, MO, KY, FL (and FL's is about ID, not the weapon).
+3. **Inverse legislated** — the statute now restrains the officer: GA, SC.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -2463,16 +2756,14 @@ What is actually missing, by column, across all 51 jurisdictions:
   all-party states in COLUMN PASS 1 above). 37 outstanding, all one-party
   jurisdictions where the statutory risk is low by construction — an inference,
   not a verified cell. The high-risk subset of this column is now DONE.
-- **Refusing to sign a citation** — **50 of 51** across COLUMN PASSES 2 through
-  2i. Only Arkansas outstanding, and it is a genuine source wall (its rule is a
-  court rule; casetext.com has shut down). The column INVERTS across states AND
-  splits on two axes (signing vs accepting the citation), so no unresearched
-  state may be inferred from a researched one.
+- **Refusing to sign a citation** — **51 of 51. COMPLETE.** Arkansas closed via
+  the Lexum-hosted court rules. The column INVERTS across states AND splits on two
+  axes (signing vs accepting the citation), so it must be state-gated in full.
 - **Passenger ID** — spotty. Verified where the stop-and-identify section
   happened to address it; not systematically pursued.
-- **Duty to inform (firearm)** — **10 of 51** in COLUMN PASS 3. The column
-  splits proactive vs on-request, a distinction invisible in every published list
-  checked, and no national sentence is possible.
+- **Duty to inform (firearm)** — **19 of 51** across COLUMN PASSES 3, 5 and 6.
+  The column splits THREE ways — proactive, on-request, and inverse-legislated
+  (GA, SC) — a distinction invisible in every published list checked.
 - **Stop-and-identify** — the best-covered column after driver ID, and the one
   where careful sourcing already contradicted the widely-copied list on **four of
   the ten** states first researched.
@@ -2495,10 +2786,10 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 4): **181 VERIFIED**,
-12 LIKELY, 68 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1
-(recording consent), 104-162 passes 2 through 2i (sign citation, 50 of 51),
-174 pass 3 (duty to inform), 181 pass 4 (officer condition). An earlier running count of "147 verified" reported during
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 6): **198 VERIFIED**,
+13 LIKELY, 74 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1,
+104-162 passes 2-2i (sign citation, now 51 of 51), 174 pass 3, 181 pass 4,
+198 passes 5-6 (delegated scouting). An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
