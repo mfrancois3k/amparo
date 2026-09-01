@@ -4315,6 +4315,150 @@ second-largest category.
 
 ---
 
+# COLUMN PASS 20: OFFICER CONDITION — IA KY MA MI MN NE NH (2026-09-01)
+
+## MICHIGAN — a downgraded note, restored. The language was right; the section was wrong.
+
+PASS 9 downgraded a long-standing ledger note to **UNVERIFIED**. That note said
+Michigan's driver-ID duty attaches to an officer "who shall identify himself or
+herself as such". I had fetched MCL §257.727, found it governs arraignment
+without unreasonable delay, could not relocate the language, and flagged the note
+as carried forward from a summary rather than a quoted section.
+
+The language exists. It is **MCL §257.311**:
+
+"The licensee shall have his or her operator's or chauffeur's license, or the
+receipt described in section 311a, **in his or her immediate possession at all
+times when operating a motor vehicle, and shall display the same upon demand of
+any police officer, who shall identify himself or herself as suc[h]**."
+**VERIFIED**.
+
+So the original note was **substantively correct and mis-cited**. The PASS 9
+downgrade was the right call on the evidence then available — an unverifiable
+citation is unverifiable — but the underlying fact survives, and the cell is
+restored.
+
+This is worth recording as a pattern in its own right: **a wrong section number
+does not imply a wrong proposition.** Three cells in this ledger have now been
+found correct-but-miscited (this one, Arkansas §27-16-601 vs -602, South Dakota
+§32-12-39 vs -22/-31/-38). Downgrading on a bad citation is right; *deleting* the
+proposition would have lost a true fact each time.
+
+Michigan §257.311 is also a **two-column cell**: a driver-ID duty with an
+officer-condition embedded in its final clause.
+
+## MASSACHUSETTS — and the buried-condition warning proves out again
+
+**MA** G.L. c.90 §21, catchlined "**Arrest without warrant**": "Any officer
+authorized to make arrests, **provided such officer is in uniform or conspicuously
+displayin[g his badge]**…" **VERIFIED**.
+
+This is the Pennsylvania §6304 shape precisely — a uniform condition on the arrest
+power, sitting under a catchline about warrantless arrest, invisible to any
+catchline sweep for "uniform". The scout found it by full-texting rather than
+screening. **Second confirmed instance of the PASS 9 limitation.**
+
+**MA** G.L. c.90 §25 is a substantive addition to the stop-and-identify column,
+and Massachusetts had been recorded there as "not found": "Any person who, while
+operating or in charge of a motor vehicle, shall **refuse, when requested by a
+police officer, to give his name and address** or the name and address of the
+owner of such motor vehicle, or **who shall give a false name or address**, or who
+shall **refuse or neglect to stop when signall[ed]**…" **VERIFIED**.
+
+Massachusetts therefore criminalises **both** refusal *and* falsity for a driver —
+Category A **and** Category D at once. It is the first state found to occupy both.
+An earlier pass recorded Massachusetts as having no located stop-and-identify
+provision; that is now **corrected**, and the reason it was missed is instructive:
+the duty lives in the **motor vehicle chapter**, not the criminal code, which is
+where this column has mostly been searched.
+
+## Genuine bars on the power
+
+- **NE** §60-683(4): among an officer's powers — "(4) **When in uniform**, to
+  require the driver of a vehicle to stop and exhibit his or her operator[']s
+  licence…" **VERIFIED**. Shape 1: the uniform is a condition on the power to
+  require the stop.
+- **NH** RSA §265:4, I(c): the duty to stop is conditioned on the officer being in
+  uniform, conspicuously displaying a badge, or using authorised emergency
+  signals. §265:4, I(b) separately criminalises giving "**a false name, date of
+  birth, address**… or any other false information to a law enforcement officer
+  that would hinder the law enforcement officer from properly identifying the
+  person in charge of such motor vehicle". **VERIFIED**. New Hampshire also joins
+  Category D.
+
+## Iowa — an EXPRESS NULL, which is stronger than "not found"
+
+**IA** §321.279 (eluding): the body reads "marked **or unmarked**." **VERIFIED**.
+
+This is the most valuable kind of negative in the entire project. Iowa's
+legislature considered vehicle marking and **expressly declined to condition the
+offence on it** — the opposite of ND, TX, NV, KS, MD, AK, LA and MS, which all
+build identifiability into the eluding offence.
+
+An express null is categorically different from a searched null. "The statute says
+marked or unmarked" is a *finding*; "we read the chapter and saw nothing" is an
+*absence of finding*. This ledger should distinguish them, and this is the first
+express null recorded.
+
+Also checked and null in Iowa: §321.492 ("Peace officers' authority" — the natural
+home of a shape-1 rule, and it has none, in any of subsections 1–3). **VERIFIED
+null.** And **IA** §804.14(1) requires the arrester to state that he is a peace
+officer — shape 3. **VERIFIED**.
+
+## Also recorded
+
+- **KY** §520.095(1) (fleeing or evading police, first degree): the officer must be
+  "recognized to be" a police or peace officer. Shape 4 — a condition on the
+  offence. **VERIFIED**. §189.393 (complying with a traffic officer's signal) was
+  read in body and carries **no** uniform or marking condition. **VERIFIED null.**
+- **MN** §169.98 subds. 1, 1a, 2, 2a: an equipment and marking mandate on vehicles
+  "primarily used in the enforcement of highway traffic rules", with a
+  uniformed-operator condition on specially marked vehicles. **VERIFIED**. Not
+  framed as a bar on the stop — the Washington RCW 46.08.065 shape. §609.487
+  (fleeing) has no uniform or marking element. **VERIFIED null.**
+
+## Impersonation column — seven more
+
+IA §718.2 · KY §519.055 · MA c.268 §33 · MI §750.215 · MN §609.475 · NE §28-610 ·
+NH RSA §104:28-a. All **VERIFIED** as existing and located.
+
+Two caveats the scout raised and I am preserving: **MN §609.475** is a combined
+military-member / veteran / public-official impersonation section **gated on
+intent to obtain money or benefit** — narrower than the NY §190.25(3) shape and
+possibly not reaching a bare fake traffic stop. **NH §104:28-a** sits in Title VII
+(Sheriffs), **not** the criminal code, and RSA §641:9 404'd. Impersonation now
+**10 jurisdictions**.
+
+## "Proceed to a lit place" — a search-level null, labelled as such
+
+**Not found** in all seven states. The scout was explicit that this rests on one
+broad web search returning only secondary commentary (and a reference to a
+*proposed* Maryland bill), and that **no vehicle code was full-texted for it**.
+Recorded as **search-level not found**, which under this ledger's PASS 13 standard
+is the weakest grade of negative and not a finding.
+
+## Method notes worth keeping
+
+- `legis.iowa.gov` PDFs defeat the fetch summariser ("binary content") **but the
+  file is saved** — read it as a PDF and the text comes through. Four Iowa
+  sections retrieved this way. This is the same class as the PASS 11 retraction:
+  the tool, not the source.
+- `revisor.mn.gov` **under-reported** §169.98 through the fetch summariser; opening
+  the page in a browser pane surfaced the subd. 2/2a uniformed-operator conditions
+  the summary omitted. A summariser can silently drop subsections.
+- `gc.nh.gov` path is `/rsa/html/<TITLE-ROMAN>/<chap>/<chap>-<sec>.htm` and the
+  roman title must be exact or it hard-404s. RSA 265 is **Title XXI**, RSA 104 is
+  **Title VII**, RSA 594 is **LIX**, RSA 570-A is **LVIII**. Four different titles
+  in one project — the repeated NH shell failures were almost certainly wrong
+  roman numerals rather than a blocked host.
+
+## Coverage
+
+Officer condition: **37 of 51**. Impersonation: **10**. Stop-and-identify gains MA
+and NH (Category D, and MA also Category A).
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -4365,12 +4509,13 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 19): **288 VERIFIED**,
-14 LIKELY, 98 UNVERIFIED cells. THREE COLUMNS COMPLETE at 51/51: driver ID,
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 20): **298 VERIFIED**,
+14 LIKELY, 99 UNVERIFIED cells. THREE COLUMNS COMPLETE at 51/51: driver ID,
 sign citation, recording consent. Progression: 81 breadth sweep, 97 pass 1,
 104-162 passes 2-2i, 174 pass 3, 181 pass 4, 198 passes 5-6, 209 pass 7,
 213 pass 8, 231 pass 9, 239 pass 10, 247 pass 11, 255 pass 12, 263 pass 13,
-270 pass 14, 273 pass 16, 276 pass 17, 282 pass 18, 288 pass 19. An earlier running count of "147 verified" reported during
+270 pass 14, 273 pass 16, 276 pass 17, 282 pass 18, 288 pass 19,
+298 pass 20 (officer condition 37 of 51). An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
