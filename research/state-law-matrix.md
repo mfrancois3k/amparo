@@ -1701,14 +1701,104 @@ beat, and any per-state data field in this project must model **both** acts, or 
 will silently return "no signature required" for a state where physically
 declining the ticket lands you in front of a judge.
 
+## COLUMN PASS 2f (2026-09-01): six more, and a second officer-condition cell
+
+**South Dakota — the full posture-2 machinery in one sentence chain.**
+SDCL §32-33-2: "The arresting officer shall **upon the person's written promise to
+appear, release him from custody**. Any person **refusing to give a written
+promise to appear shall be taken immediately by the arresting officer before the
+nearest or most accessible magistrate**. Any person who **intentionally violates**
+his written promise to appear is **guilty of a Class 2 misdemeanor** regardless of
+the disposition of the charge upon which he was originally arrested. A
+**nonresident** arrested… may be **required to post bond**…" **VERIFIED**
+
+South Dakota states all three consequences the other states scatter across
+sections: release on promise, magistrate on refusal, and a separate crime for
+breaking a promise already given. Note the last is the Texas §543.009(b) rule —
+breaking a promise is an offence; refusing to give one is not.
+
+**New York — the officer subscribes it.**
+N.Y. C.P.L. §150.10(1): "An appearance ticket is a written notice **issued and
+subscribed by a police officer** or other public servant authorized by state law…
+directing a designated person to appear in a designated local criminal court…"
+**VERIFIED**. No defendant signature. New York joins the officer-signs group.
+
+**Utah — delivery, not signature.**
+Utah Code §77-7-18(1): "Any person subject to arrest or prosecution on a
+misdemeanor or infraction charge **may be issued and delivered a citation** that
+requires the person to appear…" §77-7-20(1): the officer "shall **give the
+citation to the individual cited**…" **VERIFIED** as to the mechanism. No
+signature requirement appears in either section; whether one exists elsewhere in
+the Utah code was not checked, so "Utah requires no signature" remains
+**UNVERIFIED**.
+
+**New Hampshire — permissive, in hand, no signature.**
+RSA §594:14(I): "In any case in which a peace officer has probable cause to
+believe that a person has committed a misdemeanor or violation, the officer **may
+issue to the person in hand a written summons in lieu of arrest**." Excepted
+where the officer has probable cause to believe the person committed abuse under
+RSA 173-B:1, I, or violated a protective order. **VERIFIED**
+
+**Arizona — a detention-scope limit, no signature.**
+A.R.S. §28-1594: "A peace officer or duly authorized agent of a traffic
+enforcement agency **may stop and detain a person as is reasonably necessary** to
+investigate an actual or suspected violation of this title **and to serve a copy
+of the traffic complaint**…" **VERIFIED**. Service, not signature — and a
+scope-of-detention limit comparable to Washington's RCW 46.64.015, though phrased
+as a grant of authority rather than a cap.
+
+**Pennsylvania — partial.**
+75 Pa.C.S. §6304 is arrest authority, not citation procedure: "(a) Pennsylvania
+State Police.--A member of the Pennsylvania State Police **who is in uniform** may
+arrest without a warrant any person who violates any provision of this title **in
+the presence of** the police officer making the arrest." **VERIFIED** as an
+officer-condition and presence requirement. No signature provision located in
+Title 75 Chapter 63; Pennsylvania's citation procedure lives substantially in the
+Rules of Criminal Procedure rather than the statutes, which were not searched.
+Signature rule **UNVERIFIED**.
+
+## FOURTH CROSS-STATE FINDING: the officer-condition axis is real and has teeth
+
+An earlier pass noted that some states condition the driver's duty on the officer
+being uniformed or identified (MD "uniformed police officer", MI officer "who
+shall identify himself or herself as such", WI stop power beginning "After having
+identified himself"). Two much stronger instances turned up here, and they
+condition the officer's **power to cite at all**:
+
+- **IN** §9-30-2-2(a): "a law enforcement officer **may not arrest or issue a
+  traffic information and summons** to a person for a violation of an Indiana law
+  regulating the use and operation of a motor vehicle… **unless** at the time of
+  the arrest the officer is: (1) **wearing a distinctive uniform and a badge of
+  authority**; or (2) **operating a motor vehicle that is clearly marked as a
+  police vehicle**; that will clearly show the officer or the officer's vehicle to
+  casual observation…" (subject to exceptions in subsection (b), not retrieved).
+  **VERIFIED**
+- **PA** 75 Pa.C.S. §6304(a): State Police arrest authority is limited to a member
+  "**who is in uniform**". **VERIFIED**
+
+This is a distinct column the matrix does not currently have, and it is the one
+most directly relevant to unmarked-car and plainclothes stops — a scenario the
+Arena does not model at all. Indiana's rule is a flat bar on issuing the citation,
+not merely a defence. It is also expressly subject to exceptions that were **not
+retrieved**, so nothing here is close to user-ready.
+
 ## Coverage after this pass
 
-Sign-citation: **31 of 51 verified** — CA, TX, FL, OH, GA, NC, VA, WA, NV, CO,
+Sign-citation: **37 of 51 verified** — CA, TX, FL, OH, GA, NC, VA, WA, NV, CO,
 NE, ID, AL, LA, MA, RI, OR, MO, NM, KY, MN, MD, WV, KS, WI, IL, MT, MI, HI, WY,
-ND — plus TN, NJ, SC and NY partial. Previously 29 of 51.
+ND, SD, NY, UT, NH, AZ, IN — plus PA, TN, NJ and SC partial. Previously 31 of 51.
 
-**Still outstanding (20):** AK, AR, AZ, CT, DE, IA, IN, ME, MS, NH, NJ, NY, OK,
-PA, SC, SD, TN(consequence), UT, VT, DC.
+**Still outstanding (13):** AK, AR, CT, DE, IA, ME, MS, NJ, OK, SC, TN
+(consequence), VT, DC.
+
+Every one of the 13 failed for a *source* reason this pass, not a reasoning one:
+`cga.ct.gov` serves 485 KB chapter files whose anchors do not match the section
+numbering; `legislature.vermont.gov`, `code.dccouncil.gov` section URLs and
+`legis.iowa.gov` returned SPA shells or wrong sections; Oklahoma 404s on every
+slug tried across Justia, FindLaw and OSCN; Delaware, Maine, Mississippi and
+South Carolina fetched successfully but the correct section has not been
+identified. The index-page-first technique from METHOD UNLOCK #3 is the right
+next move for all of them and has not yet been applied to this column.
 
 **Still outstanding (22):** AK, AR, AZ, CT, DE, IA, IN, ME, MS, ND, NH, NJ, NY,
 OK, PA, SC, SD, TN(consequence), UT, VT, WY, DC.
@@ -1790,10 +1880,11 @@ What is actually missing, by column, across all 51 jurisdictions:
   all-party states in COLUMN PASS 1 above). 37 outstanding, all one-party
   jurisdictions where the statutory risk is low by construction — an inference,
   not a verified cell. The high-risk subset of this column is now DONE.
-- **Refusing to sign a citation** — researched for **31** across COLUMN PASSES
-  2 through 2e, plus TN/NJ/SC/NY partial. 20 outstanding. The column INVERTS
-  across states AND splits on two axes (signing vs accepting the citation), so no
-  unresearched state may be inferred from a researched one.
+- **Refusing to sign a citation** — researched for **37** across COLUMN PASSES
+  2 through 2f, plus PA/TN/NJ/SC partial. 13 outstanding, all blocked on locating
+  the right section rather than on access. The column INVERTS across states AND
+  splits on two axes (signing vs accepting the citation), so no unresearched
+  state may be inferred from a researched one.
 - **Passenger ID** — spotty. Verified where the stop-and-identify section
   happened to address it; not systematically pursued.
 - **Duty to inform (firearm)** — researched for the original ten and a handful
@@ -1822,10 +1913,10 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 2e): **137 VERIFIED**,
-11 LIKELY, 59 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 2f): **145 VERIFIED**,
+11 LIKELY, 61 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1
 (recording consent), 104 pass 2, 112 pass 2b, 124 pass 2c (harness), 133 pass 2d,
-137 pass 2e (PDF states). An earlier running count of "147 verified" reported during
+137 pass 2e (PDF states), 145 pass 2f. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
