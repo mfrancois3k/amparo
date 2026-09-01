@@ -2102,7 +2102,9 @@ post-hoc rationalisation that happened to coincide with the real fix.
 
 ## Coverage after this pass
 
-Sign-citation: **50 of 51 verified.** All states and DC except Arkansas.
+Sign-citation: **50 of 51 verified** at the time of this pass. All states and DC
+except Arkansas. **SUPERSEDED — Arkansas was closed in COLUMN PASS 5 via the Lexum-hosted
+court rules; this column is now 51 of 51.**
 
 **Still outstanding (1): Arkansas.** A.C.A. Title 16 Chapter 81 is titled
 "Citation and Arrest" and all of §§16-81-104 through -107 were retrieved and are
