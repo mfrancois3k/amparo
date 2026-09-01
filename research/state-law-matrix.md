@@ -3001,6 +3001,173 @@ right thing by asking for provenance."*
 
 ---
 
+# COLUMN PASS 9: OFFICER CONDITION, SECOND SWEEP (2026-09-01)
+
+Sixteen jurisdictions scouted across two scouts, all verified here by the main
+process. One scout opened with the sentence this project now wants from every
+scout: "Three orphaned subagents returned results; I did not read or use them.
+Everything below I fetched myself in this session."
+
+## Shape (1) — uniform, badge, or marked vehicle required to enforce
+
+- **OK** 11 O.S. §34-106, catchline "**Use of unmarked vehicle prohibited —
+  Official uniform required**" (municipal police), and 19 O.S. §180.43, the same
+  rule for county sheriffs, deputies and reserve deputies. Both cross-reference
+  47 O.S. §12-218 as the exception. **VERIFIED**. The strongest unmarked-car bar
+  found in any state.
+
+  §19-180.43 opens with a **legislative finding that names this product's exact
+  scenario**: "The State of Oklahoma hereby declares and states that the
+  increased number of persons **impersonating law enforcement officers by making
+  routine traffic stops while using unmarked cars** is a threat to the public
+  health and safety of all of the citizens of the State of Oklahoma…"
+  **VERIFIED**. A legislature has written down the fear, and legislated against
+  it. That is worth more to a user than any summary of the rule.
+
+  **CURRENCY WARNING.** Both sections were retrieved from `ok.elaws.us`, whose
+  own page footer reads "Oklahoma Statutes (**Last Updated: September 18,
+  2014**)". The text is verified as *fetched*; it is **NOT verified as current**.
+  Eleven years of possible amendment sit behind that footer, and this is exactly
+  the staleness that made Ohio's pre-2022 duty-to-inform entries wrong. Before
+  Oklahoma's unmarked-car rule is relied on for anything, it must be re-pulled
+  from a dated official source. Recorded as **VERIFIED text / UNVERIFIED
+  currency** — a distinction this ledger has needed since the Alaska 1993
+  incident and should apply more widely.
+- **OR** ORS 810.400, catchline "**Uniform or badge required**": "Any police
+  officer attempting to enforce the traffic laws of this state **shall be in
+  uniform or shall conspicuously display an official identification card**…"
+  **VERIFIED**
+- **VA** §46.2-103: "on his request or signal, **any law-enforcement officer who
+  is in uniform or displays his badge or other sign of authority** may: 1. Stop
+  any motor vehicle…" **VERIFIED**. A condition on the stop power itself.
+- **TX** Transp. Code §720.001, "Badge of Sheriff, Constable, or Deputy": "(a) A
+  sheriff, constable, or deputy sheriff or deputy constable **may not** [act
+  without the badge]…" **VERIFIED**. Reaches sheriffs, constables and deputies
+  **only** — not municipal or state police.
+- **NC** G.S. §20-29: the driver's duty to surrender or display a licence runs to
+  "**an officer in uniform**". **VERIFIED**. A uniform condition attached to the
+  *driver's duty* rather than to the officer's power — a fifth structural variant.
+- **PA** 75 Pa.C.S. §6304 · **IN** §9-30-2-2 — previously recorded.
+
+## Shape (3) — officer must identify
+
+- **OR** ORS 131.615 ("Stopping of persons"): the officer must inform the person
+  that the officer is a peace officer before inquiry. **VERIFIED**
+- **NY** C.P.L. §140.15(2): "The arresting police officer **must inform such
+  person of his authority and purpose and of the reason for such ar[rest]**."
+  **VERIFIED**. Warrantless arrest; excused on resistance or flight.
+- **RI** §31-21.2-5(h) ("Law enforcement practices"): the officer must advise the
+  motorist of **the reason for the stop**. **VERIFIED**. Note this is a
+  reason-for-stop duty, **not** proof of identity — close enough to be
+  mis-summarised as the latter.
+- **MT** §46-5-401 · **WI** §968.24 — previously recorded.
+
+## Shape (4) — conditions on an OFFENCE, not on the stop
+
+The sharpest trap in this column. Each of these conditions the **eluding**
+offence on the officer being identifiable. That is an element of a fleeing
+charge — a defence after the fact — **not** permission to keep driving:
+
+- **ND** §39-10-71: a signal given from a vehicle requires the stopping vehicle
+  be **appropriately marked as an official police vehicle**; a signal not from a
+  vehicle requires the officer be **in uniform or prominently display a badge**.
+  **VERIFIED**
+- **TX** §545.421(b): "The officer giving the signal **must be in uniform and
+  prominently display the officer's badge of office. The officer's vehicle must
+  be** [marked]…" **VERIFIED**
+- **NV** NRS 484B.550: reaches a driver who flees "a peace officer in a readily
+  [identifiable vehicle]". **VERIFIED**
+
+A user who read any of these as "you don't have to stop for an unmarked car"
+would be reasoning from a prosecution element to a roadside right, and could be
+badly hurt by it. **This distinction must survive into any user-facing text.**
+
+## Other conditions
+
+- **NC** §20-183: local officers must sound siren or activate a special light
+  before overtaking to stop **outside municipal limits**. **VERIFIED**. The
+  fleet-marking provisions formerly at G.S. §§20-188 and 20-190 were
+  **recodified to §§143B-1716 and 143B-1720 effective 1 July 2025**; the Chapter
+  20 pages now carry only recodification notices. **VERIFIED** — and a reminder
+  that a section can vanish from where every secondary source still points.
+- **TN** §55-10-308: marked-vehicle requirement for **municipal** agencies
+  enforcing rules of the road **on interstate highways**. **VERIFIED**
+- **WA** RCW 46.08.065, "Publicly owned vehicles to be marked — Exceptions": a
+  fleet-marking mandate with **express law-enforcement and undercover
+  exceptions**. **Not** a bar on stopping, arresting or citing. **VERIFIED**
+
+## Impersonation statutes — a new column, opened
+
+Relevant because the unmarked-car scenario's real question is "is this a real
+officer?":
+- **NY** Penal Law §190.25(3) — criminal impersonation in the second degree,
+  reaching pretending to be a public servant and wearing a uniform, badge or
+  insignia. **VERIFIED**
+- **OK** 21 O.S. §1533, including subsection F.2 — **using a motor vehicle** to
+  falsely personate a law enforcement officer. **VERIFIED**
+- **OR** ORS 162.367 — criminal impersonation of a peace officer. **VERIFIED**
+
+## Two myths killed
+
+**New York.** No uniform or marked-vehicle stop condition exists in the Vehicle
+and Traffic Law. V.T.L. §1102 carries none. The restriction widely attributed to
+New York traces to a **revoked 1996 executive order** and to **unenacted Senate
+bills** (a proposed V.T.L. §1102-a among them). **Negative finding about a
+repeated claim** — weaker than a verified statute, but recorded.
+
+**Rhode Island.** Widely repeated web claims that Rhode Island requires a uniform
+for unmarked-car stops "trace to blog aggregators, not to statute text I could
+locate." The scout read the **complete catchline indexes** of chapter 31-27 (40+
+sections) and chapter 12-7 (22 sections); §31-27-4.1 (eluding) references only
+"an emergency police vehicle", and §12-7-7 ("Methods of arrest") imposes no
+identity or uniform condition. **Searched negative**, at index level.
+
+Seven and eight, on this project's running count of published-claim errors.
+
+## A LIMITATION OF THIS PROJECT'S OWN INDEX-FIRST TECHNIQUE
+
+METHOD UNLOCK #3 — read chapter catchlines before fetching sections — has been
+the workhorse of this ledger. It went 6-for-6 where guessing went 0-for-6, and it
+cracked Oklahoma and Iowa.
+
+This pass found where it fails. On Pennsylvania:
+
+> "the chapter-63 index catchlines do **NOT** contain 'uniform' — the condition
+> is inside §6304, whose catchline is about warrantless arrest authority.
+> **Index-only screening would have missed this one.**"
+
+Correct, and important. Index-first finds a section whose **subject** is named in
+its catchline. It cannot find a condition **buried inside** a section about
+something else. Virginia is the same pattern in reverse: the equipment chapter
+was a dead end and the rule lives in chapter 1.
+
+**Corrected guidance.** Index-first remains the right opening move. But a
+**negative** result from an index sweep is **weak** — it establishes only that
+nothing is *titled* for the thing sought. For any column where the rule may be a
+subsection of a differently-named section, and officer-condition especially, a
+null index result must be followed by full-text search of the chapter before
+"not found" is recorded.
+
+Existing entries in this ledger that rest on index sweeps alone — Kansas and
+Montana on duty-to-inform are the clearest, and Rhode Island above — are hereby
+**downgraded to index-level negatives**. They remain honest searched-negatives,
+but they are not full-text negatives and must be re-run before anyone relies on
+the absence.
+
+## Coverage
+
+Officer condition: **20 jurisdictions** with verified text (IN, OH, PA, WI, NY,
+MT, OR, VA, TX, NC, NV, TN, WA, OK, ND, RI). 31 outstanding.
+Impersonation: **3** (NY, OK, OR) — a newly opened column.
+
+**Explicitly NOT ATTEMPTED**, recorded as distinct from "not found": the
+"driver may proceed to a lit or populated place before stopping" statutes. One
+scout searched incidentally and found none in six jurisdictions, at LOW
+confidence and expressly not exhaustive. This is directly on point for the
+unmarked-car scenario and needs a dedicated pass.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -3047,10 +3214,11 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 8): **213 VERIFIED**,
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 9): **231 VERIFIED**,
 13 LIKELY, 78 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1,
 104-162 passes 2-2i (sign citation 51 of 51), 174 pass 3, 181 pass 4,
-198 passes 5-6, 209 pass 7, 213 pass 8 (recording consent 43 of 51). An earlier running count of "147 verified" reported during
+198 passes 5-6, 209 pass 7, 213 pass 8 (recording consent 43 of 51),
+231 pass 9 (officer condition 20). An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
