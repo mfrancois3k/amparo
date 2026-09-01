@@ -1979,6 +1979,114 @@ Previously 42 of 51.
 
 All four are source problems, and all four have a known next move.
 
+## COLUMN PASS 2i (2026-09-01): three of the last four
+
+**Iowa — the only state where the signature carries its own criminal penalty.**
+The section was §805.1 as the index said, but the operative rule is §805.3.
+
+Iowa Code §805.3 (Procedure): "**Before the cited person is released, the person
+shall sign the citation**, either in a paper or electronic format, **under penalty
+of providing false identification information under section 719.1A**, properly
+identifying the person cited. **The person's signature shall also serve as a
+written promise to appear** in court at the time and place specified. A copy of
+the citation shall be given to the person." **VERIFIED**
+
+Iowa §805.1(1): "a peace officer having grounds to make an arrest **may issue a
+citation in lieu of making an arrest** without a warrant or, if a warrantless
+arrest has been made, a citation may be issued **in lieu of continued custody**."
+**VERIFIED**
+
+Iowa's signature does **three** jobs at once, which no other state stacks so
+explicitly. §805.6(2)(b) requires the uniform citation to contain "(1) A promise
+to appear as provided in section 805.3. (2) The following statement: **I hereby
+give my unsecured appearance bond in the amount of …** (3) A space immediately
+below the items in subparagraphs (1) and (2) **for the signature of the person
+being charged which shall serve for each of the items** in subparagraphs (1) and
+(2)." **VERIFIED**
+
+So in Iowa one signature simultaneously (a) identifies you under criminal
+penalty, (b) promises appearance, and (c) posts an unsecured appearance bond
+against you. It is still not an admission of guilt — but "signing is harmless" is
+a much weaker statement in Iowa than anywhere else in this matrix, and the
+standard reassurance should not be given there without qualification.
+
+Iowa §805.1(3)(b) also lists the factors for citation guidelines: "(1) Whether a
+person **refuses or fails to produce means for a satisfactory identification**.
+(2) Whether a person **refuses to sign the citation**. (3) Whether detention
+appears reasonably necessary…" **VERIFIED** — the ID/signature pairing, **sixth
+state**, and here the two sit as consecutive numbered factors.
+
+**Alaska — current text retrieved; the 1993 snapshot is superseded.**
+AS §12.25.180(a), **2025 Alaska Statutes**: "When a peace officer stops or
+contacts a person for the commission of a **class C felony offense**, a
+misdemeanor, or the violation of a municipal ordinance, the officer may, **in the
+officer's discretion, issue a citation** to the person instead of taking the
+person before a judge or magistrate under AS 12.25.150, **except the officer may
+arrest if** (1) **the person does not furnish satisfactory evidence of identity**;
+(2) the peace officer reasonably believes the person is a danger to others; (3)
+the crime for which the person is contacted is one involving violence or harm to
+another person or to property; (4) **the person asks to be taken before a judge or
+magistrate** under AS 12.25.150; or (5) …" **VERIFIED**
+
+The current text differs materially from the 1993 version recorded in pass 2g —
+it now reaches class C felonies and the exception list is not the same. The
+earlier LIKELY entry is **superseded by this one**; do not cite the 1993 text.
+
+Note item (4): the driver may *ask* to be taken before a magistrate. The same
+option appears in **WY** §31-5-1204(i) ("demands an immediate appearance before a
+judge") and **TX** §543.004(a)(2). Three states expressly let the driver choose
+custody over a citation — a fact worth knowing, and one no user should exercise
+casually.
+
+**Pennsylvania — resolved, and it was in the Rules all along.**
+Pa.R.Crim.P. 405 (Issuance of Citation): "When a criminal proceeding in a summary
+case is instituted by issuing a citation to the defendant: (1) **the law
+enforcement officer who issues the citation shall exhibit an official sign of the
+officer's authority**; and (2) the law enforcement officer **contemporaneously
+shall give the defendant a paper copy of the citation** containing all the
+information required by Rule 403." **VERIFIED**
+
+**No defendant signature is required in Pennsylvania.** The citation procedure was
+never in Title 75 — it is in the Rules of Criminal Procedure, exactly as the
+earlier pass suspected. Rule 405(1) is also a further officer-condition cell: the
+officer must exhibit an official sign of authority.
+
+Pennsylvania therefore has **no citation signature duty** but **does** have the
+§6308(a) write-your-name-for-identity duty recorded above. Those two facts sit
+badly together in summary and must not be collapsed.
+
+## METHOD UNLOCK #5: content negotiation was hiding Iowa
+
+`legis.iowa.gov` had defeated **seven** separate attempts across four passes —
+every `.pdf` URL returned HTML (the chapter listing), which the anchor check
+correctly flagged as NO-STATUTE each time but could not explain. The rendered
+browser was no better: it triggered a file-download dialog rather than
+navigating.
+
+The cause was **content negotiation**. Sending `Accept: application/pdf` with a
+plausible `Referer` returned the actual PDF (39 KB, `%PDF-1` header) from the same
+URL that had been serving HTML all along.
+
+Generalised rule now applied to the harness: **when a `.pdf` URL returns HTML,
+re-request it with an explicit `Accept: application/pdf` header before concluding
+the source is broken.** Iowa was never blocked; it was answering a question no
+one had asked properly.
+
+## Coverage after this pass
+
+Sign-citation: **50 of 51 verified.** All states and DC except Arkansas.
+
+**Still outstanding (1): Arkansas.** A.C.A. Title 16 Chapter 81 is titled
+"Citation and Arrest" and all of §§16-81-104 through -107 were retrieved and are
+the wrong sections (warrant, execution and service, authority to arrest,
+procedures of arrest). Arkansas's citation-in-lieu-of-arrest procedure is in
+**Ark. R. Crim. P. 5.2**, which is a court rule rather than a Code section.
+Justia has no Arkansas court-rules tree at the paths tried, and `casetext.com` —
+the usual host for state court rules — **has been shut down** ("This service is no
+longer available… please visit Westlaw"). The remaining routes are the Arkansas
+Judiciary's own site or a Westlaw/Lexis subscription. Recorded as a genuine
+source wall, not an oversight.
+
 **Still outstanding (8):** AR, DC, IA, ME, OK, VT, TN(consequence),
 PA(signature), plus AK(currency).
 
@@ -2089,11 +2197,11 @@ What is actually missing, by column, across all 51 jurisdictions:
   all-party states in COLUMN PASS 1 above). 37 outstanding, all one-party
   jurisdictions where the statutory risk is low by construction — an inference,
   not a verified cell. The high-risk subset of this column is now DONE.
-- **Refusing to sign a citation** — researched for **47 of 51** across COLUMN
-  PASSES 2 through 2h. 4 outstanding (AR, IA, PA, AK), all source problems with a
-  known next move. The column INVERTS across states AND splits on two axes
-  (signing vs accepting the citation), so no unresearched state may be inferred
-  from a researched one.
+- **Refusing to sign a citation** — **50 of 51** across COLUMN PASSES 2 through
+  2i. Only Arkansas outstanding, and it is a genuine source wall (its rule is a
+  court rule; casetext.com has shut down). The column INVERTS across states AND
+  splits on two axes (signing vs accepting the citation), so no unresearched
+  state may be inferred from a researched one.
 - **Passenger ID** — spotty. Verified where the stop-and-identify section
   happened to address it; not systematically pursued.
 - **Duty to inform (firearm)** — researched for the original ten and a handful
@@ -2122,10 +2230,11 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 2h): **156 VERIFIED**,
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 2i): **162 VERIFIED**,
 12 LIKELY, 64 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1
 (recording consent), 104 pass 2, 112 pass 2b, 124 pass 2c (harness), 133 pass 2d,
-137 pass 2e (PDF states), 145 pass 2f, 150 pass 2g (index-first), 156 pass 2h. An earlier running count of "147 verified" reported during
+137 pass 2e (PDF), 145 pass 2f, 150 pass 2g (index-first), 156 pass 2h,
+162 pass 2i. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
