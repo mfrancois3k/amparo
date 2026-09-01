@@ -4094,6 +4094,116 @@ just proven should close it.
 
 ---
 
+# COLUMN PASS 18: RECORDING CONSENT COMPLETE AT 51/51, AND THE CATCHLINE BACKLOG CLEARED (2026-09-01)
+
+## ALABAMA — closed. Third column complete.
+
+Alabama's recording-consent cell had failed on three hosts across three passes:
+`law.onecle.com` returned a 604-byte shell, `codes.findlaw.com` served a chapter
+index instead of the section on both URL forms, and
+`alisondb.legislature.state.al.us` no longer resolves.
+
+Closed by reusing the route proven for §13A-11-95 in PASS 17: the **Alabama
+Attorney General's** *Criminal Laws of Alabama*, 2024 Edition, searched locally.
+Found at **p.298**.
+
+**AL** §13A-11-30(1): "**EAVESDROP.** To overhear, record, amplify or transmit any
+part of the **private communication of others** **without the consent of at least
+one of the persons engaged in the communication**, except as otherwise provided
+by law." **VERIFIED**.
+
+**AL** §13A-11-31: "(a) A person commits the crime of criminal eavesdropping if he
+intentionally uses any device to eavesdrop, whether or not he is present at the
+time. (b) Criminal eavesdropping is a **Class A misdemeanor**." **VERIFIED**.
+
+Alabama stacks **three** independent limiters, more than any other state in this
+column:
+1. "**private** communication" — a roadside stop on a public highway is not that;
+2. "**of others**" — a participant is textually excluded, the Michigan/Kentucky
+   pattern;
+3. "**without the consent of at least one**" — one-party consent.
+
+**RECORDING CONSENT: 51 of 51. COLUMN COMPLETE.**
+
+Third completed column, after driver ID (51/51) and sign citation (51/51).
+
+### What the completed column establishes
+
+Across **all 51 jurisdictions**, verified against primary text, a driver openly
+recording their own traffic stop falls outside the wiretap/eavesdropping statute.
+The mechanisms differ — express participant exception, one-party consent, a
+requirement that the recorder be absent or concealed, a limitation to private
+communications, or an express carve-out for recording public officials — but
+there is **no jurisdiction in which the wiretap statute reaches the conduct.**
+
+The twelve states published lists call "all-party consent" were the hard case, and
+none of them reached it either. Vermont and New Mexico have no applicable general
+prohibition at all.
+
+**This remains bounded exactly as before.** It is a statement about
+wiretap statutes and nothing else. The **obstruction overlay is still entirely
+unresearched** — how recording gets charged as interference, obstruction, or
+failure to comply — and being outside a wiretap statute has never stopped an
+arrest on another theory. The defensible user-facing sentence is narrow: *the
+wiretap statute is not the thing to worry about.* It is not "recording is legal."
+
+## The catchline backlog, cleared
+
+PASS 15 flagged five cells sourced from catchlines alone, after Massachusetts
+§129C proved a catchline can name a duty its body no longer contains. All were
+fetched to body:
+
+- **SD** §32-12-40: "**No judgment may be issued** against a person charged with
+  violating §32-12-39, **if the person produces in court, or the office of the
+  officer making the demand, the person's valid driver license.** If the driver
+  license is expired for [not more than thirty days]…" **VERIFIED** — upgraded
+  from LIKELY. Note it permits production at the officer's office as well as in
+  court, which the catchline did not reveal.
+- **WI** §175.60(2g)(c): "Unless the licensee… is carrying a concealed weapon in a
+  manner described under s. 941.23(2)(e), **upon request by a law enforcement
+  officer** who is acting in an official capacity and with lawful authority, a
+  licensee who is carrying a concealed weapon **shall display to the officer his
+  or her license document, photographic identification card**, and, if the
+  licensee is a military resident, [additional documents]…" **VERIFIED** —
+  upgraded from LIKELY. On-request, and it requires **two documents**, not one.
+- **CO** §18-12-204(2)(a): "The permittee **shall carry the permit, together with
+  valid photo identification**, at all times during which the permittee is in
+  actual possession of a concealed handgun and **shall produce both documents upon
+  demand by a law enforcement officer. Failure to produce a permit upon demand**
+  [carries a consequence]…" **VERIFIED** — upgraded from LIKELY. Also a
+  two-document duty.
+- **CT** §52-570d(a): "**No person shall use any instrument, device or equipment
+  to record an oral private telephonic communication** unless the use… (1) is
+  preceded by **consent of all parties**… or (2) is preceded by verbal
+  notification which is recorded at the beginning… or (3) is accompanied by an
+  **automatic tone warning device**…" **VERIFIED** — upgraded from
+  catchline-sourced. The catchline's scope limit ("private telephonic
+  communications") is confirmed by the body, and the body adds two alternatives to
+  all-party consent that the catchline concealed: **recorded verbal notification**
+  or a **tone warning**.
+- **ND** §62.1-04-04: body already fetched in PASS 12. Clear.
+
+**Every one of the five turned out to be correct on its face** — but three of them
+carried material detail the catchline did not disclose (South Dakota's
+officer's-office option, Wisconsin's and Colorado's two-document requirement,
+Connecticut's tone-warning alternative). The rule from PASS 15 holds and is
+reinforced: a catchline may be used to find a section, never to establish it. Not
+because it is usually wrong, but because it is reliably **incomplete**.
+
+## Coverage
+
+- Driver ID: **51/51 COMPLETE**
+- Sign citation: **51/51 COMPLETE**
+- Recording consent: **51/51 COMPLETE**
+- Duty to inform: **39/51**
+- Officer condition: **30/51**
+- Stop-and-identify: ~25/51
+- Passenger ID: 13/51 (12 swept structurally + AZ)
+
+Zero LIKELY cells remain in the catchline category.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -4106,10 +4216,10 @@ retrieval method works, not that any state is ready.
 
 What is actually missing, by column, across all 51 jurisdictions:
 
-- **Recording consent** — **50 of 51**. Only Alabama outstanding, and that is a
-  host problem rather than a research one. The national shape is established on
-  primary text: a driver openly recording their own stop is outside the wiretap
-  statute in every jurisdiction examined.
+- **Recording consent** — **51 of 51. COLUMN COMPLETE.** Verified against primary
+  text in every jurisdiction: a driver openly recording their own stop falls
+  outside the wiretap statute everywhere. Bounded to wiretap statutes only; the
+  obstruction overlay remains entirely unresearched.
 - **Refusing to sign a citation** — **51 of 51. COMPLETE.** Arkansas closed via
   the Lexum-hosted court rules. The column INVERTS across states AND splits on two
   axes (signing vs accepting the citation), so it must be state-gated in full.
@@ -4144,12 +4254,12 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 17): **276 VERIFIED**,
-14 LIKELY, 96 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1,
-104-162 passes 2-2i (sign citation 51 of 51), 174 pass 3, 181 pass 4,
-198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
-247 pass 11 (recording 50 of 51), 255 pass 12, 263 pass 13, 270 pass 14,
-273 pass 16, 276 pass 17 (duty to inform 39 of 51). An earlier running count of "147 verified" reported during
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 18): **282 VERIFIED**,
+14 LIKELY, 96 UNVERIFIED cells. THREE COLUMNS COMPLETE at 51/51: driver ID,
+sign citation, recording consent. Progression: 81 breadth sweep, 97 pass 1,
+104-162 passes 2-2i, 174 pass 3, 181 pass 4, 198 passes 5-6, 209 pass 7,
+213 pass 8, 231 pass 9, 239 pass 10, 247 pass 11, 255 pass 12, 263 pass 13,
+270 pass 14, 273 pass 16, 276 pass 17, 282 pass 18. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
