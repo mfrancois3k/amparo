@@ -5434,6 +5434,128 @@ AR (as a mode), LA (as a mode)**.
 
 ---
 
+# COLUMN PASS 29: PASSENGER ID, SWEEP 3 (2026-09-01)
+
+Fourteen states swept structurally. **No new passenger duties.** Arizona confirmed
+in body from the official host.
+
+## MONTANA — the near-miss, re-read on request, and it is not a passenger duty
+
+The scout flagged MCA §46-5-401 as "the one item I'd want a second scout to re-read
+before a brief relies on it either way." That is exactly the right instinct, and
+the main process re-read it:
+
+**MT** §46-5-401(1): "a peace officer may stop any person or vehicle that is
+observed in circumstances that create a **particularized suspicion that the person
+or occupant of the vehicle** has committed, is committing, or is about to commit an
+offense." **VERIFIED**.
+
+**The "occupant" language sits in the STOP AUTHORITY, not in any duty.** It widens
+the officer's *basis for stopping the vehicle* — suspicion about a passenger will
+support the stop — but imposes nothing on the occupant. §46-5-401(2)(a) then
+allows the officer to "request the person's name and present address and an
+explanation of the person's actions and, **if the person is the driver of a
+veh[icle]**, demand [the licence]" — the request/demand split already recorded in
+PASS 19.
+
+So Montana is **not** an AZ/WA-type passenger duty. But it is precisely the
+sentence a summary would misread as one, and it means something real that is worth
+telling a passenger: **in Montana, suspicion about you is a lawful basis to stop
+the car you are riding in.**
+
+**A bonus cell for the officer-condition column**, found in the same subsection:
+"If the stop is for a violation under Title 61, unless emergency circumstances
+exist or the officer has reasonable cause to fear for the officer's own safety or
+for the public's safety, **the officer shall as promptly as possible inform the
+person of the reason for the stop**." **VERIFIED**. Montana joins Rhode Island
+§31-21.2-5(h) in imposing a reason-for-stop duty on the officer — and Montana's is
+conditioned, with two express exceptions.
+
+## ARIZONA confirmed in body on the official host
+
+**AZ** §28-1595(C) re-confirmed from `azleg.gov` itself: it reaches "**A person
+other than the driver of a motor vehicle**", conditioned on the officer having
+reasonable cause to believe *that person* violated Title 28. **VERIFIED**.
+
+The scout also swept the **full ARS Title 28 catchline index** for "passenger",
+"identity" and "occupant": §28-1595 is the **only** identity provision in the
+title, and the three "passenger" catchlines are projecting loads, a registration
+exemption, and a TNC drug/alcohol complaint provision. Subsections (A), (B) and (E)
+all read "operator"/"driver".
+
+That is the strongest form of this negative available — a whole-title index sweep
+confirming the positive is unique within it.
+
+## FIFTEENTH CROSS-STATE FINDING: "in charge of a vehicle" is the driver-limiting formula
+
+Two states in this sweep confirm a construction first noticed in Washington:
+
+- **MA** G.L. c.90 §25 — the name-and-address duty is limited to a person "**while
+  operating or in charge of a motor vehicle**". **VERIFIED**.
+- **NH** RSA §265:4, I(a)-(b) — the name/address/DOB duty is gated by "No person,
+  **while driving or in charge of a vehicle**". **VERIFIED**.
+- **WA** RCW §46.61.020 — "any person **while operating or in charge of** any
+  vehicle" (recorded PASS 23).
+
+All three sit **exactly where a passenger duty would live** — the general
+refusal-to-identify section of the traffic code — and all three use the same
+formula to exclude passengers. Washington is the decisive case: §46.61.020 uses
+the limiting formula while its neighbour §46.61.021(3) says "any person", in the
+same chapter.
+
+**"In charge of a vehicle" is a term of art meaning the person responsible for it,
+not anyone inside it.** A reader who takes it colloquially would code these three
+states wrongly. This is now the second recurring formula this project has had to
+learn to read (after "of others" in the eavesdropping statutes).
+
+Note this does **not** disturb PASS 20's Massachusetts entry: c.90 §25 remains a
+genuine stop-and-identify duty **for the driver**, in Categories A and D. It is
+simply not a passenger duty.
+
+## A new host trap
+
+`law.justia.com`'s North Dakota chapter pages **render as PDF-only with no section
+list**, so a chapter-level negative there is meaningless. `ndlegis.gov`
+`cencode/t39cNN.html` gives the real catchline index, and FindLaw serves the ND
+section bodies Justia lacks.
+
+Eighth trap class in the "successful response that asserts absence" family — and
+notable because it appears on the *same host* this project just spent two passes
+rehabilitating. **Justia-via-browser is the right route, and it is still not
+uniformly reliable per state.**
+
+## Eleven searched negatives, all with indexes named
+
+**HIGH**: DE (Title 21 ch. list, ch. 7 §§701-713, ch. 27 subch. I §§2701-2728, 11
+Del. C. ch. 19 subch. I §§1901-1914), ID (Title 49 ch. list, ch. 14 §§49-1401 to
+-1432), IA (**complete ch. 321 index — Justia truncates at §321.364, so the scout
+pulled §§321.370-321.562 out of the DOM to defeat it**), MA, MS (Title 63 ch. list,
+ch. 3 art. list, art. 5 §§63-3-201 to -213, ch. 9 §§63-9-1 to -37), NE (complete
+ch. 60 index, DOM-searched), NH, NM (ch. 66 art. 8 part list, part 2 §§66-8-101 to
+-141), ND (ch. 39-07, 39-06.1, 29-29 lists), OK (**complete Title 47 index —
+the whole title is one page, DOM-searched**).
+
+**MEDIUM-HIGH**: AR (Title 27 subtitle 4 ch. list, ch. 50 subch. list, four
+subchapter section lists), ME (Title 29-A ch. list, ch. 19 subch. list, ch. 19
+subch. 2 §§2101-2121, ch. 11 subch. 1 and 2), MT.
+
+The DOM-extraction technique — pulling a section list out of the page's DOM when
+the rendered text truncates — defeated Justia's Iowa truncation and Oklahoma's
+single-page title. It is now the standard answer to a truncated index.
+
+## Coverage
+
+Passenger ID: **40 of 51 swept structurally**. Verified positives remain **3**
+(AZ, WA, IN) plus **1 outlier** (HI). 11 jurisdictions unswept.
+
+Across 40 states the finding is stable and has survived three independent sweeps:
+**a passenger is not covered by the driver-ID statute**, and any duty they carry
+arises only where the officer has individualised suspicion about them — with
+Hawaii the sole exception, where the vehicle's stop alone triggers a
+firearm-disclosure duty on any occupant.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -5484,16 +5606,16 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 28):
-**334 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 101 UNVERIFIED.
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 29):
+**339 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 101 UNVERIFIED.
 FOUR COLUMNS COMPLETE at 51/51: driver ID, sign citation, recording consent,
 duty to inform. Impersonation 50/51. Officer condition 49/51.
-Stop-and-identify 47/51. Passenger ID 26/51 swept.
+Stop-and-identify 47/51. Passenger ID 40/51 swept.
 Progression: 81 breadth sweep, 97 pass 1, 104-162 passes 2-2i, 174 pass 3,
 181 pass 4, 198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
 247 pass 11, 255 pass 12, 263 pass 13, 270 pass 14, 273 pass 16, 276 pass 17,
 282 pass 18, 288 pass 19, 298 pass 20, 313 pass 21, 316 pass 23, 323 pass 24,
-325 pass 25, 327 pass 26, 330 pass 27, 334 pass 28. An earlier running count of "147 verified" reported during
+325 pass 25, 327 pass 26, 330 pass 27, 334 pass 28, 339 pass 29. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
