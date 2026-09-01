@@ -3844,6 +3844,108 @@ distinguish.
 
 ---
 
+# COLUMN PASS 16: DUTY TO INFORM — CA, DE, ID, IN, KS, MT (2026-09-01)
+
+## KANSAS — "CATCHLINE DEATH", the exact mirror of the Massachusetts hazard
+
+PASS 15 established that a catchline can **outlive** the provision it names
+(Massachusetts §129C). Kansas is the same mechanism running the other way, and it
+was confirmed by fetching **both versions**:
+
+- **2014 text**, K.S.A. §75-7c03 — catchline read: "…**display on demand of law
+  enforcement officer**; reciprocity; 180-day receipt, issuance." The duty rode in
+  subsection (b). **VERIFIED (historical text).**
+- **Current text**, same section, fetched on two hosts (kslegislature.gov 2025-26
+  and FindLaw, currency 1 Jan 2025): the phrase is **gone from the catchline**,
+  and current subsection (b) is the licence-card-form provision. Subsections now
+  present: (a), (b), (c)(1)-(3), (d). **The word "demand" does not occur anywhere
+  in the 5,740-character current page.** **VERIFIED**.
+
+Independently confirmed by the main process on both versions before entry.
+
+So the two failure modes are now both documented and are **opposites**:
+
+| | Catchline | Body | Failure produced |
+|---|---|---|---|
+| **MA §129C** | still names the duty | duty gone | **False positive** — records a duty that no longer exists |
+| **KS §75-7c03** | no longer names it | duty gone | **Correct**, but any pre-2025 citation is stale |
+
+Kansas is the benign case: the drafters removed both. Massachusetts is the
+dangerous one. Together they establish that **for this column, the catchline and
+the body must be checked against each other, in both directions, on every cell.**
+
+Kansas's repealing session law was **not located**, so the date and vehicle of the
+change are **UNVERIFIED**. The scout also read the full article 7c index (24
+sections with catchlines) and fetched §75-7c06, finding no other candidate.
+
+PASS 3 recorded Kansas as a searched negative "ruled out by reading the complete
+catchline index". That was right about the outcome and **wrong about the
+reasoning** — the index was clean because the duty had been repealed, not because
+it never existed. The cell stands; the reasoning is corrected.
+
+## CALIFORNIA — a duty, framed as a prohibited act
+
+**CA** Penal Code §26200(a): "While carrying a firearm as authorized by a license
+issued pursuant to this chapter, a licensee **shall not do any of the following**:
+… (7) **Fail to carry the license on their person.** (8) **Impede a peace officer
+in the conduct of their activities.** (9) **Refuse to display the license or to
+provide** [it]…" **VERIFIED**.
+
+California's duty is drafted as a **list of prohibitions on the licensee** rather
+than as an affirmative duty — which is why a keyword search for "shall inform" or
+"shall display" misses it entirely. On-request shape: the offence is *refusing* to
+display, not failing to volunteer.
+
+Also captured, relevant to the impersonation column opened in PASS 9: §26200(a)(5)
+prohibits a licensee from "**Falsely represent[ing] to a person that the licensee
+is a peace officer**." **VERIFIED**.
+
+Note §26200(b) authorises the issuing authority to impose conditions — which is
+where county-level "must notify" requirements would ride. **State text is
+on-demand only**; any county overlay is **UNVERIFIED** and outside what a
+state-level matrix can represent. This is the second sub-state variation found in
+the project, after Orleans Parish (La. R.S. §32:391).
+
+The scout fetched and **rejected** Penal Code §25850 as the locator — it is
+firearm-inspection, not inform. That rejection is correct and matters, because
+§25850(b) is already recorded in this ledger as the California trap where refusing
+a firearm inspection is itself probable cause for arrest.
+
+## Four graded negatives
+
+Each names what was actually read, per the standard adopted in PASS 13:
+
+- **ID** — **MEDIUM-HIGH**. §18-3302 full body fetched **twice, on two independent
+  hosts**; both confirm the section number and neither contains a display-on-demand
+  or inform provision. §§18-3302H and 18-3302K not attempted. **UNVERIFIED**.
+- **MT** — **MEDIUM-HIGH**. Title 45 ch. 8 pt. 3 full section index read including
+  the repealed list; §§45-8-316 and 45-8-321 full-texted, neither carries a duty.
+  **Permitless-carry flag**: HB 102 (2021), and the index shows §§45-8-317, -319,
+  -320, -325, -331, -339, -341, -342 as **repealed**. The scout did not fetch the
+  pre-repeal text, so **which repealed section (if any) held a former inform duty
+  is unknown**. **UNVERIFIED**.
+- **DE** — **MEDIUM**. The delcode subchapter index "renders section numbers only
+  and TRUNCATED at §1361 on fetch" — the exact failure this ledger warned about.
+  §§1441, 1442, 1443 full-texted on FindLaw, none contains a duty. §§1441A, 1441B
+  and 1444-1465 not attempted. **UNVERIFIED**.
+- **IN** — **MEDIUM**. IC §§35-47-2-1, -2-1.5 and -2-3 full-texted; §35-47-2-3(k)
+  is a notify-the-superintendent-of-changes provision and was correctly rejected
+  as not a stop duty. **No verified chapter index was ever obtained** (iga.in.gov
+  is a JS shell, Justia hard-403'd, FindLaw's Title 35 landing page carries no
+  chapter-2 section list), so this negative rests on three sections rather than a
+  sweep. **Renumbering flag**: HEA 1296 / P.L. 175-2022 removed the carry-licence
+  requirement and added §35-47-2-1.5. **UNVERIFIED**.
+
+Indiana is now the weakest negative in this column and the honest reason is
+recorded: no index was reachable, so nobody knows what was not looked at.
+
+## Coverage
+
+Duty to inform: **35 of 51** verified (adding CA). 16 outstanding, of which 5 are
+graded negatives from this pass that need a fuller sweep rather than a first look.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -3894,12 +3996,12 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 15): **270 VERIFIED**,
-13 LIKELY, 90 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1,
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 16): **273 VERIFIED**,
+13 LIKELY, 96 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1,
 104-162 passes 2-2i (sign citation 51 of 51), 174 pass 3, 181 pass 4,
 198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
-247 pass 11 (recording 50 of 51), 255 pass 12, 263 pass 13,
-270 pass 14 (duty to inform 34 of 51), 270 pass 15 (currency backlog). An earlier running count of "147 verified" reported during
+247 pass 11 (recording 50 of 51), 255 pass 12, 263 pass 13, 270 pass 14,
+270 pass 15 (currency), 273 pass 16 (duty to inform 35 of 51). An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
