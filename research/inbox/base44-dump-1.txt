@@ -1,0 +1,5 @@
+See conversation for full Base44 output (2026-09-01). Columns 1-6, 50 states.
+COLUMN 1 (pretextual-stop limits): ALL 50 null -- REJECTED, contradicts archive-verified VA (8 sections), CT s.54-33p, MT s.44-2-117.
+COLUMN 2 (K-9 limits): ALL 50 blanket null "governed by case law" -- REJECTED, contradicts archive-verified RI s.31-21.2-5(a), IL 625 ILCS 5/11-212.
+COLUMN 6 (police-practices): citations conflict with archive for RI (Base44: 31-21.1-2, archive-verified: 31-21.2-5) and CT (Base44: 54-1l, archive-verified: 54-33o/p) -- Base44 citations for already-known states DISCARDED, only new-state citations used.
+Columns 3, 4, 5 ingested as UNVERIFIED locator data pending primary-text verification.
