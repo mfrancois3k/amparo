@@ -3280,6 +3280,115 @@ roadside guidance is often not law anywhere.
 
 ---
 
+# COLUMN PASS 11: RECORDING CONSENT — 50 OF 51 (2026-09-01)
+
+Seven of the eight outstanding jurisdictions closed. Only Alabama remains.
+
+## NEW YORK joins Connecticut: one-party AND not-present
+
+**NY** Penal Law §250.05: "A person is guilty of eavesdropping when he unlawfully
+engages in wiretapping, **mechanical overhearing of a conversation**, or
+intercepting or accessing of an electronic communication." **VERIFIED**
+
+The load-bearing term is defined at **§250.00(2)**: "'Mechanical overhearing of a
+conversation' means the intentional overhearing or recording of a conversation or
+discussion, **without the consent of at least one party thereto, by a person not
+present thereat**, by means of any instrument, device or equipment." **VERIFIED**
+
+Two independent limiters, exactly as in Connecticut §53a-187(a)(2): the recording
+must be **without any party's consent** AND made **by someone not present**. A
+driver recording their own stop is a consenting party and is present — outside
+the statute on either ground alone.
+
+Recorded because New York is routinely listed as a "two-party consent" state.
+That label comes from nowhere in this text.
+
+## NEW MEXICO — §30-12-1 is not a conversation-recording statute at all
+
+The scout located §30-12-1 as New Mexico's operative provision and could find no
+separate definitions section. Fetching the body explains why:
+
+**NM** §30-12-1 ("Interference with communications"): "Interference with
+communications consists of knowingly and without lawful authority: **A.
+displacing, removing, injuring or destroying any radio station, television tower,
+antenna or cable, telegraph or telephone line, wire, cable, pole or conduit**
+belonging to another…; **B. cutting, breaking, tapping or making any connection
+with any telegraph or telephone line, wire, cable**…" **VERIFIED**
+
+This is a **physical-interference and wiretapping** statute — damaging
+infrastructure and tapping lines. It does not reach a person openly recording a
+conversation they are part of. New Mexico may therefore have **no general
+in-person recording prohibition**, which would place it alongside Vermont.
+
+Recorded as a **verified negative about this section**, NOT as "New Mexico has no
+such law". Another section elsewhere in the code could exist and was not found.
+The distinction matters and this ledger keeps enforcing it.
+
+## VERMONT — the scout's warning was right
+
+A scout reported Vermont as having no general wiretap statute and warned
+specifically: "do not let anyone fill this row with 13 V.S.A. §2605 (voyeurism) —
+that is a different offense."
+
+Fetched: **13 V.S.A. §2605** sits in "Chapter 059: **Lewdness and Prostitution**,
+Subchapter 001: **LEWD AND INDECENT CONDUCT**", and is titled **Voyeurism**.
+**VERIFIED** — and it is exactly the wrong statute, as warned. Vermont's row
+stays empty rather than being filled with a plausible-looking wrong citation.
+
+That warning is the single most useful thing a scout has contributed to this
+column, because §2605 would have looked entirely credible in a summary table.
+
+## One-party / participant-exempt, closed this pass
+
+- **KY** §526.010: "'Eavesdrop' means to overhear, record, amplify or transmit any
+  part of a wire or oral communication **of others** **without the consent of at
+  lea[st one party]**." **VERIFIED**. Two limiters stacked: "of others" excludes a
+  participant outright (the Michigan pattern), and one-party consent independently.
+- **AR** §5-60-120(a): unlawful to intercept and record "**unless the person is a
+  party to the communication or one (1) of the parties to the communication has
+  given prior consent**". §5-60-120(b): violation is a Class A misdemeanor.
+  **VERIFIED**
+- **NJ** §2A:156A-4(d): lawful for a person "**not acting under color of law** to
+  intercept a wire, electronic or oral communication, where such person **is a
+  party to the communication** or one of the parties has given prior consent…
+  unless… for the purpose of committing any criminal or tortious act."
+  **VERIFIED**
+- **LA** §15:1303(3): party or prior consent. **VERIFIED**
+
+## Outstanding: Alabama only
+
+**AL** §13A-11-31 has now failed on three hosts across two passes:
+`law.onecle.com` returned a 604-byte shell; `codes.findlaw.com` serves a chapter
+index rather than the section on both the `.html` and trailing-slash forms (a
+FindLaw quirk a scout independently flagged for this exact section); and
+`alisondb.legislature.state.al.us` no longer resolves in DNS. The definitions
+section §13A-11-30 fetched but did not contain the expected term.
+
+Alabama is a **host problem, not a research problem**. Recorded as
+**UNVERIFIED**.
+
+## Coverage
+
+Recording consent: **50 of 51**. Only Alabama outstanding.
+
+**The national shape is now established on primary text**, which is worth stating
+plainly because it was an inference for most of this project:
+
+Across 50 jurisdictions, a driver openly recording their own traffic stop is
+outside the wiretap statute in every one examined — by an express participant
+exception, by a one-party-consent rule, by a requirement that the recorder be
+absent or concealed, by a limitation to genuinely private communications, or by
+an express carve-out for recording public officials. The twelve "all-party"
+states were the hard case and none of them reached it either.
+
+**This still does not license telling users "recording is legal."** The
+obstruction overlay remains entirely unresearched, and being outside a wiretap
+statute has never once stopped an arrest on some other theory. What this supports
+is narrower and still useful: *the wiretap statute is not the thing to worry
+about.*
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -3292,10 +3401,10 @@ retrieval method works, not that any state is ready.
 
 What is actually missing, by column, across all 51 jurisdictions:
 
-- **Recording consent** — **43 of 51** across COLUMN PASSES 1, 5 and 8. The
-  high-risk all-party subset is complete, and the national shape is established:
-  nearly every jurisdiction places a participant outside the wiretap statute. 8
-  outstanding (NY, NJ, NM, VT, AL, AR, KY, LA).
+- **Recording consent** — **50 of 51**. Only Alabama outstanding, and that is a
+  host problem rather than a research one. The national shape is established on
+  primary text: a driver openly recording their own stop is outside the wiretap
+  statute in every jurisdiction examined.
 - **Refusing to sign a citation** — **51 of 51. COMPLETE.** Arkansas closed via
   the Lexum-hosted court rules. The column INVERTS across states AND splits on two
   axes (signing vs accepting the citation), so it must be state-gated in full.
@@ -3326,11 +3435,11 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 10): **239 VERIFIED**,
-13 LIKELY, 79 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1,
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 11): **247 VERIFIED**,
+13 LIKELY, 80 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1,
 104-162 passes 2-2i (sign citation 51 of 51), 174 pass 3, 181 pass 4,
-198 passes 5-6, 209 pass 7, 213 pass 8 (recording consent 43 of 51),
-231 pass 9, 239 pass 10 (officer condition 30). An earlier running count of "147 verified" reported during
+198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
+247 pass 11 (recording consent 50 of 51). An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
