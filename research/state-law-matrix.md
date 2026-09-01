@@ -6118,6 +6118,200 @@ rather than working around it.
 
 ---
 
+# COLUMN PASS 34: DETENTION CAPS AND CHECKPOINTS (2026-09-01)
+
+Four more scouts from the twelve-wave. Three myth-kills, one fixed-cap family, and
+one genuine host wall.
+
+# PART 1 — DETENTION CAPS
+
+## Three states put a real clock on it, and two share a structure
+
+- **DE** 11 §1902(c), verified in body on the **official host**: "The total period
+  of detention provided for by this section **shall not exceed 2 hours. The
+  detention is not an arrest and shall not be record[ed as such]**." **VERIFIED**.
+- **RI** §12-7-1 — "**two (2) hours**, and the detention shall not be recorded as
+  an arrest in any official record… the person so detained shall be released
+  unless arrested and charged." (PASS 33.)
+- **NV** §171.123(4) — **60 minutes**, plus a geographic limit. (PASS 33.)
+
+**Delaware and Rhode Island are the same provision in substance**: a two-hour
+ceiling *and* an express statement that the detention is not an arrest and must not
+be recorded as one. That second half matters as much as the clock — it addresses
+what a stop leaves behind on a record, which nothing else in this project does.
+
+## COLORADO — the "ninety minutes" does not exist
+
+**CO** §16-3-103, current text verified in body by the main process: the section
+authorises the stop and the demand for name, address, identification and an
+explanation of actions. **The strings "ninety" and "90 minutes" do not appear
+anywhere in it.** **VERIFIED as an absence.**
+
+A 90-minute Colorado cap is widely repeated in secondary sources. It is **not in
+the operative text**. Ninth instance of the circulating-but-wrong trap, and the
+second time a *duration* figure specifically has turned out to be folklore — after
+**VA** §19.2-83's 30 minutes, which was **repealed in 1994**.
+
+**Two duration myths killed in one pass.** Any user-facing claim of the form "they
+can only hold you N minutes" should now be treated as presumptively wrong until
+the section is read.
+
+Also found in that same Colorado body, and worth carrying: "A peace officer
+**shall not require any person who is stopped pursuant to this section to produce
+or divulge** such p[erson's social security number]". **VERIFIED**. Colorado
+protects the SSN in **two** separate places — here and at §42-4-1707, already
+recorded in the sign-citation column.
+
+## ARKANSAS — a fixed number that its own courts read away, and it is a court rule
+
+**AR** Ark. R. Crim. P. **3.1**: detention "not more than **fifteen (15) minutes**
+or for such time as is reasonable under the circumstances."
+
+Two caveats the scout raised and I am preserving:
+1. **Arkansas courts read the alternative clause as defeating the number.** A
+   fifteen-minute cap that yields to "such time as is reasonable" is not a cap.
+2. **It is a court rule, not a statute** — and this column has been built from
+   statutes. Flagged rather than silently included.
+
+The scout also could not reach an official host: arcourts.gov 404s on four
+distinct rule paths. It verified the rule text **through an Arkansas Court of
+Appeals opinion quoting it verbatim**. That is a legitimate primary source for the
+rule's content and is labelled as such.
+
+## Task-anchored, and Indiana is the sharpest in the project
+
+**IN** §34-28-5-3(a) — detain "for a time sufficient to" **three enumerated acts**:
+inform the person of the allegation; obtain their name, address and date of birth
+or driver's licence; and allow execution of the notice to appear. **VERIFIED**.
+
+**The task list *is* the cap.** Every other task-anchored state gestures at "the
+purposes of the stop" or "issue and serve the citation"; Indiana enumerates,
+which is the only version a driver can actually point at. Ranked against the
+others: **IN > LA > WA ≈ NC ≈ FL ≈ AZ > MT** (Montana's anchor is the abstract
+"purpose of the stop", which is whatever the officer says it was).
+
+**FL** §901.151(3) is also geographically anchored to the stop site, like Nevada's.
+
+## The rest
+
+**Bare-reasonable, no anchor**: IL 725 ILCS 5/107-14 ("a reasonable period of
+time"). **Explicit silence** — stop authority with no temporal language at all:
+CO §16-3-103, KS §22-2402, ND §29-29-21, UT §77-7-15. **Not located**: AK, CA, CT,
+GA, HI, ID, IA, KY.
+
+**Detention caps: 51 of 51 assessed. NINTH COLUMN COMPLETE.**
+3 fixed-time · 6 task-anchored · 2 bare-reasonable · 4 explicit-silence · remainder
+none located.
+
+# PART 2 — CHECKPOINT AUTHORITY
+
+## The strictest regimes in the project
+
+- **NH** RSA §265:1-a ("**Sobriety Checkpoints**"), verified in body:
+  "Notwithstanding any provision of law to the contrary, **no law enforcement
+  officer or agency shall establish or conduct sobriety checkpoints** for the
+  purposes of enforcing the criminal laws of this state, **unless such law
+  enforcement officer or agency petitions the superior court and the court issues
+  an order authorizing** the sobriet[y checkpoint]." **VERIFIED**. New Hampshire
+  requires **judicial pre-approval of every checkpoint**.
+- **UT** §77-23-103 (circumstances permitting an administrative traffic
+  checkpoint) and **§77-23-104** ("Written plan — **Approval of magistrate**") —
+  magistrate approval, written plan, signage, advance notice. §77-23-104 confirmed
+  in effect; an earlier version was superseded 7/1/2023.
+- **MT** §46-5-502 authorises three purposes, of which (1)(c) is the sobriety
+  analogue; **§46-5-510** attaches to (1)(c) alone and requires a written plan
+  "designed by the law enforcement agency to ensure motorist safety, minimize
+  motorist inconvenience, and **prevent the arbitrary selection of vehicles by
+  providing a schedule** for the selection of vehicles to be stopped", approved in
+  advance by supervisory officers — plus a site drawing, public service
+  announcement, media list, and **48-hour advance notice to all major media
+  outlets**. **VERIFIED** as to the plan and pre-approval requirements.
+
+Montana is the only jurisdiction found that requires **telling the press before
+you may run the checkpoint**.
+
+## Bans and de facto bans
+
+- **VT** 23 V.S.A. §1220, formerly "Enforcement; sobriety checkpoints", was
+  **REPEALED in 2021**. **VERIFIED** from the repeal notice.
+- **WI** §349.02(2) bars stopping or inspecting a vehicle **solely to determine
+  compliance** absent reasonable cause — the scout's phrase, "the de facto
+  checkpoint ban", is apt.
+- **MO** §304.152 bars checkpoints and roadblock patterns **based on vehicle
+  type**, including motorcycle-only, with a commercial-vehicle exception.
+- **LA** §32:295.4 imposes conditions and bars motorcycle-only checkpoints; note
+  its catchline covers seat-belt, inspection and insurance checkpoints — **not
+  sobriety**. No Louisiana sobriety-checkpoint statute located.
+- **VA** §46.2-103 — general stop authority that **also** bars check-points where
+  only motorcycles are inspected.
+
+Three states independently legislate against **motorcycle-only** checkpoints (MO,
+LA, VA). That is a pattern, not a coincidence.
+
+## The fugitive-roadblock family — distinct from sobriety, and easily confused
+
+**ND** ch. 24-15 (§§24-15-02 authorises, -03 restricts) · **OK** 21 §540B · **SD**
+§§32-33-10 to -14 · **WY** §7-17-102 · **NV** §484B.573 · **MT** §46-5-502(1)(a).
+
+All authorise roadblocks **to apprehend wanted persons**, not to check sobriety.
+Wyoming's is the statute AG opinions read as **excluding** sobriety checkpoints.
+
+**NV** is the sharpest on this line: §484B.007 defines an "administrative
+roadblock" as controlling traffic for any lawful purpose **other than identifying
+the occupants**, and §484B.570 sets its physical requirements. Occupant
+identification is permitted **only** under the fugitive provision. Nevada has **no
+sobriety-checkpoint authority** in that chapter.
+
+## Two more circulating-but-wrong citations
+
+- **TN** — the "§55-10-413(f)" cite circulating in practitioner pages **does not
+  match current text**; §55-10-413 is now fees and ignition interlock.
+- **TX** — the "DPS may establish a checkpoint program" language traces to a **bill
+  analysis** (SB1700, 82R), **not enacted code**. Third instance of bill-text
+  contamination, after TN HB0055 and NJ's A2310.
+
+## Michigan, and *Sitz*
+
+**MI** MCL §257.715(2) authorises **temporary vehicle check lanes** — with
+director authorisation and supervisory oversight — under a catchline about
+**equipment maintenance**. It is an equipment/highway-use authority and says
+nothing about sobriety either way.
+
+Michigan is the state that produced *Michigan Dept of State Police v. Sitz*, and
+the scout's conclusion is the careful one: "**Any secondary source citing MCL
+257.715 as Michigan's sobriety-checkpoint statute is overreading it.**"
+
+## The buried-in-a-general-stop pattern, twice more
+
+**VA** §46.2-103 and **WA** RCW §46.64.060/.070 both carry checkpoint-relevant
+authority under catchlines with no checkpoint word — joining **PA** §6308(b) and
+**MI** §257.715. **NE** §60-683(4) and **MA** c.90 §25 are the same drafting shape
+but **without** the systematic-program limb, so they are nulls rather than hits.
+An index sweep for "checkpoint" finds none of these six.
+
+## WEST VIRGINIA — the one genuine wall
+
+`code.wvlegislature.gov` **403s both the fetch tool and the browser**, and
+`wvlegislature.gov` 301-redirects into it. The scout read only a Justia article
+listing and flagged that the "sobriety checkpoint operational guidelines / written
+notice to the commissioner" language circulating for WV traces to the **syllabus
+of *Carte v. Cline***, not to verified statutory text.
+
+**Recorded as host-blocked, not searched-and-absent.** Needs a different host.
+
+## Honest coverage grading
+
+The scout marked **New Mexico** as "closer to '**did not attempt**' than a real
+negative" — article-level index only, no section body read. That self-grading is
+exactly the standard this ledger asks for. Open gaps also named: NJ (no Title 39
+index), MD (no Transportation Article sweep), NY (article-level only below §1194),
+RI (index tail summarised rather than enumerated).
+
+**Checkpoint authority: 51 of 51 attempted**, with WV host-blocked and NM/NJ/MD/NY
+at index level only. **Not recorded as complete.**
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -6167,17 +6361,18 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 33):
-**354 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 102 UNVERIFIED.
-EIGHT COLUMNS COMPLETE at 51/51: driver ID, sign citation, recording consent,
-duty to inform, stop-and-identify, officer condition, passenger ID, lit-place.
-Impersonation 51/51. Detention caps 34/51. Checkpoint authority in progress.
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 34):
+**360 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 102 UNVERIFIED.
+NINE COLUMNS COMPLETE at 51/51: driver ID, sign citation, recording consent,
+duty to inform, stop-and-identify, officer condition, passenger ID, lit-place,
+detention caps. Impersonation 51/51. Checkpoint authority 51/51 attempted
+(WV host-blocked; NM/NJ/MD/NY index-level only).
 Progression: 81 breadth sweep, 97 pass 1, 104-162 passes 2-2i, 174 pass 3,
 181 pass 4, 198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
 247 pass 11, 255 pass 12, 263 pass 13, 270 pass 14, 273 pass 16, 276 pass 17,
 282 pass 18, 288 pass 19, 298 pass 20, 313 pass 21, 316 pass 23, 323 pass 24,
 325 pass 25, 327 pass 26, 330 pass 27, 334 pass 28, 339 pass 29, 340 pass 30,
-346 pass 31, 349 pass 32, 354 pass 33. An earlier running count of "147 verified" reported during
+346 pass 31, 349 pass 32, 354 pass 33, 360 pass 34. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
