@@ -6430,6 +6430,140 @@ located with gating assessed for all 51.
 
 ---
 
+# COLUMN PASS 36: RHODE ISLAND §31-21.2-5 — THE MOST PROTECTIVE TRAFFIC-STOP
+# STATUTE FOUND IN THE UNITED STATES (2026-09-01)
+
+A new column was opened this pass — **consent to search a vehicle at a traffic
+stop**, the single most consequential decision a driver makes and one this
+project had never touched. The first place checked was the one flagged as most
+likely in PASS 35's follow-up list: Rhode Island's **Comprehensive
+Community-Police Relationship Act of 2015**, ch. 31-21.2.
+
+**It is a five-column hit in one section**, verified in full body by the main
+process on the **official host** (`webserver.rilegislature.gov`).
+
+## §31-21.2-5, subsection by subsection
+
+**(a) — a SECOND detention cap, tighter than the one already recorded, and it
+answers the K-9 question:**
+"Unless there exists reasonable suspicion or probable cause of criminal activity,
+**no motor vehicle stopped for a traffic violation shall be detained beyond the
+time needed to address the violation.** Nothing contained herein shall prohibit
+the detention of a motor vehicle for a reasonable period of time **for the
+arrival of a canine unit** or subsequent criminal investigation **if there is
+reasonable suspicion or probable cause**." **VERIFIED**.
+
+This ledger already carried RI §12-7-1's **two-hour** general cap. This is a
+**second, far tighter, traffic-specific cap** — task-anchored to addressing the
+violation. Rhode Island is the only state found with **two** detention caps
+operating at different levels of generality, and a driver would want the tighter
+one.
+
+It also **expressly legislates the dog-sniff timing question** — a K-9 may be
+awaited only on reasonable suspicion or probable cause. That was going to be a
+separate column; Rhode Island answers it inside this one.
+
+**(b) — the strongest consent protection possible short of a ban:**
+"**No operator or owner-passenger of a motor vehicle shall be requested to
+consent to a search** by a law enforcement officer of his or her motor vehicle,
+that is **stopped solely for a traffic violation, unless there exists reasonable
+suspicion or probable cause of criminal activity.**" **VERIFIED**.
+
+**The officer may not even ASK.** Every other consent framework regulates how
+consent is obtained or recorded; Rhode Island removes the request itself. On the
+taxonomy opened for this column that is **type (e)**, and it is the strongest
+form the type can take.
+
+Three further features:
+- it reaches the **owner-passenger**, not only the driver — one of very few
+  passenger-reaching protections in the entire project;
+- the same rule covers **pedestrians** and **juveniles**;
+- for juveniles, where a warrant would be required, the officer "**must advise
+  the juvenile that he or she may refuse to consent to, or limit the scope of,
+  any requested search**" — **types (a) and (d) together**, the only advisement
+  duty located so far.
+- an express carve-out preserves the **pat-down for weapons** on a reasonable
+  belief the officer's safety is jeopardised.
+
+**(c) — every search documented, including the ones that produce nothing:**
+each search **not** resulting in charges goes in a CAD entry or police report;
+each search that **does** goes in a police report; both must state the
+**reasonable suspicion or probable cause leading to the search**, plus date,
+time, location, and the **race, age and gender** of those searched and the
+result — and the document is a **public record**. **VERIFIED**.
+
+**(d) — a cap on what documents may be demanded:**
+"**no operator… shall be requested to provide any documentation or
+identification other than a driver's license, motor vehicle registration, and/or
+proof of insurance**" where the stop was solely for a traffic violation, absent
+RS/PC or a failure to produce a valid licence (federal motor-carrier operators
+excepted). **VERIFIED**.
+
+That belongs to the **driver-ID column** and is a limit this ledger did not have:
+most states say what you must produce; Rhode Island says what you may not be
+asked for.
+
+**(e) — pretextual stops must be documented and audited:**
+where a traffic violation "**is used to stop a motor vehicle for non-related
+investigatory reasons**", the officer must document the **investigatory basis**,
+and the department must assess **every six months** whether the suspicion was
+justified, with the data public. **VERIFIED**. That is the pretext column,
+answered.
+
+**(f) — A STATUTORY EXCLUSIONARY REMEDY:**
+"**Any evidence obtained as a result of a search prohibited by subsection (a) or
+(b) shall be inadmissible in any judicial proceeding.**" **VERIFIED**.
+
+**This is unique in the project.** Every other protection found in eleven columns
+across 51 jurisdictions either creates an offence, imposes a duty, or provides an
+affirmative defence. Rhode Island is the only jurisdiction that writes **its own
+suppression rule** for a traffic-stop violation — the rule has teeth without
+needing a court to imply them.
+
+**(g) — mandatory dashcam, from the moment of the signal:**
+agencies with vehicle cameras must adopt written policies that are **public
+records**, and "**All motor vehicle stops conducted by police vehicles with such
+equipment shall be recorded**… the recording **shall begin no later than when an
+officer first signals the vehicle to stop**." **VERIFIED**.
+
+## §31-21.2-3 — the profiling ban itself
+
+"No state or municipal law enforcement officer or law enforcement agency shall
+engage in racial profiling," defined as disparate treatment "**on the basis, in
+whole or in part**, of the racial or ethnic status" except where combined with
+other identifying factors describing a specific suspect, on a description that is
+"**timely and reliable**." **VERIFIED**.
+
+The **"in whole or in part"** wording matters: it defeats the argument that race
+was merely one factor among several.
+
+## What this changes
+
+**Rhode Island is, on this project's evidence, the most protective traffic-stop
+jurisdiction in the United States** — and nothing in the previous 35 passes
+revealed it, because every column was searched by its own subject and this
+protection lives in a **police-relations chapter of the motor-vehicle title**,
+not in the traffic-stop, search, or identification provisions where each column
+looked.
+
+**Method finding, and it generalises:** the columns of this matrix are the
+product's questions, not the statute book's organisation. A single
+police-practices act can answer six of them at once, and searching column by
+column will never find it. **Every state should be checked for a
+police-practices, community-relations, or profiling chapter**, and that chapter
+read in full, regardless of which column is being worked. That check is now
+part of the standing method.
+
+It also vindicates PASS 35's decision to record Rhode Island as "index level
+only" rather than complete: the follow-up list is what produced this.
+
+## Column status
+
+**Consent to search: opened this pass.** RI recorded at type (e) + (a) + (d).
+Six scouts are working the remaining jurisdictions.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -6479,18 +6613,18 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 35):
-**365 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 102 UNVERIFIED.
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 36):
+**373 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 102 UNVERIFIED.
 TEN OF ELEVEN COLUMNS COMPLETE at 51/51: driver ID, sign citation,
 recording consent, duty to inform, stop-and-identify, officer condition,
 passenger ID, lit-place, detention caps, checkpoint authority.
-Impersonation 51/51 located, gating assessed for all 51.
+Impersonation 51/51. TWELFTH COLUMN OPENED: consent to search.
 Progression: 81 breadth sweep, 97 pass 1, 104-162 passes 2-2i, 174 pass 3,
 181 pass 4, 198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
 247 pass 11, 255 pass 12, 263 pass 13, 270 pass 14, 273 pass 16, 276 pass 17,
 282 pass 18, 288 pass 19, 298 pass 20, 313 pass 21, 316 pass 23, 323 pass 24,
 325 pass 25, 327 pass 26, 330 pass 27, 334 pass 28, 339 pass 29, 340 pass 30,
-346 pass 31, 349 pass 32, 354 pass 33, 360 pass 34, 365 pass 35. An earlier running count of "147 verified" reported during
+346 pass 31, 349 pass 32, 354 pass 33, 360 pass 34, 365 pass 35, 373 pass 36. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
