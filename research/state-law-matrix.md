@@ -1095,6 +1095,150 @@ and the axis is not visible from any secondary source consulted so far.
 
 ---
 
+# COLUMN PASS 1: RECORDING CONSENT (2026-08-31)
+
+Switched from breadth to depth here, per the plan below. Target: the twelve
+states routinely listed as "all-party consent" / "two-party consent", because
+those are the only ones where a driver recording their own stop could plausibly
+be committing a crime. One-party states carry no such risk and were deprioritised.
+
+## HEADLINE CROSS-STATE FINDING: the "all-party consent" label does not survive contact with a traffic stop
+
+**In 12 of 12 all-party-consent states examined, the statutory text does NOT
+reach a driver openly recording their own traffic stop.** Not one of them. Every
+statute carries at least one limiter that a roadside stop fails, and they fall
+into four distinct mechanisms:
+
+**1. Privacy-expectation limiter** — the statute only reaches communications the
+speaker justifiably expected to be private. A uniformed officer speaking on a
+public road does not clear that bar.
+- **FL** §934.02(2): oral communication is one "uttered by a person exhibiting an
+  expectation that such communication is not subject to interception **under
+  circumstances justifying such expectation**", and expressly excludes "any
+  public oral communication uttered at a public meeting". **VERIFIED**
+- **PA** 18 Pa.C.S. §5702: "uttered by a person possessing an expectation that
+  such communication is not subject to interception **under circumstances
+  justifying such expectation**." **VERIFIED**
+- **NH** RSA 570-A:1(II): "uttered by a person who has a **reasonable
+  expectation** that the communication is not subject to interception, under
+  circumstances justifying such expectation." **VERIFIED**
+- **IL** 720 ILCS 5/14-1(d): "private conversation" requires that "one or more of
+  the parties **intended the communication to be of a private nature under
+  circumstances reasonably justifying that expectation**." This is the post-2014
+  rewrite; the old blanket statute was struck down. **VERIFIED**
+- **MD** Cts. & Jud. Proc. §10-401(13)(i): oral communication means "any
+  conversation or words spoken to or by any person **in private conversation**."
+  **VERIFIED**
+- **MI** MCL §750.539c criminalises eavesdropping "upon [a] **private
+  conversation**". **VERIFIED**
+- **DE** 11 Del. C. §1335(a)(4): reaches a message "by telephone, telegraph,
+  letter or other means of **communicating privately**, including private
+  conversation." **VERIFIED**
+
+**2. Secrecy limiter** — the statute only reaches *concealed* recording. Holding a
+phone in plain view is outside it entirely.
+- **MA** ch. 272 §99(B)(4): "interception" means "to **secretly** hear, **secretly**
+  record, or aid another to **secretly** hear or **secretly** record". Open
+  recording is not an interception at all. **VERIFIED**
+- **NV** NRS 200.650: prohibits **"surreptitiously"** listening to, monitoring or
+  recording "any **private** conversation" — two limiters stacked. **VERIFIED**
+- **MT** §45-8-213(1)(c): reaches recording "by use of a **hidden** electronic or
+  mechanical device". **VERIFIED**
+
+**3. Express carve-out for recording public officials / police**
+- **MT** §45-8-213(2)(a)(i): subsection (1)(c) "**does not apply to: elected or
+  appointed public officials or to public employees when the transcription or
+  recording is done in the performance of official duty**." A police officer
+  conducting a traffic stop is squarely inside this. §45-8-213(2)(a)(iii) adds:
+  "persons given warning of the transcription or recording. **If one person
+  provides the warning, either party may record.**" **VERIFIED**
+- **OR** ORS 165.540(5)(b): the in-person all-party rule does not apply to "**a
+  person who records a conversation in which a law enforcement officer is a
+  participant**, if: (A) the recording is made while the officer is **performing
+  official duties**; (B) the recording is made **openly and in plain view** of the
+  participants; (C) the conversation is **audible to the person by normal unaided
+  hearing**; and (D) the person is **in a place where the person lawfully may
+  be**." All four conditions are met by a driver recording their own stop from
+  the driver's seat. This is the cleanest pro-recording text found in any state.
+  **VERIFIED**
+
+**4. Participant exception** — a party to the conversation is not intercepting it.
+- **DE** 11 Del. C. §2402(c)(4): lawful "for a person to intercept a wire, oral or
+  electronic communication **where the person is a party to the communication**".
+  Delaware is functionally one-party despite its all-party reputation.
+  **VERIFIED**
+- **MI** MCL §750.539a: "eavesdrop" means to record "the private discourse **of
+  others**" — by its terms not reaching a participant. **VERIFIED**
+- **CT** — see below; this is the largest correction of the pass.
+
+## CORRECTION: Connecticut is not an all-party state for in-person recording
+
+Connecticut appears on essentially every published all-party list. The primary
+text says otherwise, twice over:
+
+- **Criminal** — Conn. Gen. Stat. §53a-187(a)(2) defines "mechanical overhearing
+  of a conversation" as recording "**without the consent of at least one party**
+  thereto, **by a person not present thereat**." That is a **one-party** rule, and
+  it additionally requires the recorder to be *absent*. A driver recording their
+  own stop is a consenting party AND present — outside the statute on both
+  independent grounds. **VERIFIED**
+- **Civil** — Conn. Gen. Stat. §52-570d is titled "Action for illegal recording
+  of **private telephonic communications**." Telephone only, and civil, not
+  criminal. This is the provision the all-party lists are actually pointing at.
+  Catchline **VERIFIED**; body text not fetched, so the scope limit is verified
+  but its internal exceptions are **UNVERIFIED**.
+
+This is the fifth published-list error this project has caught. The running score
+on secondary sources is now poor enough to be a finding in itself.
+
+## WHAT THIS DOES NOT MEAN — read before any of it reaches a user
+
+Everything above is **statutory text only**. It establishes what the legislature
+wrote. It does not establish:
+
+- **How courts apply it.** The privacy-expectation limiter is exactly the kind of
+  clause that gets litigated. Florida courts in particular have read §934
+  aggressively in other settings; whether a roadside stop clears the expectation
+  bar in Florida is **UNVERIFIED** and needs case law, not statute.
+- **What happens at the roadside.** Being outside a statute does not stop an
+  arrest. A driver can be correct about the law and still be arrested, have a
+  phone seized, and be charged with obstruction or interference instead. Every
+  circuit to reach the question has recognised a First Amendment right to record
+  police, but "recognised" is not "self-executing at 11pm on a shoulder."
+- **The obstruction overlay.** Recording is frequently charged as something else.
+  That column has not been researched in any state.
+- **That a national script can say "you may record."** It cannot, on this
+  evidence alone.
+
+The honest user-facing statement this research supports is narrow: *in these
+twelve states, the wiretap statute itself is not what a driver openly recording
+their own stop should be worried about.* That is a real and useful finding. It is
+not "recording is legal", and it must not be compressed into that.
+
+## Coverage after this pass
+
+Recording consent: **14 of 51** (CA and WA from earlier passes, plus the twelve
+above). The 37 remaining are all one-party-consent jurisdictions where the
+statutory risk to a recording driver is low by construction — but "low by
+construction" is an inference, not a verified cell, and each still needs its
+section pulled before anything ships.
+
+## Source retractions from this pass
+
+Three more entries come off the confirmed-bad list:
+- **ilga.gov** — works. Use `fulltext.asp?DocName=072000050K14-1`.
+- **delcode.delaware.gov** — works, including section text, not just indexes.
+- **palegis.us** — works, but ONLY via the iframe. The outer page is a shell; read
+  `document.querySelectorAll('iframe')[1].src` and navigate to that URL directly.
+  This is what the earlier "301 to a navigation shell with no statute text" note
+  was actually describing, and it was wrong to log it as blocked.
+
+New sources confirmed good: malegislature.gov, oregon.public.law (again),
+leg.state.nv.us, legislature.mi.gov, cga.ct.gov, gc.nh.gov (note: NH moved off
+gencourt.state.nh.us, and RSA 570-A sits under **Title LVIII**, not LXII).
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -1107,9 +1251,10 @@ retrieval method works, not that any state is ready.
 
 What is actually missing, by column, across all 51 jurisdictions:
 
-- **Recording consent** — researched for **2** (CA, WA). 49 outstanding. This is
-  the column with the widest real-world variation and the highest chance of a
-  wrong answer causing harm.
+- **Recording consent** — researched for **14** (CA, WA, plus the twelve
+  all-party states in COLUMN PASS 1 above). 37 outstanding, all one-party
+  jurisdictions where the statutory risk is low by construction — an inference,
+  not a verified cell. The high-risk subset of this column is now DONE.
 - **Refusing to sign a citation** — researched for **3** of the original ten,
   essentially untouched since. ~48 outstanding. Already flagged as the weakest
   column in the ledger.
@@ -1141,8 +1286,8 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-08-31): **81 VERIFIED**, 11 LIKELY,
-47 UNVERIFIED cells. An earlier running count of "147 verified" reported during
+TALLY (counted mechanically, 2026-08-31, after COLUMN PASS 1): **97 VERIFIED**,
+11 LIKELY, 49 UNVERIFIED cells. Before that pass: 81 VERIFIED. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
