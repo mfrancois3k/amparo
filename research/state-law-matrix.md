@@ -6929,6 +6929,150 @@ device-only (MI) · 1 negative-value (AZ) · 2 case-law-only (NJ, MN).
 
 ---
 
+# COLUMN PASS 39: VIRGINIA CLOSES THE CONSENT LOOPHOLE — EIGHT SECTIONS,
+# ONE FORMULA (2026-09-01)
+
+A thirteenth column was opened this pass: **pretextual-stop limits** — which minor
+violations may **not** be the sole reason for a stop. Virginia answers it more
+completely than any other state, and in doing so **solves a problem the consent
+column could not solve on its own.**
+
+All eight sections below were fetched and read in body by the main process on
+Virginia's **official host** (`law.lis.virginia.gov`).
+
+## The formula, repeated verbatim across seven equipment sections
+
+"**No law-enforcement officer shall stop a motor vehicle for a violation of this
+section. No evidence discovered or obtained as the result of a stop in violation
+of this subsection, INCLUDING EVIDENCE DISCOVERED OR OBTAINED WITH THE
+OPERATOR'S CONSENT, shall be admissible in any trial, hearing, or other
+proceeding.**"
+
+| Section | What may no longer justify a stop |
+|---|---|
+| **§46.2-1052(P)** | **window tint** |
+| **§46.2-1003(C)** | **defective or unsafe equipment** |
+| **§46.2-1013(B)** | **tail lights / licence-plate light** |
+| **§46.2-1054(B)** | **objects suspended from the mirror** |
+| **§46.2-1094(F)** | **seat belt** |
+| **§46.2-646** | **expired registration sticker** — and see the grace period below |
+| **§46.2-1157** | **expired inspection sticker** — same |
+
+All **VERIFIED**. §46.2-1049 (exhaust) was checked and **does not** carry the
+formula — the list is specific, not general, and a driver should not assume it
+extends to every equipment offence.
+
+## Two of them carry a computable grace period
+
+**§46.2-646**: no stop "**due to an expired registration sticker prior to the
+first day of the fourth month after the original expiration date**."
+**§46.2-1157**: the same rule for an **expired inspection sticker**.
+
+**VERIFIED**. These are the only protections in the entire project that a driver
+can resolve to a **calendar date** — everything else in twelve columns turns on a
+legal standard. A sticker that expired in March cannot be the basis of a stop
+until 1 July.
+
+## §4.1-1302 — the cannabis provision, and it is broader than the rest
+
+"A. **No law-enforcement officer… may lawfully stop, search, or seize any person,
+place, or thing and no search warrant may be issued solely on the basis of the
+odor of marijuana** and no evidence discovered or obtained pursuant to a violation
+of this subsection, **including evidence discovered or obtained with the person's
+consent**, shall be admissible…" (2021, Sp. Sess. I, cc. 550, 551.) **VERIFIED**.
+
+It reaches **four** acts — stop, search, seize, **and the issuance of a warrant** —
+where the equipment sections reach only the stop. Exceptions: airports and
+commercial motor vehicles (subsec. B).
+
+# THE FINDING: VIRGINIA FORECLOSED THE CONSENT CURE
+
+**This is the sharpest piece of drafting located anywhere in this project.**
+
+Every consent regime recorded so far has the same latent weakness. **NH** requires
+an advisement, **CO** requires an advisement, **RI** and **CT** forbid the request
+outright — but in each, the analysis still runs through whether consent was
+obtained. An officer who makes an unlawful stop and then obtains consent has, in
+most systems, laundered the stop.
+
+**Virginia's eight sections each say, in terms, that consent does not cure it:**
+evidence obtained **"with the operator's consent"** is inadmissible anyway if the
+stop should never have happened.
+
+That is a **different and stronger mechanism than anything in the consent column**,
+and it was found only because a *pretext* column was opened. The two columns turn
+out to be one question asked from opposite ends:
+- the **consent** column asks *may the officer ask, and how?*
+- the **pretext** column asks *may the officer be there at all?*
+
+**Virginia answers the second and thereby moots the first.** Recorded as a
+cross-column finding, and as the strongest argument yet that these columns cannot
+be researched in isolation — the same lesson Rhode Island taught in PASS 36 from
+the other direction.
+
+## A fourth remedy tier
+
+PASS 38 established three tiers (exclusion / a factor / none). Virginia adds a
+distinct fourth that ranks **above** plain exclusion:
+
+**Tier 0 — exclusion that expressly survives consent.** VA §§46.2-646, -1003,
+-1013, -1052, -1054, -1094, -1157 and 4.1-1302.
+
+Plain tier 1 (**NH**, **RI**, **CT**) excludes evidence from a defective or
+prohibited *search*. Virginia excludes evidence from a prohibited *stop* **and
+names consent as no answer to it**.
+
+## NEW YORK — the advisement exists, but only in bills
+
+A scout searching for New York's consent rule found **VTL art. 23-A §1107(b)(1)**
+— advisement of the right to refuse plus a **signed written consent form**, which
+would be close to New Hampshire's regime.
+
+**It exists solely in S9840 and S3662A, both "In Senate Committee (Transportation)"
+— not law.** The scout read both bill-status pages directly and excluded them.
+
+**Eighth instance of bill-text contamination**, and the most seductive one yet:
+the bills describe exactly the protection this column looks for, in a large state,
+and any keyword search will surface them. New York's actual vehicle-consent
+doctrine runs through *People v. De Bour* and its line — **case law, not statute**,
+which is now the **third** state (with NJ and MN) whose protection is real but
+uncodified.
+
+**That question is now unavoidable and is escalated formally: this matrix is built
+from statutes, and three of the largest states protect drivers by case law
+instead. A product that ships only the statutory answer will tell a New York, New
+Jersey or Minnesota driver they have no protection when they do.**
+
+## North Carolina, New Mexico, and honest gap-marking
+
+- **NC** G.S. §15A-221 defines "consent" as a voluntary statement authorising a
+  search; **§15A-222** specifies **who may consent for a vehicle** — the registered
+  owner or the person in apparent control. Read on the official host. **Neither
+  imposes an advisement, a recording duty, a scope limit, or a suspicion
+  threshold.** Recorded as a **structural analog only** — the scout was explicit
+  that none of types (a)-(e) is satisfied, which is the right call.
+- **NM** — the **Prohibition of Profiling Practices Act** is §§29-21-1 to 29-21-4
+  and contains **no consent-search provision**. Confirmed by reading §29-21-3.
+- **ND**, **OH** — nothing located; Ohio's official full-text search for "consent
+  to search" returned only juvenile-disposition sections.
+
+**The scout's coverage grading is the best received in this project** and is
+recorded verbatim in substance: it distinguished what it fetched from what it only
+searched, and listed as **"genuine remaining gaps, not 'not found'"** — NM ch. 66
+and ch. 31; NY CPL art. 690 and the VTL stop sections; NC ch. 20; ND 39-08 and
+Title 12.1; OH ch. 4511 and ch. 2935.
+
+That is exactly the standard this ledger asks for, and those seven are carried
+forward as open rather than closed.
+
+## Column status
+
+**Pretextual-stop limits (13th column): opened.** VA recorded at 8 sections,
+tier 0.
+**Consent to search: 46 of 51 assessed.**
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -6978,19 +7122,20 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 38):
-**382 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 102 UNVERIFIED.
-TEN OF ELEVEN COLUMNS COMPLETE at 51/51: driver ID, sign citation,
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 39):
+**385 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 102 UNVERIFIED.
+TEN OF ELEVEN ORIGINAL COLUMNS COMPLETE at 51/51: driver ID, sign citation,
 recording consent, duty to inform, stop-and-identify, officer condition,
 passenger ID, lit-place, detention caps, checkpoint authority.
-Impersonation 51/51. CONSENT TO SEARCH (12th column): 36/51.
+Impersonation 51/51. Consent to search (12th): 46/51.
+Pretextual-stop limits (13th): opened.
 Progression: 81 breadth sweep, 97 pass 1, 104-162 passes 2-2i, 174 pass 3,
 181 pass 4, 198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
 247 pass 11, 255 pass 12, 263 pass 13, 270 pass 14, 273 pass 16, 276 pass 17,
 282 pass 18, 288 pass 19, 298 pass 20, 313 pass 21, 316 pass 23, 323 pass 24,
 325 pass 25, 327 pass 26, 330 pass 27, 334 pass 28, 339 pass 29, 340 pass 30,
 346 pass 31, 349 pass 32, 354 pass 33, 360 pass 34, 365 pass 35, 373 pass 36,
-379 pass 37, 382 pass 38. An earlier running count of "147 verified" reported during
+379 pass 37, 382 pass 38, 385 pass 39. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
