@@ -4979,6 +4979,149 @@ Nebraska correction.
 
 ---
 
+# COLUMN PASS 25: DUTY TO INFORM COMPLETE AT 51/51 (2026-09-01)
+
+Twelve jurisdictions, all resolved. **Fourth column complete.**
+
+## WYOMING — upgraded from LIKELY to VERIFIED
+
+**WY** W.S. §6-8-104(b): "The permittee shall carry the permit, together with
+valid identification at all times when the permittee is carrying a concealed
+firearm and **shall display both the permit and proper identification upon request
+of any peace officer**." **VERIFIED** — located on p.184 of the official LSO Title
+6 PDF, exactly between the permit-duration sentence and the "shall issue to any
+person who" clause, as the scout described. Fetched and read independently.
+
+On-request, and a **two-document** duty — permit *and* identification — joining
+WI §175.60(2g)(c), CO §18-12-204(2)(a), MN §624.714 subd. 1b(a) and VA
+§18.2-308.01(A).
+
+Two further checks the scout ran and reported: a whole-title search for "display"
+returned 11 hits across 210 pages with **only one inside §6-8-104**, so no later
+subsection qualifies or negates it; and the duty attaches to **permittees**, not
+to Wyoming's §(a)(iv) permitless carriers. That second point matters — in a
+permitless-carry state, a permit-based duty reaches only the subset of people who
+still hold permits.
+
+## KANSAS — the repealing act traced, with the residual risk stated
+
+PASS 16 established that K.S.A. §75-7c03's display-on-demand duty had been
+repealed but could not find the repealing act. The scout traced it:
+
+The current §75-7c03 History line shows only two amendments after 2013 — **L. 2015
+ch. 16 §8 (2015 SB 45)** and **L. 2021 ch. 94 §9 (HB 2058)**. SB 45 §8 is the
+section amending §75-7c03 and its text stream still carries the display-on-demand
+sentence at p.9 of the enrolled PDF, i.e. as struck existing language. The 2021
+act contains **zero occurrences of "demand" across 22 pages**, so the sentence was
+already gone before 2021. **VERIFIED** as to both documents' contents.
+
+**The scout stated its own residual risk, and I am preserving it verbatim in
+substance:** it inferred strike-through from PDF text extraction, **which does not
+carry strike formatting**. So the sentence's presence in the SB 45 text stream is
+consistent with it being struck *and* with it being retained-then-removed later.
+The conclusion — that the duty is gone from current law — rests on the current
+§75-7c03 body, which was read directly. The *mechanism* of repeal is
+**LIKELY**, not verified.
+
+That is the right way to report a partial result, and it is worth noting that PDF
+extraction silently discarding strike-through is a **sixth trap class**: formatting
+that carries legal meaning does not survive text extraction.
+
+## MONTANA — the repeal list shrinks on inspection
+
+PASS 16 flagged that HB 102 (2021) repealed eight sections whose pre-repeal text
+had never been checked, any of which might have held a former inform duty.
+
+Reading the **2019** MCA index — i.e. the state of the law *before* HB 102 — the
+scout found §§45-8-319, -320, -325, -331, -341 and -342 were **already marked
+Repealed before HB 102**. Only §§45-8-317 and -339 were live into 2021. It read
+the 2019 body of §45-8-317 to its end (an exceptions list plus a cross-reference
+subsection, no duty); §45-8-339 is a train-carry penalty by catchline.
+
+**Montana closes.** The concern was real and is now discharged — and the method,
+reading a *historical* index to see what was live at a given date, is one this
+project had not used before.
+
+## Seven verified negatives, each with its coverage stated
+
+- **DE** — the delcode numbers-only truncation was **defeated by pulling the DOM
+  through the browser**, yielding the full catchline index for §§1441–1469A. Plus
+  bodies of §1441A and §1441B (both LEOSA implementations, carry-ID condition
+  only). With prior full-texts of §§1441-1443, no catchline in 1444–1466 touches
+  officer notification. **HIGH.**
+- **IN** — **the missing chapter index was finally obtained.** Full catchline list
+  for IC §§35-47-2-0.1 through -24 read; nothing concerns notifying an officer or
+  producing a licence at a stop. This upgrades what PASS 16 called "the weakest
+  negative in the column". **HIGH.**
+- **ID** — bodies of §§18-3302H and 18-3302K read to end (retired-LEO licensing
+  and enhanced-licence issuance); closes the two gaps left beside §18-3302.
+  **HIGH.**
+- **WV** — full §§61-7-1 to -17 catchline list plus full bodies of §61-7-3,
+  §61-7-4 (all subsections (a)–(t)), §61-7-4a, and §61-7-7 (permitless carry, read
+  to (g)). No carry, display or inform duty anywhere. **HIGH.**
+- **RI** — full ch. 11-47 catchline index screened for
+  exhibit/display/produce/present/inform/notify: only two hits, §11-47-47
+  (commercial window displays) and §11-47-60.2 (school-grounds notification), both
+  full-texted and off-point. **MEDIUM-HIGH.**
+- **SD** — ch. 23-7 and 22-14 catchline indexes plus bodies of §23-7-55 (photo-ID
+  carriage is a **validity condition on the permit**, not an officer-facing duty —
+  a distinction worth keeping) and §23-7-7. **MEDIUM-HIGH.**
+- **VT** — complete section list for 13 V.S.A. ch. 85 across all four subchapters
+  (§§4001–4027, 4051–4062, 4071–4073, 4081–4084). Vermont has **no carry-licence
+  scheme** for such a duty to attach to. **MEDIUM-HIGH**, index-level, and the
+  scout noted it did not sweep outside ch. 85.
+- **NH** — Title XII chapter list read; chapters 159-A through 159-F are shotgun
+  purchase, ranges, sale record checks, background checks, executive orders and
+  purchaser privacy — all off-point by subject. **Honest limit stated: chapter
+  titles only, not full-texted.** **MEDIUM-HIGH.**
+
+## HOST INTELLIGENCE — the single most valuable finding of this pass
+
+> **`law.justia.com` 403s the fetch tool but serves normally through the browser
+> tool.**
+
+That one workaround unblocked **four** states in this pass alone (Indiana's
+missing chapter index, Delaware's truncated index, Montana's pre-repeal 2019 text,
+and West Virginia's article index).
+
+**This retroactively reframes a great deal of this project's host record.** Six
+separate scouts across many passes reported "law.justia.com hard-403, treat as
+unusable", and that verdict was written into later scout briefs as established
+background — the same propagation failure as the Nebraska category error. Justia
+was never blocked; **one tool was blocked, and the conclusion was recorded against
+the host.**
+
+Every "not found" in this ledger that rests on Justia being unavailable is now
+**suspect and re-runnable**. That is a substantial re-check list and it is
+recorded rather than acted on now.
+
+Second, related: **a PDF summariser failing does not mean the PDF failed.** The
+file is still saved; a text search over it closed both Wyoming and Kansas. This is
+the third time this project has mistaken a tool limitation for a source
+limitation, after the Iowa retraction (PASS 11) and the Justia finding above.
+
+The one route genuinely unavailable: **web.archive.org is blocked outright.**
+
+## Coverage
+
+**DUTY TO INFORM: 51 of 51. COLUMN COMPLETE.**
+
+**Fourth completed column**, after driver ID, sign citation and recording consent.
+
+Final shape of the column, all on verified primary text:
+1. **Proactive** — MI, NC, NE, LA, NJ (4th-degree crime), HI (reaches passengers),
+   AK (plus a duty to allow the weapon to be secured).
+2. **On request / demand** — OH, OK, AR, IL, VA, TN, MN, MO, KY, FL, PA, ND, MS,
+   NV, NY, ME, CT, AL, WY, CO, WI, MD, WA.
+3. **Accuracy-only** — AZ: no duty to volunteer or answer, only not to answer
+   falsely.
+4. **Inverse legislated** — GA, SC, and UT (whose protection is expressly
+   disapplied to law enforcement, so it is not a protection at a stop).
+5. **No duty located** — DE, ID, IN, KS (repealed), MT, NH, RI, SD, VT, WV, MA
+   (§129C catchline outlived its provision).
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -5029,14 +5172,16 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 24):
-**323 VERIFIED**, 16 LIKELY markers (10 SUPERSEDED), 101 UNVERIFIED.
-THREE COLUMNS COMPLETE at 51/51: driver ID, sign citation, recording consent.
-Officer condition 48/51. Stop-and-identify 47/51. Passenger ID 26/51 swept.
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 25):
+**325 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 101 UNVERIFIED.
+FOUR COLUMNS COMPLETE at 51/51: driver ID, sign citation, recording consent,
+DUTY TO INFORM. Officer condition 48/51. Stop-and-identify 47/51.
+Passenger ID 26/51 swept. Impersonation 23/51.
 Progression: 81 breadth sweep, 97 pass 1, 104-162 passes 2-2i, 174 pass 3,
 181 pass 4, 198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
 247 pass 11, 255 pass 12, 263 pass 13, 270 pass 14, 273 pass 16, 276 pass 17,
-282 pass 18, 288 pass 19, 298 pass 20, 313 pass 21, 316 pass 23, 323 pass 24. An earlier running count of "147 verified" reported during
+282 pass 18, 288 pass 19, 298 pass 20, 313 pass 21, 316 pass 23, 323 pass 24,
+325 pass 25. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
