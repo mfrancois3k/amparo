@@ -1558,11 +1558,97 @@ to secure appearance for trial but **shall accept the nonresident's personal
 recognizance**." **VERIFIED** as a nonresident-bond rule. Minnesota's signature
 rule, if any, is elsewhere and is **UNVERIFIED**.
 
+## COLUMN PASS 2d (2026-09-01): eight more states
+
+**Maryland — refusal to sign is an express arrest trigger.**
+Md. Transp. §26-202(a)(5): an officer may arrest without a warrant where "The
+officer has probable cause to believe that the person has committed the
+violation, and, subject to the procedures set forth in §26-203 of this subtitle,
+the person **is issued a traffic citation and refuses to acknowledge its receipt
+by signature**." **VERIFIED**. The cleanest statement of posture 2 found —
+Maryland names the refusal and attaches the arrest power in one clause.
+
+**West Virginia — refusal routes to a magistrate, and non-compact residents too.**
+W.Va. Code §17C-19-3, listing when the officer must take the person before a
+magistrate rather than release: "(7) In any other event when the person arrested
+**refuses to accept the written notice to appear in court as his or her promise
+to appear** in court or to comply with the terms of the written notice…"
+**VERIFIED**. Also "(6) When the person arrested is a **resident of a state that
+has not entered into a nonresident violator compact** with this state."
+**VERIFIED** — a residency-based custody trigger, and the mirror image of
+Minnesota's nonresident protection.
+
+**Kansas — signing is what buys release, and it is framed as optional.**
+K.S.A. §8-2106(d): "in the discretion of the law enforcement officer, a person
+charged with a misdemeanor **may give written promise to appear** in court **by
+signing** at least one copy of the written citation prepared by the law
+enforcement officer, in which event the law enforcement officer shall deliver a
+copy of the citation to the person and **shall not take the person into physical
+custody**." **VERIFIED**. Note the drafting: signing is permissive ("may"), but it
+is the only route to the no-custody outcome — the same structure as Texas
+§543.005.
+
+**Wisconsin — no signature anywhere; release is bought with a deposit.**
+Wis. Stat. §345.23: "If a person is arrested without a warrant for the violation
+of a traffic regulation, the arresting officer shall issue a citation under s.
+345.11, and in addition: (1) **May release** the person; or (2) **Shall release**
+the person when he or she: (a) Makes a deposit under s. 345.26; or (c) **Deposits
+the person's valid Wisconsin operator's license** with the officer; or (d)
+Presents a guaranteed arrest bond certificate under s. 345.61. (3) **Shall, if the
+alleged violator is not released** under sub. (1) or (2), bring him or her
+**without unreasonable delay before a judge**…" **VERIFIED**.
+
+Wisconsin is the clearest example of a mechanism this column keeps surfacing:
+release is purchased with **money or the licence itself**, not with a signature.
+Note the direct conflict with Louisiana, which forbids the same move: La. R.S.
+§32:391 says the officer "**shall not require** the person arrested to **deposit
+his operator's license**." One state offers licence deposit as the route to
+release; another prohibits demanding it.
+
+**Illinois — the officer signs.**
+725 ILCS 5/107-12(b): the notice to appear shall "(4) **Be signed by the officer
+issuing the notice**." **VERIFIED**. Illinois joins the officer-signs group.
+
+**Montana — the officer signs.**
+MCA §46-6-310: the citation must "(d) **be signed by the issuing officer**; (e)
+direct the person to appear before a court at a certain time and place; and (f)
+state that failure to appear may result in the suspension of the person's
+driver's license." **VERIFIED**. No driver signature required.
+
+**Michigan — the officer signs; upgraded from partial.**
+MCL §257.727c(3): "a **complaint signed by a police officer** shall be treated as
+made under oath if the violation alleged in the complaint is either a civil
+infraction or a misdemeanor… and occurred or was committed in the signing
+officer's presence…" **VERIFIED**. Combined with §257.728, which contains no
+signing requirement, two Michigan sections now both place the signature on the
+officer. Michigan moves from partial to the officer-signs group — though this
+remains "no driver-signature duty located in §§257.727c or 257.728", not a
+verified statement about the whole Michigan code.
+
+**Hawaii — the signature belongs on the court answer, not the roadside.**
+H.R.S. §291D-6(c): "When **answering** the notice of traffic infraction…, the
+person shall **affix the person's signature to the answer** and shall state the
+address at which the person will accept future mailings from the court."
+**VERIFIED**. Hawaii's signature requirement attaches to the later written answer
+filed with the court, not to anything handed over at the roadside. This
+distinction is easy to lose and would produce a badly wrong user-facing sentence.
+
 ## Coverage after this pass
 
-Sign-citation: **21 of 51 verified** — CA, TX, FL, OH, GA, NC, VA, WA, NV, CO,
-NE, ID, AL, LA, MA, RI, OR, MO, NM, KY, MN — plus TN, NJ and MI partial.
-Previously 11 of 51.
+Sign-citation: **29 of 51 verified** — CA, TX, FL, OH, GA, NC, VA, WA, NV, CO,
+NE, ID, AL, LA, MA, RI, OR, MO, NM, KY, MN, MD, WV, KS, WI, IL, MT, MI, HI —
+plus TN, NJ, SC and NY partial. Previously 21 of 51.
+
+**Still outstanding (22):** AK, AR, AZ, CT, DE, IA, IN, ME, MS, ND, NH, NJ, NY,
+OK, PA, SC, SD, TN(consequence), UT, VT, WY, DC.
+
+Confirmed blocks encountered this pass, recorded so they are not re-attempted
+blind: `le.utah.gov` returns 136 bytes to `curl` (block, not a short statute);
+`azleg.gov` returns 421; `iga.in.gov` and `mgaleg.maryland.gov` are SPAs;
+`code.wvlegislature.gov` still 403s (FindLaw served it instead);
+`oscn.net`/Justia both 404 on the Oklahoma section slugs tried. The PA iframe
+technique needs the full query string including the leading `?47&iFrame=true`,
+not just the parameters — the bare parameter form returns an 796-byte shell.
 
 ## The ID/signature pairing is now a documented pattern, not a coincidence
 
@@ -1633,10 +1719,11 @@ What is actually missing, by column, across all 51 jurisdictions:
   all-party states in COLUMN PASS 1 above). 37 outstanding, all one-party
   jurisdictions where the statutory risk is low by construction — an inference,
   not a verified cell. The high-risk subset of this column is now DONE.
-- **Refusing to sign a citation** — researched for **21** across COLUMN PASSES
-  2, 2b and 2c, plus TN/NJ/MI partial. 30 outstanding. This column INVERTS across
-  states — refusal is a misdemeanor in FL and expressly protected in NC/VA — so no
-  unresearched state may be inferred from a researched one.
+- **Refusing to sign a citation** — researched for **29** across COLUMN PASSES
+  2, 2b, 2c and 2d, plus TN/NJ/SC/NY partial. 22 outstanding. This column INVERTS
+  across states — refusal is a misdemeanor in FL, an express arrest trigger in MD,
+  and expressly protected in NC/VA — so no unresearched state may be inferred
+  from a researched one.
 - **Passenger ID** — spotty. Verified where the stop-and-identify section
   happened to address it; not systematically pursued.
 - **Duty to inform (firearm)** — researched for the original ten and a handful
@@ -1665,9 +1752,9 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 2c): **124 VERIFIED**,
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 2d): **133 VERIFIED**,
 11 LIKELY, 58 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1
-(recording consent), 104 pass 2, 112 pass 2b, 124 pass 2c (harness). An earlier running count of "147 verified" reported during
+(recording consent), 104 pass 2, 112 pass 2b, 124 pass 2c (harness), 133 pass 2d. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
