@@ -6717,6 +6717,218 @@ remainder none located.
 
 ---
 
+# COLUMN PASS 38: THE REMEDY TIERS — CT, CO, AND WHY THE SAME DUTY IS NOT THE
+# SAME PROTECTION (2026-09-01)
+
+Two more scouts. The consent column now has enough entries to show its real
+structure, and **the structure is not about the duty — it is about the remedy.**
+
+## CONNECTICUT §54-33o — the second "may not even ask" state
+
+Verified in full body: "(a)(1) **No law enforcement official may ask an operator
+of a motor vehicle to conduct a search** of a motor vehicle or the contents… that
+is stopped **solely for a motor vehicle violation**. (2) Any search… shall be
+(A) based on **probable cause**, or (B) after having received the **unsolicited
+consent**… **in written form or recorded by body-worn recording equipment or a
+dashboard camera**." **VERIFIED**. (July Sp. Sess. P.A. 20-1, §21.)
+
+**The operative word is "unsolicited."** Because asking is prohibited, the only
+consent that can exist is consent the driver volunteers unprompted — and even
+that must be written or on camera. Connecticut joins **Rhode Island** as a state
+where the request itself is unlawful.
+
+**§54-33o(b) — and Connecticut has Rhode Island's document cap too:** "**No law
+enforcement official may ask an operator… to provide any documentation or
+identification other than an operator's license, motor vehicle registration,
+insurance identity card or other documentation… directly related to the stop**",
+absent probable cause of a felony or misdemeanour or a failure to produce a valid
+licence. **VERIFIED**.
+
+**CT and RI are near-twins**, both from 2020-21 police-accountability acts, and
+between them they hold every structural feature this column has found: no-ask
+threshold, recorded consent, document-demand cap, exclusionary remedy.
+
+## CONNECTICUT §54-33p — the cannabis-odour provision, and a third exclusion
+
+Verified in full body. The following "**shall not constitute in part or in whole
+probable cause or reasonable suspicion and shall not be used as a basis to
+support any stop or search** of a person or motor vehicle":
+1. "**The odor of cannabis or burnt cannabis**";
+2. possession or suspected possession **under five ounces**;
+3. **cash near cannabis** unless it exceeds five hundred dollars.
+
+"(b) **Any evidence discovered as a result of any stop or search conducted in
+violation of this section shall not be admissible** in evidence in any trial,
+hearing or other proceeding in a court of this state." **VERIFIED**.
+
+An impairment test remains available on reasonable suspicion of OUI (subsec. (c)).
+Note the amendment history: **P.A. 22-40 deleted "or a passenger of a motor
+vehicle" from (c)** — a deliberate narrowing of scope to the operator, and the
+kind of detail that only reading the history surfaces.
+
+**"In part or in whole"** is the same defeat-the-one-factor-argument wording as
+RI §31-21.2-3. Two states have independently reached for it.
+
+## COLORADO §16-3-310 — the same duty, almost no teeth
+
+Verified in full body, including the parts that matter most.
+
+**The duty (1)(b):** before a consensual search a peace officer must articulate
+that "(I) The person **is being asked to voluntarily consent** to a search; and
+(II) The person **has the right to refuse** the request to search", and may then
+search only on verbal or written consent. Enacted **HB 10-1201 (2010)** — the
+**earliest** consent-advisement statute located in this project, predating NH's
+by eleven years.
+
+**Then three separate provisions drain it:**
+
+- **(2)** — "**need not provide a specific recitation** of the advisement;
+  **substantial compliance** with the substance of the factors is sufficient."
+- **(3)** — on a suppression motion the court "shall consider the failure to
+  comply… **as a factor in determining the voluntariness** of the consent."
+  **A factor. Not a bar.**
+- **(4)** — the section does not apply to a search under **§16-3-103** (the Terry
+  stop provision), a search incident to lawful arrest, or "**a search for which
+  there is a legal basis other than voluntary consent**", plus correctional,
+  detention, and probation/parole searches.
+
+**And the Colorado Supreme Court has confirmed the weakness on the record:**
+*People v. Munoz-Gutierrez*, 2015 CO 9, 342 P.3d 439 — an officer's failure to
+give the advisement "**is not determinative**"; articulating the two factors is
+"**only part of the totality of the circumstances analysis**."
+
+## THE FINDING: THREE REMEDY TIERS, AND THE DUTY DOES NOT TELL YOU WHICH
+
+This column's most important structural result, and it was invisible until
+Colorado and New Hampshire could be set side by side.
+
+**Colorado and New Hampshire impose nearly the same duty** — tell the driver they
+may refuse. **The protection is not remotely the same:**
+
+| Tier | Remedy for breach | States |
+|---|---|---|
+| **1 — Exclusion** | evidence **inadmissible** | **NH** 595-A:10(IV) · **RI** 31-21.2-5(f) · **CT** 54-33p(b) |
+| **2 — A factor** | one input to a voluntariness totality | **CO** 16-3-310(3) |
+| **3 — None** | duty stated, no consequence named | data/policy statutes below |
+
+**RULE ADOPTED: a consent-column cell may not record the duty without recording
+the remedy.** "Colorado requires an advisement" and "New Hampshire requires an
+advisement" are both true and would mislead a driver in opposite directions —
+in New Hampshire a breach kills the evidence; in Colorado the state's highest
+court has said a breach is not determinative.
+
+This generalises beyond the column, and it is the same lesson as the lit-place
+column, where **WV**'s definitional carve-out proved materially stronger than six
+states' affirmative defences. **Where a protection sits in the structure of the
+law matters more than whether it exists.** That is now twice-proven and belongs
+in the product's data model, not just its prose.
+
+## Tier 3: five more reported-datum and policy states
+
+None create a driver-facing rule; all were correctly declined by the scouts as
+types (a)-(e):
+
+- **MD** Transp. §25-113(d)(5) — officers record whether a search occurred and
+  whether it was "**consensual or nonconsensual**". The only Maryland hit; the
+  scout also cleared Public Safety Title 3 subtit. 1 and confirmed §25-114 is a
+  motorcycle-checkpoint provision.
+- **LA** R.S. §32:398.10 — record "the type of search and the **legal basis** for
+  that search", reported to DPSC and the legislature.
+- **KS** K.S.A. §22-4609 — bars bias-based policing as a basis for reasonable
+  suspicion or probable cause to stop **or search**. Closest of the five to a
+  real rule; still no consent mechanics.
+- **KY** KRS §15A.195 — bars a stop, detention or search **solely motivated** by
+  race, colour or ethnicity; requires a statewide model policy.
+- **ME** 25 M.R.S. §2803-B(1)(E) — every agency's bias policy must state that
+  individuals may be stopped "**only when legal authority exists**".
+
+## Negatives with named coverage, and a phantom section
+
+- **FL** — **§943.1714 does not exist.** The scout read the ch. 943 index on
+  `flsenate.gov` and the numbering runs **943.1701 → 943.171 → 943.1715**. A
+  Florida "racial profiling" section at that cite circulates and **is a phantom**.
+  Florida's real material is §166.0493 (municipal policies) and §316.614(9)
+  (seat-belt-stop data) — neither a consent rule. §901.151 is stop-and-frisk only.
+- **GA** — HB115's "End Racial Profiling Act" (proposed Title 35 ch. 11) is
+  **unenacted**. **Seventh** bill-text contamination.
+- **DE** — the "Subchapter III, Racial Profiling, §§2331-2332" cited by secondary
+  sources is **not in the current 11 Del. C. ch. 23**, whose official index shows
+  only Subchapters I and II. Repealed or relocated; replacement not located.
+  **Recorded as a live gap**, not a negative.
+- **ME** — ch. 355 (Advisory Committee on Bias-Based Profiling) is **REPEALED**.
+
+**Four more stale or phantom citations in one pass.** The phantom-section case
+(FL §943.1714) is a **new trap class, the fourteenth**: not a repealed section,
+not a bill — a **section number that never existed**, verifiable only by reading
+the surrounding numbering.
+
+# TRAP CLASS 15: DUI IMPLIED CONSENT IS NOT SEARCH CONSENT
+
+**The most dangerous contamination risk this column will face**, found by a scout
+that caught it rather than repeating it.
+
+A search summary pointed it at **HI** §291E-11 as Hawaii's consent provision. It
+read the body: **§291E-11 is DUI implied consent to breath, blood and urine
+chemical testing.** Nothing to do with searching a vehicle.
+
+**Every one of the fifty states has an implied-consent statute**, they all contain
+the word "consent", they all sit in a traffic context, and they will surface on
+**every** keyword search this column runs. They are a different legal animal
+entirely: implied consent concerns testing the driver's body for intoxication,
+not searching their car for evidence.
+
+**Rule adopted: no cell in this column may cite an implied-consent statute.** If
+a candidate section mentions breath, blood, urine, chemical testing or a licence
+sanction for refusal, it belongs to a different column and must be rejected on
+sight.
+
+This is the same failure that produced the **CA §26200(a)(5)** impersonation error
+recorded earlier — adjacent-column contamination — and it is the second time a
+"consent"-adjacent statute has nearly entered the wrong column.
+
+# TRAP CLASS 16: THE SEARCH ENGINE INVENTS CONTENT FOR A REAL SECTION
+
+Distinct from bill-text contamination, where a real bill exists and is mistaken
+for code. Here **the cited section is real and the described content is invented.**
+One scout disproved **four** instances in a single batch, each by reading the
+actual table of contents:
+
+- **HI** ch. 803 (Arrests, Search Warrants) — a summary claimed a "voluntary and
+  informed consent" provision. **Not in the TOC.** §803-1 through §803-50 read.
+- **IA** §80.40 — described as a profiling-policy statute. It is "**Bureau of
+  cyber-crime**." Read in full as a PDF.
+- **IA** ch. 80H — described as profiling. It is the "**Blue Alert Program**."
+- **IN** — the "Byron Ratcliffe Sr. Racial Profiling Reform Act" (HB1323) is
+  **not codified** in the current Indiana Code.
+
+**The defence is the one this project already uses and it worked perfectly here:
+open the index, read the catchline, believe nothing you did not fetch.** A scout
+that had accepted any of the four would have produced a confident wrong cell with
+a real-looking citation — the hardest kind of error to catch downstream.
+
+## ILLINOIS 625 ILCS 5/11-212 — the most detailed reported-datum statute found
+
+"Traffic and pedestrian stop statistical study", read in body. Officers must
+record "**whether or not a consent search contemporaneous to the stop was
+requested of the vehicle, driver, passenger, or passengers; and, if so, whether
+consent was given or denied**", plus whether a search was conducted and on what
+basis, **K9 sniff and alert**, and contraband found.
+
+It reaches **passengers explicitly** and it captures the **dog sniff** — the two
+things most other data statutes omit. Still tier 3: it records the request, it
+does not regulate it.
+
+## Column status
+
+**Consent to search: 41 of 51 assessed.**
+2 no-ask states (**RI**, **CT**) · 2 advisement states (**NH** tier 1, **CO**
+tier 2) · 1 cannabis-basis exclusion (**CT**) · 10 reported-datum/policy · 1
+device-only (MI) · 1 negative-value (AZ) · 2 case-law-only (NJ, MN).
+
+**Sixteen trap classes now documented**, two added this pass.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -6766,19 +6978,19 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 37):
-**379 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 102 UNVERIFIED.
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 38):
+**382 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 102 UNVERIFIED.
 TEN OF ELEVEN COLUMNS COMPLETE at 51/51: driver ID, sign citation,
 recording consent, duty to inform, stop-and-identify, officer condition,
 passenger ID, lit-place, detention caps, checkpoint authority.
-Impersonation 51/51. CONSENT TO SEARCH (12th column): 26/51.
+Impersonation 51/51. CONSENT TO SEARCH (12th column): 36/51.
 Progression: 81 breadth sweep, 97 pass 1, 104-162 passes 2-2i, 174 pass 3,
 181 pass 4, 198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
 247 pass 11, 255 pass 12, 263 pass 13, 270 pass 14, 273 pass 16, 276 pass 17,
 282 pass 18, 288 pass 19, 298 pass 20, 313 pass 21, 316 pass 23, 323 pass 24,
 325 pass 25, 327 pass 26, 330 pass 27, 334 pass 28, 339 pass 29, 340 pass 30,
 346 pass 31, 349 pass 32, 354 pass 33, 360 pass 34, 365 pass 35, 373 pass 36,
-379 pass 37. An earlier running count of "147 verified" reported during
+379 pass 37, 382 pass 38. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
