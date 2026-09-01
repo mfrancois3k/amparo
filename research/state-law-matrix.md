@@ -2314,6 +2314,111 @@ split is invisible in every published list checked.
 
 ---
 
+# COLUMN PASS 4: OFFICER CONDITION (2026-09-01)
+
+A column this matrix did not have. It surfaced by accident during the
+sign-citation sweep and turns out to be the one governing the scenario the Arena
+does not model at all: **the unmarked car and the plainclothes officer.**
+
+Three structurally different mechanisms, which must not be merged:
+
+## Mechanism A — a flat bar on citing at all
+
+**IN** I.C. §9-30-2-2(a): "Except as provided in subsection (b), a law
+enforcement officer **may not arrest or issue a traffic information and summons**
+to a person for a violation of an Indiana law regulating the use and operation of
+a motor vehicle on a highway… **unless at the time of the arrest the officer is:
+(1) wearing a distinctive uniform and a badge of authority; or (2) operating a
+motor vehicle that is clearly marked as a police vehicle**; that will clearly
+show the officer or the officer's vehicle to casual observation…" **VERIFIED**
+
+Subsection (b) contains exceptions and was **NOT retrieved**. Until it is, no
+statement about Indiana's rule is complete. **UNVERIFIED as to scope.**
+
+## Mechanism B — an evidentiary consequence, not a bar
+
+Ohio does not forbid the stop. It disqualifies the officer as a witness.
+
+**OH** R.C. §4549.13: "Any motor vehicle used by a member of the state highway
+patrol or by any other peace officer, **while said officer is on duty for the
+exclusive or main purpose of enforcing the motor vehicle or traffic laws** of
+this state, provided the offense is punishable as a misdemeanor, **shall be
+marked in some distinctive manner or color** and shall be equipped with… **at
+least one flashing, oscillating, or rotating colored light mounted outside on top
+of the vehicle**." **VERIFIED**
+
+**OH** R.C. §4549.14: such an officer "**is incompetent to testify as a witness**
+in any prosecution against such arrested person **if such officer at the time of
+the arrest was using a motor vehicle not marked in accordance with section
+4549.13** of the Revised Code." **VERIFIED**
+
+Note the two conditions that narrow this sharply: the officer must have been on
+duty **exclusively or mainly for traffic enforcement**, and the offence must be a
+**misdemeanor**. It is not a general unmarked-car rule.
+
+This is an evidentiary rule that operates **later, in court**. It gives a driver
+nothing at the roadside, and a user told "an unmarked car can't ticket you in
+Ohio" would be badly misled. Ohio is not Indiana.
+
+## Mechanism C — a condition on the officer's authority or on the driver's duty
+
+- **PA** 75 Pa.C.S. §6304(a): State Police arrest authority is limited to a
+  member "**who is in uniform**" who observes the violation "**in the presence
+  of**" the officer. **VERIFIED**
+- **PA** Pa.R.Crim.P. 405(1): on issuing a citation "**the law enforcement
+  officer who issues the citation shall exhibit an official sign of the officer's
+  authority**." **VERIFIED**
+- **WI** Wis. Stat. §968.24: "**After having identified himself or herself as a
+  law enforcement officer**, a law enforcement officer may stop a person in a
+  public place for a reasonable period of time when the officer reasonably
+  suspects that such person is committing, is about to commit or has committed a
+  crime, and **may demand the name and address of the person and an explanation
+  of the person's conduct**." **VERIFIED**
+
+Wisconsin's is doing double duty: it is both the officer-condition cell and the
+stop-and-identify cell, and the identification of the officer is drafted as a
+**precondition** to the stop power itself.
+
+## Corrections to this ledger's own earlier notes
+
+An earlier pass recorded, in the licence-handover verb list, that **MI**'s duty
+attaches to an officer "who shall identify himself or herself as such" and that
+**MD**'s attaches to a "uniformed police officer". Checking those this pass:
+
+- **MI** §257.727 was fetched and is **not** the officer-condition section — it
+  governs arraignment without unreasonable delay after a warrantless arrest. The
+  Michigan officer-identification language is somewhere else and has **not** been
+  relocated. That earlier note is therefore **UNVERIFIED** and must not be relied
+  on until its section is found again.
+- **MD** §26-201 was fetched; the opening grants charging authority on probable
+  cause and **no uniform condition appears in the text retrieved**. Also
+  **UNVERIFIED** pending relocation.
+
+Both were carried forward from a summary line rather than from a quoted section,
+which is exactly the weakness this ledger exists to prevent. Flagging rather than
+deleting, since the underlying language may well exist elsewhere in those codes.
+
+## Also recorded
+
+**NY** V.T.L. §1102: "No person shall fail or refuse to comply with any lawful
+order or direction of any police officer or flagperson or other person duly
+empowered to regulate traffic." **VERIFIED**. Not an officer-condition rule — a
+compliance duty — but it belongs in the matrix and had not been captured.
+
+## Coverage
+
+Officer condition: **5 jurisdictions** with verified text (IN, OH, PA, WI, and NY
+for the related compliance duty). 46 outstanding. Two prior notes (MI, MD)
+downgraded to UNVERIFIED.
+
+**This column changes what the Arena should teach.** "Is this a real officer?" is
+a question a user in an unmarked-car stop will actually have, and the answer is
+jurisdiction-specific in a way none of the other columns are: a flat bar in
+Indiana, a courtroom-only remedy in Ohio, a precondition to the stop in
+Wisconsin.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -2362,10 +2467,10 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 3): **174 VERIFIED**,
-12 LIKELY, 66 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 4): **181 VERIFIED**,
+12 LIKELY, 68 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1
 (recording consent), 104-162 passes 2 through 2i (sign citation, 50 of 51),
-174 pass 3 (duty to inform). An earlier running count of "147 verified" reported during
+174 pass 3 (duty to inform), 181 pass 4 (officer condition). An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
