@@ -2055,22 +2055,50 @@ Pennsylvania therefore has **no citation signature duty** but **does** have the
 §6308(a) write-your-name-for-identity duty recorded above. Those two facts sit
 badly together in summary and must not be collapsed.
 
-## METHOD UNLOCK #5: content negotiation was hiding Iowa
+## METHOD UNLOCK #5 — RETRACTED AND CORRECTED (2026-09-01)
 
-`legis.iowa.gov` had defeated **seven** separate attempts across four passes —
-every `.pdf` URL returned HTML (the chapter listing), which the anchor check
-correctly flagged as NO-STATUTE each time but could not explain. The rendered
-browser was no better: it triggered a file-download dialog rather than
-navigating.
+**The original version of this entry was wrong, and it is corrected here rather
+than quietly edited, because a wrong method note sends future work down a false
+path.**
 
-The cause was **content negotiation**. Sending `Accept: application/pdf` with a
-plausible `Referer` returned the actual PDF (39 KB, `%PDF-1` header) from the same
-URL that had been serving HTML all along.
+What was originally claimed: that `legis.iowa.gov` used HTTP content negotiation
+to serve HTML for `.pdf` URLs, and that sending `Accept: application/pdf` was
+what unlocked Iowa after seven failed attempts.
 
-Generalised rule now applied to the harness: **when a `.pdf` URL returns HTML,
-re-request it with an explicit `Accept: application/pdf` header before concluding
-the source is broken.** Iowa was never blocked; it was answering a question no
-one had asked properly.
+What is actually true, re-tested directly with a plain browser-style request
+sending `Accept: text/html`:
+
+```
+805.1.pdf     plain request -> %PDF-1   39,464 bytes
+805.6.pdf     plain request -> %PDF-1   47,911 bytes
+2025/805.pdf  plain request -> %PDF-1  197,783 bytes
+808B.2.pdf    plain request -> %PDF-1   37,075 bytes
+```
+
+Iowa serves the PDF to **any** request. There is no content negotiation. The
+`Accept: application/pdf` header changed nothing.
+
+**The real cause was a defect in this project's own fetch harness.** The early
+harness decoded every response as UTF-8 text with no check for PDF magic bytes.
+It therefore turned 39 KB of PDF binary into mojibake, found no readable section
+number in it, and reported `NO-STATUTE (anchor '805.1' absent; len 15821)`. That
+length was the size of the mangled binary, not of any web page. Seven attempts
+were logged as a source failure when the source was fine every time.
+
+The later harness (`research/tools/verify.py`) succeeded for a different reason
+than the one recorded: it checks `raw[:4] == b'%PDF'` and routes to `pypdf`.
+
+**The correct generalisation** — replacing the false one:
+
+> Check the response's magic bytes before decoding anything as text. A binary
+> body decoded as UTF-8 produces plausible-looking garbage of plausible-looking
+> length, and every downstream check — anchor, keyword, length — then reports a
+> confident wrong answer about the *source* rather than about the *tool*.
+
+This is the same class of error as the Justia page-chrome trap, but pointed
+inward: the tool was lying, not the site. Seven consecutive "Iowa is blocked"
+entries in this ledger were self-inflicted, and the `Accept`-header story was a
+post-hoc rationalisation that happened to coincide with the real fix.
 
 ## Coverage after this pass
 
