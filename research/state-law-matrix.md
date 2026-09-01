@@ -2740,6 +2740,119 @@ them:
 
 ---
 
+# COLUMN PASS 7: STOP-AND-IDENTIFY, BACKLOG DRAIN (2026-09-01)
+
+Scout locators verified by the main process at 24x fetch concurrency: 19 of 20
+jurisdictions confirmed in a single call. This pass exists to show where the
+actual constraint sits — see the note on swarm scaling at the end.
+
+## EIGHTH CROSS-STATE FINDING: "refuses to identify" inside a loitering statute is a FACTOR, not an offence
+
+Two states appear on stop-and-identify lists purely because their **loitering**
+statutes mention refusal to identify. In both, refusal is listed among
+circumstances a court **may consider** in deciding whether the person was
+loitering — it is not an independent duty, and in both the officer must first
+offer a chance to explain:
+
+- **AR** §5-71-213 (Loitering): "(b) Among the circumstances that may be
+  considered in determining whether a person is loitering are that the person:
+  (1) Takes flight upon the appearance of a law enforcement officer; (2)
+  **Refuses to identify himself or herself**; (3) Manifestly endeavors [to
+  conceal]…" And "(c) Unless flight by the actor or another circumstance makes it
+  impracticable, **prior to an arrest** for an offense under subdivision (a)(1) of
+  this section a law enforcement officer **shall afford the actor an opportunity
+  to dispel any alarm**…" **VERIFIED**
+- **GA** §16-11-36 (Loitering or prowling): "(b) Among the circumstances which may
+  be considered… is the fact that the person takes flight upon the appearance of
+  a law enforcement officer, **refuses to identify himself**, or manifestly
+  endeavors to conceal…" and "**Unless flight… make it impracticable, a law
+  enforcement officer shall, prior to any arrest** for an offense under this Code
+  section, **afford the person an opportunity to dispel any alarm**…" **VERIFIED**
+
+Neither state criminalises silence. Georgia's entry here is consistent with this
+ledger's existing Georgia finding ("no general stop-and-identify law"). Arkansas
+is a **new correction** — it appears on published lists and does not belong
+there on this text.
+
+That is now **six** published-list errors this project has caught.
+
+## NINTH CROSS-STATE FINDING: request versus demand, in one sentence
+
+**MT** §46-5-401(2): a peace officer who has lawfully stopped a person or vehicle
+"may: (a) **request** the person's name and present address and an explanation of
+the person's actions **and, if the person is the driver of a vehicle, demand the
+person's** [licence]…" **VERIFIED**
+
+Montana uses both verbs in a single subsection and switches between them exactly
+at the driver/non-driver line. Whatever weight "request" carries against "demand"
+in Montana practice, the drafters plainly did not treat them as synonyms — and
+any summary that renders both as "must provide" erases a distinction the
+legislature made deliberately.
+
+## Verified this pass
+
+**Real identification duties:**
+- **IN** §34-28-5-3.5: "A person who **knowingly or intentionally refuses to
+  provide** either the person's: (1) **name, address, and date of birth**; or (2)
+  **driver's license, if in the person's possession**; to a [law enforcement
+  officer]…" **VERIFIED**. Note it sits in Title 34 (Civil Law and Procedure) and
+  is tied to infractions and ordinance violations — a different footing from a
+  criminal stop-and-identify statute.
+
+**Demand authorised, Terry-style, no penalty stated in the section:**
+- **DE** 11 Del. C. §1902(a): the officer "may **demand** the person's name,
+  address, business abroad and destin[ation]". **VERIFIED** — consistent with
+  this ledger's Category B.
+- **CO** §16-3-103(1): "A peace officer may stop any person who he reasonably
+  suspects… and **may require him to give his name and ad[dress]**". **VERIFIED**
+- **KS** §22-2402(1) and **NY** C.P.L. §140.50: Terry-stop authority in
+  substantially the federal form. **VERIFIED**
+- **AL** §15-5-30: "Authority of peace officer to stop and question". **VERIFIED**
+  as to catchline and grant; the demand clause was not cleanly isolated.
+
+**False-statement offences, NOT refusal offences** — the distinction that has
+caught this project out repeatedly:
+- **IA** §719.1A: "**Providing false identification information**… A person who
+  knowingly provides **false** identification information to anyone known by the
+  person to be a peace officer…" **VERIFIED**. Silence is not the offence.
+- **NM** §30-22-3: "Concealing identity consists of concealing one's true name or
+  identity, or disguising oneself **with intent to obstruct the due execution of
+  the law**…" **VERIFIED** — confirms this ledger's earlier New Mexico entry.
+- **NC** §14-223: "resist, delay or obstruct a public officer" — a general
+  obstruction offence, **not** an identification duty. **VERIFIED**
+
+**Not resolved this pass:** NH §594:2 (host returned a 774-byte shell), OR
+§162.385 (chapter page fetched at 47 KB; extraction failed on the section
+boundary), plus PA §4914, TX §38.02, VA §19.2-82.1, WV §61-5-17, SD §22-40-1 and
+MS §97-35-7 fetched but not yet isolated. All **UNVERIFIED**.
+
+## NOTE ON SWARM SCALING — why the agent count is not the lever
+
+A 100-agent scout swarm was considered and **rejected on evidence**, recorded
+here so the reasoning is not re-litigated:
+
+- **Measured scout cost**: the five scouts run this session averaged ~126,000
+  tokens each. 100 would be ~12.6M — the bulk of a session budget — to produce
+  locators.
+- **Locators are not the constraint.** At the moment this was considered, the
+  project already held **34 unverified stop-and-identify locators** and a further
+  **29 jurisdictions** a scout reported holding but had not fetched. Scouts were
+  producing locators faster than they could be verified.
+- **Verification cannot be delegated.** It is the entire safety property: scouts
+  return locators, the main process fetches and quotes. Delegating verification
+  would reintroduce exactly the fabrication risk the architecture exists to
+  eliminate.
+- **What actually moved the needle**: raising the *verifier's* fetch concurrency
+  from 8 to 24. This pass verified 19 jurisdictions in one call, against roughly
+  two per call via the rendered browser.
+
+The bottleneck is a single-threaded reading step that must stay single-threaded.
+Adding scouts lengthens the queue in front of it. **The correct scaling axis is
+verification throughput, not agent count** — and an unverified backlog is not
+neutral, it is the precondition for unverified law reaching a user.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -2786,10 +2899,10 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 6): **198 VERIFIED**,
-13 LIKELY, 74 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1,
-104-162 passes 2-2i (sign citation, now 51 of 51), 174 pass 3, 181 pass 4,
-198 passes 5-6 (delegated scouting). An earlier running count of "147 verified" reported during
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 7): **209 VERIFIED**,
+13 LIKELY, 75 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1,
+104-162 passes 2-2i (sign citation 51 of 51), 174 pass 3, 181 pass 4,
+198 passes 5-6 (delegated scouting), 209 pass 7 (backlog drain). An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.

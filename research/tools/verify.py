@@ -104,7 +104,7 @@ def run(item):
 
 def main(path):
     items = json.load(open(path, encoding='utf-8'))
-    with cf.ThreadPoolExecutor(8) as ex:
+    with cf.ThreadPoolExecutor(24) as ex:
         for st, sec, status, hits in ex.map(run, items):
             print(f'\n=== {st} — {sec}\n    {status}')
             for h in hits:
