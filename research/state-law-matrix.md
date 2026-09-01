@@ -1443,10 +1443,154 @@ has reasonable cause to believe **that passenger** violated a traffic law (a
 seatbelt violation being the obvious route in). Any user-facing sentence that
 drops the condition converts a narrow rule into a false general one.
 
+## METHOD UNLOCK #4 (2026-09-01): a parallel fetch-and-extract harness
+
+Browser round-trips cap out at roughly two states per call. Replaced with a local
+Python harness (`pull.py`, scratchpad) that fetches 10-12 statutes concurrently,
+strips markup, and prints only sentence-bounded windows around keyword matches.
+Throughput went from ~2 states per round to ~12.
+
+**The harness has an anti-silent-failure check, and it earned its keep
+immediately.** Each target carries an `anchor` string — usually its own section
+number — that MUST appear in the fetched text. If the anchor is missing, the row
+prints `NO-STATUTE` instead of `(no keyword hit)`. Without that check the two
+failure modes are indistinguishable, and "fetched fine, statute says nothing
+about signatures" is exactly the false negative that would put a wrong cell in
+this ledger.
+
+It caught three distinct traps on the first two runs:
+- **law.justia.com over `curl` returns page chrome only** for many sections —
+  roughly 4-5 KB of navigation and newsletter markup, HTTP 200, no statute. The
+  same URLs return full text in the rendered browser. Justia is therefore
+  browser-only for reliability, or must be anchor-checked every single time.
+- **iga.in.gov** returns a 73-byte SPA shell.
+- **le.utah.gov** returns 136 bytes — a block, not a short statute.
+
+A second guard was added after the fact: strip the known chrome strings ("Justia
+Legal Resources", "Sign up for our free summaries") BEFORE keyword matching,
+because "**Sign** up for our free summaries" was matching a `sign` pattern and
+producing confident-looking hits on pages containing no law at all.
+
+## COLUMN PASS 2c (2026-09-01): eleven more states via the harness
+
+**Nebraska — the ID/signature pairing again, third state.**
+Neb. Rev. Stat. §29-427: "Any peace officer having grounds for making an arrest
+may take the accused into custody or, already having done so, **detain him
+further when the accused fails to identify himself satisfactorily, or refuses to
+sign the citation**, or when the officer has reasonable grounds to believe that
+(1) the accused will refuse to respond to the citation, (2) such custody is
+necessary to protect the accused or others…" **VERIFIED**
+
+**Idaho — the pairing again, fourth state.**
+Idaho Code §49-1407, listing when release need not follow: "(1) **When the person
+does not furnish satisfactory evidence of identity** or when the officer has
+reasonable and probable grounds to believe the person **will disregard a written
+promise to appear** in court." **VERIFIED**
+
+**Alabama — refusal routes you to a magistrate.**
+Ala. Code §32-1-4: "the officer shall, upon the giving by such person of a
+sufficient written bond… to appear at such time and place, **forthwith release
+the person from custody**. …a person **refusing to give bond to appear shall be
+taken immediately** by the [arresting officer before the nearest magistrate]."
+**VERIFIED**
+
+**Louisiana — licence-conditioned, with a parish carve-out.**
+La. R.S. §32:391: "If the person arrested **holds a Louisiana operator's license**
+and gives his written promise to appear at the time and place stated, the officer
+**may** release him from custody or take him immediately before a magistrate, but
+**shall not require the person arrested to deposit his operator's license**. Any
+such person **refusing to give the written promise to appear shall be taken
+immediately by the arresting officer** [before a magistrate]." **VERIFIED**
+
+And a genuine sub-state variation, the first found in this project:
+"Notwithstanding any other provision of law to the contrary, **in Orleans
+Parish**, if the person arrested holds a Louisiana operator's license and gives
+his written promise to appear…, the officer **shall** release him from custody."
+**VERIFIED**. May statewide; shall in Orleans Parish. Any state-level data model
+that assumes one rule per state cannot represent this.
+
+**Massachusetts — the officer signs, not the driver.**
+M.G.L. ch. 90C §2: "Said police officer shall inform the violator of the
+violation and shall give a copy of the citation to the violator. Such citation
+shall be **signed, manually or electronically, by the police officer**…" No
+violator signature is required anywhere in the section. **VERIFIED**
+
+**Rhode Island — same.**
+R.I.G.L. §31-27-12: the officer shall issue "a written notice… **signed by the
+police officer** and constituting a summons to appear before the court…"
+§31-27-12(b) preserves the alternative: "Nothing in this chapter shall preclude a
+police officer from exercising in the alternative his or her statutory powers of
+arrest." **VERIFIED**
+
+**Oregon — confirms the same, from the complaint side.**
+ORS 153.048(1)(c): the complaint requires "A certificate under ORS 153.045(5)
+**signed by the enforcement officer**." **VERIFIED**. Consistent with ORS
+165.540's posture: Oregon asks nothing of the driver's pen.
+
+**Missouri — no signature at all; a licence-deposit scheme with an express right to decline.**
+RSMo §544.045: a person arrested for a traffic violation "may, **at the discretion
+of both** the officer… **and the person arrested**, deposit his license to operate
+a motor vehicle… in lieu of any other security." And: "in lieu of depositing his
+license to operate a motor vehicle, **the person arrested may decline to deposit
+his license** … and instead deposit a bond." **VERIFIED**. Missouri is the only
+state found so far that writes the driver's consent into the mechanism twice.
+
+**New Mexico — sign, then release.**
+NMSA §66-8-123(A): the officer shall prepare the notice to appear, "**have the
+arrested person sign the agreement to appear** as specified, give a copy of the
+citation to the arrested person and **release the person from custody**."
+**VERIFIED**. Refusal consequence not stated in the section. **UNVERIFIED**
+
+**Kentucky — a notably broad arrest trigger.**
+KRS §431.015: citation is the default for a misdemeanor committed in the
+officer's presence "if there are reasonable grounds to believe that the person
+being cited will appear to answer the charge", but arrest is permitted where the
+offence is "(3) An offense in which the defendant **refuses to follow the peace
+officer's reasonable instructions**." **VERIFIED**. That clause is broad enough to
+swallow a good deal of lawful non-cooperation, and it is the widest arrest
+gateway found in this column.
+
+**Minnesota — nonresident protection, not a signature rule.**
+Minn. Stat. §169.91(b): under a reciprocal agreement, an officer observing a
+violation by a resident of a party jurisdiction "shall issue an appropriate
+citation and **shall not**… **require the nonresident to post bond or collateral**
+to secure appearance for trial but **shall accept the nonresident's personal
+recognizance**." **VERIFIED** as a nonresident-bond rule. Minnesota's signature
+rule, if any, is elsewhere and is **UNVERIFIED**.
+
 ## Coverage after this pass
 
-Sign-citation: **11 of 51 verified** (CA, TX, FL, OH, GA, NC, VA, WA, NV, CO,
-plus TN partial) and MI partial.
+Sign-citation: **21 of 51 verified** — CA, TX, FL, OH, GA, NC, VA, WA, NV, CO,
+NE, ID, AL, LA, MA, RI, OR, MO, NM, KY, MN — plus TN, NJ and MI partial.
+Previously 11 of 51.
+
+## The ID/signature pairing is now a documented pattern, not a coincidence
+
+Four states drafted refusing-to-identify and refusing-to-sign as items in a
+single list of exceptions to release: **CA** §40302(a),(b) · **OH**
+§2935.26(A)(2),(3) · **NE** §29-427 · **ID** §49-1407(1). In all four they carry
+the identical consequence.
+
+The product implication is now firm enough to act on: the Arena currently scripts
+"identify yourself" and "sign the citation" as two separate beats with separate
+outcomes. In at least four states the law treats them as **one decision with one
+consequence**. A user who has internalised them as independent will mis-model
+their own situation in those states.
+
+## The four postures, updated
+
+1. **Refusal is a crime** — FL.
+2. **Refusal costs release, bond, or custody** — CA, TX, OH, GA, NE, ID, AL, LA,
+   KY.
+3. **Refusal is expressly harmless, or nothing is asked of the driver at all** —
+   NC, VA, WA, NV, MA, RI, OR, MO.
+4. **Signing required, consequence unestablished** — TN, NM.
+
+Posture 3 is larger than the first pass suggested, and splits in two: states that
+address refusal and forgive it (NC, VA, NV), and states that never ask for a
+signature in the first place (MA, RI, OR, MO, WA). Those are different facts and
+should not be merged in any user-facing text — the second group offers no
+protection if some *other* section imposes a duty that was not checked.
 
 The four postures now documented, which is the shape of the column:
 1. **Refusal is a crime** — FL.
@@ -1489,11 +1633,10 @@ What is actually missing, by column, across all 51 jurisdictions:
   all-party states in COLUMN PASS 1 above). 37 outstanding, all one-party
   jurisdictions where the statutory risk is low by construction — an inference,
   not a verified cell. The high-risk subset of this column is now DONE.
-- **Refusing to sign a citation** — researched for **11** (CA, TX, FL, OH, GA,
-  NC, VA, WA, NV, CO, + TN partial) across COLUMN PASSES 2 and 2b, plus MI
-  partial. 40 outstanding. This column INVERTS across states — refusal is a
-  misdemeanor in FL and expressly protected in NC/VA/WA/NV — so no unresearched
-  state may be inferred from a researched one.
+- **Refusing to sign a citation** — researched for **21** across COLUMN PASSES
+  2, 2b and 2c, plus TN/NJ/MI partial. 30 outstanding. This column INVERTS across
+  states — refusal is a misdemeanor in FL and expressly protected in NC/VA — so no
+  unresearched state may be inferred from a researched one.
 - **Passenger ID** — spotty. Verified where the stop-and-identify section
   happened to address it; not systematically pursued.
 - **Duty to inform (firearm)** — researched for the original ten and a handful
@@ -1522,10 +1665,9 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 2b): **112 VERIFIED**,
-11 LIKELY, 56 UNVERIFIED cells. Progression: 81 after the breadth sweep,
-97 after COLUMN PASS 1 (recording consent), 104 after COLUMN PASS 2,
-112 after COLUMN PASS 2b. An earlier running count of "147 verified" reported during
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 2c): **124 VERIFIED**,
+11 LIKELY, 58 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1
+(recording consent), 104 pass 2, 112 pass 2b, 124 pass 2c (harness). An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
