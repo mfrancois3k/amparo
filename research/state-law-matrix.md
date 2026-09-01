@@ -1346,9 +1346,116 @@ them as the same decision point with the same consequence. Whether that pairing
 holds elsewhere is **UNVERIFIED** and worth checking, because if it generalises it
 changes how the scenario should be scripted.
 
+## COLUMN PASS 2b (2026-09-01): five more states, and a fourth posture
+
+**Virginia — the statute COMMANDS release after refusal.**
+Va. Code §46.2-936: "If any person **refuses** to give such written promise to
+appear under the provisions of this section, the arresting officer shall give
+such person notice of the time and place of the hearing, note such person's
+refusal to give his written promise to appear on the summons, and **forthwith
+release him from custody**." **VERIFIED**.
+
+This is stronger than North Carolina. NC says refusal is not *grounds* for
+arrest; Virginia affirmatively directs the officer to release. It is the most
+protective text in this column.
+
+**Washington — no signature requirement at all, plus a cap on stop length.**
+RCW 46.64.015: the officer "may **serve** upon him or her a traffic citation and
+notice to appear in court" — service, not signature. The section contains no
+signing requirement and no refusal consequence. It adds: "**The detention arising
+from an arrest under this section may not be for a period of time longer than is
+reasonably necessary to issue and serve a citation and notice**", subject to only
+two exceptions (probable cause for an offence enumerated in RCW 10.31.100(3), or
+a nonresident detained for a hearing under RCW 46.64.035). **VERIFIED**.
+
+That detention cap is independently useful to a user and belongs in its own
+column; no other state examined has an equivalent express time limit.
+
+**Nevada — refusal is a non-event, because Nevada decriminalised the offence.**
+NRS 484A.630: "**The peace officer shall sign the citation** and deliver a copy of
+the citation to the person charged" — the officer's signature, not the driver's.
+And expressly on refusal: "**If a person charged with a civil infraction refuses
+to accept a civil infraction citation, the copy of the citation signed by the
+peace officer or prosecuting attorney, as applicable, constitutes proof [of
+service]**." Acceptance is deemed personal service; refusal changes nothing.
+**VERIFIED**.
+
+**Tennessee — signing required; consequence not established.**
+T.C.A. §55-10-207: "The person cited **shall signify the acceptance** of the
+traffic citation and the agreement to appear in court as directed by **signing**
+the citation. An electronic signature may be used…" The signing duty is
+**VERIFIED**. What happens on refusal was not located in this section — the
+section is titled "Traffic citation **in lieu of** arrest", which implies arrest
+is the alternative, but implication is not text. Consequence **UNVERIFIED**.
+
+**Colorado — and a correction I nearly published backwards.**
+C.R.S. §42-4-1707(6) contains two sentences with opposite conditions, twenty
+words apart. On first read I extracted the second and attributed it to the
+first, which would have inverted the rule. Both, quoted exactly:
+
+- "…if the defendant **does not** possess a valid Colorado driver's license, the
+  defendant, **in order to secure release**, must receive information on the
+  penalty assessment notice or summons and complaint that directs the defendant
+  to appear at a specified county court at a specified time and place…"
+- "If the defendant **does** possess a valid Colorado driver's license, the
+  defendant **must not be required to execute a promise to appear** on the
+  penalty assessment notice or on the summons and complaint."
+
+So in Colorado the freedom from signing attaches to **holding a valid Colorado
+licence**. A driver without one gets the appearance-information route instead.
+**VERIFIED**.
+
+Colorado also carries a clause that matters more to this product's users than
+anything else in this column: "**The peace officer shall not require any person**
+who is eligible to be issued a summons and complaint or a penalty assessment
+notice for a violation of this title 42 **to produce or divulge such person's
+social security number**." Unconditioned — it protects any eligible person,
+licensed or not. **VERIFIED**.
+
+**Method note on that near-miss.** The error was reading a `grep`-style match
+window instead of the whole sentence. The fragment began mid-word ("ossess"),
+which is exactly the tell that the match window has cut a negation off the front.
+Any extraction that starts mid-word must be re-read from the sentence boundary
+before it is recorded. This ledger's whole value is that its cells are not
+plausible-sounding guesses, and this one would have been.
+
+## Two Arizona cells for OTHER columns
+
+A.R.S. §28-1595 was pulled while looking for a signature provision and does not
+contain one, but it does contain two cells this matrix wants elsewhere:
+
+- **Driver ID, with a stated penalty** — §28-1595(B): a driver "who fails or
+  refuses to **exhibit** the operator's driver license as required by section
+  28-3169 **or** a driver who is not licensed and who fails or refuses to provide
+  evidence of the driver's identity on request **is guilty of a class 2
+  misdemeanor**." **VERIFIED**. Most states' display duty carries no stated
+  penalty in the display section itself; Arizona's does, and it expressly covers
+  the unlicensed driver.
+- **Passenger ID — conditioned, not blanket** — §28-1595(C): "**A person other
+  than the driver** of a motor vehicle who fails or refuses to provide evidence
+  of the person's identity to a peace officer… **when such officer… has reasonable
+  cause to believe the person has committed a violation of this title**, is
+  guilty of a class 2 misdemeanor." **VERIFIED**.
+
+The condition in (C) is load-bearing and easy to lose in summary. Arizona does
+not require passengers to identify themselves generally — only where the officer
+has reasonable cause to believe **that passenger** violated a traffic law (a
+seatbelt violation being the obvious route in). Any user-facing sentence that
+drops the condition converts a narrow rule into a false general one.
+
 ## Coverage after this pass
 
-Sign-citation: **6 of 51 verified** (CA, TX, FL, OH, GA, NC) plus MI partial.
+Sign-citation: **11 of 51 verified** (CA, TX, FL, OH, GA, NC, VA, WA, NV, CO,
+plus TN partial) and MI partial.
+
+The four postures now documented, which is the shape of the column:
+1. **Refusal is a crime** — FL.
+2. **Refusal costs you release or a bond** — CA, TX, OH, GA.
+3. **Refusal is expressly harmless** — NC, VA (release mandated), WA (no
+   signature required), NV (service valid regardless).
+4. **Signing required, consequence unestablished** — TN.
+
+Previously 6 of 51 verified (CA, TX, FL, OH, GA, NC) plus MI partial.
 Previously 3 of the original ten. 45 outstanding — and given the polarity found
 here, extrapolation from these six to any unresearched state is not permissible.
 
@@ -1382,10 +1489,11 @@ What is actually missing, by column, across all 51 jurisdictions:
   all-party states in COLUMN PASS 1 above). 37 outstanding, all one-party
   jurisdictions where the statutory risk is low by construction — an inference,
   not a verified cell. The high-risk subset of this column is now DONE.
-- **Refusing to sign a citation** — researched for **6** (CA, TX, FL, OH, GA, NC)
-  in COLUMN PASS 2, plus MI partial. 45 outstanding. This column INVERTS across
-  states — refusal is a misdemeanor in FL and expressly protected in NC — so no
-  unresearched state may be inferred from a researched one.
+- **Refusing to sign a citation** — researched for **11** (CA, TX, FL, OH, GA,
+  NC, VA, WA, NV, CO, + TN partial) across COLUMN PASSES 2 and 2b, plus MI
+  partial. 40 outstanding. This column INVERTS across states — refusal is a
+  misdemeanor in FL and expressly protected in NC/VA/WA/NV — so no unresearched
+  state may be inferred from a researched one.
 - **Passenger ID** — spotty. Verified where the stop-and-identify section
   happened to address it; not systematically pursued.
 - **Duty to inform (firearm)** — researched for the original ten and a handful
@@ -1414,9 +1522,10 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 2): **104 VERIFIED**,
-11 LIKELY, 55 UNVERIFIED cells. Progression: 81 after the breadth sweep,
-97 after COLUMN PASS 1 (recording consent), 104 after COLUMN PASS 2 (sign citation). An earlier running count of "147 verified" reported during
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 2b): **112 VERIFIED**,
+11 LIKELY, 56 UNVERIFIED cells. Progression: 81 after the breadth sweep,
+97 after COLUMN PASS 1 (recording consent), 104 after COLUMN PASS 2,
+112 after COLUMN PASS 2b. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
