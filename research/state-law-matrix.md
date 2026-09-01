@@ -5304,6 +5304,136 @@ difference between a statute that reaches a fake stop and one that does not.
 
 ---
 
+# COLUMN PASS 28: IMPERSONATION — 50 OF 51, AND A DEAD SECTION CAUGHT (2026-09-01)
+
+Seventeen jurisdictions, all located and body-confirmed by the scout, with four
+independently re-verified by the main process.
+
+## NORTH CAROLINA — the strongest vehicle aggravation found anywhere
+
+**NC** G.S. §14-277(a)(4): it is an offence to "**unlawfully operate a vehicle on a
+public street, highway, or public vehicular area with an operating blue light** as
+defined in G.S. 20-130.1(c)". §14-277(b) separately reaches carrying out "any act
+in accordance with the authority granted to a law-enforcement officer" while
+falsely representing oneself as one, and enumerates "**(1) Ordering any**
+[person]…" among such acts. **VERIFIED**.
+
+The grading is the point. **§14-277(d1)(3): a violation of (a)(4) — the blue light
+— is a Class I FELONY.** **VERIFIED**. (Violations of (a)(1)-(3) and (b)(1)-(4) are
+Class 1 misdemeanors.)
+
+North Carolina keys a **felony** specifically to running police lights to stop a
+driver. It is the closest analogue found to Oklahoma 21 O.S. §1533(F)(2), and
+together they are the two clearest legislative acknowledgements in this project
+that **the fake traffic stop is a distinct harm** — not merely a species of
+impersonation.
+
+That matters against PASS 27's uncomfortable finding. Where a state has built a
+vehicle-specific offence, the intent-gating problem largely disappears: North
+Carolina does not require proof of a purpose to injure or defraud for (a)(4).
+
+## MISSISSIPPI — a dead section, caught before it entered
+
+The scout flagged: **§97-7-43 — the cite most search results and Justia's
+pre-2025 pages return — was REPEALED effective 1 July 2025** by 2025 SB 2197. The
+operative section is **§97-7-44**, amended by the same act.
+
+**This ledger got lucky.** Mississippi had not previously been recorded in the
+impersonation column, so no correction is needed. But the trap is live and general:
+a repealed section that search engines and a major secondary host still return as
+current. This is the **seventh trap class**, and a close relative of the Utah
+§76-10-523.5 renumbering — with the difference that Utah's old number pointed at a
+*different subject* while Mississippi's points at *nothing*.
+
+**Rule reinforced:** the PASS 24 rule (check amendment history for anything enacted
+or amended within two years) now has a second limb — **check whether the section
+still exists**, not merely whether its text changed.
+
+## TENNESSEE — the split limb, and why the citation must be precise
+
+**TN** §39-16-301: subsection **(a) is gated** on intent to injure or defraud, but
+the **law-enforcement limb at (b) is NOT gated**. And **(d)(2)** raises the maximum
+fine to **$5,000** where LEO impersonation under (b) is committed **while operating
+a motor vehicle**. Scout-reported, body-confirmed by the scout; **not
+independently re-verified by the main process**.
+
+This is the same shape as Minnesota §609.475 but resolved the other way: Tennessee
+carved the LEO limb *out* of the fraud gate. **Cite (b), never (a)** — a summary
+citing §39-16-301 without the subsection would attach a gate that does not apply.
+
+## Nevada — the one true result-gate in this batch
+
+**NV** NRS §199.430 was reported as gated on **result**, not merely intent: the
+offence completes only "whereby another is injured or defrauded". A bare fake stop
+causing no resulting harm would be a genuine gap — the same shape as the Minnesota
+concern.
+
+**The main process could not isolate the body**: `leg.state.nv.us/nrs/nrs-199.html`
+returned the chapter table of contents rather than the section text. Recorded as
+**scout-reported, UNVERIFIED by the main process**, and flagged for re-fetch. It is
+the single most consequential unverified cell in this column, because a
+result-gated impersonation statute is the strongest form of the PASS 27 gap.
+
+## Also verified by the main process
+
+- **WA** RCW §9A.60.047(1)(a): "**Under circumstances not amounting to criminal
+  impersonation in the first degree**, the person claims to be a peace officer…"
+  **VERIFIED**. Note the lead-in — Washington's provision is expressly residual,
+  sitting beneath a first-degree offence.
+- **MO** §575.120 ("False impersonation — penalties"), effective 1 Jan 2017.
+  **VERIFIED** as to existence and catchline.
+
+## Wyoming and South Carolina — both pieces of unfinished business closed
+
+- **WY** §6-3-606 — PASS 21 recorded a scout's refusal to enter this cell: the
+  number surfaced in search only and no host would serve the body. **Justia served
+  the full body through the browser.** Single undivided sentence, misdemeanour
+  only. Gated on **intent to compel action or inaction against the person's will**
+  — which is neither "benefit/defraud" nor bare pretence. The scout's judgement is
+  worth preserving: that gate "reads as *reaching* a fake traffic stop rather than
+  excluding it, but it is a gate, so it is recorded as such rather than as 'no
+  limit'." Correct handling.
+- **SC** §16-17-720 — PASS 21 had it confirmed only on a **2000 archive page**.
+  Current 2025 body retrieved. Two unnumbered paragraphs; the conduct clause
+  **expressly reaches arresting, detaining, and searching an automobile**; no
+  vehicle-based aggravated grade and no fraud gate. History line traces to 1969,
+  i.e. unamended.
+
+## Independent corroboration of the browser-pane hazard
+
+PASS 26 recorded that the shared browser pane drifted to a page the main process
+never requested, and adopted a rule to prefer the curl harness while scouts run.
+
+This scout independently reported the same thing: "**the shared browser tab drifted
+to unrelated Justia pages twice mid-batch, so re-navigate before every extraction
+rather than trusting tab state.**"
+
+Two independent observations of the same failure. The hazard is real, and the
+scout's mitigation — re-navigate immediately before every extraction — is a better
+rule than the main process's, because it works even when the pane must be used.
+**Adopted.**
+
+## Host intelligence
+
+The fetch-vs-browser split is now confirmed across **seven further states** (WY,
+SC, TX, PA, TN, UT, MS): Justia serves normally through the browser and 403s the
+fetch tool. The scout's phrasing is worth keeping — "**finding confirmed, not
+folklore**".
+
+Two more nav-shell hosts identified where Justia-via-browser was the working
+route: `statutes.capitol.texas.gov/Docs/PE/htm/PE.37.htm` and
+`palegis.us/statutes/consolidated/view-statute`. And Justia's North Dakota path
+`/codes/north-dakota/title-12-1/...` 404s — FindLaw carried ND.
+
+## Coverage
+
+Impersonation: **50 of 51**. Intent-gating now assessed for 27 states: gated in
+**AR, LA, MD, MN, NV (result-gated), TN(a) only, WY (compel-action gate)**; not
+gated in the remainder. Vehicle-specific aggravated forms exist in **OK, NC, TN,
+AR (as a mode), LA (as a mode)**.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -5354,16 +5484,16 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 27):
-**330 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 101 UNVERIFIED.
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 28):
+**334 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 101 UNVERIFIED.
 FOUR COLUMNS COMPLETE at 51/51: driver ID, sign citation, recording consent,
-duty to inform. Officer condition 49/51. Stop-and-identify 47/51.
-Impersonation 33/51. Passenger ID 26/51 swept.
+duty to inform. Impersonation 50/51. Officer condition 49/51.
+Stop-and-identify 47/51. Passenger ID 26/51 swept.
 Progression: 81 breadth sweep, 97 pass 1, 104-162 passes 2-2i, 174 pass 3,
 181 pass 4, 198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
 247 pass 11, 255 pass 12, 263 pass 13, 270 pass 14, 273 pass 16, 276 pass 17,
 282 pass 18, 288 pass 19, 298 pass 20, 313 pass 21, 316 pass 23, 323 pass 24,
-325 pass 25, 327 pass 26, 330 pass 27. An earlier running count of "147 verified" reported during
+325 pass 25, 327 pass 26, 330 pass 27, 334 pass 28. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
