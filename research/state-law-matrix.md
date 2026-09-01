@@ -4459,6 +4459,178 @@ and NH (Category D, and MA also Category A).
 
 ---
 
+# COLUMN PASS 21: OFFICER CONDITION — 15 MORE, AND THE ANTI-PROTECTION (2026-09-01)
+
+## THIRTEENTH CROSS-STATE FINDING: a marking mandate can carry a savings clause that neutralises it
+
+**GA** O.C.G.A. §40-8-91 mandates markings and equipment on law enforcement
+vehicles at (b)-(c). Then:
+
+**§40-8-91(f)**: "**An otherwise lawful arrest shall not be invalidated or in any
+manner affected by failure to comply with this Code section.**" **VERIFIED**.
+
+Georgia requires police vehicles to be marked **and expressly provides that
+breaking that rule costs the state nothing.** The mandate binds the agency; it
+gives the driver no remedy, no defence, and no argument.
+
+This is the **anti-shape-1**, and it is the most important thing found in this
+column for user-facing purposes. Until now the column's danger was users
+over-reading *elements of an offence* as roadside rights (the eluding family).
+Georgia adds a second, worse trap: a statute that **looks exactly like a
+protection, is directed at police conduct, and is expressly stripped of
+consequence in its own final subsection.**
+
+A researcher reading (b) and (c) and stopping there would record Georgia as a
+marking-requirement state. Subsection (f) inverts it. **Read to the end of the
+section — the last subsection is where the teeth are removed**, a lesson now
+learned three times (Utah §53-5a-310(1)(e)(iii), Washington RCW 46.08.065's
+law-enforcement exception, and here).
+
+## DELAWARE — third confirmed instance of the buried-condition limitation
+
+**DE** 21 Del. C. §701(a), catchlined "**Arrest without warrant for motor vehicle
+violations**": "…State Police, state detectives and other police officers
+authorized by law to make arrests for violation of the motor vehicle and traffic
+laws of this State, **provided such officers are in uniform or displaying a badge
+of office or an official police identificat[ion folder]**…" **VERIFIED**.
+
+Shape 1 — a genuine bar on the arrest power — hidden under an arrest catchline,
+exactly as in PA §6304 and MA c.90 §21. The scout confirmed it was found only by
+full-texting subsection by subsection: "the catchlines alone would have shown
+nothing."
+
+**Three independent states now.** The PASS 9 limitation is not an edge case; it
+is how this shape is customarily drafted. Any officer-condition sweep that
+screens catchlines will systematically miss shape 1.
+
+**DE** 21 Del. C. §4103(b) separately conditions the driver's duty on an officer
+identifiable by uniform, vehicle, or discernible police signal. **VERIFIED**.
+
+## The eluding family grows to fifteen — and the variation inside it matters
+
+All condition the **offence**, not the stop. Recorded with their internal
+differences, because a national summary would flatten exactly these:
+
+- **WY** §31-5-225(a) — officer in uniform **AND** prominently displaying badge
+  **AND** vehicle appropriately marked. All three, conjunctive. The most demanding
+  found. **VERIFIED**.
+- **SD** §32-33-18 — uniform + badge **AND** marked vehicle. **VERIFIED**.
+- **GA** §40-6-395(a) — uniform + badge + marked official vehicle, all three
+  inside (a). **VERIFIED**.
+- **VT** 23 V.S.A. §1133 — **disjunctive**: identifying insignia **OR** a law
+  enforcement vehicle with siren and flashing blue lamp. Not a uniform
+  requirement. **VERIFIED**.
+- **NM** §30-22-1.1 (aggravated fleeing) — uniformed officer in an authorised
+  emergency vehicle. **VERIFIED**.
+- **AZ** §28-622.01 — marked-vehicle element, with an unmarked-vehicle carve-out
+  turning on the **driver's proven knowledge**. **VERIFIED**.
+- **CO** §42-4-1413 — marked-vehicle element only, **no** uniform or badge
+  element. **VERIFIED**.
+- **FL** §316.1935(2),(3) — authorised-patrol-vehicle / insignia and markings
+  element; (1) and (4)-(7) carry none. **VERIFIED**.
+- **CT** §14-223(b) — police vehicle + signal element. **VERIFIED**.
+- Plus ND, TX, NV, KS, MD, AK, LA, MS from earlier passes.
+
+Conjunctive in WY/SD/GA, disjunctive in VT, knowledge-dependent in AZ,
+vehicle-only in CO. **"The officer must be identifiable" is true in all fifteen
+and means something different in each.**
+
+## Shape 5 — the driver's duty conditioned on the officer
+
+**CT** §14-223(a): "Whenever the operator of any motor vehicle fails promptly to
+bring his motor vehicle to a full stop **upon the signal of any officer in uniform
+or prominently displaying the badge of his office**, or disobeys the direction of
+such officer… he shall be deemed to have committed an infraction and be fined
+fifty dollars." **VERIFIED**.
+
+Connecticut carries **two different shapes in one section** — (a) is a conditioned
+driver duty, (b) is an eluding-offence element. Both recorded separately.
+
+## DISTRICT OF COLUMBIA — a fourth sub-shape, and the "lit place" column advances
+
+**DC** §50-2201.05b: the offence at (b)(1) carries **no** officer condition. But
+(c) creates an **affirmative defence** (reasonable belief that personal safety was
+at risk, on the preponderance), and lists as factors:
+- **(c)(2)** whether the vehicle was clearly marked or, if unmarked, occupied by
+  an officer in uniform or displaying a badge; and
+- **(c)(4)** whether the defendant **stopped at the first available reasonably
+  lighted or populated area**. **VERIFIED**.
+
+Two things follow. First, this is a **new sub-shape** — not a bar, not an element,
+but a **statutory factor in an affirmative defence**, one further step removed
+from a roadside right than the eluding family.
+
+Second, the **"proceed to a lit place" column now has two verified entries**, and
+they share a posture: **MS** §97-9-72(5)(b) as a defence, **DC** §50-2201.05b(c)(4)
+as a defence *factor*. Neither is permission. In both states a driver who does
+this can be stopped, removed from the car, arrested and charged, and then argues
+it later. The column is real, and every entry in it so far is a courtroom
+argument rather than a roadside entitlement.
+
+## Negatives, graded
+
+- **NJ** — **MEDIUM-HIGH**. Bodies of §2C:29-2 (eluding — signal only, no officer
+  or vehicle condition), §39:4-57 (duty to obey directions, unconditional),
+  §39:5-25, §39:3-85.6 all read. Web claims that New Jersey bars unmarked-car
+  routine stops trace to **introduced bills** (A2310/1996, A225, A2301, A343) —
+  bill text, not enacted law. **Second instance of the New York failure mode**:
+  a widely repeated "rule" that traces to something that never became statute.
+- **SC** — **MEDIUM**. Full catchline index of Title 56 ch. 5 plus body of
+  §56-5-750: the trigger is **siren or flashing light only**, no uniform, badge or
+  marking condition, and no safe-place provision. Titles 23 and 17 not read.
+- **WV** — **MEDIUM**. Body of §61-5-17 (all vehicle-fleeing subsections e-j:
+  trigger is "clear visual or audible signal" only), the ch. 17C article index,
+  and bodies of §§17C-19-1 and 17C-19-3.
+- **AL** — **MEDIUM**, and honestly bounded: §13A-10-52 (fleeing) body verified,
+  no condition; §32-5A-4 and §32-1-4 likewise. But **no full index of Title 13A
+  ch. 10 art. 3 was obtainable** — Justia 403'd, `al.elaws.us` does not exist, and
+  FindLaw's Title 13A landing page shows a curated "selected statutes" list rather
+  than the article hierarchy. The scout's own words: "**not found in what I read**,
+  not 'no rule exists'."
+
+## Impersonation column — fifteen more, and one refusal to record
+
+AL §13A-10-11 · AZ §13-2411 · CO §18-8-112 · CT §53a-130a · DE 11 §907(3) · FL
+§843.08 · GA §16-10-23 · NJ §2C:28-8 · NM §30-27-2.1 · SD §22-40-16 · VT 13
+§3002 · WV §61-5-27a(e) · DC §22-1404. All **VERIFIED** as located.
+
+**SC** §16-17-720 — number and catchline confirmed **only in a 2000 archive
+page**; the current chapter page truncates before it. Current text
+**UNVERIFIED**.
+
+**WY** §6-3-606 — the scout marked URL VERIFIED **false** and wrote "**Do not
+record until a body is seen**": the number surfaced in search only, and the body
+could not be loaded on any host (Justia 403, FindLaw served the Title 6 chapter
+index on both URL forms, onecle 404, lawserver 403, wyoleg PDF and DOCX returned
+unparseable binary). **NOT RECORDED.** Correct call.
+
+Impersonation now **23 jurisdictions**.
+
+## A new silent-failure host trap
+
+`flsenate.gov/.../Chapter316/All` **silently truncates**: it reported "no
+sections" for chapter 316 while a direct fetch of §316.1935 confirmed subsections
+(2) and (3) in body. **Do not trust any `/ChapterNNN/All` negative result** —
+per-section fetches only.
+
+This is the same class as the Justia page-chrome and PDF-as-UTF-8 traps: a
+successful-looking response that asserts absence. It is the fourth such trap
+documented, and the first on a state's own official host.
+
+Also: `cga.ct.gov/current/pub/chap_248.htm` serves the TOC and truncates before
+§14-223's body. `scstatehouse.gov` chapter `.php` pages truncate mid-chapter.
+`sdlegislature.gov/api/Statutes/<chapter>.html` serves a **full catchline index** —
+the cheapest index route found in the project. FindLaw is **per-title unreliable
+for Wyoming**: Title 31 served section bodies while Title 6 served the index for
+identical URL shapes.
+
+## Coverage
+
+Officer condition: **48 of 51**. Impersonation: **23**. "Lit place": **2 verified**
+(MS, DC), both defence-posture.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -4509,13 +4681,13 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 20): **298 VERIFIED**,
-14 LIKELY, 99 UNVERIFIED cells. THREE COLUMNS COMPLETE at 51/51: driver ID,
-sign citation, recording consent. Progression: 81 breadth sweep, 97 pass 1,
-104-162 passes 2-2i, 174 pass 3, 181 pass 4, 198 passes 5-6, 209 pass 7,
-213 pass 8, 231 pass 9, 239 pass 10, 247 pass 11, 255 pass 12, 263 pass 13,
-270 pass 14, 273 pass 16, 276 pass 17, 282 pass 18, 288 pass 19,
-298 pass 20 (officer condition 37 of 51). An earlier running count of "147 verified" reported during
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 21): **313 VERIFIED**,
+14 LIKELY, 100 UNVERIFIED cells. THREE COLUMNS COMPLETE at 51/51: driver ID,
+sign citation, recording consent. Officer condition 48 of 51.
+Progression: 81 breadth sweep, 97 pass 1, 104-162 passes 2-2i, 174 pass 3,
+181 pass 4, 198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
+247 pass 11, 255 pass 12, 263 pass 13, 270 pass 14, 273 pass 16, 276 pass 17,
+282 pass 18, 288 pass 19, 298 pass 20, 313 pass 21. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
