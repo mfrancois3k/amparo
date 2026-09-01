@@ -4204,6 +4204,117 @@ Zero LIKELY cells remain in the catchline category.
 
 ---
 
+# COLUMN PASS 19: STOP-AND-IDENTIFY — THE FALSE-STATEMENT FAMILY (2026-09-01)
+
+## TWELFTH CROSS-STATE FINDING: six states criminalise LYING, not SILENCE — and published lists conflate the two
+
+This ledger has caught the conflation state by state (IA §719.1A, NM §30-22-3).
+This pass establishes it as a family. Six states now verified, all with the same
+structure: the offence requires an affirmative **false** statement, and **silence
+is not the offence**.
+
+- **PA** 18 Pa.C.S. §4914(a) ("**False identification to law enforcement
+  authorities**"): "A person commits an offense if he **furnishes law enforcement
+  authorities with false information about his identity** after being informed by
+  a law enforcement officer **who is in uniform or who has identified himself as
+  a law enforcement officer** that the person is the subject of an **official
+  investigation of a violation of law**." Misdemeanor of the third degree.
+  **VERIFIED**.
+- **VA** §19.2-82.1 ("Giving false identity to law-enforcement officer"): "Any
+  person who **falsely identifies himself** to a law-enforcement officer **with
+  the intent to deceive** the law-enforcement officer as to his real identity
+  **after having been lawfully detained** and **after being requested** to
+  identify himself, is guilty of a Class 1 misdemeanor." **VERIFIED**.
+- **OR** ORS §162.385(1) ("Giving false information to a peace officer in
+  connection with a citation or warrant"): the offence is committed if the person
+  "knowingly uses or **gives a false or fictitious name, address or date of
+  birth**" when the officer is issuing or serving a citation under specified
+  authority. **VERIFIED**.
+- **WV** §61-5-17(c): "A person who, **with intent to impede or obstruct** a
+  law-enforcement officer… in the conduct of an investigation of a misdemeanor or
+  felony offense, **knowingly and willfully makes a materially false statement**
+  is guilty of a misdemeanor…" **VERIFIED**.
+- **IA** §719.1A and **NM** §30-22-3 — recorded in earlier passes, same family.
+
+**Every one of these states appears on published "stop and identify" lists.** Not
+one of them, on this text, criminalises declining to answer. A user told "you must
+identify yourself in Pennsylvania" has been given a materially wrong instruction:
+the actual rule is that if you *do* answer, the answer must be true.
+
+That is now **seven** distinct published-list error patterns this project has
+documented.
+
+## PENNSYLVANIA §4914 — a doubly-conditioned duty, and it feeds the officer-condition column
+
+PA §4914 is the most heavily qualified provision found in this column. Before the
+offence can be committed, **all** of the following must hold:
+1. the officer is **in uniform, or has identified himself** as a law enforcement
+   officer; **and**
+2. the officer has **informed the person** they are the subject of an official
+   investigation of a violation of law; **and**
+3. the person **furnishes false information** — not merely stays silent.
+
+The first condition is an **officer-condition cell** embedded inside a
+stop-and-identify statute. It would never be found by searching the motor-vehicle
+code or by reading officer-condition catchlines, which is how this column has been
+searched until now. **Pennsylvania joins the officer-must-identify group by way of
+its false-identification statute.**
+
+This is the third demonstration that the columns in this matrix are not cleanly
+separable in the statute books, after Wisconsin §968.24 (officer-condition +
+stop-and-identify in one sentence) and Alabama §13A-11-95/96 (duty-to-inform +
+hand-position on one page).
+
+## Mississippi — a compliance statute, not an identity statute
+
+**MS** §97-35-7(1): "Whoever, **with intent to provoke a breach of the peace**, or
+under such circumstances as may lead to a breach of the peace… **fails or refuses
+to promptly comply with or obey a request, command, or order of a law enforcement
+officer**… to: (a) **Move or absent himself** and any vehicle or object…"
+**VERIFIED**.
+
+This is a failure-to-disperse / failure-to-comply offence gated on breach-of-peace
+circumstances. It is **not an identification duty** and should not be recorded as
+Mississippi's stop-and-identify provision, which is how it was reaching this
+project via secondary sources.
+
+## Alabama — demand authorised, no penalty stated
+
+**AL** §15-5-30 ("Authority of peace officer to stop and question"): an officer
+"may stop any person abroad in a public place whom he reasonably suspects is
+committing, has committed or is about to commit a felony or other public offense
+and **may demand of him his name, address and an explanation of his actions**."
+**VERIFIED**.
+
+Category B in this ledger's taxonomy — demand authorised, **no penalty for silence
+stated in the section**. Same shape as DE §1902, CO §16-3-103, KS §22-2402, NY
+C.P.L. §140.50.
+
+## Not resolved
+
+- **SD** §22-40-1 — the `/api/Statutes/22-40-1.html` endpoint returned a 618-byte
+  shell, though the chapter-level `/api/Statutes/22-40.html` worked in an earlier
+  pass. The api endpoint is **section-level unreliable**. **UNVERIFIED**.
+- **NH** §594:2 — 774-byte shell on gc.nh.gov, the same failure as two passes ago.
+  **UNVERIFIED**.
+
+## Coverage
+
+Stop-and-identify: **~31 of 51**. The column now has four documented categories:
+- **A. Demand authorised AND refusal criminalised** — OH, NE, AZ (name only, and
+  only after the officer advises refusal is unlawful)
+- **B. Demand authorised, NO penalty for silence** — WI, RI, FL, UT, IL, DE, AL,
+  CO, KS, NY, MT
+- **C. Duty attaches to a specific act** — VA §46.2-104 and PA §6308(a) (write
+  your name), TX §38.02 (lawful arrest)
+- **D. FALSE-STATEMENT ONLY — silence is not the offence** — PA §4914, VA
+  §19.2-82.1, OR §162.385, WV §61-5-17(c), IA §719.1A, NM §30-22-3
+
+Category D is the one published lists systematically miscount, and it is now the
+second-largest category.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -4254,12 +4365,12 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 18): **282 VERIFIED**,
-14 LIKELY, 96 UNVERIFIED cells. THREE COLUMNS COMPLETE at 51/51: driver ID,
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 19): **288 VERIFIED**,
+14 LIKELY, 98 UNVERIFIED cells. THREE COLUMNS COMPLETE at 51/51: driver ID,
 sign citation, recording consent. Progression: 81 breadth sweep, 97 pass 1,
 104-162 passes 2-2i, 174 pass 3, 181 pass 4, 198 passes 5-6, 209 pass 7,
 213 pass 8, 231 pass 9, 239 pass 10, 247 pass 11, 255 pass 12, 263 pass 13,
-270 pass 14, 273 pass 16, 276 pass 17, 282 pass 18. An earlier running count of "147 verified" reported during
+270 pass 14, 273 pass 16, 276 pass 17, 282 pass 18, 288 pass 19. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
