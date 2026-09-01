@@ -5913,6 +5913,211 @@ Impersonation 51/51 located with gating assessed for all 51.
 
 ---
 
+# COLUMN PASS 33: THE TWELVE-SCOUT WAVE (2026-09-01)
+
+Seven scouts reported. Three columns advanced, one re-check debt discharged.
+
+# PART 1 — DETENTION-LENGTH CAP: "how long can they keep me here?"
+
+The most directly user-relevant column in the project, and the answers are better
+than expected.
+
+## Two states put a clock on it
+
+**RI** §12-7-1 ("Temporary detention of suspects") — verified in body by the main
+process: detention capped at "**two (2) hours, and the detention shall not be
+recorded as an arrest in any official record. At the end of the detention period
+the person so detained shall be released unless arrested and charged with a
+crime.**" **VERIFIED**.
+
+Three things in one sentence: a **hard clock**, a bar on the stop appearing as an
+**arrest on a record**, and a **mandatory release** at the end.
+
+**NV** NRS §171.123(4) — verified in body: "A person must not be detained longer
+than is reasonably necessary to effect the purposes of this section, and **in no
+event longer than 60 minutes**. The detention **must not extend beyond the place or
+the immediate vicinity of the place where the detention was first effected**…"
+**VERIFIED**.
+
+A hybrid: reasonableness **plus** a 60-minute ceiling **plus** a geographic limit.
+
+**And §171.123(3), found while verifying the cap, is a stop-and-identify limiter
+this ledger did not have:** "Any person so detained **shall identify himself or
+herself, but may not be compelled to answer any other inquiry** of any peace
+officer." **VERIFIED**. Nevada compels identity and expressly nothing else —
+the same shape as OH §2921.29(C) and UT §76-8-301.5(2)(c). **Three of the states
+that compel identity also cap what may be compelled.**
+
+## Task-anchored — the useful kind
+
+Ranked by how usable the anchor is for a driver:
+
+- **LA** C.Cr.P. art. 215.1(D) — keyed to **completing the investigation AND
+  issuing the citation**, with an express exception for reasonable suspicion of
+  another crime. The strongest anchor found.
+- **WA** RCW §46.64.015 — "no longer than reasonably necessary to issue and serve
+  a citation and notice". (Recorded earlier; re-confirmed.)
+- **NC** §15A-1113(b) — detain "a reasonable period in order to issue and serve
+  him a citation".
+- **MT** §46-5-403, catchlined "**Duration of stop**" — anchored to the abstract
+  "purpose of the stop". Weaker for a driver to invoke than LA's or WA's, because
+  the purpose is whatever the officer says it was.
+- **AZ** §28-1594 — "as is reasonably necessary to investigate… and to serve a
+  copy of the traffic complaint". (Recorded earlier.)
+
+## Bare-reasonable, and a category weaker still
+
+**OR** §131.615 ("no longer than a reasonable time", plus a vicinity restriction),
+**WI** §968.24, **SC** §17-13-170(C)(2).
+
+And a **distinct fourth category** the scout identified: **ND** §29-29-21 and
+**UT** §77-7-15 are Terry codifications that grant stop authority with **zero
+temporal language of any kind**. That is not "bare-reasonable" — it is silence,
+and it should not be scored as a limit.
+
+## VIRGINIA — a repealed 30-minute cap that secondary sources still carry
+
+**VA** §19.2-83 is **REPEALED** (Acts 1994, c. 273), confirmed from the repeal
+notice in the body. The scout's warning is worth preserving verbatim in substance:
+"Virginia's old 30-minute stop statute no longer exists — **do not cite it**."
+
+Any dataset carrying a Virginia 30-minute entry from a secondary source is stale
+by three decades. Eighth instance of the repealed-but-still-circulating trap.
+
+## PA — scope is not duration
+
+**PA** 75 Pa.C.S. §6308 limits the stop's **purpose**, not its **length**. Recorded
+as a null for this column, with a note that if the column ever splits scope from
+length, Pennsylvania belongs in the other half.
+
+**Detention caps: 34 of 51 assessed.** 2 fixed-time, 5 task-anchored, 3
+bare-reasonable, 2 explicit-silence, remainder none-located.
+
+# PART 2 — "LIT PLACE": 51 OF 51. COLUMN COMPLETE.
+
+Eighth completed column. **Seven entries, and not one is permission.**
+
+| Jurisdiction | Section | Posture |
+|---|---|---|
+| **WV** §61-5-17(l) | **element carve-out** — strongest | conduct is not the offence at all |
+| **DE** 21 §4103(b) | affirmative defence | speed condition + day/night distinction |
+| **MS** §97-9-72(5)(b) | affirmative defence | well-lit specific |
+| **OR** §811.540(2) | affirmative defence | **unmarked vehicles only** |
+| **AL** §13A-10-53 | affirmative defence | generic "reasonable location" |
+| **PA** 75 §3733(c)(2)(iv) | factor in a defence | within good-faith-personal-safety defence |
+| **DC** §50-2201.05b(c)(4) | factor in a defence | "first available reasonably lighted or populated area" |
+
+## West Virginia is structurally the strongest, and it is not a defence
+
+**WV** §61-5-17(l) — verified in body — excludes from the **definition** of
+"flee/fleeing/flight" a reasonable attempt to travel to a "**safe place, allowing
+the pursuing law-enforcement officer to maintain appropriate surveillance, for the
+purpose of complying with the officer's direction to stop**." **VERIFIED**.
+
+This is a **definitional carve-out, not an affirmative defence.** The difference is
+who bears the burden: an affirmative defence must be raised and proved by the
+defendant; a definitional exclusion means **the conduct was never the offence**.
+West Virginia is the only jurisdiction of the seven that structures it this way,
+and it is materially better for a driver than the other six.
+
+Note its condition, which is unusual and sensible: the driver must allow the
+officer to **maintain surveillance** — i.e. not lose them.
+
+## Oregon's is limited to unmarked vehicles
+
+**OR** §811.540(2)'s defence applies only where the signal came from an
+**unmarked** police vehicle. That ties this column directly to the
+officer-condition column: Oregon has decided the safe-place argument is available
+precisely where the driver's doubt is legitimate.
+
+## The Alabama inclusion decision
+
+A scout found **AL** §13A-10-53 and explicitly declined to decide whether it
+belongs here, flagging it "for whoever decides the column's inclusion rule". Right
+call to escalate.
+
+Verified: an affirmative defence where the driver "**stopped his or her vehicle
+within a reasonable time and at a reasonable location based on the facts and
+circumstances of the stop**."
+
+**Decision: Alabama is in the column**, as a *generic-reasonable-location* sub-shape.
+Reasoning: the column exists to answer a driver's question, not to match a phrase.
+Excluding it for lacking the word "lit" would be the keyword-matching error this
+project keeps catching — the same error behind the loitering false positives, the
+"in charge of a vehicle" misreadings, and the Kansas near-miss below. Alabama's
+wording is arguably **broader**, since it is not limited to lighting.
+
+## The near-miss that would have produced wrong cells
+
+**KS** §8-1568 carries an affirmative defence — but to the driver's "**reasonable
+belief that the vehicle… pursuing… is not a police vehicle**". **VERIFIED**, and
+the strings "well-lit", "lighted" and "populated" appear nowhere in it. **AK**
+§28.35.182(c) is the same shape.
+
+A sweep for "affirmative defense" inside fleeing statutes surfaces both and would
+code them as safe-place states. They belong to the **officer-identifiability**
+family, already recorded. **Do not merge.**
+
+## Practice is not statute
+
+Maryland's "kept driving to a lit spot" argument exists in **case law and
+prosecutorial practice**, with **no statutory hook** in §21-904. Arkansas's lives
+in the **DMV driver manual**; its §5-54-125 has no defence provision at all
+(history read through Acts 2025 No. 822).
+
+**This is the shape of the whole column: the advice is taught far more widely than
+it is legislated.** In every one of the seven states where it *is* legislated
+except West Virginia, a driver who does it can still be stopped, removed from the
+car, arrested and charged — and then argues it in court.
+
+# PART 3 — THE CATEGORY B RE-CHECK: ALL ELEVEN HOLD
+
+PASS 32 corrected Utah B → A after finding its **offence** section in a different
+title from its **demand** section, and flagged every other Category B entry as
+carrying the same risk. That debt is now discharged.
+
+Eleven states re-checked against their **criminal codes'** obstruction chapters —
+WI ch. 946 (incl. subch. IV), RI Title 11 + ch. 11-32, FL ch. 843, IL 720 ILCS 5
+art. 31, DE Title 11 ch. 5 subch. VI and VII, AL Title 13A ch. 10 art. 1, CO Title
+18 art. 8 pt. 1, KS ch. 21 art. 59, NY Penal art. 195, MT Title 45 ch. 7 pt. 3, NE
+ch. 28 art. 9.
+
+**No "Failure to disclose identity"-style offence exists in any of the eleven.
+Category B holds for all.** The Utah correction was a genuine outlier, not the tip
+of a systemic error — which is worth knowing, because the alternative would have
+put every category assignment in this ledger in doubt.
+
+## The highest-risk trap in that batch, caught
+
+**IL** 720 ILCS 5/31-4.5 is catchlined "**Obstructing identification**" — which
+reads exactly like Utah's "Failure to disclose identity" to anyone scanning
+catchlines. The scout read the body: it requires **furnishing a false or fictitious
+name, address or date of birth**. Class A misdemeanor. **Category D, not A.**
+
+The scout's own assessment: "the single highest-risk trap in this batch — it is
+catchlined close to Utah's and will read as a hit to anyone scanning catchlines
+only."
+
+Six further false positives of the same family were identified by catchline and
+correctly **not** treated as answers: CO §18-8-111.5, DE §1245A, AL §13A-10-9, KS
+§21-5917, FL §843.08, RI ch. 11-14.
+
+And one honest flag: **DE** 11 §1321 (Loitering) does reference requesting
+identification, but the fetched text shows it is a dispel-your-alarm clause inside
+the loitering offence — the same structure as the AR and GA loitering false
+positives recorded in PASS 19. The scout flagged Delaware as "where a catchline
+scan would most plausibly go wrong next."
+
+# Method note
+
+One scout, working on Justia, "ran every extraction in a **dedicated tab**
+atomically with its navigate" because the shared tab "drifts badly". That is the
+strongest form of the PASS 32 mitigation yet proposed and is **adopted**: a
+dedicated tab plus navigate-and-extract in a single batch removes the failure mode
+rather than working around it.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -5962,17 +6167,17 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 32):
-**349 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 102 UNVERIFIED.
-SEVEN COLUMNS COMPLETE at 51/51: driver ID, sign citation, recording consent,
-duty to inform, stop-and-identify, officer condition, passenger ID.
-Impersonation 51/51 located, gating assessed for all 51.
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 33):
+**354 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 102 UNVERIFIED.
+EIGHT COLUMNS COMPLETE at 51/51: driver ID, sign citation, recording consent,
+duty to inform, stop-and-identify, officer condition, passenger ID, lit-place.
+Impersonation 51/51. Detention caps 34/51. Checkpoint authority in progress.
 Progression: 81 breadth sweep, 97 pass 1, 104-162 passes 2-2i, 174 pass 3,
 181 pass 4, 198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
 247 pass 11, 255 pass 12, 263 pass 13, 270 pass 14, 273 pass 16, 276 pass 17,
 282 pass 18, 288 pass 19, 298 pass 20, 313 pass 21, 316 pass 23, 323 pass 24,
 325 pass 25, 327 pass 26, 330 pass 27, 334 pass 28, 339 pass 29, 340 pass 30,
-346 pass 31, 349 pass 32. An earlier running count of "147 verified" reported during
+346 pass 31, 349 pass 32, 354 pass 33. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
