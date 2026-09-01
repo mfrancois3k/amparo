@@ -3753,6 +3753,97 @@ Four structural variants now, not three:
 
 ---
 
+# COLUMN PASS 15: THE AUDITOR'S CURRENCY BACKLOG (2026-09-01)
+
+Two flagged cells resolved by the main process. Both were flagged rather than
+recorded, and both turned out to matter.
+
+## OKLAHOMA — currency warning LIFTED, and the cell is stronger than recorded
+
+PASS 9 recorded Oklahoma's unmarked-car bar as **VERIFIED text / UNVERIFIED
+currency**, because `ok.elaws.us` carries a footer reading "Oklahoma Statutes
+(Last Updated: September 18, 2014)" — eleven years of possible amendment behind
+an otherwise clean fetch.
+
+Re-pulled from a **dated 2025 source** carrying explicit version history (2023,
+2024, 2025 editions all listed):
+
+**OK** 11 O.S. §34-106 (2025), "Use of unmarked vehicle prohibited — Official
+uniform required": "The State of Oklahoma hereby declares and states that the
+**increased number of persons impersonating law enforcement officers by making
+routine traffic stops while using unmarked cars is a threat to the public health
+and safety** of all the citizens of the State of Oklahoma; therefore **it shall be
+unlawful for any municipal police department to use any vehicle which is not
+clearly marked as a law enforcement vehicle for routine traffic enforcement**
+except as provided in Section 12-218 of Title 47… In addition to Section 12-218…,
+the peace officer operating the law enforcement vehicle for routine traffic stops
+sh[all]…" **VERIFIED, 2025 text.**
+
+**Currency warning lifted.** The 2014 mirror was stale packaging around a rule
+that is current.
+
+Two corrections to the PASS 9 entry, both in the direction of the cell being
+stronger:
+1. The legislative finding about impersonation appears in **§11-34-106 itself**,
+   not only in the county analogue §19-180.43 as PASS 9 implied. Both parallel
+   provisions carry it.
+2. The operative prohibition runs against the **police department's use of the
+   vehicle**, not merely against the individual officer — a structurally
+   different and broader bar than "the officer must be uniformed".
+
+This is now the best-supported cell in the officer-condition column.
+
+## MASSACHUSETTS §129C — the catchline hazard, CONFIRMED
+
+PASS 14 flagged this as suspected. It is now established.
+
+The full 9,861-character §129C page was fetched from malegislature.gov and
+searched exhaustively. **The only occurrence of the word "exhibit" anywhere on the
+page is inside the catchline itself**: "Section 129C: Application of Sec. 129B;
+ownership or possession of firearms or ammunition; transfers; report to
+commissioner; exemptions; **exhibiting license to carry, etc. on demand**". The
+body opens at subsection (a) with permissions to possess **without** a licence and
+runs to (m) containing no exhibit-on-demand paragraph. §131 was also checked and
+contains no matching duty.
+
+**VERIFIED as a confirmed catchline/body mismatch.** Whether the duty was
+relocated elsewhere in c.140 or repealed outright is **UNVERIFIED**; a scout is
+checking §§131 and 129B.
+
+### Why this is the most dangerous trap documented in this project
+
+Every prior trap produced a **false negative** — a fetch that looked like "no such
+law" when the law existed:
+- Justia page-chrome (200 OK, no statute)
+- PDF binary decoded as UTF-8 (garbage of plausible length)
+- SPA shells (73–421 bytes)
+- Index-first missing a rule buried in a differently-titled section (PASS 9)
+
+This one produces a **false positive**. A researcher screening catchlines — which
+is the technique this ledger has promoted as its workhorse since METHOD UNLOCK #3
+— reads "exhibiting license to carry on demand" and records a duty that the body
+does not impose. The error survives review, because the citation is real, the
+catchline is real, and only reading the whole body reveals the gap.
+
+**Rule adopted:** a catchline may be used to FIND a section. It may never be used
+to ESTABLISH what the section says. Every cell in this ledger sourced from a
+catchline alone is now suspect and is listed below for re-check:
+
+- **SD** §32-12-40 (LIKELY, catchline only — court-production/cure provision)
+- **WI** §175.60(2g) (LIKELY, catchline "possession and display of license
+  document")
+- **CO** §18-12-204(2)(a) (LIKELY, clause not isolated)
+- **ND** §62.1-04-04 (catchline "Producing license upon request" — body was
+  subsequently fetched, so this one is clear)
+- **CT** §52-570d (scope taken from catchline "private telephonic communications";
+  body never fetched — the scope limit is likely right but is catchline-sourced)
+
+None of these is wrong on its face. All are now flagged as **catchline-sourced
+and unconfirmed in body**, which is a category this ledger did not previously
+distinguish.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -3803,12 +3894,12 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 14): **270 VERIFIED**,
-13 LIKELY, 89 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1,
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 15): **270 VERIFIED**,
+13 LIKELY, 90 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1,
 104-162 passes 2-2i (sign citation 51 of 51), 174 pass 3, 181 pass 4,
 198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
 247 pass 11 (recording 50 of 51), 255 pass 12, 263 pass 13,
-270 pass 14 (duty to inform 34 of 51). An earlier running count of "147 verified" reported during
+270 pass 14 (duty to inform 34 of 51), 270 pass 15 (currency backlog). An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
