@@ -6514,10 +6514,8 @@ answered.
 "**Any evidence obtained as a result of a search prohibited by subsection (a) or
 (b) shall be inadmissible in any judicial proceeding.**" **VERIFIED**.
 
-**This is unique in the project.** Every other protection found in eleven columns
-across 51 jurisdictions either creates an offence, imposes a duty, or provides an
-affirmative defence. Rhode Island is the only jurisdiction that writes **its own
-suppression rule** for a traffic-stop violation — the rule has teeth without
+**[RETRACTED IN PASS 37 — NH RSA 595-A:10, IV does the same. See that pass.]**
+Rhode Island writes **its own suppression rule** for a traffic-stop violation — the rule has teeth without
 needing a court to imply them.
 
 **(g) — mandatory dashcam, from the moment of the signal:**
@@ -6561,6 +6559,161 @@ only" rather than complete: the follow-up list is what produced this.
 
 **Consent to search: opened this pass.** RI recorded at type (e) + (a) + (d).
 Six scouts are working the remaining jurisdictions.
+
+---
+
+# COLUMN PASS 37: NEW HAMPSHIRE RSA 595-A:10 — AND A CORRECTION TO PASS 36
+# (2026-09-01)
+
+## CORRECTION FIRST: the RI exclusionary remedy is NOT unique
+
+**PASS 36, committed one pass ago, claimed that Rhode Island §31-21.2-5(f) is
+"the only jurisdiction that writes its own suppression rule for a traffic-stop
+violation." That claim is WRONG and is retracted.**
+
+**NH** RSA **595-A:10, IV** does the same thing: "Any act of a law enforcement
+officer which violates a provision of this section **shall result in the
+inadmissibility in any criminal proceeding of any evidence** obtained by the law
+enforcement officer." **VERIFIED** in full body on the official host
+(`gc.nh.gov`).
+
+The claim was written before this scout reported. It was over-broad on the
+evidence then held — one pass of one new column is not a basis for a national
+"only". **Recorded rather than quietly edited**, because the ledger's value is
+that its errors are visible.
+
+**The two remedies are complementary, not duplicative, and the distinction is
+the useful part:**
+- **RI restricts WHEN an officer may ask** — no request at all absent reasonable
+  suspicion or probable cause. Its remedy attaches to a search that should never
+  have been requested.
+- **NH restricts HOW an officer must ask** — the request is permitted, but only
+  after a scripted warning, and its remedy attaches to a defective procedure.
+
+Rhode Island is stronger at the threshold; New Hampshire is stronger on process.
+Neither state has the other's half.
+
+## NH RSA 595-A:10 — "Informed Consent Exception for Motor Vehicles"
+
+Enacted **2021, 196:1, effective 9 October 2021**. The most complete consent
+procedure found anywhere in this project. Verified in full body.
+
+**I — the officer must EXPRESSLY INFORM the operator of four things** before a
+warrantless consent search is lawful:
+- "(a) The operator has the **right to refuse** to consent to a search;
+- (b) Any refusal to consent to a search **shall not constitute a basis either
+  for probable cause to arrest the operator or reasonable suspicion to detain**
+  the operator;
+- (c) The operator **cannot be charged with any crime or violation for refusing**
+  to consent to a search; and
+- (d) The operator **cannot be further detained for refusing** to consent to a
+  search." **VERIFIED**.
+
+**II — "If the operator… refuses to consent to a search, the law enforcement
+officer shall CEASE any further questioning concerning consent to a search."**
+**VERIFIED**.
+
+**III — consent must be documented**, either by the operator's **signature on a
+consent-to-search form carrying notice of paragraphs I and II**, or by **video
+and sound recording** of the consent at the time — retained until any resulting
+criminal charge is fully resolved. **VERIFIED**.
+
+**IV — the exclusionary remedy** quoted above.
+
+**V — exceptions**: search incident to arrest; officer-safety searches allowed
+under the US Constitution; correctional-facility grounds; inventory searches of
+lawfully-seized property including vehicles towed with the operator's arrest.
+
+## Paragraph I(b)-(d) is the single most product-relevant text found in this project
+
+Every other protection in this ledger tells a driver what an officer may or may
+not do. **New Hampshire's I(b), I(c) and I(d) answer the question drivers
+actually ask, which is "if I say no, will that make it worse for me?"**
+
+The statute answers it three times over: refusal is **not** suspicion, refusal is
+**not** chargeable, refusal **may not extend the stop**. And II obliges the
+officer to **stop asking**.
+
+Nothing else located in twelve columns speaks to the consequence of exercising a
+right rather than the existence of it.
+
+## The rest of the wave: data-collection is not a rule
+
+Three states require the consent question to be **recorded and reported**, which
+is a transparency mechanism, not a driver protection. All three scouts correctly
+declined to code them as types (a)-(e):
+
+- **CA** Gov. Code **§12525.5(b)(8)(A)**, verified in body by the main process on
+  the official host — agencies must annually report "**Whether the peace officer
+  asked for consent to search the person, and, if so, whether consent was
+  provided**", alongside whether a search occurred and its basis. **VERIFIED**.
+  Note it extends to a **passenger** where the stop data relates to one.
+- **MO** RSMo **§590.650(2)(4)** — on every stop involving a search, the officer
+  must report **whether the individual consented**, the probable cause if any,
+  and **the duration of the search**.
+- **NE** §20-504 and **MA** c.90 §63 — record that a search occurred, without
+  distinguishing consent searches.
+
+**Recorded as a distinct category: "consent is a reported datum, not a regulated
+act."** California, Missouri, Nebraska and Massachusetts belong there. It is
+worth having in the product because it means the data exists, but it gives a
+driver at the roadside nothing.
+
+## ARIZONA — the inverse of Rhode Island
+
+**AZ** §13-3925, verified in body on `azleg.gov`: where a party seeks to exclude
+evidence, "**the proponent of the evidence may urge that the peace officer's
+conduct was taken in a reasonable, good faith belief that the conduct was
+proper**", and "**The trial court shall not suppress evidence that is otherwise
+admissible… if the court determines that the evidence was seized… as a result of
+a good** [faith mistake]". **VERIFIED**.
+
+**Arizona legislates in the opposite direction from RI and NH**: they write
+suppression in, Arizona writes a good-faith exception that narrows it. Recorded
+in the column as a **negative-value entry** — it is on-topic and it makes the
+driver's position worse, which a column that only records protections would miss
+entirely.
+
+## MICHIGAN — a consent rule about the phone, not the car
+
+**MI** MCL §257.223(2): displaying an **electronic registration** does not create
+a presumption of consent to search **the electronic device**. Narrow, but a real
+consent provision and a modern one — and it belongs to the column even though it
+never reaches the vehicle.
+
+## Two more bill-text contaminations, and a case-law caution
+
+- **AZ** — Title 41 ch. 9 art. 10 "Racial Profiling" (SB1071/SB1564) is an
+  **unenacted bill**, not in force; the Justia path 404s.
+- **AL** — the circulating Alabama profiling provisions trace to **SB84 and
+  HB305**, both unenacted.
+- **MS** — HB1203 (2022), a "Racial Profiling Prevention Act", could not be
+  confirmed as enacted; correctly **not** reported as found.
+
+**That is instances four, five and six of bill-text contamination**, after TN
+HB0055, NJ A2310 and TX SB1700. **Six independent instances across three
+columns.** The pattern is now established well enough to state as a rule:
+**where a state is widely said to have a police-practices statute and no section
+number is given, the source is usually a bill.**
+
+Two states' protections are **real but not statutory**, and the scouts flagged
+both rather than coding them:
+- **NJ** — the independent-reasonable-suspicion-before-consent rule is *State v.
+  Carty* (2002) plus AG Directive 2005-1. **Not in N.J.S.A.**
+- **MN** — the equivalent rule is *State v. Fort* and *State v. Sargent* under
+  Minn. Const. art. I §10. **Not in ch. 626.**
+
+Both belong in the product eventually — a New Jersey driver has that protection —
+but they are **court-made, and this matrix is built from statutes**. Flagged for
+whoever decides whether the product's scope includes state constitutional case
+law. That decision has now been forced twice and should be made explicitly.
+
+## Column status
+
+**Consent to search: 26 of 51 assessed.**
+2 full procedural regimes (**NH**, **RI**) · 4 reported-datum states (CA, MO, NE,
+MA) · 1 device-only (MI) · 1 negative-value (AZ) · 2 case-law-only (NJ, MN) ·
+remainder none located.
 
 ---
 
@@ -6613,18 +6766,19 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 36):
-**373 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 102 UNVERIFIED.
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 37):
+**379 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 102 UNVERIFIED.
 TEN OF ELEVEN COLUMNS COMPLETE at 51/51: driver ID, sign citation,
 recording consent, duty to inform, stop-and-identify, officer condition,
 passenger ID, lit-place, detention caps, checkpoint authority.
-Impersonation 51/51. TWELFTH COLUMN OPENED: consent to search.
+Impersonation 51/51. CONSENT TO SEARCH (12th column): 26/51.
 Progression: 81 breadth sweep, 97 pass 1, 104-162 passes 2-2i, 174 pass 3,
 181 pass 4, 198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
 247 pass 11, 255 pass 12, 263 pass 13, 270 pass 14, 273 pass 16, 276 pass 17,
 282 pass 18, 288 pass 19, 298 pass 20, 313 pass 21, 316 pass 23, 323 pass 24,
 325 pass 25, 327 pass 26, 330 pass 27, 334 pass 28, 339 pass 29, 340 pass 30,
-346 pass 31, 349 pass 32, 354 pass 33, 360 pass 34, 365 pass 35, 373 pass 36. An earlier running count of "147 verified" reported during
+346 pass 31, 349 pass 32, 354 pass 33, 360 pass 34, 365 pass 35, 373 pass 36,
+379 pass 37. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
