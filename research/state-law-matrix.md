@@ -3168,6 +3168,118 @@ unmarked-car scenario and needs a dedicated pass.
 
 ---
 
+# COLUMN PASS 10: OFFICER CONDITION, THIRD SWEEP + THE "WELL-LIT PLACE" COLUMN OPENS (2026-09-01)
+
+Ten more jurisdictions from two scouts, all verified here.
+
+## THE "DRIVE TO A WELL-LIT PLACE" QUESTION — answered, and the framing is everything
+
+Flagged in PASS 9 as an uncaptured column directly on point for the unmarked-car
+scenario. Found:
+
+**MS** §97-9-72(5): "**It is a defense to prosecution under this section:** (a)
+That the law enforcement officer was **not in uniform** or that no law
+enforcement vehicle used in the attempted stop was **clearly marked** as a law
+enforcement vehicle; **or (b) That the driver proceeded in a safe manner to a
+reasonably near well-lit public place before stopping**." **VERIFIED**
+
+**This is a defence to a fleeing charge. It is not a right, and it is not
+permission.** The distinction is the whole ballgame for a user: it means a
+Mississippi driver who does this can still be pulled from the car, still be
+arrested, still be charged — and then raises §97-9-72(5)(b) in court. Telling a
+user "in Mississippi you can drive to a lit place" would describe the courtroom
+outcome and omit the roadside one.
+
+That framing problem now applies across a whole family of provisions found in
+this and the previous pass, and it deserves its own standing rule.
+
+## STANDING RULE: an element or defence is not a roadside right
+
+Every one of these conditions an **offence** on the officer being identifiable,
+or supplies a **defence** after the fact. None restrains the stop:
+
+**AK** §28.35.182 (failure to stop, 2nd degree — markings/lights, or uniform and
+badge on foot, as affirmative defences) · **KS** §8-1568(d)(1) (the signal is
+valid only if the police vehicle or bicycle "shall be appropriately marked", or
+the officer is in uniform prominently displaying the badge) · **MD** Transp.
+§21-904(c) ("If a police officer gives a visual or audible signal to stop and the
+police officer, **whether or not in uniform**, is in a vehicle appropriately
+marked…") · **LA** R.S. §14:108.1 (signal must come from a marked police vehicle)
+· **ND** §39-10-71 · **TX** §545.421(b) · **NV** NRS 484B.550 · **MS**
+§97-9-72(5). All **VERIFIED**.
+
+Eight states, one shape. A user who reads any of them as "I don't have to stop
+for an unmarked car" is converting a prosecution element into a roadside
+entitlement, and the gap between those two is a felony stop.
+
+**Note the Maryland wording especially**: §21-904(c) reaches an officer "**whether
+or not in uniform**" so long as the vehicle is marked — the opposite of what the
+popular framing assumes.
+
+## Shape (1) — genuine bars on the stop power
+
+- **ME** 29-A M.R.S. §105: "If a law enforcement officer has reasonable and
+  articulable suspicion to believe that a violation of law has taken or is taking
+  place, that officer, **if the officer is in uniform**, may stop a motor
+  vehicle…" **VERIFIED**. A true condition on the stop power, joining OK, OR, VA,
+  IN and PA. §1760 and §2414 were reported as carrying the same predicate but were
+  **not fetched** — **UNVERIFIED**.
+
+## Shape (3) — must identify
+
+- **HI** §803-6(a): "**At or before the time of making an arrest, the person
+  shall declare that the person is an officer of justice**, if such is the case.
+  If the person has a warrant the person should show it…" **VERIFIED**
+- **ID** §19-608 ("Information to person arrested"): "The person making the arrest
+  **must inform the person to be arrested of the intention to arrest him, of the
+  cause of the arrest, and the authority to make it**, except when…" **VERIFIED**
+- **AR** §12-12-1403: requires law enforcement agencies to adopt policies that
+  "**Require[] law enforcement officers to identify themselves by** [full name and
+  jurisdiction, and state the reason for the stop]" — and note the same section
+  "**Defines reasonable suspicion to ensure that individuals are stopped for valid
+  reasons and that race, ethnicity, national origin, or religion is not the basis
+  for stops** for violations for which nongroup members would not be stopped."
+  **VERIFIED**. This is a **mandated-agency-policy** duty, not a direct statutory
+  bar — a fifth structural variant, and weaker than it first reads.
+
+## Not a stop condition, recorded so it is not mistaken for one
+
+**MO** RSMo §43.130: an internal duty on the State Highway Patrol — vehicles
+distinctively marked and lighted, members in uniform and insignia on duty. **No
+stop, arrest, or citation is conditioned on it.** **VERIFIED** as to what it is.
+Missouri shapes (1)–(3): **not found**, after reading the Chapter 304 index and
+checking §43.170 (duty to stop on patrol signal, which carries no officer or
+vehicle condition).
+
+## Negatives worth their weight
+
+- **ID**: full catchline indexes read for Title 49 ch. 6, Title 49 ch. 14, and
+  Title 19 ch. 6 — no uniform or marked-vehicle catchline. Idaho's eluding
+  statute §49-1404 was fetched **on two hosts** and contains no marked/uniform
+  condition, unlike Kansas. §19-622 (road blocks) governs signage and lights only.
+  A well-supported index-level negative.
+- **AR**: a 1997 bill (SB 562) to "prohibit law enforcement agencies from using
+  unmarked cars for stopping motorists for traffic violations" surfaced
+  repeatedly in search. The scout could **not locate any codified section**
+  carrying it and could not confirm enactment, and expressly declined to supply a
+  section number. Recorded as an **unconfirmed lead, not a finding** — the correct
+  handling, and the same failure mode as the New York revoked-executive-order
+  myth.
+- **LA**: shapes (1)–(3) marked **LOW coverage, not absent**. Both legis.la.gov's
+  table of contents and Justia's Title 32 index were blocked, so Title 32 was
+  never enumerated index-first. Explicitly flagged for a second pass on a
+  different host before Louisiana is treated as having no such statute.
+
+## Coverage
+
+Officer condition: **30 jurisdictions** with verified text. 21 outstanding.
+"Well-lit place" defence: **1** (MS) verified; expressly **not found** in AK, AR,
+HI, ID, KS, and not attempted elsewhere. Arkansas places that advice in its **DMV
+driver manual only, not in the code** — a useful reminder that widely-taught
+roadside guidance is often not law anywhere.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -3214,11 +3326,11 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 9): **231 VERIFIED**,
-13 LIKELY, 78 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1,
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 10): **239 VERIFIED**,
+13 LIKELY, 79 UNVERIFIED cells. Progression: 81 breadth sweep, 97 pass 1,
 104-162 passes 2-2i (sign citation 51 of 51), 174 pass 3, 181 pass 4,
 198 passes 5-6, 209 pass 7, 213 pass 8 (recording consent 43 of 51),
-231 pass 9 (officer condition 20). An earlier running count of "147 verified" reported during
+231 pass 9, 239 pass 10 (officer condition 30). An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
