@@ -5197,6 +5197,113 @@ Officer condition: **49 of 51** with Utah recorded as a strong null.
 
 ---
 
+# COLUMN PASS 27: IMPERSONATION — AND A GAP THAT SHOULD WORRY THIS PROJECT (2026-09-01)
+
+Ten states. The column was opened because the live question for a driver facing an
+unmarked car is "is this a real officer?", and impersonation statutes are the other
+half of that answer. Reading them produced a finding that runs against the
+assumption the column was opened on.
+
+## FOURTEENTH CROSS-STATE FINDING: some impersonation statutes may not reach a fake traffic stop at all
+
+Impersonation offences split on whether they require a **purpose to injure,
+defraud, or obtain an advantage**. Where they do, a person who runs a fake traffic
+stop **purely to stop and frighten someone** — with no provable acquisitive or
+injurious purpose — may fall outside the statute.
+
+**INTENT-GATED** — verified in body by the main process:
+
+- **AR** §5-37-208(a)(1): "A person commits criminal impersonation in the first
+  degree if, **with the purpose to induce a person to submit to pretended official
+  authority for the purpose to injure or defraud the person**, the person: (A)
+  Pretends to be a law enforcement officer by wearing or displaying, without
+  authority, any uniform or badge…; or **(B) Uses a motor vehicle or motorcycle
+  designed, equipped, or marked with an emblem, logo, marking, decal, insignia, or
+  design so as to resemble** a [police vehicle]…" **VERIFIED**.
+
+  Note the structure: Arkansas has an explicit **vehicle mode** at (a)(1)(B) — the
+  fake police car — but it sits **under the same intent chapeau**. The double
+  purpose requirement ("to induce… submission" *and* "to injure or defraud") gates
+  the vehicle mode too.
+
+- **LA** R.S. §14:112.1(A): "False personation of a peace officer or firefighter is
+  the performance of any one or more of the following acts **with the intent to
+  injure or defraud or to obtain or secure any special privilege or advantage**:
+  (1) Impersonating any peace officer… (2) Performing any act purporting to be
+  official in such assumed character…" **VERIFIED**. The chapeau gates all modes,
+  including A(4) (equipping a vehicle with lights or sirens simulating a law
+  enforcement vehicle).
+
+- **MD** Pub. Safety §3-502(b) requires a "fraudulent design on person or
+  property"; the uniform and insignia bans at (c) and (d) are not fraud-gated,
+  though (d) needs a purpose of deception. **Recorded from the scout; not
+  independently body-verified.**
+
+- **MN** §609.475 — recorded in PASS 20, gated on intent to obtain money or
+  benefit.
+
+**NOT INTENT-GATED** — these reach a bare fake stop on their face:
+
+- **ME** 17-A §457(1): "A person is guilty of impersonating a public servant if he
+  falsely pretends to be a public servant and engages in any conduct in that
+  capacity **with the intent to deceive anyone**." **VERIFIED**. Intent to deceive
+  only — a low bar, and a bare fake stop clears it.
+- **AK** AS §11.56.827 — pretending to be a peace officer and purporting to
+  exercise that authority; no benefit or defraud element.
+- **HI** §§710-1016.6 and 710-1016.7 — intent to deceive only; the aggravator is
+  being **armed with a firearm**, not using a vehicle.
+- **IN** IC §35-44.1-2-6(a) — intent to deceive **or to induce compliance with
+  instructions, orders or requests**. The scout flagged that second limb as
+  squarely fitting a fake traffic stop, and that reading is sound on its face.
+- **IL** 720 ILCS 5/17-2(b)(3) — knowing false representation only; the
+  defraud/benefit gates in §17-2 sit in *other* personation subsections.
+- **KS** K.S.A. §21-5917 — knowledge of falsity, no defraud element.
+
+## Why this matters to the product, and it is not comfortable
+
+This project opened the impersonation column expecting it to be **reassuring** —
+evidence that the law takes fake traffic stops seriously, to sit alongside
+Oklahoma's legislative finding that unmarked-car impersonation "is a threat to the
+public health and safety."
+
+For roughly a third of the states examined, the statute is **narrower than the
+fear**. Arkansas has a purpose-built fake-police-car provision and still requires
+proof of a purpose to injure or defraud. Louisiana's covers a light bar and still
+requires intent to injure, defraud, or obtain an advantage.
+
+**Nothing here should be turned into reassurance for users.** If anything the
+honest reading runs the other way, and it sharpens why the *officer-condition*
+column matters: in states like Oklahoma, where the statute bars unmarked routine
+traffic enforcement outright, a driver's doubt has a legal answer that does not
+depend on proving the impersonator's purpose.
+
+**This is a finding about statutes, not about outcomes.** Prosecutors charge under
+kidnapping, false imprisonment, assault and robbery statutes too, and those carry
+no such gate. The narrow point is only that **the impersonation statute
+specifically** may not be the one that reaches this conduct — which is exactly the
+kind of thing a summary table saying "impersonating an officer is a crime in all
+50 states" would obscure.
+
+## Two method notes from the scout, both worth keeping
+
+- **Kansas has no police-specific impersonation statute.** The scout established
+  this by reading the **full Justia index of Ch. 21 Art. 59** (§§21-5901 to
+  21-5939) rather than trusting a search summary, and found §21-5917 is the only
+  impersonation offence, reaching officers only as a generic "public officer".
+  That is a searched negative of the strong kind.
+- **Maryland's provision is in the Public Safety Article, not the Criminal Law
+  Article** — "which is where a section-number guess would have gone wrong". A
+  reminder that the *article* is as guessable-wrong as the section.
+
+## Coverage
+
+Impersonation: **33 of 51**. Of those examined for intent-gating, **4 are gated**
+(AR, LA, MD, MN) and **6 are not** (AK, HI, IL, IN, KS, ME). The gating question
+has not been asked of the 23 recorded in earlier passes, and should be — it is the
+difference between a statute that reaches a fake stop and one that does not.
+
+---
+
 ## REMAINING WORK (as of 2026-08-31)
 
 **Breadth is done. Depth is not, and depth is what shipping requires.**
@@ -5247,16 +5354,16 @@ last three, and every earlier "blocked" state was subsequently sourced by one of
 the three method unlocks: the rendered browser, codes.findlaw.com, or
 curl + pypdf on PDF-only publishers.
 
-TALLY (counted mechanically, 2026-09-01, after PASS 26):
-**327 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 101 UNVERIFIED.
+TALLY (counted mechanically, 2026-09-01, after COLUMN PASS 27):
+**330 VERIFIED**, 17 LIKELY markers (10 SUPERSEDED), 101 UNVERIFIED.
 FOUR COLUMNS COMPLETE at 51/51: driver ID, sign citation, recording consent,
 duty to inform. Officer condition 49/51. Stop-and-identify 47/51.
-Passenger ID 26/51 swept. Impersonation 23/51.
+Impersonation 33/51. Passenger ID 26/51 swept.
 Progression: 81 breadth sweep, 97 pass 1, 104-162 passes 2-2i, 174 pass 3,
 181 pass 4, 198 passes 5-6, 209 pass 7, 213 pass 8, 231 pass 9, 239 pass 10,
 247 pass 11, 255 pass 12, 263 pass 13, 270 pass 14, 273 pass 16, 276 pass 17,
 282 pass 18, 288 pass 19, 298 pass 20, 313 pass 21, 316 pass 23, 323 pass 24,
-325 pass 25, 327 pass 26. An earlier running count of "147 verified" reported during
+325 pass 25, 327 pass 26, 330 pass 27. An earlier running count of "147 verified" reported during
 this work was wrong — it was produced by a line-match that counted every
 `UNVERIFIED` line as a verified one. The real figure is 81, and roughly 60 of
 those are the single driver-ID column.
