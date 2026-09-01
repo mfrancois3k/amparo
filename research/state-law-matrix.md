@@ -287,9 +287,30 @@ Researched 2026-08-31 against codes.ohio.gov primary text.
   is wrong in Ohio. **VERIFIED**
 - **Identify driver** — not researched this pass. **UNVERIFIED**
 - **Identify passenger** — not researched this pass. **UNVERIFIED**
-- **Duty to inform (firearm)** — **10 of 51** in COLUMN PASS 3. The column
-  splits proactive vs on-request, a distinction invisible in every published list
-  checked, and no national sentence is possible.
+- **Duty to inform (firearm)** — NOT researched, and flagged as high-risk:
+  Ohio's duty to inform was materially changed by **S.B. 215 (eff. 2022-06-13)**
+  when Ohio moved to permitless carry. Any pre-2022 secondary source on Ohio
+  duty-to-inform is stale. Must be fetched from O.R.C. §2923.12 directly.
+  **UNVERIFIED**
+- **Recording consent** — not researched this pass. **UNVERIFIED**
+- **Sign citation** — not researched this pass. **UNVERIFIED**
+
+### Illinois — NOT RESEARCHED (source access failed)
+Attempted 2026-08-31. 725 ILCS 5/107-14 is the target section.
+`ilga.gov` returned HTTP 404 on the fulltext endpoint; `law.justia.com`
+returned HTTP 403. No primary text obtained. **UNVERIFIED — every cell.**
+Do not populate from secondary sources.
+
+### Arizona — NOT RESEARCHED (source access failed)
+Attempted 2026-08-31. A.R.S. §13-2412 ("Refusing to provide truthful name when
+lawfully detained") is the target section. `azleg.gov` returned HTTP 403;
+`law.justia.com` returned HTTP 403. No primary text obtained.
+**UNVERIFIED — every cell.** Arizona is widely listed as a stop-and-identify
+state; given this file's 4-of-10 error rate on such lists, that listing is a
+lead to check, not a finding to record.
+
+### Virginia
+Researched 2026-08-31 against law.lis.virginia.gov primary text.
 
 - **Identify driver — and a partial name duty most summaries miss.**
   Va. Code §46.2-104 requires a driver to "exhibit his registration card,
@@ -309,9 +330,12 @@ Researched 2026-08-31 against codes.ohio.gov primary text.
 - **Stop-and-identify (non-driving): N** — no statewide statute located.
   **UNVERIFIED** — negative not established by an exhaustive code search.
 - **Identify passenger** — not researched. **UNVERIFIED**
-- **Duty to inform (firearm)** — **10 of 51** in COLUMN PASS 3. The column
-  splits proactive vs on-request, a distinction invisible in every published list
-  checked, and no national sentence is possible.
+- **Duty to inform (firearm)** — not researched. **UNVERIFIED**
+- **Recording consent** — not researched. **UNVERIFIED**
+- **Sign citation** — not researched. **UNVERIFIED**
+
+### Washington
+Researched 2026-08-31 against app.leg.wa.gov primary text.
 
 - **Identify driver** — RCW 46.20.017: "Every licensee shall have his or her
   driver's license in his or her immediate possession at all times when
@@ -325,9 +349,36 @@ Researched 2026-08-31 against codes.ohio.gov primary text.
 - **Stop-and-identify: N** — no statewide statute located. **UNVERIFIED** as a
   fetched negative.
 - **Identify passenger** — not researched. **UNVERIFIED**
-- **Duty to inform (firearm)** — **10 of 51** in COLUMN PASS 3. The column
-  splits proactive vs on-request, a distinction invisible in every published list
-  checked, and no national sentence is possible.
+- **Duty to inform (firearm)** — not researched. **UNVERIFIED**
+- **Recording consent — ALL-PARTY, BUT ONLY FOR "PRIVATE" COMMUNICATIONS, AND
+  NO CIVILIAN CARVE-OUT LOCATED.** Researched 2026-08-31.
+  RCW 9.73.030 makes it unlawful to "intercept, or record any" **private**
+  communication "without first obtaining the consent of all the participants in
+  the communication." The prohibition reaches "[p]rivate communication
+  transmitted by telephone, telegraph, radio, or other device" and "[p]rivate
+  conversation, by any device electronic or otherwise designed to record or
+  transmit such conversation". **VERIFIED**
+  The operative limiter is the word **private** — structurally the same move as
+  California §632's "confidential". Washington's all-party rule does not reach a
+  conversation that is not private. Whether a roadside stop on a public highway
+  is "private" for this purpose is the whole question and was **NOT** resolved
+  here. **UNVERIFIED — and this is the cell to close first.**
+  RCW 9.73.090 was checked for a police carve-out. Its exemptions run the OTHER
+  WAY — they permit **officers** to record: "Video and/or sound recordings may be
+  made of arrested persons by police officers"; dash/body camera audio; and "It
+  shall not be unlawful for a law enforcement officer acting in the performance
+  of the officer's official duties to intercept, record, or disclose an oral
+  communication or conversation where the officer is a party". **VERIFIED**
+  > CONTRAST WITH CALIFORNIA, AND IT MATTERS: California has an express
+  > **civilian** protection (Pen. Code §148(g) — recording an officer is not a
+  > §148 violation and is not RS or PC). **No equivalent Washington provision
+  > was located.** Washington's exemptions protect officers recording, not
+  > civilians recording officers. Do NOT carry the California answer across.
+  > **UNVERIFIED as to any Washington civilian protection.**
+- **Sign citation** — not researched. **UNVERIFIED**
+
+### North Carolina
+Researched 2026-08-31 against ncleg.gov primary text.
 
 - **Identify driver** — N.C.G.S. §20-29 makes it an offence to "refuse, on
   demand of such officer or such other person, to **produce his license and
@@ -341,9 +392,26 @@ Researched 2026-08-31 against codes.ohio.gov primary text.
 - **Stop-and-identify: N** — no statewide statute located. **UNVERIFIED** as a
   fetched negative.
 - **Identify passenger** — not researched. **UNVERIFIED**
-- **Duty to inform (firearm)** — **10 of 51** in COLUMN PASS 3. The column
-  splits proactive vs on-request, a distinction invisible in every published list
-  checked, and no national sentence is possible.
+- **Duty to inform (firearm)** — NOT researched, flagged: North Carolina was
+  named in a 2026-08-31 prompt as a "Duty to Inform" state. That claim is
+  **unverified here** and must be fetched from N.C.G.S. §14-415.11 before it is
+  relied on in any form. **UNVERIFIED**
+- **Recording consent** — not researched. **UNVERIFIED**
+- **Sign citation** — not researched. **UNVERIFIED**
+
+### Pennsylvania — NOT RESEARCHED (source access failed)
+Attempted 2026-08-31. 75 Pa.C.S. §1511 is the target section.
+`legis.state.pa.us` issued a 301 to `palegis.us`; the redirect target returned a
+navigation/template page with no statute text. No primary text obtained.
+**UNVERIFIED — every cell.**
+
+### Tennessee — NOT ATTEMPTED
+Queued in batch 2 but not reached. Tennessee's code is published through a
+commercial host (LexisNexis), so expect the same access problem as IL/AZ.
+Target sections: T.C.A. §55-50-351 (licence exhibition). **UNVERIFIED**.
+
+### Wisconsin
+Researched 2026-08-31 against docs.legis.wisconsin.gov primary text.
 
 - **Stop-and-identify: DEMAND AUTHORISED, NO PENALTY IN THE STATUTE.**
   Wis. Stat. §968.24: "After having identified himself or herself as a law
@@ -2110,8 +2178,6 @@ browser with a wait**, never by fetch.
 
 `nysenate.gov` renders, but VTL §207 (uniform traffic summons) is not the
 signature provision; New York was not resolved and is not recorded.
-
----
 
 ---
 
