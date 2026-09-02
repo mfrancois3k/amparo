@@ -329,9 +329,22 @@ nav.nav-dark .navburger span{background:#e8eef7}
   background:transparent;cursor:pointer;color:var(--navy);border-radius:12px;
   font-size:22px;line-height:1;transition:background 160ms var(--ease)}
 .navsheet-close:active{background:rgba(27,42,74,.08)}
-/* 52px rows, not 14.5px inline text. A phone nav is thumbs, not cursors. */
-.navsheet-links{display:flex;flex-direction:column}
-.navsheet-links a{display:flex;align-items:center;min-height:52px;
+/* 52px rows, not 14.5px inline text. A phone nav is thumbs, not cursors.
+   This container is a <nav> for the landmark, which means the bare `nav{}` rule
+   for the top bar lands on it too -- position:fixed, inset, a background, a
+   backdrop-filter, a border, padding, and an align-items:center that was
+   shrink-wrapping every row and centring it. Same specificity, earlier in the
+   file, so it wins on anything this rule leaves unsaid. Everything it sets is
+   therefore restated here rather than left to chance. */
+.navsheet-links{position:static;inset:auto;z-index:auto;
+  display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;
+  gap:0;padding:0;background:none;backdrop-filter:none;-webkit-backdrop-filter:none;
+  border:0}
+/* Alignment is stated rather than inherited: several ancestors on this page
+   centre their text, and a nav row that silently picks that up reads as a
+   centred menu on some breakpoints and a left one on others. */
+.navsheet-links a{display:flex;align-items:center;justify-content:flex-start;
+  width:100%;text-align:left;min-height:52px;
   font-size:19px;font-weight:700;color:var(--navy);text-decoration:none;
   border-bottom:1px solid var(--line);
   opacity:0;transform:translateY(8px)}
