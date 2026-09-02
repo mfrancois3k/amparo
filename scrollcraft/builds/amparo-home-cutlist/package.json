@@ -1,0 +1,8 @@
+{
+  "name": "amparo-home-cutlist-harness",
+  "private": true,
+  "description": "Verification harness deps for this scrollcraft build ONLY. Kept out of the repo root on purpose: the root package.json is the Vercel serverless bundle for /api, and `npm i` run from this folder without this file walks up and installs playwright-core (14MB) into every deployed function.",
+  "devDependencies": {
+    "playwright-core": "^1.62.1"
+  }
+}

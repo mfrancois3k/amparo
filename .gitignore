@@ -18,3 +18,12 @@ test1.wav
 
 # Generated post cards — rebuilt from tools/render-card.mjs on every run
 content/cards/
+
+# scrollcraft verification output: ~370MB of PNGs per harness run, per profile.
+# The contact sheets and logs for the shipping run are committed explicitly;
+# the raw frame folders are reproducible with shoot.mjs and are not history.
+scrollcraft/builds/*/lab*/
+!scrollcraft/builds/*/lab7/
+scrollcraft/builds/*/lab7/*/
+!scrollcraft/builds/*/lab7/*/sheet.png
+scrollcraft/builds/*/node_modules/
