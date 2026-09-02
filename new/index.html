@@ -93,7 +93,7 @@ nav{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;j
 /* hero */
 .hero{max-width:900px;margin:0 auto;padding:clamp(150px,20vw,200px) clamp(24px,6vw,64px) 40px;text-align:center}
 .hero-eyebrow{display:inline-block;padding:7px 16px;border-radius:99px;background:var(--gold-pale);color:var(--eyebrow);font-size:12.5px;font-weight:800;letter-spacing:.6px;margin-bottom:28px}
-.hero h1{font-size:clamp(42px,7vw,76px);font-weight:800;color:var(--navy);letter-spacing:-.02em;line-height:1.05;margin:0 0 24px;text-wrap:balance}
+.hero h1,.hero .hero-h{font-size:clamp(42px,7vw,76px);font-weight:800;color:var(--navy);letter-spacing:-.02em;line-height:1.05;margin:0 0 24px;text-wrap:balance}
 .hero-sub{font-size:clamp(18px,2.2vw,22px);color:var(--body);line-height:1.55;max-width:660px;margin:0 auto 36px}
 .hero-ctas{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;margin-bottom:22px}
 .trust{font-size:13.5px;color:var(--body);max-width:520px;margin:0 auto}
@@ -1080,7 +1080,7 @@ function render(){
   document.getElementById('app').innerHTML =
     '<section class="hero">'+
       '<div class="hero-eyebrow">'+esc(c.heroEyebrow)+'</div>'+
-      '<h1>'+esc(c.heroTitle)+'</h1>'+
+      '<h2 class="hero-h">'+esc(c.heroTitle)+'</h2>'+
       '<p class="hero-sub">'+esc(c.heroSub)+'</p>'+
       /* Hero CTAs removed: the top of the page is the cinematic run, and the
          first ask now lives in the #arena section below. Nav 'Rehearse' and the

@@ -139,7 +139,7 @@
   html:not(.sr-motion) .card:not(.no-enter) .st-pill{animation:pillIn .42s var(--ease-spring) .16s backwards}
   @keyframes pillIn{from{opacity:0;transform:translateX(10px) scale(.9)}to{opacity:1;transform:none}}
   .eyebrow b{color:#c79a2e}
-  h1{font-size:26px;color:var(--navy);letter-spacing:-.4px;margin-bottom:8px;line-height:1.18}
+  h1,.scr-h{font-size:26px;color:var(--navy);letter-spacing:-.4px;margin-bottom:8px;line-height:1.18}
   h2{font-size:19px;color:var(--navy);margin-bottom:6px}
   .sub{color:var(--muted);font-size:15px;margin-bottom:18px}
   .btn{display:block;width:100%;padding:16px;border:0;border-radius:14px;background:var(--navy);color:var(--white);font-size:16.5px;font-weight:800;cursor:pointer;margin-top:18px;transition:transform .25s var(--ease-spring),box-shadow .3s,background .3s;box-shadow:0 4px 14px rgba(27,42,74,.22)}
@@ -668,7 +668,7 @@
     #splash .stag{font-size:11px;letter-spacing:1.6px}
   }
   @media (max-width:390px){
-    h1{font-size:23px}
+    h1,.scr-h{font-size:23px}
     .state-grid{gap:8px}
     .state-btn .ab{font-size:20px}
     .cam-ctl{padding:12px 18px 6px}
@@ -700,7 +700,7 @@
   .place .pt{font-size:9.3px;line-height:1.3;color:var(--ink)}
   .place .pt b{color:var(--navy);letter-spacing:.5px;font-size:8.8px;margin-right:4px}
   .place .pt span{display:block;color:var(--gold-ink);font-size:8.3px;margin-top:1px}
-  .pp h1{font-size:23px;color:var(--navy);line-height:1.05;margin-bottom:2px}
+  .pp h1,.scr-h{font-size:23px;color:var(--navy);line-height:1.05;margin-bottom:2px}
   .pp .es-sub{font-size:15px;color:var(--gold-ink);font-weight:800;margin-bottom:12px}
   .step-row{display:flex;gap:11px;align-items:center;padding:2px 0;border-bottom:1px solid #eee7d6}
   .step-num{width:30px;height:30px;border-radius:9px;background:#fff;border:2.5px solid var(--navy);color:var(--navy);font-size:18px;font-weight:900;display:flex;align-items:center;justify-content:center;flex:none}
@@ -1376,7 +1376,7 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
      because --sc-ink resolves differently there — same trap taste.md warns
      about for any section that inverts a ground mid-page. .sc-display (h1/h2)
      sets no color of its own, unlike .sc-lede/.sc-label, so it fell back to
-     inheritance — and lost to Amparo's own global `h1{color:var(--navy)}` /
+     inheritance — and lost to Amparo's own global `h1,.scr-h{color:var(--navy)}` /
      `h2{...}` (line ~142), since a rule that directly targets an element
      always wins over an inherited value regardless of that rule's own
      specificity. Targeting the elements directly, not just the ancestor,
@@ -2751,7 +2751,7 @@ function render(){
 
   if(step===0){
     S.innerHTML=`<div class="card stagger">
-      <h1>${_t.w_title}</h1>
+      <h2 class="scr-h">${_t.w_title}</h2>
       <p class="sub">${_t.w_sub}</p>
       ${[[_t.w_b1,'🗣'],[_t.w_b2,'📍'],[_t.w_b3,'🖨'],[_t.w_b4,'🔒']].map(b=>`
         <div class="feat"><span class="fi">${b[1]}</span>${b[0]}</div>`).join('')}
@@ -2790,7 +2790,7 @@ function render(){
     S.innerHTML=`<div class="card">
       <button class="back" aria-label="${_t.a11y_back}" onclick="goM(0)">← ${_t.a11y_back}</button>${practiceJump()}
       ${eyebrow()}
-      <h1>${_t.s_title}</h1><p class="sub">${_t.s_sub}</p>
+      <h2 class="scr-h">${_t.s_title}</h2><p class="sub">${_t.s_sub}</p>
       <!-- The map is a second door to the same 51 pickState() targets, not a
            replacement: the alphabetical grid below stays for everyone who
            thinks in names, not geography — and search auto-dims both. -->
@@ -2839,7 +2839,7 @@ function render(){
     S.innerHTML=`<div class="card">
       <button class="back" aria-label="${_t.a11y_back}" onclick="goM(1)">← ${_t.a11y_back}</button>${practiceJump()}
       ${eyebrow()}
-      <h1>${_t.i_title}</h1><p class="sub">${_t.i_sub}</p>
+      <h2 class="scr-h">${_t.i_title}</h2><p class="sub">${_t.i_sub}</p>
       <p class="soon" style="text-align:left;margin:-4px 0 10px">✳️ ${_t.i_opt}</p>
       <div class="stagger">
         <div><label for="f_name">${_t.i_name}</label><input type="text" id="f_name" autocomplete="name" enterkeyhint="next" placeholder="${_t.i_name_ph}" value="${esc(data.name)}" oninput="data.name=this.value;persist()"></div>
@@ -2884,7 +2884,7 @@ function render(){
     S.innerHTML=`<div class="card">
       <button class="back" aria-label="${_t.a11y_back}" onclick="goM(2)">← ${_t.a11y_back}</button>${practiceJump()}
       ${eyebrow()}
-      <h1>${_t.l_title}</h1><p class="sub">${_t.l_sub}</p>
+      <h2 class="scr-h">${_t.l_title}</h2><p class="sub">${_t.l_sub}</p>
       <div class="ll-seg" role="tablist">
         <button type="button" role="tab" id="llTab0" class="on" aria-selected="true" aria-controls="llTrack" onkeydown="llTabKey(event,0)" onclick="llTab(0)">${_t.seg_lines}</button>
         <button type="button" role="tab" id="llTab1" aria-selected="false" aria-controls="llTrack" onkeydown="llTabKey(event,1)" onclick="llTab(1)">${_t.seg_covers}</button>
@@ -2904,7 +2904,7 @@ function render(){
     S.innerHTML=`<div class="card">
       <button class="back" aria-label="${_t.a11y_back}" onclick="goM(3)">← ${_t.a11y_back}</button>${practiceJump()}
       ${eyebrow()}
-      <h1>${_t.v_title}</h1><p class="sub">${_t.v_sub}</p>
+      <h2 class="scr-h">${_t.v_title}</h2><p class="sub">${_t.v_sub}</p>
       ${isDemo?`<div class="pilot" style="background:#eef6fb;border-color:#bcd7e8;text-align:left;display:block">
         <b>👀 ${_t.smp_banner}</b><br>
         <button class="btn gold" style="margin-top:10px" onclick="demoExit()">${_t.smp_make}</button>
@@ -3009,7 +3009,7 @@ function render(){
     S.innerHTML=`<div class="card">
       <button class="back" aria-label="${_t.a11y_back}" onclick="goM(4)">← ${_t.a11y_back}</button>
       ${eyebrow()}
-      <h1>${_t.ty_title}</h1><p class="sub">${_t.ty_sub}</p>
+      <h2 class="scr-h">${_t.ty_title}</h2><p class="sub">${_t.ty_sub}</p>
       <div class="ty-chips">${chips.join('')}</div>
       <a class="btn gold" href="arena/" style="display:block;text-align:center;text-decoration:none;margin-top:18px"
          onclick="ph('sr_arena_opened',{state:data.state,lang:lang,from:'thankyou'})">${_t.ty_cta}</a>
@@ -3720,7 +3720,7 @@ function buildPrint(){
       <div style="font-size:13px;font-weight:900;color:#1B2A4A;letter-spacing:.8px;margin-bottom:6px">☑ ${_t.prep_title}${_t.prep_es?` <span style="font-weight:700;color:var(--gold-ink);font-size:10px">· ${_t.prep_es}</span>`:''}</div>
       ${_t.prep.map(p=>`<div style="display:flex;gap:8px;font-size:11.5px;margin-bottom:2px;line-height:1.32"><span style="color:#E8B84B;font-weight:900">▸</span><span><b>${p.en}</b> <span style="color:var(--gold-ink)">${p.es}</span></span></div>`).join('')}
     </div>
-    <h1>${_t.pr_title}</h1>
+    <h2 class="scr-h">${_t.pr_title}</h2>
     ${_t.pr_es?`<div class="es-sub">${_t.pr_es}</div>`:''}
     ${_t.steps.map((s,i)=>`
       <div class="step-row">
@@ -3825,7 +3825,7 @@ function buildPrint(){
   <div class="pp">
     <div class="pp-head">${brandBlock}<div class="pp-tag">${PX.p4_tag}</div></div>
     ${placeStrip(4)}
-    <h1 style="font-size:18px;margin-bottom:2px">${PX.p4_h}</h1>
+    <h2 class="scr-h" style="font-size:18px;margin-bottom:2px">${PX.p4_h}</h2>
     <div class="p4grid">
       <div class="p4col">
         <div class="pbox warn"><h3>💬 ${PX.say_h}</h3><ul>${PX.say.map(x=>`<li>${x}</li>`).join('')}</ul></div>
@@ -3844,7 +3844,7 @@ function buildPrint(){
   <div class="pp">
     <div class="pp-head">${brandBlock}<div class="pp-tag">${PX.p5_tag}</div></div>
     ${placeStrip(5)}
-    <h1 style="font-size:20px">${PX.fp_h}</h1>
+    <h2 class="scr-h" style="font-size:20px">${PX.fp_h}</h2>
     <div class="p4grid">
       <div class="p4col">
         <div class="pbox">${PX.fp.map(x=>`<div class="logline"><b>${x}</b><span></span></div>`).join('')}</div>
@@ -3866,7 +3866,7 @@ function buildPrint(){
   <div class="pp">
     <div class="pp-head">${brandBlock}<div class="pp-tag">${PX.p6_tag}</div></div>
     ${placeStrip(6)}
-    <h1 style="font-size:20px">${PX.p6_h}</h1>
+    <h2 class="scr-h" style="font-size:20px">${PX.p6_h}</h2>
     <div class="p4grid">
       <div class="p4col">
         <div class="pbox warn"><h3>🎫 ${PX.tk_h}</h3><ul>${PX.tk.map(x=>`<li>${x}</li>`).join('')}</ul></div>

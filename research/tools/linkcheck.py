@@ -61,6 +61,13 @@ def main():
             # links assembled by JS -- template holes we cannot resolve statically
             if '${' in ts or '{{' in ts or ts.startswith('?'):
                 continue
+            # a bare prefix that JS concatenates an id onto ("../img/scene-" + id)
+            if ts.endswith(('-', '_')):
+                continue
+            # Vite's dev shell resolves root-absolute paths against its own server
+            # root, not the repo root, so checking them on disk proves nothing
+            if rel.startswith('app-src/') and ts.startswith('/'):
+                continue
             checked += 1
             got = resolve(rel, ts)
             if got is None:

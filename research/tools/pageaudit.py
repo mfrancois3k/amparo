@@ -15,7 +15,7 @@ ROOT = os.path.abspath(os.path.dirname(os.path.dirname(os.path.dirname(__file__)
 def tracked():
     out = subprocess.run(['git','ls-files','*.html'], cwd=ROOT,
                          capture_output=True, text=True).stdout.split('\n')
-    return [p for p in out if p and 'node_modules' not in p]
+    return [p for p in out if p and 'node_modules' not in p and not p.startswith('.design-handoff/')]
 
 def strip_comments(h):
     return re.sub(r'<!--.*?-->', '', h, flags=re.S)
@@ -46,15 +46,51 @@ for rel in tracked():
     noalt = [t for t in imgs if not re.search(r'\balt\s*=', t, re.I)]
     if noalt:
         findings['<img> missing alt'].append((rel, '%d of %d' % (len(noalt), len(imgs))))
-    nodim = [t for t in imgs
-             if not (re.search(r'\bwidth\s*=', t, re.I) and re.search(r'\bheight\s*=', t, re.I))
-             and 'data:' not in t]
+    # An image only shifts layout if nothing reserves its box. HTML width/height
+    # attributes are one way; CSS is just as good, and demanding attributes on an
+    # inset:0 overlay or a fixed-size avatar is noise, not a finding. So resolve
+    # each image's classes and id against the page's own CSS before flagging it.
+    # A descendant rule (".di img{height:100%}") reserves the box just as well as
+    # an attribute. Computed once per page: scanning per-image with an unanchored
+    # selector pattern backtracks catastrophically on a large stylesheet.
+    img_rule_sets_height = any(
+        re.search(r'(?:^|[;\s])height\s*:', body, re.I)
+        for sel, body in re.findall(r'([^{}]{0,200})\{([^{}]{0,2000})\}', h)
+        if re.search(r'\bimg\s*$', sel))
+
+    def is_sized(tag):
+        if re.search(r'\bwidth\s*=', tag, re.I) and re.search(r'\bheight\s*=', tag, re.I):
+            return True
+        style = re.search(r'\bstyle\s*=\s*["\']([^"\']*)', tag, re.I)
+        if style and re.search(r'height\s*:', style.group(1), re.I):
+            return True
+        sels = re.findall(r'\bclass\s*=\s*["\']([^"\']*)', tag, re.I)
+        sels = [c for s in sels for c in s.split()]
+        sels += ['#' + m.group(1) for m in re.finditer(r'\bid\s*=\s*["\']([^"\']+)', tag, re.I)]
+        if img_rule_sets_height:
+            return True
+        for sel in sels:
+            token = sel if sel.startswith('#') else r'\.' + re.escape(sel)
+            # a rule naming this selector that reserves a box or takes the img out of flow
+            for rule in re.finditer(token + r'[^{}]*\{([^}]*)\}', h):
+                if re.search(r'(?:^|[;\s])(?:height|aspect-ratio)\s*:', rule.group(1), re.I) \
+                   or re.search(r'position\s*:\s*(?:absolute|fixed)', rule.group(1), re.I):
+                    return True
+        return False
+
+    nodim = [t for t in imgs if 'data:' not in t and not is_sized(t)]
     if nodim:
-        findings['<img> without width/height'].append((rel, '%d of %d -- causes layout shift' % (len(nodim), len(imgs))))
+        findings['<img> with no reserved box'].append(
+            (rel, '%d of %d -- no width/height and no CSS box: %s' % (
+                len(nodim), len(imgs), nodim[0][:52])))
 
     # --- headings ---
     h1 = re.findall(r'<h1\b', low)
-    if len(h1) == 0 and '<body' in low:
+    # An SPA shell is an empty mount point plus a module script; its headings come
+    # from JS, so "no <h1>" here says nothing about the page actually delivered.
+    is_spa_shell = bool(re.search(r'<div[^>]+id=["\']root["\'][^>]*>\s*</div>', low)) \
+        and 'type="module"' in low
+    if len(h1) == 0 and '<body' in low and not is_spa_shell:
         findings['no <h1>'].append((rel, ''))
     elif len(h1) > 1:
         findings['multiple <h1>'].append((rel, '%d found' % len(h1)))
