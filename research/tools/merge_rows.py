@@ -10,7 +10,9 @@ for line in open(sys.argv[1], encoding='utf-8'):
     m = re.match(r'\|\s*\*\*([A-Z]{2})\*\*', line)
     if not m: continue
     cells = [c.strip() for c in line.strip().strip('|').split('|')]
-    assert len(cells) == NCOLS + 1, f"{m.group(1)}: {len(cells)-1} cells, expected {NCOLS}"
+    if len(cells) != NCOLS + 1:
+        print(f'SKIPPED {m.group(1)}: {len(cells)-1} cells, expected {NCOLS} -- fix by hand, not merged')
+        continue
     new[m.group(1)] = '| ' + ' | '.join(cells) + ' |'
 out, hit = [], 0
 for line in src.splitlines():
