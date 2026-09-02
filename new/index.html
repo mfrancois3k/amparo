@@ -546,6 +546,67 @@ html{overflow-x:hidden;overflow-x:clip}
 .sm2-key{display:inline-flex;align-items:center;gap:8px}
 .sm2-sw{width:14px;height:14px;border-radius:4px;background:#FFFDF8;border:1px solid #CFC6AF}
 .sm2-sw--cited{background:var(--gold);border-color:#B9891C}
+
+/* ---- Hero call-to-action pair ------------------------------------------- */
+.hero-ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin:32px 0 22px}
+/* .btn-ghost is a text link elsewhere on this page, so the secondary ask gets
+   its own outlined pill rather than a redefinition that would leak into every
+   other .btn-ghost on the page. */
+/* Hero primary. Not .btn-navcta: that one is sized for the nav bar and is
+   re-coloured to gold inside the dark nav, so borrowing it here would make the
+   hero button change colour for reasons that have nothing to do with the hero. */
+.btn-navy{background:var(--navy);color:var(--cream);font-size:15px;padding:14px 26px;
+  transition:background 200ms var(--ease)}
+.btn-navy:hover{background:var(--navy-deep)}
+.btn-outline{background:#fff;color:var(--navy);font-size:15px;padding:14px 26px;
+  border:1.8px solid var(--navy);transition:background 200ms var(--ease),color 200ms var(--ease)}
+.btn-outline:hover{background:var(--navy);color:var(--cream)}
+/* The arrow nudges on hover rather than the whole button moving, so the two
+   buttons keep a steady shared baseline while still answering the pointer. */
+.cta-arrow{display:inline-block;margin-left:8px;transition:transform 220ms var(--ease)}
+.btn:hover .cta-arrow{transform:translateX(4px)}
+@media (prefers-reduced-motion: reduce){ .btn:hover .cta-arrow{transform:none} }
+@media (max-width:520px){
+  /* Stacked and full-width beats two cramped pills on a narrow phone. */
+  .hero-ctas{flex-direction:column;align-items:stretch}
+  .hero-ctas .btn{width:100%;justify-content:center}
+}
+
+/* ---- Numbered build steps ----------------------------------------------
+   Ported from the rehearse page's checklist, which was the strongest component
+   on the site, and re-palletted from its dark ground to this page's cream.
+
+   Replaces a four-across auto-fit grid. Four equal columns said "four things";
+   a numbered vertical run says "four steps in this order", which is what the
+   section is actually claiming. The rail between the badges carries that order
+   visually so it survives a skim.
+
+   Numbers come from a CSS counter on a real <ol>, so they cannot drift out of
+   sync with the source order the way a hand-written 01/02/03 div can. */
+.how-steps{list-style:none;counter-reset:hw;margin:0 auto;padding:0;max-width:760px;
+  display:flex;flex-direction:column;gap:16px}
+.how-step{counter-increment:hw;position:relative;display:flex;gap:20px;align-items:flex-start;
+  background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px 26px;
+  box-shadow:0 10px 30px rgba(27,42,74,.06);
+  transition:transform 260ms var(--ease),box-shadow 260ms var(--ease)}
+.how-step:hover{transform:translateY(-3px);box-shadow:0 18px 44px rgba(27,42,74,.12)}
+.how-step::before{content:counter(hw);flex:none;width:40px;height:40px;border-radius:50%;
+  background:var(--gold);color:var(--navy);font-weight:800;font-size:17px;
+  display:flex;align-items:center;justify-content:center;
+  font-variant-numeric:tabular-nums;box-shadow:0 4px 12px rgba(232,184,75,.4)}
+/* The rail runs badge-to-badge, so it is drawn from each card except the last.
+   left matches the card's padding plus half the badge, keeping it centred under
+   the number at every width. */
+.how-step:not(:last-child)::after{content:"";position:absolute;left:46px;top:64px;
+  width:2px;height:calc(100% - 48px);background:linear-gradient(var(--gold),rgba(232,184,75,.15))}
+.how-step h3{font-size:18.5px;font-weight:800;color:var(--navy);margin:6px 0 8px;line-height:1.25}
+.how-step p{font-size:15px;color:var(--body);line-height:1.6;margin:0}
+@media (prefers-reduced-motion: reduce){ .how-step:hover{transform:none} }
+@media (max-width:560px){
+  .how-step{gap:14px;padding:20px 18px;border-radius:16px}
+  .how-step::before{width:34px;height:34px;font-size:15px}
+  .how-step:not(:last-child)::after{left:35px;top:56px;height:calc(100% - 42px)}
+}
 </style>
 </head>
 <body>
@@ -665,10 +726,10 @@ const EN = {
   navPractice:"Practice", navRehearse:"Rehearse", navAid:"Find help", navHow:"Build the pack", navWhat:"What's included", navPrivacy:"Privacy", navFaq:"FAQ", navCta:"Practice a stop",
   scenNotBuilt:"Not built yet",
   heroEyebrow:"Know your rights · Conoce tus derechos",
-  heroTitle:"Practice the stop before it happens.",
-  heroSub:"A free scenario trainer for a real traffic stop — an officer's lines play out loud, and you answer in your own voice while the pressure rises. Then a bilingual pack for your glovebox: your documents, your state's rules, and every word to say.",
-  heroCta:"Practice a stop", heroCtaReturn:"Continue where you left off", heroSecondary:"Build my pack instead",
-  trustLine:"Free. Everything stays on this phone unless you choose to save your pack to an optional free account. Photos and practice history never upload.",
+  heroTitle:"Know your rights is not enough. Practice them.",
+  heroSub:"A free scenario trainer for a real traffic stop — an officer's lines play out loud, and you answer in your own voice while the pressure rises. Then print six bilingual cards for your glovebox: your license and insurance, your state's rules, and every word to say.",
+  heroCta:"Practice a stop", heroCtaReturn:"Continue where you left off", heroSecondary:"Just print the cards",
+  trustLine:"Free. Everything stays on this phone unless you choose to save your cards to an optional free account. Photos and practice history never upload.",
   arenaEyebrow:"Practice Arena", arenaTitle:"Now rehearse it.",
   arenaSub:"The pack goes in your glovebox. This has to go in your head. Run a scenario out loud, with spoken officer lines and your own voice talking back — two minutes each.",
   arenaScenarios:[
@@ -745,10 +806,10 @@ const ES = {
   navPractice:"Practicar", navRehearse:"Ensayar", navAid:"Buscar ayuda", navHow:"Crear el paquete", navWhat:"Qué incluye", navPrivacy:"Privacidad", navFaq:"Preguntas", navCta:"Practicar una parada",
   scenNotBuilt:"Aún no disponible",
   heroEyebrow:"Know your rights · Conoce tus derechos",
-  heroTitle:"Practica la parada antes de que pase.",
-  heroSub:"Un entrenador de escenarios gratuito para una parada de tráfico real — las frases del oficial se reproducen en voz alta, y tú respondes con tu propia voz mientras sube la presión. Después, un paquete bilingüe para tu guantera: tus documentos, las reglas de tu estado y cada palabra que debes decir.",
-  heroCta:"Practicar una parada", heroCtaReturn:"Continúa donde quedaste", heroSecondary:"Mejor crear mi paquete",
-  trustLine:"Gratis. Todo se queda en este teléfono, salvo que elijas guardar tu paquete en una cuenta gratuita opcional. Las fotos y el historial de práctica nunca se suben.",
+  heroTitle:"Conocer tus derechos no basta. Practícalos.",
+  heroSub:"Un entrenador de escenarios gratuito para una parada de tráfico real — las frases del oficial se reproducen en voz alta, y tú respondes con tu propia voz mientras sube la presión. Después, imprime seis tarjetas bilingües para tu guantera: tu licencia y seguro, las reglas de tu estado y cada palabra que debes decir.",
+  heroCta:"Practicar una parada", heroCtaReturn:"Continúa donde quedaste", heroSecondary:"Solo imprimir las tarjetas",
+  trustLine:"Gratis. Todo se queda en este teléfono, salvo que elijas guardar tus tarjetas en una cuenta gratuita opcional. Las fotos y el historial de práctica nunca se suben.",
   arenaEyebrow:"Arena de Práctica", arenaTitle:"Ahora ensáyalo.",
   arenaSub:"El paquete va en tu guantera. Esto tiene que estar en tu cabeza. Haz un escenario en voz alta, con frases del oficial habladas y tu propia voz respondiendo — dos minutos cada uno.",
   arenaScenarios:[
@@ -1161,8 +1222,11 @@ function render(){
       '<h3>'+esc(s.title)+'</h3><p>'+esc(s.desc)+'</p></div>';
   }).join('');
   const chipsHtml = c.arenaChips.map(ch=>'<span class="chip">'+esc(ch)+'</span>').join('');
-  const stepsHtml = c.steps.map((s,i)=>
-    '<div class="step"><div class="step-num">'+String(i+1).padStart(2,'0')+'</div><h3>'+esc(s.title)+'</h3><p>'+esc(s.desc)+'</p></div>').join('');
+  // A real <ol>: these four are a sequence, so the numbering is information and
+  // belongs in the markup rather than being painted on with a .step-num div.
+  // Counter comes from CSS, so the number can never disagree with the order.
+  const stepsHtml = c.steps.map(s=>
+    '<li class="how-step"><div class="how-body"><h3>'+esc(s.title)+'</h3><p>'+esc(s.desc)+'</p></div></li>').join('');
   const itemsHtml = c.packItems.map(it=>
     '<div class="item"><div class="dot-mark"></div><div><h3>'+esc(it.label)+'</h3><p>'+esc(it.desc)+'</p></div></div>').join('');
   const privacyChipsHtml = c.privacyChips.map(ch=>'<span class="chip chip-dark">'+esc(ch)+'</span>').join('');
@@ -1180,9 +1244,15 @@ function render(){
       '<div class="hero-eyebrow">'+esc(c.heroEyebrow)+'</div>'+
       '<h2 class="hero-h">'+esc(c.heroTitle)+'</h2>'+
       '<p class="hero-sub">'+esc(c.heroSub)+'</p>'+
-      /* Hero CTAs removed: the top of the page is the cinematic run, and the
-         first ask now lives in the #arena section below. Nav 'Rehearse' and the
-         closing CTA band still carry conversion. */
+      /* Hero CTAs restored. They were removed when the top of the page was
+         purely the cinematic run and the first ask lived in #arena; the hero now
+         states the thesis in words, so it needs somewhere to send you. The two
+         asks are the two real ways in: rehearse, or skip straight to printing.
+         The arrow is markup, not copy, so it never reaches a translator. */
+      '<div class="hero-ctas">'+
+        '<a class="btn btn-navy" href="../arena/">'+esc(heroCtaLabel)+'<span class="cta-arrow" aria-hidden="true">→</span></a>'+
+        '<a class="btn btn-outline" href="../index.html">'+esc(c.heroSecondary)+'<span class="cta-arrow" aria-hidden="true">→</span></a>'+
+      '</div>'+
       '<p class="trust">'+esc(c.trustLine)+'</p>'+
     '</section>'+
 
@@ -1200,7 +1270,7 @@ function render(){
 
     '<section id="how" class="section-tight wrap">'+
       '<div class="center-head"><div class="eyebrow">'+esc(c.howEyebrow)+'</div><h2 class="h2">'+esc(c.howTitle)+'</h2><p class="sub">'+esc(c.howSub)+'</p></div>'+
-      '<div class="steps">'+stepsHtml+'</div>'+
+      '<ol class="how-steps">'+stepsHtml+'</ol>'+
     '</section>'+
 
     '<section class="section-tight wrap"><div class="pack-visual"><div class="ph">printed pack — window card + documents</div></div></section>'+
