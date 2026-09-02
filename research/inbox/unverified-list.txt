@@ -1,0 +1,52 @@
+UNVERIFIED cells: 157 across 51 states
+AK 1 | Lit-place / safe stop
+AL 3 | Sign citation; Lit-place / safe stop; Impersonation
+AR 1 | Sign citation
+AZ 3 | Impersonation; Ticket vs arrest; Footage access
+CA 3 | Reason-for-stop duty; Footage access; Duty to intervene
+CO 3 | Reason-for-stop duty; Ticket vs arrest; Footage access
+CT 3 | Reason-for-stop duty; Ticket vs arrest; Footage access
+DC 2 | Ticket vs arrest; Duty to intervene
+DE 2 | Reason-for-stop duty; Ticket vs arrest
+FL 4 | Reason-for-stop duty; Ticket vs arrest; Footage access; Duty to intervene
+GA 3 | Reason-for-stop duty; Ticket vs arrest; Footage access
+HI 2 | Consent to search; Ticket vs arrest
+IA 3 | Stop-and-ID; Reason-for-stop duty; Ticket vs arrest
+ID 1 | Stop-and-ID
+IL 6 | Detention cap; Pretext / secondary-offense; Reason-for-stop duty; Ticket vs arrest; Footage access; Duty to intervene
+IN 3 | Reason-for-stop duty; Ticket vs arrest; Footage access
+KS 3 | Reason-for-stop duty; Ticket vs arrest; Footage access
+KY 4 | Impersonation; Reason-for-stop duty; Footage access; Duty to intervene
+LA 2 | Reason-for-stop duty; Ticket vs arrest
+MA 3 | Reason-for-stop duty; Ticket vs arrest; Duty to intervene
+MD 5 | Duty to inform (firearm); Impersonation; Ticket vs arrest; Footage access; Duty to intervene
+ME 2 | Reason-for-stop duty; Ticket vs arrest
+MI 3 | Reason-for-stop duty; Ticket vs arrest; Footage access
+MN 5 | Consent to search; Reason-for-stop duty; Ticket vs arrest; Footage access; Duty to intervene
+MO 2 | Reason-for-stop duty; Ticket vs arrest
+MS 3 | Sign citation; Reason-for-stop duty; Ticket vs arrest
+MT 1 | Ticket vs arrest
+NC 3 | Reason-for-stop duty; Footage access; Duty to intervene
+ND 4 | Detention cap; Reason-for-stop duty; Ticket vs arrest; Footage access
+NE 2 | Reason-for-stop duty; Duty to intervene
+NH 2 | Ticket vs arrest; Duty to intervene
+NJ 3 | Consent to search; Pretext / secondary-offense; Reason-for-stop duty
+NM 5 | Recording own stop; Duty to inform (firearm); Reason-for-stop duty; Ticket vs arrest; Duty to intervene
+NV 3 | Reason-for-stop duty; Ticket vs arrest; Duty to intervene
+NY 1 | Ticket vs arrest
+OH 2 | Reason-for-stop duty; Footage access
+OK 2 | Police-practices chapter; Footage access
+OR 5 | Duty to inform (firearm); Police-practices chapter; Ticket vs arrest; Footage access; Duty to intervene
+PA 2 | Ticket vs arrest; Footage access
+RI 2 | Duty to inform (firearm); Ticket vs arrest
+SC 3 | Reason-for-stop duty; Ticket vs arrest; Duty to intervene
+SD 3 | Reason-for-stop duty; Ticket vs arrest; Footage access
+TN 5 | Checkpoint authority; Police-practices chapter; Reason-for-stop duty; Ticket vs arrest; Duty to intervene
+TX 4 | Checkpoint authority; Police-practices chapter; Reason-for-stop duty; Ticket vs arrest
+UT 6 | License (driver ID); Sign citation; Reason-for-stop duty; Ticket vs arrest; Footage access; Duty to intervene
+VA 4 | Police-practices chapter; Reason-for-stop duty; Ticket vs arrest; Duty to intervene
+VT 5 | Police-practices chapter; Reason-for-stop duty; Ticket vs arrest; Footage access; Duty to intervene
+WA 5 | Police-practices chapter; Reason-for-stop duty; Ticket vs arrest; Footage access; Duty to intervene
+WI 4 | Police-practices chapter; Reason-for-stop duty; Ticket vs arrest; Footage access
+WV 4 | Police-practices chapter; Reason-for-stop duty; Ticket vs arrest; Footage access
+WY 2 | Reason-for-stop duty; Ticket vs arrest
