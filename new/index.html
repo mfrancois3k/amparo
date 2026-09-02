@@ -498,6 +498,14 @@ nav.nav-dark .btn-navcta:hover{background:var(--gold-pale)}
 /* The FAQ rows were the one control here with no pressed state, so on a phone
    tapping a question showed nothing until the answer expanded. */
 .faq-q:active{background:rgba(232,184,75,.14);transition-duration:60ms}
+
+/* The closed nav drawer is parked off-screen to the right, which extended the
+   scrollable area and gave the page 73px of sideways scroll on a 375px phone --
+   the whole document could be dragged left, taking the fixed nav with it.
+   `clip` rather than `hidden`: hidden turns the root into a scroll container and
+   can break position:sticky, clip just trims the overflow. hidden is listed
+   first purely as the fallback for engines without clip. */
+html{overflow-x:hidden;overflow-x:clip}
 </style>
 </head>
 <body>

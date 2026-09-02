@@ -127,6 +127,11 @@ body.mode-on .mode.on{display:flex}
 @media (prefers-reduced-motion: reduce){
   .mode-exit:active,button.on:active{transform:none}
 }
+
+/* Same flex min-width:auto trap: the state <select> would not shrink, pushing
+   the top bar 50px past a 375px viewport. */
+.right{min-width:0}
+.right .stateSel,.stateSel{min-width:0;max-width:100%}
 </style>
 </head>
 <body>

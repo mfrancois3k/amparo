@@ -491,6 +491,25 @@
   .resp:active,.mi:active,.scen:active,.lvlTab:active,.helpBtn:active,
   .tipBtn:active,.ghostB:active,.buy:active{transform:none}
 }
+
+/* Defensive, not the fix for the overflow below: the dialog measured 417px on a
+   375px phone only because it is width:100% of a container sized to an already
+   over-wide viewport, and it corrected itself once .freeRow was fixed. These
+   rules stand on their own merit -- a flex item's default min-width:auto still
+   refuses to shrink below its content, so any long unbreakable string in a
+   dialog would reintroduce the same overflow. */
+.modal{min-width:0}
+.modal h2,.modal p,.modal .mList,.modal span,.modal div{overflow-wrap:anywhere}
+
+/* The free-answer row is an input plus three fixed-size buttons (mic, echo,
+   SUBMIT) with flex-shrink:0, and the input had no min-width. A flex item's
+   default min-width:auto meant the input refused to shrink below its own
+   content width, so the row measured 420px inside a 301px column -- and that
+   overflow cascaded up through .respArea, .arena and .wrap until the whole
+   document was 457px wide on a 375px phone. Letting the row wrap and the input
+   shrink fixes it at the source rather than clipping it at the root. */
+.freeRow{flex-wrap:wrap}
+.freeRow #free{flex:1 1 150px;min-width:0}
 </style>
 
 </head>
