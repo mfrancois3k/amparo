@@ -117,11 +117,18 @@
     },
     {
       "source": "/pack",
-      "destination": "/index.html"
+      "destination": "/pack.html"
     },
     {
       "source": "/pack/",
-      "destination": "/index.html"
+      "destination": "/pack.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/pack",
+      "permanent": false
     }
   ]
 }

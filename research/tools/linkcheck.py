@@ -54,9 +54,18 @@ def resolve(page_rel, target):
         cand = os.path.join(ROOT, os.path.dirname(page_rel), path)
     cand = os.path.normpath(cand)
     if os.path.isdir(cand):
-        # a directory URL only works if it has an index
+        # a directory URL only works if it has an index -- or if a rewrite
+        # serves that URL, which is how "/" works once the root index.html has
+        # moved. Map the directory back to its URL path and check again.
         idx = os.path.join(cand, 'index.html')
-        return idx if os.path.exists(idx) else cand + '  (dir, no index.html)'
+        if os.path.exists(idx):
+            return idx
+        url = '/' + os.path.relpath(cand, ROOT).replace(os.sep, '/')
+        url = '/' if url in ('/.', '/') else url.rstrip('/')
+        dest = REWRITES.get(url)
+        if dest:
+            return os.path.normpath(os.path.join(ROOT, dest.lstrip('/')))
+        return cand + '  (dir, no index.html)'
     return cand
 
 def main():
