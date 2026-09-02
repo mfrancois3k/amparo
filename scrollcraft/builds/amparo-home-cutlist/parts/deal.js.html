@@ -1,0 +1,129 @@
+
+<script src="/scroll-intro/scrollcraft.js?v=2026-09-02b"></script>
+<script>
+/* ===================================================================
+   The Deal. Six real cards in the chrome layer, fanned by PAGE scroll across
+   the peak act (so the choreography outlives the cuts underneath, which is
+   how a cutlist holds a peak without pinning), openable from the bar anywhere
+   on the page, and flickable: pointer capture, velocity carried into the
+   throw, spring back if the flick was not committed. Engine untouched; this
+   reads scroll and its own state only.
+   =================================================================== */
+(function(){
+  var deal = document.getElementById('deal'), hand = document.getElementById('hand'),
+      trig = document.getElementById('dealTrigger'), closeBtn = document.getElementById('dealClose'),
+      bg = deal.querySelector('.deal-bg'),
+      act = null, reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var p = 0, target = 0, mode = 'scroll', dealt = [], raf = null, cards = [];
+  var FAN = [-26,-15.5,-5,5,15.5,26];               // degrees, left to right
+  var ease = function(x){ return 1 - Math.pow(1 - x, 3); };
+
+  function relayout(){
+    cards = Array.prototype.slice.call(hand.querySelectorAll('.card'));
+    dealt = []; act = document.getElementById('deal-act');
+    cards.forEach(function(el){ el.style.transition = ''; });
+    if (mode === 'scroll') p = progressFromScroll();
+    paint();
+  }
+  function progressFromScroll(){
+    if (!act) return 0;
+    var r = act.getBoundingClientRect(), vh = innerHeight;
+    // 0 as the act's top reaches the fold, 1 once ~55% of it has passed, and
+    // back to 0 as it leaves, so the deck folds away before the next cut
+    var enter = Math.max(0, Math.min(1, (vh - r.top) / (r.height * 0.55 + vh * 0.2)));
+    var leave = Math.max(0, Math.min(1, (r.bottom - vh * 0.35) / (vh * 0.5)));
+    return Math.min(enter, leave);
+  }
+  function paint(){
+    var live = p > 0.02;
+    deal.classList.toggle('is-live', live);
+    var fanned = 0;
+    for (var i = 0; i < cards.length; i++){
+      var el = cards[i];
+      if (dealt.indexOf(i) > -1) continue;
+      var pi = Math.max(0, Math.min(1, (p - i * 0.07) / 0.6));
+      var e = ease(pi); if (e > 0.98) fanned++;
+      // --fan-scale lets the stylesheet tighten the spread on narrow screens,
+      // where a 26-degree fan of 64vw cards runs off both edges
+      var fs = parseFloat(getComputedStyle(hand).getPropertyValue('--fan-scale')) || 1;
+      var rot = FAN[i] * e * fs, rise = -6 * e, sc = 0.62 + 0.38 * e;
+      el.style.transform = 'translate3d(0,' + rise + 'vh,0) rotate(' + rot.toFixed(2) + 'deg) scale(' + sc.toFixed(3) + ')';
+      el.style.opacity = String(Math.min(1, 0.15 + e));
+      el.style.zIndex = String(10 + i);
+    }
+    // the harness reads this instead of guessing what a fixed layer painted
+    deal.setAttribute('data-sc-verify-state', 'p:' + p.toFixed(2) + '|fanned:' + fanned + '|dealt:' + dealt.length);
+    if (p >= 0.995 && mode === 'open') deal.setAttribute('data-sc-verify-hold', 'true'); else deal.removeAttribute('data-sc-verify-hold');
+  }
+  function tick(){
+    raf = null;
+    if (mode === 'scroll') { p = progressFromScroll(); paint(); return; }
+    var d = target - p;
+    if (Math.abs(d) < 0.003) {
+      p = target; paint();
+      if (target === 0) { mode = 'scroll'; deal.classList.remove('is-open'); trig.setAttribute('aria-expanded','false'); p = progressFromScroll(); paint(); }
+      return;
+    }
+    p += d * (reduce ? 1 : 0.14); paint(); raf = requestAnimationFrame(tick);
+  }
+  function schedule(){ if (!raf) raf = requestAnimationFrame(tick); }
+  function open(){ mode = 'open'; target = 1; deal.classList.add('is-open'); trig.setAttribute('aria-expanded','true'); relayout(); schedule(); closeBtn.focus(); }
+  function close(){ if (mode !== 'open') return; target = 0; schedule(); trig.focus(); }
+  addEventListener('scroll', function(){ if (mode === 'scroll') schedule(); }, {passive:true});
+  addEventListener('resize', function(){ schedule(); }, {passive:true});
+  trig.addEventListener('click', function(){ mode === 'open' ? close() : open(); });
+  closeBtn.addEventListener('click', close);
+  bg.addEventListener('click', close);
+  addEventListener('keydown', function(e){ if (e.key === 'Escape' && mode === 'open') close(); });
+
+  /* flick: 1:1 tracking from where the card was grabbed, velocity history,
+     project the release, commit past a threshold, else spring home */
+  var drag = null;
+  hand.addEventListener('pointerdown', function(e){
+    var el = e.target.closest('.card'); if (!el || e.target.closest('a')) return;
+    var i = cards.indexOf(el); if (i < 0 || dealt.indexOf(i) > -1) return;
+    // best-effort: capture keeps tracking when the pointer leaves the card, but
+    // a capture that cannot be taken must not abort the drag (it threw on
+    // pointer ids the element had never seen, and the whole flick died with it)
+    try { el.setPointerCapture(e.pointerId); } catch (err) {}
+    drag = { i:i, el:el, x0:e.clientX, y0:e.clientY, dx:0, dy:0, hist:[[e.clientX,e.clientY,performance.now()]] };
+    el.style.transition = 'none';
+    e.preventDefault();
+  });
+  addEventListener('pointermove', function(e){
+    if (!drag) return;
+    drag.dx = e.clientX - drag.x0; drag.dy = e.clientY - drag.y0;
+    drag.hist.push([e.clientX,e.clientY,performance.now()]); if (drag.hist.length > 6) drag.hist.shift();
+    var rot = FAN[drag.i] + drag.dx * 0.06;
+    drag.el.style.transform = 'translate3d(' + drag.dx + 'px,' + (drag.dy - innerHeight*0.06) + 'px,0) rotate(' + rot.toFixed(2) + 'deg)';
+  });
+  function release(){
+    if (!drag) return;
+    var h = drag.hist, a = h[0], b = h[h.length-1], dt = Math.max(1, b[2]-a[2]);
+    var vx = (b[0]-a[0])/dt, vy = (b[1]-a[1])/dt, v = Math.hypot(vx,vy);
+    var dist = Math.hypot(drag.dx, drag.dy), el = drag.el, i = drag.i;
+    if (v > 0.45 || dist > 140){
+      var fx = drag.dx + vx * 600, fy = drag.dy + vy * 600 - innerHeight*0.06;
+      el.style.transition = reduce ? 'opacity 120ms' : 'transform 480ms cubic-bezier(.23,1,.32,1), opacity 420ms';
+      el.style.transform = 'translate3d(' + fx + 'px,' + fy + 'px,0) rotate(' + (FAN[i] + vx*40) + 'deg)';
+      el.style.opacity = '0'; dealt.push(i);
+      setTimeout(function(){ el.style.transition = ''; paint(); }, 500);
+    } else {
+      el.style.transition = reduce ? 'none' : 'transform 420ms cubic-bezier(.23,1,.32,1)';
+      paint(); setTimeout(function(){ el.style.transition = ''; }, 440);
+    }
+    drag = null;
+  }
+  // release on the window, not the hand: if capture was refused the pointer
+  // can let go anywhere on the page, and a drag that never releases would
+  // leave the card stuck to a pointer that is no longer down
+  addEventListener('pointerup', release); addEventListener('pointercancel', release);
+
+  window.Deal = { relayout: relayout, open: open, close: close };
+  relayout();
+
+  /* mount the engine on the whole page: every cut is a flow act and publishes
+     --sc-p, which is what the reveals and cues run from */
+  if (window.ScrollCraft) ScrollCraft.mount(document.body);
+})();
+</script>

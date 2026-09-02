@@ -1,0 +1,31 @@
+<nav class="bar" aria-label="Main navigation">
+  <a class="brand" href="/" aria-label="Amparo home">
+    <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="72" r="28" fill="none" stroke="#E8B84B" stroke-width="12"/><rect x="48" y="56" width="24" height="32" rx="4" fill="#FAF6EE"/><path d="M12 62 L60 18 L108 62" fill="none" stroke="#FAF6EE" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>Amparo</span>
+  </a>
+  <div class="navlinks" id="navLinks"></div>
+  <div class="navright">
+    <div class="langpill" role="group" aria-label="Language">
+      <button type="button" id="langEN" onclick="setLang('en')" aria-pressed="true">EN</button>
+      <button type="button" id="langES" onclick="setLang('es')" aria-pressed="false">ES</button>
+    </div>
+    <button type="button" class="btn btn-deal" id="dealTrigger" aria-controls="deal" aria-expanded="false"><span class="n" aria-hidden="true">6</span><span class="t">Your six cards</span></button>
+    <a class="btn btn-navcta" id="navCta" href="/arena/">Practice a stop</a>
+    <button type="button" class="navburger" id="navBurger" aria-label="Open menu" aria-controls="navSheet" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="navscrim" id="navScrim" aria-hidden="true"></div>
+<aside class="navsheet" id="navSheet" aria-label="Menu">
+  <div class="navsheet-head">
+    <span class="navSheetLabel" id="navSheetLabel">Menu</span>
+    <button type="button" class="navsheet-close" id="navClose" aria-label="Close menu">×</button>
+  </div>
+  <nav class="navsheet-links" id="navSheetLinks" aria-labelledby="navSheetLabel"></nav>
+  <div class="navsheet-foot">
+    <div class="langpill" role="group" aria-label="Language">
+      <button type="button" id="langENSheet" onclick="setLang('en')">EN</button>
+      <button type="button" id="langESSheet" onclick="setLang('es')">ES</button>
+    </div>
+    <a class="btn btn-navcta" id="navSheetCta" href="/arena/">Practice a stop</a>
+  </div>
+</aside>

@@ -1,0 +1,121 @@
+
+/* ---------------- render ---------------- */
+/* Shadows the shared esc(): the copy objects carry em dashes throughout, and
+   an em dash on screen is a ship-blocker here. A comma is the least damaging
+   stand-in for an interrupting dash; a dash that introduced a list already
+   reads with a comma. Source strings untouched, so the app keeps its own. */
+function esc(s){ return String(s).replace(/\s*—\s*/g, ', ').replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+function faceHtml(card, cls, extra){
+  return '<article class="card '+(cls||'')+'" '+(extra||'')+'>'+
+    '<div class="band"><span>Amparo</span><b>'+esc(card.n)+'</b></div>'+
+    '<h3>'+esc(card.h)+'</h3><p class="s">'+esc(card.s)+'</p>'+
+    '<div class="fold"><span>EN · ES</span><span>'+esc(card.n)+' / 6</span></div>'+
+  '</article>';
+}
+function render(){
+  const c = t();
+  renderNav(c);
+  const dt = document.getElementById('dealTrigger'); if (dt) dt.querySelector('.t').textContent = c.dealTrigger;
+  const nc = document.getElementById('navCta'); if (nc && c.navCta) nc.textContent = c.navCta;
+  const heroCtaLabel = returning ? c.heroCtaReturn : c.heroCta;
+  const shareWaUrl = 'https://wa.me/?text='+encodeURIComponent(c.shareMsg);
+  const shareSmsUrl = 'sms:?&body='+encodeURIComponent(c.shareMsg);
+  const turn = DEMO_TURNS[0], reply = turn.c[0];
+  const L = lang==='es'?'es':'en';
+  const faqHtml = c.faq.map((item,i)=>{
+    const open = openFaq === i;
+    return '<div class="faq-item"><button class="faq-q" onclick="toggleFaq('+i+')" aria-expanded="'+(open?'true':'false')+'">'+
+      '<span>'+esc(item.q)+'</span><span class="faq-icon'+(open?' open':'')+'" aria-hidden="true">+</span></button>'+
+      (open ? '<p class="faq-a">'+esc(item.a)+'</p>' : '')+'</div>';
+  }).join('');
+
+  document.getElementById('app').innerHTML =
+    /* 1 · recognition */
+    '<section class="cut cut--lead" data-sc-act="flow" style="--h:0.9;background:#0B1426">'+
+      '<div class="plate"><picture><source media="(max-width:700px)" srcset="/new/assets/act2-mirror.webp"><img src="/new/assets/c2-start.webp" width="1600" height="900" alt="" fetchpriority="high"></picture></div>'+
+      '<div class="scrim-lead" aria-hidden="true"></div>'+
+      '<div class="copy" data-sc-cue="0 0.55 0"><h1>'+esc(c.cut1)+'</h1><p>'+esc(c.cut1s)+'</p></div>'+
+    '</section>'+
+    /* 2 · the claim */
+    '<section class="cut cut--trail" id="top" data-sc-act="flow" style="--h:1;background:#101B33">'+
+      '<div class="copy" data-sc-in data-sc-stagger="60"><div class="eyebrow">'+esc(c.heroEyebrow)+'</div><h2>'+esc(c.heroTitle)+'</h2><p>'+esc(c.heroSub)+'</p>'+
+        '<div class="hero-ctas"><a class="btn btn-gold" href="/arena/">'+esc(heroCtaLabel)+'</a><a class="btn btn-line" href="/pack">'+esc(c.heroSecondary)+'</a></div>'+
+        '<p class="trust">'+esc(c.trustLine)+'</p></div>'+
+    '</section>'+
+    /* 3 · the cost */
+    '<section class="cut cut--lead" data-sc-act="flow" style="--h:1;background:#0B1426">'+
+      '<figure class="plate" data-sc-reveal="up" data-sc-reveal-at="0.05 0.45"><img src="/new/assets/c2-end.webp" width="1600" height="900" alt="" loading="lazy"></figure>'+
+      '<div class="scrim-lead" aria-hidden="true"></div>'+
+      '<div class="copy" data-sc-cue="0.2 0.7"><h2>'+esc(c.cut3)+'</h2><p>'+esc(c.cut3s)+'</p></div>'+
+    '</section>'+
+    /* 4 · the turn */
+    '<section class="cut cut--trail" data-sc-act="flow" style="--h:0.9;background:#16223A">'+
+      '<div class="plate"><img src="/new/assets/c3-end.webp" width="1600" height="900" alt="" loading="lazy"></div>'+
+      '<div class="scrim-trail" aria-hidden="true"></div>'+
+      '<div class="copy" data-sc-cue="0.08 0.6"><h2>'+esc(c.cut4)+'</h2><p>'+esc(c.cut4s)+'</p></div>'+
+    '</section>'+
+    /* 5 · proof: one real turn */
+    '<section class="cut cut--lead" id="arena" data-sc-act="flow" style="--h:1;background:#0B1426">'+
+      '<div class="copy turn" data-sc-in data-sc-stagger="40"><div class="eyebrow">'+esc(c.cut5eye)+'</div>'+
+        '<div class="who">'+esc(c.demoOfficerLabel||'Officer')+'</div><p class="o">'+esc(turn.o[L])+'</p>'+
+        '<div class="who">'+(L==='es'?'Tú':'You')+'</div><p class="r">'+esc(reply.t[L])+'</p>'+
+        '<p class="f">'+esc(reply.f[L])+'</p>'+
+        '<div class="hero-ctas"><a class="btn btn-line" href="/arena/">'+esc(c.arenaCta)+'</a></div></div>'+
+    '</section>'+
+    /* 6 · silence, authored (see BRIEF.md) */
+    '<section class="cut" data-sc-act="flow" data-sc-silence="true" aria-hidden="true" style="--h:0.7;background:#070E1C"></section>'+
+    /* 7 · PEAK: the deal lives in the chrome; this is the plate it lands on */
+    '<section class="cut cut--top" id="deal-act" data-sc-act="flow" style="--h:2;background:#070E1C">'+
+      '<div class="plate"><picture><source media="(max-width:700px)" srcset="/new/assets/glovebox-m.webp"><img src="/new/assets/glovebox.webp" width="1920" height="1067" alt="" loading="lazy"></picture></div>'+
+      '<div class="copy" data-sc-cue="0 0.3"><h2>'+esc(c.cut7)+'</h2><p>'+esc(c.cut7s)+'</p></div>'+
+    '</section>'+
+    /* 8 · substance: one card, one fact */
+    '<section class="cut cut--lead" id="what" data-sc-act="flow" style="--h:0.9;background:#101B33">'+
+      '<figure class="face-stage" data-sc-reveal="left" data-sc-reveal-at="0.05 0.5">'+faceHtml(c.dealCards[1])+'</figure>'+
+      '<div class="scrim-lead" aria-hidden="true"></div>'+
+      '<div class="copy" data-sc-cue="0.15 0.6"><h2>'+esc(c.cut8)+'</h2><p>'+esc(c.cut8s)+'</p></div>'+
+    '</section>'+
+    /* 9 · where you drive */
+    '<section class="cut cut--map cut--lead" id="states" data-sc-act="flow" style="--h:1.1;background:#0B1426">'+
+      '<div class="map-stage"><figure data-sc-reveal="iris" data-sc-reveal-at="0.05 0.5">'+statesMapHtml(c)+'</figure></div>'+
+      '<div class="copy" data-sc-cue="0.3 0.75"><h2>'+esc(c.stateTitle)+'</h2><p>'+esc(c.stateSub)+'</p></div>'+
+    '</section>'+
+    /* 10 · privacy */
+    '<section class="cut cut--centre" id="privacy" data-sc-act="flow" style="--h:0.7;background:#16223A">'+
+      '<div class="copy" data-sc-in data-sc-stagger="50"><div class="lock" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E8B84B" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>'+
+        '<h2>'+esc(c.cut10)+'</h2><p>'+esc(c.cut10s)+'</p></div>'+
+    '</section>'+
+    /* 11 · the other language, for one screen. lang attr flips so a screen
+          reader switches voice with it. */
+    '<section class="cut cut--centre cut--es" id="bilingual" data-sc-act="flow" lang="'+(L==='es'?'en':'es')+'" style="--h:0.8">'+
+      '<div class="copy" data-sc-in data-sc-stagger="50"><div class="pair" aria-hidden="true"><span class="'+(L==='es'?'on':'')+'">ES</span><span class="'+(L==='en'?'on':'')+'">EN</span></div>'+
+        '<h2>'+esc(c.cut11)+'</h2><p>'+esc(c.cut11s)+'</p></div>'+
+    '</section>'+
+    /* 12 · give one away */
+    '<section class="cut cut--lead" id="share" data-sc-act="flow" style="--h:0.8;background:#0B1426">'+
+      '<div class="copy" data-sc-in data-sc-stagger="50"><h2>'+esc(c.cut12)+'</h2><p>'+esc(c.shareBody)+'</p>'+
+        '<div class="share-row"><a class="btn btn-line" href="'+shareWaUrl+'" target="_blank" rel="noopener">'+esc(c.shareWhatsApp)+'</a><a class="btn btn-line" href="'+shareSmsUrl+'">'+esc(c.shareSms)+'</a><a class="btn btn-line" href="https://www.amparohq.com/orgs" target="_blank" rel="noopener">'+esc(c.orgCta)+'</a></div></div>'+
+    '</section>'+
+    /* faq: information, compressed */
+    '<section class="faq" id="faq"><div class="faq-in"><h2>'+esc(c.faqTitle)+'</h2><div>'+faqHtml+'</div></div></section>'+
+    /* 13 · the close, holds */
+    '<section class="cut cut--close" id="join" data-sc-act="flow" style="--h:1">'+
+      '<div class="copy" data-sc-cue="0.05"><h2>'+esc(c.closeTitle)+'</h2><p>'+esc(c.closeSub)+'</p>'+
+        '<div class="hero-ctas"><a class="btn btn-gold" href="/arena/">'+esc(c.finalBtn)+'</a><a class="btn btn-line" href="/pack">'+esc(c.dealPrint)+'</a></div>'+
+        '<footer class="colophon"><a href="/pack">'+esc(c.navHow)+'</a><a href="#privacy">'+esc(c.navPrivacy)+'</a><a href="https://www.amparohq.com/about">'+esc(c.arenaLink||'About')+'</a><a href="/new/aid.html">'+esc(c.navAid)+'</a>'+
+        '<p class="disc">'+esc(c.footerDisclaimer)+'</p><span>'+esc(c.footerCopyright)+'</span></footer></div>'+
+    '</section>';
+
+  // the deck faces, in the current language
+  const hand = document.getElementById('hand');
+  hand.innerHTML = c.dealCards.slice(0,5).map((k,i)=>faceHtml(k,'',' data-i="'+i+'"')).join('') +
+    '<article class="card card--cta" data-i="5"><div class="band"><span>Amparo</span><b>6</b></div><h3>'+esc(c.dealCards[5].h)+'</h3><p class="s">'+esc(c.dealCards[5].s)+'</p><a class="go" href="/pack">'+esc(c.dealPrint)+'</a></article>';
+  document.getElementById('dealHint').textContent = c.dealHint;
+  document.getElementById('dealClose').textContent = c.dealClose;
+  if (window.Deal) Deal.relayout();
+  if (window.ScrollCraft && ScrollCraft.instances && ScrollCraft.instances[0]) ScrollCraft.instances[0].layout();
+}
+document.getElementById('langEN').classList.toggle('on', lang==='en');
+document.getElementById('langES').classList.toggle('on', lang==='es');
+render();
+</script>

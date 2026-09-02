@@ -37,662 +37,255 @@
      armed when JS is actually alive to finish it. -->
 <script>document.documentElement.classList.add('js-anim');</script>
 <style>
+/* ===================================================================
+   Amparo homepage, "The Deal". Rhythmic cutlist: fourteen short opaque
+   grounds, hard cuts, nothing pinned, one peak held in the chrome layer.
+   Six colours, the brand's own face. Everything in scrollcraft.css derives
+   from these tokens; the page paints its own grounds per section because a
+   cut is not an interpolation.
+   =================================================================== */
 :root{
-  --navy:#1B2A4A; --navy-deep:#121e38; --phone-screen:#1d3557; --phone-bezel:#0f1c33;
-  --cream:#FAF6EE; --gold:#E8B84B; --gold-pale:#F3D48A; --gold-tint:#f4efe1; --gold-tint-2:#fdf6e3;
-  --ink:#22293A; --body:#64707D; --muted:#8a93a0; --line:#e5e0d4; --eyebrow:#6b4d0d;
-  --good:#2e9e68; --good-ink:#1e6b43; --good-bg:#e6f4ec;
-  --warn:#d9a62c; --warn-ink:#8a6512; --warn-bg:#fdf6e3;
-  --bad:#d05b47; --bad-ink:#a13527; --bad-bg:#fdecea;
-  --ease:cubic-bezier(.23,1,.32,1);
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Helvetica,Arial,sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:clip}
-a{color:var(--navy)}
-a:hover{color:#a87f1f}
-::selection{background:var(--gold-pale)}
-img,svg{display:block;max-width:100%}
-button{font:inherit;color:inherit}
-:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:6px}
-
-.wrap{max-width:1180px;margin:0 auto;padding-inline:clamp(24px,6vw,64px)}
-.eyebrow{font-size:12.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--eyebrow);margin-bottom:12px}
-.h2{font-size:clamp(32px,4.5vw,48px);font-weight:800;color:var(--navy);letter-spacing:-.01em;margin:0 0 14px;text-wrap:balance}
-.sub{font-size:17px;color:var(--body);line-height:1.6;margin:0}
-section{padding-block:clamp(90px,11vw,150px)}
-.section-tight{padding-block:0 clamp(90px,11vw,150px)}
-
-/* nav */
-nav{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px clamp(20px,6vw,64px);background:rgba(250,246,238,.86);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex:none}
-.brand b{font-weight:800;font-size:19px;color:var(--navy);letter-spacing:-.3px}
-.navlinks{display:flex;align-items:center;gap:clamp(14px,3vw,28px);flex-wrap:wrap}
-.navlinks a{font-size:14.5px;font-weight:600;color:var(--navy);text-decoration:none;white-space:nowrap}
-.navright{display:flex;align-items:center;gap:14px;flex:none}
-.langpill{display:flex;border:1.5px solid var(--navy);border-radius:99px;overflow:hidden}
-.langpill button{padding:6px 14px;border:0;background:transparent;color:var(--navy);cursor:pointer;font-weight:800;font-size:13px;transition:background .18s var(--ease),color .18s var(--ease)}
-.langpill button.on{background:var(--navy);color:#fff}
-.langpill button:active{transform:scale(.96)}
-
-/* buttons */
-.btn{text-decoration:none;display:inline-flex;align-items:center;gap:6px;font-weight:800;border-radius:99px;border:0;cursor:pointer;font-family:inherit;transition:transform 150ms var(--ease),box-shadow 150ms var(--ease),background 150ms var(--ease)}
-.btn:active{transform:scale(.97)}
-.btn-navcta{background:var(--navy);color:#fff;font-size:14px;padding:10px 18px;white-space:nowrap}
-.btn-navcta:hover{background:var(--navy-deep)}
-.btn-hero{background:var(--navy);color:#fff;font-size:16.5px;padding:16px 30px;box-shadow:0 10px 28px rgba(27,42,74,.28)}
-.btn-hero:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(27,42,74,.34)}
-.btn-ghost{color:var(--navy);font-size:15.5px;font-weight:700;padding:16px 8px;background:none}
-.btn-ghost:hover{color:#a87f1f}
-.btn-gold{background:var(--gold);color:var(--navy);font-size:15px;padding:14px 26px}
-.btn-gold:hover{transform:translateY(-1px)}
-.btn-arena{background:var(--navy);color:#fff;font-size:16px;padding:15px 28px;box-shadow:0 10px 28px rgba(27,42,74,.24)}
-.btn-arena:hover{transform:translateY(-2px)}
-@media (prefers-reduced-motion:reduce){.btn:hover,.btn:active{transform:none}}
-
-/* hero */
-.hero{max-width:900px;margin:0 auto;padding:clamp(150px,20vw,200px) clamp(24px,6vw,64px) 40px;text-align:center}
-.hero-eyebrow{display:inline-block;padding:7px 16px;border-radius:99px;background:var(--gold-pale);color:var(--eyebrow);font-size:12.5px;font-weight:800;letter-spacing:.6px;margin-bottom:28px}
-.hero h1,.hero .hero-h{font-size:clamp(42px,7vw,76px);font-weight:800;color:var(--navy);letter-spacing:-.02em;line-height:1.05;margin:0 0 24px;text-wrap:balance}
-.hero-sub{font-size:clamp(18px,2.2vw,22px);color:var(--body);line-height:1.55;max-width:660px;margin:0 auto 36px}
-.hero-ctas{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;margin-bottom:22px}
-.trust{font-size:13.5px;color:var(--body);max-width:520px;margin:0 auto}
-
-/* phone demo */
-.demo-wrap{max-width:1180px;margin:0 auto;padding:20px clamp(24px,6vw,64px) clamp(70px,9vw,120px);position:relative}
-.demo-glow{position:absolute;top:10%;left:50%;width:520px;height:520px;margin-left:-260px;border-radius:50%;background:radial-gradient(circle,rgba(232,184,75,.35),transparent 70%);filter:blur(30px);z-index:0}
-.demo-inner{position:relative;z-index:1;max-width:400px;margin:0 auto}
-.phone{background:var(--phone-bezel);border-radius:44px;padding:12px;box-shadow:0 40px 90px rgba(27,42,74,.35)}
-.screen{background:var(--phone-screen);border-radius:34px;overflow:hidden;display:flex;flex-direction:column;min-height:560px}
-.screen-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:18px 20px 12px}
-.screen-title{font-size:11px;font-weight:800;letter-spacing:1.2px;color:var(--gold-pale);text-transform:uppercase}
-.mood{font-size:10.5px;font-weight:800;letter-spacing:.8px;color:#c9d4e8;text-transform:uppercase;border:1px solid rgba(255,255,255,.28);padding:4px 10px;border-radius:99px}
-.heat-track{margin:0 20px 6px;height:4px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden}
-.heat-fill{height:100%;border-radius:99px;transition:width .5s var(--ease),background .3s var(--ease)}
-.demo-idle{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:28px 26px;gap:16px}
-.demo-idle p{margin:0}
-.demo-scene{font-size:16px;color:#e8eef7;line-height:1.55;font-weight:600}
-.demo-note{font-size:12.5px;color:#9fb0cd}
-.officer-row{margin:10px 20px 0}
-.officer-label{font-size:10px;font-weight:800;letter-spacing:1.2px;color:#9fb0cd;text-transform:uppercase;margin-bottom:6px}
-.officer-line{padding:14px 16px;border-radius:4px 16px 16px 16px;background:rgba(9,17,34,.6);color:#f2f6ff;font-size:15px;line-height:1.5;font-weight:600;opacity:0;transform:translateY(4px);animation:settle 260ms var(--ease) forwards}
-.choices{display:flex;flex-direction:column;gap:10px;margin:16px 20px 0}
-.choice{text-align:left;font-family:inherit;cursor:pointer;border-radius:14px;padding:13px 15px;font-size:14px;font-weight:600;line-height:1.45;border:1.5px solid rgba(27,42,74,.15);background:rgba(255,255,255,.95);color:var(--navy);transition:opacity 180ms var(--ease),border-color 180ms var(--ease),transform 100ms var(--ease)}
-.choice:not([disabled]):active{transform:scale(.98)}
-.choice.good{border-color:var(--good);border-width:2px}
-.choice.warn{border-color:var(--warn);border-width:2px}
-.choice.bad{border-color:var(--bad);border-width:2px}
-.choice.dim{opacity:.4}
-.feedback{margin:14px 20px 0;padding:12px 14px;border-radius:12px;font-size:13px;line-height:1.5;font-weight:600;opacity:0;transform:translateY(6px) scale(.98);animation:settle 260ms var(--ease) forwards}
-.feedback.good{background:var(--good-bg);color:var(--good-ink)}
-.feedback.warn{background:var(--warn-bg);color:var(--warn-ink)}
-.feedback.bad{background:var(--bad-bg);color:var(--bad-ink)}
-@keyframes settle{to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){.officer-line,.feedback{animation:none;opacity:1;transform:none}}
-.btn-next{margin:14px 20px 4px;padding:12px;border-radius:99px;background:var(--gold);color:var(--navy);font-weight:800;font-size:14px;border:0;cursor:pointer;font-family:inherit;transition:transform 150ms var(--ease)}
-.btn-next:active{transform:scale(.97)}
-.demo-done{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:28px 26px;gap:10px}
-.demo-done-title{font-size:22px;font-weight:800;color:#fff}
-.score-pill{display:inline-block;padding:8px 18px;border-radius:99px;background:rgba(243,212,138,.16);border:1px solid rgba(243,212,138,.5);color:var(--gold-pale);font-size:14px;font-weight:800}
-.demo-done-note{font-size:13.5px;color:#c9d4e8;line-height:1.6;margin:6px 0 12px}
-.done-cta{text-decoration:none;background:var(--gold);color:var(--navy);font-size:14.5px;font-weight:800;padding:13px 24px;border-radius:99px}
-.restart-link{background:none;border:0;color:#9fb0cd;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:underline}
-.dots{display:flex;justify-content:center;gap:6px;padding:12px 0 18px}
-.dot{width:7px;height:7px;border-radius:50%;transition:background 200ms var(--ease)}
-.demo-caption{text-align:center;font-size:12.5px;color:var(--body);margin:18px auto 0;max-width:360px}
-.demo-state-note{text-align:center;font-size:12px;color:var(--muted);margin:8px auto 0;max-width:360px}
-
-/* arena / how / what cards */
-.center-head{text-align:center;max-width:680px;margin:0 auto 56px}
-.grid-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-bottom:40px}
-.scen-card{background:#fff;border-radius:22px;padding:28px 26px;border:1px solid var(--line);box-shadow:0 16px 40px rgba(27,42,74,.08);overflow:hidden}
-/* Card media bleeds to the card's edges (cancelling its 28/26 padding) and
-   keeps only the top corners rounded, so the photograph reads as part of the
-   card rather than a picture pasted inside one. */
-.scen-media{position:relative;margin:-28px -26px 22px;border-radius:21px 21px 0 0;overflow:hidden;aspect-ratio:16/9;background:var(--navy-deep)}
-/* The hidden-until-revealed state is gated on .js-anim (set by an inline script
-   in <head>). Without it these rules never apply, so with JS disabled, an error
-   before armScenCards(), or no IntersectionObserver, the cards are simply
-   VISIBLE rather than three invisible opacity:0 boxes. Same failure class as
-   the intro's collapsed stages: never let the resting state depend on JS. */
-.js-anim .scen-media{clip-path:inset(0 0 100% 0);transition:clip-path 760ms var(--ease)}
-.scen-media img{position:absolute;left:0;top:-6%;width:100%;height:112%;object-fit:cover;will-change:transform}
-.scen-card.is-in .scen-media{clip-path:inset(0 0 0 0)}
-/* "At your door" ships with no photograph on purpose: the card's own copy says
-   the scenario is not built yet and that we would rather ship it late than
-   ship it wrong. A polished stock-looking frame would contradict that. The
-   hairline hatch marks it as deliberately empty rather than a failed image. */
-/* The hatch alone did not carry the intent: the site's own owner read this card
-   as a failed image load, and if it reads as broken to the person who built it,
-   it reads as broken to a visitor. Keeping it photographless is still right --
-   a stock frame would contradict the card's own "not built yet" copy -- so the
-   emptiness is now labelled instead of merely textured. It says what it is. */
-.scen-media--empty{position:relative;background:
-  repeating-linear-gradient(135deg,rgba(255,255,255,.05) 0 1px,transparent 1px 9px),
-  linear-gradient(160deg,#1b2a4a,#121e38)}
-.scen-media--empty::after{
-  content:attr(data-label);
-  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  width:max-content;max-width:80%;text-align:center;
-  font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  color:rgba(232,238,247,.62);
-  padding:9px 16px;border:1px dashed rgba(232,238,247,.34);border-radius:99px}
-@media (max-width:420px){
-  .scen-media--empty::after{font-size:11px;letter-spacing:.06em;padding:7px 12px}
-}
-.js-anim .scen-card{opacity:0;transform:translateY(16px);transition:opacity 640ms var(--ease),transform 640ms var(--ease),box-shadow 200ms var(--ease)}
-.js-anim .scen-card.is-in{opacity:1;transform:none}
-.grid-cards > *:nth-child(2) .scen-media{transition-delay:100ms}
-.grid-cards > *:nth-child(3) .scen-media{transition-delay:200ms}
-.grid-cards > *:nth-child(2).scen-card{transition-delay:100ms}
-.grid-cards > *:nth-child(3).scen-card{transition-delay:200ms}
-@media (hover:hover) and (pointer:fine){
-  .scen-card.is-in:hover{box-shadow:0 22px 54px rgba(27,42,74,.14)}
-}
-@media (prefers-reduced-motion:reduce){
-  .scen-card,.scen-media{transition:opacity 200ms ease;transform:none;clip-path:none}
-  .scen-media img{transform:none !important}
-}
-.badge{display:inline-block;padding:5px 12px;border-radius:99px;font-size:11.5px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap}
-.badge-live{background:var(--gold-pale);color:var(--eyebrow)}
-.badge-soon{background:var(--gold-tint);color:var(--muted)}
-.scen-card h3{font-size:19px;font-weight:800;color:var(--navy);margin:16px 0 8px}
-.scen-card p{font-size:14.5px;color:var(--body);line-height:1.6;margin:0}
-.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:32px}
-.chip{padding:9px 16px;border-radius:99px;background:var(--gold-tint);border:1px solid var(--line);color:var(--navy);font-size:13.5px;font-weight:700}
-.chip-dark{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#e8eef7}
-.center-cta{text-align:center}
-.center-cta p{font-size:14px;color:var(--body);line-height:1.6;max-width:560px;margin:0 auto 28px}
-.center-cta .row{display:flex;gap:18px;justify-content:center;align-items:center;flex-wrap:wrap}
-
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:48px 40px}
-.step-num{font-size:15px;font-weight:800;color:var(--gold);letter-spacing:.5px;margin-bottom:14px}
-.step h3{font-size:20px;font-weight:800;color:var(--navy);margin:0 0 10px}
-.step p{font-size:15px;color:var(--body);line-height:1.6;margin:0}
-
-.pack-visual{max-width:760px;margin:0 auto;border-radius:28px;overflow:hidden;box-shadow:0 30px 70px rgba(27,42,74,.16);border:1px solid rgba(27,42,74,.08)}
-.pack-visual .ph{width:100%;height:clamp(260px,36vw,420px);background:linear-gradient(135deg,#f4efe1,#e5e0d4);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;font-weight:700;text-align:center;padding:20px}
-
-.items{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:44px 40px}
-.item{display:flex;gap:14px}
-.item .dot-mark{flex:none;width:8px;height:8px;border-radius:50%;background:var(--gold);margin-top:9px}
-.item h3{font-size:17px;font-weight:800;color:var(--navy);margin:0 0 6px}
-.item p{font-size:14.5px;color:var(--body);line-height:1.6;margin:0}
-.price-pill{display:inline-block;padding:12px 22px;border-radius:99px;background:var(--gold-tint-2);border:1.5px solid var(--gold);color:var(--eyebrow);font-size:14.5px;font-weight:700;max-width:640px}
-.printer-line{font-size:13px;color:var(--body);max-width:560px}
-
-.privacy{background:var(--navy-deep);padding:clamp(90px,11vw,150px) clamp(24px,6vw,64px)}
-.privacy-inner{max-width:760px;margin:0 auto;text-align:center}
-.privacy .eyebrow{color:var(--gold-pale)}
-.privacy h2{color:#fff}
-.privacy-body{font-size:18px;color:#c3cbdb;line-height:1.65;margin:0 0 40px}
-.offline-line{font-size:14px;color:#9fb0cd;margin:28px 0 0}
-
-.bilingual{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:56px;align-items:center}
-.bl-toggle{display:flex;justify-content:center}
-.bl-toggle .pair{display:flex;border:2px solid var(--navy);border-radius:99px;overflow:hidden;font-weight:800}
-.bl-toggle .pair span{padding:14px 26px;font-size:15px;transition:background 200ms var(--ease),color 200ms var(--ease)}
-.bl-toggle .pair span.on{background:var(--navy);color:#fff}
-.bl-toggle .pair span:not(.on){color:var(--navy)}
-
-.states-map{border-radius:24px;overflow:hidden;box-shadow:0 24px 60px rgba(27,42,74,.14);border:1px solid var(--line);max-width:920px;margin:0 auto}
-.states-map .ph{width:100%;height:clamp(260px,32vw,420px);background:linear-gradient(135deg,#f4efe1,#e5e0d4);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;font-weight:700;text-align:center;padding:20px}
-
-.share{max-width:760px;margin:0 auto;text-align:center}
-.share .row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn-share-wa{text-decoration:none;display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:99px;background:var(--navy);color:#fff;font-size:14.5px;font-weight:800;transition:background 150ms var(--ease)}
-.btn-share-wa:hover{background:var(--navy-deep)}
-.btn-share-sms{text-decoration:none;display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:99px;border:1.5px solid var(--navy);color:var(--navy);font-size:14.5px;font-weight:800;transition:background 150ms var(--ease)}
-.btn-share-sms:hover{background:var(--gold-tint)}
-
-.orgs-card{background:#fff;border:1px solid var(--line);border-radius:28px;padding:clamp(36px,5vw,56px);box-shadow:0 24px 60px rgba(27,42,74,.1);display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;align-items:center}
-.orgs-card h2{font-size:clamp(26px,3.5vw,36px)}
-.orgs-card p.body{font-size:15.5px;color:var(--body);line-height:1.65;margin:0 0 22px}
-.orgpoints{display:flex;flex-direction:column;gap:12px}
-.orgpoints .pt{display:flex;gap:12px;align-items:baseline}
-.orgpoints .dot-mark{flex:none;width:7px;height:7px;border-radius:50%;background:var(--gold)}
-.orgpoints p{font-size:14.5px;color:var(--ink);line-height:1.55;margin:0}
-
-.faq-wrap{max-width:760px;margin:0 auto}
-.faq-head{text-align:center;margin-bottom:48px}
-.faq-item{border-top:1px solid var(--line);padding:22px 0}
-.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;background:none;border:0;padding:0;cursor:pointer;text-align:left;font-family:inherit}
-.faq-q span:first-child{font-size:18px;font-weight:700;color:var(--navy)}
-.faq-icon{flex:none;width:24px;height:24px;border-radius:50%;background:var(--gold-tint);color:var(--navy);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;transition:transform 220ms var(--ease)}
-.faq-icon.open{transform:rotate(45deg)}
-.faq-a{font-size:15.5px;color:var(--body);line-height:1.65;margin:16px 0 0;max-width:640px;opacity:0;transform:translateY(-4px);animation:settle 220ms var(--ease) forwards}
-@media (prefers-reduced-motion:reduce){.faq-a{animation:none;opacity:1;transform:none}}
-
-.final-cta{background:var(--gold);padding:clamp(70px,9vw,110px) clamp(24px,6vw,64px);text-align:center}
-.final-cta h2{font-size:clamp(28px,4.5vw,44px);font-weight:800;color:var(--navy);letter-spacing:-.01em;margin:0 0 12px}
-.final-cta p{font-size:17px;color:var(--eyebrow);margin:0 0 30px}
-
-footer{max-width:1180px;margin:0 auto;padding:56px clamp(24px,6vw,64px) 60px}
-.foot-top{display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between;padding-bottom:36px;border-bottom:1px solid var(--line)}
-.foot-brand{display:flex;align-items:center;gap:10px}
-.foot-brand b{font-weight:800;font-size:16px;color:var(--navy)}
-.foot-links{display:flex;gap:28px;flex-wrap:wrap}
-.foot-links a{font-size:14px;font-weight:600;color:var(--navy);text-decoration:none;white-space:nowrap}
-.disclaimer{font-size:12.5px;color:var(--body);line-height:1.6;margin:24px 0 12px;max-width:720px}
-.copyright{font-size:12px;color:var(--muted);margin:0}
-
-/* ===== mobile nav =====
-   Previously this was a bare `.navlinks{display:none}` below 640px with no
-   replacement, which did not degrade the nav on phones so much as delete it:
-   six destinations became unreachable and the only way to any of them was to
-   already know the URL. It also left a dead band between 641px and roughly
-   900px where six links wrapped onto two ragged rows under the logo.
-   Both are fixed here: the bar collapses to a real trigger at 900px, and the
-   sheet is the only thing that owns the links below that. */
-.navburger{display:none;align-items:center;justify-content:center;width:44px;height:44px;
-  border:1.5px solid var(--navy);border-radius:14px;background:transparent;cursor:pointer;
-  padding:0;flex:none;transition:background 180ms var(--ease),transform 180ms var(--ease)}
-.navburger:active{transform:scale(.94)}
-.navburger span{display:block;width:18px;height:1.5px;background:var(--navy);border-radius:2px;
-  transition:transform 320ms var(--ease),opacity 200ms var(--ease)}
-.navburger span + span{margin-top:4.5px}
-/* The bars become the X. Rotating the existing strokes rather than swapping in
-   a different glyph keeps the control continuous across the state change. */
-.navburger[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
-.navburger[aria-expanded="true"] span:nth-child(2){opacity:0}
-.navburger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
-nav.nav-dark .navburger{border-color:rgba(255,255,255,.45)}
-nav.nav-dark .navburger span{background:#e8eef7}
-
-/* The panel is never display:none. A transition out of display:none does not
-   reliably run -- the browser can collapse the whole change into one frame, and
-   forcing a reflow first is a trick that works until it doesn't. visibility
-   keeps the element laid out (so the transform has something to animate) while
-   still removing it from the tab order and from hit-testing. */
-.navscrim{position:fixed;inset:0;z-index:60;background:rgba(15,28,51,.42);
-  backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);
-  opacity:0;visibility:hidden;pointer-events:none;
-  transition:opacity 320ms var(--ease),visibility 0s linear 320ms}
-.navscrim.is-open{opacity:1;visibility:visible;pointer-events:auto;
-  transition:opacity 320ms var(--ease),visibility 0s}
-
-.navsheet{position:fixed;z-index:61;top:0;right:0;height:100dvh;
-  width:min(86vw,380px);max-width:100vw;background:var(--cream);
-  border-left:1px solid var(--line);
-  display:flex;flex-direction:column;
-  padding:calc(env(safe-area-inset-top) + 18px) 24px calc(env(safe-area-inset-bottom) + 28px);
-  transform:translateX(100%);visibility:hidden;
-  transition:transform 420ms var(--ease),visibility 0s linear 420ms;
-  overflow-y:auto;overscroll-behavior:contain}
-.navsheet.is-open{transform:translateX(0);visibility:visible;
-  transition:transform 420ms var(--ease),visibility 0s}
-.navsheet-head{display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:26px;flex:none}
-.navsheet-head span{font-size:12px;font-weight:800;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--muted)}
-.navsheet-close{width:44px;height:44px;display:grid;place-items:center;border:0;
-  background:transparent;cursor:pointer;color:var(--navy);border-radius:12px;
-  font-size:22px;line-height:1;transition:background 160ms var(--ease)}
-.navsheet-close:active{background:rgba(27,42,74,.08)}
-/* 52px rows, not 14.5px inline text. A phone nav is thumbs, not cursors.
-   This container is a <nav> for the landmark, which means the bare `nav{}` rule
-   for the top bar lands on it too -- position:fixed, inset, a background, a
-   backdrop-filter, a border, padding, and an align-items:center that was
-   shrink-wrapping every row and centring it. Same specificity, earlier in the
-   file, so it wins on anything this rule leaves unsaid. Everything it sets is
-   therefore restated here rather than left to chance. */
-.navsheet-links{position:static;inset:auto;z-index:auto;
-  display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;
-  gap:0;padding:0;background:none;backdrop-filter:none;-webkit-backdrop-filter:none;
-  border:0}
-/* Alignment is stated rather than inherited: several ancestors on this page
-   centre their text, and a nav row that silently picks that up reads as a
-   centred menu on some breakpoints and a left one on others. */
-.navsheet-links a{display:flex;align-items:center;justify-content:flex-start;
-  width:100%;text-align:left;min-height:52px;
-  font-size:19px;font-weight:700;color:var(--navy);text-decoration:none;
-  border-bottom:1px solid var(--line);
-  opacity:0;transform:translateY(8px)}
-.navsheet.is-open .navsheet-links a{opacity:1;transform:none;
-  transition:opacity 380ms var(--ease),transform 380ms var(--ease)}
-.navsheet-foot{margin-top:auto;padding-top:26px;display:flex;
-  flex-direction:column;gap:14px;flex:none}
-.navsheet-foot .langpill{align-self:flex-start}
-.navsheet-foot .btn{justify-content:center;width:100%}
-
-@media (max-width:900px){
-  .navlinks{display:none}
-  .navburger{display:flex}
-  /* The language pill lives in the sheet on small screens, so the bar keeps
-     only the logo, the CTA and the trigger. */
-  nav .navright .langpill{display:none}
-}
-@media (min-width:901px){
-  .navscrim,.navsheet{display:none}
-}
-@media (prefers-reduced-motion:reduce){
-  .navsheet{transition:transform 1ms linear}
-  .navscrim{transition:opacity 1ms linear}
-  .navsheet-links a{opacity:1;transform:none;transition:none}
-  .navburger span{transition:none}
-}
-
-/* ===== cinematic scroll intro (scrollcraft) =====
-   3 pinned photographic acts above the hero. Engine: ../scroll-intro/
-   (same vendored scrollcraft.js/css as index.html's own intro — not
-   duplicated). Tokens scoped to #cineIntro so they can't leak into the
-   rest of this page the way scrollcraft.css's un-scoped body{} rule
-   would if linked globally (see index.html's own integration notes). */
-#cineIntro{ --sc-canvas:#0f1c33; --sc-surface:#1B2A4A; --sc-ink:#FAF6EE; --sc-ink-soft:#c9d4e8;
+  --sc-canvas:#0B1426; --sc-surface:#16223A; --sc-ink:#FAF6EE; --sc-ink-soft:#A9B7D4;
   --sc-accent:#E8B84B; --sc-accent-ink:#1B2A4A;
   --sc-font-display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Helvetica,Arial,sans-serif;
-  --sc-font-text:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Helvetica,Arial,sans-serif;
-  color:var(--sc-ink);
-  /* Fixed, NOT var(--sc-canvas): the stages are 100svh while the visual
-     viewport can be taller (mobile browser chrome retracting, and any emulated
-     viewport), so a band of this ground shows below each photo. Letting drift
-     animate it made that band a colour the scrims below never match, i.e. a
-     visible seam. Pinned here and every scrim ends on this exact value. */
-  background:#0f1c33; position:relative; z-index:1;
+  --sc-font-text:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Helvetica,Arial,sans-serif;
+  --navy:#1B2A4A; --navy-deep:#0B1426; --gold:#E8B84B; --cream:#FAF6EE; --ease:cubic-bezier(.23,1,.32,1);
+  --bar-h:64px;
 }
-#cineIntro h1,#cineIntro h2{color:var(--sc-ink)}
+html{overflow-x:hidden;overflow-x:clip;scroll-behavior:auto}
+body{margin:0;background:var(--sc-canvas);color:var(--sc-ink);font-family:var(--sc-font-text);
+  -webkit-font-smoothing:antialiased;letter-spacing:.005em}
+*{box-sizing:border-box}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+::selection{background:var(--gold);color:var(--navy)}
 
-/* BASE STATE — correct with NO JavaScript at all.
-   Learned the hard way: the engine bailing (file:// open, a 404 on
-   scrollcraft.js, JS disabled, slow load) used to leave the sections with no
-   height and the stages non-sticky, so all three .cine-copy blocks anchored to
-   #cineIntro and stacked on one screen. The intro must therefore be a correct
-   static layout on its own — three full-height panels — and the engine only
-   ever UPGRADES it to pinned/scrubbed. Never the other way round. */
-/* The page's own `section{padding-block:clamp(90px,11vw,150px)}` also matches
-   these act <section>s, which pushed each sticky stage 90px down its own
-   section and cut the same 90px off the bottom of the frame — the headline
-   clipped against the viewport edge and it looked like the type was too big.
-   Acts are full-bleed stages; they carry no section rhythm. */
-#cineIntro [data-sc-act]{position:relative;min-height:100svh;padding-block:0}
-#cineIntro [data-sc-stage]{position:relative;height:100svh;overflow:clip}
-/* scrollcraft.css hides every cue until the engine drives it; with no engine
-   that means invisible headlines. Show them in the base state. */
-#cineIntro:not(.cine-live) [data-sc-cue]{opacity:1;transform:none}
-#cineIntro:not(.cine-live) .sc-split__i{opacity:1;transform:none}
-/* The Line bar is meaningless without scroll progress driving it — its
-   display:none default lives on its own rule below (same specificity as this
-   selector, and later in source order, so setting it here would silently lose). */
-#cineIntro.cine-live ~ #cine-line{display:flex}
+/* ---------- The bar: loud, full width, CTA at the wordmark's weight ---------- */
+nav.bar{position:fixed;top:0;left:0;right:0;z-index:70;height:var(--bar-h);
+  display:flex;align-items:center;gap:20px;padding:0 clamp(16px,3vw,32px);
+  background:rgba(11,20,38,.72);-webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%);
+  border-bottom:1px solid rgba(250,246,238,.10);box-shadow:inset 0 1px 0 rgba(250,246,238,.06)}
+.brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;font-size:19px;letter-spacing:-.01em;color:var(--cream)}
+.brand svg{width:30px;height:30px}
+.navlinks{display:flex;gap:4px;margin-left:8px}
+.navlinks a{font-size:13.5px;font-weight:700;color:var(--sc-ink-soft);text-decoration:none;padding:8px 11px;border-radius:99px;transition:color 140ms var(--ease),background 140ms var(--ease)}
+.navlinks a:hover{color:var(--cream);background:rgba(250,246,238,.07)}
+.navright{margin-left:auto;display:flex;align-items:center;gap:10px}
+.langpill{display:inline-flex;border:1.5px solid rgba(250,246,238,.22);border-radius:99px;overflow:hidden}
+.langpill button{padding:7px 12px;border:0;background:transparent;color:var(--sc-ink-soft);cursor:pointer;font-weight:800;font-size:12.5px;font-family:inherit}
+.langpill button.on{background:var(--cream);color:var(--navy)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;font-weight:800;border-radius:99px;border:0;cursor:pointer;font-family:inherit;white-space:nowrap;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+  transition:transform 140ms var(--ease),background 160ms var(--ease),color 160ms var(--ease),border-color 160ms var(--ease)}
+.btn:active{transform:scale(.97)}
+.btn-navcta{background:var(--gold);color:var(--navy);font-size:14px;padding:11px 18px}
+.btn-navcta:hover{background:#F2C86A}
+.btn-deal{background:transparent;color:var(--cream);font-size:13.5px;padding:10px 16px;border:1.5px solid rgba(232,184,75,.65)}
+.btn-deal:hover{background:rgba(232,184,75,.12)}
+.btn-deal .n{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--gold);color:var(--navy);font-size:11px}
+.navburger{display:none;align-items:center;justify-content:center;width:44px;height:44px;border:1.5px solid rgba(250,246,238,.3);border-radius:14px;background:transparent;cursor:pointer;flex-direction:column;gap:5px}
+.navburger span{display:block;width:18px;height:2px;background:var(--cream);border-radius:2px}
+@media (max-width:900px){ .navlinks{display:none} .navburger{display:flex} nav.bar .navright .langpill{display:none} .btn-deal .t{display:none} .btn-deal{padding:10px 12px} .btn-navcta{display:none} }
 
-/* ENHANCED STATE — added by JS only after ScrollCraft.mount() actually
-   succeeds. Hands height + stickiness back to the engine. */
-#cineIntro.cine-live [data-sc-act]{min-height:0}
-#cineIntro.cine-live [data-sc-stage]{position:sticky;top:0;height:100svh}
+/* sheet (mobile menu), kept from the previous build, re-inked to the dark bar */
+.navscrim{position:fixed;inset:0;z-index:60;background:rgba(7,14,28,.6);opacity:0;visibility:hidden;transition:opacity 300ms var(--ease),visibility 0s linear 300ms}
+.navscrim.is-open{opacity:1;visibility:visible;transition:opacity 300ms var(--ease),visibility 0s}
+.navsheet{position:fixed;z-index:61;top:0;right:0;height:100dvh;width:min(86vw,380px);max-width:100vw;background:#0F1B33;color:var(--cream);
+  transform:translateX(100%);visibility:hidden;transition:transform 420ms var(--ease),visibility 0s linear 420ms;display:flex;flex-direction:column;padding:18px 22px 28px;border-left:1px solid rgba(250,246,238,.1)}
+.navsheet.is-open{transform:translateX(0);visibility:visible;transition:transform 420ms var(--ease),visibility 0s}
+.navsheet-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.navSheetLabel{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold)}
+.navsheet-close{width:44px;height:44px;border-radius:14px;border:1.5px solid rgba(250,246,238,.3);background:transparent;color:var(--cream);font-size:22px;cursor:pointer}
+.navsheet-links{position:static;inset:auto;z-index:auto;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:0;padding:0;background:none;backdrop-filter:none;-webkit-backdrop-filter:none;border:0;height:auto}
+.navsheet-links a{display:block;padding:15px 4px;font-size:18px;font-weight:800;text-decoration:none;color:var(--cream);border-bottom:1px solid rgba(250,246,238,.1)}
+.navsheet-foot{margin-top:auto;display:flex;flex-direction:column;gap:12px}
+.navsheet .langpill{align-self:flex-start}
 
-/* Mobbin pass — the pattern A24, Lightship, VanMoof and Zellerfeld all share:
-   copy anchored bottom-left, headline set LARGE against the full frame and
-   pulled near the bottom edge, supporting line small so the size contrast does
-   the hierarchy. The previous 3.6rem cap read as a caption on a photograph
-   rather than a title over one. Tracking tightens as the size grows
-   (apple-design §15) — a single letter-spacing value is wrong at one end. */
-/* ---- two-frame cards (start -> end), scrubbed by scroll ----
-   Each act stacks a start and an end frame. The end frame's opacity is a remap
-   of that act's own --sc-p, so the crossfade is SCRUBBED by the wheel rather
-   than played on a timer: the requested "1.2s / 0.6s / 1.5s" feels are
-   reproduced as the width of the band the crossfade happens in, not as
-   durations, because a duration can't be dragged backwards and a scrub can. */
-#cineIntro .cine-frame{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-#cineIntro .cine-frame--end{opacity:0;will-change:opacity}
-/* Card 1 - long smooth interpolation, officer distance -> window. */
-#cineAct1 .cine-frame--end{opacity:clamp(0,calc((var(--sc-p,0) - .15) / .60),1)}
-/* Card 2 - the whole crossfade is squeezed into a narrow band so the door
-   reads as an impact rather than a dissolve. */
-#cineAct2 .cine-frame--end{opacity:clamp(0,calc((var(--sc-p,0) - .46) / .12),1)}
-/* Card 3 - long hold on the flashlight, late slow cross-fade to the refusal. */
-#cineAct3 .cine-frame--end{opacity:clamp(0,calc((var(--sc-p,0) - .55) / .40),1)}
-@media (prefers-reduced-motion:reduce){
-  /* No scrub: rest on each card's resolved end state. */
-  #cineIntro .cine-frame--end{opacity:1}
+/* ---------- Cuts ---------- */
+.cut{position:relative;min-height:calc(var(--h,1) * 100svh);display:grid;align-items:end;padding:calc(var(--bar-h) + 24px) clamp(20px,6vw,72px) clamp(28px,6vh,64px);overflow:hidden;isolation:isolate}
+.cut--lead{align-items:end;justify-items:start}
+.cut--trail{align-items:end;justify-items:end;text-align:right}
+.cut--centre{align-items:center;justify-items:center;text-align:center}
+.cut--top{align-items:start;justify-items:start}
+.cut .copy{position:relative;z-index:2;max-width:min(92vw,720px)}
+.cut h1,.cut h2{font-family:var(--sc-font-display);font-weight:800;line-height:1;letter-spacing:-.03em;margin:0;text-wrap:balance}
+.cut h1{font-size:clamp(2.6rem,7.5vw,5.8rem)}
+.cut h2{font-size:clamp(2rem,5.2vw,4.2rem)}
+.cut p{font-size:clamp(1rem,1.5vw,1.25rem);line-height:1.6;letter-spacing:.01em;color:var(--sc-ink-soft);margin:14px 0 0;max-width:38ch;text-wrap:pretty}
+.cut--trail p{margin-left:auto}
+.cut--centre p{margin-left:auto;margin-right:auto}
+.cut .eyebrow{font-size:12px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.plate{position:absolute;inset:0;z-index:0;margin:0}
+.plate img{width:100%;height:100%;object-fit:cover;display:block}
+/* density where the copy sits, not over the whole frame. Siblings of the copy,
+   never children, so the harness can measure them. */
+.scrim-lead{position:absolute;left:0;bottom:0;width:min(70vw,760px);height:62%;z-index:1;pointer-events:none;
+  background:radial-gradient(120% 100% at 0% 100%,rgba(11,20,38,.92) 0%,rgba(11,20,38,.55) 45%,rgba(11,20,38,0) 75%)}
+.scrim-trail{position:absolute;right:0;bottom:0;width:min(70vw,760px);height:62%;z-index:1;pointer-events:none;
+  background:radial-gradient(120% 100% at 100% 100%,rgba(11,20,38,.92) 0%,rgba(11,20,38,.55) 45%,rgba(11,20,38,0) 75%)}
+@media (max-width:860px){ .scrim-lead,.scrim-trail{width:100%;height:70%;background:linear-gradient(to top,rgba(11,20,38,.95) 0%,rgba(11,20,38,.6) 50%,rgba(11,20,38,0) 100%)} }
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.cut--trail .hero-ctas{justify-content:flex-end}
+.btn-gold{background:var(--gold);color:var(--navy);font-size:15px;padding:14px 24px}
+.btn-gold:hover{background:#F2C86A}
+.btn-line{background:transparent;color:var(--cream);font-size:15px;padding:14px 22px;border:1.5px solid rgba(250,246,238,.35)}
+.btn-line:hover{border-color:var(--cream)}
+.trust{font-size:13px;color:var(--sc-ink-soft);margin-top:16px;max-width:52ch}
+
+/* act 5: one real turn */
+.turn{display:grid;gap:14px;max-width:640px}
+.turn .who{font-size:11.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--sc-ink-soft)}
+.turn .o{font-size:clamp(1.25rem,2.6vw,2rem);font-weight:800;line-height:1.2;letter-spacing:-.02em;color:var(--cream);margin:0;max-width:none}
+.turn .r{font-size:clamp(1.1rem,2.1vw,1.5rem);line-height:1.3;color:var(--gold);margin:0;padding:16px 18px;border-left:2px solid var(--gold);background:rgba(232,184,75,.06);max-width:none}
+.turn .f{font-size:14px;color:var(--sc-ink-soft);margin:0}
+
+/* act 8: one card face, large */
+.face-stage{position:absolute;inset:0;display:grid;place-items:center;z-index:0;margin:0}
+.face-stage .card{position:static;width:min(76vw,520px);margin:0;transform:rotate(-4deg)}
+
+/* act 9: the map */
+.map-stage{position:absolute;inset:var(--bar-h) 0 0;display:grid;place-items:center;z-index:0;padding:0 clamp(12px,4vw,48px)}
+.map-stage figure{margin:0;width:min(100%,980px)}
+.sm2-map{display:block;width:100%;height:auto;filter:drop-shadow(0 20px 40px rgba(0,0,0,.45))}
+.sm2{fill:#16223A;stroke:#2B3A5C;stroke-width:1;vector-effect:non-scaling-stroke}
+.sm2--cited{fill:var(--gold);stroke:#B9891C;stroke-width:1.4}
+.sm2-legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:12px;font-size:12.5px;font-weight:700;color:var(--sc-ink-soft)}
+.sm2-key{display:inline-flex;align-items:center;gap:8px}
+.sm2-sw{width:12px;height:12px;border-radius:3px;background:#16223A;border:1px solid #2B3A5C}
+.sm2-sw--cited{background:var(--gold);border-color:#B9891C}
+.cut--map .copy{max-width:520px}
+
+/* act 10: lock */
+.lock{width:52px;height:52px;border-radius:16px;border:1.5px solid rgba(232,184,75,.6);display:grid;place-items:center;margin:0 auto 18px}
+
+/* act 11: the other language */
+.cut--es{background:#101B33}
+.cut--es .copy{max-width:720px}
+.pair{display:inline-flex;gap:6px;border:1.5px solid rgba(250,246,238,.22);border-radius:99px;padding:4px;margin-bottom:18px}
+.pair span{padding:6px 14px;border-radius:99px;font-weight:800;font-size:12.5px;color:var(--sc-ink-soft)}
+.pair span.on{background:var(--gold);color:var(--navy)}
+
+/* act 12: share */
+.share-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+
+/* faq: compressed, administrative */
+.faq{padding:clamp(28px,4vh,40px) clamp(20px,6vw,72px);background:#0B1426;border-top:1px solid rgba(250,246,238,.08)}
+.faq-in{max-width:760px;margin:0 auto}
+.faq h2{font-size:clamp(1.4rem,2.6vw,2rem);font-weight:800;letter-spacing:-.02em;margin:0 0 18px}
+.faq-item{border-bottom:1px solid rgba(250,246,238,.1)}
+.faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;background:none;border:0;color:var(--cream);font-family:inherit;font-weight:700;font-size:15.5px;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.faq-q:active{opacity:.8}
+.faq-icon{color:var(--gold);font-size:20px;transition:transform 200ms var(--ease)}
+.faq-icon.open{transform:rotate(45deg)}
+.faq-a{margin:0 0 16px;font-size:14.5px;line-height:1.6;color:var(--sc-ink-soft);max-width:62ch}
+
+/* act 13: the close. The one inversion on the page: gold ground, navy ink.
+   Restating color on the subtree, because the token alone would not re-ink
+   text whose colour already resolved on body. */
+.cut--close{--sc-ink:#1B2A4A;--sc-ink-soft:#5B4A1C;color:var(--sc-ink);background:var(--gold);align-items:center;justify-items:center;text-align:center;min-height:100svh}
+.cut--close h2{color:var(--navy);font-size:clamp(2.2rem,6vw,4.8rem)}
+.cut--close p{color:#5B4A1C;margin-left:auto;margin-right:auto}
+.cut--close .btn-gold{background:var(--navy);color:var(--cream)}
+.cut--close .btn-gold:hover{background:#0B1426}
+.cut--close .btn-line{color:var(--navy);border-color:rgba(27,42,74,.5)}
+.cut--close .btn-line:hover{border-color:var(--navy)}
+.cut--close .hero-ctas{justify-content:center}
+.cut--close ::selection{background:var(--navy);color:var(--gold)}
+footer.colophon{width:100%;margin-top:clamp(36px,8vh,72px);display:flex;flex-wrap:wrap;gap:14px 26px;justify-content:center;font-size:12.5px;color:#5B4A1C}
+footer.colophon a{color:var(--navy);text-decoration:none;font-weight:700}
+footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:pretty;margin:0}
+
+/* ---------- The Deal: six real cards in the chrome layer ---------- */
+#deal{position:fixed;inset:0;z-index:65;pointer-events:none;display:grid;place-items:center;perspective:1200px}
+#deal.is-live{pointer-events:auto}
+#deal:not(.is-live) .hand{visibility:hidden}
+#deal .deal-bg{position:absolute;inset:0;background:rgba(7,14,28,0);transition:background 260ms var(--ease);pointer-events:none}
+#deal.is-open .deal-bg{background:rgba(7,14,28,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);pointer-events:auto}
+.hand{--fan-scale:1;position:relative;width:min(92vw,900px);height:min(70svh,560px);transform-style:preserve-3d}
+.card{position:absolute;left:50%;top:60%;width:min(64vw,300px);aspect-ratio:63/88;margin-left:calc(min(64vw,300px) / -2);margin-top:calc(min(64vw,300px) * 88 / 63 / -1);
+  transform-origin:50% 118%;will-change:transform;
+  background:linear-gradient(160deg,#FFFDF8,#F3EEE0);color:var(--navy);border-radius:16px;padding:18px 18px 16px;
+  box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 22px 44px rgba(0,0,0,.45),0 2px 6px rgba(0,0,0,.3);
+  display:flex;flex-direction:column;gap:10px;user-select:none;touch-action:none;cursor:grab}
+.card:active{cursor:grabbing}
+.card .band{display:flex;align-items:center;justify-content:space-between;font-size:10.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:#7A6A3C}
+.card .band b{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--gold);color:var(--navy);font-size:11px;letter-spacing:0}
+.card h3{font-family:var(--sc-font-display);font-weight:800;font-size:clamp(1.05rem,2.3vw,1.4rem);line-height:1.12;letter-spacing:-.02em;margin:2px 0 0;text-wrap:balance}
+.card .s{font-size:12.5px;line-height:1.45;color:#4A5568;margin:0;text-wrap:pretty}
+.card .fold{margin-top:auto;border-top:1px dashed #C9BE9E;padding-top:8px;font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;color:#9A8B5C;display:flex;justify-content:space-between}
+.card--cta{background:var(--navy);color:var(--cream);border:1.5px solid rgba(232,184,75,.6)}
+.card--cta .band{color:var(--gold)}
+.card--cta h3{color:var(--cream)}
+.card--cta .s{color:var(--sc-ink-soft)}
+.card--cta .go{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--gold);color:var(--navy);font-weight:800;font-size:14px;padding:12px 16px;border-radius:99px;text-decoration:none}
+/* visibility, not just opacity: an invisible Close button was still in the
+   tab order, which is a keyboard user landing on a control they cannot see */
+.deal-ui{position:absolute;left:0;right:0;bottom:max(18px,env(safe-area-inset-bottom));display:flex;justify-content:center;align-items:center;gap:14px;opacity:0;visibility:hidden;transition:opacity 200ms var(--ease),visibility 0s linear 200ms;pointer-events:none}
+#deal.is-open .deal-ui{opacity:1;visibility:visible;transition:opacity 200ms var(--ease),visibility 0s;pointer-events:auto}
+.deal-ui .hint{font-size:12.5px;color:var(--sc-ink-soft)}
+.deal-ui button{background:transparent;color:var(--cream);border:1.5px solid rgba(250,246,238,.35);border-radius:99px;padding:8px 14px;font-weight:800;font-size:12.5px;cursor:pointer;font-family:inherit}
+.sc-grain{position:fixed;inset:0;z-index:66;pointer-events:none;opacity:.045;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+[data-sc-progress]{position:fixed;left:0;top:0;height:2px;width:100%;background:var(--gold);transform-origin:0 50%;transform:scaleX(0);z-index:71;pointer-events:none}
+
+/* small screens: type steps down one rung, cuts keep their proportions */
+@media (max-width:700px){
+  .cut h1{font-size:clamp(2.2rem,11vw,3.2rem)}
+  .cut h2{font-size:clamp(1.7rem,8.5vw,2.6rem)}
+  .cut{padding-left:20px;padding-right:20px}
+  /* tighter spread and smaller cards so the fan clears both edges and the bar */
+  .hand{--fan-scale:.5;height:min(58svh,480px);margin-top:12vh}
+  .card{width:min(56vw,300px);margin-left:calc(min(56vw,300px) / -2);margin-top:calc(min(56vw,300px) * 88 / 63 / -1);top:72%}
 }
-#cineIntro .cine-copy{position:absolute;z-index:20;inset-inline:clamp(20px,6vw,64px);bottom:clamp(2rem,9vh,5rem);max-width:min(92%,52rem)}
-#cineIntro .cine-label{display:block;font-size:11.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--sc-accent);margin-bottom:12px}
-#cineIntro .cine-h{font-size:clamp(2.6rem,10.5vw,6.5rem);font-weight:800;line-height:.98;letter-spacing:-.035em;margin:0;text-wrap:balance}
-#cineIntro .cine-sub{font-size:clamp(.95rem,2.1vw,1.2rem);color:var(--sc-ink-soft);line-height:1.5;margin:clamp(14px,2.2vh,22px) 0 0;max-width:34ch;letter-spacing:0}
-/* Act 2's line is roughly twice the words of the other two; at the full display
-   size it wraps to five lines on a phone and swamps the frame. Stepped down as
-   a modifier rather than an inline style so the scale stays in one place. */
-#cineIntro .cine-h--long{font-size:clamp(2rem,7.4vw,4.6rem);letter-spacing:-.03em}
-#cine-line{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;align-items:center;min-height:2.6rem;
-  padding:12px clamp(20px,6vw,64px);font-family:ui-monospace,"SF Mono",monospace;font-size:.85rem;letter-spacing:.04em;
-  color:var(--sc-accent,#E8B84B);background:rgba(15,28,51,.82);border-top:1px solid rgba(255,255,255,.12);
-  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:1;transition:opacity 420ms cubic-bezier(.23,1,.32,1);pointer-events:none}
-#cine-line.cl-done{opacity:0}
-#cine-line .cl-quote{color:rgba(255,255,255,.45);margin-right:8px}
-@media (max-width:640px){ #cineIntro .cine-copy{max-width:none} }
-
-/* Nav adapts to the material beneath it (apple-design §12). A cream
-   translucent bar over dark photography is both a legibility problem and the
-   "light material stacked on light material" mistake; iOS-style chrome takes
-   its weight from the content under it. Colour-only transition — no transform,
-   nothing that can cost a frame. */
-nav{transition:background 320ms var(--ease),border-color 320ms var(--ease)}
-nav.nav-dark{background:rgba(15,28,51,.66);border-bottom-color:rgba(255,255,255,.13)}
-nav.nav-dark .brand b{color:var(--cream)}
-nav.nav-dark .brand svg path{stroke:var(--cream)}
-nav.nav-dark .brand svg rect{fill:var(--cream)}
-nav.nav-dark .navlinks a{color:#e8eef7}
-nav.nav-dark .langpill{border-color:rgba(255,255,255,.45)}
-nav.nav-dark .langpill button{color:#e8eef7}
-nav.nav-dark .langpill button.on{background:var(--cream);color:var(--navy)}
-nav.nav-dark .btn-navcta{background:var(--gold);color:var(--navy)}
-nav.nav-dark .btn-navcta:hover{background:var(--gold-pale)}
-@media (prefers-reduced-transparency:reduce){
-  nav.nav-dark{background:#0f1c33;backdrop-filter:none}
-}
-@media (prefers-reduced-motion:reduce){ nav{transition:none} }
-
-
-/* Catch-all for reduced motion, matching index.html. The targeted rules above
-   stay -- they express intent for specific pieces -- but an enumerated list only
-   covers what someone remembered to enumerate, and every animation added later
-   silently escapes it. JS-driven motion is untouched: the arena needle is the
-   interaction itself, not decoration. */
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
-}
-
-/* iOS paints a grey flash on tap over the page's own press states. Suppressed
-   only where a real :active state already exists to take its place. */
-.btn,.faq-q,.navburger,.navsheet-close,button,a.btn{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
-/* The FAQ rows were the one control here with no pressed state, so on a phone
-   tapping a question showed nothing until the answer expanded. */
-.faq-q:active{background:rgba(232,184,75,.14);transition-duration:60ms}
-
-/* The closed nav drawer is parked off-screen to the right, which extended the
-   scrollable area and gave the page 73px of sideways scroll on a 375px phone --
-   the whole document could be dragged left, taking the fixed nav with it.
-   `clip` rather than `hidden`: hidden turns the root into a scroll container and
-   can break position:sticky, clip just trims the overflow. hidden is listed
-   first purely as the fallback for engines without clip. */
-html{overflow-x:hidden;overflow-x:clip}
-
-/* ---- Staggered scenario grid -------------------------------------------
-   The cards already animated in on a 100/200ms delay, but landed on a single
-   flat baseline: a three-up auto-fit grid with one uniform gap, which is the
-   exact "default card grid, uniform spacing, no hierarchy" this project's own
-   design rules ban first. The timing was staggered; the composition was not.
-
-   Offsets are deliberately not a staircase (0/48/96) -- that just reads as a
-   tilted row. 0 / 72 / 32 gives the row a rhythm, so the eye moves through the
-   three scenarios instead of scanning them as one block.
-
-   Applied only at >=900px, where auto-fit reliably yields three columns. Below
-   that the grid collapses toward one column and an offset would show up as
-   arbitrary gaps between stacked cards. margin-top (not transform) so the row
-   box grows with the offset and cannot collide with the next section. */
-@media (min-width:900px){
-  .grid-cards > *:nth-child(2){margin-top:72px}
-  .grid-cards > *:nth-child(3){margin-top:32px}
-}
-/* The card had a hover shadow but never moved. Overrides .scen-card.is-in's
-   transform:none, which is why this needs the .is-in in the selector. */
-.scen-card.is-in{transition:opacity 640ms var(--ease),transform 300ms var(--ease),box-shadow 300ms var(--ease)}
-.scen-card.is-in:hover{transform:translateY(-6px)}
-@media (prefers-reduced-motion: reduce){
-  .scen-card.is-in:hover{transform:none}
-}
-
-/* ---- Coverage map -------------------------------------------------------
-   Replaces the .ph placeholder box. Sits on the page's own cream/navy/gold
-   tokens rather than index.html's picker palette, because here it is a figure
-   in a marketing section, not a control in a form. */
-.states-map{background:linear-gradient(160deg,#FBF7EE,#F1EADB);padding:clamp(18px,3vw,34px)}
-.sm2-map{display:block;width:100%;height:auto}
-.sm2{fill:#FFFDF8;stroke:#CFC6AF;stroke-width:1;vector-effect:non-scaling-stroke}
-.sm2--cited{fill:var(--gold);stroke:#B9891C;stroke-width:1.4}
-.sm2-legend{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 26px;
-  margin-top:clamp(14px,2vw,22px);font-size:13px;font-weight:700;color:var(--eyebrow)}
-.sm2-key{display:inline-flex;align-items:center;gap:8px}
-.sm2-sw{width:14px;height:14px;border-radius:4px;background:#FFFDF8;border:1px solid #CFC6AF}
-.sm2-sw--cited{background:var(--gold);border-color:#B9891C}
-
-/* ---- Hero call-to-action pair ------------------------------------------- */
-.hero-ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin:32px 0 22px}
-/* .btn-ghost is a text link elsewhere on this page, so the secondary ask gets
-   its own outlined pill rather than a redefinition that would leak into every
-   other .btn-ghost on the page. */
-/* Hero primary. Not .btn-navcta: that one is sized for the nav bar and is
-   re-coloured to gold inside the dark nav, so borrowing it here would make the
-   hero button change colour for reasons that have nothing to do with the hero. */
-.btn-navy{background:var(--navy);color:var(--cream);font-size:15px;padding:14px 26px;
-  transition:background 200ms var(--ease)}
-.btn-navy:hover{background:var(--navy-deep)}
-.btn-outline{background:#fff;color:var(--navy);font-size:15px;padding:14px 26px;
-  border:1.8px solid var(--navy);transition:background 200ms var(--ease),color 200ms var(--ease)}
-.btn-outline:hover{background:var(--navy);color:var(--cream)}
-/* The arrow nudges on hover rather than the whole button moving, so the two
-   buttons keep a steady shared baseline while still answering the pointer. */
-.cta-arrow{display:inline-block;margin-left:8px;transition:transform 220ms var(--ease)}
-.btn:hover .cta-arrow{transform:translateX(4px)}
-@media (prefers-reduced-motion: reduce){ .btn:hover .cta-arrow{transform:none} }
-@media (max-width:520px){
-  /* Stacked and full-width beats two cramped pills on a narrow phone. */
-  .hero-ctas{flex-direction:column;align-items:stretch}
-  .hero-ctas .btn{width:100%;justify-content:center}
-}
-
-/* ---- Numbered build steps ----------------------------------------------
-   Ported from the rehearse page's checklist, which was the strongest component
-   on the site, and re-palletted from its dark ground to this page's cream.
-
-   Replaces a four-across auto-fit grid. Four equal columns said "four things";
-   a numbered vertical run says "four steps in this order", which is what the
-   section is actually claiming. The rail between the badges carries that order
-   visually so it survives a skim.
-
-   Numbers come from a CSS counter on a real <ol>, so they cannot drift out of
-   sync with the source order the way a hand-written 01/02/03 div can. */
-.how-steps{list-style:none;counter-reset:hw;margin:0 auto;padding:0;max-width:760px;
-  display:flex;flex-direction:column;gap:16px}
-.how-step{counter-increment:hw;position:relative;display:flex;gap:20px;align-items:flex-start;
-  background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px 26px;
-  box-shadow:0 10px 30px rgba(27,42,74,.06);
-  transition:transform 260ms var(--ease),box-shadow 260ms var(--ease)}
-.how-step:hover{transform:translateY(-3px);box-shadow:0 18px 44px rgba(27,42,74,.12)}
-.how-step::before{content:counter(hw);flex:none;width:40px;height:40px;border-radius:50%;
-  background:var(--gold);color:var(--navy);font-weight:800;font-size:17px;
-  display:flex;align-items:center;justify-content:center;
-  font-variant-numeric:tabular-nums;box-shadow:0 4px 12px rgba(232,184,75,.4)}
-/* The rail runs badge-to-badge, so it is drawn from each card except the last.
-   left matches the card's padding plus half the badge, keeping it centred under
-   the number at every width. */
-.how-step:not(:last-child)::after{content:"";position:absolute;left:46px;top:64px;
-  width:2px;height:calc(100% - 48px);background:linear-gradient(var(--gold),rgba(232,184,75,.15))}
-.how-step h3{font-size:18.5px;font-weight:800;color:var(--navy);margin:6px 0 8px;line-height:1.25}
-.how-step p{font-size:15px;color:var(--body);line-height:1.6;margin:0}
-@media (prefers-reduced-motion: reduce){ .how-step:hover{transform:none} }
-@media (max-width:560px){
-  .how-step{gap:14px;padding:20px 18px;border-radius:16px}
-  .how-step::before{width:34px;height:34px;font-size:15px}
-  .how-step:not(:last-child)::after{left:35px;top:56px;height:calc(100% - 42px)}
+  #deal .deal-bg{transition:none}
 }
 </style>
+
 </head>
 <body>
-
-<nav>
-  <a href="#top" class="brand">
-    <svg viewBox="0 0 120 120" width="32" height="32"><circle cx="60" cy="72" r="28" fill="none" stroke="#E8B84B" stroke-width="12"/><rect x="48" y="56" width="24" height="32" rx="4" fill="#1B2A4A"/><path d="M12 62 L60 18 L108 62" fill="none" stroke="#1B2A4A" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <b>Amparo</b>
+<nav class="bar" aria-label="Main navigation">
+  <a class="brand" href="/" aria-label="Amparo home">
+    <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="72" r="28" fill="none" stroke="#E8B84B" stroke-width="12"/><rect x="48" y="56" width="24" height="32" rx="4" fill="#FAF6EE"/><path d="M12 62 L60 18 L108 62" fill="none" stroke="#FAF6EE" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>Amparo</span>
   </a>
   <div class="navlinks" id="navLinks"></div>
   <div class="navright">
-    <div class="langpill">
-      <button id="langEN" class="on" onclick="setLang('en')">EN</button>
-      <button id="langES" onclick="setLang('es')">ES</button>
+    <div class="langpill" role="group" aria-label="Language">
+      <button type="button" id="langEN" onclick="setLang('en')" aria-pressed="true">EN</button>
+      <button type="button" id="langES" onclick="setLang('es')" aria-pressed="false">ES</button>
     </div>
-    <button class="navburger" id="navBurger" type="button" aria-expanded="false"
-            aria-controls="navSheet" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <button type="button" class="btn btn-deal" id="dealTrigger" aria-controls="deal" aria-expanded="false"><span class="n" aria-hidden="true">6</span><span class="t">Your six cards</span></button>
+    <a class="btn btn-navcta" id="navCta" href="/arena/">Practice a stop</a>
+    <button type="button" class="navburger" id="navBurger" aria-label="Open menu" aria-controls="navSheet" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </nav>
-
-<div class="navscrim" id="navScrim"></div>
+<div class="navscrim" id="navScrim" aria-hidden="true"></div>
 <aside class="navsheet" id="navSheet" aria-label="Menu">
   <div class="navsheet-head">
-    <span id="navSheetLabel">Menu</span>
-    <button class="navsheet-close" id="navClose" type="button" aria-label="Close menu">&times;</button>
+    <span class="navSheetLabel" id="navSheetLabel">Menu</span>
+    <button type="button" class="navsheet-close" id="navClose" aria-label="Close menu">×</button>
   </div>
   <nav class="navsheet-links" id="navSheetLinks" aria-labelledby="navSheetLabel"></nav>
   <div class="navsheet-foot">
-    <div class="langpill">
-      <button id="langENSheet" class="on" onclick="setLang('en')">EN</button>
-      <button id="langESSheet" onclick="setLang('es')">ES</button>
+    <div class="langpill" role="group" aria-label="Language">
+      <button type="button" id="langENSheet" onclick="setLang('en')">EN</button>
+      <button type="button" id="langESSheet" onclick="setLang('es')">ES</button>
     </div>
     <a class="btn btn-navcta" id="navSheetCta" href="/arena/">Practice a stop</a>
   </div>
 </aside>
 
-<div id="cineIntro">
-  <span data-sc-progress></span>
-  <section id="cineAct1" data-sc-act="pin" data-sc-span="1.8" data-sc-drift="#0f1c33">
-    <div data-sc-stage>
-      <img class="cine-frame cine-frame--start" id="f1a" alt="">
-      <img class="cine-frame cine-frame--end" id="f1b" alt="" aria-hidden="true">
-      <div style="position:absolute;inset:0;background:linear-gradient(to top,#0f1c33 0%,rgba(15,28,51,.72) 26%,rgba(15,28,51,.18) 52%,transparent 70%)" aria-hidden="true"></div>
-      <div class="cine-copy" id="cineCopy1">
-        <span class="cine-label" id="cineLabel1"></span>
-        <h1 class="cine-h" data-sc-kinetic="lines" data-sc-cue="0 1 0 0" id="cineH1"></h1>
-        <p class="cine-sub" id="cineSub1"></p>
-      </div>
-    </div>
-  </section>
-  <section id="cineAct2" data-sc-act="pin" data-sc-span="1.7" data-sc-drift="#1B2A4A">
-    <div data-sc-stage>
-      <img class="cine-frame cine-frame--start" id="f2a" alt="">
-      <img class="cine-frame cine-frame--end" id="f2b" alt="" aria-hidden="true">
-      <div style="position:absolute;inset:0;background:linear-gradient(to top,#0f1c33 0%,rgba(15,28,51,.68) 28%,rgba(15,28,51,.15) 54%,transparent 70%)" aria-hidden="true"></div>
-      <div class="cine-copy" id="cineCopy2">
-        <h2 class="cine-h cine-h--long" data-sc-kinetic="lines" data-sc-cue="0.5 1 0.18" id="cineH2"></h2>
-        <p class="cine-sub" id="cineSub2"></p>
-      </div>
-    </div>
-  </section>
-  <section id="cineAct3" data-sc-act="pin" data-sc-span="2.3" data-sc-drift="#0f1c33">
-    <div data-sc-stage>
-      <img class="cine-frame cine-frame--start" id="f3a" alt="">
-      <img class="cine-frame cine-frame--end" id="f3b" alt="" aria-hidden="true">
-      <div style="position:absolute;inset:0;background:linear-gradient(to top,#0f1c33 0%,rgba(15,28,51,.7) 27%,rgba(15,28,51,.16) 53%,transparent 68%)" aria-hidden="true"></div>
-      <div class="cine-copy" id="cineCopy3">
-        <h2 class="cine-h" data-sc-kinetic="lines" data-sc-cue="0.5" id="cineH3"></h2>
-        <p class="cine-sub" id="cineSub3"></p>
-      </div>
-    </div>
-  </section>
-  <div class="sc-grain" aria-hidden="true"></div>
+<span data-sc-progress></span>
+<div class="sc-grain" aria-hidden="true"></div>
+<div id="deal" aria-label="Your six cards">
+  <div class="deal-bg" aria-hidden="true"></div>
+  <div class="hand" id="hand"></div>
+  <div class="deal-ui"><span class="hint" id="dealHint"></span><button type="button" id="dealClose">Close</button></div>
 </div>
-<div id="cine-line" aria-hidden="true"><span class="cl-quote">&ldquo;</span><span id="cineLineWords"></span></div>
-
-
-
-<div id="top"></div>
 <main id="app"></main>
 
-<!-- Shared state geometry, same file index.html draws its picker map from, so
-     the two maps can never drift apart. Plain tag above the script that reads
-     it: window.AmparoPaths must exist before the first render. -->
 <script src="/us-paths.js?v=2026-09-02a"></script>
 
 <script>
@@ -727,7 +320,7 @@ const EN = {
   scenNotBuilt:"Not built yet",
   heroEyebrow:"Know your rights · Conoce tus derechos",
   heroTitle:"Know your rights is not enough. Practice them.",
-  heroSub:"A free bilingual resource for drivers. Practice police encounter scenarios out loud, then print six cards built from your own state's laws — your license and insurance, the rules where you drive, what to say, and how to reach a lawyer who takes your call.",
+  heroSub:"A free bilingual resource for drivers. Practice police encounter scenarios out loud, then print six cards built from your own state's laws: your license and insurance, the rules where you drive, what to say, and how to reach a lawyer who takes your call.",
   heroCta:"Start practicing", heroCtaReturn:"Continue practicing", heroSecondary:"Just print the cards",
   trustLine:"Free. Everything stays on this phone unless you choose to save your cards to an optional free account. Photos and practice history never upload.",
   arenaEyebrow:"Practice Arena", arenaTitle:"Now rehearse it.",
@@ -800,14 +393,34 @@ const EN = {
   ],
   footerDisclaimer:"Amparo provides general legal information, not legal advice. Every rule is cited to the exact state statute so you can check it yourself; formal attorney sign-off per state is in progress. Phone numbers verified July 16, 2026.",
   footerCopyright:"© 2026 Amparo · Pilot edition · General legal information, not legal advice · Every rule cited to state statute · Attorney sign-off in progress · Numbers verified 7/16/2026",
-  finalTitle:"Practice the stop before it happens.", finalSub:"Free scenario practice, and free bilingual cards — both ready before you need them.", finalBtn:"Practice a stop"
+  finalTitle:"Practice the stop before it happens.", finalSub:"Free scenario practice, and free bilingual cards — both ready before you need them.", finalBtn:"Practice a stop",
+
+  cut1:"Lights in the mirror.", cut1s:"Every driver has felt this exact half-second.",
+  cut3:"The danger is not the badge.", cut3s:"It is your own mind going blank.",
+  cut4:"The words come without thinking.", cut4s:"Because you practiced them first.",
+  cut5eye:"A real turn from the Arena",
+  cut7:"Your six cards.", cut7s:"Fanned out of the header. Flick through them.",
+  cut8:"Your license and insurance, printed in.", cut8s:"The window card faces the officer. Your hands stay on the wheel.",
+  cut10:"Nothing leaves your phone.", cut10s:"No account by default. Photos never upload.",
+  cut11:"Cada tarjeta, cada pantalla, en los dos idiomas.", cut11s:"Toca EN o ES arriba. Todo cambia.",
+  cut12:"Print more. Give one away.", cut12s:"Put your name on it. That is what makes it travel.",
+  dealTrigger:"Your six cards", dealClose:"Close", dealHint:"Flick the front card to deal it away",
+  dealPrint:"Just print the cards", dealCards:[
+    {n:"1", h:"If you get pulled over", s:"Hazards on. Engine off. Hands at 10 and 2."},
+    {n:"2", h:"Window card", s:"Faces the officer. I am cooperating. My documents are displayed."},
+    {n:"3", h:"Wallet card", s:"Three rights, folded. Your emergency contact on the back."},
+    {n:"4", h:"Your script and their info", s:"Every word to say. Space for badge and car number."},
+    {n:"5", h:"Family emergency plan", s:"Who to call, in what order. Stays at home."},
+    {n:"6", h:"The case starts now", s:"What to write down in the first hour. Stays at home."}
+  ],
+  closeTitle:"Practice the stop before it happens.", closeSub:"Free scenario practice, and free bilingual cards. Both ready before you need them."
 };
 const ES = {
   navPractice:"Practicar", navRehearse:"Ensayar", navAid:"Buscar ayuda", navHow:"Crear las tarjetas", navWhat:"Qué incluye", navPrivacy:"Privacidad", navFaq:"Preguntas", navCta:"Practicar una parada",
   scenNotBuilt:"Aún no disponible",
   heroEyebrow:"Know your rights · Conoce tus derechos",
   heroTitle:"Conocer tus derechos no basta. Practícalos.",
-  heroSub:"Un recurso bilingüe gratuito para conductores. Practica en voz alta escenarios de encuentros con la policía, y luego imprime seis tarjetas creadas a partir de las leyes de tu propio estado — tu licencia y seguro, las reglas donde manejas, qué decir y cómo comunicarte con un abogado que conteste tu llamada.",
+  heroSub:"Un recurso bilingüe gratuito para conductores. Practica en voz alta escenarios de encuentros con la policía, y luego imprime seis tarjetas creadas a partir de las leyes de tu propio estado: tu licencia y seguro, las reglas donde manejas, qué decir y cómo comunicarte con un abogado que conteste tu llamada.",
   heroCta:"Empezar a practicar", heroCtaReturn:"Seguir practicando", heroSecondary:"Solo imprimir las tarjetas",
   trustLine:"Gratis. Todo se queda en este teléfono, salvo que elijas guardar tus tarjetas en una cuenta gratuita opcional. Las fotos y el historial de práctica nunca se suben.",
   arenaEyebrow:"Arena de Práctica", arenaTitle:"Ahora ensáyalo.",
@@ -880,7 +493,27 @@ const ES = {
   ],
   footerDisclaimer:"Amparo ofrece información legal general, no asesoría legal. Cada regla cita el artículo exacto de la ley estatal para que usted mismo lo verifique; la revisión formal por un abogado en cada estado está en curso. Números verificados el 16 de julio de 2026.",
   footerCopyright:"© 2026 Amparo · Edición piloto · Información legal general, no asesoría legal · Cada regla citada a la ley estatal · Revisión por abogado en curso · Números verificados 16/7/2026",
-  finalTitle:"Practica la parada antes de que pase.", finalSub:"Práctica de escenarios gratis, y tarjetas bilingües gratis — ambos listos antes de que los necesites.", finalBtn:"Practicar una parada"
+  finalTitle:"Practica la parada antes de que pase.", finalSub:"Práctica de escenarios gratis, y tarjetas bilingües gratis — ambos listos antes de que los necesites.", finalBtn:"Practicar una parada",
+
+  cut1:"Luces en el espejo.", cut1s:"Todo conductor ha sentido este medio segundo exacto.",
+  cut3:"El peligro no es la placa.", cut3s:"Es tu propia mente quedándose en blanco.",
+  cut4:"Las palabras salen sin pensar.", cut4s:"Porque las practicaste primero.",
+  cut5eye:"Un turno real de la Arena",
+  cut7:"Tus seis tarjetas.", cut7s:"Salen del encabezado. Pásalas con el dedo.",
+  cut8:"Tu licencia y seguro, impresos.", cut8s:"La tarjeta de ventana mira al oficial. Tus manos siguen en el volante.",
+  cut10:"Nada sale de tu teléfono.", cut10s:"Sin cuenta por defecto. Las fotos nunca se suben.",
+  cut11:"Every card, every screen, in both languages.", cut11s:"Tap EN or ES above. Everything switches.",
+  cut12:"Imprime más. Regala una.", cut12s:"Pon tu nombre. Eso es lo que la hace llegar.",
+  dealTrigger:"Tus seis tarjetas", dealClose:"Cerrar", dealHint:"Desliza la tarjeta del frente para repartirla",
+  dealPrint:"Solo imprimir las tarjetas", dealCards:[
+    {n:"1", h:"Si te detiene la policía", s:"Intermitentes. Motor apagado. Manos a las 10 y 2."},
+    {n:"2", h:"Tarjeta de ventana", s:"Mira al oficial. Estoy cooperando. Mis documentos están a la vista."},
+    {n:"3", h:"Tarjeta de cartera", s:"Tres derechos, doblada. Tu contacto de emergencia atrás."},
+    {n:"4", h:"Tu guion y sus datos", s:"Cada palabra que decir. Espacio para placa y patrulla."},
+    {n:"5", h:"Plan familiar de emergencia", s:"A quién llamar y en qué orden. Se queda en casa."},
+    {n:"6", h:"El caso empieza ahora", s:"Qué anotar en la primera hora. Se queda en casa."}
+  ],
+  closeTitle:"Practica la parada antes de que pase.", closeSub:"Práctica de escenarios gratis, y tarjetas bilingües gratis. Ambas listas antes de que las necesites."
 };
 
 /* Verbatim from arena/index.html:725-744 — in attorney review, do not rewrite. */
@@ -955,73 +588,6 @@ function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
    references that no longer exist. Driven here instead: a one-shot clip-path
    wipe on entry (IntersectionObserver) plus a continuous parallax of the image
    inside its own frame (rAF, transform only). Re-armed after each render. */
-var scenIo = null, scenRaf = null, scenRevealed = false, scenOnScroll = null;
-function armScenCards(){
-  var cards = document.querySelectorAll('#arena .scen-card');
-  if (!cards.length) return;
-  if (scenIo) scenIo.disconnect();
-
-  if ('IntersectionObserver' in window) {
-    scenIo = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if (!e.isIntersecting) return;
-        e.target.classList.add('is-in');
-        // Once seen, later re-renders emit the cards already revealed, so a
-        // language toggle mid-page doesn't replay every card animation.
-        scenRevealed = true;
-        scenIo.unobserve(e.target);
-      });
-    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.15 });
-    cards.forEach(function(c){ scenIo.observe(c); });
-  } else {
-    cards.forEach(function(c){ c.classList.add('is-in'); });
-    scenRevealed = true;
-  }
-
-  // Backstop: if the observer somehow never fires (odd viewport maths, a
-  // browser quirk), the cards must not stay at opacity 0 forever. Anything
-  // still unrevealed after 1.5s is shown outright.
-  setTimeout(function(){
-    document.querySelectorAll('#arena .scen-card:not(.is-in)').forEach(function(c){
-      c.classList.add('is-in');
-    });
-  }, 1500);
-
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var imgs = document.querySelectorAll('#arena .scen-media img');
-  if (!imgs.length) return;
-
-  function paint(){
-    var vh = window.innerHeight;
-    for (var i = 0; i < imgs.length; i++){
-      var frame = imgs[i].parentElement;
-      var r = frame.getBoundingClientRect();
-      if (r.bottom < 0 || r.top > vh) continue;   // offscreen: don't touch it
-      // -0.5 .. 0.5 as the card crosses the viewport. The frame hides 6% of the
-      // image top and bottom, so ±10px never exposes an edge.
-      var p = (r.top + r.height / 2 - vh / 2) / vh;
-      imgs[i].style.transform = 'translate3d(0,' + (p * -10).toFixed(2) + 'px,0)';
-    }
-  }
-  // Driven by scroll, coalesced into one frame, instead of a rAF loop spinning
-  // for the life of the page: the earlier version kept requesting frames even
-  // with the section miles offscreen. Listener is rebound per render() and the
-  // previous one removed, so repeated renders can't stack handlers.
-  if (scenOnScroll){
-    window.removeEventListener('scroll', scenOnScroll);
-    window.removeEventListener('resize', scenOnScroll);
-  }
-  var ticking = false;
-  scenOnScroll = function(){
-    if (ticking) return;
-    ticking = true;
-    scenRaf = requestAnimationFrame(function(){ paint(); ticking = false; });
-  };
-  window.addEventListener('scroll', scenOnScroll, { passive: true });
-  window.addEventListener('resize', scenOnScroll, { passive: true });
-  paint();   // set the resting offsets immediately, don't wait for a scroll
-}
-
 function renderNav(c){
   // One source of truth for both the bar and the sheet. Two hand-maintained
   // lists is how a link gets added to the desktop nav and silently never
@@ -1135,358 +701,256 @@ function renderNav(c){
   });
 })();
 
-function renderDemoPhone(c){
-  const dTurn = currentTurn();
-  const heatColor = demo.heat > 60 ? '#e07a5f' : '#E8B84B';
-  const mood = demo.heat > 60 ? c.demoMoodTense : c.demoMoodCalm;
-  let body = '';
-  if (!demo.on){
-    body = '<div class="demo-idle">'+
-      '<p class="demo-scene">'+esc(c.demoScene)+'</p>'+
-      '<p class="demo-note">'+esc(c.demoStartNote)+'</p>'+
-      '<button class="btn btn-gold" onclick="demoStart()">'+esc(c.demoStartLabel)+' →</button>'+
-      '</div>';
-  } else if (!demo.done){
-    const isLast = !demo.branch && demo.t === DEMO_TURNS.length-1;
-    let choicesHtml = dTurn.c.map((ch,i)=>{
-      let cls = 'choice';
-      let disabled = '';
-      if (demo.picked >= 0){
-        disabled = 'disabled';
-        if (demo.picked === i) cls += ch.p===1?' good':ch.p===0?' warn':' bad';
-        else cls += ' dim';
-      }
-      return '<button class="'+cls+'" '+disabled+' onclick="demoPick('+i+')">'+esc(ch.t[lang])+'</button>';
-    }).join('');
-    let feedbackHtml = '';
-    if (demo.picked >= 0){
-      const picked = dTurn.c[demo.picked];
-      const fkind = picked.p===1?'good':picked.p===0?'warn':'bad';
-      feedbackHtml = '<div class="feedback '+fkind+'">'+esc(picked.f[lang])+'</div>'+
-        '<button class="btn-next" onclick="demoNext()">'+esc(isLast?c.demoResultsLabel:c.demoNextLabel)+' →</button>';
-    }
-    body = '<div class="officer-row"><div class="officer-label">'+esc(c.demoOfficerLabel)+'</div>'+
-      '<div class="officer-line">'+esc(dTurn.o[lang])+'</div></div>'+
-      '<div class="choices">'+choicesHtml+'</div>'+feedbackHtml;
-  } else {
-    body = '<div class="demo-done">'+
-      '<div class="demo-done-title">'+esc(c.demoDoneTitle)+'</div>'+
-      '<div class="score-pill">'+(lang==='en'?'Safe answers: ':'Respuestas seguras: ')+demo.score+(lang==='en'?' of ':' de ')+demo.scored+'</div>'+
-      '<p class="demo-done-note">'+esc(c.demoDoneNote)+'</p>'+
-      '<a class="done-cta" href="https://www.amparohq.com/arena" target="_blank" rel="noopener">'+esc(c.demoDoneCta)+' →</a>'+
-      '<button class="restart-link" onclick="demoRestart()">'+esc(c.demoRestartLabel)+'</button>'+
-      '</div>';
-  }
-  const dots = DEMO_TURNS.map((_,i)=>{
-    const cur = i===demo.t && !demo.done;
-    const doneDot = i<demo.t || demo.done;
-    return '<div class="dot" style="background:'+(cur?'#F3D48A':doneDot?'rgba(243,212,138,.55)':'rgba(255,255,255,.22)')+'"></div>';
-  }).join('');
-
-  return '<div class="demo-wrap"><div class="demo-glow" aria-hidden="true"></div>'+
-    '<div class="demo-inner"><div class="phone"><div class="screen">'+
-    '<div class="screen-head"><span class="screen-title">'+esc(c.demoTitle)+'</span><span class="mood">'+esc(mood)+'</span></div>'+
-    '<div class="heat-track"><div class="heat-fill" style="width:'+demo.heat+'%;background:'+heatColor+'"></div></div>'+
-    body+
-    '<div class="dots">'+dots+'</div>'+
-    '</div></div>'+
-    '<p class="demo-caption">'+esc(c.demoCaption)+'</p>'+
-    '<p class="demo-state-note">'+esc(c.demoStateNote)+'</p>'+
-    '</div></div>';
+/* ---------------- render ---------------- */
+/* Shadows the shared esc(): the copy objects carry em dashes throughout, and
+   an em dash on screen is a ship-blocker here. A comma is the least damaging
+   stand-in for an interrupting dash; a dash that introduced a list already
+   reads with a comma. Source strings untouched, so the app keeps its own. */
+function esc(s){ return String(s).replace(/\s*—\s*/g, ', ').replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+function faceHtml(card, cls, extra){
+  return '<article class="card '+(cls||'')+'" '+(extra||'')+'>'+
+    '<div class="band"><span>Amparo</span><b>'+esc(card.n)+'</b></div>'+
+    '<h3>'+esc(card.h)+'</h3><p class="s">'+esc(card.s)+'</p>'+
+    '<div class="fold"><span>EN · ES</span><span>'+esc(card.n)+' / 6</span></div>'+
+  '</article>';
 }
-
 function render(){
   const c = t();
   renderNav(c);
-
+  const dt = document.getElementById('dealTrigger'); if (dt) dt.querySelector('.t').textContent = c.dealTrigger;
+  const nc = document.getElementById('navCta'); if (nc && c.navCta) nc.textContent = c.navCta;
   const heroCtaLabel = returning ? c.heroCtaReturn : c.heroCta;
   const shareWaUrl = 'https://wa.me/?text='+encodeURIComponent(c.shareMsg);
   const shareSmsUrl = 'sms:?&body='+encodeURIComponent(c.shareMsg);
-
-  // Keyed by index, NOT stored on the EN/ES scenario objects: an asset path is
-  // not copy, and duplicating it per locale is how the two arrays drift.
-  // Index 2 ("At your door") is intentionally imageless — see .scen-media--empty.
-  const SCEN_MEDIA = ['/new/assets/card1-stop.webp', '/new/assets/card2-checkpoint.webp', null];
-  const scenariosHtml = c.arenaScenarios.map(function(s, i){
-    const src = SCEN_MEDIA[i];
-    // alt="" is correct here: the <h3> immediately below names the scenario, so
-    // describing the photo again is redundant screen-reader noise.
-    const media = src
-      ? '<div class="scen-media"><img src="'+src+'" alt="" loading="lazy" width="900" height="506"></div>'
-      // aria-hidden stays: the badge and <h3> below already tell a screen
-      // reader this scenario is coming soon, so the label is a visual cue for
-      // sighted users who would otherwise read the panel as a broken image.
-      : '<div class="scen-media scen-media--empty" aria-hidden="true" data-label="'+esc(c.scenNotBuilt)+'"></div>';
-    return '<div class="scen-card'+(scenRevealed ? ' is-in' : '')+'">'+media+
-      '<span class="badge '+(s.live?'badge-live':'badge-soon')+'">'+esc(s.statusLabel)+'</span>'+
-      '<h3>'+esc(s.title)+'</h3><p>'+esc(s.desc)+'</p></div>';
-  }).join('');
-  const chipsHtml = c.arenaChips.map(ch=>'<span class="chip">'+esc(ch)+'</span>').join('');
-  // A real <ol>: these four are a sequence, so the numbering is information and
-  // belongs in the markup rather than being painted on with a .step-num div.
-  // Counter comes from CSS, so the number can never disagree with the order.
-  const stepsHtml = c.steps.map(s=>
-    '<li class="how-step"><div class="how-body"><h3>'+esc(s.title)+'</h3><p>'+esc(s.desc)+'</p></div></li>').join('');
-  const itemsHtml = c.packItems.map(it=>
-    '<div class="item"><div class="dot-mark"></div><div><h3>'+esc(it.label)+'</h3><p>'+esc(it.desc)+'</p></div></div>').join('');
-  const privacyChipsHtml = c.privacyChips.map(ch=>'<span class="chip chip-dark">'+esc(ch)+'</span>').join('');
-  const orgPointsHtml = c.orgPoints.map(pt=>'<div class="pt"><div class="dot-mark"></div><p>'+esc(pt)+'</p></div>').join('');
+  const turn = DEMO_TURNS[0], reply = turn.c[0];
+  const L = lang==='es'?'es':'en';
   const faqHtml = c.faq.map((item,i)=>{
     const open = openFaq === i;
-    return '<div class="faq-item"><button class="faq-q" onclick="toggleFaq('+i+')">'+
-      '<span>'+esc(item.q)+'</span><span class="faq-icon'+(open?' open':'')+'">+</span></button>'+
-      (open ? '<p class="faq-a">'+esc(item.a)+'</p>' : '')+
-      '</div>';
+    return '<div class="faq-item"><button class="faq-q" onclick="toggleFaq('+i+')" aria-expanded="'+(open?'true':'false')+'">'+
+      '<span>'+esc(item.q)+'</span><span class="faq-icon'+(open?' open':'')+'" aria-hidden="true">+</span></button>'+
+      (open ? '<p class="faq-a">'+esc(item.a)+'</p>' : '')+'</div>';
   }).join('');
 
   document.getElementById('app').innerHTML =
-    '<section class="hero">'+
-      '<div class="hero-eyebrow">'+esc(c.heroEyebrow)+'</div>'+
-      '<h2 class="hero-h">'+esc(c.heroTitle)+'</h2>'+
-      '<p class="hero-sub">'+esc(c.heroSub)+'</p>'+
-      /* Hero CTAs restored. They were removed when the top of the page was
-         purely the cinematic run and the first ask lived in #arena; the hero now
-         states the thesis in words, so it needs somewhere to send you. The two
-         asks are the two real ways in: rehearse, or skip straight to printing.
-         The arrow is markup, not copy, so it never reaches a translator. */
-      '<div class="hero-ctas">'+
-        '<a class="btn btn-navy" href="/arena/">'+esc(heroCtaLabel)+'</a>'+
-        '<a class="btn btn-outline" href="/pack">'+esc(c.heroSecondary)+'<span class="cta-arrow" aria-hidden="true">→</span></a>'+
-      '</div>'+
-      '<p class="trust">'+esc(c.trustLine)+'</p>'+
+    /* 1 · recognition */
+    '<section class="cut cut--lead" data-sc-act="flow" style="--h:0.9;background:#0B1426">'+
+      '<div class="plate"><picture><source media="(max-width:700px)" srcset="/new/assets/act2-mirror.webp"><img src="/new/assets/c2-start.webp" width="1600" height="900" alt="" fetchpriority="high"></picture></div>'+
+      '<div class="scrim-lead" aria-hidden="true"></div>'+
+      '<div class="copy" data-sc-cue="0 0.55 0"><h1>'+esc(c.cut1)+'</h1><p>'+esc(c.cut1s)+'</p></div>'+
     '</section>'+
-
-    renderDemoPhone(c)+
-
-    '<section id="arena" class="section-tight wrap">'+
-      '<div class="center-head"><div class="eyebrow">'+esc(c.arenaEyebrow)+'</div><h2 class="h2">'+esc(c.arenaTitle)+'</h2><p class="sub">'+esc(c.arenaSub)+'</p></div>'+
-      '<div class="grid-cards">'+scenariosHtml+'</div>'+
-      '<div class="chips">'+chipsHtml+'</div>'+
-      '<div class="center-cta"><p>'+esc(c.arenaSafety)+'</p><div class="row">'+
-        '<a class="btn btn-arena" href="https://www.amparohq.com/arena" target="_blank" rel="noopener">'+esc(c.arenaCta)+' →</a>'+
-        '<a class="btn btn-ghost" style="padding:0" href="https://www.amparohq.com/about" target="_blank" rel="noopener">'+esc(c.arenaLink)+'</a>'+
-      '</div></div>'+
+    /* 2 · the claim */
+    '<section class="cut cut--trail" id="top" data-sc-act="flow" style="--h:1;background:#101B33">'+
+      '<div class="copy" data-sc-in data-sc-stagger="60"><div class="eyebrow">'+esc(c.heroEyebrow)+'</div><h2>'+esc(c.heroTitle)+'</h2><p>'+esc(c.heroSub)+'</p>'+
+        '<div class="hero-ctas"><a class="btn btn-gold" href="/arena/">'+esc(heroCtaLabel)+'</a><a class="btn btn-line" href="/pack">'+esc(c.heroSecondary)+'</a></div>'+
+        '<p class="trust">'+esc(c.trustLine)+'</p></div>'+
     '</section>'+
-
-    '<section id="how" class="section-tight wrap">'+
-      '<div class="center-head"><div class="eyebrow">'+esc(c.howEyebrow)+'</div><h2 class="h2">'+esc(c.howTitle)+'</h2><p class="sub">'+esc(c.howSub)+'</p></div>'+
-      '<ol class="how-steps">'+stepsHtml+'</ol>'+
+    /* 3 · the cost */
+    '<section class="cut cut--lead" data-sc-act="flow" style="--h:1;background:#0B1426">'+
+      '<figure class="plate" data-sc-reveal="up" data-sc-reveal-at="0.05 0.45"><img src="/new/assets/c2-end.webp" width="1600" height="900" alt="" loading="lazy"></figure>'+
+      '<div class="scrim-lead" aria-hidden="true"></div>'+
+      '<div class="copy" data-sc-cue="0.2 0.7"><h2>'+esc(c.cut3)+'</h2><p>'+esc(c.cut3s)+'</p></div>'+
     '</section>'+
-
-    '<section class="section-tight wrap"><div class="pack-visual"><div class="ph">printed cards — window card + documents</div></div></section>'+
-
-    '<section id="what" class="section-tight wrap">'+
-      '<div class="center-head" style="margin-bottom:56px"><div class="eyebrow">'+esc(c.whatEyebrow)+'</div><h2 class="h2">'+esc(c.whatTitle)+'</h2><p class="sub">'+esc(c.whatNote)+'</p></div>'+
-      '<div class="items">'+itemsHtml+'</div>'+
-      '<div style="text-align:center;margin-top:56px;display:flex;flex-direction:column;align-items:center;gap:14px">'+
-        '<span class="price-pill">'+esc(c.priceLine)+'</span><span class="printer-line">'+esc(c.printerLine)+'</span>'+
-      '</div>'+
+    /* 4 · the turn */
+    '<section class="cut cut--trail" data-sc-act="flow" style="--h:0.9;background:#16223A">'+
+      '<div class="plate"><img src="/new/assets/c3-end.webp" width="1600" height="900" alt="" loading="lazy"></div>'+
+      '<div class="scrim-trail" aria-hidden="true"></div>'+
+      '<div class="copy" data-sc-cue="0.08 0.6"><h2>'+esc(c.cut4)+'</h2><p>'+esc(c.cut4s)+'</p></div>'+
     '</section>'+
-
-    '<section id="privacy" class="privacy"><div class="privacy-inner">'+
-      '<div class="eyebrow">'+esc(c.privacyEyebrow)+'</div><h2 class="h2">'+esc(c.privacyTitle)+'</h2>'+
-      '<p class="privacy-body">'+esc(c.privacyBody)+'</p>'+
-      '<div class="chips">'+privacyChipsHtml+'</div>'+
-      '<p class="offline-line">'+esc(c.offlineLine)+'</p>'+
-    '</div></section>'+
-
-    '<section id="bilingual" class="wrap bilingual">'+
-      '<div class="bl-toggle"><div class="pair"><span class="'+(lang==='en'?'on':'')+'">EN</span><span class="'+(lang==='es'?'on':'')+'">ES</span></div></div>'+
-      '<div><div class="eyebrow">'+esc(c.bilingualEyebrow)+'</div><h2 class="h2" style="font-size:clamp(28px,4vw,40px)">'+esc(c.bilingualTitle)+'</h2><p class="sub" style="font-size:16.5px">'+esc(c.bilingualBody)+'</p></div>'+
+    /* 5 · proof: one real turn */
+    '<section class="cut cut--lead" id="arena" data-sc-act="flow" style="--h:1;background:#0B1426">'+
+      '<div class="copy turn" data-sc-in data-sc-stagger="40"><div class="eyebrow">'+esc(c.cut5eye)+'</div>'+
+        '<div class="who">'+esc(c.demoOfficerLabel||'Officer')+'</div><p class="o">'+esc(turn.o[L])+'</p>'+
+        '<div class="who">'+(L==='es'?'Tú':'You')+'</div><p class="r">'+esc(reply.t[L])+'</p>'+
+        '<p class="f">'+esc(reply.f[L])+'</p>'+
+        '<div class="hero-ctas"><a class="btn btn-line" href="/arena/">'+esc(c.arenaCta)+'</a></div></div>'+
     '</section>'+
-
-    '<section id="states" class="section-tight wrap">'+
-      '<div class="center-head"><div class="eyebrow">'+esc(c.stateEyebrow)+'</div><h2 class="h2">'+esc(c.stateTitle)+'</h2><p class="sub" style="margin-bottom:8px">'+esc(c.stateSub)+'</p><p style="font-size:14px;color:var(--body);margin:0">'+esc(c.stateNote)+'</p></div>'+
-      statesMapHtml(c)+
+    /* 6 · silence, authored (see BRIEF.md) */
+    '<section class="cut" data-sc-act="flow" data-sc-silence="true" aria-hidden="true" style="--h:0.7;background:#070E1C"></section>'+
+    /* 7 · PEAK: the deal lives in the chrome; this is the plate it lands on */
+    '<section class="cut cut--top" id="deal-act" data-sc-act="flow" style="--h:2;background:#070E1C">'+
+      '<div class="plate"><picture><source media="(max-width:700px)" srcset="/new/assets/glovebox-m.webp"><img src="/new/assets/glovebox.webp" width="1920" height="1067" alt="" loading="lazy"></picture></div>'+
+      '<div class="copy" data-sc-cue="0 0.3"><h2>'+esc(c.cut7)+'</h2><p>'+esc(c.cut7s)+'</p></div>'+
     '</section>'+
-
-    '<section id="share" class="section-tight share">'+
-      '<div class="eyebrow">'+esc(c.shareEyebrow)+'</div><h2 class="h2" style="font-size:clamp(28px,4vw,40px)">'+esc(c.shareTitle)+'</h2>'+
-      '<p class="sub" style="max-width:560px;margin:0 auto 28px">'+esc(c.shareBody)+'</p>'+
-      '<div class="row">'+
-        '<a class="btn-share-wa" href="'+shareWaUrl+'" target="_blank" rel="noopener">'+esc(c.shareWhatsApp)+'</a>'+
-        '<a class="btn-share-sms" href="'+shareSmsUrl+'">'+esc(c.shareSms)+'</a>'+
-      '</div>'+
+    /* 8 · substance: one card, one fact */
+    '<section class="cut cut--lead" id="what" data-sc-act="flow" style="--h:0.9;background:#101B33">'+
+      '<figure class="face-stage" data-sc-reveal="left" data-sc-reveal-at="0.05 0.5">'+faceHtml(c.dealCards[1])+'</figure>'+
+      '<div class="scrim-lead" aria-hidden="true"></div>'+
+      '<div class="copy" data-sc-cue="0.15 0.6"><h2>'+esc(c.cut8)+'</h2><p>'+esc(c.cut8s)+'</p></div>'+
     '</section>'+
-
-    '<section id="orgs" class="section-tight wrap"><div class="orgs-card">'+
-      '<div><div class="eyebrow">'+esc(c.orgEyebrow)+'</div><h2>'+esc(c.orgTitle)+'</h2><p class="body">'+esc(c.orgBody)+'</p>'+
-      '<a class="btn btn-navcta" style="font-size:14.5px;padding:13px 24px" href="https://www.amparohq.com/orgs" target="_blank" rel="noopener">'+esc(c.orgCta)+' →</a></div>'+
-      '<div class="orgpoints">'+orgPointsHtml+'</div>'+
-    '</div></section>'+
-
-    '<section id="faq" class="section-tight faq-wrap">'+
-      '<div class="faq-head"><div class="eyebrow">'+esc(c.faqEyebrow)+'</div><h2 class="h2" style="font-size:clamp(32px,4.5vw,44px)">'+esc(c.faqTitle)+'</h2></div>'+
-      '<div>'+faqHtml+'</div>'+
+    /* 9 · where you drive */
+    '<section class="cut cut--map cut--lead" id="states" data-sc-act="flow" style="--h:1.1;background:#0B1426">'+
+      '<div class="map-stage"><figure data-sc-reveal="iris" data-sc-reveal-at="0.05 0.5">'+statesMapHtml(c)+'</figure></div>'+
+      '<div class="copy" data-sc-cue="0.3 0.75"><h2>'+esc(c.stateTitle)+'</h2><p>'+esc(c.stateSub)+'</p></div>'+
     '</section>'+
-
-    '<section class="final-cta"><h2>'+esc(c.finalTitle)+'</h2><p>'+esc(c.finalSub)+'</p>'+
-      '<a class="btn btn-hero" href="https://www.amparohq.com/arena" target="_blank" rel="noopener">'+esc(c.finalBtn)+' →</a>'+
+    /* 10 · privacy */
+    '<section class="cut cut--centre" id="privacy" data-sc-act="flow" style="--h:0.7;background:#16223A">'+
+      '<div class="copy" data-sc-in data-sc-stagger="50"><div class="lock" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E8B84B" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>'+
+        '<h2>'+esc(c.cut10)+'</h2><p>'+esc(c.cut10s)+'</p></div>'+
     '</section>'+
+    /* 11 · the other language, for one screen. lang attr flips so a screen
+          reader switches voice with it. */
+    '<section class="cut cut--centre cut--es" id="bilingual" data-sc-act="flow" lang="'+(L==='es'?'en':'es')+'" style="--h:0.8">'+
+      '<div class="copy" data-sc-in data-sc-stagger="50"><div class="pair" aria-hidden="true"><span class="'+(L==='es'?'on':'')+'">ES</span><span class="'+(L==='en'?'on':'')+'">EN</span></div>'+
+        '<h2>'+esc(c.cut11)+'</h2><p>'+esc(c.cut11s)+'</p></div>'+
+    '</section>'+
+    /* 12 · give one away */
+    '<section class="cut cut--lead" id="share" data-sc-act="flow" style="--h:0.8;background:#0B1426">'+
+      '<div class="copy" data-sc-in data-sc-stagger="50"><h2>'+esc(c.cut12)+'</h2><p>'+esc(c.shareBody)+'</p>'+
+        '<div class="share-row"><a class="btn btn-line" href="'+shareWaUrl+'" target="_blank" rel="noopener">'+esc(c.shareWhatsApp)+'</a><a class="btn btn-line" href="'+shareSmsUrl+'">'+esc(c.shareSms)+'</a><a class="btn btn-line" href="https://www.amparohq.com/orgs" target="_blank" rel="noopener">'+esc(c.orgCta)+'</a></div></div>'+
+    '</section>'+
+    /* faq: information, compressed */
+    '<section class="faq" id="faq"><div class="faq-in"><h2>'+esc(c.faqTitle)+'</h2><div>'+faqHtml+'</div></div></section>'+
+    /* 13 · the close, holds */
+    '<section class="cut cut--close" id="join" data-sc-act="flow" style="--h:1">'+
+      '<div class="copy" data-sc-cue="0.05"><h2>'+esc(c.closeTitle)+'</h2><p>'+esc(c.closeSub)+'</p>'+
+        '<div class="hero-ctas"><a class="btn btn-gold" href="/arena/">'+esc(c.finalBtn)+'</a><a class="btn btn-line" href="/pack">'+esc(c.dealPrint)+'</a></div>'+
+        '<footer class="colophon"><a href="/pack">'+esc(c.navHow)+'</a><a href="#privacy">'+esc(c.navPrivacy)+'</a><a href="https://www.amparohq.com/about">'+esc(c.arenaLink||'About')+'</a><a href="/new/aid.html">'+esc(c.navAid)+'</a>'+
+        '<p class="disc">'+esc(c.footerDisclaimer)+'</p><span>'+esc(c.footerCopyright)+'</span></footer></div>'+
+    '</section>';
 
-    '<footer><div class="foot-top">'+
-      '<div class="foot-brand"><svg viewBox="0 0 120 120" width="26" height="26"><circle cx="60" cy="72" r="28" fill="none" stroke="#E8B84B" stroke-width="12"/><rect x="48" y="56" width="24" height="32" rx="4" fill="#1B2A4A"/><path d="M12 62 L60 18 L108 62" fill="none" stroke="#1B2A4A" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/></svg><b>Amparo</b></div>'+
-      '<div class="foot-links"><a href="#arena">'+esc(c.navPractice)+'</a><a href="#how">'+esc(c.navHow)+'</a><a href="#what">'+esc(c.navWhat)+'</a><a href="#privacy">'+esc(c.navPrivacy)+'</a><a href="#faq">'+esc(c.navFaq)+'</a></div>'+
-    '</div>'+
-    '<p class="disclaimer">'+esc(c.footerDisclaimer)+'</p>'+
-    '<p class="copyright">'+esc(c.footerCopyright)+'</p>'+
-    '</footer>';
-
-  armScenCards();   // #app was just replaced — re-observe the new card nodes
+  // the deck faces, in the current language
+  const hand = document.getElementById('hand');
+  hand.innerHTML = c.dealCards.slice(0,5).map((k,i)=>faceHtml(k,'',' data-i="'+i+'"')).join('') +
+    '<article class="card card--cta" data-i="5"><div class="band"><span>Amparo</span><b>6</b></div><h3>'+esc(c.dealCards[5].h)+'</h3><p class="s">'+esc(c.dealCards[5].s)+'</p><a class="go" href="/pack">'+esc(c.dealPrint)+'</a></article>';
+  document.getElementById('dealHint').textContent = c.dealHint;
+  document.getElementById('dealClose').textContent = c.dealClose;
+  if (window.Deal) Deal.relayout();
+  if (window.ScrollCraft && ScrollCraft.instances && ScrollCraft.instances[0]) ScrollCraft.instances[0].layout();
 }
-
 document.getElementById('langEN').classList.toggle('on', lang==='en');
 document.getElementById('langES').classList.toggle('on', lang==='es');
 render();
 </script>
 
-<!-- Cinematic scroll intro: separate script/engine load so a failure here
-     (e.g. the engine file 404s) can never break the render() above it —
-     the homepage still works with the intro simply absent. -->
-<script src="/scroll-intro/scrollcraft.js?v=2026-09-02a"></script>
+
+<script src="/scroll-intro/scrollcraft.js?v=2026-09-02b"></script>
 <script>
+/* ===================================================================
+   The Deal. Six real cards in the chrome layer, fanned by PAGE scroll across
+   the peak act (so the choreography outlives the cuts underneath, which is
+   how a cutlist holds a peak without pinning), openable from the bar anywhere
+   on the page, and flickable: pointer capture, velocity carried into the
+   throw, spring back if the flick was not committed. Engine untouched; this
+   reads scroll and its own state only.
+   =================================================================== */
 (function(){
-  /* ---- frame manifest ----------------------------------------------------
-     Flip USE_STICKMAN_FRAMES to true once scrollcraft/builds/amparo-arena-intro/
-     generate-cards.sh has produced the six frames. Until then both slots of
-     each pair point at the existing photograph, so the page renders correctly
-     (the crossfade is simply a no-op) instead of showing six broken images. */
-  var USE_STICKMAN_FRAMES = true;
-  var FRAMES = USE_STICKMAN_FRAMES
-    ? [['/new/assets/c1-start.webp','/new/assets/c1-end.webp'],
-       ['/new/assets/c2-start.webp','/new/assets/c2-end.webp'],
-       ['/new/assets/c3-start.webp','/new/assets/c3-end.webp']]
-    : [['/new/assets/act1-hands.webp','/new/assets/act1-hands.webp'],
-       ['/new/assets/act2-mirror.webp','/new/assets/act2-mirror.webp'],
-       ['/new/assets/act3-card.webp','/new/assets/act3-card.webp']];
-  FRAMES.forEach(function(pair, i){
-    var a = document.getElementById('f'+(i+1)+'a');
-    var b = document.getElementById('f'+(i+1)+'b');
-    if (a) a.src = pair[0];
-    if (b) b.src = pair[1];
+  var deal = document.getElementById('deal'), hand = document.getElementById('hand'),
+      trig = document.getElementById('dealTrigger'), closeBtn = document.getElementById('dealClose'),
+      bg = deal.querySelector('.deal-bg'),
+      act = null, reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var p = 0, target = 0, mode = 'scroll', dealt = [], raf = null, cards = [];
+  var FAN = [-26,-15.5,-5,5,15.5,26];               // degrees, left to right
+  var ease = function(x){ return 1 - Math.pow(1 - x, 3); };
+
+  function relayout(){
+    cards = Array.prototype.slice.call(hand.querySelectorAll('.card'));
+    dealt = []; act = document.getElementById('deal-act');
+    cards.forEach(function(el){ el.style.transition = ''; });
+    if (mode === 'scroll') p = progressFromScroll();
+    paint();
+  }
+  function progressFromScroll(){
+    if (!act) return 0;
+    var r = act.getBoundingClientRect(), vh = innerHeight;
+    // 0 as the act's top reaches the fold, 1 once ~55% of it has passed, and
+    // back to 0 as it leaves, so the deck folds away before the next cut
+    var enter = Math.max(0, Math.min(1, (vh - r.top) / (r.height * 0.55 + vh * 0.2)));
+    var leave = Math.max(0, Math.min(1, (r.bottom - vh * 0.35) / (vh * 0.5)));
+    return Math.min(enter, leave);
+  }
+  function paint(){
+    var live = p > 0.02;
+    deal.classList.toggle('is-live', live);
+    var fanned = 0;
+    for (var i = 0; i < cards.length; i++){
+      var el = cards[i];
+      if (dealt.indexOf(i) > -1) continue;
+      var pi = Math.max(0, Math.min(1, (p - i * 0.07) / 0.6));
+      var e = ease(pi); if (e > 0.98) fanned++;
+      // --fan-scale lets the stylesheet tighten the spread on narrow screens,
+      // where a 26-degree fan of 64vw cards runs off both edges
+      var fs = parseFloat(getComputedStyle(hand).getPropertyValue('--fan-scale')) || 1;
+      var rot = FAN[i] * e * fs, rise = -6 * e, sc = 0.62 + 0.38 * e;
+      el.style.transform = 'translate3d(0,' + rise + 'vh,0) rotate(' + rot.toFixed(2) + 'deg) scale(' + sc.toFixed(3) + ')';
+      el.style.opacity = String(Math.min(1, 0.15 + e));
+      el.style.zIndex = String(10 + i);
+    }
+    // the harness reads this instead of guessing what a fixed layer painted
+    deal.setAttribute('data-sc-verify-state', 'p:' + p.toFixed(2) + '|fanned:' + fanned + '|dealt:' + dealt.length);
+    if (p >= 0.995 && mode === 'open') deal.setAttribute('data-sc-verify-hold', 'true'); else deal.removeAttribute('data-sc-verify-hold');
+  }
+  function tick(){
+    raf = null;
+    if (mode === 'scroll') { p = progressFromScroll(); paint(); return; }
+    var d = target - p;
+    if (Math.abs(d) < 0.003) {
+      p = target; paint();
+      if (target === 0) { mode = 'scroll'; deal.classList.remove('is-open'); trig.setAttribute('aria-expanded','false'); p = progressFromScroll(); paint(); }
+      return;
+    }
+    p += d * (reduce ? 1 : 0.14); paint(); raf = requestAnimationFrame(tick);
+  }
+  function schedule(){ if (!raf) raf = requestAnimationFrame(tick); }
+  function open(){ mode = 'open'; target = 1; deal.classList.add('is-open'); trig.setAttribute('aria-expanded','true'); relayout(); schedule(); closeBtn.focus(); }
+  function close(){ if (mode !== 'open') return; target = 0; schedule(); trig.focus(); }
+  addEventListener('scroll', function(){ if (mode === 'scroll') schedule(); }, {passive:true});
+  addEventListener('resize', function(){ schedule(); }, {passive:true});
+  trig.addEventListener('click', function(){ mode === 'open' ? close() : open(); });
+  closeBtn.addEventListener('click', close);
+  bg.addEventListener('click', close);
+  addEventListener('keydown', function(e){ if (e.key === 'Escape' && mode === 'open') close(); });
+
+  /* flick: 1:1 tracking from where the card was grabbed, velocity history,
+     project the release, commit past a threshold, else spring home */
+  var drag = null;
+  hand.addEventListener('pointerdown', function(e){
+    var el = e.target.closest('.card'); if (!el || e.target.closest('a')) return;
+    var i = cards.indexOf(el); if (i < 0 || dealt.indexOf(i) > -1) return;
+    // best-effort: capture keeps tracking when the pointer leaves the card, but
+    // a capture that cannot be taken must not abort the drag (it threw on
+    // pointer ids the element had never seen, and the whole flick died with it)
+    try { el.setPointerCapture(e.pointerId); } catch (err) {}
+    drag = { i:i, el:el, x0:e.clientX, y0:e.clientY, dx:0, dy:0, hist:[[e.clientX,e.clientY,performance.now()]] };
+    el.style.transition = 'none';
+    e.preventDefault();
   });
-
-  var CINE = {
-    en: { label:'Amparo', h1:'Lights in the mirror.', sub1:"Every driver has felt this exact half-second.",
-          h2:"It isn't the badge that makes you forget your rights.", sub2:"It's your own mind, blank, mid-sentence.",
-          h3:'The words come without thinking.', sub3:'Because you practiced them first.',
-          line:['I','choose','to','remain','silent.','I','want','a','lawyer.'] },
-    es: { label:'Amparo', h1:'Luces en el espejo.', sub1:'Todo conductor ha sentido este medio segundo exacto.',
-          h2:'No es la placa lo que le hace olvidar sus derechos.', sub2:'Es su propia mente, en blanco, a media frase.',
-          h3:'Las palabras salen sin pensar.', sub3:'Porque las practicó primero.',
-          line:['Elijo','guardar','silencio.','Quiero','un','abogado.'] }
-  };
-
-  function set(id, text){ var el = document.getElementById(id); if (el) el.textContent = text; }
-
-  // A `let lang` in the page's own top-level script does not attach to
-  // `window` (confirmed the same way on the live site's index.html), so
-  // the current language is read off the toggle's .on class instead of a
-  // cross-script variable — decoupled from how the main script happens to
-  // store it, and correct on first paint before setLang() ever runs.
-  var curLang = 'en';
-  function detectLang(){
-    var es = document.getElementById('langES');
-    return (es && es.classList.contains('on')) ? 'es' : 'en';
+  addEventListener('pointermove', function(e){
+    if (!drag) return;
+    drag.dx = e.clientX - drag.x0; drag.dy = e.clientY - drag.y0;
+    drag.hist.push([e.clientX,e.clientY,performance.now()]); if (drag.hist.length > 6) drag.hist.shift();
+    var rot = FAN[drag.i] + drag.dx * 0.06;
+    drag.el.style.transform = 'translate3d(' + drag.dx + 'px,' + (drag.dy - innerHeight*0.06) + 'px,0) rotate(' + rot.toFixed(2) + 'deg)';
+  });
+  function release(){
+    if (!drag) return;
+    var h = drag.hist, a = h[0], b = h[h.length-1], dt = Math.max(1, b[2]-a[2]);
+    var vx = (b[0]-a[0])/dt, vy = (b[1]-a[1])/dt, v = Math.hypot(vx,vy);
+    var dist = Math.hypot(drag.dx, drag.dy), el = drag.el, i = drag.i;
+    if (v > 0.45 || dist > 140){
+      var fx = drag.dx + vx * 600, fy = drag.dy + vy * 600 - innerHeight*0.06;
+      el.style.transition = reduce ? 'opacity 120ms' : 'transform 480ms cubic-bezier(.23,1,.32,1), opacity 420ms';
+      el.style.transform = 'translate3d(' + fx + 'px,' + fy + 'px,0) rotate(' + (FAN[i] + vx*40) + 'deg)';
+      el.style.opacity = '0'; dealt.push(i);
+      setTimeout(function(){ el.style.transition = ''; paint(); }, 500);
+    } else {
+      el.style.transition = reduce ? 'none' : 'transform 420ms cubic-bezier(.23,1,.32,1)';
+      paint(); setTimeout(function(){ el.style.transition = ''; }, 440);
+    }
+    drag = null;
   }
-  window.renderCine = function(l){
-    curLang = l || detectLang();
-    var c = CINE[curLang === 'es' ? 'es' : 'en'];
-    set('cineLabel1', c.label); set('cineH1', c.h1); set('cineSub1', c.sub1);
-    set('cineH2', c.h2); set('cineSub2', c.sub2);
-    set('cineH3', c.h3); set('cineSub3', c.sub3);
-  };
-  renderCine();
+  // release on the window, not the hand: if capture was refused the pointer
+  // can let go anywhere on the page, and a drag that never releases would
+  // leave the card stuck to a pointer that is no longer down
+  addEventListener('pointerup', release); addEventListener('pointercancel', release);
 
-  // Nav takes its material from what's under it (see nav.nav-dark in CSS).
-  // Runs whether or not the scroll engine mounts — it's page chrome, not part
-  // of the intro's enhancement.
-  (function navMaterial(){
-    var nav = document.querySelector('nav');
-    var intro = document.getElementById('cineIntro');
-    if (!nav || !intro || !('IntersectionObserver' in window)) return;
-    // Shrink the root's top edge by the nav's own height: the intro "intersects"
-    // exactly while it is still passing behind the bar.
-    var h = Math.round(nav.getBoundingClientRect().height) || 72;
-    new IntersectionObserver(function(entries){
-      nav.classList.toggle('nav-dark', entries[0].isIntersecting);
-    }, { rootMargin: '-' + h + 'px 0px 0px 0px', threshold: 0 }).observe(intro);
-  })();
+  window.Deal = { relayout: relayout, open: open, close: close };
+  relayout();
 
-  var mounted = false;
-  function mountCine(){
-    if (mounted) return;
-    var intro = document.getElementById('cineIntro');
-    if (!intro) return;
-    if (!window.ScrollCraft){
-      // Loud, not silent. The old silent bail left the page rendering three
-      // stacked headlines on one screen with no clue why.
-      console.warn('[amparo] scrollcraft engine unavailable — cinematic intro ' +
-        'staying in its static CSS fallback (3 full-height panels, no pinning).');
-      return;
-    }
-    mounted = true;
-    // Hand layout control over BEFORE mounting: the engine checks that each
-    // stage computes position:sticky during mount(), and the base-state rule
-    // (#cineIntro [data-sc-stage]{position:relative}) outranks .sc-stage until
-    // .cine-live is present — mounting first produced a "will not pin" warning
-    // on every act even though it worked a frame later. Rolled back if the
-    // engine throws, so a hard failure still lands in the static fallback.
-    intro.classList.add('cine-live');
-    try {
-      ScrollCraft.mount(intro);
-    } catch (err) {
-      intro.classList.remove('cine-live');
-      mounted = false;
-      console.warn('[amparo] scrollcraft mount failed — cinematic intro staying ' +
-        'in its static CSS fallback.', err);
-      return;
-    }
-
-    // Signature move — "The Line": accumulates the real Arena line
-    // ("those nine words", see arena/index.html) word by word, tied to
-    // summed scroll progress across the 3 acts above. Ported unchanged
-    // from index.html's own scroll intro.
-    var acts = ['cineAct1','cineAct2','cineAct3'].map(function(id){ return document.getElementById(id); });
-    var bar = document.getElementById('cine-line');
-    var out = document.getElementById('cineLineWords');
-    if (!bar || !out) return;
-    var lastN = -1;
-    function tick(){
-      var words = CINE[curLang === 'es' ? 'es' : 'en'].line;
-      var sum = 0;
-      for (var i = 0; i < acts.length; i++){
-        var el = acts[i]; if (!el) continue;
-        sum += parseFloat(el.style.getPropertyValue('--sc-p')) || 0;
-      }
-      var best = sum / acts.length;
-      var n = Math.max(0, Math.min(words.length, Math.round(best * words.length)));
-      if (n !== lastN || lastN === -1){ out.textContent = words.slice(0, n).join(' '); lastN = n; }
-      bar.classList.toggle('cl-done', best >= 0.995);
-    }
-    // Driven by scroll, not by a permanent rAF loop. --sc-p only changes when the
-    // page scrolls, so a self-perpetuating loop repainted nothing 60 times a
-    // second for as long as the tab stayed open -- the page never reached render
-    // idle, which costs battery on a phone and is exactly the kind of background
-    // churn that makes scrolling stutter. rAF-coalesced so a burst of scroll
-    // events still does at most one update per frame.
-    var queued = false;
-    function onScroll(){
-      if (queued) return;
-      queued = true;
-      requestAnimationFrame(function(){ queued = false; tick(); });
-    }
-    addEventListener('scroll', onScroll, { passive: true });
-    addEventListener('resize', onScroll, { passive: true });
-    tick();
-  }
-  // scrollcraft.js is a plain (non-async) script tag directly above this one,
-  // so if it loaded at all it is already defined — waiting for window.load was
-  // a pointless extra failure path. The engine re-splits kinetic lines on
-  // document.fonts.ready itself, and act heights are viewport-based, so there
-  // is nothing here that needs images to have finished.
-  mountCine();
+  /* mount the engine on the whole page: every cut is a flow act and publishes
+     --sc-p, which is what the reveals and cues run from */
+  if (window.ScrollCraft) ScrollCraft.mount(document.body);
 })();
 </script>
+
 </body>
 </html>
