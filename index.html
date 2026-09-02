@@ -34,8 +34,8 @@
 <!-- Installability is not polish here: iOS evicts storage for NON-installed sites
      after ~7 days idle, and the whole pitch is "set it up once, need it months
      later at the roadside." Without the manifest the offline pack quietly expires. -->
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Amparo">
@@ -1355,7 +1355,7 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
      restyles <body> (background/color/font/line-height) for a page that owns
      its whole document; this page does not, so those declarations are
      restored to Amparo's real values right after the stylesheet loads. -->
-<link rel="stylesheet" href="scroll-intro/scrollcraft.css">
+<link rel="stylesheet" href="/scroll-intro/scrollcraft.css">
 <style>
   :root{
     --sc-canvas:#1B2A4A; --sc-surface:#121e38; --sc-ink:#FAF6EE; --sc-ink-soft:#A9B4CC;
@@ -1567,7 +1567,7 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
 <!-- State geometry, shared with the homepage so both draw the same map.
      Plain (non-async, non-defer) and placed directly above the script that
      reads it, so window.AmparoPaths is populated before first render. -->
-<script src="us-paths.js?v=2026-09-02a"></script>
+<script src="/us-paths.js?v=2026-09-02a"></script>
 <script>
 /* ============ LOGO (Amparo mark: roof + gold hand-ring + document) ============
    Layered for staged animation: each part carries a class the splash timeline
@@ -2678,7 +2678,7 @@ function markSetupDone(){ try{ localStorage.setItem(SETUP_DONE_KEY,'1'); }catch(
    the arena without any handoff code. */
 function practiceJump(){
   if(!setupDone()) return '';
-  return `<a class="pjump" href="arena/" onclick="ph('sr_arena_opened',{state:data.state,lang:lang,from:'nav'})">${t().nav_practice}</a>`;
+  return `<a class="pjump" href="/arena/" onclick="ph('sr_arena_opened',{state:data.state,lang:lang,from:'nav'})">${t().nav_practice}</a>`;
 }
 let stuckOpen=false, stuckDone=false;
 function render(){
@@ -2763,7 +2763,7 @@ function render(){
       ${window.__resumeStep?`<button class="btn" onclick="goM(${window.__resumeStep});window.__resumeStep=0">${_t.resume_btn}</button>`:''}
       <button class="btn gold" onclick="goM(1)">${_t.w_btn}</button>
       <button class="linkbtn" style="margin-top:6px" onclick="ph('sr_welcome_shortcut_clicked',{lang:lang});_wantLifelinesShortcut=true;goM(1)">${_t.w_lifelines_shortcut}</button>
-      <a class="btn ghost" href="arena/" style="display:block;text-align:center;text-decoration:none"
+      <a class="btn ghost" href="/arena/" style="display:block;text-align:center;text-decoration:none"
          onclick="ph('sr_arena_opened',{state:data.state,lang:lang,from:'welcome'})">${_t.w_try}</a>
       <div class="lawnote small">${_t.law_marker}</div>
             <button class="linkbtn" onclick="viewSample()">👀 ${_t.w_sample}</button>
@@ -2950,7 +2950,7 @@ function render(){
         ${!setupDone()?`
         <p class="rail-label" style="margin-top:14px">${_t.pp_step2}</p>
         <button class="btn gold" onclick="goM(5)">${_t.prx_open_cta}</button>`
-        :`<a class="arow" href="arena/" style="text-decoration:none" onclick="ph('sr_arena_opened',{state:data.state,lang:lang,from:'print'})"><span class="at"><b>${_t.ty_cta}</b></span><span class="ac">›</span></a>
+        :`<a class="arow" href="/arena/" style="text-decoration:none" onclick="ph('sr_arena_opened',{state:data.state,lang:lang,from:'print'})"><span class="at"><b>${_t.ty_cta}</b></span><span class="ac">›</span></a>
         <button class="arow" onclick="shareAmparo(this.querySelector('b'))"><span class="at"><b>${_t.w_share}</b></span><span class="ac">›</span></button>
         <button class="linkbtn" style="margin-top:8px" onclick="const m=document.getElementById('railMore');const on=m.style.display==='none';m.style.display=on?'block':'none';this.textContent=(on?'▴ ':'▾ ')+this.textContent.slice(2)">▾ ${_t.rail_more}</button>
         <div id="railMore" style="display:none">
@@ -3015,7 +3015,7 @@ function render(){
       ${eyebrow()}
       <h2 class="scr-h">${_t.ty_title}</h2><p class="sub">${_t.ty_sub}</p>
       <div class="ty-chips">${chips.join('')}</div>
-      <a class="btn gold" href="arena/" style="display:block;text-align:center;text-decoration:none;margin-top:18px"
+      <a class="btn gold" href="/arena/" style="display:block;text-align:center;text-decoration:none;margin-top:18px"
          onclick="ph('sr_arena_opened',{state:data.state,lang:lang,from:'thankyou'})">${_t.ty_cta}</a>
       <p class="soon" style="margin-top:8px;text-align:center">${_t.ty_cta_sub}</p>
       <p class="soon" style="margin-top:14px;text-align:center">${_t.ty_note}</p>
@@ -3946,7 +3946,7 @@ function renderLawCheck(){
 }
 (function(){
   if(!/^https?:/.test(location.protocol)) return;
-  fetch('law-status.json',{cache:'no-store'})
+  fetch('/law-status.json',{cache:'no-store'})
     .then(r=>r.ok?r.json():Promise.reject(new Error('HTTP '+r.status)))
     .then(st=>{ window.__lawStatus=st; renderLawCheck(); })
     .catch(()=>{});   // silent: no badge is the correct failure mode
@@ -4244,7 +4244,7 @@ if('serviceWorker' in navigator&&location.protocol==='https:'){
      badge that read "sources auto-checked daily" while all four sources were
      403ing — a claim outliving the thing it claimed about, which is hard rule 3.
      Ask the cache directly instead of inferring it. */
-  navigator.serviceWorker.register('sw.js').then(reg=>{ try{ reg.update(); }catch(e){} return navigator.serviceWorker.ready; })
+  navigator.serviceWorker.register('/sw.js').then(reg=>{ try{ reg.update(); }catch(e){} return navigator.serviceWorker.ready; })
     .then(()=>caches.match('./'))
     .then(hit=>{
     if(!hit) return;   // worker is live but the shell isn't cached — say nothing
@@ -4370,7 +4370,7 @@ document.addEventListener('keydown',e=>{
      (from a saved preference or first-visit browser-language detection), so the
      copy picked here matches what the visitor already sees everywhere else on
      first paint. -->
-<script src="scroll-intro/scrollcraft.js?v=2026-09-02a"></script>
+<script src="/scroll-intro/scrollcraft.js?v=2026-09-02a"></script>
 <script>
 (function(){
   var COPY={

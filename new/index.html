@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Amparo — Know your rights is not enough. Practice them.</title>
 <meta name="description" content="A free bilingual resource for drivers. Practice police encounter scenarios out loud, then print six cards built from your own state's laws — what to say, and how to reach a lawyer who takes your call.">
-<meta name="robots" content="noindex">
+<link rel="canonical" href="https://www.amparohq.com/">
 <!--
   NOT LIVE. This is the practice-first homepage redesign, built from the
   approved mockup (design_handoff_homepage_redesign/) at a new path per that
@@ -32,7 +32,7 @@
      color,font-family...} for a page that owns its whole document (this one
      doesn't), so the real body rule a few lines down needs to win on source
      order, not be fought with !important. -->
-<link rel="stylesheet" href="../scroll-intro/scrollcraft.css">
+<link rel="stylesheet" href="/scroll-intro/scrollcraft.css">
 <!-- Set before first paint so the reveal's hidden start state is only ever
      armed when JS is actually alive to finish it. -->
 <script>document.documentElement.classList.add('js-anim');</script>
@@ -641,7 +641,7 @@ html{overflow-x:hidden;overflow-x:clip}
       <button id="langENSheet" class="on" onclick="setLang('en')">EN</button>
       <button id="langESSheet" onclick="setLang('es')">ES</button>
     </div>
-    <a class="btn btn-navcta" id="navSheetCta" href="../arena/">Practice a stop</a>
+    <a class="btn btn-navcta" id="navSheetCta" href="/arena/">Practice a stop</a>
   </div>
 </aside>
 
@@ -693,7 +693,7 @@ html{overflow-x:hidden;overflow-x:clip}
 <!-- Shared state geometry, same file index.html draws its picker map from, so
      the two maps can never drift apart. Plain tag above the script that reads
      it: window.AmparoPaths must exist before the first render. -->
-<script src="../us-paths.js?v=2026-09-02a"></script>
+<script src="/us-paths.js?v=2026-09-02a"></script>
 
 <script>
 
@@ -1028,8 +1028,8 @@ function renderNav(c){
   // appears on phones.
   const items = [
     ['#arena',        c.navPractice],
-    ['rehearse.html', c.navRehearse],
-    ['aid.html',      c.navAid],
+    ['/new/rehearse.html', c.navRehearse],
+    ['/new/aid.html',      c.navAid],
     ['#how',          c.navHow],
     ['#what',         c.navWhat],
     ['#privacy',      c.navPrivacy],
@@ -1206,7 +1206,7 @@ function render(){
   // Keyed by index, NOT stored on the EN/ES scenario objects: an asset path is
   // not copy, and duplicating it per locale is how the two arrays drift.
   // Index 2 ("At your door") is intentionally imageless — see .scen-media--empty.
-  const SCEN_MEDIA = ['assets/card1-stop.webp', 'assets/card2-checkpoint.webp', null];
+  const SCEN_MEDIA = ['/new/assets/card1-stop.webp', '/new/assets/card2-checkpoint.webp', null];
   const scenariosHtml = c.arenaScenarios.map(function(s, i){
     const src = SCEN_MEDIA[i];
     // alt="" is correct here: the <h3> immediately below names the scenario, so
@@ -1250,8 +1250,8 @@ function render(){
          asks are the two real ways in: rehearse, or skip straight to printing.
          The arrow is markup, not copy, so it never reaches a translator. */
       '<div class="hero-ctas">'+
-        '<a class="btn btn-navy" href="../arena/">'+esc(heroCtaLabel)+'</a>'+
-        '<a class="btn btn-outline" href="../index.html">'+esc(c.heroSecondary)+'<span class="cta-arrow" aria-hidden="true">→</span></a>'+
+        '<a class="btn btn-navy" href="/arena/">'+esc(heroCtaLabel)+'</a>'+
+        '<a class="btn btn-outline" href="/pack">'+esc(c.heroSecondary)+'<span class="cta-arrow" aria-hidden="true">→</span></a>'+
       '</div>'+
       '<p class="trust">'+esc(c.trustLine)+'</p>'+
     '</section>'+
@@ -1343,7 +1343,7 @@ render();
 <!-- Cinematic scroll intro: separate script/engine load so a failure here
      (e.g. the engine file 404s) can never break the render() above it —
      the homepage still works with the intro simply absent. -->
-<script src="../scroll-intro/scrollcraft.js?v=2026-09-02a"></script>
+<script src="/scroll-intro/scrollcraft.js?v=2026-09-02a"></script>
 <script>
 (function(){
   /* ---- frame manifest ----------------------------------------------------
@@ -1353,12 +1353,12 @@ render();
      (the crossfade is simply a no-op) instead of showing six broken images. */
   var USE_STICKMAN_FRAMES = true;
   var FRAMES = USE_STICKMAN_FRAMES
-    ? [['assets/c1-start.webp','assets/c1-end.webp'],
-       ['assets/c2-start.webp','assets/c2-end.webp'],
-       ['assets/c3-start.webp','assets/c3-end.webp']]
-    : [['assets/act1-hands.webp','assets/act1-hands.webp'],
-       ['assets/act2-mirror.webp','assets/act2-mirror.webp'],
-       ['assets/act3-card.webp','assets/act3-card.webp']];
+    ? [['/new/assets/c1-start.webp','/new/assets/c1-end.webp'],
+       ['/new/assets/c2-start.webp','/new/assets/c2-end.webp'],
+       ['/new/assets/c3-start.webp','/new/assets/c3-end.webp']]
+    : [['/new/assets/act1-hands.webp','/new/assets/act1-hands.webp'],
+       ['/new/assets/act2-mirror.webp','/new/assets/act2-mirror.webp'],
+       ['/new/assets/act3-card.webp','/new/assets/act3-card.webp']];
   FRAMES.forEach(function(pair, i){
     var a = document.getElementById('f'+(i+1)+'a');
     var b = document.getElementById('f'+(i+1)+'b');

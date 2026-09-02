@@ -23,6 +23,21 @@ def tracked_html():
 ATTR = re.compile(r'''\b(?:href|src|poster|data-src)\s*=\s*["']([^"']+)["']''', re.I)
 SRCSET = re.compile(r'''\bsrcset\s*=\s*["']([^"']+)["']''', re.I)
 
+def rewrites():
+    """Vercel rewrites map a URL to a different file, so a link like /pack is
+    correct even though no pack/ exists on disk. Without this the checker calls
+    every rewrite broken, and a report with known-false entries is one people
+    stop reading."""
+    try:
+        cfg = json.load(open(os.path.join(ROOT, 'vercel.json'), encoding='utf-8'))
+    except (OSError, ValueError):
+        return {}
+    return {r['source'].rstrip('/') or '/': r['destination']
+            for r in cfg.get('rewrites', []) if 'source' in r and 'destination' in r}
+
+REWRITES = rewrites()
+
+
 def resolve(page_rel, target):
     """Resolve a link relative to the page, mimicking a static file server."""
     t = urlparse(target)
@@ -30,6 +45,10 @@ def resolve(page_rel, target):
     if not path:
         return None  # pure fragment or query
     if path.startswith('/'):
+        # a rewrite is resolved to the file it actually serves
+        dest = REWRITES.get(path.rstrip('/') or '/')
+        if dest:
+            path = dest
         cand = os.path.join(ROOT, path.lstrip('/'))
     else:
         cand = os.path.join(ROOT, os.path.dirname(page_rel), path)

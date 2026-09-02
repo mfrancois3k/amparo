@@ -109,5 +109,19 @@
         }
       ]
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/new/index.html"
+    },
+    {
+      "source": "/pack",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/pack/",
+      "destination": "/index.html"
+    }
   ]
 }
