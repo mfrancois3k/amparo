@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Amparo — Find legal help</title>
+<meta name="description" content="Free directories, hotlines and civil-rights contacts for real-world legal help, by state.">
+<meta name="robots" content="noindex">
+<!--
+  NOT LIVE. The /aid portal: real-world help, not the simulator.
+
+  EVERYTHING ON THIS PAGE IS A REAL, REACHABLE RESOURCE lifted verbatim from
+  index.html (STATE_LEGAL_AID + BASE_LIFELINES) via states-data.js. Nothing is
+  generated. That is the whole reason this page could be built when the
+  per-state legal-rule work could not: a directory URL is checkable, a statute
+  summary is not.
+
+  Tone is deliberately institutional and quiet — closer to a county services
+  page than to the rest of the site. Someone arriving here may be having the
+  worst day of their year; nothing here sells, upsells, or celebrates.
+
+  COVERAGE IS HONEST: 24 states have their own researched directory. The rest
+  fall through to the national LawHelp finder, and the page says so rather than
+  implying per-state coverage it does not have.
+-->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='72' r='28' fill='none' stroke='%23E8B84B' stroke-width='12'/%3E%3Crect x='48' y='56' width='24' height='32' rx='4' fill='%231B2A4A'/%3E%3Cpath d='M12 62 L60 18 L108 62' fill='none' stroke='%231B2A4A' stroke-width='13' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<script src="states-data.js"></script>
+<style>
+:root{
+  --navy:#1B2A4A; --navy-deep:#121e38; --cream:#FAF6EE; --paper:#fff;
+  --gold:#E8B84B; --gold-tint:#f4efe1; --ink:#22293A; --body:#5b6672;
+  --line:#e2ddd1; --ok:#2f6b46; --ease:cubic-bezier(.23,1,.32,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--navy)}
+button,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--navy);outline-offset:2px;border-radius:6px}
+
+/* Masthead — a public-services header, not a marketing nav. */
+.mast{background:var(--navy);color:var(--cream);padding:14px clamp(16px,5vw,32px)}
+.mast-in{max-width:820px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.mast a.home{color:var(--cream);text-decoration:none;font-weight:800;font-size:15px;display:flex;align-items:center;gap:8px}
+.langpill{display:flex;border:1.5px solid rgba(255,255,255,.45);border-radius:99px;overflow:hidden}
+.langpill button{padding:6px 12px;border:0;background:transparent;color:var(--cream);cursor:pointer;font-weight:800;font-size:12.5px}
+.langpill button.on{background:var(--cream);color:var(--navy)}
+
+.wrap{max-width:820px;margin:0 auto;padding:clamp(28px,6vw,48px) clamp(16px,5vw,32px) 80px}
+h1{font-size:clamp(1.8rem,5.5vw,2.6rem);font-weight:800;letter-spacing:-.025em;line-height:1.1;margin:0 0 12px;color:var(--navy);text-wrap:balance}
+.lede{font-size:clamp(1rem,2.5vw,1.12rem);color:var(--body);margin:0 0 28px;max-width:60ch}
+h2{font-size:1.05rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--navy);
+  margin:36px 0 4px;padding-bottom:8px;border-bottom:2px solid var(--navy)}
+.h2sub{font-size:14px;color:var(--body);margin:0 0 16px}
+
+/* Emergency strip sits first — someone in crisis should not scroll. */
+.now{background:#fdf3f1;border:1px solid #e6c3ba;border-left:5px solid #b4442f;border-radius:12px;
+  padding:16px 18px;margin-bottom:26px}
+.now h3{margin:0 0 6px;font-size:15px;font-weight:800;color:#8f2f1e}
+.now p{margin:0;font-size:14.5px;color:#6d3529;line-height:1.5}
+.now a{color:#8f2f1e;font-weight:700}
+
+.picker{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--paper);
+  border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.picker label{font-size:14px;font-weight:700;color:var(--navy)}
+.picker select{flex:1;min-width:180px;appearance:none;-webkit-appearance:none;font-size:15px;font-weight:600;
+  padding:11px 34px 11px 13px;border-radius:10px;border:1.5px solid var(--line);background:var(--paper)
+  url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' fill='none' stroke='%231B2A4A' stroke-width='2'/></svg>") no-repeat right 12px center;
+  background-size:11px;cursor:pointer}
+
+.res{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.res li{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.res .rn{font-size:16.5px;font-weight:800;color:var(--navy);margin:0 0 3px;line-height:1.3}
+.res .rc{display:inline-block;font-size:15px;font-weight:700;margin:0 0 6px;word-break:break-word}
+.res .rd{font-size:14.5px;color:var(--body);margin:0;line-height:1.5}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.tag{font-size:11.5px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;padding:4px 9px;border-radius:99px;
+  background:var(--gold-tint);color:#6b4d0d;border:1px solid #e3d7b8}
+.tag.safe{background:#e7f2ea;color:var(--ok);border-color:#bfdcc9}
+.tag.soon{background:#eef0f3;color:#69737f;border-color:#dbdfe5}
+
+.fallback{background:var(--gold-tint);border:1px solid #e3d7b8;border-radius:12px;padding:14px 16px;
+  font-size:14.5px;color:#5c4a1e;margin-bottom:16px;line-height:1.5}
+.foot{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-size:12.5px;color:#7a838d;line-height:1.6}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="mast-in">
+    <a class="home" href="index.html">← Amparo</a>
+    <div class="langpill">
+      <button id="langEN" class="on" type="button">EN</button>
+      <button id="langES" type="button">ES</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1 id="tTitle"></h1>
+  <p class="lede" id="tLede"></p>
+
+  <div class="now">
+    <h3 id="tNowH"></h3>
+    <p id="tNowP"></p>
+  </div>
+
+  <div class="picker">
+    <label for="stateSel" id="tPickLabel"></label>
+    <select id="stateSel"></select>
+  </div>
+
+  <h2 id="tStateH"></h2>
+  <p class="h2sub" id="tStateSub"></p>
+  <div id="fallbackNote"></div>
+  <ul class="res" id="stateRes"></ul>
+
+  <h2 id="tNatH"></h2>
+  <p class="h2sub" id="tNatSub"></p>
+  <ul class="res" id="natRes"></ul>
+
+  <p class="foot" id="tFoot"></p>
+</main>
+
+<script>
+(function(){
+  var D = window.AmparoData || {};
+  var AID = D.STATE_LEGAL_AID || {}, LIFE = D.BASE_LIFELINES || [], NAMES = D.US_STATE_NAMES || {};
+  var STATES = D.STATES || {};
+  var NATIONAL = {}; LIFE.forEach(function(L){ NATIONAL[L.n] = 1; });
+
+  /* The state's own curated list is STATES[k].lifelines, NOT STATE_LEGAL_AID —
+     that map only holds the fallback entry injected into PENDING states. The
+     three researched states (TX/GA/NY) carry richer hand-picked lists there and
+     appear nowhere in STATE_LEGAL_AID, so reading that map alone told a Texas
+     user we had nothing for Texas while five Texas resources sat unused.
+     Entries that are also national are dropped so they aren't listed twice. */
+  function stateResources(code){
+    var st = code ? STATES[code] : null;
+    if (!st || !st.lifelines) return [];
+    return st.lifelines.filter(function(L){ return !NATIONAL[L.n]; });
+  }
+  var lnName = D.lnName || function(L){ return L.n; };
+  var lang = 'en', code = '';
+
+  var T = {
+    en:{ title:'Find real legal help.',
+      lede:'Amparo rehearses the encounter. This page is for after it, or instead of it — the people who actually take cases, answer phones, and file complaints. Nothing here is sold and nothing here is ours.',
+      nowH:'If you are in immediate danger', nowP:'Call 911. For a mental-health crisis, call or text 988 (Suicide &amp; Crisis Lifeline), free and 24/7.',
+      pick:'Your state', stateH:'In your state', stateSub:'Free directories that route you to legal aid near you.',
+      natH:'Anywhere in the US', natSub:'Reachable from any state, at no cost.',
+      fallback:'We haven\’t researched a dedicated directory for <b>{s}</b> yet. The national finder below covers every state — start there.',
+      pickFirst:'Pick your state above to see directories near you.',
+      foot:'Amparo is a directory and educational tool. We are not a law firm, we do not provide legal advice, and we are not affiliated with any organization listed. Listings are provided as a starting point — always confirm hours, eligibility and coverage with the organization directly. Phone numbers verified July 16, 2026.' },
+    es:{ title:'Encuentre ayuda legal real.',
+      lede:'Amparo ensaya el encuentro. Esta página es para después, o en lugar de él — las personas que realmente toman casos, contestan teléfonos y presentan quejas. Aquí no se vende nada y nada de esto es nuestro.',
+      nowH:'Si está en peligro inmediato', nowP:'Llame al 911. Para una crisis de salud mental, llame o envíe un mensaje al 988 (Línea de Crisis y Suicidio), gratis y 24/7.',
+      pick:'Su estado', stateH:'En su estado', stateSub:'Directorios gratuitos que lo dirigen a ayuda legal cerca de usted.',
+      natH:'En todo Estados Unidos', natSub:'Accesibles desde cualquier estado, sin costo.',
+      fallback:'Todavía no hemos investigado un directorio dedicado para <b>{s}</b>. El buscador nacional de abajo cubre todos los estados — empiece ahí.',
+      pickFirst:'Elija su estado arriba para ver directorios cerca de usted.',
+      foot:'Amparo es un directorio y una herramienta educativa. No somos un bufete, no damos asesoría legal y no estamos afiliados a ninguna organización listada. Los listados son un punto de partida — confirme horarios, requisitos y cobertura directamente con la organización. Números verificados el 16 de julio de 2026.' }
+  };
+
+  var TAGS = {
+    en:{free:'Free', fee:'$20 consult', hrs:'Business hours', safe:'Any immigration status', soon:'Coming soon'},
+    es:{free:'Gratis', fee:'$20 consulta', hrs:'Horario de oficina', safe:'Cualquier estatus migratorio', soon:'Próximamente'}
+  };
+
+  function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+  function txt(id,v){ var e=document.getElementById(id); if(e) e.textContent=v; }
+
+  /* A contact is a phone number, a URL, or neither ("Coming soon"). Render the
+     right affordance for each rather than making everything look tappable. */
+  function contact(p){
+    if (!p) return '';
+    var raw = String(p);
+    if (/^[\d\s\-().+]+$/.test(raw) || /^Dial /i.test(raw)){
+      var tel = raw.replace(/[^\d+]/g,'');
+      return tel ? '<a class="rc" href="tel:'+esc(tel)+'">'+esc(raw)+'</a>' : '<span class="rc">'+esc(raw)+'</span>';
+    }
+    if (/\./.test(raw) && !/\s/.test(raw)){
+      return '<a class="rc" href="https://'+esc(raw.replace(/^https?:\/\//,''))+'" target="_blank" rel="noopener">'+esc(raw)+'</a>';
+    }
+    return '<span class="rc">'+esc(raw)+'</span>';
+  }
+
+  function card(L){
+    var t = (L.tags||[]).map(function(k){
+      var cls = (k==='safe'||k==='soon') ? ' '+k : '';
+      return '<span class="tag'+cls+'">'+esc(TAGS[lang][k]||k)+'</span>';
+    }).join('');
+    return '<li><p class="rn">'+esc(lnName(L,lang))+'</p>'+contact(L.p)+
+           '<p class="rd">'+esc(lang==='es'?(L.d_es||L.d_en):L.d_en)+'</p>'+
+           (t?'<div class="tags">'+t+'</div>':'')+'</li>';
+  }
+
+  function paint(){
+    var t = T[lang];
+    document.documentElement.lang = lang;
+    txt('tTitle',t.title); txt('tLede',t.lede);
+    txt('tNowH',t.nowH); document.getElementById('tNowP').innerHTML = t.nowP;
+    txt('tPickLabel',t.pick); txt('tStateH',t.stateH); txt('tStateSub',t.stateSub);
+    txt('tNatH',t.natH); txt('tNatSub',t.natSub); txt('tFoot',t.foot);
+
+    var sel = document.getElementById('stateSel');
+    if (sel.options.length !== Object.keys(NAMES).length + 1){
+      sel.innerHTML = '<option value="">—</option>' + Object.keys(NAMES)
+        .sort(function(a,b){ return NAMES[a].localeCompare(NAMES[b]); })
+        .map(function(k){ return '<option value="'+k+'">'+esc(NAMES[k])+'</option>'; }).join('');
+    }
+    sel.value = code;
+
+    var mine = stateResources(code);
+    var fb = document.getElementById('fallbackNote');
+    var list = document.getElementById('stateRes');
+    if (!code){
+      fb.innerHTML = '<div class="fallback">'+esc(t.pickFirst)+'</div>';
+      list.innerHTML = '';
+    } else if (mine.length){
+      fb.innerHTML = '';
+      list.innerHTML = mine.map(card).join('');
+    } else {
+      fb.innerHTML = '<div class="fallback">'+t.fallback.replace('{s}', esc(NAMES[code]||''))+'</div>';
+      list.innerHTML = '';
+    }
+
+    document.getElementById('natRes').innerHTML = LIFE.map(card).join('');
+  }
+
+  function setLang(l){
+    lang = (l==='es')?'es':'en';
+    document.getElementById('langEN').classList.toggle('on', lang==='en');
+    document.getElementById('langES').classList.toggle('on', lang==='es');
+    try{ localStorage.setItem('amparo_lang', lang); }catch(e){}
+    paint();
+  }
+  function setState(k){
+    code = (k && NAMES[k]) ? k : '';
+    try{ localStorage.setItem('amparo_state', code); }catch(e){}
+    paint();
+  }
+
+  (function restore(){
+    try{
+      var s = JSON.parse(localStorage.getItem('sr_save')||'null');
+      if (s && s.state && NAMES[s.state]) code = s.state;
+      if (s && (s.lang==='en'||s.lang==='es')) lang = s.lang;
+    }catch(e){}
+    if (!code){ try{ var k=localStorage.getItem('amparo_state'); if(k&&NAMES[k]) code=k; }catch(e){} }
+    try{ var l=localStorage.getItem('amparo_lang'); if(l==='es'||l==='en') lang=l; }catch(e){}
+    if (!code && (navigator.language||'').toLowerCase().startsWith('es')) lang='es';
+  })();
+
+  document.getElementById('langEN').addEventListener('click', function(){ setLang('en'); });
+  document.getElementById('langES').addEventListener('click', function(){ setLang('es'); });
+  document.getElementById('stateSel').addEventListener('change', function(){ setState(this.value); });
+  setLang(lang);
+})();
+</script>
+</body>
+</html>

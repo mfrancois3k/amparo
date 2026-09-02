@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Amparo — Rehearse</title>
+<meta name="description" content="The tactical side of Amparo: hands setup, the three phrases, and a screen you can hold to the window.">
+<meta name="robots" content="noindex">
+<!--
+  NOT LIVE. The utility half of the practice-first redesign, split off the
+  homepage so the landing page can stay a pure cinematic story.
+
+  WHAT IS AND IS NOT HERE:
+  The three phrases and the hands checklist are FEDERAL and universal — they are
+  identical in all 50 states, which is exactly why they are safe to show for
+  every state. There is deliberately NO per-state script here. Per the repo's
+  own standard (index.html:2130, research/state-law-matrix.md):
+      "NOTHING here is a state statute. Per-state citations arrive only via
+       research/state-law-matrix.md, verified and attorney-reviewed."
+  TX / GA / NY carry verified statute-cited rules; the other 48 get the federal
+  floor plus an explicit marker. The state selector below tells the truth about
+  which one you are getting rather than inventing the difference.
+-->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='72' r='28' fill='none' stroke='%23E8B84B' stroke-width='12'/%3E%3Crect x='48' y='56' width='24' height='32' rx='4' fill='%231B2A4A'/%3E%3Cpath d='M12 62 L60 18 L108 62' fill='none' stroke='%231B2A4A' stroke-width='13' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<script src="states-data.js"></script>
+<style>
+:root{
+  --navy:#1B2A4A; --navy-deep:#121e38; --ink-dark:#0f1c33;
+  --cream:#FAF6EE; --gold:#E8B84B; --gold-pale:#F3D48A;
+  --body:#64707D; --line:#e5e0d4; --eyebrow:#6b4d0d;
+  --alert:#FFD60A;
+  --ease:cubic-bezier(.23,1,.32,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink-dark);color:var(--cream);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;overflow-x:clip}
+button,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:8px}
+
+/* ---- top bar ---- */
+.bar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:12px clamp(16px,5vw,32px);background:rgba(15,28,51,.88);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.12)}
+.bar a.back{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--cream);font-weight:800;font-size:15px}
+.bar .right{display:flex;align-items:center;gap:10px}
+.langpill{display:flex;border:1.5px solid rgba(255,255,255,.4);border-radius:99px;overflow:hidden}
+.langpill button{padding:7px 13px;border:0;background:transparent;color:var(--cream);cursor:pointer;font-weight:800;font-size:12.5px}
+.langpill button.on{background:var(--cream);color:var(--navy)}
+select#stateSel{appearance:none;-webkit-appearance:none;font-size:13px;font-weight:700;padding:9px 30px 9px 13px;
+  border-radius:99px;border:1.5px solid rgba(255,255,255,.28);color:var(--cream);cursor:pointer;max-width:42vw;
+  background:rgba(255,255,255,.06) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' fill='none' stroke='%23E8B84B' stroke-width='2'/></svg>") no-repeat right 11px center;
+  background-size:11px}
+
+.wrap{max-width:720px;margin:0 auto;padding:clamp(24px,6vw,48px) clamp(16px,5vw,32px) 140px}
+h1{font-size:clamp(1.9rem,6.5vw,3rem);font-weight:800;letter-spacing:-.03em;line-height:1.05;margin:0 0 10px;text-wrap:balance}
+.lede{font-size:clamp(1rem,2.6vw,1.15rem);color:#c9d4e8;line-height:1.55;margin:0 0 clamp(28px,5vw,40px);max-width:52ch}
+.eyebrow{font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+
+/* ---- hands checklist ---- */
+.hands{list-style:none;margin:0 0 clamp(28px,5vw,40px);padding:0;display:flex;flex-direction:column;gap:14px;counter-reset:h}
+.hands li{counter-increment:h;display:flex;gap:16px;align-items:flex-start;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:18px 18px}
+.hands li::before{content:counter(h);flex:none;width:34px;height:34px;border-radius:50%;background:var(--gold);
+  color:var(--navy);font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center}
+.hands .ht{font-size:clamp(1.05rem,3.6vw,1.3rem);font-weight:700;line-height:1.35;margin:0}
+.hands .hs{font-size:14px;color:#9fb0cd;margin:5px 0 0;line-height:1.45}
+
+/* ---- actions ---- */
+.actions{display:flex;flex-direction:column;gap:12px;margin-bottom:clamp(24px,4vw,32px)}
+.act{display:flex;align-items:center;gap:14px;width:100%;text-align:left;cursor:pointer;border:0;border-radius:18px;
+  padding:20px;font-weight:800;font-size:clamp(1rem,3.4vw,1.15rem);transition:transform 140ms var(--ease)}
+.act:active{transform:scale(.98)}
+.act .ai{font-size:24px;flex:none}
+.act--alert{background:var(--alert);color:#111}
+.act--card{background:var(--cream);color:var(--navy)}
+.act small{display:block;font-weight:600;font-size:13px;opacity:.72;margin-top:3px}
+
+.statenote{border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:18px;font-size:14.5px;line-height:1.55;color:#c9d4e8}
+.statenote b{color:var(--gold)}
+.statenote.pending{border-color:rgba(255,180,162,.45)}
+.statenote.pending b{color:#FFB4A2}
+.disclaimer{margin-top:22px;font-size:12.5px;color:#8a93a0;line-height:1.55}
+
+/* ---- full-screen modes (stress + window card) ---- */
+.mode{position:fixed;inset:0;z-index:200;display:none;flex-direction:column;overflow-y:auto;
+  padding:max(14px,env(safe-area-inset-top)) 0 22px}
+body.mode-on{overflow:hidden}
+body.mode-on .mode.on{display:flex}
+.mode-top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:6px clamp(16px,5vw,32px) 0}
+.mode-label{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase}
+.mode-exit{font-size:14px;font-weight:800;padding:12px 18px;border-radius:99px;background:transparent;cursor:pointer;min-height:48px;border:2px solid currentColor}
+
+#stressMode{background:#000;color:var(--alert)}
+#stressMode .sl-body{flex:1;display:flex;flex-direction:column;justify-content:center;gap:clamp(18px,4.5vh,38px);padding:clamp(18px,5vh,44px) clamp(16px,5vw,32px)}
+.sl-p{display:flex;gap:clamp(12px,3vw,18px);align-items:flex-start}
+.sl-n{flex:none;font-size:clamp(1rem,3.2vw,1.3rem);font-weight:800;color:#8a7200;padding-top:.45em}
+.sl-t{font-size:clamp(1.9rem,8vw,3.4rem);font-weight:800;line-height:1.06;letter-spacing:-.02em;margin:0;text-wrap:balance}
+.sl-note{border-top:2px solid #3a3000;margin:0 clamp(16px,5vw,32px);padding:16px 0 0;font-size:clamp(.9rem,3.2vw,1rem);line-height:1.5;color:#F5E6A8;font-weight:600}
+.sl-note b{color:var(--alert)}
+
+/* Window card: both languages at once, because the person outside the glass
+   may not read the one the phone is set to. */
+#windowMode{background:#fff;color:#000}
+#windowMode .wc-body{flex:1;display:flex;flex-direction:column;justify-content:center;gap:clamp(16px,3.5vh,30px);padding:clamp(16px,4vh,36px) clamp(14px,4vw,28px)}
+.wc-line{border-left:8px solid #000;padding-left:clamp(12px,3vw,18px)}
+.wc-en{font-size:clamp(1.5rem,6.6vw,2.6rem);font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0}
+.wc-es{font-size:clamp(1.05rem,4.4vw,1.7rem);font-weight:700;line-height:1.15;margin:6px 0 0;color:#333}
+.wc-foot{margin:0 clamp(14px,4vw,28px);padding-top:14px;border-top:2px solid #000;font-size:12.5px;line-height:1.5;color:#444;font-weight:600}
+@media (prefers-reduced-motion:reduce){ .act,.mode-exit{transition:none} }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <a class="back" href="index.html">← <span id="tBack">Amparo</span></a>
+  <a class="back" href="aid.html" style="font-weight:700;font-size:14px;opacity:.85"><span id="tAid"></span> →</a>
+  <div class="right">
+    <div class="langpill">
+      <button id="langEN" class="on" type="button">EN</button>
+      <button id="langES" type="button">ES</button>
+    </div>
+    <select id="stateSel" aria-label="Your state"></select>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="eyebrow" id="tEyebrow"></div>
+  <h1 id="tTitle"></h1>
+  <p class="lede" id="tLede"></p>
+
+  <ol class="hands" id="handsList"></ol>
+
+  <div class="actions">
+    <button class="act act--alert" id="btnStress" type="button">
+      <span class="ai" aria-hidden="true">⚡</span><span id="tStressBtn"></span>
+    </button>
+    <button class="act act--card" id="btnWindow" type="button">
+      <span class="ai" aria-hidden="true">▮</span><span id="tWindowBtn"></span>
+    </button>
+  </div>
+
+  <div class="statenote" id="stateNote"></div>
+  <p class="disclaimer" id="tDisclaimer"></p>
+</main>
+
+<!-- Stress Mode -->
+<div class="mode" id="stressMode" role="dialog" aria-modal="true" aria-label="Emergency phrases">
+  <div class="mode-top">
+    <span class="mode-label" id="slState"></span>
+    <button class="mode-exit" data-close type="button"></button>
+  </div>
+  <div class="sl-body" id="slPhrases"></div>
+  <p class="sl-note" id="slNote"></p>
+</div>
+
+<!-- Point-to-window card -->
+<div class="mode" id="windowMode" role="dialog" aria-modal="true" aria-label="Show at window">
+  <div class="mode-top">
+    <span class="mode-label" id="wcLabel"></span>
+    <button class="mode-exit" data-close type="button"></button>
+  </div>
+  <div class="wc-body" id="wcBody"></div>
+  <p class="wc-foot" id="wcFoot"></p>
+</div>
+
+<script>
+(function(){
+  var D = window.AmparoData || { STATES:{}, US_STATE_NAMES:{}, STRESS_PHRASES:{en:[],es:[]} };
+  var lang = 'en', stateCode = '', openMode = null;
+
+  /* Copy. The hands checklist is universal physical-safety behaviour, not law:
+     it matches the federal floor already shipping in index.html ("announce the
+     reach before you make it, move slowly, keep your hands visible"). Nothing
+     in it varies by state, so nothing in it needs verifying per state. */
+  var T = {
+    en:{
+      back:'Amparo', aid:'Find real help', eyebrow:'Before the window',
+      title:'Hands first. Words second.',
+      lede:'Most of what keeps a stop calm happens before anyone speaks. Do these four things while the officer is still walking up.',
+      hands:[
+        ['Pull fully off the road, engine off','All the way onto the shoulder. Put it in park.'],
+        ['Dome light on if it is dark','Let them see the whole cabin before they reach you.'],
+        ['Window down, phone down','Both hands free and empty.'],
+        ['Hands flat on the wheel. Do not reach','Not for your licence, not for the glovebox — not until you are asked, and announce it before you move.']
+      ],
+      stressBtn:'Stress Mode', stressSub:'The three phrases, huge',
+      windowBtn:'Show at the window', windowSub:'Both languages, for the glass',
+      exit:'Exit', stressLabel:'Say these', windowLabel:'Hold this up',
+      verified:'<b>{s}</b> — your state\\u2019s own rules are cited to statute in your pack.',
+      pending:'<b>{s}</b> — this state\\u2019s own rules aren\\u2019t verified in Amparo yet. Everything shown here is federal and applies everywhere.',
+      none:'Pick your state to see whether its own rules are verified yet. Everything shown here is federal and applies everywhere.',
+      slNote:'These three lines are federal. They work the same in every state.',
+      wcFoot:'General legal information, not legal advice. Amparo is not a law firm.',
+      disclaimer:'Amparo provides general legal information, not legal advice. The phrases here are federal and apply in all 50 states. Rules that vary by state are shown only where they have been checked against the statute.'
+    },
+    es:{
+      back:'Amparo', aid:'Buscar ayuda real', eyebrow:'Antes de la ventana',
+      title:'Primero las manos. Después las palabras.',
+      lede:'Casi todo lo que mantiene la calma en una parada pasa antes de que alguien hable. Haga estas cuatro cosas mientras el oficial todavía se acerca.',
+      hands:[
+        ['Oríllese por completo, apague el motor','Hasta el acotamiento. Ponga el carro en park.'],
+        ['Encienda la luz interior si es de noche','Que vean toda la cabina antes de llegar a usted.'],
+        ['Baje la ventana, baje el teléfono','Las dos manos libres y vacías.'],
+        ['Manos planas en el volante. No busque nada','Ni la licencia, ni la guantera — hasta que se lo pidan, y anúncielo antes de moverse.']
+      ],
+      stressBtn:'Modo Estrés', stressSub:'Las tres frases, enormes',
+      windowBtn:'Mostrar en la ventana', windowSub:'Los dos idiomas, para el vidrio',
+      exit:'Salir', stressLabel:'Diga esto', windowLabel:'Muestre esto',
+      verified:'<b>{s}</b> — las reglas propias de su estado están citadas a la ley en su paquete.',
+      pending:'<b>{s}</b> — las reglas propias de este estado aún no están verificadas en Amparo. Todo lo que se muestra aquí es federal y aplica en todas partes.',
+      none:'Elija su estado para ver si sus reglas ya están verificadas. Todo lo que se muestra aquí es federal y aplica en todas partes.',
+      slNote:'Estas tres frases son federales. Funcionan igual en todos los estados.',
+      wcFoot:'Información legal general, no asesoría legal. Amparo no es un bufete.',
+      disclaimer:'Amparo ofrece información legal general, no asesoría legal. Las frases aquí son federales y aplican en los 50 estados. Las reglas que cambian por estado solo se muestran donde fueron verificadas contra la ley.'
+    }
+  };
+
+  function txt(id,v){ var e=document.getElementById(id); if(e) e.textContent=v; }
+
+  function paint(){
+    var t = T[lang], st = stateCode ? D.STATES[stateCode] : null;
+
+    txt('tBack',t.back); txt('tAid',t.aid); txt('tEyebrow',t.eyebrow); txt('tTitle',t.title);
+    txt('tLede',t.lede); txt('tDisclaimer',t.disclaimer);
+    document.documentElement.lang = lang;
+
+    document.getElementById('handsList').innerHTML = t.hands.map(function(h){
+      return '<li><div><p class="ht">'+h[0]+'</p><p class="hs">'+h[1]+'</p></div></li>';
+    }).join('');
+
+    document.getElementById('tStressBtn').innerHTML = t.stressBtn+'<small>'+t.stressSub+'</small>';
+    document.getElementById('tWindowBtn').innerHTML = t.windowBtn+'<small>'+t.windowSub+'</small>';
+    Array.prototype.forEach.call(document.querySelectorAll('[data-close]'), function(b){ b.textContent = t.exit; });
+
+    var sel = document.getElementById('stateSel');
+    var names = D.US_STATE_NAMES;
+    if (sel.options.length !== Object.keys(names).length + 1){
+      sel.innerHTML = '<option value="">—</option>' + Object.keys(names)
+        .sort(function(a,b){ return names[a].localeCompare(names[b]); })
+        .map(function(k){ return '<option value="'+k+'">'+names[k]+'</option>'; }).join('');
+    }
+    sel.value = stateCode;
+
+    var note = document.getElementById('stateNote');
+    note.innerHTML = (!st ? t.none : (st.pending ? t.pending : t.verified)).replace('{s}', st?st.name:'');
+    note.classList.toggle('pending', !!(st && st.pending));
+
+    // Stress: the three federal phrases. Never state-varied.
+    txt('slState', st ? st.name : t.stressLabel);
+    document.getElementById('slPhrases').innerHTML = (D.STRESS_PHRASES[lang]||[]).map(function(p,i){
+      return '<div class="sl-p"><span class="sl-n">'+(i+1)+'</span><p class="sl-t">'+p+'</p></div>';
+    }).join('');
+    document.getElementById('slNote').innerHTML = t.slNote;
+
+    // Window card: both languages simultaneously, on white for glare through glass.
+    txt('wcLabel', t.windowLabel);
+    var en = D.STRESS_PHRASES.en||[], es = D.STRESS_PHRASES.es||[];
+    document.getElementById('wcBody').innerHTML = en.map(function(p,i){
+      return '<div class="wc-line"><p class="wc-en">'+p+'</p><p class="wc-es">'+(es[i]||'')+'</p></div>';
+    }).join('');
+    txt('wcFoot', t.wcFoot);
+  }
+
+  function setMode(id){
+    Array.prototype.forEach.call(document.querySelectorAll('.mode'), function(m){ m.classList.remove('on'); });
+    openMode = id;
+    document.body.classList.toggle('mode-on', !!id);
+    if (id){
+      var el = document.getElementById(id);
+      el.classList.add('on');
+      var x = el.querySelector('[data-close]'); if (x) x.focus();
+    }
+  }
+
+  function setLang(l){
+    lang = (l==='es')?'es':'en';
+    document.getElementById('langEN').classList.toggle('on', lang==='en');
+    document.getElementById('langES').classList.toggle('on', lang==='es');
+    try{ localStorage.setItem('amparo_lang', lang); }catch(e){}
+    paint();
+  }
+  function setState(k){
+    stateCode = (k && D.STATES[k]) ? k : '';
+    try{ localStorage.setItem('amparo_state', stateCode); }catch(e){}
+    paint();
+  }
+
+  // Carry over whatever the wizard or the homepage already knows.
+  (function restore(){
+    try{
+      var s = JSON.parse(localStorage.getItem('sr_save')||'null');
+      if (s && s.state && D.STATES[s.state]) stateCode = s.state;
+      if (s && (s.lang==='en'||s.lang==='es')) lang = s.lang;
+    }catch(e){}
+    if (!stateCode){ try{ var k=localStorage.getItem('amparo_state'); if(k&&D.STATES[k]) stateCode=k; }catch(e){} }
+    try{ var l=localStorage.getItem('amparo_lang'); if(l==='es'||l==='en') lang=l; }catch(e){}
+    if (!stateCode && (navigator.language||'').toLowerCase().startsWith('es')) lang='es';
+  })();
+
+  document.getElementById('langEN').addEventListener('click', function(){ setLang('en'); });
+  document.getElementById('langES').addEventListener('click', function(){ setLang('es'); });
+  document.getElementById('stateSel').addEventListener('change', function(){ setState(this.value); });
+  document.getElementById('btnStress').addEventListener('click', function(){ setMode('stressMode'); });
+  document.getElementById('btnWindow').addEventListener('click', function(){ setMode('windowMode'); });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-close]'), function(b){
+    b.addEventListener('click', function(){ setMode(null); });
+  });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'&&openMode) setMode(null); });
+
+  setLang(lang);
+})();
+</script>
+</body>
+</html>
