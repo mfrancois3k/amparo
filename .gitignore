@@ -30,3 +30,6 @@ scrollcraft/builds/*/node_modules/
 # motion masters (raw mp4s, check frames) are reproducible from the stills with
 # ffmpeg; the encoded finals ship under new/assets/motion
 scrollcraft/builds/*/motion/
+
+# tools/render-armor-card.mjs output (PDF/PNG proofs), never source
+/lab/

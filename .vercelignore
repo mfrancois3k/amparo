@@ -8,7 +8,9 @@
 # Verified before excluding (2026-08-20): no href/src in index.html, app/ or
 # arena/ references any of these, and none appear as a path in sitemap.xml.
 # Live routes are: /, /about, /acerca, /como-verificamos, /derechos,
-# /how-we-verify, /rights, plus /app and /arena.
+# /how-we-verify, /rights, plus /app and /arena. Since 2026-09-02 also /pack
+# (the app page), /rehearse (rewrite onto /arena/), /aid (rewrite onto
+# /new/aid.html) and the generated /data/*.json.
 
 notebook/
 tasks/

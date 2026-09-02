@@ -1,0 +1,45 @@
+{
+ "version": 1,
+ "ui": {
+  "panicButton": {
+   "en": "Pulled over now",
+   "es": "Me detuvieron ahora"
+  },
+  "title": {
+   "en": "Right now",
+   "es": "Ahora mismo"
+  },
+  "close": {
+   "en": "Close",
+   "es": "Cerrar"
+  },
+  "yourState": {
+   "en": "Your state",
+   "es": "Tu estado"
+  },
+  "pickState": {
+   "en": "Pick a state",
+   "es": "Elige un estado"
+  },
+  "federalOnly": {
+   "en": "Federal baseline, any state",
+   "es": "Base federal, cualquier estado"
+  },
+  "federalNotice": {
+   "en": "Pick your state for state-specific lines. Education, not legal advice.",
+   "es": "Elige tu estado para ver las líneas de tu estado. Educación, no asesoría legal."
+  },
+  "likely": {
+   "en": "reported, not verified",
+   "es": "reportado, no verificado"
+  },
+  "provisional": {
+   "en": "Provisional: checked against the statute, not yet attorney-reviewed",
+   "es": "Provisional: cotejado con la ley, aún sin revisión de abogado"
+  },
+  "reviewed": {
+   "en": "Reviewed by a licensed attorney",
+   "es": "Revisado por un abogado con licencia"
+  }
+ }
+}

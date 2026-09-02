@@ -11,6 +11,11 @@
     "jsx": "react-jsx",
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
+    /* lib/*.ts import each other with the .ts extension so plain `node --test`
+       can load them (Node resolves no extensionless ESM specifiers); esbuild and
+       tsc both accept it, tsc only with this flag (legal because noEmit). */
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
 
     /* These compiler options are required by Convex */
     "target": "ESNext",

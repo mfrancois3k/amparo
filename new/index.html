@@ -365,7 +365,7 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
       <button type="button" id="langES" onclick="setLang('es')" aria-pressed="false">ES</button>
     </div>
     <button type="button" class="btn btn-deal" id="dealTrigger" aria-controls="deal" aria-expanded="false"><span class="n" aria-hidden="true">6</span><span class="t">Your six cards</span></button>
-    <a class="btn btn-navcta" id="navCta" href="/arena/">Practice a stop</a>
+    <a class="btn btn-navcta" id="navCta" href="/rehearse">Enter The Arena</a>
     <button type="button" class="navburger" id="navBurger" aria-label="Open menu" aria-controls="navSheet" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -381,7 +381,7 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
       <button type="button" id="langENSheet" onclick="setLang('en')">EN</button>
       <button type="button" id="langESSheet" onclick="setLang('es')">ES</button>
     </div>
-    <a class="btn btn-navcta" id="navSheetCta" href="/arena/">Practice a stop</a>
+    <a class="btn btn-navcta" id="navSheetCta" href="/rehearse">Enter The Arena</a>
   </div>
 </aside>
 
@@ -424,12 +424,12 @@ function statesMapHtml(c){
 
 /* ===== copy, verbatim from design_handoff_homepage_redesign/Amparo Home.dc.html ===== */
 const EN = {
-  navPractice:"Practice", navRehearse:"Rehearse", navAid:"Find help", navHow:"Build the cards", navWhat:"What's included", navPrivacy:"Privacy", navFaq:"FAQ", navCta:"Practice a stop",
+  navPractice:"Practice", navRehearse:"Rehearse", navAid:"Find help", navHow:"Build the cards", navWhat:"What's included", navPrivacy:"Privacy", navFaq:"FAQ", navCta:"Enter The Arena",
   scenNotBuilt:"Not built yet",
   heroEyebrow:"Know your rights · Conoce tus derechos",
   heroTitle:"Know your rights is not enough. Practice them.",
   heroSub:"A free bilingual resource for drivers. Practice police encounter scenarios out loud, then print six cards built from your own state's laws: your license and insurance, the rules where you drive, what to say, and how to reach a lawyer who takes your call.",
-  heroCta:"Start practicing", heroCtaReturn:"Continue practicing", heroSecondary:"Just print the cards",
+  heroCta:"Enter The Arena", heroCtaReturn:"Back into The Arena", heroSecondary:"Need real-world help?",
   trustLine:"Free. Everything stays on this phone unless you choose to save your cards to an optional free account. Photos and practice history never upload.",
   arenaEyebrow:"Practice Arena", arenaTitle:"Now rehearse it.",
   arenaSub:"The cards go in your glovebox. This has to go in your head. Run a scenario out loud, with spoken officer lines and your own voice talking back — two minutes each.",
@@ -478,7 +478,7 @@ const EN = {
     {label:"Personalized to you",desc:"Your name, a backup emergency contact, and documents already printed onto the cards."},
     {label:"A family emergency plan",desc:"Who picks up your kids, where documents are kept, a script for parents if you get the call, plus consulate numbers."}
   ],
-  priceLine:"Free. No card, no account required. One optional $3.99 script pack exists inside the Arena — that's the whole business model. No surprise paywall.",
+  priceLine:"Free. No card, no account required. Inside the Arena there is one optional Master Script ($9.99) and a mailed laminated card ($19.99): that is the whole business model. No surprise paywall.",
   privacyEyebrow:"Privacy", privacyTitle:"Nothing leaves your phone unless you say so.",
   privacyBody:"Amparo works with no account at all, and that is the default. If you choose to create one to save your cards across devices, it stores only your cards' text — state, names, phone numbers, ZIP — on our server. Your document photos and your practice history are never uploaded, with or without an account: there is nowhere on the server to put them.",
   privacyChips:["Photos stay on your device","Practice history stays on device","No account required","Attorney review in progress"],
@@ -501,7 +501,7 @@ const EN = {
   ],
   footerDisclaimer:"Amparo provides general legal information, not legal advice. Every rule is cited to the exact state statute so you can check it yourself; formal attorney sign-off per state is in progress. Phone numbers verified July 16, 2026.",
   footerCopyright:"© 2026 Amparo · Pilot edition · General legal information, not legal advice · Every rule cited to state statute · Attorney sign-off in progress · Numbers verified 7/16/2026",
-  finalTitle:"Practice the stop before it happens.", finalSub:"Free scenario practice, and free bilingual cards — both ready before you need them.", finalBtn:"Practice a stop",
+  finalTitle:"Practice the stop before it happens.", finalSub:"Free scenario practice, and free bilingual cards — both ready before you need them.", finalBtn:"Enter The Arena",
 
   heroSub:"A free bilingual tool for police encounters: traffic stops, checkpoints, a knock at your door. Practice the words out loud, then print six cards built from your state's laws, plus a verified lifeline to a lawyer who takes your call.",
   cut1:"Lights in the mirror.", cut1s:"Every driver has felt this exact half-second.",
@@ -538,12 +538,12 @@ const EN = {
   closeTitle:"Practice every encounter before it happens.", closeSub:"Free scenario practice, and free bilingual cards. Both ready before you need them."
 };
 const ES = {
-  navPractice:"Practicar", navRehearse:"Ensayar", navAid:"Buscar ayuda", navHow:"Crear las tarjetas", navWhat:"Qué incluye", navPrivacy:"Privacidad", navFaq:"Preguntas", navCta:"Practicar una parada",
+  navPractice:"Practicar", navRehearse:"Ensayar", navAid:"Buscar ayuda", navHow:"Crear las tarjetas", navWhat:"Qué incluye", navPrivacy:"Privacidad", navFaq:"Preguntas", navCta:"Entra a la Arena",
   scenNotBuilt:"Aún no disponible",
   heroEyebrow:"Know your rights · Conoce tus derechos",
   heroTitle:"Conocer tus derechos no basta. Practícalos.",
   heroSub:"Un recurso bilingüe gratuito para conductores. Practica en voz alta escenarios de encuentros con la policía, y luego imprime seis tarjetas creadas a partir de las leyes de tu propio estado: tu licencia y seguro, las reglas donde manejas, qué decir y cómo comunicarte con un abogado que conteste tu llamada.",
-  heroCta:"Empezar a practicar", heroCtaReturn:"Seguir practicando", heroSecondary:"Solo imprimir las tarjetas",
+  heroCta:"Entra a la Arena", heroCtaReturn:"Vuelve a la Arena", heroSecondary:"¿Necesitas ayuda real?",
   trustLine:"Gratis. Todo se queda en este teléfono, salvo que elijas guardar tus tarjetas en una cuenta gratuita opcional. Las fotos y el historial de práctica nunca se suben.",
   arenaEyebrow:"Arena de Práctica", arenaTitle:"Ahora ensáyalo.",
   arenaSub:"Las tarjetas van en tu guantera. Esto tiene que estar en tu cabeza. Haz un escenario en voz alta, con frases del oficial habladas y tu propia voz respondiendo — dos minutos cada uno.",
@@ -592,7 +592,7 @@ const ES = {
     {label:"Personalizado para ti",desc:"Tu nombre, un contacto de emergencia de respaldo y documentos ya impresos en las tarjetas."},
     {label:"Un plan familiar de emergencia",desc:"Quién recoge a tus hijos, dónde están los documentos, un guion para los padres si reciben la llamada, y números de consulados."}
   ],
-  priceLine:"Gratis. Sin tarjeta, sin cuenta obligatoria. Existe un paquete de guiones opcional de $3.99 dentro de la Arena — ese es todo el modelo de negocio. Sin muros de pago sorpresa.",
+  priceLine:"Gratis. Sin tarjeta, sin cuenta obligatoria. Dentro de la Arena hay un Guion Maestro opcional ($9.99) y una tarjeta laminada por correo ($19.99): ese es todo el modelo de negocio. Sin muros de pago sorpresa.",
   privacyEyebrow:"Privacidad", privacyTitle:"Nada sale de tu teléfono, salvo que tú lo decidas.",
   privacyBody:"Amparo funciona sin ninguna cuenta, y así es por defecto. Si eliges crear una para guardar tus tarjetas entre dispositivos, solo se guarda el texto de tus tarjetas — estado, nombres, teléfonos, código postal — en nuestro servidor. Tus fotos de documentos y tu historial de práctica nunca se suben, con cuenta o sin ella: no hay dónde guardarlos en el servidor.",
   privacyChips:["Tus fotos quedan en tu dispositivo","El historial de práctica queda en tu dispositivo","Sin cuenta obligatoria","Revisión de abogado en curso"],
@@ -615,7 +615,7 @@ const ES = {
   ],
   footerDisclaimer:"Amparo ofrece información legal general, no asesoría legal. Cada regla cita el artículo exacto de la ley estatal para que usted mismo lo verifique; la revisión formal por un abogado en cada estado está en curso. Números verificados el 16 de julio de 2026.",
   footerCopyright:"© 2026 Amparo · Edición piloto · Información legal general, no asesoría legal · Cada regla citada a la ley estatal · Revisión por abogado en curso · Números verificados 16/7/2026",
-  finalTitle:"Practica la parada antes de que pase.", finalSub:"Práctica de escenarios gratis, y tarjetas bilingües gratis — ambos listos antes de que los necesites.", finalBtn:"Practicar una parada",
+  finalTitle:"Practica la parada antes de que pase.", finalSub:"Práctica de escenarios gratis, y tarjetas bilingües gratis — ambos listos antes de que los necesites.", finalBtn:"Entra a la Arena",
 
   heroSub:"Un recurso bilingüe gratuito para encuentros con la policía: paradas de tráfico, retenes, un toque en tu puerta. Practica en voz alta, luego imprime seis tarjetas con las leyes de tu estado y una línea directa a un abogado que conteste tu llamada.",
   cut1:"Luces en el espejo.", cut1s:"Todo conductor ha sentido este medio segundo exacto.",
@@ -731,7 +731,7 @@ function renderNav(c){
   const items = [
     ['#arena',        c.navPractice],
     ['/new/rehearse.html', c.navRehearse],
-    ['/new/aid.html',      c.navAid],
+    ['/aid',      c.navAid],
     ['#how',          c.navHow],
     ['#what',         c.navWhat],
     ['#privacy',      c.navPrivacy],
@@ -896,7 +896,7 @@ function render(){
     /* 2 · the claim */
     '<section class="cut cut--trail" id="top" data-sc-act="flow" style="--h:1;background:#101B33">'+
       '<div class="copy"><div class="eyebrow" data-sc-cue="0 1 0 0">'+esc(c.heroEyebrow)+'</div><h2 data-sc-cue="0 1 0.3 0" data-sc-kinetic="lines">'+esc(c.heroTitle)+'</h2><p data-sc-cue="0.08 1 0.3 0">'+esc(c.heroSub)+'</p>'+
-        '<div class="hero-ctas" data-sc-cue="0.14 1 0.3 0"><a class="btn btn-gold" href="/arena/">'+esc(heroCtaLabel)+'</a><a class="btn btn-line" href="/pack">'+esc(c.heroSecondary)+'</a></div>'+
+        '<div class="hero-ctas" data-sc-cue="0.14 1 0.3 0"><a class="btn btn-gold" href="/rehearse">'+esc(heroCtaLabel)+'</a><a class="btn btn-line" href="/aid">'+esc(c.heroSecondary)+'</a></div>'+
         '<p class="trust" data-sc-cue="0.18 1 0.3 0">'+esc(c.trustLine)+'</p></div>'+
     '</section>'+
     /* 3 · encounter: traffic stop, the hands as a frame sequence */
@@ -966,8 +966,8 @@ function render(){
     /* 13 · the close, holds */
     '<section class="cut cut--close" id="join" data-sc-act="flow" style="--h:1">'+
       '<div class="copy" data-sc-cue="0.05"><h2>'+esc(c.closeTitle)+'</h2><p>'+esc(c.closeSub)+'</p>'+
-        '<div class="hero-ctas"><a class="btn btn-gold" href="/arena/">'+esc(c.finalBtn)+'</a><a class="btn btn-line" href="/pack">'+esc(c.dealPrint)+'</a></div>'+
-        '<footer class="colophon"><a href="/pack">'+esc(c.navHow)+'</a><a href="#privacy">'+esc(c.navPrivacy)+'</a><a href="https://www.amparohq.com/about">'+esc(c.arenaLink||'About')+'</a><a href="/new/aid.html">'+esc(c.navAid)+'</a>'+
+        '<div class="hero-ctas"><a class="btn btn-gold" href="/rehearse">'+esc(c.finalBtn)+'</a><a class="btn btn-line" href="/pack">'+esc(c.dealPrint)+'</a></div>'+
+        '<footer class="colophon"><a href="/pack">'+esc(c.navHow)+'</a><a href="#privacy">'+esc(c.navPrivacy)+'</a><a href="https://www.amparohq.com/about">'+esc(c.arenaLink||'About')+'</a><a href="/aid">'+esc(c.navAid)+'</a>'+
         '<p class="disc">'+esc(c.footerDisclaimer)+'</p><span>'+esc(c.footerCopyright)+'</span></footer></div>'+
     '</section>';
 

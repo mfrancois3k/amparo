@@ -1,0 +1,1128 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://www.amparohq.com/data/jurisdictions.schema.json",
+ "title": "Amparo jurisdictions",
+ "type": "object",
+ "required": [
+  "version",
+  "sourceHash",
+  "standard",
+  "columns",
+  "verdicts",
+  "remedyTiers",
+  "states"
+ ],
+ "additionalProperties": false,
+ "properties": {
+  "version": {
+   "const": 1
+  },
+  "sourceHash": {
+   "type": "string",
+   "pattern": "^[0-9a-f]{64}$"
+  },
+  "standard": {
+   "type": "object",
+   "required": [
+    "primaryText",
+    "attorney"
+   ],
+   "properties": {
+    "primaryText": {
+     "type": "string"
+    },
+    "attorney": {
+     "type": "string"
+    }
+   }
+  },
+  "columns": {
+   "type": "array",
+   "minItems": 19,
+   "maxItems": 19,
+   "items": {
+    "type": "object",
+    "required": [
+     "key",
+     "label"
+    ],
+    "properties": {
+     "key": {
+      "type": "string"
+     },
+     "label": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  "verdicts": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "remedyTiers": {
+   "type": "object",
+   "propertyNames": {
+    "pattern": "^[0-4]$"
+   },
+   "additionalProperties": {
+    "type": "string"
+   }
+  },
+  "states": {
+   "type": "object",
+   "minProperties": 51,
+   "maxProperties": 51,
+   "propertyNames": {
+    "pattern": "^[A-Z]{2}$"
+   },
+   "additionalProperties": {
+    "type": "object",
+    "required": [
+     "code",
+     "name",
+     "review",
+     "remedyTier",
+     "cells",
+     "overlays"
+    ],
+    "additionalProperties": false,
+    "properties": {
+     "code": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$"
+     },
+     "name": {
+      "type": "string"
+     },
+     "review": {
+      "type": "object",
+      "required": [
+       "primaryText",
+       "attorney",
+       "attorneyReviewedBy"
+      ],
+      "properties": {
+       "primaryText": {
+        "const": true
+       },
+       "attorney": {
+        "type": "boolean"
+       },
+       "attorneyReviewedBy": {
+        "type": [
+         "object",
+         "null"
+        ]
+       }
+      }
+     },
+     "remedyTier": {
+      "type": [
+       "integer",
+       "null"
+      ],
+      "minimum": 0,
+      "maximum": 4
+     },
+     "cells": {
+      "type": "object",
+      "required": [
+       "stopAndId",
+       "driverId",
+       "consentSearch",
+       "passengerId",
+       "signCitation",
+       "recording",
+       "firearmInform",
+       "officerCondition",
+       "safeStop",
+       "detentionCap",
+       "checkpoint",
+       "impersonation",
+       "pretext",
+       "k9",
+       "policePractices",
+       "reasonForStop",
+       "ticketVsArrest",
+       "footageAccess",
+       "dutyToIntervene"
+      ],
+      "additionalProperties": false,
+      "properties": {
+       "stopAndId": {
+        "type": "object",
+        "required": [
+         "verdict",
+         "cite",
+         "value",
+         "tags",
+         "raw"
+        ],
+        "additionalProperties": false,
+        "properties": {
+         "verdict": {
+          "enum": [
+           "VERIFIED",
+           "CONFIRMED",
+           "LIKELY",
+           "REFUTED",
+           "CASE_LAW_ONLY",
+           "NULL",
+           "HOST_BLOCKED",
+           "UNASSESSED"
+          ]
+         },
+         "cite": {
+          "type": [
+           "string",
+           "null"
+          ]
+         },
+         "value": {
+          "type": "string"
+         },
+         "tags": {
+          "type": "object",
+          "additionalProperties": {
+           "type": "string"
+          }
+         },
+         "raw": {
+          "type": "string"
+         }
+        }
+       },
+       "driverId": {
+        "type": "object",
+        "required": [
+         "verdict",
+         "cite",
+         "value",
+         "tags",
+         "raw"
+        ],
+        "additionalProperties": false,
+        "properties": {
+         "verdict": {
+          "enum": [
+           "VERIFIED",
+           "CONFIRMED",
+           "LIKELY",
+           "REFUTED",
+           "CASE_LAW_ONLY",
+           "NULL",
+           "HOST_BLOCKED",
+           "UNASSESSED"
+          ]
+         },
+         "cite": {
+          "type": [
+           "string",
+           "null"
+          ]
+         },
+         "value": {
+          "type": "string"
+         },
+         "tags": {
+          "type": "object",
+          "additionalProperties": {
+           "type": "string"
+          }
+         },
+         "raw": {
+          "type": "string"
+         }
+        }
+       },
+       "consentSearch": {
+        "type": "object",
+        "required": [
+         "verdict",
+         "cite",
+         "value",
+         "tags",
+         "raw"
+        ],
+        "additionalProperties": false,
+        "properties": {
+         "verdict": {
+          "enum": [
+           "VERIFIED",
+           "CONFIRMED",
+           "LIKELY",
+           "REFUTED",
+           "CASE_LAW_ONLY",
+           "NULL",
+           "HOST_BLOCKED",
+           "UNASSESSED"
+          ]
+         },
+         "cite": {
+          "type": [
+           "string",
+           "null"
+          ]
+         },
+         "value": {
+          "type": "string"
+         },
+         "tags": {
+          "type": "object",
+          "additionalProperties": {
+           "type": "string"
+          }
+         },
+         "raw": {
+          "type": "string"
+         }
+        }
+       },
+       "passengerId": {
+        "type": "object",
+        "required": [
+         "verdict",
+         "cite",
+         "value",
+         "tags",
+         "raw"
+        ],
+        "additionalProperties": false,
+        "properties": {
+         "verdict": {
+          "enum": [
+           "VERIFIED",
+           "CONFIRMED",
+           "LIKELY",
+           "REFUTED",
+           "CASE_LAW_ONLY",
+           "NULL",
+           "HOST_BLOCKED",
+           "UNASSESSED"
+          ]
+         },
+         "cite": {
+          "type": [
+           "string",
+           "null"
+          ]
+         },
+         "value": {
+          "type": "string"
+         },
+         "tags": {
+          "type": "object",
+          "additionalProperties": {
+           "type": "string"
+          }
+         },
+         "raw": {
+          "type": "string"
+         }
+        }
+       },
+       "signCitation": {
+        "type": "object",
+        "required": [
+         "verdict",
+         "cite",
+         "value",
+         "tags",
+         "raw"
+        ],
+        "additionalProperties": false,
+        "properties": {
+         "verdict": {
+          "enum": [
+           "VERIFIED",
+           "CONFIRMED",
+           "LIKELY",
+           "REFUTED",
+           "CASE_LAW_ONLY",
+           "NULL",
+           "HOST_BLOCKED",
+           "UNASSESSED"
+          ]
+         },
+         "cite": {
+          "type": [
+           "string",
+           "null"
+          ]
+         },
+         "value": {
+          "type": "string"
+         },
+         "tags": {
+          "type": "object",
+          "additionalProperties": {
+           "type": "string"
+          }
+         },
+         "raw": {
+          "type": "string"
+         }
+        }
+       },
+       "recording": {
+        "type": "object",
+        "required": [
+         "verdict",
+         "cite",
+         "value",
+         "tags",
+         "raw"
+        ],
+        "additionalProperties": false,
+        "properties": {
+         "verdict": {
+          "enum": [
+           "VERIFIED",
+           "CONFIRMED",
+           "LIKELY",
+           "REFUTED",
+           "CASE_LAW_ONLY",
+           "NULL",
+           "HOST_BLOCKED",
+           "UNASSESSED"
+          ]
+         },
+         "cite": {
+          "type": [
+           "string",
+           "null"
+          ]
+         },
+         "value": {
+          "type": "string"
+         },
+         "tags": {
+          "type": "object",
+          "additionalProperties": {
+           "type": "string"
+          }
+         },
+         "raw": {
+          "type": "string"
+         }
+        }
+       },
+       "firearmInform": {
+        "type": "object",
+        "required": [
+         "verdict",
+         "cite",
+         "value",
+         "tags",
+         "raw"
+        ],
+        "additionalProperties": false,
+        "properties": {
+         "verdict": {
+          "enum": [
+           "VERIFIED",
+           "CONFIRMED",
+           "LIKELY",
+           "REFUTED",
+           "CASE_LAW_ONLY",
+           "NULL",
+           "HOST_BLOCKED",
+           "UNASSESSED"
+          ]
+         },
+         "cite": {
+          "type": [
+           "string",
+           "null"
+          ]
+         },
+         "value": {
+          "type": "string"
+         },
+         "tags": {
+          "type": "object",
+          "additionalProperties": {
+           "type": "string"
+          }
+         },
+         "raw": {
+          "type": "string"
+         }
+        }
+       },
+       "officerCondition": {
+        "type": "object",
+        "required": [
+         "verdict",
+         "cite",
+         "value",
+         "tags",
+         "raw"
+        ],
+        "additionalProperties": false,
+        "properties": {
+         "verdict": {
+          "enum": [
+           "VERIFIED",
+           "CONFIRMED",
+           "LIKELY",
+           "REFUTED",
+           "CASE_LAW_ONLY",
+           "NULL",
+           "HOST_BLOCKED",
+           "UNASSESSED"
+          ]
+         },
+         "cite": {
+          "type": [
+           "string",
+           "null"
+          ]
+         },
+         "value": {
+          "type": "string"
+         },
+         "tags": {
+          "type": "object",
+          "additionalProperties": {
+           "type": "string"
+          }
+         },
+         "raw": {
+          "type": "string"
+         }
+        }
+       },
+       "safeStop": {
+        "type": "object",
+        "required": [
+         "verdict",
+         "cite",
+         "value",
+         "tags",
+         "raw"
+        ],
+        "additionalProperties": false,
+        "properties": {
+         "verdict": {
+          "enum": [
+           "VERIFIED",
+           "CONFIRMED",
+           "LIKELY",
+           "REFUTED",
+           "CASE_LAW_ONLY",
+           "NULL",
+           "HOST_BLOCKED",
+           "UNASSESSED"
+          ]
+         },
+         "cite": {
+          "type": [
+           "string",
+           "null"
+          ]
+         },
+         "value": {
+          "type": "string"
+         },
+         "tags": {
+          "type": "object",
+          "additionalProperties": {
+           "type": "string"
+          }
+         },
+         "raw": {
+          "type": "string"
+         }
+        }
+       },
+       "detentionCap": {
+        "type": "object",
+        "required": [
+         "verdict",
+         "cite",
+         "value",
+         "tags",
+         "raw"
+        ],
+        "additionalProperties": false,
+        "properties": {
+         "verdict": {
+          "enum": [
+           "VERIFIED",
+           "CONFIRMED",
+           "LIKELY",
+           "REFUTED",
+           "CASE_LAW_ONLY",
+           "NULL",
+           "HOST_BLOCKED",
+           "UNASSESSED"
+          ]
+         },
+         "cite": {
+          "type": [
+           "string",
+           "null"
+          ]
+         },
+         "value": {
+          "type": "string"
+         },
+         "tags": {
+          "type": "object",
+          "additionalProperties": {
+           "type": "string"
+          }
+         },
+         "raw": {
+          "type": "string"
+         }
+        }
+       },
+       "checkpoint": {
+        "type": "object",
+        "required": [
+         "verdict",
+         "cite",
+         "value",
+         "tags",
+         "raw"
+        ],
+        "additionalProperties": false,
+        "properties": {
+         "verdict": {
+          "enum": [
+           "VERIFIED",
+           "CONFIRMED",
+           "LIKELY",
+           "REFUTED",
+           "CASE_LAW_ONLY",
+           "NULL",
+           "HOST_BLOCKED",
+           "UNASSESSED"
+          ]
+         },
+         "cite": {
+          "type": [
+           "string",
+           "null"
+          ]
+         },
+         "value": {
+          "type": "string"
+         },
+         "tags": {
+          "type": "object",
+          "additionalProperties": {
+           "type": "string"
+          }
+         },
+         "raw": {
+          "type": "string"
+         }
+        }
+       },
+       "impersonation": {
+        "type": "object",
+        "required": [
+         "verdict",
+         "cite",
+         "value",
+         "tags",
+         "raw"
+        ],
+        "additionalProperties": false,
+        "properties": {
+         "verdict": {
+          "enum": [
+           "VERIFIED",
+           "CONFIRMED",
+           "LIKELY",
+           "REFUTED",
+           "CASE_LAW_ONLY",
+           "NULL",
+           "HOST_BLOCKED",
+           "UNASSESSED"
+          ]
+         },
+         "cite": {
+          "type": [
+           "string",
+           "null"
+          ]
+         },
+         "value": {
+          "type": "string"
+         },
+         "tags": {
+          "type": "object",
+          "additionalProperties": {
+           "type": "string"
+          }
+         },
+         "raw": {
+          "type": "string"
+         }
+        }
+       },
+       "pretext": {
+        "type": "object",
+        "required": [
+         "verdict",
+         "cite",
+         "value",
+         "tags",
+         "raw"
+        ],
+        "additionalProperties": false,
+        "properties": {
+         "verdict": {
+          "enum": [
+           "VERIFIED",
+           "CONFIRMED",
+           "LIKELY",
+           "REFUTED",
+           "CASE_LAW_ONLY",
+           "NULL",
+           "HOST_BLOCKED",
+           "UNASSESSED"
+          ]
+         },
+         "cite": {
+          "type": [
+           "string",
+           "null"
+          ]
+         },
+         "value": {
+          "type": "string"
+         },
+         "tags": {
+          "type": "object",
+          "additionalProperties": {
+           "type": "string"
+          }
+         },
+         "raw": {
+          "type": "string"
+         }
+        }
+       },
+       "k9": {
+        "type": "object",
+        "required": [
+         "verdict",
+         "cite",
+         "value",
+         "tags",
+         "raw"
+        ],
+        "additionalProperties": false,
+        "properties": {
+         "verdict": {
+          "enum": [
+           "VERIFIED",
+           "CONFIRMED",
+           "LIKELY",
+           "REFUTED",
+           "CASE_LAW_ONLY",
+           "NULL",
+           "HOST_BLOCKED",
+           "UNASSESSED"
+          ]
+         },
+         "cite": {
+          "type": [
+           "string",
+           "null"
+          ]
+         },
+         "value": {
+          "type": "string"
+         },
+         "tags": {
+          "type": "object",
+          "additionalProperties": {
+           "type": "string"
+          }
+         },
+         "raw": {
+          "type": "string"
+         }
+        }
+       },
+       "policePractices": {
+        "type": "object",
+        "required": [
+         "verdict",
+         "cite",
+         "value",
+         "tags",
+         "raw"
+        ],
+        "additionalProperties": false,
+        "properties": {
+         "verdict": {
+          "enum": [
+           "VERIFIED",
+           "CONFIRMED",
+           "LIKELY",
+           "REFUTED",
+           "CASE_LAW_ONLY",
+           "NULL",
+           "HOST_BLOCKED",
+           "UNASSESSED"
+          ]
+         },
+         "cite": {
+          "type": [
+           "string",
+           "null"
+          ]
+         },
+         "value": {
+          "type": "string"
+         },
+         "tags": {
+          "type": "object",
+          "additionalProperties": {
+           "type": "string"
+          }
+         },
+         "raw": {
+          "type": "string"
+         }
+        }
+       },
+       "reasonForStop": {
+        "type": "object",
+        "required": [
+         "verdict",
+         "cite",
+         "value",
+         "tags",
+         "raw"
+        ],
+        "additionalProperties": false,
+        "properties": {
+         "verdict": {
+          "enum": [
+           "VERIFIED",
+           "CONFIRMED",
+           "LIKELY",
+           "REFUTED",
+           "CASE_LAW_ONLY",
+           "NULL",
+           "HOST_BLOCKED",
+           "UNASSESSED"
+          ]
+         },
+         "cite": {
+          "type": [
+           "string",
+           "null"
+          ]
+         },
+         "value": {
+          "type": "string"
+         },
+         "tags": {
+          "type": "object",
+          "additionalProperties": {
+           "type": "string"
+          }
+         },
+         "raw": {
+          "type": "string"
+         }
+        }
+       },
+       "ticketVsArrest": {
+        "type": "object",
+        "required": [
+         "verdict",
+         "cite",
+         "value",
+         "tags",
+         "raw"
+        ],
+        "additionalProperties": false,
+        "properties": {
+         "verdict": {
+          "enum": [
+           "VERIFIED",
+           "CONFIRMED",
+           "LIKELY",
+           "REFUTED",
+           "CASE_LAW_ONLY",
+           "NULL",
+           "HOST_BLOCKED",
+           "UNASSESSED"
+          ]
+         },
+         "cite": {
+          "type": [
+           "string",
+           "null"
+          ]
+         },
+         "value": {
+          "type": "string"
+         },
+         "tags": {
+          "type": "object",
+          "additionalProperties": {
+           "type": "string"
+          }
+         },
+         "raw": {
+          "type": "string"
+         }
+        }
+       },
+       "footageAccess": {
+        "type": "object",
+        "required": [
+         "verdict",
+         "cite",
+         "value",
+         "tags",
+         "raw"
+        ],
+        "additionalProperties": false,
+        "properties": {
+         "verdict": {
+          "enum": [
+           "VERIFIED",
+           "CONFIRMED",
+           "LIKELY",
+           "REFUTED",
+           "CASE_LAW_ONLY",
+           "NULL",
+           "HOST_BLOCKED",
+           "UNASSESSED"
+          ]
+         },
+         "cite": {
+          "type": [
+           "string",
+           "null"
+          ]
+         },
+         "value": {
+          "type": "string"
+         },
+         "tags": {
+          "type": "object",
+          "additionalProperties": {
+           "type": "string"
+          }
+         },
+         "raw": {
+          "type": "string"
+         }
+        }
+       },
+       "dutyToIntervene": {
+        "type": "object",
+        "required": [
+         "verdict",
+         "cite",
+         "value",
+         "tags",
+         "raw"
+        ],
+        "additionalProperties": false,
+        "properties": {
+         "verdict": {
+          "enum": [
+           "VERIFIED",
+           "CONFIRMED",
+           "LIKELY",
+           "REFUTED",
+           "CASE_LAW_ONLY",
+           "NULL",
+           "HOST_BLOCKED",
+           "UNASSESSED"
+          ]
+         },
+         "cite": {
+          "type": [
+           "string",
+           "null"
+          ]
+         },
+         "value": {
+          "type": "string"
+         },
+         "tags": {
+          "type": "object",
+          "additionalProperties": {
+           "type": "string"
+          }
+         },
+         "raw": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     },
+     "overlays": {
+      "type": "object",
+      "required": [
+       "cannabisOdor",
+       "signPosture",
+       "lyingIsCrime",
+       "refusalIsOffense",
+       "firearmDuty",
+       "firearmHands",
+       "firearmSecure",
+       "passengerException",
+       "unmarked",
+       "safeStop",
+       "reasonForStopDuty",
+       "dutyToIntervene"
+      ],
+      "additionalProperties": false,
+      "properties": {
+       "cannabisOdor": {
+        "type": [
+         "object",
+         "null"
+        ]
+       },
+       "signPosture": {
+        "type": [
+         "object",
+         "null"
+        ]
+       },
+       "lyingIsCrime": {
+        "type": [
+         "string",
+         "null"
+        ]
+       },
+       "refusalIsOffense": {
+        "type": [
+         "object",
+         "null"
+        ]
+       },
+       "firearmDuty": {
+        "enum": [
+         "proactive",
+         "onRequest",
+         "accuracyOnly",
+         "inverse",
+         "none",
+         "unassessed"
+        ]
+       },
+       "firearmHands": {
+        "type": [
+         "string",
+         "null"
+        ]
+       },
+       "firearmSecure": {
+        "type": [
+         "string",
+         "null"
+        ]
+       },
+       "passengerException": {
+        "type": [
+         "object",
+         "null"
+        ]
+       },
+       "unmarked": {
+        "type": [
+         "object",
+         "null"
+        ]
+       },
+       "safeStop": {
+        "type": [
+         "object",
+         "null"
+        ]
+       },
+       "reasonForStopDuty": {
+        "type": "boolean"
+       },
+       "dutyToIntervene": {
+        "enum": [
+         "direct",
+         "agency_policy",
+         null
+        ]
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "$defs": {
+  "hudLine": {
+   "type": "object",
+   "required": [
+    "id",
+    "posture",
+    "cite",
+    "verdict",
+    "en",
+    "es"
+   ],
+   "properties": {
+    "id": {
+     "enum": [
+      "silence",
+      "documents",
+      "passenger",
+      "sign",
+      "search",
+      "firearm",
+      "recording",
+      "unmarked",
+      "reason",
+      "footage"
+     ]
+    },
+    "posture": {
+     "type": "string"
+    },
+    "cite": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "verdict": {
+     "enum": [
+      "VERIFIED",
+      "CONFIRMED",
+      "LIKELY",
+      "REFUTED",
+      "CASE_LAW_ONLY",
+      "NULL",
+      "HOST_BLOCKED",
+      "UNASSESSED"
+     ]
+    },
+    "en": {
+     "type": "string"
+    },
+    "es": {
+     "type": "string"
+    }
+   }
+  }
+ }
+}

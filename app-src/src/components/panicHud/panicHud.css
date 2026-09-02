@@ -1,0 +1,36 @@
+/* Panic HUD. Reads at arm's length on a phone in a dark car: black ground,
+   white type, gold only for the citation and the rule that marks a line
+   where this state differs. Nothing moves. */
+
+.panic-btn{position:fixed;right:16px;bottom:16px;z-index:60;display:inline-flex;align-items:center;gap:10px;min-height:56px;padding:0 20px 0 16px;border:0;border-radius:999px;background:var(--gold,#E8B84B);color:var(--navy-deep,#0B1426);font:800 15px/1 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;letter-spacing:.2px;box-shadow:0 10px 28px rgba(11,20,38,.35);cursor:pointer}
+.panic-btn svg{width:22px;height:22px;flex:none}
+.panic-btn:hover{filter:brightness(1.05)}
+.panic-btn:active{transform:scale(.98)}
+.panic-btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+@media (max-width:480px){.panic-btn{right:50%;transform:translateX(50%);bottom:14px}.panic-btn:active{transform:translateX(50%) scale(.98)}}
+@media print{.panic-btn,.panic-hud{display:none !important}}
+
+.panic-hud{position:fixed;inset:0;z-index:70;background:#000;color:#fff;overflow-y:auto;-webkit-overflow-scrolling:touch;animation:panic-in 120ms ease-out}
+@keyframes panic-in{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.panic-hud{animation:none}}
+.panic-hud__inner{max-width:640px;margin:0 auto;padding:20px 20px 40px;display:flex;flex-direction:column;min-height:100%}
+.panic-hud__head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:18px}
+.panic-hud__kicker{margin:0 0 4px;font:700 13px/1.2 system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#E8B84B}
+.panic-hud h2{margin:0;font:900 30px/1.05 system-ui,sans-serif;letter-spacing:-.4px;color:#fff}
+.panic-hud__close{flex:none;min-width:48px;min-height:48px;padding:0 18px;border:2px solid #fff;border-radius:999px;background:#000;color:#fff;font:800 16px/1 system-ui,sans-serif;cursor:pointer}
+.panic-hud__close:focus-visible{outline:3px solid #E8B84B;outline-offset:3px}
+
+.panic-hud__lines{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:18px}
+.panic-hud__lines li{padding-left:14px;border-left:4px solid #3a4150}
+.panic-hud__lines li.is-emph{border-left-color:#E8B84B}
+.panic-hud__lines p{margin:0;font:700 22px/1.3 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#fff;text-wrap:pretty}
+.panic-hud__lines li:nth-child(-n+2) p:first-child{font-size:30px;line-height:1.2}
+.panic-hud__meta{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:6px !important;font-size:15px !important;font-weight:600 !important;line-height:1.3 !important}
+.panic-hud__cite{color:#E8B84B}
+.panic-hud__flag{display:inline-block;padding:2px 10px;border-radius:999px;border:1.5px solid #E8B84B;color:#E8B84B;font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+
+.panic-hud__notice{margin-top:auto;padding:16px 18px;border-radius:14px;background:#E8B84B;color:#0B1426;display:flex;flex-direction:column;gap:4px;font:600 15px/1.35 system-ui,sans-serif}
+.panic-hud__notice strong{font-weight:900;letter-spacing:.02em}
+.panic-hud__notice.is-reviewed{background:#1f6b3a;color:#fff}
+
+@media (prefers-contrast:more){.panic-hud__lines li{border-left-width:6px}.panic-hud__lines li{border-left-color:#fff}.panic-hud__lines li.is-emph{border-left-color:#E8B84B}.panic-hud__cite{text-decoration:underline}}

@@ -424,3 +424,14 @@ A real phone, as before: the scrub clips' decode and the sequence canvas on
 iOS, Low Power Mode, and touch flicking on the deck are authored, not
 device-tested. Two clips at ~2MB each are fetched only when their cut is within
 three viewport-heights, not on load.
+
+### v2.1 (2026-09-02, later the same day): routes and the asks
+Copy-only pass after the engine refactor brief. Every "Practice a stop" ask
+became "Enter The Arena" and points at /rehearse (a Vercel rewrite onto the
+Arena; /arena/ still answers). The hero's secondary ask is now "Need
+real-world help?" to /aid (rewrite onto new/aid.html, made indexable, its
+script path made root-absolute so the rewrite can serve it). The print path
+keeps its own buttons in The Deal, the close and the colophon. The price line
+follows the ladder that replaced the $3.99 pack. No act, cue, asset or span
+changed; the v2 verification stands.
+

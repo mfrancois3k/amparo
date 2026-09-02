@@ -1,24 +1,9 @@
-import { internalMutation, query } from './_generated/server'
-import { v } from 'convex/values'
+import { query } from './_generated/server'
 
-/* Written only by the Stripe webhook (internal), read by the signed-in user. */
-export const record = internalMutation({
-  args: {
-    userId: v.string(),
-    product: v.string(),
-    stripeSessionId: v.string(),
-    amount: v.number(),
-  },
-  handler: async (ctx, args) => {
-    const dup = await ctx.db
-      .query('purchases')
-      .withIndex('by_session', (q) => q.eq('stripeSessionId', args.stripeSessionId))
-      .unique()
-    if (dup) return // webhook retries are normal; record once
-    await ctx.db.insert('purchases', { ...args, createdAt: Date.now() })
-  },
-})
-
+/* Written only by the Stripe webhook through orders.commitEvent (one
+ * transaction with the event row and any fulfilment order; see lib/commit.ts),
+ * read by the signed-in user. The old per-call `record` mutation went with
+ * that change: two writers to the same table is how a dedupe rule drifts. */
 export const mine = query({
   args: {},
   handler: async (ctx) => {

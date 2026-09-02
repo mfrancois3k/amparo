@@ -44,11 +44,38 @@ rnav = '\n'.join(L[i_rnav:i_rnav_e + 1])
 assert '</head>' not in head and '<body' not in head, 'head slice reached into body'
 for need in ("'navLinks'", "'navSheetLinks'", "'navSheetCta'"):
     assert need in rnav, 'renderNav no longer targets ' + need
+assert rnav.count("['/new/aid.html',") == 1, 'renderNav aid entry moved'
+rnav = rnav.replace("['/new/aid.html',", "['/aid',")
 
 # The supplied hero sub carries an em dash; the skill's hard rules ban one on
 # screen. A colon, meaning unchanged.
 data = data.replace("built from your own state's laws — your license", "built from your own state's laws: your license")
 data = data.replace("las leyes de tu propio estado — tu licencia", "las leyes de tu propio estado: tu licencia")
+
+# Sitemap of 2026-09-02: the Arena answers at /rehearse, the aid portal at
+# /aid. Primary CTA everywhere is "Enter The Arena"; the hero's secondary is
+# the real-world-help ask (the print path keeps its own buttons in The Deal
+# and the close). The price line follows the ladder that replaced the $3.99
+# pack (Master Script $9.99, Physical Armor $19.99).
+def swap(block, pairs):
+    for a, b in pairs:
+        assert block.count(a) == 1, 'expected exactly one: ' + a
+        block = block.replace(a, b)
+    return block
+data = swap(data, [
+    ('navCta:"Practice a stop"', 'navCta:"Enter The Arena"'),
+    ('heroCta:"Start practicing", heroCtaReturn:"Continue practicing", heroSecondary:"Just print the cards"',
+     'heroCta:"Enter The Arena", heroCtaReturn:"Back into The Arena", heroSecondary:"Need real-world help?"'),
+    ('finalBtn:"Practice a stop"', 'finalBtn:"Enter The Arena"'),
+    ('priceLine:"Free. No card, no account required. One optional $3.99 script pack exists inside the Arena — that\'s the whole business model. No surprise paywall."',
+     'priceLine:"Free. No card, no account required. Inside the Arena there is one optional Master Script ($9.99) and a mailed laminated card ($19.99): that is the whole business model. No surprise paywall."'),
+    ('navCta:"Practicar una parada"', 'navCta:"Entra a la Arena"'),
+    ('heroCta:"Empezar a practicar", heroCtaReturn:"Seguir practicando", heroSecondary:"Solo imprimir las tarjetas"',
+     'heroCta:"Entra a la Arena", heroCtaReturn:"Vuelve a la Arena", heroSecondary:"¿Necesitas ayuda real?"'),
+    ('finalBtn:"Practicar una parada"', 'finalBtn:"Entra a la Arena"'),
+    ('priceLine:"Gratis. Sin tarjeta, sin cuenta obligatoria. Existe un paquete de guiones opcional de $3.99 dentro de la Arena — ese es todo el modelo de negocio. Sin muros de pago sorpresa."',
+     'priceLine:"Gratis. Sin tarjeta, sin cuenta obligatoria. Dentro de la Arena hay un Guion Maestro opcional ($9.99) y una tarjeta laminada por correo ($19.99): ese es todo el modelo de negocio. Sin muros de pago sorpresa."'),
+])
 
 EN_ADD = u'''
   heroSub:"A free bilingual tool for police encounters: traffic stops, checkpoints, a knock at your door. Practice the words out loud, then print six cards built from your state's laws, plus a verified lifeline to a lawyer who takes your call.",

@@ -202,7 +202,7 @@ ${cardHtml('es', true)}
 </div>`;
 }
 
-async function findChrome() {
+export async function findChrome() {
   for (const c of CHROME) { try { await readFile(c); return c; } catch {} }
   throw new Error('no Chrome or Edge found');
 }

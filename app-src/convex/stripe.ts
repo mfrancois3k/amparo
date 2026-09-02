@@ -12,32 +12,27 @@ import Stripe from 'stripe'
  *
  * Prices are defined HERE, server-side, in cents. The client sends a product
  * id, never an amount. */
-/* `held` = priced and named, but NOT yet deliverable. A held product is
- * refused server-side, which is the only gate that matters: the client is not
- * the only way to reach /checkout.
- *
- * Deep Pack is held because it promises four things and can deliver one.
- * `renderScriptPack` is the only fulfilment renderer that exists; there is no
- * Deep Pack renderer, so a buyer would get a localStorage flag and nothing
- * else. Worse, two of the four promises cannot be written safely today:
- *   - "courthouse directions" is per-state factual data that exists nowhere in
- *     this repo. Inventing it sends someone to the wrong building on a court
- *     date.
- *   - the "ICE-encounter addendum" would draw on the door-knock drill, which
- *     the arena itself gates behind `HELD_SITS={door:1}` pending attorney and
- *     DV-clinician review. Content too unreviewed to give away free must not
- *     be sold.
- * Clear `held` only when a renderer exists AND its source content has passed
- * that review. */
-const PRODUCTS: Record<string, { usd: number; name: string; held?: true }> = {
-  script: { usd: 399, name: 'Amparo Script Pack' },
-  deep: { usd: 699, name: 'Amparo Deep Pack', held: true },
-  tip: { usd: 300, name: 'Support Amparo' },
+/* The price table (and the `held` / `physical` rules) live in lib/products.ts
+ * so the default-runtime HTTP router can read them without this file's
+ * stripe import. Read that file's comment before adding a product. */
+import { PRODUCTS } from './lib/products.ts'
+
+/* `state` and `lang` ride along in Checkout metadata so the webhook can queue
+ * the right Physical Armor card. Validated here; a bad value is dropped, never
+ * echoed. Physical products make Stripe collect a US shipping address, which
+ * is read back at fulfilment time and never stored by us (see schema.ts). */
+const STATE = /^[A-Z]{2}$/
+function checkoutExtras(p: (typeof PRODUCTS)[string], state?: string, lang?: string) {
+  const metadata: Record<string, string> = {}
+  if (state && STATE.test(state)) metadata.state = state
+  if (lang === 'en' || lang === 'es') metadata.lang = lang
+  const shipping = p.physical ? { shipping_address_collection: { allowed_countries: ['US' as const] } } : {}
+  return { metadata, shipping }
 }
 
 export const createCheckout = action({
-  args: { product: v.string() },
-  handler: async (ctx, { product }) => {
+  args: { product: v.string(), state: v.optional(v.string()), lang: v.optional(v.string()) },
+  handler: async (ctx, { product, state, lang }) => {
     const identity = await ctx.auth.getUserIdentity()
     if (!identity) throw new Error('Sign in to purchase')
     const p = PRODUCTS[product]
@@ -47,6 +42,7 @@ export const createCheckout = action({
     if (!key) throw new Error('Payments not configured yet')
     const site = process.env.SITE_URL ?? 'https://amparohq.com'
     const stripe = new Stripe(key)
+    const extras = checkoutExtras(p, state, lang)
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       line_items: [
@@ -60,7 +56,8 @@ export const createCheckout = action({
         },
       ],
       client_reference_id: identity.subject,
-      metadata: { product, userId: identity.subject },
+      metadata: { product, userId: identity.subject, ...extras.metadata },
+      ...extras.shipping,
       success_url: `${site}/app/?checkout=success`,
       cancel_url: `${site}/app/?checkout=cancelled`,
     })
@@ -73,8 +70,8 @@ export const createCheckout = action({
  * of purchase, and a later sign-in can claim the session id. Same server-side
  * price table; the client only ever names a product. */
 export const guestCheckout = internalAction({
-  args: { product: v.string() },
-  handler: async (_ctx, { product }) => {
+  args: { product: v.string(), state: v.optional(v.string()), lang: v.optional(v.string()) },
+  handler: async (_ctx, { product, state, lang }) => {
     const p = PRODUCTS[product]
     if (!p) throw new Error('Unknown product')
     if (p.held) throw new Error('not available yet')
@@ -82,6 +79,7 @@ export const guestCheckout = internalAction({
     if (!key) throw new Error('Payments not configured yet')
     const site = process.env.SITE_URL ?? 'https://amparohq.com'
     const stripe = new Stripe(key)
+    const extras = checkoutExtras(p, state, lang)
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       line_items: [
@@ -94,7 +92,8 @@ export const guestCheckout = internalAction({
           quantity: 1,
         },
       ],
-      metadata: { product, userId: 'guest' },
+      metadata: { product, userId: 'guest', ...extras.metadata },
+      ...extras.shipping,
       /* {CHECKOUT_SESSION_ID} is substituted by Stripe on redirect. A guest has
        * no account, so this id is the ONLY thing that ties the returning browser
        * to a payment — without it there is no way to deliver anything to someone
@@ -148,8 +147,9 @@ export const verifySession = internalAction({
   },
 })
 
-/* Webhook signature verification (Node runtime). Returns fulfillment data for
- * http.ts to record; never touches the DB itself. */
+/* Webhook signature verification (Node runtime). Returns the verified event's
+ * id, type and the session fields lib/plan.ts reads; http.ts turns that into
+ * a plan and commits it. Never touches the DB itself. */
 export const verifyWebhook = internalAction({
   args: { body: v.string(), sig: v.string() },
   handler: async (_ctx, { body, sig }) => {
@@ -163,15 +163,17 @@ export const verifyWebhook = internalAction({
     } catch {
       return { ok: false as const, status: 400, error: 'bad signature' }
     }
-    if (event.type !== 'checkout.session.completed') return { ok: true as const, fulfill: null }
+    if (event.type !== 'checkout.session.completed') return { ok: true as const, eventId: event.id, type: event.type, session: null }
     const s = event.data.object as Stripe.Checkout.Session
     return {
       ok: true as const,
-      fulfill: {
-        userId: (s.metadata?.userId as string) ?? s.client_reference_id ?? 'unknown',
-        product: (s.metadata?.product as string) ?? 'unknown',
-        stripeSessionId: s.id,
-        amount: s.amount_total ?? 0,
+      eventId: event.id,
+      type: event.type,
+      session: {
+        id: s.id,
+        amount_total: s.amount_total ?? null,
+        client_reference_id: s.client_reference_id ?? null,
+        metadata: (s.metadata ?? null) as Record<string, string> | null,
       },
     }
   },

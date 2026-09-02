@@ -36,6 +36,15 @@ const PrintStep = lazy(() => import('./screens/PrintStep').then((m) => ({ defaul
 const PracticeStep = lazy(() => import('./screens/PracticeStep').then((m) => ({ default: m.PracticeStep })))
 const Eyebrow = lazy(() => import('./components/Eyebrow').then((m) => ({ default: m.Eyebrow })))
 
+/* The Panic HUD carries the whole 51-state bank (content/hud.json), so it is
+   its own chunk. The trigger button is eager (it must be on every screen and
+   imports only hud.json's `ui` key); the chunk is prefetched on idle after
+   first paint so the first tap is instant on any connection that has had a
+   second, and offline once the service worker has it. */
+import { PanicButton } from './components/panicHud/PanicButton'
+const loadPanicHud = () => import('./components/panicHud/PanicHud')
+const PanicHud = lazy(() => loadPanicHud().then((m) => ({ default: m.PanicHud })))
+
 type Pack = { state: string | null }
 
 function Shell() {
@@ -52,11 +61,20 @@ function Shell() {
      previously called the exact same handler as the primary CTA, so it
      wasn't a shortcut at all. */
   const [wantLifelinesShortcut, setWantLifelinesShortcut] = useState(false)
+  /* ?panic=1 opens the HUD on load: the printed card and the homepage link
+     straight into it. */
+  const [panicOpen, setPanicOpen] = useState(() => new URLSearchParams(window.location.search).get('panic') === '1')
 
   useEffect(() => {
     const onReady = () => setOfflineReady(true)
     window.addEventListener(OFFLINE_READY_EVENT, onReady)
     return () => window.removeEventListener(OFFLINE_READY_EVENT, onReady)
+  }, [])
+
+  useEffect(() => {
+    const w = window as Window & { requestIdleCallback?: (cb: () => void) => number }
+    if (w.requestIdleCallback) w.requestIdleCallback(() => { void loadPanicHud() })
+    else window.setTimeout(() => { void loadPanicHud() }, 1500)
   }, [])
 
   const navigate = (to: Route) => {
@@ -183,6 +201,13 @@ function Shell() {
         <button type="button" className="linklike" onClick={() => openFeedback(lang)}>{t.fb_reach}</button>
       </p>
       <footer className="disclaimer">{t.disclaimer}</footer>
+
+      <PanicButton lang={lang} onOpen={() => setPanicOpen(true)} />
+      {panicOpen ? (
+        <Suspense fallback={null}>
+          <PanicHud lang={lang} stateCode={pack.state} onClose={() => setPanicOpen(false)} />
+        </Suspense>
+      ) : null}
     </div>
   )
 }

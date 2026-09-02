@@ -66,10 +66,22 @@ ok(/const PAYMENTS_LIVE=false/.test(arena),
 
 /* REVIEW.attorneys empty is the actual gate. Assert it so that the day someone
    flips PAYMENTS_LIVE, this test tells them what they are also asserting. */
-const root = await readFile(path.join(ROOT, 'index.html'), 'utf8');
+const root = await readFile(path.join(ROOT, 'pack.html'), 'utf8');
 const signed = /attorneys:\{[\s\S]*?name:"[^"]+"/.test(root);
 ok(!signed || /const PAYMENTS_LIVE=false/.test(arena),
   'if any attorney has signed, payments may go live; while none has, they must not');
+
+/* --- the redeem handler must be able to see its own endpoint --- */
+/* Found in review 2026-09-02: the redemption IIFE ran at parse time while
+   `const CHECKOUT_URL` was still below it, in its temporal dead zone. The
+   ReferenceError died in the empty catch and /redeem was never called. */
+ok(arena.indexOf("const CHECKOUT_URL=") > -1 && arena.indexOf("const CHECKOUT_URL=") < arena.indexOf("CHECKOUT_URL.replace("),
+  'CHECKOUT_URL is declared before the redeem handler that reads it (no temporal dead zone)');
+
+/* --- the ladder and the new products --- */
+ok(/id="ladArmor"/.test(arena) && /'armor':'master'/.test(arena), 'the ladder offers master and armor, nothing else');
+ok(/product==='script'&&\(has\('master'\)\|\|has\('armor'\)\)/.test(arena), 'master/armor entitlements satisfy the script-pack check (superset)');
+ok(/master: \{ usd: 999/.test(await readFile(path.join(ROOT, 'app-src', 'convex', 'lib', 'products.ts'), 'utf8')), 'server-side price table carries master at $9.99');
 
 let fail = 0;
 for (const [v, m] of checks) { console.log(`${v ? 'ok  ' : 'FAIL'}  ${m}`); if (!v) fail++; }

@@ -58,7 +58,10 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'), '..');
-const SRC = path.join(ROOT, 'index.html');
+/* The app page moved from index.html to pack.html on 2026-09-02 (the root
+   rewrite to new/index.html could not fire while a physical index.html
+   existed). The STATES / BASE_RULES_* literals it extracts live there now. */
+const SRC = path.join(ROOT, 'pack.html');
 const CHECK = process.argv.includes('--check');
 const ORIGIN = 'https://www.amparohq.com';
 
@@ -181,7 +184,9 @@ async function build() {
   const checked = status.lastChecked || 'unknown';
 
   const files = new Map();
-  const indexable = [`${ORIGIN}/`];
+  /* The two product routes are rewrites (vercel.json), not generated pages:
+     /rehearse serves the Arena, /aid the legal-help directory. */
+  const indexable = [`${ORIGIN}/`, `${ORIGIN}/rehearse`, `${ORIGIN}/aid`];
   /* Only pages worth subscribing to: real content, English only — a bilingual
      feed of the same page twice reads as duplication to an aggregator. */
   const feedEntries = [];

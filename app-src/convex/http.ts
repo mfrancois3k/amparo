@@ -1,11 +1,19 @@
 import { httpRouter } from 'convex/server'
 import { httpAction } from './_generated/server'
 import { internal } from './_generated/api'
+import { planFromEvent } from './lib/plan.ts'
+import { PRODUCTS } from './lib/products.ts'
 
 /* Stripe webhook — fulfillment is recorded ONLY from Stripe's signed event,
  * never from the client's success redirect. Signature verification needs the
  * Node runtime, so it lives in stripe.ts (internal action); this router runs
  * in the default runtime ("use node" is not allowed here).
+ *
+ * Idempotent on the Stripe EVENT id: orders.commitEvent writes the event row,
+ * the purchase and (for physical products) the fulfilment order in one
+ * transaction, so a redelivery answers 200 and changes nothing. Returning 200
+ * on a duplicate matters: a non-2xx makes Stripe keep retrying for days.
+ *
  * Operator setup (after keys):
  *   npx convex env set STRIPE_WEBHOOK_SECRET whsec_...
  * and point a Stripe webhook at  <convex-site-url>/stripe  for
@@ -21,8 +29,16 @@ http.route({
     const body = await request.text()
     const result = await ctx.runAction(internal.stripe.verifyWebhook, { body, sig })
     if (!result.ok) return new Response(result.error, { status: result.status })
-    if (result.fulfill) await ctx.runMutation(internal.purchases.record, result.fulfill)
-    return new Response('ok', { status: 200 })
+    if (!result.session) return new Response('ok', { status: 200 })
+    const plan = planFromEvent({ id: result.eventId, type: result.type, data: { object: result.session } }, PRODUCTS)
+    if (plan.kind !== 'fulfill') return new Response('ok', { status: 200 })
+    const committed = await ctx.runMutation(internal.orders.commitEvent, {
+      eventId: result.eventId,
+      type: result.type,
+      purchase: plan.purchase,
+      order: plan.order,
+    })
+    return new Response(committed.status === 'duplicate' ? 'ok (duplicate)' : 'ok', { status: 200 })
   }),
 })
 
@@ -46,13 +62,20 @@ http.route({
   method: 'POST',
   handler: httpAction(async (ctx, request) => {
     let product = ''
+    let state: string | undefined
+    let lang: string | undefined
     try {
-      product = String(((await request.json()) as { product?: string }).product ?? '')
+      const j = (await request.json()) as { product?: string; state?: string; lang?: string }
+      product = String(j.product ?? '')
+      /* Optional, for the Physical Armor card. Validated again server-side in
+       * stripe.ts; anything odd is dropped there rather than rejected here. */
+      if (typeof j.state === 'string' && j.state.length <= 2) state = j.state
+      if (typeof j.lang === 'string' && j.lang.length <= 2) lang = j.lang
     } catch {
       return new Response('bad request', { status: 400, headers: CORS })
     }
     try {
-      const { url } = await ctx.runAction(internal.stripe.guestCheckout, { product })
+      const { url } = await ctx.runAction(internal.stripe.guestCheckout, { product, state, lang })
       return new Response(JSON.stringify({ url }), {
         status: 200,
         headers: { ...CORS, 'Content-Type': 'application/json' },

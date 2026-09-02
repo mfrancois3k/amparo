@@ -391,6 +391,19 @@
   .mList{margin:14px 0;display:flex;flex-direction:column;gap:9px;}
   .mList div{display:flex;gap:10px;font-size:13px;color:#5c6572;line-height:1.45;}
   .mList b{color:#1B2A4A;}
+  .ladder{margin:6px 0 10px;}
+  .ladRow{display:flex;align-items:center;gap:10px;border:1.5px solid #e5e0d4;border-radius:12px;padding:10px 12px;margin-bottom:8px;cursor:pointer;background:#fffdf8;}
+  .ladRow.on{border-color:#1B2A4A;}
+  .ladRow input{width:18px;height:18px;margin:0;accent-color:#1B2A4A;flex:none;}
+  .ladDot{width:18px;height:18px;border-radius:50%;border:5px solid #1B2A4A;background:#fff;flex:none;box-sizing:border-box;}
+  .ladTxt{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0;}
+  .ladTxt b{font-size:13.5px;color:#1B2A4A;}
+  .ladTxt small{font-size:11.5px;color:#64707d;line-height:1.35;}
+  .ladPrice{font-weight:800;color:#1B2A4A;font-size:14px;flex:none;}
+  #spLines li{margin:0 0 7px;}
+  #spLines .c{display:block;font-size:10.5px;color:#a87f1f;font-weight:700;}
+  #spLines .k{display:inline-block;margin-left:4px;padding:0 6px;border:1px solid #E8B84B;border-radius:999px;color:#a87f1f;font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;vertical-align:middle;}
+  #spLines li.emph{border-left:3px solid #E8B84B;padding-left:8px;margin-left:-11px;list-style:none;}
   .buy{display:block;width:100%;border:0;border-radius:12px;background:linear-gradient(180deg,#F2C14E,#E3A82C);color:#1B2A4A;font-weight:800;font-size:16px;padding:15px;cursor:pointer;font-family:inherit;box-shadow:0 6px 16px rgba(227,168,44,.4);}
   .ghostB{display:block;width:100%;border:1.5px solid #e5e0d4;border-radius:12px;background:none;color:#5c6572;font-weight:700;font-size:13.5px;padding:12px;cursor:pointer;font-family:inherit;margin-top:9px;}
   .ghostB:hover{border-color:#E8B84B;color:#1B2A4A;}
@@ -547,6 +560,14 @@
       <div class="sideT" style="margin-top:0;">📅 <span id="drillT"></span></div>
       <button id="drillBtn" style="display:block;width:100%;border:1.5px solid #1B2A4A;background:#1B2A4A;color:#FAF6EE;border-radius:10px;padding:11px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;">Start a drill</button>
     </div>
+    <div id="statePanel" class="hiddenEl" style="border:1.5px solid #e5e0d4;background:#fff;border-radius:14px;padding:14px 16px;margin-bottom:12px;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;"><div class="sideT" style="margin-top:0;" data-i18n="spT">YOUR STATE</div><button type="button" id="spToggle" style="border:0;background:none;color:#a87f1f;font-weight:800;font-size:12px;cursor:pointer;font-family:inherit;"></button></div>
+      <select id="stateSel" aria-label="Your state" style="width:100%;margin-top:8px;border:1.5px solid #e5e0d4;border-radius:10px;padding:10px 12px;font-size:13.5px;font-weight:700;color:#1B2A4A;background:#fff;font-family:inherit;"></select>
+      <div id="spBody">
+        <p id="spNotice" class="fine" style="text-align:left;margin:10px 0 6px;line-height:1.45;"></p>
+        <ol id="spLines" style="margin:0;padding:0 0 0 18px;font-size:12.5px;line-height:1.45;color:#1B2A4A;"></ol>
+      </div>
+    </div>
     <div class="sideT" data-i18n="yourSit">YOUR SITUATION</div>
     <input id="scenSearch" placeholder="Search (traffic stop, passenger…)" style="width:100%;background:#fff;border:1.5px solid #e5e0d4;border-radius:999px;padding:11px 16px;font-size:13px;color:#1B2A4A;font-family:inherit;font-weight:600;margin-bottom:12px;">
     <div id="scenList"></div>
@@ -683,6 +704,8 @@
 <div class="modalBg" id="modal">
   <div class="modal">
     <h2 data-i18n="mT">Scenario complete!</h2>
+    <div style="text-align:center;"><span id="mBadge" class="hiddenEl" style="display:inline-block;margin:0 auto 8px;padding:5px 12px;border-radius:999px;background:#1B2A4A;color:#E8B84B;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;"></span></div>
+    <p id="mMetrics" style="text-align:center;font-size:12px;color:#8a8375;margin:0 0 8px;font-weight:700;"></p>
     <div style="text-align:center;" class="mRing"><span id="mScore" style="font-size:38px;font-weight:800;color:#E8B84B;"></span><div style="font-size:11px;font-weight:800;letter-spacing:.1em;color:#a87f1f;" data-i18n="mPts">PRACTICE POINTS</div></div>
     <p style="text-align:center;font-size:13.5px;color:#a9b7d4;margin:0;" id="mPath"></p>
     <div id="recap" style="margin:14px 0 0;border:1.5px dashed #cfc7b4;border-radius:12px;padding:12px 16px;"></div>
@@ -693,7 +716,12 @@
       <div>💬 <span><b data-i18n="m2a">Verbatim flashcards</b> — <span data-i18n="m2b">the exact phrases you just rehearsed</span></span></div>
       <div>📥 <span><b data-i18n="m3a">Instant PDF download</b> — <span data-i18n="m3b">generated on this device, nothing uploaded</span></span></div>
     </div>
-    <button class="buy" id="buyScript" data-i18n="mBuy">Get this Script Pack — $3.99</button>
+    <div class="ladder" id="ladder">
+      <label class="ladRow on"><span class="ladDot" aria-hidden="true"></span><span class="ladTxt"><b data-i18n="ladBaseT">Digital Master Script</b><small data-i18n="ladBaseS">Every scenario's checklist and flashcards, generated on this device</small></span><span class="ladPrice">$9.99</span></label>
+      <label class="ladRow"><input type="checkbox" id="ladArmor"><span class="ladTxt"><b data-i18n="ladArmorT">Add Physical Armor</b><small data-i18n="ladArmorS">A laminated glovebox card mailed to you (US only)</small></span><span class="ladPrice" data-i18n="ladArmorP">+$10</span></label>
+      <button class="buy" id="buyScript">Get the Master Script: $9.99</button>
+      <p class="fine" id="ladNote" style="text-align:left;margin:6px 0 0;"></p>
+    </div>
     <div class="deep"><b data-i18n="dT">Deep Pack for your state — in review</b><p data-i18n="dS">Planned: courthouse directions, passenger &amp; family plan page, wallet card PDF, and an ICE-encounter addendum. Not for sale until the content is written and reviewed.</p>
       <a href="#" id="peekLink" style="font-size:12px;" data-i18n="peek">👁 See what's inside →</a>
       <div id="peek" class="hiddenEl" style="margin-top:10px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">
@@ -771,6 +799,28 @@ const UI={
   mT:'¡Escenario completado!',mPts:'PUNTOS DE PRÁCTICA',m1a:'Lista imprimible para la guantera',m1b:'formateada para acceso inmediato en papel',m2a:'Tarjetas con frases exactas',m2b:'las frases que acaba de ensayar',m3a:'PDF instantáneo',m3b:'generado en este dispositivo, nada se sube',mBuy:'Obtener este Paquete de Guiones — $3.99',dT:'Paquete Profundo de su estado — en revisión',dS:'En preparación: indicaciones a la corte, página de plan familiar y de pasajeros, tarjeta de cartera en PDF y anexo para encuentros con ICE. No está a la venta hasta que el contenido esté escrito y revisado.',mAgain:'Practicar otro escenario →',mClose:'No gracias — el paquete gratis es suficiente',mRemind:'⏰ Recuérdame practicar mañana',bonus:'Bono de compostura',mPressure:'⚡ Repetir bajo presión — menos tiempo en cada línea',wkGoal:'ESTA SEMANA',inT:'Todos se congelan. Por eso practicamos.',inB:'En una parada real, su ritmo cardíaco se duplica y las palabras desaparecen. Tres frases practicadas las devuelven. Dígalas en voz alta aquí — donde equivocarse es gratis — para que estén cuando importe.',inF:'Creado por Michael Francois. Privado por diseño — su práctica nunca sale de este dispositivo.',inGo:'Empezar mi primer ejercicio →',steadyLbl:'VOZ FIRME — responda cuando la aguja esté en la zona dorada',steadyHit:'🎯 Voz firme',steadyMiss:'〰 Voz temblorosa — respire, vaya despacio',steadyNow:'🎯 FIRME — ¡responda ya!',steadyWait:'… espere la zona dorada',shakyCost:'Palabras correctas, voz temblorosa — sin punto en este nivel. Dígalo firme.',tut1T:'Cómo funciona la práctica',tut1B:'El oficial habla primero. Elija una respuesta — o escriba o diga la suya. Las líneas fuertes lo protegen; las arriesgadas le enseñan por qué. Diga cada línea EN VOZ ALTA — eso construye el reflejo.',tut2T:'La barra de firmeza',tut2B:'Bajo estrés su voz tiembla. La aguja en movimiento es su voz — responda cuando esté dentro de la zona dorada. Desde el nivel Irritado, la respuesta CORRECTA con voz TEMBLOROSA no gana punto — cuentan las palabras y la entrega, como en una parada real.',tutTry:'Pruébelo — toque cuando la aguja esté en la zona dorada',tutHit:'🎯 Firme — esa es la sensación.',tutMiss:'〰 Tembloroso — espere la zona dorada y toque de nuevo.',tut3T:'Ritmo cardíaco y bono de compostura',tut3B:'Su ❤️ BPM sube con respuestas arriesgadas y el modo presión, y baja con respuestas fuertes y firmes. Cada respuesta tiene un ⏱ contador — 7 segundos (5 en Modo difícil): las respuestas firmes SUMAN un segundo, los fallos y la duda RESTAN uno, y un corazón acelerado hace la aguja más rápida. Termine limpio y firme para GANAR el bono ✨.',tutNext:'Siguiente →',tutStart:'Empezar a practicar →',shareT:'COMPARTIR',shareCardB:'📸 Descargar mi tarjeta de preparación',shareFamB:'👪 Retar a mi familia',shareNote:'La tarjeta se dibuja en este dispositivo — nada se sube.',famMsg:'Estoy practicando qué decir en paradas policiales con Amparo — gratis y privado. Mi preparación va en {R}%. ¿Puedes superarla? amparohq.com',famCopied:'Reto copiado — péguelo en su chat familiar.',peek:'👁 Vea lo que incluye →',gate:'No ha terminado la configuración de 2 minutos — sus guiones aún no están ajustados a su estado.',gateL:'Terminar configuración →',packT:'SU PAQUETE',packFree:'🖨 Imprimir paquete gratis',packDeep:'🔒 Paquete Profundo — en revisión, aún no a la venta',deepHeldT:'Paquete Profundo — en revisión',deepHeldB:'Aún no está a la venta, a propósito. Las indicaciones al tribunal y el anexo sobre ICE no están escritos, y la guía de «puerta de su casa» sigue con los revisores (abogado y especialista en violencia doméstica). No lo venderemos a medias. Lo básico sobre ICE y su plan familiar ya están en el paquete gratuito — tómelos ahora, sin costo.',payFail:'No se pudo abrir el pago y no se le cobró nada. Inténtelo de nuevo en un momento — el paquete gratuito no se ve afectado.',reopenB:'🖨 Vuelva a abrir su Paquete de Guiones',heldPaid:'Este paquete aún no está terminado, así que no podemos entregarlo — y no se le debió cobrar. Su pago quedó registrado y será reembolsado. Escriba a hello@amparohq.com si no regresa en unos días. El paquete gratuito no se ve afectado.',
   heldB:'En revisión — la guía de «puerta de su casa» está con los revisores (abogado y especialista en violencia doméstica). No la publicaremos a medias. Los demás ejercicios están abiertos.',heatL:'Él recuerda cómo fue la anterior.',econ:n=>n+' palabras — dijo más de lo que le pidieron. Más corto es más seguro.',sayAgain:'Dígalo una vez en voz alta — luego escríbalo aquí para continuar:',sayBtn:'Listo →',cutOff:'(interrumpiéndole)',setDark:'Modo oscuro',setGentle:'Modo suave — sin reloj ni latidos',setSnd:'Sonido y efectos',setFs:'Tamaño de texto',retryL:'🔁 Reintentar esta línea — sin penalización',pauseL:'⏸ Pausar',resumeL:'▶ Continuar',safeT:'Antes de hablar: seguridad física',safe1:'Deténgase por completo, motor apagado, intermitentes de noche',safe2:'Manos visibles en el volante — 10 y 2 — antes de que llegue el oficial',safe3:'Luz interior de noche; ventana abierta lo justo para hablar',safe4:'Anuncie cada movimiento: «Mi licencia está en la guantera — ¿puedo sacarla?»',safe5:'Nunca salga del vehículo sin orden — y si la hay, cumpla',hardQ:'Este nivel ensaya una parada que ya salió mal — órdenes a gritos, esposas. Aquí no hay línea ganadora; la meta es mantenerse a salvo y no decir nada que le perjudique después. ¿Practicarlo ahora?',safeGo:'Entendido — empezar el ejercicio',safeSkip:'No mostrar de nuevo',good:'Buena decisión:',risky:'Arriesgado:',officer:'OFICIAL',you:'USTED',heard:'Le escuché decir:',fallback:'Buen instinto. La versión más fuerte es:',path:s=>'Escenario: '+s,micNo:'La entrada de voz no está disponible en este navegador — escriba su respuesta.',payPriv:'Su PDF se genera en este dispositivo — sin correo obligatorio, nada se sube.',payDemo:'Pago seguro con Stripe — Amparo nunca ve los datos de su tarjeta.',payCancel:'Cancelar',payOkT:'Vista previa completa — sin ningún cargo.',payDl:'🖨 Imprimir el paquete gratis',payAnother:'Practicar otro escenario →',payOkSub:()=>'Los pagos aún no están activos — este proceso es una vista previa. El paquete gratuito sigue gratis, generado en este dispositivo.'}
 };
+Object.assign(UI.en,{
+  spT:'YOUR STATE',spPick:'Pick a state',spLikely:'reported, not verified',spHide:'Hide',spShow:'Show',
+  badgeHard:'You survived Hard Mode',badgeClean:'Clean run',metrics:'{d} / {t} scenarios · {s}-day streak',
+  ladBaseT:'Digital Master Script',ladBaseS:"Every scenario's checklist and flashcards, generated on this device",
+  ladArmorT:'Add Physical Armor',ladArmorS:'A laminated glovebox card mailed to you (US only)',ladArmorP:'+$10',
+  ladCtaMaster:'Get the Master Script: $9.99',ladCtaArmor:'Get Master Script + Armor card: $19.99',
+  ladNoteMaster:'Every scenario, both languages, PDF generated on this device.',
+  ladNoteArmor:"Printed and mailed within the US. Your state's own lines print on it once its attorney review is done; until then it carries the federal lines and your state's verified lifelines.",
+  ladMasterName:'Master Script',ladArmorName:'Master Script + Physical Armor',
+  ladMasterDesc:'Checklist and flashcards for every scenario.',ladArmorDesc:'Everything in the Master Script plus a laminated glovebox card mailed to you.'
+});
+Object.assign(UI.es,{
+  spT:'TU ESTADO',spPick:'Elige un estado',spLikely:'reportado, no verificado',spHide:'Ocultar',spShow:'Mostrar',
+  badgeHard:'Sobreviviste el Modo Difícil',badgeClean:'Sin errores',metrics:'{d} / {t} escenarios · racha de {s} días',
+  ladBaseT:'Guion Maestro digital',ladBaseS:'Lista y tarjetas de cada escenario, generadas en este dispositivo',
+  ladArmorT:'Agregar Armadura Física',ladArmorS:'Una tarjeta laminada para la guantera, enviada por correo (solo EE. UU.)',ladArmorP:'+$10',
+  ladCtaMaster:'Obtener el Guion Maestro: $9.99',ladCtaArmor:'Guion Maestro + tarjeta Armadura: $19.99',
+  ladNoteMaster:'Cada escenario, en los dos idiomas, PDF generado en este dispositivo.',
+  ladNoteArmor:'Impresa y enviada dentro de EE. UU. Las líneas propias de tu estado se imprimen cuando termine su revisión por abogado; hasta entonces lleva las líneas federales y las líneas de ayuda verificadas de tu estado.',
+  ladMasterName:'Guion Maestro',ladArmorName:'Guion Maestro + Armadura Física',
+  ladMasterDesc:'Lista y tarjetas de cada escenario.',ladArmorDesc:'Todo el Guion Maestro más una tarjeta laminada para la guantera enviada por correo.'
+});
 /* crisis safety net (ported from index.html prxIsCrisis/PRX_CRISIS): checked
    before any scoring, not part of it -- a disclosure never becomes a scored
    miss or gets folded into a shareable run summary. */
@@ -1583,6 +1633,14 @@ function finish(){
     wEl.innerHTML='<b style="font-size:12px;letter-spacing:.1em;color:#7a2e2e;">'+(A.lang==='en'?'YOUR WEAKEST MOMENT':'SU MOMENTO MÁS DÉBIL')+'</b><div style="font-size:13.5px;color:#1B2A4A;margin-top:6px;font-style:italic;">“'+worst.o+'”</div><div style="font-size:12.5px;color:#7a2e2e;margin-top:4px;line-height:1.5;">'+worst.f+'</div><div style="font-size:11.5px;color:#8a8375;margin-top:6px;">'+(A.lang==='en'?'Replay this level until this line comes out steady.':'Repita este nivel hasta que esta línea salga firme.')+'</div>';
   } else wEl.classList.add('hiddenEl');
   const totalDone=Object.keys(A.done).length;
+  /* Micro-win: the badge is earned on this device and stays here. Hard Mode is
+     the pressure replay; a 70% floor keeps "survived" honest. Nothing on the
+     swan levels, same rule as the score. */
+  const ratio=max?base/max:0;
+  const badgeT=(A.pressure&&ratio>=0.7)?T('badgeHard'):(ratio>=0.9?T('badgeClean'):'');
+  const badgeEl=document.getElementById('mBadge'); badgeEl.textContent=badgeT; badgeEl.classList.toggle('hiddenEl',!badgeT||swan);
+  const metEl=document.getElementById('mMetrics'); metEl.textContent=T('metrics').replace('{d}',totalDone).replace('{t}',TOTAL).replace('{s}',A.streak.n); metEl.style.display=swan?'none':'';
+  document.getElementById('ladder').style.display=swan?'none':'';
   document.getElementById('mHook').textContent=(A.lang==='en'
     ?(totalDone>=3?totalDone+' drills done — print your wallet card so this lives in your glovebox. ':'')+'Come back tomorrow to make it a '+(A.streak.n+1)+'-day streak.'
     :(totalDone>=3?totalDone+' ejercicios listos — imprima su tarjeta para que viva en su guantera. ':'')+'Vuelva mañana para llegar a '+(A.streak.n+1)+' días seguidos.');
@@ -1749,8 +1807,11 @@ function grantEntitlement(product,sit){
   }catch(e){}
 }
 function hasEntitlement(product,sit){
-  const e=entitlements()[product];
-  return Array.isArray(e)&&(e.includes(sit)||e.includes('*'));
+  const all=entitlements();
+  const has=p=>Array.isArray(all[p])&&(all[p].includes(sit)||all[p].includes('*'));
+  /* The Master Script and the Armor bundle are supersets of the per-scenario
+     Script Pack, so a 'script' check is satisfied by either. */
+  return has(product)||(product==='script'&&(has('master')||has('armor')));
 }
 /* The missing read. Until this existed, `hasEntitlement` had no callers
    anywhere in the repo and `renderScriptPack` was reachable from exactly one
@@ -1823,6 +1884,14 @@ function renderScriptPack(sitId){
 }
 function closePack(){ document.getElementById('packView').classList.remove('on'); }
 
+/* Production Convex deployment. Was the DEV deployment until 2026-08-20 —
+   dev deployments can be reset by the CLI and are not meant to carry real
+   traffic, which is a bad thing to discover after money moves. */
+const CHECKOUT_URL='https://stoic-falcon-22.convex.site/checkout';
+/* Declared ABOVE the redemption IIFE on purpose: it ran first and read
+   CHECKOUT_URL while the const was still in its temporal dead zone, the
+   ReferenceError landed in the empty catch below, and every real return from
+   Stripe skipped /redeem (found in review, 2026-09-02). */
 /* Redemption on return from Stripe. The redirect alone proves nothing — anyone
    can type the success url — so the session id is checked against Stripe
    server-side before anything unlocks. */
@@ -1844,17 +1913,13 @@ function closePack(){ document.getElementById('packView').classList.remove('on')
          point at the refund. The purchase is still recorded server-side, which
          is what makes that refund findable. */
       if(j.held){ alert(UI[A.lang].heldPaid); return; }
-      grantEntitlement(j.product,A.sit);
+      grantEntitlement(j.product,(j.product==='master'||j.product==='armor')?'*':A.sit);
       refreshPackRestore(); // surface the restore control immediately, not only on next render
-      if(j.product==='script') renderScriptPack(A.sit);
+      if(j.product==='script'||j.product==='master'||j.product==='armor') renderScriptPack(A.sit);
     }).catch(()=>clean());
   }catch(e){}
 })();
 
-/* Production Convex deployment. Was the DEV deployment until 2026-08-20 —
-   dev deployments can be reset by the CLI and are not meant to carry real
-   traffic, which is a bad thing to discover after money moves. */
-const CHECKOUT_URL='https://stoic-falcon-22.convex.site/checkout';
 let _payProduct=null;
 /* Deep Pack is held, not sold. Two of its four promised parts do not exist
    (courthouse directions, ICE addendum), and the ICE half would draw on the
@@ -1897,7 +1962,7 @@ document.getElementById('payNow').onclick=async()=>{
   if(_payProduct&&PAYMENTS_LIVE){
     btn.disabled=true; btn.textContent=A.lang==='en'?'Opening secure checkout…':'Abriendo pago seguro…';
     try{
-      const r=await fetch(CHECKOUT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({product:_payProduct})});
+      const r=await fetch(CHECKOUT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({product:_payProduct,state:A.state||undefined,lang:A.lang})});
       if(r.ok){const {url}=await r.json(); if(url){location.href=url; return;}}
     }catch(e){}
     btn.disabled=false; btn.textContent=orig;
@@ -1919,7 +1984,18 @@ document.getElementById('payOkClose').onclick=()=>{
   nextUnfinished();
   A.turn=0;A.pts=0;A.hist=[];saveA();renderSide();renderArena();
 };
-document.getElementById('buyScript').onclick=()=>openPay(A.lang==='en'?'Script Pack':'Paquete de Guiones','$3.99',A.lang==='en'?'Checklist + flashcards for the scenario you just finished.':'Lista + tarjetas del escenario que acaba de terminar.','script');
+function ladderArmor(){const c=document.getElementById('ladArmor');return !!(c&&c.checked);}
+function ladderLabel(){
+  const armor=ladderArmor();
+  document.getElementById('buyScript').textContent=armor?T('ladCtaArmor'):T('ladCtaMaster');
+  document.getElementById('ladNote').textContent=armor?T('ladNoteArmor'):T('ladNoteMaster');
+}
+document.getElementById('ladArmor').onchange=ladderLabel;
+document.getElementById('buyScript').onclick=()=>{
+  const armor=ladderArmor();
+  openPay(armor?T('ladArmorName'):T('ladMasterName'),armor?'$19.99':'$9.99',armor?T('ladArmorDesc'):T('ladMasterDesc'),armor?'armor':'master');
+};
+ladderLabel();
 document.getElementById('buyDeep').onclick=()=>openHeld();
 document.getElementById('tipBtnEl').onclick=()=>openPay(A.lang==='en'?'Support Amparo':'Apoye a Amparo','$3.00',A.lang==='en'?'Tip what you can — keeps the free version free.':'Done lo que pueda — mantiene gratis la versión gratuita.','tip');
 /* share: readiness card + family challenge */
@@ -2058,4 +2134,69 @@ renderSide(); applyLang();
 
 
 <div id="packView" aria-hidden="true"></div>
-</body></html>
+<script>
+/* ---------- your state: the Panic HUD lines, from the generated bank ----------
+   /data/hud.json is built by tools/build-jurisdictions.mjs from the research
+   matrix (51 states, every cite from a verified cell). Resolution order:
+   ?state=XX on the url, then the state saved with the arena, then the pack's
+   own sr_save. Fetch fails (file://, offline before the SW has it): the panel
+   simply stays hidden; the drills never depend on it. */
+(function(){
+  const HUD_URL='/data/hud.json';
+  const ORDER=['silence','documents','search','sign','passenger','firearm','recording','unmarked','reason','footage'];
+  const EMPH={crime:1,arrest_trigger:1,firearm_any_occupant:1,proactive:1,refusal_offense_limited:1,cannabis_caselaw:1,cannabis_statute:1,cannabis_both:1,flat_bar:1,lying_is_crime:1};
+  let HUD=null;
+  const panel=document.getElementById('statePanel'), sel=document.getElementById('stateSel');
+  if(!panel||!sel) return;
+  function resolveState(){
+    try{const q=(new URLSearchParams(location.search).get('state')||'').toUpperCase(); if(HUD.states[q]) return q;}catch(e){}
+    if(A.state&&HUD.states[A.state]) return A.state;
+    try{const sv=JSON.parse(localStorage.getItem('sr_save')||'null'); if(sv&&HUD.states[sv.state]) return sv.state;}catch(e){}
+    return '';
+  }
+  function line(l,lang){
+    const li=document.createElement('li');
+    if(EMPH[l.posture]) li.className='emph';
+    li.appendChild(document.createTextNode(l.cite?l[lang].split(' ('+l.cite+')').join(''):l[lang])); // the cite renders on its own line below
+    if(l.cite||l.verdict==='LIKELY'){
+      const c=document.createElement('span'); c.className='c'; c.textContent=l.cite||'';
+      if(l.verdict==='LIKELY'){const k=document.createElement('span');k.className='k';k.textContent=T('spLikely');c.appendChild(k);}
+      li.appendChild(c);
+    }
+    return li;
+  }
+  function render(){
+    if(!HUD) return;
+    const lang=A.lang||'en', code=A.state&&HUD.states[A.state]?A.state:'';
+    if(sel.dataset.lang!==lang){
+      sel.dataset.lang=lang;
+      sel.innerHTML='';
+      const o0=document.createElement('option'); o0.value=''; o0.textContent=T('spPick'); sel.appendChild(o0);
+      Object.keys(HUD.states).map(k=>HUD.states[k]).sort((a,b)=>a.name.localeCompare(b.name)).forEach(st=>{const o=document.createElement('option');o.value=st.code;o.textContent=st.name;sel.appendChild(o);});
+    }
+    sel.value=code;
+    const body=document.getElementById('spBody'), tog=document.getElementById('spToggle');
+    const open=A.spOpen!==false;
+    body.classList.toggle('hiddenEl',!open); tog.textContent=open?T('spHide'):T('spShow');
+    const notice=document.getElementById('spNotice'), list=document.getElementById('spLines');
+    list.innerHTML='';
+    if(!code){ notice.textContent=HUD.ui.federalNotice[lang]; (HUD.federal||[]).forEach(l=>list.appendChild(line(l,lang))); return; }
+    const st=HUD.states[code];
+    notice.textContent=st.notice[lang];
+    const byId={}; st.lines.forEach(l=>{byId[l.id]=l;});
+    ORDER.forEach(id=>{ if(byId[id]) list.appendChild(line(byId[id],lang)); });
+  }
+  sel.onchange=()=>{A.state=sel.value||null;saveA();render();};
+  document.getElementById('spToggle').onclick=()=>{A.spOpen=A.spOpen===false;saveA();render();};
+  fetch(HUD_URL).then(r=>r.ok?r.json():null).then(j=>{
+    if(!j||!j.states) return;
+    HUD=j;
+    const code=resolveState(); if(code&&code!==A.state){A.state=code;saveA();}
+    panel.classList.remove('hiddenEl');
+    render();
+    const orig=applyLang; applyLang=function(){orig(); render(); ladderLabel();};
+  }).catch(()=>{});
+})();
+</script>
+</body>
+</html>

@@ -48,6 +48,15 @@
       ]
     },
     {
+      "source": "/data/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    },
+    {
       "source": "/law-status.json",
       "headers": [
         {
@@ -122,6 +131,22 @@
     {
       "source": "/pack/",
       "destination": "/pack.html"
+    },
+    {
+      "source": "/rehearse",
+      "destination": "/arena/index.html"
+    },
+    {
+      "source": "/rehearse/",
+      "destination": "/arena/index.html"
+    },
+    {
+      "source": "/aid",
+      "destination": "/new/aid.html"
+    },
+    {
+      "source": "/aid/",
+      "destination": "/new/aid.html"
     }
   ],
   "redirects": [

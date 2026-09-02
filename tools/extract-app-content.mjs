@@ -42,7 +42,10 @@ import { createHash } from 'node:crypto';
 import vm from 'node:vm';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const SRC = join(ROOT, 'index.html');
+/* The app page moved from index.html to pack.html on 2026-09-02 (the root
+   rewrite to new/index.html could not fire while a physical index.html
+   existed). Same literals, same extraction. */
+const SRC = join(ROOT, 'pack.html');
 const OUT = join(ROOT, 'app-src', 'src', 'content');
 const VERIFY = process.argv.includes('--verify');
 
