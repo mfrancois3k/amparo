@@ -1,0 +1,10 @@
+# Amparo — State Law Matrix
+
+**One row per jurisdiction. Every verified finding lives in its cell. Nothing is appended below this table.**
+Cell format: `VERIFIED §cite — value` · `LIKELY` · `UNVERIFIED` · `null (index read)` = verified absence · `—` = not yet assessed.
+Remedy tiers, trap classes, and method rules: [findings-summary.md](findings-summary.md). Provenance archive (read-only): [archive/state-law-matrix-ledger.md](archive/state-law-matrix-ledger.md).
+**Shippable states: 0.** Bar (a) primary-text verification is met per cell; bar (b) attorney review is met nowhere. *Upsolve v. James* gates the content layer.
+
+
+FINAL TALLY 2026-09-01: 394 VERIFIED, 25 REFUTED, 90 null, 2 case-law-only, 0 unverified outstanding.
+Full 51x19 table lives in the repo at research/state-matrix.md (too large for a text source upload).
