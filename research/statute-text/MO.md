@@ -1,0 +1,4188 @@
+# Missouri -- verbatim statute text
+
+**Purpose.** Attorney review needs the actual statutory language, not a summary. Every
+section cited in a VERIFIED Missouri cell of `research/state-matrix.md` is reproduced
+here in full, exactly as the official host (or Justia, mirroring the official text) serves it.
+
+**Source.** `revisor.mo.gov`, the Missouri Revisor of Statutes' own host. Fetched with `research/tools/fetch_statute.py`, which honours the
+declared character set rather than forcing UTF-8.
+
+**Verbatim means verbatim.** Nothing below is paraphrased, trimmed, or corrected. Where a
+statute is oddly punctuated or internally inconsistent, it is reproduced that way.
+
+---
+
+## RSMo S 84.710 -- Powers of police force -- KC/St. Louis municipal
+
+**Matrix columns this section answers:** Stop-and-ID
+
+**Source:** https://revisor.mo.gov/main/OneSection.aspx?section=84.710  
+**Encoding:** utf-8
+
+```
+Missouri Revisor of Statutes - Revised Statutes of Missouri, RSMo Section 84.710
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ☰ Revisor of Missouri 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Constitution 
+
+
+Committee 
+
+
+Publications 
+
+
+
+
+
+
+
+
+
+
+
+
+Other Links 
+
+
+Help / FAQ 
+
+
+Appendices and Tables 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Words 
+Section 
+
+
+  
+
+  
+
+None 
+Or 
+And 
+Not 
+Near 
+
+
+  
+
+
+
+Do search 
+
+
+
+Help 
+
+  
+
+
+This chapter only 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Title VII CITIES, TOWNS AND VILLAGES
+
+
+Chapter 84 
+
+
+
+< 
+
+
+> 
+
+• 
+Effective - 02 Jan 1979 , see footnote     
+
+
+
+
+
+
+  84.710. Police force — officers of state — powers to arrest. — 1. The members of the police force appointed in pursuance hereof are hereby declared to be officers of the state of Missouri and of the city for which such commissioners are appointed.
+
+  2. They shall have power within the city or on public property of the city beyond the corporate limits thereof to arrest, on view, any person they see violating or whom they have reason to suspect of having violated any law of the state or ordinance of the city. They shall have power to arrest and hold, without warrant, for a period of time not exceeding twenty-four hours, persons found within the city or on public property of the city beyond the corporate limits thereof charged with having committed felonies in other states, and who are reported to be fugitives from justice. They shall also have the power to stop any person abroad whenever there is reasonable ground to suspect that he is committing, has committed or is about to commit a crime and demand of him his name, address, business abroad and whither he is going. When stopping or detaining a suspect, they may search him for a dangerous weapon whenever they have reasonable ground to believe they are in danger from the possession of such dangerous weapon by the suspect. No unreasonable force shall be used in detaining or arresting any person, but such force as may be necessary may be used when there is no other apparent means of making an arrest or preventing an escape and only after the peace officer has made every reasonable effort to advise the person that he is the peace officer engaged in making arrest.
+
+  3. Any person who has been arrested without a warrant may be released, without being taken before a judge, by the officer in charge of the police station whenever the officer is satisfied that there is no ground for making complaint against him, or when the person was arrested for a misdemeanor and will sign a satisfactory agreement to appear in court at the time designated.
+
+
+­­--------
+
+(RSMo 1939 § 7674, A.L. 1943 p. 727 § 7673, A.L. 1978 H.B. 1634)
+
+Prior revisions: 1929 § 7519; 1919 § 8930; 1909 § 9782
+
+Effective 1-02-79
+
+
+
+
+
+---- end of effective  02 Jan 1979 ----
+
+
+
+use this link to bookmark section  84.710 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Click here for the Reorganization Act of 1974 - or - Concurrent Resolutions Having Force & Effect of Law 
+
+
+
+
+
+In accordance with Section 3.090 , the language of statutory sections enacted during a legislative session are updated and available on this website on the effective date of such enacted statutory section. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Other Information 
+
+
+
+
+
+
+
+
+
+
+
+
+ Recent Sections 
+Editorials 
+May Be Cited As 
+Tables & Forms 
+Multiple Enact 
+
+
+
+  
+Repeal & Transfer 
+
+Definitions 
+End Report 
+
+
+
+
+
+
+
+
+
+
+
+Site changes 
+Pictures 
+Contact 
+
+
+
+
+
+
+
+
+
+Other Links 
+
+
+
+Legislative Research 
+Oversight 
+MOLIS 
+
+
+
+
+
+
+Library 
+
+
+MO WebMasters 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Missouri Senate 
+
+
+
+
+
+MO.gov 
+
+
+
+
+
+Missouri House 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Errors / suggestions - WebMaster@LR.mo.gov 
+
+
+
+
+
+History and Fun Facts 
+
+
+©Missouri Legislature, all rights reserved.
+```
+
+---
+
+## RSMo S 302.181 -- Licenses, form -- driving record -- fees
+
+**Matrix columns this section answers:** License (driver ID)
+
+**Source:** https://revisor.mo.gov/main/OneSection.aspx?section=302.181  
+**Encoding:** utf-8
+
+```
+Missouri Revisor of Statutes - Revised Statutes of Missouri, RSMo Section 302.181
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ☰ Revisor of Missouri 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Constitution 
+
+
+Committee 
+
+
+Publications 
+
+
+
+
+
+
+
+
+
+
+
+
+Other Links 
+
+
+Help / FAQ 
+
+
+Appendices and Tables 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Words 
+Section 
+
+
+  
+
+  
+
+None 
+Or 
+And 
+Not 
+Near 
+
+
+  
+
+
+
+Do search 
+
+
+
+Help 
+
+  
+
+
+This chapter only 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Title XIX MOTOR VEHICLES, WATERCRAFT AND AVIATION
+
+
+Chapter 302 
+
+
+
+< 
+
+
+> 
+
+• 
+Effective - 28 Aug 2020, 5 histories     
+
+
+
+
+
+
+  302.181. Form of license — information shown — digital image required, exception — temporary license — nondriver's license, fee, duration — exception — digital driver's license program, requirements — rulemaking authority. — 1. The license issued pursuant to the provisions of sections 302.010 to 302.340 shall be in such form as the director shall prescribe, but the license shall be a card made of plastic or other comparable material. All licenses shall be manufactured of materials and processes that will prohibit, as nearly as possible, the ability to reproduce, alter, counterfeit, forge, or duplicate any license without ready detection. The license shall also bear the expiration date of the license, the classification of the license, the name, date of birth, residence address including the county of residence or a code number corresponding to such county established by the department, and brief description and colored digitized image of the licensee, and a facsimile of the signature of the licensee. The director shall provide by administrative rule the procedure and format for a licensee to indicate on the back of the license together with the designation for an anatomical gift as provided in section 194.240 the name and address of the person designated pursuant to sections 404.800 to 404.865 as the licensee's attorney in fact for the purposes of a durable power of attorney for health care decisions. No license shall be valid until it has been so signed by the licensee. If any portion of the license is prepared by a private firm, any contract with such firm shall be made in accordance with the competitive purchasing procedures as established by the state director of the division of purchasing.
+
+  2. All digital images produced for licenses shall become the property of the department of revenue.
+
+  3. The license issued shall be carried at all times by the holder thereof while driving a motor vehicle, and shall be displayed upon demand of any officer of the highway patrol, or any police officer or peace officer, or any other duly authorized person, for inspection when demand is made therefor. Failure of any operator of a motor vehicle to exhibit his or her license to any duly authorized officer shall be presumptive evidence that such person is not a duly licensed operator.
+
+  4. The director of revenue shall not issue a license without a facial digital image of the license applicant, except as provided pursuant to subsection 7 of this section. A digital image of the applicant's full facial features shall be taken in a manner prescribed by the director. No digital image shall be taken wearing anything which cloaks the facial features of the individual.
+
+  5. The department of revenue may issue a temporary license or a full license without the photograph or with the last photograph or digital image in the department's records to members of the Armed Forces, except that where such temporary license is issued it shall be valid only until the applicant shall have had time to appear and have his or her picture taken and a license with his or her photograph issued.
+
+  6. The department of revenue shall issue upon request a nondriver's license card containing essentially the same information and photograph or digital image, except as provided pursuant to subsection 7 of this section, as the driver's license upon payment of six dollars. All nondriver's licenses shall expire on the applicant's birthday in the sixth year after issuance. A person who has passed his or her seventieth birthday shall upon application be issued a nonexpiring nondriver's license card. Notwithstanding any other provision of this chapter, a nondriver's license containing a concealed carry endorsement shall expire three years from the date the certificate of qualification was issued pursuant to section 571.101 , as section 571.101 existed prior to August 28, 2013. The fee for nondriver's licenses issued for a period exceeding three years is six dollars or three dollars for nondriver's licenses issued for a period of three years or less. The nondriver's license card shall be used for identification purposes only and shall not be valid as a license.
+
+  7. If otherwise eligible, an applicant may receive a driver's license or nondriver's license without a photograph or digital image of the applicant's full facial features except that such applicant's photograph or digital image shall be taken and maintained by the director and not printed on such license. In order to qualify for a license without a photograph or digital image pursuant to this section the applicant must:
+
+  (1) Present a form provided by the department of revenue requesting the applicant's photograph be omitted from the license or nondriver's license due to religious affiliations. The form shall be signed by the applicant and another member of the religious tenant verifying the photograph or digital image exemption on the license or nondriver's license is required as part of their religious affiliation. The required signatures on the prescribed form shall be properly notarized;
+
+  (2) Provide satisfactory proof to the director that the applicant has been a United States citizen for at least five years and a resident of this state for at least one year, except that an applicant moving to this state possessing a valid driver's license from another state without a photograph shall be exempt from the one-year state residency requirement. The director may establish rules necessary to determine satisfactory proof of citizenship and residency pursuant to this section;
+
+  (3) Applications for a driver's license or nondriver's license without a photograph or digital image must be made in person at a license office determined by the director. The director is authorized to limit the number of offices that may issue a driver's or nondriver's license without a photograph or digital image pursuant to this section.
+
+  8. The department of revenue shall make available, at one or more locations within the state, an opportunity for individuals to have their full facial photograph taken by an employee of the department of revenue, or their designee, who is of the same sex as the individual being photographed, in a segregated location.
+
+  9. Beginning July 1, 2005, the director shall not issue a driver's license or a nondriver's license for a period that exceeds an applicant's lawful presence in the United States. The director may, by rule or regulation, establish procedures to verify the lawful presence of the applicant and establish the duration of any driver's license or nondriver's license issued under this section.
+
+  10. (1) Notwithstanding any biometric data restrictions contained in section 302.170 , the department of revenue is hereby authorized to design and implement a secure digital driver's license program that allows applicants applying for a driver's license in accordance with this chapter to obtain a secure digital driver's license in addition to the physical card-based license specified in this section.
+
+  (2) A digital driver's license as described in this subsection shall be accepted for all purposes for which a license, as defined in section 302.010 , is used.
+
+  (3) The department may contract with one or more entities to develop the secure digital driver's license system. The department or entity may develop a mobile software application capable of being utilized through a person's electronic device to access the person's secure digital driver's license.
+
+  (4) The department shall suspend, disable, or terminate a person's participation in the secure digital driver's license program if:
+
+  (a) The person's driving privilege is suspended, revoked, denied, withdrawn, or cancelled as provided in this chapter; or
+
+  (b) The person reports that the person's electronic device has been lost, stolen, or compromised.
+
+  11. The director of the department of revenue may promulgate rules as necessary for the implementation of this section. Any rule or portion of a rule, as that term is defined in section 536.010 that is created under the authority delegated in this section shall become effective only if it complies with and is subject to all of the provisions of chapter 536 and, if applicable, section 536.028 . This section and chapt
+[TRUNCATED]
+```
+
+---
+
+## RSMo S 590.650 -- Vehicle stops, statistics required, contents -- report
+
+**Matrix columns this section answers:** Consent to search
+
+**Source:** https://revisor.mo.gov/main/OneSection.aspx?section=590.650  
+**Encoding:** utf-8
+
+```
+Missouri Revisor of Statutes - Revised Statutes of Missouri, RSMo Section 590.650
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ☰ Revisor of Missouri 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Constitution 
+
+
+Committee 
+
+
+Publications 
+
+
+
+
+
+
+
+
+
+
+
+
+Other Links 
+
+
+Help / FAQ 
+
+
+Appendices and Tables 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Words 
+Section 
+
+
+  
+
+  
+
+None 
+Or 
+And 
+Not 
+Near 
+
+
+  
+
+
+
+Do search 
+
+
+
+Help 
+
+  
+
+
+This chapter only 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Title XXXVIII CRIMES AND PUNISHMENT; PEACE OFFICERS AND PUBLIC DEFENDERS
+
+
+Chapter 590 
+
+
+
+< 
+
+
+> 
+
+• 
+Effective - 28 Aug 2004, 2 histories     
+
+
+
+
+
+
+  590.650. Racial profiling — minority group defined — reporting requirements — annual report — review of findings — failure to comply — funds for audio-visual equipment — sobriety check points exempt. — 1. As used in this section "minority group" means individuals of African, Hispanic, Native American or Asian descent.
+
+  2. Each time a peace officer stops a driver of a motor vehicle, that officer shall report the following information to the law enforcement agency that employs the officer:
+
+  (1) The age, gender and race or minority group of the individual stopped;
+
+  (2) The reasons for the stop;
+
+  (3) Whether a search was conducted as a result of the stop;
+
+  (4) If a search was conducted, whether the individual consented to the search, the probable cause for the search, whether the person was searched, whether the person's property was searched, and the duration of the search;
+
+  (5) Whether any contraband was discovered in the course of the search and the type of any contraband discovered;
+
+  (6) Whether any warning or citation was issued as a result of the stop;
+
+  (7) If a warning or citation was issued, the violation charged or warning provided;
+
+  (8) Whether an arrest was made as a result of either the stop or the search;
+
+  (9) If an arrest was made, the crime charged; and
+
+  (10) The location of the stop.
+
+­­ ­
+Such information may be reported using a format determined by the department of public safety which uses existing citation and report forms.
+
+  3. (1) Each law enforcement agency shall compile the data described in subsection 2 of this section for the calendar year into a report to the attorney general.
+
+  (2) Each law enforcement agency shall submit the report to the attorney general no later than March first of the following calendar year.
+
+  (3) The attorney general shall determine the format that all law enforcement agencies shall use to submit the report.
+
+  4. (1) The attorney general shall analyze the annual reports of law enforcement agencies required by this section and submit a report of the findings to the governor, the general assembly and each law enforcement agency no later than June first of each year.
+
+  (2) The report of the attorney general shall include at least the following information for each agency:
+
+  (a) The total number of vehicles stopped by peace officers during the previous calendar year;
+
+  (b) The number and percentage of stopped motor vehicles that were driven by members of each particular minority group;
+
+  (c) A comparison of the percentage of stopped motor vehicles driven by each minority group and the percentage of the state's population that each minority group comprises; and
+
+  (d) A compilation of the information reported by law enforcement agencies pursuant to subsection 2 of this section.
+
+  5. Each law enforcement agency shall adopt a policy on race-based traffic stops that:
+
+  (1) Prohibits the practice of routinely stopping members of minority groups for violations of vehicle laws as a pretext for investigating other violations of criminal law;
+
+  (2) Provides for periodic reviews by the law enforcement agency of the annual report of the attorney general required by subsection 4 of this section that:
+
+  (a) Determine whether any peace officers of the law enforcement agency have a pattern of stopping members of minority groups for violations of vehicle laws in a number disproportionate to the population of minority groups residing or traveling within the jurisdiction of the law enforcement agency; and
+
+  (b) If the review reveals a pattern, require an investigation to determine whether any peace officers of the law enforcement agency routinely stop members of minority groups for violations of vehicle laws as a pretext for investigating other violations of criminal law; and
+
+  (3) Provides for appropriate counseling and training of any peace officer found to have engaged in race-based traffic stops within ninety days of the review.
+
+­­ ­
+The course or courses of instruction and the guidelines shall stress understanding and respect for racial and cultural differences, and development of effective, noncombative methods of carrying out law enforcement duties in a racially and culturally diverse environment.
+
+  6. If a law enforcement agency fails to comply with the provisions of this section, the governor may withhold any state funds appropriated to the noncompliant law enforcement agency.
+
+  7. Each law enforcement agency in this state may utilize federal funds from community-oriented policing services grants or any other federal sources to equip each vehicle used for traffic stops with a video camera and voice-activated microphone.
+
+  8. A peace officer who stops a driver of a motor vehicle pursuant to a lawfully conducted sobriety check point or road block shall be exempt from the reporting requirements of subsection 2 of this section.
+
+
+­­--------
+
+(L. 2000 S.B. 1053, A.L. 2001 H.B. 80, A.L. 2004 S.B. 1233, et al.)
+
+
+
+
+
+---- end of effective  28 Aug 2004 ----
+
+
+
+use this link to bookmark section  590.650 
+
+
+
+
+
+ - All versions 
+
+
+
+
+Effective 
+End 
+
+
+
+
+
+
+590.650 
+
+8/28/2004 
+
+
+
+
+
+
+
+590.650 
+
+8/28/2001 
+8/28/2004 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Click here for the Reorganization Act of 1974 - or - Concurrent Resolutions Having Force & Effect of Law 
+
+
+
+
+
+In accordance with Section 3.090 , the language of statutory sections enacted during a legislative session are updated and available on this website on the effective date of such enacted statutory section. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Other Information 
+
+
+
+
+
+
+
+
+
+
+
+
+ Recent Sections 
+Editorials 
+May Be Cited As 
+Tables & Forms 
+Multiple Enact 
+
+
+
+  
+Repeal & Transfer 
+
+Definitions 
+End Report 
+
+
+
+
+
+
+
+
+
+
+
+Site changes 
+Pictures 
+Contact 
+
+
+
+
+
+
+
+
+
+Other Links 
+
+
+
+Legislative Research 
+Oversight 
+MOLIS 
+
+
+
+
+
+
+Library 
+
+
+MO WebMasters 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Missouri Senate 
+
+
+
+
+
+MO.gov 
+
+
+
+
+
+Missouri House 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Errors / suggestions - WebMaster@LR.mo.gov 
+
+
+
+
+
+History and Fun Facts 
+
+
+©Missouri Legislature, all rights reserved.
+```
+
+---
+
+## RSMo S 544.045 -- Deposit of license in lieu of bail or bond
+
+**Matrix columns this section answers:** Sign citation
+
+**Source:** https://revisor.mo.gov/main/OneSection.aspx?section=544.045  
+**Encoding:** utf-8
+
+```
+Missouri Revisor of Statutes - Revised Statutes of Missouri, RSMo Section 544.045
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ☰ Revisor of Missouri 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Constitution 
+
+
+Committee 
+
+
+Publications 
+
+
+
+
+
+
+
+
+
+
+
+
+Other Links 
+
+
+Help / FAQ 
+
+
+Appendices and Tables 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Words 
+Section 
+
+
+  
+
+  
+
+None 
+Or 
+And 
+Not 
+Near 
+
+
+  
+
+
+
+Do search 
+
+
+
+Help 
+
+  
+
+
+This chapter only 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Title XXXVII CRIMINAL PROCEDURE
+
+
+Chapter 544 
+
+
+
+< 
+
+
+> 
+
+• 
+Effective - 01 Jul 1992 , see footnote     
+
+
+
+
+
+
+  544.045. License to operate motor vehicle may be deposited in lieu of bail — exceptions — failure to appear, notice to director of revenue. — 1. Any person arrested and charged with violating a traffic law of this state or a traffic ordinance of any county, city, town or village may, at the discretion of both the officer authorized by law or rule of court to accept bail and the person arrested, deposit his license to operate a motor vehicle with a member of the highway patrol or with the officer demanding bail in lieu of any other security for his appearance in court to answer any such charge, except when the charge is for driving while intoxicated, driving while under the influence of intoxicating liquor or drugs, leaving the scene of a motor vehicle accident, driving when his license is suspended or revoked, or for any charge made because of a motor vehicle accident in which a death has occurred.
+
+  2. Notwithstanding the fact that the officer authorized by law or rule of court to accept bail authorizes the person arrested to deposit his license to operate a motor vehicle as his security for his appearance in court, in lieu of depositing his license to operate a motor vehicle, the person arrested may decline to deposit his license to operate a motor vehicle as security and instead deposit a bond with the officer authorized by law or rule of court to accept bail or other such officer demanding bail in the amount of fifty dollars per traffic offense allegedly committed. The officer shall issue a receipt for such a bond to the person and deposit the bond with the judge, court clerk or other officer requiring security for a court appearance.
+
+  3. The judge, court clerk or other officer requiring security for an appearance shall accept the bond or deposit of the license in lieu of bail and, if the license is accepted, shall issue a receipt to the licensee for the license upon a form approved by the director of revenue. The licensee may, until he has appeared at the proper time and place as stated in the receipt to answer the charge placed against him, operate motor vehicles while in possession of the receipt, and the receipt shall be accepted in lieu of the license as provided by section 302.181 . If a continuance is requested and granted, the licensee shall be given a new receipt for his license.
+
+  4. Whether or not a license to operate a motor vehicle has been deposited in lieu of bail pursuant to this section, if the driver fails to appear at the proper time to answer the charge placed against him, the clerk of the court, or the judge of the court if there is no clerk, shall within ten days notify the director of revenue of the failure to appear, and the director shall thereafter withhold any renewal of the license or the issuance of a duplicate license to the licensee until notified by the court that the charge has been reduced to final judgment.
+
+
+­­--------
+
+(L. 1967 p. 667 § 1, A.L. 1985 H.B. 501, A.L. 1989 1st Ex. Sess. H.B. 3, A.L. 1991 S.B. 125 & 341)
+
+Effective 7-01-92
+
+
+
+
+
+---- end of effective  01 Jul 1992 ----
+
+
+
+use this link to bookmark section  544.045 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Click here for the Reorganization Act of 1974 - or - Concurrent Resolutions Having Force & Effect of Law 
+
+
+
+
+
+In accordance with Section 3.090 , the language of statutory sections enacted during a legislative session are updated and available on this website on the effective date of such enacted statutory section. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Other Information 
+
+
+
+
+
+
+
+
+
+
+
+
+ Recent Sections 
+Editorials 
+May Be Cited As 
+Tables & Forms 
+Multiple Enact 
+
+
+
+  
+Repeal & Transfer 
+
+Definitions 
+End Report 
+
+
+
+
+
+
+
+
+
+
+
+Site changes 
+Pictures 
+Contact 
+
+
+
+
+
+
+
+
+
+Other Links 
+
+
+
+Legislative Research 
+Oversight 
+MOLIS 
+
+
+
+
+
+
+Library 
+
+
+MO WebMasters 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Missouri Senate 
+
+
+
+
+
+MO.gov 
+
+
+
+
+
+Missouri House 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Errors / suggestions - WebMaster@LR.mo.gov 
+
+
+
+
+
+History and Fun Facts 
+
+
+©Missouri Legislature, all rights reserved.
+```
+
+---
+
+## RSMo S 542.402 -- Interception of communications, when authorized
+
+**Matrix columns this section answers:** Recording own stop
+
+**Source:** https://revisor.mo.gov/main/OneSection.aspx?section=542.402  
+**Encoding:** utf-8
+
+```
+Missouri Revisor of Statutes - Revised Statutes of Missouri, RSMo Section 542.402
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ☰ Revisor of Missouri 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Constitution 
+
+
+Committee 
+
+
+Publications 
+
+
+
+
+
+
+
+
+
+
+
+
+Other Links 
+
+
+Help / FAQ 
+
+
+Appendices and Tables 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Words 
+Section 
+
+
+  
+
+  
+
+None 
+Or 
+And 
+Not 
+Near 
+
+
+  
+
+
+
+Do search 
+
+
+
+Help 
+
+  
+
+
+This chapter only 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Title XXXVII CRIMINAL PROCEDURE
+
+
+Chapter 542 
+
+
+
+< 
+
+
+> 
+
+• 
+Effective - 01 Jan 2017, 2 histories , see footnote     
+
+
+
+
+
+
+  542.402. Penalty for illegal wiretapping, permitted activities. — 1. Except as otherwise specifically provided in sections 542.400 to 542.422 , a person is guilty of a class E felony and upon conviction shall be punished as provided by law, if such person:
+
+  (1) Knowingly intercepts, endeavors to intercept, or procures any other person to intercept or endeavor to intercept, any wire communication;
+
+  (2) Knowingly uses, endeavors to use, or procures any other person to use or endeavor to use any electronic, mechanical, or other device to intercept any oral communication when such device transmits communications by radio or interferes with the transmission of such communication; provided, however, that nothing in sections 542.400 to 542.422 shall be construed to prohibit the use by law enforcement officers of body microphones and transmitters in undercover investigations for the acquisition of evidence and the protection of law enforcement officers and others working under their direction in such investigations;
+
+  (3) Knowingly discloses, or endeavors to disclose, to any other person the contents of any wire communication, when he knows or has reason to know that the information was obtained through the interception of a wire communication in violation of this subsection; or
+
+  (4) Knowingly uses, or endeavors to use, the contents of any wire communication, when he knows or has reason to know that the information was obtained through the interception of a wire communication in violation of this subsection.
+
+  2. It is not unlawful under the provisions of sections 542.400 to 542.422 :
+
+  (1) For an operator of a switchboard, or an officer, employee, or agent of any communication common carrier, whose facilities are used in the transmission of a wire communication, to intercept, disclose, or use that communication in the normal course of his employment while engaged in any activity which is a necessary incident to the rendition of his service or to the protection of the rights or property of the carrier of such communication, however, communication common carriers shall not utilize service observing or random monitoring except for mechanical or service quality control checks;
+
+  (2) For a person acting under law to intercept a wire or oral communication, where such person is a party to the communication or where one of the parties to the communication has given prior consent to such interception;
+
+  (3) For a person not acting under law to intercept a wire communication where such person is a party to the communication or where one of the parties to the communication has given prior consent to such interception unless such communication is intercepted for the purpose of committing any criminal or tortious act.
+
+
+­­--------
+
+(L. 1989 H.B. 277, et al. § 2, A.L. 2002 S.B. 712, A.L. 2014 S.B. 491)
+
+Effective 1-01-17
+
+(1998) Communications between a cellular phone and a regular wire phone are wire communications within the purview of the wiretap law. Lee v. Lee, 967 S.W.2d 82 (Mo.App. W.D.).
+
+
+
+
+
+---- end of effective  01 Jan 2017 ----
+
+
+
+use this link to bookmark section  542.402 
+
+
+
+
+
+ - All versions 
+
+
+
+
+Effective 
+End 
+
+
+
+
+
+
+542.402 
+
+1/1/2017 
+
+
+
+
+
+
+
+542.402 
+
+8/28/2002 
+1/1/2017 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Click here for the Reorganization Act of 1974 - or - Concurrent Resolutions Having Force & Effect of Law 
+
+
+
+
+
+In accordance with Section 3.090 , the language of statutory sections enacted during a legislative session are updated and available on this website on the effective date of such enacted statutory section. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Other Information 
+
+
+
+
+
+
+
+
+
+
+
+
+ Recent Sections 
+Editorials 
+May Be Cited As 
+Tables & Forms 
+Multiple Enact 
+
+
+
+  
+Repeal & Transfer 
+
+Definitions 
+End Report 
+
+
+
+
+
+
+
+
+
+
+
+Site changes 
+Pictures 
+Contact 
+
+
+
+
+
+
+
+
+
+Other Links 
+
+
+
+Legislative Research 
+Oversight 
+MOLIS 
+
+
+
+
+
+
+Library 
+
+
+MO WebMasters 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Missouri Senate 
+
+
+
+
+
+MO.gov 
+
+
+
+
+
+Missouri House 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Errors / suggestions - WebMaster@LR.mo.gov 
+
+
+
+
+
+History and Fun Facts 
+
+
+©Missouri Legislature, all rights reserved.
+```
+
+---
+
+## RSMo S 571.121 -- Carrying of concealed firearms -- permit required
+
+**Matrix columns this section answers:** Duty to inform (firearm)
+
+**Source:** https://revisor.mo.gov/main/OneSection.aspx?section=571.121  
+**Encoding:** utf-8
+
+```
+Missouri Revisor of Statutes - Revised Statutes of Missouri, RSMo Section 571.121
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ☰ Revisor of Missouri 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Constitution 
+
+
+Committee 
+
+
+Publications 
+
+
+
+
+
+
+
+
+
+
+
+
+Other Links 
+
+
+Help / FAQ 
+
+
+Appendices and Tables 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Words 
+Section 
+
+
+  
+
+  
+
+None 
+Or 
+And 
+Not 
+Near 
+
+
+  
+
+
+
+Do search 
+
+
+
+Help 
+
+  
+
+
+This chapter only 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Title XXXVIII CRIMES AND PUNISHMENT; PEACE OFFICERS AND PUBLIC DEFENDERS
+
+
+Chapter 571 
+
+
+
+< 
+
+
+> 
+
+• 
+Effective - 28 Aug 2013, 2 histories     
+
+
+
+
+
+
+  571.121. Duty to carry and display permit, penalty for violation — director of revenue immunity from liability, when. — 1. Any person issued a concealed carry permit pursuant to sections 571.101 to 571.121 , or a concealed carry endorsement issued prior to August 28, 2013, shall carry the concealed carry permit or endorsement at all times the person is carrying a concealed firearm and shall display the concealed carry permit and a state or federal government-issued photo identification or the endorsement or permit upon the request of any peace officer. Failure to comply with this subsection shall not be a criminal offense but the concealed carry permit or endorsement holder may be issued a citation for an amount not to exceed thirty-five dollars.
+
+  2. Notwithstanding any other provisions of law, the director of revenue, by carrying out his or her requirement to issue a driver's or nondriver's license reflecting that a concealed carry permit has been granted under the law as it existed prior to August 28, 2013, shall bear no liability and shall be immune from any claims for damages resulting from any determination made regarding the qualification of any person for such permit or for any actions stemming from the conduct of any person issued such a permit. By issuing the permit on the driver's or nondriver's license, the director of revenue was merely acting as a scrivener for any determination made by the sheriff that the person was qualified for the permit.
+
+
+­­--------
+
+(L. 2003 H.B. 349, et al., § 571.094, subsecs. 38, 39, A.L. 2013 S.B. 75)
+
+
+
+
+
+---- end of effective  28 Aug 2013 ----
+
+
+
+use this link to bookmark section  571.121 
+
+
+
+
+
+ - All versions 
+
+
+
+
+Effective 
+End 
+
+
+
+
+
+
+571.121 
+
+8/28/2013 
+
+
+
+
+
+
+
+571.121 
+
+10/11/2003 
+8/28/2013 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Click here for the Reorganization Act of 1974 - or - Concurrent Resolutions Having Force & Effect of Law 
+
+
+
+
+
+In accordance with Section 3.090 , the language of statutory sections enacted during a legislative session are updated and available on this website on the effective date of such enacted statutory section. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Other Information 
+
+
+
+
+
+
+
+
+
+
+
+
+ Recent Sections 
+Editorials 
+May Be Cited As 
+Tables & Forms 
+Multiple Enact 
+
+
+
+  
+Repeal & Transfer 
+
+Definitions 
+End Report 
+
+
+
+
+
+
+
+
+
+
+
+Site changes 
+Pictures 
+Contact 
+
+
+
+
+
+
+
+
+
+Other Links 
+
+
+
+Legislative Research 
+Oversight 
+MOLIS 
+
+
+
+
+
+
+Library 
+
+
+MO WebMasters 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Missouri Senate 
+
+
+
+
+
+MO.gov 
+
+
+
+
+
+Missouri House 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Errors / suggestions - WebMaster@LR.mo.gov 
+
+
+
+
+
+History and Fun Facts 
+
+
+©Missouri Legislature, all rights reserved.
+```
+
+---
+
+## RSMo S 43.130 -- State highway patrol -- marked vehicles, uniforms
+
+**Matrix columns this section answers:** Officer condition (marked/uniform)
+
+**Source:** https://revisor.mo.gov/main/OneSection.aspx?section=43.130  
+**Encoding:** utf-8
+
+```
+Missouri Revisor of Statutes - Revised Statutes of Missouri, RSMo Section 43.130
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ☰ Revisor of Missouri 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Constitution 
+
+
+Committee 
+
+
+Publications 
+
+
+
+
+
+
+
+
+
+
+
+
+Other Links 
+
+
+Help / FAQ 
+
+
+Appendices and Tables 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Words 
+Section 
+
+
+  
+
+  
+
+None 
+Or 
+And 
+Not 
+Near 
+
+
+  
+
+
+
+Do search 
+
+
+
+Help 
+
+  
+
+
+This chapter only 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Title V MILITARY AFFAIRS AND POLICE
+
+
+Chapter 43 
+
+
+
+< 
+
+
+> 
+
+Effective - 28 Aug 1978     
+
+
+
+
+
+
+  43.130. Uniforms — allowance to members — vehicles and equipment. — 1. The superintendent shall prescribe a distinctive style of uniform and badge for members of the patrol to be made of the material and of the color he specifies, and it shall be unlawful for any person to wear the prescribed uniform or badge, or any distinctive part thereof, except on order of the superintendent. The uniform shall be purchased at the times the superintendent requires, and the superintendent shall fix a uniform allowance for such purpose for each member of the patrol.
+
+  2. The members of the patrol shall, at the expense of the state, be furnished with the vehicles, equipment, arms, ammunition, supplies and insignia of office as the superintendent deems necessary, all of which shall remain the property of the state and be strictly accounted for by each member of the patrol. All such vehicles and equipment shall be distinctively marked, and all vehicles used by members of the patrol shall be distinctively lighted at night.
+
+  3. Members of the patrol shall wear their uniform and insignia of office at all times when on duty, unless otherwise designated by the superintendent.
+
+
+­­--------
+
+(RSMo 1939 § 8355, A.L. 1943 p. 652, A.L. 1949 p. 293, A.L. 1957 p. 619, A.L. 1978 H.B. 1048)
+
+
+
+
+
+---- end of effective  28 Aug 1978 ----
+
+
+
+use this link to bookmark section  43.130 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Click here for the Reorganization Act of 1974 - or - Concurrent Resolutions Having Force & Effect of Law 
+
+
+
+
+
+In accordance with Section 3.090 , the language of statutory sections enacted during a legislative session are updated and available on this website on the effective date of such enacted statutory section. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Other Information 
+
+
+
+
+
+
+
+
+
+
+
+
+ Recent Sections 
+Editorials 
+May Be Cited As 
+Tables & Forms 
+Multiple Enact 
+
+
+
+  
+Repeal & Transfer 
+
+Definitions 
+End Report 
+
+
+
+
+
+
+
+
+
+
+
+Site changes 
+Pictures 
+Contact 
+
+
+
+
+
+
+
+
+
+Other Links 
+
+
+
+Legislative Research 
+Oversight 
+MOLIS 
+
+
+
+
+
+
+Library 
+
+
+MO WebMasters 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Missouri Senate 
+
+
+
+
+
+MO.gov 
+
+
+
+
+
+Missouri House 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Errors / suggestions - WebMaster@LR.mo.gov 
+
+
+
+
+
+History and Fun Facts 
+
+
+©Missouri Legislature, all rights reserved.
+```
+
+---
+
+## RSMo S 304.152 -- Checkpoints, roadblocks restricted
+
+**Matrix columns this section answers:** Checkpoint authority
+
+**Source:** https://revisor.mo.gov/main/OneSection.aspx?section=304.152  
+**Encoding:** utf-8
+
+```
+Missouri Revisor of Statutes - Revised Statutes of Missouri, RSMo Section 304.152
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ☰ Revisor of Missouri 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Constitution 
+
+
+Committee 
+
+
+Publications 
+
+
+
+
+
+
+
+
+
+
+
+
+Other Links 
+
+
+Help / FAQ 
+
+
+Appendices and Tables 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Words 
+Section 
+
+
+  
+
+  
+
+None 
+Or 
+And 
+Not 
+Near 
+
+
+  
+
+
+
+Do search 
+
+
+
+Help 
+
+  
+
+
+This chapter only 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Title XIX MOTOR VEHICLES, WATERCRAFT AND AVIATION
+
+
+Chapter 304 
+
+
+
+< 
+
+
+> 
+
+• 
+Effective - 28 Aug 2013     
+
+
+
+
+
+
+  304.152. Roadside checkpoints and roadblock patterns based on vehicle type prohibited. — 1. Notwithstanding any provision of the law to the contrary, no law enforcement agency may establish a roadside checkpoint or roadblock pattern based upon a particular vehicle type, including the establishment of motorcycle-only checkpoints.
+
+  2. Notwithstanding subsection 1 of this section, a law enforcement agency may establish a roadside checkpoint pattern that only stops and checks commercial motor vehicles, as defined in section 301.010 .
+
+  3. The provisions of this section shall not be construed to restrict any other type of checkpoint or roadblock which is lawful and is established and operated in accordance with the provisions of the United States Constitution and the Constitution of Missouri.
+
+
+­­--------
+
+(L. 2013 S.B. 282)
+
+
+
+
+
+---- end of effective  28 Aug 2013 ----
+
+
+
+use this link to bookmark section  304.152 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Click here for the Reorganization Act of 1974 - or - Concurrent Resolutions Having Force & Effect of Law 
+
+
+
+
+
+In accordance with Section 3.090 , the language of statutory sections enacted during a legislative session are updated and available on this website on the effective date of such enacted statutory section. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Other Information 
+
+
+
+
+
+
+
+
+
+
+
+
+ Recent Sections 
+Editorials 
+May Be Cited As 
+Tables & Forms 
+Multiple Enact 
+
+
+
+  
+Repeal & Transfer 
+
+Definitions 
+End Report 
+
+
+
+
+
+
+
+
+
+
+
+Site changes 
+Pictures 
+Contact 
+
+
+
+
+
+
+
+
+
+Other Links 
+
+
+
+Legislative Research 
+Oversight 
+MOLIS 
+
+
+
+
+
+
+Library 
+
+
+MO WebMasters 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Missouri Senate 
+
+
+
+
+
+MO.gov 
+
+
+
+
+
+Missouri House 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Errors / suggestions - WebMaster@LR.mo.gov 
+
+
+
+
+
+History and Fun Facts 
+
+
+©Missouri Legislature, all rights reserved.
+```
+
+---
+
+## RSMo S 575.120 -- False impersonation -- penalties
+
+**Matrix columns this section answers:** Impersonation
+
+**Source:** https://revisor.mo.gov/main/OneSection.aspx?section=575.120  
+**Encoding:** utf-8
+
+```
+Missouri Revisor of Statutes - Revised Statutes of Missouri, RSMo Section 575.120
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ☰ Revisor of Missouri 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Constitution 
+
+
+Committee 
+
+
+Publications 
+
+
+
+
+
+
+
+
+
+
+
+
+Other Links 
+
+
+Help / FAQ 
+
+
+Appendices and Tables 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Words 
+Section 
+
+
+  
+
+  
+
+None 
+Or 
+And 
+Not 
+Near 
+
+
+  
+
+
+
+Do search 
+
+
+
+Help 
+
+  
+
+
+This chapter only 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Title XXXVIII CRIMES AND PUNISHMENT; PEACE OFFICERS AND PUBLIC DEFENDERS
+
+
+Chapter 575 
+
+
+
+< 
+
+
+> 
+
+• 
+Effective - 01 Jan 2017, 2 histories , see footnote     
+
+
+
+
+
+
+  575.120. False impersonation — penalties. — 1. A person commits the offense of false impersonation if such person:
+
+  (1) Falsely represents himself or herself to be a public servant with the purpose to induce another to submit to his or her pretended official authority or to rely upon his or her pretended official acts; and
+
+  (a) Performs an act in that pretended capacity; or
+
+  (b) Causes another to act in reliance upon his or her pretended official authority;
+
+  (2) Falsely represents himself or herself to be a person licensed to practice or engage in any profession for which a license is required by the laws of this state with purpose to induce another to rely upon such representation; and
+
+  (a) Performs an act in that pretended capacity; or
+
+  (b) Causes another to act in reliance upon such representation; or
+
+  (3) Upon being arrested, falsely represents himself or herself, to a law enforcement officer, with the first and last name, date of birth, or Social Security number, or a substantial number of identifying factors or characteristics as that of another person that results in the filing of a report or record of arrest or conviction for an infraction or offense that contains the first and last name, date of birth, and Social Security number, or a substantial number of identifying factors or characteristics to that of such other person as to cause such other person to be identified as the actual person arrested or convicted.
+
+  2. If a violation of subdivision (3) of subsection 1 of this section is discovered prior to any conviction of the person actually arrested for an underlying charge, then the prosecuting attorney, bringing any action on the underlying charge, shall notify the court thereof, and the court shall order the false-identifying factors ascribed to the person actually arrested as are contained in the arrest and court records amended to correctly and accurately identify the defendant and shall expunge the incorrect and inaccurate identifying factors from the arrest and court records.
+
+  3. If a violation of subdivision (3) of subsection 1 of this section is discovered after any conviction of the person actually arrested for an underlying charge, then the prosecuting attorney of the county in which the conviction occurred shall file a motion in the underlying case with the court to correct the arrest and court records after discovery of the fraud upon the court. The court shall order the false identifying factors ascribed to the person actually arrested as are contained in the arrest and court records amended to correctly and accurately identify the defendant and shall expunge the incorrect and inaccurate identifying factors from the arrest and court records.
+
+  4. Any person who is the victim of a false impersonation and whose identity has been falsely reported in arrest or conviction records may move for expungement and correction of said records under the procedures set forth in section 610.123 . Upon a showing that a substantial number of identifying factors of the victim was falsely ascribed to the person actually arrested or convicted, the court shall order the false identifying factors ascribed to the person actually arrested as are contained in the arrest and court records amended to correctly and accurately identify the defendant and shall expunge the incorrect and inaccurate factors from the arrest and court records.
+
+  5. The offense of false impersonation is a class B misdemeanor unless the person represents himself or herself to be a law enforcement officer in which case it is a class A misdemeanor.
+
+
+­­--------
+
+(L. 1977 S.B. 60, A.L. 2004 H.B. 916, A.L. 2014 S.B. 491)
+
+Effective 1-01-17
+
+
+
+
+
+---- end of effective  01 Jan 2017 ----
+
+
+
+use this link to bookmark section  575.120 
+
+
+
+
+
+ - All versions 
+
+
+
+
+Effective 
+End 
+
+
+
+
+
+
+575.120 
+
+1/1/2017 
+
+
+
+
+
+
+
+575.120 
+
+8/28/2004 
+1/1/2017 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Click here for the Reorganization Act of 1974 - or - Concurrent Resolutions Having Force & Effect of Law 
+
+
+
+
+
+In accordance with Section 3.090 , the language of statutory sections enacted during a legislative session are updated and available on this website on the effective date of such enacted statutory section. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Other Information 
+
+
+
+
+
+
+
+
+
+
+
+
+ Recent Sections 
+Editorials 
+May Be Cited As 
+Tables & Forms 
+Multiple Enact 
+
+
+
+  
+Repeal & Transfer 
+
+Definitions 
+End Report 
+
+
+
+
+
+
+
+
+
+
+
+Site changes 
+Pictures 
+Contact 
+
+
+
+
+
+
+
+
+
+Other Links 
+
+
+
+Legislative Research 
+Oversight 
+MOLIS 
+
+
+
+
+
+
+Library 
+
+
+MO WebMasters 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Missouri Senate 
+
+
+
+
+
+MO.gov 
+
+
+
+
+
+Missouri House 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Errors / suggestions - WebMaster@LR.mo.gov 
+
+
+
+
+
+History and Fun Facts 
+
+
+©Missouri Legislature, all rights reserved.
+```
+
+---
+
+## RSMo S 544.157 -- Uniform traffic ticket in lieu of arrest
+
+**Matrix columns this section answers:** Ticket vs arrest
+
+**Source:** https://revisor.mo.gov/main/OneSection.aspx?section=544.157  
+**Encoding:** utf-8
+
+```
+Missouri Revisor of Statutes - Revised Statutes of Missouri, RSMo Section 544.157
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ☰ Revisor of Missouri 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Constitution 
+
+
+Committee 
+
+
+Publications 
+
+
+
+
+
+
+
+
+
+
+
+
+Other Links 
+
+
+Help / FAQ 
+
+
+Appendices and Tables 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Words 
+Section 
+
+
+  
+
+  
+
+None 
+Or 
+And 
+Not 
+Near 
+
+
+  
+
+
+
+Do search 
+
+
+
+Help 
+
+  
+
+
+This chapter only 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Title XXXVII CRIMINAL PROCEDURE
+
+
+Chapter 544 
+
+
+
+< 
+
+
+> 
+
+• 
+Effective - 28 Aug 2013, 2 histories     
+
+
+
+
+
+
+  544.157. Law enforcement officers, conservation agents, capitol police, college or university police officers, and park rangers, arrest powers — fresh pursuit defined — policy of agency electing to institute vehicular pursuits. — 1. Any law enforcement officer certified pursuant to chapter 590 of any political subdivision of this state, any authorized agent of the department of conservation, any commissioned member of the Missouri capitol police, any college or university police officer, and any commissioned member of the Missouri state park rangers in fresh pursuit of a person who is reasonably believed by such officer to have committed a felony in this state or who has committed, or attempted to commit, in the presence of such officer or agent, any criminal offense or violation of a municipal or county ordinance, or for whom such officer holds a warrant of arrest for a criminal offense, shall have the authority to arrest and hold in custody such person anywhere in this state. Fresh pursuit may only be initiated from within the pursuing peace officer's, conservation agent's, capitol police officer's, college or university police officer's, or state park ranger's jurisdiction and shall be terminated once the pursuing peace officer is outside of such officer's jurisdiction and has lost contact with the person being pursued. If the offense is a traffic violation, the uniform traffic ticket shall be used as if the violator had been apprehended in the municipality or county in which the offense occurred.
+
+  2. If such an arrest is made in obedience to a warrant, the disposition of the prisoner shall be made as in other cases of arrest under a warrant; if the violator is served with a uniform traffic ticket, the violator shall be directed to appear before a court having jurisdiction to try the offense; if the arrest is without a warrant, the prisoner shall be taken forthwith before a judge of a court with original criminal jurisdiction in the county wherein such arrest was made or before a municipal judge thereof having original jurisdiction to try such offense, who may release the person as provided in section 544.455 , conditioned upon such person's appearance before the court having jurisdiction to try the offense. The person so arrested need not be taken before a judge as herein set out if given a summons by the arresting officer.
+
+  3. The term "fresh pursuit" , as used in this section, shall include hot or fresh pursuit as defined by the common law and also the pursuit of a person who has committed a felony or is reasonably suspected of having committed a felony in this state, or who has committed or attempted to commit in this state a criminal offense or violation of municipal or county ordinance in the presence of the arresting officer referred to in subsection 1 of this section or for whom such officer holds a warrant of arrest for a criminal offense. It shall include also the pursuit of a person suspected of having committed a supposed felony in this state, though no felony has actually been committed, if there is reasonable ground for so believing. "Fresh pursuit" as used herein shall imply instant pursuit.
+
+  4. A public agency electing to institute vehicular pursuits shall adopt a policy for the safe conduct of vehicular pursuits by peace officers. Such policy shall meet the following minimum standards:
+
+  (1) There shall be supervisory control of the pursuit;
+
+  (2) There shall be procedures for designating the primary pursuit vehicle and for determining the total number of vehicles to be permitted to participate at one time in the pursuit;
+
+  (3) There shall be procedures for coordinating operation with other jurisdictions; and
+
+  (4) There shall be guidelines for determining when the interests of public safety and effective law enforcement justify a vehicular pursuit and when a vehicular pursuit should not be initiated or should be terminated.
+
+
+­­--------
+
+(L. 1965 p. 662 §§ 1 to 6, A.L. 1972 H.B. 1160, A.L. 1993 S.B. 180, A.L. 1995 H.B. 421, A.L. 1997 H.B. 69 & 179 & H.B. 669, A.L. 2010 H.B. 1868, A.L. 2013 H.B. 103 merged with H.B. 307 merged with S.B. 282)
+
+
+
+
+
+---- end of effective  28 Aug 2013 ----
+
+
+
+use this link to bookmark section  544.157 
+
+
+
+
+
+ - All versions 
+
+
+
+
+Effective 
+End 
+
+
+
+
+
+
+544.157 
+
+8/28/2013 
+
+
+
+
+
+
+
+544.157 
+
+8/28/2010 
+8/28/2013 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Click here for the Reorganization Act of 1974 - or - Concurrent Resolutions Having Force & Effect of Law 
+
+
+
+
+
+In accordance with Section 3.090 , the language of statutory sections enacted during a legislative session are updated and available on this website on the effective date of such enacted statutory section. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Other Information 
+
+
+
+
+
+
+
+
+
+
+
+
+ Recent Sections 
+Editorials 
+May Be Cited As 
+Tables & Forms 
+Multiple Enact 
+
+
+
+  
+Repeal & Transfer 
+
+Definitions 
+End Report 
+
+
+
+
+
+
+
+
+
+
+
+Site changes 
+Pictures 
+Contact 
+
+
+
+
+
+
+
+
+
+Other Links 
+
+
+
+Legislative Research 
+Oversight 
+MOLIS 
+
+
+
+
+
+
+Library 
+
+
+MO WebMasters 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Missouri Senate 
+
+
+
+
+
+MO.gov 
+
+
+
+
+
+Missouri House 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Errors / suggestions - WebMaster@LR.mo.gov 
+
+
+
+
+
+History and Fun Facts 
+
+
+©Missouri Legislature, all rights reserved.
+```
+
+---
