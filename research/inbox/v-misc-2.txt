@@ -1,0 +1,6 @@
+IA | Stop-and-ID | REFUTED Iowa Code 719.1A -- criminalizes knowingly giving FALSE ID info to an officer (simple misdemeanor); does not criminalize mere refusal to identify
+ID | Stop-and-ID | REFUTED Idaho Code 19-603 -- this is the general arrest-authority statute ("When peace officer may arrest"), not a stop-and-identify law; no stop-and-ID statute at this cite
+IL | Detention cap | null (725 ILCS 5/107-14 authorizes a stop "for a reasonable period of time," no fixed minute/hour cap stated)
+ND | Detention cap | null (N.D.C.C. 29-29-21 authorizes stop and questioning with no duration limit stated at all; fully silent)
+IL | Pretext / secondary-offense | VERIFIED 625 ILCS 5/12-503(c-5) -- bars stop/search solely for suspected windshield-obstruction (hanging-object) violation; Illinois has at least one such secondary-only section
+HI | Consent to search | REFUTED HRS ch. 803 -- read full section list 803-1 through 803-50 (arrests, search warrants, wiretap provisions); no consent-to-search-during-vehicle-stop provision exists anywhere in the chapter

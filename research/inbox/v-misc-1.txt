@@ -1,0 +1,7 @@
+AL | Impersonation | VERIFIED Ala. Code 13A-10-11 -- Impersonating Peace Officer: falsely pretends to be a peace officer and does any act in that capacity, Class C felony [intent gate: none -- fright-only fake stop covered]
+AZ | Impersonation | VERIFIED A.R.S. 13-2411 -- Impersonating a peace officer: pretends to be a peace officer with intent to induce submission to pretended authority [intent gate: none -- inducing compliance suffices, no defraud/benefit requirement]
+KY | Impersonation | VERIFIED KRS 519.055 -- Impersonating a peace officer: pretends to be/represent a peace officer with intent to induce submission or reliance to victim's prejudice [intent gate: none -- "to his prejudice" is broad, not limited to defraud/benefit]
+MD | Impersonation | REFUTED Md. Crim. Law 3-502 -- this section is Kidnapping (carrying a person by force or fraud with intent to conceal), not an impersonation-of-officer statute at all
+AL | Sign citation | REFUTED Ala. Code 13A-10-53 -- this section is "Defense," an affirmative defense to the fleeing-a-law-enforcement-officer offense (unlawful arrest or timely stop), not a sign/produce-documents duty
+AR | Sign citation | REFUTED Ark. Code 5-60-120 -- this section is "Interception and recording," Arkansas's one-party-consent wiretap statute, unrelated to signing citations
+MS | Sign citation | REFUTED Miss. Code 63-9-21 -- this is the Uniform Traffic Ticket Law, governing ticket printing/numbering/filing/recordkeeping; it does not address a driver's duty to sign or the consequence of refusing to sign
