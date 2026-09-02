@@ -458,6 +458,39 @@
     .steadyBar{height:24px !important;}
     .steadyNeedle{height:28px !important;}
   }
+
+/* Catch-all for reduced motion, matching index.html. The targeted rules above
+   stay -- they express intent for specific pieces -- but an enumerated list only
+   covers what someone remembered to enumerate, and every animation added later
+   silently escapes it. JS-driven motion is untouched: the arena needle is the
+   interaction itself, not decoration. */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
+}
+
+/* Press feedback. Every interactive element here had a :hover state and no
+   :active one -- which means on a phone, where hover does not exist, tapping a
+   drill answer gave no acknowledgement at all until the next turn rendered.
+   This is the page where that matters most: the user is being timed and is
+   trying to say the words out loud. Feedback belongs on the press, not the
+   release.
+
+   tap-highlight is cleared only because a real pressed state replaces it;
+   removing the highlight without one would make the page feel MORE dead, not
+   less. touch-action:manipulation drops the legacy double-tap-zoom wait so the
+   press registers immediately. */
+.resp,.mi,.scen,.lvlTab,.helpBtn,.tipBtn,.ghostB,.buy,button{
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+}
+.resp:active{transform:scale(.985);background:#fdf6e6;border-color:#E8B84B;
+  box-shadow:0 0 0 3px rgba(232,184,75,.28);transition-duration:60ms}
+.mi:active,.scen:active,.lvlTab:active,.helpBtn:active,.tipBtn:active,.ghostB:active,.buy:active{
+  transform:scale(.97);transition-duration:60ms}
+@media (prefers-reduced-motion: reduce){
+  .resp:active,.mi:active,.scen:active,.lvlTab:active,.helpBtn:active,
+  .tipBtn:active,.ghostB:active,.buy:active{transform:none}
+}
 </style>
 
 </head>

@@ -482,6 +482,22 @@ nav.nav-dark .btn-navcta:hover{background:var(--gold-pale)}
 }
 @media (prefers-reduced-motion:reduce){ nav{transition:none} }
 
+
+/* Catch-all for reduced motion, matching index.html. The targeted rules above
+   stay -- they express intent for specific pieces -- but an enumerated list only
+   covers what someone remembered to enumerate, and every animation added later
+   silently escapes it. JS-driven motion is untouched: the arena needle is the
+   interaction itself, not decoration. */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
+}
+
+/* iOS paints a grey flash on tap over the page's own press states. Suppressed
+   only where a real :active state already exists to take its place. */
+.btn,.faq-q,.navburger,.navsheet-close,button,a.btn{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+/* The FAQ rows were the one control here with no pressed state, so on a phone
+   tapping a question showed nothing until the answer expanded. */
+.faq-q:active{background:rgba(232,184,75,.14);transition-duration:60ms}
 </style>
 </head>
 <body>

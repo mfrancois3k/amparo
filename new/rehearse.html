@@ -108,6 +108,25 @@ body.mode-on .mode.on{display:flex}
 .wc-es{font-size:clamp(1.05rem,4.4vw,1.7rem);font-weight:700;line-height:1.15;margin:6px 0 0;color:#333}
 .wc-foot{margin:0 clamp(14px,4vw,28px);padding-top:14px;border-top:2px solid #000;font-size:12.5px;line-height:1.5;color:#444;font-weight:600}
 @media (prefers-reduced-motion:reduce){ .act,.mode-exit{transition:none} }
+
+/* Catch-all for reduced motion, matching index.html. The targeted rules above
+   stay -- they express intent for specific pieces -- but an enumerated list only
+   covers what someone remembered to enumerate, and every animation added later
+   silently escapes it. JS-driven motion is untouched: the arena needle is the
+   interaction itself, not decoration. */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
+}
+
+/* iOS paints a grey flash on tap over the page's own press states. Suppressed
+   only where a real :active state already exists to take its place. */
+.mode-exit,button{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+/* .act already had one; these two did not, and suppressing the highlight
+   without a replacement would leave them feeling unresponsive. */
+.mode-exit:active,button.on:active{transform:scale(.96);opacity:.9}
+@media (prefers-reduced-motion: reduce){
+  .mode-exit:active,button.on:active{transform:none}
+}
 </style>
 </head>
 <body>
