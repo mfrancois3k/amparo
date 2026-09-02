@@ -114,8 +114,18 @@ nav.bar{position:fixed;top:0;left:0;right:0;z-index:70;height:var(--bar-h);
    verification pass hides the copy to photograph the frame under it, so a
    background on the copy is hidden too and never measured (three identical
    1.87:1 readings before this). */
+/* A corner scrim cannot beat a photo whose bright region lands exactly where
+   the type sits (the cream card in act 4, the lit dashboard in act 3): the
+   worst frame measured 1:1. A panel is a guaranteed ground, frame-independent,
+   and the glass is a SIBLING so the verification pass can measure it. */
+.copy-panel{position:relative;z-index:2;max-width:min(52vw,660px);padding:0}
+.copy-glass{position:absolute;inset:-18px -22px;border-radius:20px;background:rgba(7,14,28,.94);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(250,246,238,.07)}
+.copy-panel .copy{position:relative;max-width:none}
+.cut--trail .copy-panel{justify-self:end}
+@media (max-width:860px){ .copy-panel{max-width:88vw} .copy-glass{inset:-14px -16px;border-radius:16px} }
 .peak-panel{position:relative;z-index:2;max-width:min(30vw,440px);justify-self:end}
-.peak-glass{position:absolute;inset:0;border-radius:16px;background:rgba(7,14,28,.86);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(250,246,238,.08)}
+.peak-glass{position:absolute;inset:0;border-radius:16px;background:rgba(7,14,28,.94);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(250,246,238,.08)}
 .cut--top-trail .copy{position:relative;max-width:none;padding:16px 20px}
 .cut--top-trail .copy p{margin-left:auto;color:var(--sc-ink)}  /* outranks .cut p, declared later */
 @media (max-width:860px){ .cut--top-trail{justify-items:start;text-align:left} .peak-panel{max-width:92vw;justify-self:start} .cut--top-trail p{margin-left:0} }
@@ -172,7 +182,17 @@ nav.bar{position:fixed;top:0;left:0;right:0;z-index:70;height:var(--bar-h);
 .map-stage{position:absolute;inset:var(--bar-h) 0 18%;display:grid;place-items:start center;z-index:0;padding:2vh clamp(12px,4vw,48px) 0}
 .map-stage figure{margin:0;width:min(100%,980px)}
 .sm2-map{display:block;width:100%;height:auto;filter:drop-shadow(0 20px 40px rgba(0,0,0,.45))}
-.sm2{fill:#16223A;stroke:#2B3A5C;stroke-width:1;vector-effect:non-scaling-stroke}
+/* Each path carries its own --i (west to east). Opacity, lift and scale come
+   from the act's own --sc-p, inherited, so the country draws itself in as you
+   scroll instead of arriving whole behind one wipe. Pure CSS off a custom
+   property: no per-frame JS, nothing to run while the act is offscreen. */
+.sm2{fill:#16223A;stroke:#2B3A5C;stroke-width:1;vector-effect:non-scaling-stroke;
+  --t:clamp(0,calc((var(--sc-p,1) - var(--i,0) * 0.012 - 0.03) * 10),1);
+  opacity:var(--t);transform-box:fill-box;transform-origin:50% 50%;
+  transform:translateY(calc((1 - var(--t)) * 12px)) scale(calc(0.94 + 0.06 * var(--t)))}
+/* the three cited states land last, and land gold, so they read as the point */
+.sm2--cited{--t:clamp(0,calc((var(--sc-p,1) - var(--i,0) * 0.012 - 0.16) * 8),1)}
+@media (prefers-reduced-motion: reduce){ .sm2,.sm2--cited{--t:1;transform:none} }
 .sm2--cited{fill:var(--gold);stroke:#B9891C;stroke-width:1.4}
 .sm2-legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:12px;font-size:12.5px;font-weight:700;color:var(--sc-ink-soft)}
 .sm2-key{display:inline-flex;align-items:center;gap:8px}
@@ -221,15 +241,20 @@ footer.colophon a{color:var(--navy);text-decoration:none;font-weight:700}
 footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:pretty;margin:0}
 
 /* ---------- The Deal: six real cards in the chrome layer ---------- */
-#deal{position:fixed;inset:0;z-index:65;pointer-events:none;display:grid;place-items:center;perspective:1200px}
+/* inset below the bar so the deck centres in the space it actually has: the
+   fan pivots low and opens sideways, clearing the chrome instead of topping
+   out at 11-22px under a 64px bar */
+#deal{position:fixed;inset:var(--bar-h) 0 0;z-index:65;pointer-events:none;display:grid;place-items:center;perspective:1200px}
 #deal.is-live{pointer-events:auto}
 #deal:not(.is-live) .hand{visibility:hidden}
 #deal .deal-bg{position:absolute;inset:0;background:rgba(7,14,28,0);transition:background 260ms var(--ease);pointer-events:none}
 #deal.is-open .deal-bg{background:rgba(7,14,28,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);pointer-events:auto}
-.hand{--fan-scale:1;position:relative;width:min(92vw,900px);height:min(70svh,560px);transform-style:preserve-3d;transform:translateX(-11vw)}
+.hand{--fan-scale:1;position:relative;width:min(92vw,980px);height:min(58svh,470px);transform-style:preserve-3d;transform:translateX(-9vw)}
 @media (max-width:860px){ .hand{transform:none} }
-.card{position:absolute;left:50%;top:60%;width:min(64vw,300px);aspect-ratio:63/88;margin-left:calc(min(64vw,300px) / -2);margin-top:calc(min(64vw,300px) * 88 / 63 / -1);
-  transform-origin:50% 118%;will-change:transform;
+/* centred in the hand and pivoting below its own base, so rotation reads as a
+   fan opening sideways rather than a stack swinging up off the top */
+.card{position:absolute;left:50%;top:50%;width:min(64vw,280px);aspect-ratio:63/88;margin-left:calc(min(64vw,280px) / -2);margin-top:calc(min(64vw,280px) * 88 / 63 / -2);
+  transform-origin:50% 155%;will-change:transform;
   background:linear-gradient(160deg,#FFFDF8,#F3EEE0);color:var(--navy);border-radius:16px;padding:18px 18px 16px;
   box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 22px 44px rgba(0,0,0,.45),0 2px 6px rgba(0,0,0,.3);
   display:flex;flex-direction:column;gap:10px;user-select:none;touch-action:none;cursor:grab}
@@ -260,10 +285,19 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
   .cut h2{font-size:clamp(1.7rem,8.5vw,2.6rem)}
   .cut{padding-left:20px;padding-right:20px}
   /* tighter spread and smaller cards so the fan clears both edges and the bar */
-  .hand{--fan-scale:.5;height:min(58svh,480px);margin-top:12vh}
-  .card{width:min(56vw,300px);margin-left:calc(min(56vw,300px) / -2);margin-top:calc(min(56vw,300px) * 88 / 63 / -1);top:72%}
+  /* the fan has to fit INSIDE the viewport, not merely avoid a scrollbar: at
+     .52 with 300px cards it hung 21px off both edges of a 375px screen. The
+     card overrides must also restate top and margin-top, or they keep the
+     pre-fix pivot and swing back up under the bar. */
+  .hand{--fan-scale:.47;height:min(54svh,420px);transform:none;margin-top:0}
+  .card{width:min(48vw,208px);margin-left:calc(min(48vw,208px) / -2);margin-top:calc(min(48vw,208px) * 88 / 63 / -2);top:50%}
+}
+@media (prefers-reduced-transparency: reduce){
+  .copy-glass,.peak-glass{background:#070E1C;-webkit-backdrop-filter:none;backdrop-filter:none}
 }
 @media (prefers-reduced-motion: reduce){
+  /* the panel must not lean on blur to make its own type legible */
+  .copy-glass,.peak-glass{background:#070E1C;-webkit-backdrop-filter:none;backdrop-filter:none}
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
   #deal .deal-bg{transition:none}
 }
@@ -328,8 +362,8 @@ var CITED = ['TX','GA','NY'];
 function statesMapHtml(c){
   var P = window.AmparoPaths;
   if (!P || !Object.keys(P).length) return '';   // never ship an empty grey box
-  var paths = Object.keys(P).map(function(k){
-    return '<path class="sm2'+(CITED.indexOf(k)>-1?' sm2--cited':'')+'" d="'+P[k]+'"/>';
+  var paths = Object.keys(P).map(function(k, i){
+    return '<path class="sm2'+(CITED.indexOf(k)>-1?' sm2--cited':'')+'" style="--i:'+i+'" d="'+P[k]+'"/>';
   }).join('');
   return '<div class="states-map">'+
     '<svg class="sm2-map" viewBox="0 0 959 593" role="img" aria-label="'+esc(c.stateMapAria)+'">'+paths+'</svg>'+
@@ -762,7 +796,7 @@ function render(){
     '<section class="cut cut--top" data-sc-act="flow" style="--h:0.9;background:#0B1426">'+
       '<div class="plate"><img src="/new/assets/act2-mirror.webp" width="1000" height="1778" alt="" fetchpriority="high"></div>'+
       '<div class="scrim-top" aria-hidden="true"></div>'+
-      '<div class="copy" data-sc-cue="0 0.7 0"><h1>'+esc(c.cut1)+'</h1><p>'+esc(c.cut1s)+'</p></div>'+
+      '<div class="copy-panel"><div class="copy-glass" aria-hidden="true"></div><div class="copy" data-sc-cue="0 1 0 0"><h1>'+esc(c.cut1)+'</h1><p>'+esc(c.cut1s)+'</p></div></div>'+
     '</section>'+
     /* 2 · the claim */
     '<section class="cut cut--trail" id="top" data-sc-act="flow" style="--h:1;background:#101B33">'+
@@ -774,20 +808,20 @@ function render(){
     '<section class="cut cut--lead" data-sc-act="flow" style="--h:1;background:#0B1426">'+
       '<figure class="plate" data-sc-reveal="up" data-sc-reveal-at="0.05 0.45"><img src="/new/assets/act1-hands.webp" width="1000" height="1778" alt="" loading="lazy"></figure>'+
       '<div class="scrim-lead" aria-hidden="true"></div>'+
-      '<div class="copy"><h2 data-sc-cue="0.12 0.4"><span class="cue-in">'+esc(c.cut3)+'</span></h2><p data-sc-cue="0.35 0.88">'+esc(c.cut3s)+'</p></div>'+
+      '<div class="copy-panel"><div class="copy-glass" aria-hidden="true"></div><div class="copy"><h2 data-sc-cue="0 1 0 0"><span class="cue-in">'+esc(c.cut3)+'</span></h2><p data-sc-cue="0 1 0 0">'+esc(c.cut3s)+'</p></div></div>'+
     '</section>'+
     /* 4 · the turn */
     '<section class="cut cut--trail" data-sc-act="flow" style="--h:0.9;background:#16223A">'+
       '<div class="plate"><img src="/new/assets/act3-card.webp" width="1000" height="1778" alt="" loading="lazy"></div>'+
       '<div class="scrim-trail" aria-hidden="true"></div>'+
-      '<div class="copy"><h2 data-sc-cue="0.06 0.36">'+esc(c.cut4)+'</h2><p data-sc-cue="0.3 0.88">'+esc(c.cut4s)+'</p></div>'+
+      '<div class="copy-panel"><div class="copy-glass" aria-hidden="true"></div><div class="copy"><h2 data-sc-cue="0 1 0 0">'+esc(c.cut4)+'</h2><p data-sc-cue="0 1 0 0">'+esc(c.cut4s)+'</p></div></div>'+
     '</section>'+
     /* 5 · proof: one real turn */
     '<section class="cut cut--lead" id="arena" data-sc-act="flow" style="--h:1;background:#0B1426">'+
       '<div class="copy turn" data-sc-in data-sc-stagger="40"><div class="eyebrow">'+esc(c.cut5eye)+'</div>'+
         '<div class="who">'+esc(c.demoOfficerLabel||'Officer')+'</div><p class="o">'+esc(turn.o[L])+'</p>'+
-        '<div class="who" data-sc-cue="0.3 0.55">'+(L==='es'?'Tú':'You')+'</div><p class="r" data-sc-cue="0.35 0.6">'+esc(reply.t[L])+'</p>'+
-        '<p class="f" data-sc-cue="0.55 0.85">'+esc(reply.f[L])+'</p>'+
+        '<div class="who" data-sc-cue="0 1 0 0">'+(L==='es'?'Tú':'You')+'</div><p class="r" data-sc-cue="0 1 0 0">'+esc(reply.t[L])+'</p>'+
+        '<p class="f" data-sc-cue="0 1 0 0">'+esc(reply.f[L])+'</p>'+
         '<div class="hero-ctas"><a class="btn btn-line" href="/arena/">'+esc(c.arenaCta)+'</a></div></div>'+
     '</section>'+
     /* 6 · silence, authored (see BRIEF.md) */
@@ -795,18 +829,18 @@ function render(){
     /* 7 · PEAK: the deal lives in the chrome; this is the plate it lands on */
     '<section class="cut cut--top cut--top-trail" id="deal-act" data-sc-act="flow" style="--h:2;background:#070E1C">'+
       '<div class="plate"><picture><source media="(max-width:700px)" srcset="/new/assets/glovebox-m.webp"><img src="/new/assets/glovebox.webp" width="1920" height="1067" alt="" loading="lazy"></picture></div>'+
-      '<div class="peak-panel"><div class="peak-glass" aria-hidden="true"></div><div class="copy"><h2 data-sc-cue="0 0.25 0">'+esc(c.cut7)+'</h2><p data-sc-cue="0.15 0.5">'+esc(c.cut7s)+'</p></div></div>'+
+      '<div class="peak-panel"><div class="peak-glass" aria-hidden="true"></div><div class="copy"><h2 data-sc-cue="0 1 0 0">'+esc(c.cut7)+'</h2><p data-sc-cue="0 1 0 0">'+esc(c.cut7s)+'</p></div></div>'+
     '</section>'+
     /* 8 · substance: one card, one fact */
     '<section class="cut cut--lead" id="what" data-sc-act="flow" style="--h:0.9;background:#101B33">'+
       '<figure class="face-stage face-stage--right" data-sc-reveal="left" data-sc-reveal-at="0.05 0.5">'+faceHtml(c.dealCards[1])+'</figure>'+
       '<div class="scrim-lead" aria-hidden="true"></div>'+
-      '<div class="copy"><h2 data-sc-cue="0.1 0.4">'+esc(c.cut8)+'</h2><p data-sc-cue="0.35 0.88">'+esc(c.cut8s)+'</p></div>'+
+      '<div class="copy-panel"><div class="copy-glass" aria-hidden="true"></div><div class="copy"><h2 data-sc-cue="0 1 0 0">'+esc(c.cut8)+'</h2><p data-sc-cue="0 1 0 0">'+esc(c.cut8s)+'</p></div></div>'+
     '</section>'+
     /* 9 · where you drive */
     '<section class="cut cut--map cut--lead" id="states" data-sc-act="flow" style="--h:1.1;background:#0B1426">'+
-      '<div class="map-stage"><figure data-sc-reveal="iris" data-sc-reveal-at="0.05 0.5">'+statesMapHtml(c)+'</figure></div>'+
-      '<div class="scrim-lead" aria-hidden="true"></div><div class="copy"><h2 data-sc-cue="0.25 0.55">'+esc(c.stateTitle)+'</h2><p data-sc-cue="0.5 0.9">'+esc(c.stateSub)+'</p></div>'+
+      '<div class="map-stage"><figure class="map-fig">'+statesMapHtml(c)+'</figure></div>'+
+      '<div class="scrim-lead" aria-hidden="true"></div><div class="copy"><h2 data-sc-cue="0 1 0 0">'+esc(c.stateTitle)+'</h2><p data-sc-cue="0 1 0 0">'+esc(c.stateSub)+'</p></div>'+
     '</section>'+
     /* 10 · privacy */
     '<section class="cut cut--centre" id="privacy" data-sc-act="flow" style="--h:0.7;background:#16223A">'+
@@ -816,8 +850,8 @@ function render(){
     /* 11 · the other language, for one screen. lang attr flips so a screen
           reader switches voice with it. */
     '<section class="cut cut--centre cut--es" id="bilingual" data-sc-act="flow" lang="'+(L==='es'?'en':'es')+'" style="--h:0.8">'+
-      '<div class="copy"><div class="pair" aria-hidden="true" data-sc-cue="0.05 0.3"><span class="'+(L==='es'?'on':'')+'">ES</span><span class="'+(L==='en'?'on':'')+'">EN</span></div>'+
-        '<h2 data-sc-cue="0.04 0.3">'+esc(c.cut11)+'</h2><p data-sc-cue="0.3 0.85">'+esc(c.cut11s)+'</p></div>'+
+      '<div class="copy"><div class="pair" aria-hidden="true" data-sc-cue="0 1 0 0"><span class="'+(L==='es'?'on':'')+'">ES</span><span class="'+(L==='en'?'on':'')+'">EN</span></div>'+
+        '<h2 data-sc-cue="0 1 0 0">'+esc(c.cut11)+'</h2><p data-sc-cue="0 1 0 0">'+esc(c.cut11s)+'</p></div>'+
     '</section>'+
     /* 12 · give one away */
     '<section class="cut cut--lead" id="share" data-sc-act="flow" style="--h:0.8;background:#0B1426">'+

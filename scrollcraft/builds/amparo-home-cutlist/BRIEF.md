@@ -277,3 +277,55 @@ felt words are recorded as felt; the intended curve is not rewritten to match.
 A real phone. Headless Chrome cannot reproduce iOS touch scrolling, Low Power
 Mode or the way `touch-action:none` on the cards interacts with page scroll on
 a real device. The flick on touch is authored, not device-tested.
+
+---
+
+## Interview v2 (2026-09-02, after the first ship)
+
+Michael's feedback on the shipped page, in his words, then his answers to the
+three questions it raised. Everything below overrides the sections above where
+they conflict; nothing above is deleted, because the registry row describes
+what shipped.
+
+1. **The photo cuts feel empty on desktop.** "They should be video like how
+   Apple does it, multiple pictures so when the user scrolls it feels like a
+   seamless move." Reference given: the GSAP ScrollTrigger demos (the
+   image-sequence one in particular) and Apple product pages.
+2. **The empty section makes no sense.** Act 6's authored silence read to him as
+   a blank, not a breath. "It needs to have something, like what to say."
+3. **The text should be animated** to carry the story.
+4. **It is all police encounters, not traffic stops.** "One of them is
+   warrants. Rework the sections regarding this, the viewer would think only
+   traffic stops. This is why I had the clay pictures, it shows this
+   perfectly." The clay set stays banned as a world (baked-in text, cartoon),
+   but its CONTENT (the knock at the door, the warrant) was the point, and the
+   page lost it.
+5. **Emphasise that one card carries a lawyer to call from your state.** "These
+   are key features."
+6. Use Mobbin and the GSAP ScrollTrigger demos as references; consider other
+   GSAP components.
+7. Orchestrate with sub-agents, fanned out.
+
+Answers to the three open questions:
+- **Motion source: zero spend.** Motion built from the existing photographic
+  stills with ffmpeg (push-ins, dissolves), encoded for scrubbing. The kie key
+  is no longer in `~/.env` and the balance is spent; real clips can replace the
+  stills-motion later without changing the page structure.
+- **Encounter set: traffic stop, checkpoint, at your door.** In that order, per
+  the Arena's own scenarios, coming-soon ones labelled as such.
+- **Peak: The Deal stays.**
+
+Decisions taken from this:
+- The three photo cuts become **frame sequences** scrubbed by scroll, using the
+  engine's own `data-sc-sequence` on a `<canvas>` inside an unpinned cut. It
+  attaches to any act's progress, so the cutlist's pin ban still holds and no
+  GSAP is needed for the sequence itself. GSAP from cdnjs (the CSP allows it)
+  is reserved for whatever the research pass shows the engine cannot do.
+- Act 6's silence is replaced by a **What to say** beat: the pack's own five
+  rights lines, animated line by line (`data-sc-kinetic="lines"`), which is the
+  content he asked for and keeps a quiet, type-only act in front of the peak.
+- The encounter beats become three cuts (stop, checkpoint, door), each with a
+  real officer line and reply from the Arena's data, before the peak.
+- A **lawyer beat** follows the deck: the lifelines card, real channel names
+  from `STATE_LEGAL_AID`, and the honesty line about numbers that answer.
+- Headlines animate with the engine's kinetic lines, one per act at most.

@@ -97,6 +97,15 @@ def inject(block, obj, add):
     # lead with a comma: the object's last property may not carry a trailing one
     return block[:j] + ',\n' + add.rstrip().rstrip(',') + block[j:]
 
+# Give every state path an --i, ordered as US_PATHS lists them, so the CSS can
+# stagger the reveal off the act's own --sc-p. Done at assemble time because
+# statesMapHtml is kept verbatim from the source page and should not be forked
+# for one attribute.
+_o = "return '<path class=\"sm2'+(CITED.indexOf(k)>-1?' sm2--cited':'')+'\" d=\"'+P[k]+'\"/>';"
+_n = "return '<path class=\"sm2'+(CITED.indexOf(k)>-1?' sm2--cited':'')+'\" style=\"--i:'+i+'\" d=\"'+P[k]+'\"/>';"
+assert data.count(_o) == 1, 'statesMapHtml path template changed'
+data = data.replace(_o, _n).replace('.map(function(k){', '.map(function(k, i){')
+
 data = inject(data, 'EN', EN_ADD)
 data = inject(data, 'ES', ES_ADD)
 
