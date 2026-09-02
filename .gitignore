@@ -27,3 +27,6 @@ scrollcraft/builds/*/lab*/
 scrollcraft/builds/*/lab7/*/
 !scrollcraft/builds/*/lab7/*/sheet.png
 scrollcraft/builds/*/node_modules/
+# motion masters (raw mp4s, check frames) are reproducible from the stills with
+# ffmpeg; the encoded finals ship under new/assets/motion
+scrollcraft/builds/*/motion/

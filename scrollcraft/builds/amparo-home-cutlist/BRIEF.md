@@ -329,3 +329,98 @@ Decisions taken from this:
 - A **lawyer beat** follows the deck: the lifelines card, real channel names
   from `STATE_LEGAL_AID`, and the honesty line about numbers that answer.
 - Headlines animate with the engine's kinetic lines, one per act at most.
+
+## v2 build record (2026-09-02)
+
+Orchestrated as asked: three fanned-out agents (GSAP/Mobbin research; asset
+inventory plus a zero-spend motion feasibility test; copy sourced from the
+codebase) and one integrator. Their reports: the research pass found the engine
+already ships the Apple pattern (`data-sc-sequence` on a canvas, driven by act
+progress) and measured GSAP core + ScrollTrigger at 45.6KB gzipped, 2.5x the
+whole vendored engine, to duplicate pin/scrub/reveal it already does; so no
+GSAP. The asset pass proved Ken Burns and cross-dissolves from the three
+photographic stills survive a 3.2x upscale on night bokeh and that
+`encode.sh` accepts them, and recommended scrubbed mp4 over canvas frames
+(one request, sub-frame seeking). The copy pass (`copy-v2.md`) found three
+places the brief was wrong against the codebase: no printed card carries door
+guidance (the lawyer point belongs to card 3, the wallet card), the flagship
+states keep their lifelines on `STATES.*` not `STATE_LEGAL_AID`, and the door
+scenario is fully written but held behind `HELD_SITS` pending attorney review,
+so it is labelled coming soon, not missing.
+
+### Journey, v2
+```
+1  Recognition   the mirror, scrubbed under the hand (kb-mirror, push in its second half)
+2  Claim         the thesis, type, kinetic lines, new sub naming all three encounters
+3  Encounter     traffic stop: hands as a 30-frame sequence + "Do you know why I stopped you?"
+4  Encounter     checkpoint: the still wiped in + "Citizenship?" (immigration caveat shown)
+5  Encounter     at your door: type on the deepest ground, "We have a warrant. Open up." (coming soon)
+6  What to say   the five rights lines, staggered, over the card clip scrubbing (the quiet act)
+7  PEAK          The Deal
+8  Lawyer        card 3: "A real lawyer, in your state." + three real channels
+9  Grounding     the map, state by state
+10 Safety        privacy
+11 Belonging     the other language
+12 Generosity    share
+   FAQ
+13 Resolve       gold, "Practice every encounter before it happens."
+```
+Spans 0.9 1 1 0.9 0.9 1.1 2 1 1 0.7 0.7 0.6 1 = 12.8vh + FAQ. Outside the
+13.6-13.8 band. Two scrubs, one sequence, one wipe, one chrome peak; no device
+family twice in a row. The authored silence is gone: act 6 does its job of
+being quieter than the peak while carrying the content he asked for.
+
+### Feel check, v2 (cold, one word per act)
+```
+intended        felt
+recognition     recognition
+provocation     provocation
+unease          unease         (the hands, moving, and "your mind going blank")
+alertness       alertness      (floodlights, "Citizenship?")
+dread           dread          (a knock; the warrant line on the deepest ground)
+steadiness      steadiness     (the card, the five lines arriving one by one)
+awe             awe            (largest change on the sheet, most frames)
+trust           trust          (a named lawyer channel in your own state)
+grounding       grounding
+safety          safety
+belonging       belonging
+generosity      generosity
+resolve         resolve        (gold, holds, the new close line)
+```
+No misses this time; the two soft misses from v1 (held breath, clarity) were on
+acts that no longer exist in that form.
+
+### Assets, v2
+Zero spend, per his choice. `new/assets/motion/`: `kb-mirror(.mp4/-m.mp4)`
+1.8MB/405KB, `kb-card` 2.0MB/474KB (ffmpeg zoompan 1.00 -> 1.12 over 120
+frames, landscape from a 16:9 band of the portrait still, portrait full-frame
+for phones, both through `encode.sh` desktop/mobile), and `hands/f-01..30.webp`
+1.2MB for the canvas sequence. The checkpoint uses the existing
+`card2-checkpoint.webp` still. Masters and check frames in `motion/`. The clay
+set stays out: a cartoon world in a photographic page, and three of its six
+frames carry baked-in text. Upgrade path, unchanged: real image-to-video clips
+drop into the same `data-sc-src` slots once the key is restored and topped up,
+and a photographic door still is the first thing to generate.
+
+### Verification, v2 (lab7)
+Desktop 1280 and 390x844: every cue clears 4.5:1 at its worst frame; the
+harness's frozen-clip check reports both scrub clips moving whenever on screen;
+dead scroll only at the FAQ, which is not an act. (A first pass at 12.6vh
+opened a 2% seam between two 0.6vh entry-reveal cuts; restoring them to 0.7
+removed it.) Runtime probe: 13 acts, 2 clips, hero scrubs 2.6 -> 4.2s and the
+card 2.4 -> 4.0s under scroll, the sequence canvas DPR-sized and drawing, five
+rights lines, three encounters, three lifelines, no console errors, no overflow
+at 1440 or 375, the phone deck inside the viewport.
+
+Reduced motion reports the same class of reading as v1 (exact 1:1 on one of
+six samples with 4-17:1 means on the rest, now also on the kinetic ramps).
+The cause is documented above: no lerp to wait on, so the harness can shoot a
+jump-scrolled frame before the engine's next read un-parks a cue. A continuous
+scroll never produces that state; the reduced-motion sheet reads legibly
+throughout. Animated text was chosen over silencing that artifact.
+
+### Not verified
+A real phone, as before: the scrub clips' decode and the sequence canvas on
+iOS, Low Power Mode, and touch flicking on the deck are authored, not
+device-tested. Two clips at ~2MB each are fetched only when their cut is within
+three viewport-heights, not on load.

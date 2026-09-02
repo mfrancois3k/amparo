@@ -70,6 +70,25 @@ as a constraint, so writing them down is the whole point.
   faces fanned out of the header by page scroll, flickable, last card is the
   ask. Taken.
 - The 13-cuts-at-~13.5vh band (amparo-home-cutlist).
+- **amparo-home-cutlist v2 (2026-09-02, same row, revised after the owner's
+  feedback; the row above describes what first shipped).** Shape now: 13
+  unpinned cuts + FAQ at ~12.6vh; hero is a full-bleed clip SCRUBBED inside an
+  unpinned cut (`data-sc-scrub` on a flow act, poster held under reduced
+  motion), then a type claim, then three ENCOUNTER cuts (traffic stop as a
+  30-frame `data-sc-sequence` canvas, checkpoint as a still wiped in, the door
+  as type on the deepest ground with a gold rule and the Arena's warrant
+  exchange), a WHAT TO SAY cut (the pack's five rights lines, staggered, over
+  the card-in-hand clip scrubbing: the quiet act before the peak, carrying
+  content instead of silence), the deck peak, a LAWYER cut (card 3, real
+  lifeline channels for TX/GA/NY), the map drawing in state by state, then the
+  admin cuts and the gold close ("Practice every encounter before it happens").
+  Kinetic line assembly on one heading per act. Two scrubs, one sequence, one
+  wipe, one chrome peak: five device families, none adjacent. Motion built from
+  the three photographic stills with ffmpeg zoompan/xfade at zero spend and
+  encoded with the skill's encode.sh; the hero clip's push-in sits in its
+  second half because an unpinned first act starts at p≈0.5 on load. Taken:
+  a scrubbed clip and a frame sequence inside UNPINNED cuts as the cutlist's
+  answer to "Apple-style motion without pinning".
 
 ---
 

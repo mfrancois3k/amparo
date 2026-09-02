@@ -1,81 +1,96 @@
-page: 13.5 viewport-heights, acts: flow > flow > flow > flow > flow > flow > flow > flow > flow > flow > flow > flow > flow
-  00.png  settled=true  cues=1  clips=
-  01.png  settled=true  cues=1  clips=
-  02.png  settled=true  cues=0  clips=
-  03.png  settled=true  cues=0  clips=
-  04.png  settled=true  cues=0  clips=
-  05.png  settled=true  cues=0  clips=
-  06.png  settled=true  cues=0  clips=
-  07.png  settled=true  cues=0  clips=
-  08.png  settled=true  cues=0  clips=
-  09.png  settled=true  cues=0  clips=
-  10.png  settled=true  cues=0  clips=
-  11.png  settled=true  cues=1  clips=
-  12.png  settled=true  cues=1  clips=
-  13.png  settled=true  cues=1  clips=
-  14.png  settled=true  cues=1  clips=
-  15.png  settled=true  cues=1  clips=
-  16.png  settled=true  cues=0  clips=
-  17.png  settled=true  cues=1  clips=
-  18.png  settled=true  cues=1  clips=
-  19.png  settled=true  cues=1  clips=
-  20.png  settled=true  cues=1  clips=
-  21.png  settled=true  cues=1  clips=
-  22.png  settled=true  cues=2  clips=
-  23.png  settled=true  cues=2  clips=
-  24.png  settled=true  cues=2  clips=
-  25.png  settled=true  cues=1  clips=
-  26.png  settled=true  cues=1  clips=
-  27.png  settled=true  cues=1  clips=
-  28.png  settled=true  cues=0  clips=
-  29.png  settled=true  cues=0  clips=
-  30.png  settled=true  cues=1  clips=
-  31.png  settled=true  cues=1  clips=
-  32.png  settled=true  cues=2  clips=
-  33.png  settled=true  cues=2  clips=
-  34.png  settled=true  cues=1  clips=
-  35.png  settled=true  cues=1  clips=
-  36.png  settled=true  cues=0  clips=
-  37.png  settled=true  cues=0  clips=
-  38.png  settled=true  cues=0  clips=
-  39.png  settled=true  cues=0  clips=
-  40.png  settled=true  cues=0  clips=
-  41.png  settled=true  cues=1  clips=
-  42.png  settled=true  cues=1  clips=
-  43.png  settled=true  cues=1  clips=
-  44.png  settled=true  cues=1  clips=
-  45.png  settled=true  cues=1  clips=
-  46.png  settled=true  cues=1  clips=
-  47.png  settled=true  cues=1  clips=
-  48.png  settled=true  cues=2  clips=
-  49.png  settled=true  cues=1  clips=
-  50.png  settled=true  cues=1  clips=
-  51.png  settled=true  cues=1  clips=
-  52.png  settled=true  cues=1  clips=
-  53.png  settled=true  cues=1  clips=
-  54.png  settled=true  cues=1  clips=
-  55.png  settled=true  cues=1  clips=
-  56.png  settled=true  cues=2  clips=
-  57.png  settled=true  cues=1  clips=
-  58.png  settled=true  cues=1  clips=
-  59.png  settled=true  cues=1  clips=
-  60.png  settled=true  cues=1  clips=
-  61.png  settled=true  cues=1  clips=
-  62.png  settled=true  cues=1  clips=
-  63.png  settled=true  cues=1  clips=
-  64.png  settled=true  cues=0  clips=
-  65.png  settled=true  cues=0  clips=
-  66.png  settled=true  cues=0  clips=
-  67.png  settled=true  cues=0  clips=
-  68.png  settled=true  cues=0  clips=
-  69.png  settled=true  cues=1  clips=
-  70.png  settled=true  cues=1  clips=
-  71.png  settled=true  cues=1  clips=
-  72.png  settled=true  cues=1  clips=
+page: 13.3 viewport-heights, acts: flow > flow > flow > flow > flow > flow > flow > flow > flow > flow > flow > flow > flow
+  00.png  settled=true  cues=2  clips=poster,poster
+  01.png  settled=true  cues=4  clips=poster,poster
+  02.png  settled=true  cues=3  clips=poster,poster
+  03.png  settled=true  cues=3  clips=poster,poster
+  04.png  settled=true  cues=5  clips=poster,poster
+  05.png  settled=true  cues=5  clips=poster,poster
+  06.png  settled=true  cues=5  clips=poster,poster
+  07.png  settled=true  cues=5  clips=poster,poster
+  08.png  settled=true  cues=4  clips=poster,poster
+  09.png  settled=true  cues=4  clips=poster,poster
+  10.png  settled=true  cues=3  clips=poster,poster
+  11.png  settled=true  cues=2  clips=poster,poster
+  12.png  settled=true  cues=2  clips=poster,poster
+  13.png  settled=true  cues=2  clips=poster,poster
+  14.png  settled=true  cues=3  clips=poster,poster
+  15.png  settled=true  cues=3  clips=poster,poster
+  16.png  settled=true  cues=4  clips=poster,poster
+  17.png  settled=true  cues=3  clips=poster,poster
+  18.png  settled=true  cues=2  clips=poster,poster
+  19.png  settled=true  cues=2  clips=poster,poster
+  20.png  settled=true  cues=3  clips=poster,poster
+  21.png  settled=true  cues=3  clips=poster,poster
+  22.png  settled=true  cues=3  clips=poster,poster
+  23.png  settled=true  cues=2  clips=poster,poster
+  24.png  settled=true  cues=2  clips=poster,poster
+  25.png  settled=true  cues=2  clips=poster,poster
+  26.png  settled=true  cues=2  clips=poster,poster
+  27.png  settled=true  cues=3  clips=poster,poster
+  28.png  settled=true  cues=2  clips=poster,poster
+  29.png  settled=true  cues=1  clips=poster,poster
+  30.png  settled=true  cues=2  clips=poster,poster
+  31.png  settled=true  cues=3  clips=poster,poster
+  32.png  settled=true  cues=4  clips=poster,poster
+  33.png  settled=true  cues=3  clips=poster,poster
+  34.png  settled=true  cues=2  clips=poster,poster
+  35.png  settled=true  cues=2  clips=poster,poster
+  36.png  settled=true  cues=0  clips=poster,poster
+  37.png  settled=true  cues=0  clips=poster,poster
+  38.png  settled=true  cues=0  clips=poster,poster
+  39.png  settled=true  cues=0  clips=poster,poster
+  40.png  settled=true  cues=3  clips=poster,poster
+  41.png  settled=true  cues=4  clips=poster,poster
+  42.png  settled=true  cues=4  clips=poster,poster
+  43.png  settled=true  cues=4  clips=poster,poster
+  44.png  settled=true  cues=4  clips=poster,poster
+  45.png  settled=true  cues=3  clips=poster,poster
+  46.png  settled=true  cues=4  clips=poster,poster
+  47.png  settled=true  cues=2  clips=poster,poster
+  48.png  settled=true  cues=2  clips=poster,poster
+  49.png  settled=true  cues=2  clips=poster,poster
+  50.png  settled=true  cues=2  clips=poster,poster
+  51.png  settled=true  cues=2  clips=poster,poster
+  52.png  settled=true  cues=2  clips=poster,poster
+  53.png  settled=true  cues=2  clips=poster,poster
+  54.png  settled=true  cues=3  clips=poster,poster
+  55.png  settled=true  cues=2  clips=poster,poster
+  56.png  settled=true  cues=2  clips=poster,poster
+  57.png  settled=true  cues=3  clips=poster,poster
+  58.png  settled=true  cues=3  clips=poster,poster
+  59.png  settled=true  cues=3  clips=poster,poster
+  60.png  settled=true  cues=3  clips=poster,poster
+  61.png  settled=true  cues=3  clips=poster,poster
+  62.png  settled=true  cues=3  clips=poster,poster
+  63.png  settled=true  cues=2  clips=poster,poster
+  64.png  settled=true  cues=2  clips=poster,poster
+  65.png  settled=true  cues=0  clips=poster,poster
+  66.png  settled=true  cues=0  clips=poster,poster
+  67.png  settled=true  cues=0  clips=poster,poster
+  68.png  settled=true  cues=0  clips=poster,poster
+  69.png  settled=true  cues=1  clips=poster,poster
+  70.png  settled=true  cues=1  clips=poster,poster
+  71.png  settled=true  cues=1  clips=poster,poster
+  72.png  settled=true  cues=1  clips=poster,poster
 
-DEAD SCROLL between: 89% -> 91% (flow > -)
+DEAD SCROLL between: 82% -> 84% (flow > flow), 89% -> 92% (flow > -)
 
-contrast over media: all cues clear 4.5:1 at their worst frame
+CONTRAST FAIL (worst frame < 3:1):
+  1.85:1 (mean 9.18) "Every driver has felt this exact half-se"
+  1.71:1 (mean 8) "Know your rights · Conoce tus derechos"
+  1:1 (mean 10.12) "Know your rights is not enough. Practice"
+  1.86:1 (mean 4.06) "A free bilingual tool for police encount"
+  1.86:1 (mean 4.28) "Free. Everything stays on this phone unl"
+  1.03:1 (mean 14.46) "Lights in your mirror, and your mind goi"
+  2.71:1 (mean 17) "Traffic stopDo you know why I stopped yo"
+  1.15:1 (mean 14.05) "Cones and floodlights. Not local police,"
+  1.16:1 (mean 14.65) "Border Patrol checkpointCitizenship?I'm "
+  2.58:1 (mean 16.45) "A knock at your door. An officer outside"
+  1.33:1 (mean 5.82) "Say them out loud now, so they're alread"
+  1:1 (mean 9.05) "Your six cards."
+  1.26:1 (mean 7.37) "Every number is labeled honestly: a numb"
+  1.88:1 (mean 15.87) "Works in all 50 states."
+  1.2:1 (mean 14.04) "Cada tarjeta, cada pantalla, en los dos "
 contact sheet: C:\Users\mfran\Ai-Foundations\Amparo\scrollcraft\builds\amparo-home-cutlist\lab7\reduced\sheet.png
 
 shots + report.json in C:\Users\mfran\Ai-Foundations\Amparo\scrollcraft\builds\amparo-home-cutlist\lab7\reduced

@@ -12,6 +12,23 @@ function faceHtml(card, cls, extra){
     '<div class="fold"><span>EN · ES</span><span>'+esc(card.n)+' / 6</span></div>'+
   '</article>';
 }
+/* A scrubbed plate: the engine drives the clip from the cut's own progress, the
+   poster is its frame-holder and the whole picture under reduced motion. */
+function clipPlate(base, poster, w, h, eager){
+  return '<div class="plate">'+
+    '<img class="sc-stage__poster" src="'+poster+'" width="'+w+'" height="'+h+'" alt=""'+(eager?' fetchpriority="high"':' loading="lazy"')+'>'+
+    '<video data-sc-scrub data-sc-src="/new/assets/motion/'+base+'.mp4" data-sc-src-mobile="/new/assets/motion/'+base+'-m.mp4" muted playsinline preload="none"></video>'+
+  '</div>';
+}
+/* One real exchange from the Arena. */
+function encounterHtml(e, L){
+  return '<div class="encounter">'+
+    '<div class="tag">'+esc(e.heading)+(e.live?'':' <span class="soon">'+esc(e.statusLabel)+'</span>')+'</div>'+
+    '<p class="o">'+esc(e.officer)+'</p>'+
+    '<p class="r">'+esc(e.reply)+'</p>'+
+    (e.note ? '<p class="f">'+esc(e.note)+'</p>' : '')+
+  '</div>';
+}
 function render(){
   const c = t();
   renderNav(c);
@@ -20,63 +37,73 @@ function render(){
   const heroCtaLabel = returning ? c.heroCtaReturn : c.heroCta;
   const shareWaUrl = 'https://wa.me/?text='+encodeURIComponent(c.shareMsg);
   const shareSmsUrl = 'sms:?&body='+encodeURIComponent(c.shareMsg);
-  const turn = DEMO_TURNS[0], reply = turn.c[0];
   const L = lang==='es'?'es':'en';
+  const E = c.encounters;
   const faqHtml = c.faq.map((item,i)=>{
     const open = openFaq === i;
     return '<div class="faq-item"><button class="faq-q" onclick="toggleFaq('+i+')" aria-expanded="'+(open?'true':'false')+'">'+
       '<span>'+esc(item.q)+'</span><span class="faq-icon'+(open?' open':'')+'" aria-hidden="true">+</span></button>'+
       (open ? '<p class="faq-a">'+esc(item.a)+'</p>' : '')+'</div>';
   }).join('');
+  const rightsHtml = c.whatToSayRights.map((r,i)=>'<li>'+esc(r)+(c.whatToSayAmend&&c.whatToSayAmend[i]?'<small>'+esc(c.whatToSayAmend[i])+'</small>':'')+'</li>').join('');
+  const lifelinesHtml = c.lawyerExamples.map(x=>'<li><span class="st">'+esc(x.state)+'</span><span class="nm">'+esc(x.name)+'</span><span class="wh">'+esc(x.what)+'</span></li>').join('');
 
   document.getElementById('app').innerHTML =
-    /* 1 · recognition */
+    /* 1 · recognition: the mirror, scrubbed */
     '<section class="cut cut--top" data-sc-act="flow" style="--h:0.9;background:#0B1426">'+
-      '<div class="plate"><img src="/new/assets/act2-mirror.webp" width="1000" height="1778" alt="" fetchpriority="high"></div>'+
+      clipPlate('kb-mirror','/new/assets/act2-mirror.webp',1000,1778,true)+
       '<div class="scrim-top" aria-hidden="true"></div>'+
-      '<div class="copy-panel"><div class="copy-glass" aria-hidden="true"></div><div class="copy" data-sc-cue="0 1 0 0"><h1>'+esc(c.cut1)+'</h1><p>'+esc(c.cut1s)+'</p></div></div>'+
+      '<div class="copy-panel"><div class="copy-glass" aria-hidden="true"></div><div class="copy"><h1 data-sc-cue="0 1 0 0">'+esc(c.cut1)+'</h1><p data-sc-cue="0.02 1 0.35 0">'+esc(c.cut1s)+'</p></div></div>'+
     '</section>'+
     /* 2 · the claim */
     '<section class="cut cut--trail" id="top" data-sc-act="flow" style="--h:1;background:#101B33">'+
-      '<div class="copy" data-sc-in data-sc-stagger="60"><div class="eyebrow">'+esc(c.heroEyebrow)+'</div><h2>'+esc(c.heroTitle)+'</h2><p>'+esc(c.heroSub)+'</p>'+
-        '<div class="hero-ctas"><a class="btn btn-gold" href="/arena/">'+esc(heroCtaLabel)+'</a><a class="btn btn-line" href="/pack">'+esc(c.heroSecondary)+'</a></div>'+
-        '<p class="trust">'+esc(c.trustLine)+'</p></div>'+
+      '<div class="copy"><div class="eyebrow" data-sc-cue="0 1 0 0">'+esc(c.heroEyebrow)+'</div><h2 data-sc-cue="0 1 0.3 0" data-sc-kinetic="lines">'+esc(c.heroTitle)+'</h2><p data-sc-cue="0.08 1 0.3 0">'+esc(c.heroSub)+'</p>'+
+        '<div class="hero-ctas" data-sc-cue="0.14 1 0.3 0"><a class="btn btn-gold" href="/arena/">'+esc(heroCtaLabel)+'</a><a class="btn btn-line" href="/pack">'+esc(c.heroSecondary)+'</a></div>'+
+        '<p class="trust" data-sc-cue="0.18 1 0.3 0">'+esc(c.trustLine)+'</p></div>'+
     '</section>'+
-    /* 3 · the cost */
-    '<section class="cut cut--lead" data-sc-act="flow" style="--h:1;background:#0B1426">'+
-      '<figure class="plate" data-sc-reveal="up" data-sc-reveal-at="0.05 0.45"><img src="/new/assets/act1-hands.webp" width="1000" height="1778" alt="" loading="lazy"></figure>'+
-      '<div class="scrim-lead" aria-hidden="true"></div>'+
-      '<div class="copy-panel"><div class="copy-glass" aria-hidden="true"></div><div class="copy"><h2 data-sc-cue="0 1 0 0"><span class="cue-in">'+esc(c.cut3)+'</span></h2><p data-sc-cue="0 1 0 0">'+esc(c.cut3s)+'</p></div></div>'+
-    '</section>'+
-    /* 4 · the turn */
-    '<section class="cut cut--trail" data-sc-act="flow" style="--h:0.9;background:#16223A">'+
-      '<div class="plate"><img src="/new/assets/act3-card.webp" width="1000" height="1778" alt="" loading="lazy"></div>'+
-      '<div class="scrim-trail" aria-hidden="true"></div>'+
-      '<div class="copy-panel"><div class="copy-glass" aria-hidden="true"></div><div class="copy"><h2 data-sc-cue="0 1 0 0">'+esc(c.cut4)+'</h2><p data-sc-cue="0 1 0 0">'+esc(c.cut4s)+'</p></div></div>'+
-    '</section>'+
-    /* 5 · proof: one real turn */
+    /* 3 · encounter: traffic stop, the hands as a frame sequence */
     '<section class="cut cut--lead" id="arena" data-sc-act="flow" style="--h:1;background:#0B1426">'+
-      '<div class="copy turn" data-sc-in data-sc-stagger="40"><div class="eyebrow">'+esc(c.cut5eye)+'</div>'+
-        '<div class="who">'+esc(c.demoOfficerLabel||'Officer')+'</div><p class="o">'+esc(turn.o[L])+'</p>'+
-        '<div class="who" data-sc-cue="0 1 0 0">'+(L==='es'?'Tú':'You')+'</div><p class="r" data-sc-cue="0 1 0 0">'+esc(reply.t[L])+'</p>'+
-        '<p class="f" data-sc-cue="0 1 0 0">'+esc(reply.f[L])+'</p>'+
-        '<div class="hero-ctas"><a class="btn btn-line" href="/arena/">'+esc(c.arenaCta)+'</a></div></div>'+
+      '<div class="plate plate--seq"><img class="sc-stage__poster" src="/new/assets/act1-hands.webp" width="1000" height="1778" alt="" loading="lazy"><canvas data-sc-sequence="/new/assets/motion/hands/f-{ii}.webp:30:1" aria-hidden="true"></canvas></div>'+
+      '<div class="scrim-lead" aria-hidden="true"></div>'+
+      '<div class="copy-panel"><div class="copy-glass" aria-hidden="true"></div><div class="copy"><h2 data-sc-cue="0 1 0.3 0" data-sc-kinetic="lines">'+esc(E[0].feel)+'</h2>'+
+        '<div data-sc-cue="0.1 1 0.3 0">'+encounterHtml(E[0],L)+'</div></div></div>'+
     '</section>'+
-    /* 6 · silence, authored (see BRIEF.md) */
-    '<section class="cut" data-sc-act="flow" data-sc-silence="true" aria-hidden="true" style="--h:0.7;background:#070E1C"></section>'+
+    /* 4 · encounter: checkpoint, a still, wiped in */
+    '<section class="cut cut--trail" data-sc-act="flow" style="--h:0.9;background:#16223A">'+
+      '<figure class="plate" data-sc-reveal="left" data-sc-reveal-at="0.02 0.4"><img src="/new/assets/card2-checkpoint.webp" width="900" height="500" alt="" loading="lazy"></figure>'+
+      '<div class="scrim-trail" aria-hidden="true"></div>'+
+      '<div class="copy-panel"><div class="copy-glass" aria-hidden="true"></div><div class="copy"><h2 data-sc-cue="0 1 0.3 0">'+esc(E[1].feel)+'</h2>'+
+        '<div data-sc-cue="0.1 1 0.3 0">'+encounterHtml(E[1],L)+'</div></div></div>'+
+    '</section>'+
+    /* 5 · encounter: at your door. No photograph exists for this yet, so the
+          words carry it, which is the product's whole thesis anyway. */
+    '<section class="cut cut--lead cut--door" data-sc-act="flow" style="--h:0.9;background:#070E1C">'+
+      '<div class="copy"><h2 data-sc-cue="0 1 0.3 0" data-sc-kinetic="lines">'+esc(E[2].feel)+'</h2>'+
+        '<div data-sc-cue="0.1 1 0.3 0">'+encounterHtml(E[2],L)+'</div></div>'+
+    '</section>'+
+    /* 6 · what to say: the five rights lines over the card in hand, scrubbed.
+          Quiet by design: this is the breath before the deal. */
+    '<section class="cut cut--lead" id="say" data-sc-act="flow" style="--h:1.1;background:#0B1426">'+
+      clipPlate('kb-card','/new/assets/act3-card.webp',1000,1778,false)+
+      '<div class="scrim-lead" aria-hidden="true"></div>'+
+      '<div class="copy-panel"><div class="copy-glass" aria-hidden="true"></div><div class="copy"><h2 data-sc-cue="0 1 0.25 0" data-sc-kinetic="lines">'+esc(c.whatToSayHead)+'</h2>'+
+        '<ol class="say" data-sc-in data-sc-stagger="90">'+rightsHtml+'</ol>'+
+        '<p data-sc-cue="0.3 1 0.3 0">'+esc(c.whatToSayClose)+'</p></div></div>'+
+    '</section>'+
     /* 7 · PEAK: the deal lives in the chrome; this is the plate it lands on */
     '<section class="cut cut--top cut--top-trail" id="deal-act" data-sc-act="flow" style="--h:2;background:#070E1C">'+
       '<div class="plate"><picture><source media="(max-width:700px)" srcset="/new/assets/glovebox-m.webp"><img src="/new/assets/glovebox.webp" width="1920" height="1067" alt="" loading="lazy"></picture></div>'+
       '<div class="peak-panel"><div class="peak-glass" aria-hidden="true"></div><div class="copy"><h2 data-sc-cue="0 1 0 0">'+esc(c.cut7)+'</h2><p data-sc-cue="0 1 0 0">'+esc(c.cut7s)+'</p></div></div>'+
     '</section>'+
-    /* 8 · substance: one card, one fact */
-    '<section class="cut cut--lead" id="what" data-sc-act="flow" style="--h:0.9;background:#101B33">'+
-      '<figure class="face-stage face-stage--right" data-sc-reveal="left" data-sc-reveal-at="0.05 0.5">'+faceHtml(c.dealCards[1])+'</figure>'+
-      '<div class="scrim-lead" aria-hidden="true"></div>'+
-      '<div class="copy-panel"><div class="copy-glass" aria-hidden="true"></div><div class="copy"><h2 data-sc-cue="0 1 0 0">'+esc(c.cut8)+'</h2><p data-sc-cue="0 1 0 0">'+esc(c.cut8s)+'</p></div></div>'+
+    /* 8 · the lawyer beat: card 3, with real channel names */
+    '<section class="cut cut--lead" id="lawyer" data-sc-act="flow" style="--h:1;background:#101B33">'+
+      '<div class="lawyer">'+
+        '<div class="copy"><div class="eyebrow" data-sc-cue="0 1 0 0">'+esc(c.dealCards[2].h)+' · 3 / 6</div><h2 data-sc-cue="0 1 0.3 0" data-sc-kinetic="lines">'+esc(c.lawyerHead)+'</h2><p data-sc-cue="0.08 1 0.3 0">'+esc(c.lawyerBody)+'</p><p class="trust" data-sc-cue="0.14 1 0.3 0">'+esc(c.lawyerHonesty)+'</p></div>'+
+        '<ul class="lifelines" data-sc-in data-sc-stagger="80">'+lifelinesHtml+'</ul>'+
+      '</div>'+
     '</section>'+
     /* 9 · where you drive */
-    '<section class="cut cut--map cut--lead" id="states" data-sc-act="flow" style="--h:1.1;background:#0B1426">'+
+    '<section class="cut cut--map cut--lead" id="states" data-sc-act="flow" style="--h:1;background:#0B1426">'+
       '<div class="map-stage"><figure class="map-fig">'+statesMapHtml(c)+'</figure></div>'+
       '<div class="scrim-lead" aria-hidden="true"></div><div class="copy"><h2 data-sc-cue="0 1 0 0">'+esc(c.stateTitle)+'</h2><p data-sc-cue="0 1 0 0">'+esc(c.stateSub)+'</p></div>'+
     '</section>'+
@@ -87,12 +114,12 @@ function render(){
     '</section>'+
     /* 11 · the other language, for one screen. lang attr flips so a screen
           reader switches voice with it. */
-    '<section class="cut cut--centre cut--es" id="bilingual" data-sc-act="flow" lang="'+(L==='es'?'en':'es')+'" style="--h:0.8">'+
+    '<section class="cut cut--centre cut--es" id="bilingual" data-sc-act="flow" lang="'+(L==='es'?'en':'es')+'" style="--h:0.7">'+
       '<div class="copy"><div class="pair" aria-hidden="true" data-sc-cue="0 1 0 0"><span class="'+(L==='es'?'on':'')+'">ES</span><span class="'+(L==='en'?'on':'')+'">EN</span></div>'+
         '<h2 data-sc-cue="0 1 0 0">'+esc(c.cut11)+'</h2><p data-sc-cue="0 1 0 0">'+esc(c.cut11s)+'</p></div>'+
     '</section>'+
     /* 12 · give one away */
-    '<section class="cut cut--lead" id="share" data-sc-act="flow" style="--h:0.8;background:#0B1426">'+
+    '<section class="cut cut--lead" id="share" data-sc-act="flow" style="--h:0.6;background:#0B1426">'+
       '<div class="copy" data-sc-in data-sc-stagger="50"><h2>'+esc(c.cut12)+'</h2><p>'+esc(c.shareBody)+'</p>'+
         '<div class="share-row"><a class="btn btn-line" href="'+shareWaUrl+'" target="_blank" rel="noopener">'+esc(c.shareWhatsApp)+'</a><a class="btn btn-line" href="'+shareSmsUrl+'">'+esc(c.shareSms)+'</a><a class="btn btn-line" href="https://www.amparohq.com/orgs" target="_blank" rel="noopener">'+esc(c.orgCta)+'</a></div></div>'+
     '</section>'+
