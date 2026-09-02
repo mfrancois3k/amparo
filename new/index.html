@@ -532,6 +532,20 @@ html{overflow-x:hidden;overflow-x:clip}
 @media (prefers-reduced-motion: reduce){
   .scen-card.is-in:hover{transform:none}
 }
+
+/* ---- Coverage map -------------------------------------------------------
+   Replaces the .ph placeholder box. Sits on the page's own cream/navy/gold
+   tokens rather than index.html's picker palette, because here it is a figure
+   in a marketing section, not a control in a form. */
+.states-map{background:linear-gradient(160deg,#FBF7EE,#F1EADB);padding:clamp(18px,3vw,34px)}
+.sm2-map{display:block;width:100%;height:auto}
+.sm2{fill:#FFFDF8;stroke:#CFC6AF;stroke-width:1;vector-effect:non-scaling-stroke}
+.sm2--cited{fill:var(--gold);stroke:#B9891C;stroke-width:1.4}
+.sm2-legend{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 26px;
+  margin-top:clamp(14px,2vw,22px);font-size:13px;font-weight:700;color:var(--eyebrow)}
+.sm2-key{display:inline-flex;align-items:center;gap:8px}
+.sm2-sw{width:14px;height:14px;border-radius:4px;background:#FFFDF8;border:1px solid #CFC6AF}
+.sm2-sw--cited{background:var(--gold);border-color:#B9891C}
 </style>
 </head>
 <body>
@@ -615,7 +629,37 @@ html{overflow-x:hidden;overflow-x:clip}
 <div id="top"></div>
 <main id="app"></main>
 
+<!-- Shared state geometry, same file index.html draws its picker map from, so
+     the two maps can never drift apart. Plain tag above the script that reads
+     it: window.AmparoPaths must exist before the first render. -->
+<script src="../us-paths.js?v=2026-09-02a"></script>
+
 <script>
+
+/* The states section shipped as a grey placeholder box reading "US map -- TX /
+   GA / NY highlighted" while a real, working map of exactly that already existed
+   in index.html. This draws it from the same shared path data.
+
+   Deliberately NOT interactive: on a marketing page this is a coverage figure,
+   not a control, and 51 focusable paths would add a keyboard trap's worth of tab
+   stops for no gain. So role="img" with a label that states the same fact the
+   shapes do, which is also the whole fallback if the geometry fails to load. */
+var CITED = ['TX','GA','NY'];
+function statesMapHtml(c){
+  var P = window.AmparoPaths;
+  if (!P || !Object.keys(P).length) return '';   // never ship an empty grey box
+  var paths = Object.keys(P).map(function(k){
+    return '<path class="sm2'+(CITED.indexOf(k)>-1?' sm2--cited':'')+'" d="'+P[k]+'"/>';
+  }).join('');
+  return '<div class="states-map">'+
+    '<svg class="sm2-map" viewBox="0 0 959 593" role="img" aria-label="'+esc(c.stateMapAria)+'">'+paths+'</svg>'+
+    '<div class="sm2-legend">'+
+      '<span class="sm2-key"><i class="sm2-sw"></i>'+esc(c.stateLegendAll)+'</span>'+
+      '<span class="sm2-key"><i class="sm2-sw sm2-sw--cited"></i>'+esc(c.stateLegendCited)+'</span>'+
+    '</div>'+
+  '</div>';
+}
+
 /* ===== copy, verbatim from design_handoff_homepage_redesign/Amparo Home.dc.html ===== */
 const EN = {
   navPractice:"Practice", navRehearse:"Rehearse", navAid:"Find help", navHow:"Build the pack", navWhat:"What's included", navPrivacy:"Privacy", navFaq:"FAQ", navCta:"Practice a stop",
@@ -679,6 +723,8 @@ const EN = {
   bilingualEyebrow:"Bilingual", bilingualTitle:"Every scenario, every page — in English and Spanish.",
   bilingualBody:"Flip the switch at the top of this page. Every scenario in the Practice Arena, every step of the pack builder, and every word you're meant to say — spoken and printed — work the same way in Spanish.",
   stateEyebrow:"State coverage", stateTitle:"Works in all 50 states.",
+  stateMapAria:"Map of the United States. All fifty states are covered by the federal rights in every pack; Texas, Georgia and New York additionally carry statute-level citations.",
+  stateLegendAll:"All 50 states — federal rights", stateLegendCited:"Statute-level citations",
   stateSub:"Your federal rights apply everywhere, and every pack carries them. Texas, Georgia and New York add statute-level citations on top — more states on the way.",
   stateNote:"Formal attorney sign-off per state is in progress — every rule already cites the exact statute so you can check it yourself.",
   faqEyebrow:"FAQ", faqTitle:"Questions worth asking",
@@ -757,6 +803,8 @@ const ES = {
   bilingualEyebrow:"Bilingüe", bilingualTitle:"Cada escenario, cada página — en inglés y español.",
   bilingualBody:"Cambia el interruptor en la parte superior de esta página. Cada escenario de la Arena de Práctica, cada paso del creador de paquetes y cada palabra que debes decir — hablada e impresa — funciona igual en español.",
   stateEyebrow:"Cobertura por estado", stateTitle:"Funciona en los 50 estados.",
+  stateMapAria:"Mapa de Estados Unidos. Los cincuenta estados están cubiertos por los derechos federales de cada paquete; Texas, Georgia y Nueva York incluyen además citas a nivel de ley estatal.",
+  stateLegendAll:"Los 50 estados — derechos federales", stateLegendCited:"Citas a nivel de ley estatal",
   stateSub:"Tus derechos federales aplican en todas partes, y cada paquete los incluye. Texas, Georgia y Nueva York agregan citas a nivel de ley estatal — más estados en camino.",
   stateNote:"La revisión formal por abogado de cada estado está en curso — cada regla ya cita el artículo exacto para que lo verifiques tú mismo.",
   faqEyebrow:"Preguntas", faqTitle:"Preguntas que vale la pena hacer",
@@ -1179,7 +1227,7 @@ function render(){
 
     '<section id="states" class="section-tight wrap">'+
       '<div class="center-head"><div class="eyebrow">'+esc(c.stateEyebrow)+'</div><h2 class="h2">'+esc(c.stateTitle)+'</h2><p class="sub" style="margin-bottom:8px">'+esc(c.stateSub)+'</p><p style="font-size:14px;color:var(--body);margin:0">'+esc(c.stateNote)+'</p></div>'+
-      '<div class="states-map"><div class="ph">US map — TX / GA / NY highlighted</div></div>'+
+      statesMapHtml(c)+
     '</section>'+
 
     '<section id="share" class="section-tight share">'+
