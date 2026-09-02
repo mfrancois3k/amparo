@@ -506,6 +506,32 @@ nav.nav-dark .btn-navcta:hover{background:var(--gold-pale)}
    can break position:sticky, clip just trims the overflow. hidden is listed
    first purely as the fallback for engines without clip. */
 html{overflow-x:hidden;overflow-x:clip}
+
+/* ---- Staggered scenario grid -------------------------------------------
+   The cards already animated in on a 100/200ms delay, but landed on a single
+   flat baseline: a three-up auto-fit grid with one uniform gap, which is the
+   exact "default card grid, uniform spacing, no hierarchy" this project's own
+   design rules ban first. The timing was staggered; the composition was not.
+
+   Offsets are deliberately not a staircase (0/48/96) -- that just reads as a
+   tilted row. 0 / 72 / 32 gives the row a rhythm, so the eye moves through the
+   three scenarios instead of scanning them as one block.
+
+   Applied only at >=900px, where auto-fit reliably yields three columns. Below
+   that the grid collapses toward one column and an offset would show up as
+   arbitrary gaps between stacked cards. margin-top (not transform) so the row
+   box grows with the offset and cannot collide with the next section. */
+@media (min-width:900px){
+  .grid-cards > *:nth-child(2){margin-top:72px}
+  .grid-cards > *:nth-child(3){margin-top:32px}
+}
+/* The card had a hover shadow but never moved. Overrides .scen-card.is-in's
+   transform:none, which is why this needs the .is-in in the selector. */
+.scen-card.is-in{transition:opacity 640ms var(--ease),transform 300ms var(--ease),box-shadow 300ms var(--ease)}
+.scen-card.is-in:hover{transform:translateY(-6px)}
+@media (prefers-reduced-motion: reduce){
+  .scen-card.is-in:hover{transform:none}
+}
 </style>
 </head>
 <body>
