@@ -31,6 +31,8 @@ changes only grammar and world will fail it.
 | amparo-arena-intro | Typographic poster | None — no persistent bar; hands off into the existing wizard's own header | `pin` + kinetic-line hero, greet cue, centred, no media | 3 acts, ~4.5vh: `pin`(kinetic) → `flow`(reveal wipe) → `pin`(kinetic + scale-from-`--sc-p`, the peak). Short by design: a prelude feeding an existing product, not a full page | Peak act's single-value cue holds, no fade; hands off directly into the pre-existing welcome card below (cream ground, gold CTA) — not a scrollcraft-authored close | "The Line": fixed caption bar accumulates, word-by-word off summed `--sc-p` across all 3 acts, the real line the product's own Arena calls "those nine words" ("I choose to remain silent. I want a lawyer." / ES equivalent) | Type-only, no photography/generated assets (no `KIE_AI_API_KEY` spend) — Amparo's real navy/gold/cream brand, not a generated world | index.html, embedded above an existing multi-step app, not a full page |
 | new-homepage-cine-intro | Filmic-leaning (photographic pin acts, no worldflight) | Same fixed translucent nav as the rest of `new/index.html` — floats over the dark intro unmodified, not intro-specific chrome | `pin` + full-bleed generated photo (seedream/5-pro, 9:16 native) + bottom-band scrim + kinetic-line greet-and-hold headline | 3 acts, ~5.8vh: `pin`(photo+kinetic) → `pin`(photo+kinetic) → `pin`(photo+kinetic, the peak, largest span). All three same device family — the photographic-hero grammar leans on `pin`/`kinetic`/`drift` and doesn't have a second family to reach for the way the typographic build used `flow`; noted as a deliberate deviation from the variety rule, not an oversight | Peak act's single-value cue holds; hard-cuts (no drift) from the intro's dark navy ground into `new/index.html`'s own cream hero immediately below — same "hand off into existing chrome" pattern as the first build | Same "The Line" bar, reused deliberately (see below) | Photographic — 3 generated stills (driver's hands on wheel / rearview mirror with police lights / hand holding glovebox card), one reused style preamble, no faces or weapons by design | `new/index.html`, above its own hero, not a full page |
 
+| amparo-home-cutlist | Rhythmic cutlist | Loud fixed full-width glass bar: wordmark, links, EN/ES, a "Your six cards" deck trigger and the CTA at the wordmark's weight; the bar is where the peak lives | One-screen hard cut, no greet-and-hold: the mirror still full-bleed, h1 top-left over the dark headliner, gone in 0.9vh | 13 short unpinned `flow` cuts + a compressed FAQ, ~13.5vh, nothing over 2vh except the peak (2.0) with an authored empty screen (0.7) before it; per-section opaque navy grounds, no drift; `reveal` on three cuts (one `iris`, on the map), late sub-line cues so no cut goes static | Abrupt full-bleed inversion to a gold ground with navy ink, the two asks, colophon inside the act, single-value cue that holds | "The Deal": the six real printed cards as HTML faces, fanned out of the fixed bar by page scroll across the peak act, flickable (pointer capture, velocity handoff, spring-back), last card is the real link to /pack, re-openable from the bar anywhere on the page; publishes `data-sc-verify-state` | Photographic, low-key cinematic graded to the navy family: three existing portrait stills (mirror, hands, card in hand) plus one generated glovebox plate (seedream, one preamble) with a right-weighted 9:16 crop for phones; card faces are markup | `new/index.html`, served at `/` via rewrite; the whole homepage, not a prelude |
+
 *(First real build. Two things future builds on this project should avoid
 repeating without a reason: typographic-poster-as-default, and "no nav chrome,
 hand off into existing UI" as the close pattern — both were earned by this
@@ -55,6 +57,19 @@ as a constraint, so writing them down is the whole point.
   not building the whole page.
 - "The Line" signature move (amparo-arena-intro) — a fixed accumulating-caption
   bar driven by summed act progress. Taken.
+- Rhythmic cutlist grammar (amparo-home-cutlist) — earned by a "premium
+  animation site" brief on a product whose voice is composure: fast cuts of
+  restrained material, scroll-driven so nothing moves unless the hand does.
+- Peak held in the fixed chrome layer (amparo-home-cutlist) — the loud bar
+  hosts the choreography while short unpinned cuts pass underneath. This is the
+  cutlist's documented answer to its own pin ban; do not reach for it on a
+  grammar that allows `pin`.
+- Gold-ground inversion as the close (amparo-home-cutlist) — the page's one
+  light ground, navy ink, the asks and the colophon inside the act.
+- "The Deal" signature move (amparo-home-cutlist) — real product cards as HTML
+  faces fanned out of the header by page scroll, flickable, last card is the
+  ask. Taken.
+- The 13-cuts-at-~13.5vh band (amparo-home-cutlist).
 
 ---
 

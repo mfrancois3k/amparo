@@ -221,3 +221,59 @@ close (gold inversion, holds vs hard-cut into cream hero) differs; move (The
 Deal vs The Line) differs. **6 of 6.**
 
 Passes.
+
+---
+
+## Build record (appended after Step 5)
+
+### Assets, as shipped
+The `c1/c2/c3-*.webp` files the registry describes as the photographic cine
+stills are NOT that on disk: they are a clay cartoon set with a speech bubble
+baked into the image (an officer at a door, a figure in a car). Someone swapped
+them after that build. The photographic portrait originals survive as
+`act1-hands`, `act2-mirror`, `act3-card`, and those are what ship: mirror under
+"Lights in the mirror" (act 1), hands under "your own mind going blank" (act 3),
+the card in hand under "the words come without thinking" (act 4). One plate
+generated: the glovebox (seedream/5-pro, low-key cinematic preamble, landscape;
+the portrait reroll failed 402, so phones get a right-weighted 9:16 crop).
+Spend: one still. Balance after: 0.
+
+### Feel check (cold, one word per act, before rereading the curve)
+```
+intended        felt
+Recognition     recognition
+Provocation     provocation
+Unease          held breath     (the hands still is warm and calm; the copy carries the unease)
+Steadiness      steadiness
+Alertness       alertness
+(silence)       silence         (reads as intended, not as a failed load)
+Awe             awe             (largest change on the sheet, most frames)
+Trust           clarity
+Grounding       grounding
+Safety          safety
+Belonging       belonging       (early frames thin; heading cue moved earlier)
+Generosity      generosity
+Resolve         resolve         (last frames gold with content on them)
+```
+Two soft misses, neither a repeat of its neighbour, so neither is filler. The
+felt words are recorded as felt; the intended curve is not rewritten to match.
+
+### Verification (lab7, the shipping build)
+- Desktop 1280, mobile 390x844, reduced motion: **contrast clears 4.5:1 at the
+  worst frame on every cue**, all three profiles.
+- Dead scroll: only 88-91%, the FAQ, which is not an act and is authored above.
+- Flick verified by synthetic pointer sequence (deals on a committed throw,
+  springs back on a nudge). Bar trigger, Escape, focus return, ES switch and
+  the act-11 language flip verified in the browser. No horizontal overflow at
+  375, 1024, 1440.
+- Fixes the harness forced: front-loaded cues went static after 60% of each
+  cut (late sub-line cues added); the peak's glass was painted on the copy
+  element, which the harness hides to measure the ground, so it was never
+  measured (three identical 1.87:1 readings) until it became a sibling; act 1's
+  copy moved top-left because the mirror still has light flares in its lower
+  corners; act 8's card sat under the lead column at 1.02:1 until pushed right.
+
+### Not verified
+A real phone. Headless Chrome cannot reproduce iOS touch scrolling, Low Power
+Mode or the way `touch-action:none` on the cards interacts with page scroll on
+a real device. The flick on touch is authored, not device-tested.

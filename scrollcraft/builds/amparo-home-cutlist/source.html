@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Amparo — Know your rights is not enough. Practice them.</title>
+<meta name="description" content="A free bilingual resource for drivers. Practice police encounter scenarios out loud, then print six cards built from your own state's laws — what to say, and how to reach a lawyer who takes your call.">
+<link rel="canonical" href="https://www.amparohq.com/">
+<!--
+  NOT LIVE. This is the practice-first homepage redesign, built from the
+  approved mockup (design_handoff_homepage_redesign/) at a new path per that
+  handoff's own P0: "ship at /new or behind a flag, not a one-commit
+  overwrite of index.html." /../index.html (the pack builder) is untouched.
+
+  P0 STILL OPEN before this replaces the live homepage — see
+  ../.design-handoff/design_handoff_homepage_redesign/Expert\ Panel\ Review.dc.html:
+    - Attorney review of the demo script below (DEMO_TURNS/DEMO_BRANCH).
+      It grades specific answers — that is closer to legal advice than the
+      printed pack ever was, and it is not reviewed yet. The "in legal
+      review" caption under the phone is load-bearing copy, not filler —
+      do not remove it before that review happens.
+    - State-blind script: the demo teaches "remain silent" as universally
+      correct. A few states impose duties (e.g. stop-and-ID) where that is
+      not safe advice verbatim. demoStateNote below already carries the
+      caveat from the handoff; that is a stopgap, not the fix.
+    - Demo↔Arena parity: if arena/index.html's real first 60 seconds feels
+      worse than this demo, this page is a bait-and-switch.
+-->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='72' r='28' fill='none' stroke='%23E8B84B' stroke-width='12'/%3E%3Crect x='48' y='56' width='24' height='32' rx='4' fill='%231B2A4A'/%3E%3Cpath d='M12 62 L60 18 L108 62' fill='none' stroke='%231B2A4A' stroke-width='13' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<!-- scrollcraft engine CSS for the cinematic intro below. Linked BEFORE this
+     page's own <style>: scrollcraft.css sets an un-scoped body{background,
+     color,font-family...} for a page that owns its whole document (this one
+     doesn't), so the real body rule a few lines down needs to win on source
+     order, not be fought with !important. -->
+<link rel="stylesheet" href="/scroll-intro/scrollcraft.css">
+<!-- Set before first paint so the reveal's hidden start state is only ever
+     armed when JS is actually alive to finish it. -->
+<script>document.documentElement.classList.add('js-anim');</script>
+<style>
+:root{
+  --navy:#1B2A4A; --navy-deep:#121e38; --phone-screen:#1d3557; --phone-bezel:#0f1c33;
+  --cream:#FAF6EE; --gold:#E8B84B; --gold-pale:#F3D48A; --gold-tint:#f4efe1; --gold-tint-2:#fdf6e3;
+  --ink:#22293A; --body:#64707D; --muted:#8a93a0; --line:#e5e0d4; --eyebrow:#6b4d0d;
+  --good:#2e9e68; --good-ink:#1e6b43; --good-bg:#e6f4ec;
+  --warn:#d9a62c; --warn-ink:#8a6512; --warn-bg:#fdf6e3;
+  --bad:#d05b47; --bad-ink:#a13527; --bad-bg:#fdecea;
+  --ease:cubic-bezier(.23,1,.32,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Helvetica,Arial,sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:var(--navy)}
+a:hover{color:#a87f1f}
+::selection{background:var(--gold-pale)}
+img,svg{display:block;max-width:100%}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:6px}
+
+.wrap{max-width:1180px;margin:0 auto;padding-inline:clamp(24px,6vw,64px)}
+.eyebrow{font-size:12.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--eyebrow);margin-bottom:12px}
+.h2{font-size:clamp(32px,4.5vw,48px);font-weight:800;color:var(--navy);letter-spacing:-.01em;margin:0 0 14px;text-wrap:balance}
+.sub{font-size:17px;color:var(--body);line-height:1.6;margin:0}
+section{padding-block:clamp(90px,11vw,150px)}
+.section-tight{padding-block:0 clamp(90px,11vw,150px)}
+
+/* nav */
+nav{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px clamp(20px,6vw,64px);background:rgba(250,246,238,.86);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex:none}
+.brand b{font-weight:800;font-size:19px;color:var(--navy);letter-spacing:-.3px}
+.navlinks{display:flex;align-items:center;gap:clamp(14px,3vw,28px);flex-wrap:wrap}
+.navlinks a{font-size:14.5px;font-weight:600;color:var(--navy);text-decoration:none;white-space:nowrap}
+.navright{display:flex;align-items:center;gap:14px;flex:none}
+.langpill{display:flex;border:1.5px solid var(--navy);border-radius:99px;overflow:hidden}
+.langpill button{padding:6px 14px;border:0;background:transparent;color:var(--navy);cursor:pointer;font-weight:800;font-size:13px;transition:background .18s var(--ease),color .18s var(--ease)}
+.langpill button.on{background:var(--navy);color:#fff}
+.langpill button:active{transform:scale(.96)}
+
+/* buttons */
+.btn{text-decoration:none;display:inline-flex;align-items:center;gap:6px;font-weight:800;border-radius:99px;border:0;cursor:pointer;font-family:inherit;transition:transform 150ms var(--ease),box-shadow 150ms var(--ease),background 150ms var(--ease)}
+.btn:active{transform:scale(.97)}
+.btn-navcta{background:var(--navy);color:#fff;font-size:14px;padding:10px 18px;white-space:nowrap}
+.btn-navcta:hover{background:var(--navy-deep)}
+.btn-hero{background:var(--navy);color:#fff;font-size:16.5px;padding:16px 30px;box-shadow:0 10px 28px rgba(27,42,74,.28)}
+.btn-hero:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(27,42,74,.34)}
+.btn-ghost{color:var(--navy);font-size:15.5px;font-weight:700;padding:16px 8px;background:none}
+.btn-ghost:hover{color:#a87f1f}
+.btn-gold{background:var(--gold);color:var(--navy);font-size:15px;padding:14px 26px}
+.btn-gold:hover{transform:translateY(-1px)}
+.btn-arena{background:var(--navy);color:#fff;font-size:16px;padding:15px 28px;box-shadow:0 10px 28px rgba(27,42,74,.24)}
+.btn-arena:hover{transform:translateY(-2px)}
+@media (prefers-reduced-motion:reduce){.btn:hover,.btn:active{transform:none}}
+
+/* hero */
+.hero{max-width:900px;margin:0 auto;padding:clamp(150px,20vw,200px) clamp(24px,6vw,64px) 40px;text-align:center}
+.hero-eyebrow{display:inline-block;padding:7px 16px;border-radius:99px;background:var(--gold-pale);color:var(--eyebrow);font-size:12.5px;font-weight:800;letter-spacing:.6px;margin-bottom:28px}
+.hero h1,.hero .hero-h{font-size:clamp(42px,7vw,76px);font-weight:800;color:var(--navy);letter-spacing:-.02em;line-height:1.05;margin:0 0 24px;text-wrap:balance}
+.hero-sub{font-size:clamp(18px,2.2vw,22px);color:var(--body);line-height:1.55;max-width:660px;margin:0 auto 36px}
+.hero-ctas{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;margin-bottom:22px}
+.trust{font-size:13.5px;color:var(--body);max-width:520px;margin:0 auto}
+
+/* phone demo */
+.demo-wrap{max-width:1180px;margin:0 auto;padding:20px clamp(24px,6vw,64px) clamp(70px,9vw,120px);position:relative}
+.demo-glow{position:absolute;top:10%;left:50%;width:520px;height:520px;margin-left:-260px;border-radius:50%;background:radial-gradient(circle,rgba(232,184,75,.35),transparent 70%);filter:blur(30px);z-index:0}
+.demo-inner{position:relative;z-index:1;max-width:400px;margin:0 auto}
+.phone{background:var(--phone-bezel);border-radius:44px;padding:12px;box-shadow:0 40px 90px rgba(27,42,74,.35)}
+.screen{background:var(--phone-screen);border-radius:34px;overflow:hidden;display:flex;flex-direction:column;min-height:560px}
+.screen-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:18px 20px 12px}
+.screen-title{font-size:11px;font-weight:800;letter-spacing:1.2px;color:var(--gold-pale);text-transform:uppercase}
+.mood{font-size:10.5px;font-weight:800;letter-spacing:.8px;color:#c9d4e8;text-transform:uppercase;border:1px solid rgba(255,255,255,.28);padding:4px 10px;border-radius:99px}
+.heat-track{margin:0 20px 6px;height:4px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden}
+.heat-fill{height:100%;border-radius:99px;transition:width .5s var(--ease),background .3s var(--ease)}
+.demo-idle{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:28px 26px;gap:16px}
+.demo-idle p{margin:0}
+.demo-scene{font-size:16px;color:#e8eef7;line-height:1.55;font-weight:600}
+.demo-note{font-size:12.5px;color:#9fb0cd}
+.officer-row{margin:10px 20px 0}
+.officer-label{font-size:10px;font-weight:800;letter-spacing:1.2px;color:#9fb0cd;text-transform:uppercase;margin-bottom:6px}
+.officer-line{padding:14px 16px;border-radius:4px 16px 16px 16px;background:rgba(9,17,34,.6);color:#f2f6ff;font-size:15px;line-height:1.5;font-weight:600;opacity:0;transform:translateY(4px);animation:settle 260ms var(--ease) forwards}
+.choices{display:flex;flex-direction:column;gap:10px;margin:16px 20px 0}
+.choice{text-align:left;font-family:inherit;cursor:pointer;border-radius:14px;padding:13px 15px;font-size:14px;font-weight:600;line-height:1.45;border:1.5px solid rgba(27,42,74,.15);background:rgba(255,255,255,.95);color:var(--navy);transition:opacity 180ms var(--ease),border-color 180ms var(--ease),transform 100ms var(--ease)}
+.choice:not([disabled]):active{transform:scale(.98)}
+.choice.good{border-color:var(--good);border-width:2px}
+.choice.warn{border-color:var(--warn);border-width:2px}
+.choice.bad{border-color:var(--bad);border-width:2px}
+.choice.dim{opacity:.4}
+.feedback{margin:14px 20px 0;padding:12px 14px;border-radius:12px;font-size:13px;line-height:1.5;font-weight:600;opacity:0;transform:translateY(6px) scale(.98);animation:settle 260ms var(--ease) forwards}
+.feedback.good{background:var(--good-bg);color:var(--good-ink)}
+.feedback.warn{background:var(--warn-bg);color:var(--warn-ink)}
+.feedback.bad{background:var(--bad-bg);color:var(--bad-ink)}
+@keyframes settle{to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.officer-line,.feedback{animation:none;opacity:1;transform:none}}
+.btn-next{margin:14px 20px 4px;padding:12px;border-radius:99px;background:var(--gold);color:var(--navy);font-weight:800;font-size:14px;border:0;cursor:pointer;font-family:inherit;transition:transform 150ms var(--ease)}
+.btn-next:active{transform:scale(.97)}
+.demo-done{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:28px 26px;gap:10px}
+.demo-done-title{font-size:22px;font-weight:800;color:#fff}
+.score-pill{display:inline-block;padding:8px 18px;border-radius:99px;background:rgba(243,212,138,.16);border:1px solid rgba(243,212,138,.5);color:var(--gold-pale);font-size:14px;font-weight:800}
+.demo-done-note{font-size:13.5px;color:#c9d4e8;line-height:1.6;margin:6px 0 12px}
+.done-cta{text-decoration:none;background:var(--gold);color:var(--navy);font-size:14.5px;font-weight:800;padding:13px 24px;border-radius:99px}
+.restart-link{background:none;border:0;color:#9fb0cd;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:underline}
+.dots{display:flex;justify-content:center;gap:6px;padding:12px 0 18px}
+.dot{width:7px;height:7px;border-radius:50%;transition:background 200ms var(--ease)}
+.demo-caption{text-align:center;font-size:12.5px;color:var(--body);margin:18px auto 0;max-width:360px}
+.demo-state-note{text-align:center;font-size:12px;color:var(--muted);margin:8px auto 0;max-width:360px}
+
+/* arena / how / what cards */
+.center-head{text-align:center;max-width:680px;margin:0 auto 56px}
+.grid-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-bottom:40px}
+.scen-card{background:#fff;border-radius:22px;padding:28px 26px;border:1px solid var(--line);box-shadow:0 16px 40px rgba(27,42,74,.08);overflow:hidden}
+/* Card media bleeds to the card's edges (cancelling its 28/26 padding) and
+   keeps only the top corners rounded, so the photograph reads as part of the
+   card rather than a picture pasted inside one. */
+.scen-media{position:relative;margin:-28px -26px 22px;border-radius:21px 21px 0 0;overflow:hidden;aspect-ratio:16/9;background:var(--navy-deep)}
+/* The hidden-until-revealed state is gated on .js-anim (set by an inline script
+   in <head>). Without it these rules never apply, so with JS disabled, an error
+   before armScenCards(), or no IntersectionObserver, the cards are simply
+   VISIBLE rather than three invisible opacity:0 boxes. Same failure class as
+   the intro's collapsed stages: never let the resting state depend on JS. */
+.js-anim .scen-media{clip-path:inset(0 0 100% 0);transition:clip-path 760ms var(--ease)}
+.scen-media img{position:absolute;left:0;top:-6%;width:100%;height:112%;object-fit:cover;will-change:transform}
+.scen-card.is-in .scen-media{clip-path:inset(0 0 0 0)}
+/* "At your door" ships with no photograph on purpose: the card's own copy says
+   the scenario is not built yet and that we would rather ship it late than
+   ship it wrong. A polished stock-looking frame would contradict that. The
+   hairline hatch marks it as deliberately empty rather than a failed image. */
+/* The hatch alone did not carry the intent: the site's own owner read this card
+   as a failed image load, and if it reads as broken to the person who built it,
+   it reads as broken to a visitor. Keeping it photographless is still right --
+   a stock frame would contradict the card's own "not built yet" copy -- so the
+   emptiness is now labelled instead of merely textured. It says what it is. */
+.scen-media--empty{position:relative;background:
+  repeating-linear-gradient(135deg,rgba(255,255,255,.05) 0 1px,transparent 1px 9px),
+  linear-gradient(160deg,#1b2a4a,#121e38)}
+.scen-media--empty::after{
+  content:attr(data-label);
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:max-content;max-width:80%;text-align:center;
+  font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(232,238,247,.62);
+  padding:9px 16px;border:1px dashed rgba(232,238,247,.34);border-radius:99px}
+@media (max-width:420px){
+  .scen-media--empty::after{font-size:11px;letter-spacing:.06em;padding:7px 12px}
+}
+.js-anim .scen-card{opacity:0;transform:translateY(16px);transition:opacity 640ms var(--ease),transform 640ms var(--ease),box-shadow 200ms var(--ease)}
+.js-anim .scen-card.is-in{opacity:1;transform:none}
+.grid-cards > *:nth-child(2) .scen-media{transition-delay:100ms}
+.grid-cards > *:nth-child(3) .scen-media{transition-delay:200ms}
+.grid-cards > *:nth-child(2).scen-card{transition-delay:100ms}
+.grid-cards > *:nth-child(3).scen-card{transition-delay:200ms}
+@media (hover:hover) and (pointer:fine){
+  .scen-card.is-in:hover{box-shadow:0 22px 54px rgba(27,42,74,.14)}
+}
+@media (prefers-reduced-motion:reduce){
+  .scen-card,.scen-media{transition:opacity 200ms ease;transform:none;clip-path:none}
+  .scen-media img{transform:none !important}
+}
+.badge{display:inline-block;padding:5px 12px;border-radius:99px;font-size:11.5px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap}
+.badge-live{background:var(--gold-pale);color:var(--eyebrow)}
+.badge-soon{background:var(--gold-tint);color:var(--muted)}
+.scen-card h3{font-size:19px;font-weight:800;color:var(--navy);margin:16px 0 8px}
+.scen-card p{font-size:14.5px;color:var(--body);line-height:1.6;margin:0}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:32px}
+.chip{padding:9px 16px;border-radius:99px;background:var(--gold-tint);border:1px solid var(--line);color:var(--navy);font-size:13.5px;font-weight:700}
+.chip-dark{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#e8eef7}
+.center-cta{text-align:center}
+.center-cta p{font-size:14px;color:var(--body);line-height:1.6;max-width:560px;margin:0 auto 28px}
+.center-cta .row{display:flex;gap:18px;justify-content:center;align-items:center;flex-wrap:wrap}
+
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:48px 40px}
+.step-num{font-size:15px;font-weight:800;color:var(--gold);letter-spacing:.5px;margin-bottom:14px}
+.step h3{font-size:20px;font-weight:800;color:var(--navy);margin:0 0 10px}
+.step p{font-size:15px;color:var(--body);line-height:1.6;margin:0}
+
+.pack-visual{max-width:760px;margin:0 auto;border-radius:28px;overflow:hidden;box-shadow:0 30px 70px rgba(27,42,74,.16);border:1px solid rgba(27,42,74,.08)}
+.pack-visual .ph{width:100%;height:clamp(260px,36vw,420px);background:linear-gradient(135deg,#f4efe1,#e5e0d4);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;font-weight:700;text-align:center;padding:20px}
+
+.items{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:44px 40px}
+.item{display:flex;gap:14px}
+.item .dot-mark{flex:none;width:8px;height:8px;border-radius:50%;background:var(--gold);margin-top:9px}
+.item h3{font-size:17px;font-weight:800;color:var(--navy);margin:0 0 6px}
+.item p{font-size:14.5px;color:var(--body);line-height:1.6;margin:0}
+.price-pill{display:inline-block;padding:12px 22px;border-radius:99px;background:var(--gold-tint-2);border:1.5px solid var(--gold);color:var(--eyebrow);font-size:14.5px;font-weight:700;max-width:640px}
+.printer-line{font-size:13px;color:var(--body);max-width:560px}
+
+.privacy{background:var(--navy-deep);padding:clamp(90px,11vw,150px) clamp(24px,6vw,64px)}
+.privacy-inner{max-width:760px;margin:0 auto;text-align:center}
+.privacy .eyebrow{color:var(--gold-pale)}
+.privacy h2{color:#fff}
+.privacy-body{font-size:18px;color:#c3cbdb;line-height:1.65;margin:0 0 40px}
+.offline-line{font-size:14px;color:#9fb0cd;margin:28px 0 0}
+
+.bilingual{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:56px;align-items:center}
+.bl-toggle{display:flex;justify-content:center}
+.bl-toggle .pair{display:flex;border:2px solid var(--navy);border-radius:99px;overflow:hidden;font-weight:800}
+.bl-toggle .pair span{padding:14px 26px;font-size:15px;transition:background 200ms var(--ease),color 200ms var(--ease)}
+.bl-toggle .pair span.on{background:var(--navy);color:#fff}
+.bl-toggle .pair span:not(.on){color:var(--navy)}
+
+.states-map{border-radius:24px;overflow:hidden;box-shadow:0 24px 60px rgba(27,42,74,.14);border:1px solid var(--line);max-width:920px;margin:0 auto}
+.states-map .ph{width:100%;height:clamp(260px,32vw,420px);background:linear-gradient(135deg,#f4efe1,#e5e0d4);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;font-weight:700;text-align:center;padding:20px}
+
+.share{max-width:760px;margin:0 auto;text-align:center}
+.share .row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-share-wa{text-decoration:none;display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:99px;background:var(--navy);color:#fff;font-size:14.5px;font-weight:800;transition:background 150ms var(--ease)}
+.btn-share-wa:hover{background:var(--navy-deep)}
+.btn-share-sms{text-decoration:none;display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:99px;border:1.5px solid var(--navy);color:var(--navy);font-size:14.5px;font-weight:800;transition:background 150ms var(--ease)}
+.btn-share-sms:hover{background:var(--gold-tint)}
+
+.orgs-card{background:#fff;border:1px solid var(--line);border-radius:28px;padding:clamp(36px,5vw,56px);box-shadow:0 24px 60px rgba(27,42,74,.1);display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;align-items:center}
+.orgs-card h2{font-size:clamp(26px,3.5vw,36px)}
+.orgs-card p.body{font-size:15.5px;color:var(--body);line-height:1.65;margin:0 0 22px}
+.orgpoints{display:flex;flex-direction:column;gap:12px}
+.orgpoints .pt{display:flex;gap:12px;align-items:baseline}
+.orgpoints .dot-mark{flex:none;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.orgpoints p{font-size:14.5px;color:var(--ink);line-height:1.55;margin:0}
+
+.faq-wrap{max-width:760px;margin:0 auto}
+.faq-head{text-align:center;margin-bottom:48px}
+.faq-item{border-top:1px solid var(--line);padding:22px 0}
+.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;background:none;border:0;padding:0;cursor:pointer;text-align:left;font-family:inherit}
+.faq-q span:first-child{font-size:18px;font-weight:700;color:var(--navy)}
+.faq-icon{flex:none;width:24px;height:24px;border-radius:50%;background:var(--gold-tint);color:var(--navy);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;transition:transform 220ms var(--ease)}
+.faq-icon.open{transform:rotate(45deg)}
+.faq-a{font-size:15.5px;color:var(--body);line-height:1.65;margin:16px 0 0;max-width:640px;opacity:0;transform:translateY(-4px);animation:settle 220ms var(--ease) forwards}
+@media (prefers-reduced-motion:reduce){.faq-a{animation:none;opacity:1;transform:none}}
+
+.final-cta{background:var(--gold);padding:clamp(70px,9vw,110px) clamp(24px,6vw,64px);text-align:center}
+.final-cta h2{font-size:clamp(28px,4.5vw,44px);font-weight:800;color:var(--navy);letter-spacing:-.01em;margin:0 0 12px}
+.final-cta p{font-size:17px;color:var(--eyebrow);margin:0 0 30px}
+
+footer{max-width:1180px;margin:0 auto;padding:56px clamp(24px,6vw,64px) 60px}
+.foot-top{display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between;padding-bottom:36px;border-bottom:1px solid var(--line)}
+.foot-brand{display:flex;align-items:center;gap:10px}
+.foot-brand b{font-weight:800;font-size:16px;color:var(--navy)}
+.foot-links{display:flex;gap:28px;flex-wrap:wrap}
+.foot-links a{font-size:14px;font-weight:600;color:var(--navy);text-decoration:none;white-space:nowrap}
+.disclaimer{font-size:12.5px;color:var(--body);line-height:1.6;margin:24px 0 12px;max-width:720px}
+.copyright{font-size:12px;color:var(--muted);margin:0}
+
+/* ===== mobile nav =====
+   Previously this was a bare `.navlinks{display:none}` below 640px with no
+   replacement, which did not degrade the nav on phones so much as delete it:
+   six destinations became unreachable and the only way to any of them was to
+   already know the URL. It also left a dead band between 641px and roughly
+   900px where six links wrapped onto two ragged rows under the logo.
+   Both are fixed here: the bar collapses to a real trigger at 900px, and the
+   sheet is the only thing that owns the links below that. */
+.navburger{display:none;align-items:center;justify-content:center;width:44px;height:44px;
+  border:1.5px solid var(--navy);border-radius:14px;background:transparent;cursor:pointer;
+  padding:0;flex:none;transition:background 180ms var(--ease),transform 180ms var(--ease)}
+.navburger:active{transform:scale(.94)}
+.navburger span{display:block;width:18px;height:1.5px;background:var(--navy);border-radius:2px;
+  transition:transform 320ms var(--ease),opacity 200ms var(--ease)}
+.navburger span + span{margin-top:4.5px}
+/* The bars become the X. Rotating the existing strokes rather than swapping in
+   a different glyph keeps the control continuous across the state change. */
+.navburger[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.navburger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.navburger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+nav.nav-dark .navburger{border-color:rgba(255,255,255,.45)}
+nav.nav-dark .navburger span{background:#e8eef7}
+
+/* The panel is never display:none. A transition out of display:none does not
+   reliably run -- the browser can collapse the whole change into one frame, and
+   forcing a reflow first is a trick that works until it doesn't. visibility
+   keeps the element laid out (so the transform has something to animate) while
+   still removing it from the tab order and from hit-testing. */
+.navscrim{position:fixed;inset:0;z-index:60;background:rgba(15,28,51,.42);
+  backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity 320ms var(--ease),visibility 0s linear 320ms}
+.navscrim.is-open{opacity:1;visibility:visible;pointer-events:auto;
+  transition:opacity 320ms var(--ease),visibility 0s}
+
+.navsheet{position:fixed;z-index:61;top:0;right:0;height:100dvh;
+  width:min(86vw,380px);max-width:100vw;background:var(--cream);
+  border-left:1px solid var(--line);
+  display:flex;flex-direction:column;
+  padding:calc(env(safe-area-inset-top) + 18px) 24px calc(env(safe-area-inset-bottom) + 28px);
+  transform:translateX(100%);visibility:hidden;
+  transition:transform 420ms var(--ease),visibility 0s linear 420ms;
+  overflow-y:auto;overscroll-behavior:contain}
+.navsheet.is-open{transform:translateX(0);visibility:visible;
+  transition:transform 420ms var(--ease),visibility 0s}
+.navsheet-head{display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:26px;flex:none}
+.navsheet-head span{font-size:12px;font-weight:800;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted)}
+.navsheet-close{width:44px;height:44px;display:grid;place-items:center;border:0;
+  background:transparent;cursor:pointer;color:var(--navy);border-radius:12px;
+  font-size:22px;line-height:1;transition:background 160ms var(--ease)}
+.navsheet-close:active{background:rgba(27,42,74,.08)}
+/* 52px rows, not 14.5px inline text. A phone nav is thumbs, not cursors.
+   This container is a <nav> for the landmark, which means the bare `nav{}` rule
+   for the top bar lands on it too -- position:fixed, inset, a background, a
+   backdrop-filter, a border, padding, and an align-items:center that was
+   shrink-wrapping every row and centring it. Same specificity, earlier in the
+   file, so it wins on anything this rule leaves unsaid. Everything it sets is
+   therefore restated here rather than left to chance. */
+.navsheet-links{position:static;inset:auto;z-index:auto;
+  display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;
+  gap:0;padding:0;background:none;backdrop-filter:none;-webkit-backdrop-filter:none;
+  border:0}
+/* Alignment is stated rather than inherited: several ancestors on this page
+   centre their text, and a nav row that silently picks that up reads as a
+   centred menu on some breakpoints and a left one on others. */
+.navsheet-links a{display:flex;align-items:center;justify-content:flex-start;
+  width:100%;text-align:left;min-height:52px;
+  font-size:19px;font-weight:700;color:var(--navy);text-decoration:none;
+  border-bottom:1px solid var(--line);
+  opacity:0;transform:translateY(8px)}
+.navsheet.is-open .navsheet-links a{opacity:1;transform:none;
+  transition:opacity 380ms var(--ease),transform 380ms var(--ease)}
+.navsheet-foot{margin-top:auto;padding-top:26px;display:flex;
+  flex-direction:column;gap:14px;flex:none}
+.navsheet-foot .langpill{align-self:flex-start}
+.navsheet-foot .btn{justify-content:center;width:100%}
+
+@media (max-width:900px){
+  .navlinks{display:none}
+  .navburger{display:flex}
+  /* The language pill lives in the sheet on small screens, so the bar keeps
+     only the logo, the CTA and the trigger. */
+  nav .navright .langpill{display:none}
+}
+@media (min-width:901px){
+  .navscrim,.navsheet{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .navsheet{transition:transform 1ms linear}
+  .navscrim{transition:opacity 1ms linear}
+  .navsheet-links a{opacity:1;transform:none;transition:none}
+  .navburger span{transition:none}
+}
+
+/* ===== cinematic scroll intro (scrollcraft) =====
+   3 pinned photographic acts above the hero. Engine: ../scroll-intro/
+   (same vendored scrollcraft.js/css as index.html's own intro — not
+   duplicated). Tokens scoped to #cineIntro so they can't leak into the
+   rest of this page the way scrollcraft.css's un-scoped body{} rule
+   would if linked globally (see index.html's own integration notes). */
+#cineIntro{ --sc-canvas:#0f1c33; --sc-surface:#1B2A4A; --sc-ink:#FAF6EE; --sc-ink-soft:#c9d4e8;
+  --sc-accent:#E8B84B; --sc-accent-ink:#1B2A4A;
+  --sc-font-display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Helvetica,Arial,sans-serif;
+  --sc-font-text:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Helvetica,Arial,sans-serif;
+  color:var(--sc-ink);
+  /* Fixed, NOT var(--sc-canvas): the stages are 100svh while the visual
+     viewport can be taller (mobile browser chrome retracting, and any emulated
+     viewport), so a band of this ground shows below each photo. Letting drift
+     animate it made that band a colour the scrims below never match, i.e. a
+     visible seam. Pinned here and every scrim ends on this exact value. */
+  background:#0f1c33; position:relative; z-index:1;
+}
+#cineIntro h1,#cineIntro h2{color:var(--sc-ink)}
+
+/* BASE STATE — correct with NO JavaScript at all.
+   Learned the hard way: the engine bailing (file:// open, a 404 on
+   scrollcraft.js, JS disabled, slow load) used to leave the sections with no
+   height and the stages non-sticky, so all three .cine-copy blocks anchored to
+   #cineIntro and stacked on one screen. The intro must therefore be a correct
+   static layout on its own — three full-height panels — and the engine only
+   ever UPGRADES it to pinned/scrubbed. Never the other way round. */
+/* The page's own `section{padding-block:clamp(90px,11vw,150px)}` also matches
+   these act <section>s, which pushed each sticky stage 90px down its own
+   section and cut the same 90px off the bottom of the frame — the headline
+   clipped against the viewport edge and it looked like the type was too big.
+   Acts are full-bleed stages; they carry no section rhythm. */
+#cineIntro [data-sc-act]{position:relative;min-height:100svh;padding-block:0}
+#cineIntro [data-sc-stage]{position:relative;height:100svh;overflow:clip}
+/* scrollcraft.css hides every cue until the engine drives it; with no engine
+   that means invisible headlines. Show them in the base state. */
+#cineIntro:not(.cine-live) [data-sc-cue]{opacity:1;transform:none}
+#cineIntro:not(.cine-live) .sc-split__i{opacity:1;transform:none}
+/* The Line bar is meaningless without scroll progress driving it — its
+   display:none default lives on its own rule below (same specificity as this
+   selector, and later in source order, so setting it here would silently lose). */
+#cineIntro.cine-live ~ #cine-line{display:flex}
+
+/* ENHANCED STATE — added by JS only after ScrollCraft.mount() actually
+   succeeds. Hands height + stickiness back to the engine. */
+#cineIntro.cine-live [data-sc-act]{min-height:0}
+#cineIntro.cine-live [data-sc-stage]{position:sticky;top:0;height:100svh}
+
+/* Mobbin pass — the pattern A24, Lightship, VanMoof and Zellerfeld all share:
+   copy anchored bottom-left, headline set LARGE against the full frame and
+   pulled near the bottom edge, supporting line small so the size contrast does
+   the hierarchy. The previous 3.6rem cap read as a caption on a photograph
+   rather than a title over one. Tracking tightens as the size grows
+   (apple-design §15) — a single letter-spacing value is wrong at one end. */
+/* ---- two-frame cards (start -> end), scrubbed by scroll ----
+   Each act stacks a start and an end frame. The end frame's opacity is a remap
+   of that act's own --sc-p, so the crossfade is SCRUBBED by the wheel rather
+   than played on a timer: the requested "1.2s / 0.6s / 1.5s" feels are
+   reproduced as the width of the band the crossfade happens in, not as
+   durations, because a duration can't be dragged backwards and a scrub can. */
+#cineIntro .cine-frame{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#cineIntro .cine-frame--end{opacity:0;will-change:opacity}
+/* Card 1 - long smooth interpolation, officer distance -> window. */
+#cineAct1 .cine-frame--end{opacity:clamp(0,calc((var(--sc-p,0) - .15) / .60),1)}
+/* Card 2 - the whole crossfade is squeezed into a narrow band so the door
+   reads as an impact rather than a dissolve. */
+#cineAct2 .cine-frame--end{opacity:clamp(0,calc((var(--sc-p,0) - .46) / .12),1)}
+/* Card 3 - long hold on the flashlight, late slow cross-fade to the refusal. */
+#cineAct3 .cine-frame--end{opacity:clamp(0,calc((var(--sc-p,0) - .55) / .40),1)}
+@media (prefers-reduced-motion:reduce){
+  /* No scrub: rest on each card's resolved end state. */
+  #cineIntro .cine-frame--end{opacity:1}
+}
+#cineIntro .cine-copy{position:absolute;z-index:20;inset-inline:clamp(20px,6vw,64px);bottom:clamp(2rem,9vh,5rem);max-width:min(92%,52rem)}
+#cineIntro .cine-label{display:block;font-size:11.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--sc-accent);margin-bottom:12px}
+#cineIntro .cine-h{font-size:clamp(2.6rem,10.5vw,6.5rem);font-weight:800;line-height:.98;letter-spacing:-.035em;margin:0;text-wrap:balance}
+#cineIntro .cine-sub{font-size:clamp(.95rem,2.1vw,1.2rem);color:var(--sc-ink-soft);line-height:1.5;margin:clamp(14px,2.2vh,22px) 0 0;max-width:34ch;letter-spacing:0}
+/* Act 2's line is roughly twice the words of the other two; at the full display
+   size it wraps to five lines on a phone and swamps the frame. Stepped down as
+   a modifier rather than an inline style so the scale stays in one place. */
+#cineIntro .cine-h--long{font-size:clamp(2rem,7.4vw,4.6rem);letter-spacing:-.03em}
+#cine-line{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;align-items:center;min-height:2.6rem;
+  padding:12px clamp(20px,6vw,64px);font-family:ui-monospace,"SF Mono",monospace;font-size:.85rem;letter-spacing:.04em;
+  color:var(--sc-accent,#E8B84B);background:rgba(15,28,51,.82);border-top:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:1;transition:opacity 420ms cubic-bezier(.23,1,.32,1);pointer-events:none}
+#cine-line.cl-done{opacity:0}
+#cine-line .cl-quote{color:rgba(255,255,255,.45);margin-right:8px}
+@media (max-width:640px){ #cineIntro .cine-copy{max-width:none} }
+
+/* Nav adapts to the material beneath it (apple-design §12). A cream
+   translucent bar over dark photography is both a legibility problem and the
+   "light material stacked on light material" mistake; iOS-style chrome takes
+   its weight from the content under it. Colour-only transition — no transform,
+   nothing that can cost a frame. */
+nav{transition:background 320ms var(--ease),border-color 320ms var(--ease)}
+nav.nav-dark{background:rgba(15,28,51,.66);border-bottom-color:rgba(255,255,255,.13)}
+nav.nav-dark .brand b{color:var(--cream)}
+nav.nav-dark .brand svg path{stroke:var(--cream)}
+nav.nav-dark .brand svg rect{fill:var(--cream)}
+nav.nav-dark .navlinks a{color:#e8eef7}
+nav.nav-dark .langpill{border-color:rgba(255,255,255,.45)}
+nav.nav-dark .langpill button{color:#e8eef7}
+nav.nav-dark .langpill button.on{background:var(--cream);color:var(--navy)}
+nav.nav-dark .btn-navcta{background:var(--gold);color:var(--navy)}
+nav.nav-dark .btn-navcta:hover{background:var(--gold-pale)}
+@media (prefers-reduced-transparency:reduce){
+  nav.nav-dark{background:#0f1c33;backdrop-filter:none}
+}
+@media (prefers-reduced-motion:reduce){ nav{transition:none} }
+
+
+/* Catch-all for reduced motion, matching index.html. The targeted rules above
+   stay -- they express intent for specific pieces -- but an enumerated list only
+   covers what someone remembered to enumerate, and every animation added later
+   silently escapes it. JS-driven motion is untouched: the arena needle is the
+   interaction itself, not decoration. */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
+}
+
+/* iOS paints a grey flash on tap over the page's own press states. Suppressed
+   only where a real :active state already exists to take its place. */
+.btn,.faq-q,.navburger,.navsheet-close,button,a.btn{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+/* The FAQ rows were the one control here with no pressed state, so on a phone
+   tapping a question showed nothing until the answer expanded. */
+.faq-q:active{background:rgba(232,184,75,.14);transition-duration:60ms}
+
+/* The closed nav drawer is parked off-screen to the right, which extended the
+   scrollable area and gave the page 73px of sideways scroll on a 375px phone --
+   the whole document could be dragged left, taking the fixed nav with it.
+   `clip` rather than `hidden`: hidden turns the root into a scroll container and
+   can break position:sticky, clip just trims the overflow. hidden is listed
+   first purely as the fallback for engines without clip. */
+html{overflow-x:hidden;overflow-x:clip}
+
+/* ---- Staggered scenario grid -------------------------------------------
+   The cards already animated in on a 100/200ms delay, but landed on a single
+   flat baseline: a three-up auto-fit grid with one uniform gap, which is the
+   exact "default card grid, uniform spacing, no hierarchy" this project's own
+   design rules ban first. The timing was staggered; the composition was not.
+
+   Offsets are deliberately not a staircase (0/48/96) -- that just reads as a
+   tilted row. 0 / 72 / 32 gives the row a rhythm, so the eye moves through the
+   three scenarios instead of scanning them as one block.
+
+   Applied only at >=900px, where auto-fit reliably yields three columns. Below
+   that the grid collapses toward one column and an offset would show up as
+   arbitrary gaps between stacked cards. margin-top (not transform) so the row
+   box grows with the offset and cannot collide with the next section. */
+@media (min-width:900px){
+  .grid-cards > *:nth-child(2){margin-top:72px}
+  .grid-cards > *:nth-child(3){margin-top:32px}
+}
+/* The card had a hover shadow but never moved. Overrides .scen-card.is-in's
+   transform:none, which is why this needs the .is-in in the selector. */
+.scen-card.is-in{transition:opacity 640ms var(--ease),transform 300ms var(--ease),box-shadow 300ms var(--ease)}
+.scen-card.is-in:hover{transform:translateY(-6px)}
+@media (prefers-reduced-motion: reduce){
+  .scen-card.is-in:hover{transform:none}
+}
+
+/* ---- Coverage map -------------------------------------------------------
+   Replaces the .ph placeholder box. Sits on the page's own cream/navy/gold
+   tokens rather than index.html's picker palette, because here it is a figure
+   in a marketing section, not a control in a form. */
+.states-map{background:linear-gradient(160deg,#FBF7EE,#F1EADB);padding:clamp(18px,3vw,34px)}
+.sm2-map{display:block;width:100%;height:auto}
+.sm2{fill:#FFFDF8;stroke:#CFC6AF;stroke-width:1;vector-effect:non-scaling-stroke}
+.sm2--cited{fill:var(--gold);stroke:#B9891C;stroke-width:1.4}
+.sm2-legend{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 26px;
+  margin-top:clamp(14px,2vw,22px);font-size:13px;font-weight:700;color:var(--eyebrow)}
+.sm2-key{display:inline-flex;align-items:center;gap:8px}
+.sm2-sw{width:14px;height:14px;border-radius:4px;background:#FFFDF8;border:1px solid #CFC6AF}
+.sm2-sw--cited{background:var(--gold);border-color:#B9891C}
+
+/* ---- Hero call-to-action pair ------------------------------------------- */
+.hero-ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin:32px 0 22px}
+/* .btn-ghost is a text link elsewhere on this page, so the secondary ask gets
+   its own outlined pill rather than a redefinition that would leak into every
+   other .btn-ghost on the page. */
+/* Hero primary. Not .btn-navcta: that one is sized for the nav bar and is
+   re-coloured to gold inside the dark nav, so borrowing it here would make the
+   hero button change colour for reasons that have nothing to do with the hero. */
+.btn-navy{background:var(--navy);color:var(--cream);font-size:15px;padding:14px 26px;
+  transition:background 200ms var(--ease)}
+.btn-navy:hover{background:var(--navy-deep)}
+.btn-outline{background:#fff;color:var(--navy);font-size:15px;padding:14px 26px;
+  border:1.8px solid var(--navy);transition:background 200ms var(--ease),color 200ms var(--ease)}
+.btn-outline:hover{background:var(--navy);color:var(--cream)}
+/* The arrow nudges on hover rather than the whole button moving, so the two
+   buttons keep a steady shared baseline while still answering the pointer. */
+.cta-arrow{display:inline-block;margin-left:8px;transition:transform 220ms var(--ease)}
+.btn:hover .cta-arrow{transform:translateX(4px)}
+@media (prefers-reduced-motion: reduce){ .btn:hover .cta-arrow{transform:none} }
+@media (max-width:520px){
+  /* Stacked and full-width beats two cramped pills on a narrow phone. */
+  .hero-ctas{flex-direction:column;align-items:stretch}
+  .hero-ctas .btn{width:100%;justify-content:center}
+}
+
+/* ---- Numbered build steps ----------------------------------------------
+   Ported from the rehearse page's checklist, which was the strongest component
+   on the site, and re-palletted from its dark ground to this page's cream.
+
+   Replaces a four-across auto-fit grid. Four equal columns said "four things";
+   a numbered vertical run says "four steps in this order", which is what the
+   section is actually claiming. The rail between the badges carries that order
+   visually so it survives a skim.
+
+   Numbers come from a CSS counter on a real <ol>, so they cannot drift out of
+   sync with the source order the way a hand-written 01/02/03 div can. */
+.how-steps{list-style:none;counter-reset:hw;margin:0 auto;padding:0;max-width:760px;
+  display:flex;flex-direction:column;gap:16px}
+.how-step{counter-increment:hw;position:relative;display:flex;gap:20px;align-items:flex-start;
+  background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px 26px;
+  box-shadow:0 10px 30px rgba(27,42,74,.06);
+  transition:transform 260ms var(--ease),box-shadow 260ms var(--ease)}
+.how-step:hover{transform:translateY(-3px);box-shadow:0 18px 44px rgba(27,42,74,.12)}
+.how-step::before{content:counter(hw);flex:none;width:40px;height:40px;border-radius:50%;
+  background:var(--gold);color:var(--navy);font-weight:800;font-size:17px;
+  display:flex;align-items:center;justify-content:center;
+  font-variant-numeric:tabular-nums;box-shadow:0 4px 12px rgba(232,184,75,.4)}
+/* The rail runs badge-to-badge, so it is drawn from each card except the last.
+   left matches the card's padding plus half the badge, keeping it centred under
+   the number at every width. */
+.how-step:not(:last-child)::after{content:"";position:absolute;left:46px;top:64px;
+  width:2px;height:calc(100% - 48px);background:linear-gradient(var(--gold),rgba(232,184,75,.15))}
+.how-step h3{font-size:18.5px;font-weight:800;color:var(--navy);margin:6px 0 8px;line-height:1.25}
+.how-step p{font-size:15px;color:var(--body);line-height:1.6;margin:0}
+@media (prefers-reduced-motion: reduce){ .how-step:hover{transform:none} }
+@media (max-width:560px){
+  .how-step{gap:14px;padding:20px 18px;border-radius:16px}
+  .how-step::before{width:34px;height:34px;font-size:15px}
+  .how-step:not(:last-child)::after{left:35px;top:56px;height:calc(100% - 42px)}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#top" class="brand">
+    <svg viewBox="0 0 120 120" width="32" height="32"><circle cx="60" cy="72" r="28" fill="none" stroke="#E8B84B" stroke-width="12"/><rect x="48" y="56" width="24" height="32" rx="4" fill="#1B2A4A"/><path d="M12 62 L60 18 L108 62" fill="none" stroke="#1B2A4A" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <b>Amparo</b>
+  </a>
+  <div class="navlinks" id="navLinks"></div>
+  <div class="navright">
+    <div class="langpill">
+      <button id="langEN" class="on" onclick="setLang('en')">EN</button>
+      <button id="langES" onclick="setLang('es')">ES</button>
+    </div>
+    <button class="navburger" id="navBurger" type="button" aria-expanded="false"
+            aria-controls="navSheet" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="navscrim" id="navScrim"></div>
+<aside class="navsheet" id="navSheet" aria-label="Menu">
+  <div class="navsheet-head">
+    <span id="navSheetLabel">Menu</span>
+    <button class="navsheet-close" id="navClose" type="button" aria-label="Close menu">&times;</button>
+  </div>
+  <nav class="navsheet-links" id="navSheetLinks" aria-labelledby="navSheetLabel"></nav>
+  <div class="navsheet-foot">
+    <div class="langpill">
+      <button id="langENSheet" class="on" onclick="setLang('en')">EN</button>
+      <button id="langESSheet" onclick="setLang('es')">ES</button>
+    </div>
+    <a class="btn btn-navcta" id="navSheetCta" href="/arena/">Practice a stop</a>
+  </div>
+</aside>
+
+<div id="cineIntro">
+  <span data-sc-progress></span>
+  <section id="cineAct1" data-sc-act="pin" data-sc-span="1.8" data-sc-drift="#0f1c33">
+    <div data-sc-stage>
+      <img class="cine-frame cine-frame--start" id="f1a" alt="">
+      <img class="cine-frame cine-frame--end" id="f1b" alt="" aria-hidden="true">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,#0f1c33 0%,rgba(15,28,51,.72) 26%,rgba(15,28,51,.18) 52%,transparent 70%)" aria-hidden="true"></div>
+      <div class="cine-copy" id="cineCopy1">
+        <span class="cine-label" id="cineLabel1"></span>
+        <h1 class="cine-h" data-sc-kinetic="lines" data-sc-cue="0 1 0 0" id="cineH1"></h1>
+        <p class="cine-sub" id="cineSub1"></p>
+      </div>
+    </div>
+  </section>
+  <section id="cineAct2" data-sc-act="pin" data-sc-span="1.7" data-sc-drift="#1B2A4A">
+    <div data-sc-stage>
+      <img class="cine-frame cine-frame--start" id="f2a" alt="">
+      <img class="cine-frame cine-frame--end" id="f2b" alt="" aria-hidden="true">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,#0f1c33 0%,rgba(15,28,51,.68) 28%,rgba(15,28,51,.15) 54%,transparent 70%)" aria-hidden="true"></div>
+      <div class="cine-copy" id="cineCopy2">
+        <h2 class="cine-h cine-h--long" data-sc-kinetic="lines" data-sc-cue="0.5 1 0.18" id="cineH2"></h2>
+        <p class="cine-sub" id="cineSub2"></p>
+      </div>
+    </div>
+  </section>
+  <section id="cineAct3" data-sc-act="pin" data-sc-span="2.3" data-sc-drift="#0f1c33">
+    <div data-sc-stage>
+      <img class="cine-frame cine-frame--start" id="f3a" alt="">
+      <img class="cine-frame cine-frame--end" id="f3b" alt="" aria-hidden="true">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,#0f1c33 0%,rgba(15,28,51,.7) 27%,rgba(15,28,51,.16) 53%,transparent 68%)" aria-hidden="true"></div>
+      <div class="cine-copy" id="cineCopy3">
+        <h2 class="cine-h" data-sc-kinetic="lines" data-sc-cue="0.5" id="cineH3"></h2>
+        <p class="cine-sub" id="cineSub3"></p>
+      </div>
+    </div>
+  </section>
+  <div class="sc-grain" aria-hidden="true"></div>
+</div>
+<div id="cine-line" aria-hidden="true"><span class="cl-quote">&ldquo;</span><span id="cineLineWords"></span></div>
+
+
+
+<div id="top"></div>
+<main id="app"></main>
+
+<!-- Shared state geometry, same file index.html draws its picker map from, so
+     the two maps can never drift apart. Plain tag above the script that reads
+     it: window.AmparoPaths must exist before the first render. -->
+<script src="/us-paths.js?v=2026-09-02a"></script>
+
+<script>
+
+/* The states section shipped as a grey placeholder box reading "US map -- TX /
+   GA / NY highlighted" while a real, working map of exactly that already existed
+   in index.html. This draws it from the same shared path data.
+
+   Deliberately NOT interactive: on a marketing page this is a coverage figure,
+   not a control, and 51 focusable paths would add a keyboard trap's worth of tab
+   stops for no gain. So role="img" with a label that states the same fact the
+   shapes do, which is also the whole fallback if the geometry fails to load. */
+var CITED = ['TX','GA','NY'];
+function statesMapHtml(c){
+  var P = window.AmparoPaths;
+  if (!P || !Object.keys(P).length) return '';   // never ship an empty grey box
+  var paths = Object.keys(P).map(function(k){
+    return '<path class="sm2'+(CITED.indexOf(k)>-1?' sm2--cited':'')+'" d="'+P[k]+'"/>';
+  }).join('');
+  return '<div class="states-map">'+
+    '<svg class="sm2-map" viewBox="0 0 959 593" role="img" aria-label="'+esc(c.stateMapAria)+'">'+paths+'</svg>'+
+    '<div class="sm2-legend">'+
+      '<span class="sm2-key"><i class="sm2-sw"></i>'+esc(c.stateLegendAll)+'</span>'+
+      '<span class="sm2-key"><i class="sm2-sw sm2-sw--cited"></i>'+esc(c.stateLegendCited)+'</span>'+
+    '</div>'+
+  '</div>';
+}
+
+/* ===== copy, verbatim from design_handoff_homepage_redesign/Amparo Home.dc.html ===== */
+const EN = {
+  navPractice:"Practice", navRehearse:"Rehearse", navAid:"Find help", navHow:"Build the cards", navWhat:"What's included", navPrivacy:"Privacy", navFaq:"FAQ", navCta:"Practice a stop",
+  scenNotBuilt:"Not built yet",
+  heroEyebrow:"Know your rights · Conoce tus derechos",
+  heroTitle:"Know your rights is not enough. Practice them.",
+  heroSub:"A free bilingual resource for drivers. Practice police encounter scenarios out loud, then print six cards built from your own state's laws — your license and insurance, the rules where you drive, what to say, and how to reach a lawyer who takes your call.",
+  heroCta:"Start practicing", heroCtaReturn:"Continue practicing", heroSecondary:"Just print the cards",
+  trustLine:"Free. Everything stays on this phone unless you choose to save your cards to an optional free account. Photos and practice history never upload.",
+  arenaEyebrow:"Practice Arena", arenaTitle:"Now rehearse it.",
+  arenaSub:"The cards go in your glovebox. This has to go in your head. Run a scenario out loud, with spoken officer lines and your own voice talking back — two minutes each.",
+  arenaScenarios:[
+    {live:true,statusLabel:"Live",title:"Traffic stop",desc:"Six situations, calm to felony-style, at gunpoint. The officer's tone escalates as you go."},
+    {live:true,statusLabel:"Live",title:"Checkpoint",desc:"A fixed Border Patrol checkpoint — not a traffic stop. Different rules, different questions. Applies in all 50 states."},
+    {live:false,statusLabel:"Coming soon",title:"At your door",desc:"Police at your door is a different encounter with different rules, and it deserves its own rehearsal. It isn't here yet because every officer line and every answer we mark correct has to be checked by a lawyer first — and because a knock at the door is often a domestic-violence call, which changes what safe advice even looks like. We'd rather ship it late than ship it wrong."}
+  ],
+  arenaChips:["Spoken officer lines","Answer by tap, voice, or text","Pressure rises like the real thing","Streaks & badges","Gentle mode — no clock or heartbeat","Passengers get scenarios too"],
+  arenaSafety:"This is practice, not legal advice, and laws vary by state. Doing your part lowers risk — it can't remove it. You're in control: pause or stop anytime.",
+  arenaCta:"Practice a full stop — 2 minutes", arenaLink:"Why can't practice make a stop 100% safe? →",
+  demoTitle:"Routine Traffic Stop", demoMoodCalm:"Calm", demoMoodTense:"Tense",
+  demoScene:"You're pulled over at dusk. Officer is approaching.",
+  demoStartNote:"No mic, no account — answer by tapping.", demoStartLabel:"Try a 60-second demo",
+  demoOfficerLabel:"Officer", demoNextLabel:"Next", demoResultsLabel:"See how you did",
+  demoDoneTitle:"Scenario complete", demoDoneNote:"The full Arena runs 24 scenarios with spoken lines, voice answers, streaks and badges.",
+  demoRestartLabel:"Run it again", demoDoneCta:"Open the full Arena",
+  demoCaption:"Live demo — one of 24 scenarios, in legal review. The real Arena speaks its lines out loud.",
+  demoStateNote:"Practice, not legal advice. Rules differ by state — a few require answering certain questions. Your cards carry your state's rules.",
+  printerLine:"No printer? Everything works on-screen — print later at a library or a friend's.",
+  offlineLine:"Loads once, then works with no signal — built for prepaid data and dead zones.",
+  shareEyebrow:"Send it to someone", shareTitle:"The people who need this most won't search for it.",
+  shareBody:"Send it to someone you love — before they need it. One link, in their language.",
+  shareWhatsApp:"Share on WhatsApp", shareSms:"Share by text",
+  shareMsg:"Practice a traffic stop before it happens — free, bilingual, nothing leaves your phone. https://www.amparohq.com",
+  orgEyebrow:"Amparo for organizations",
+  orgTitle:"Put your name on it. That's what makes it travel.",
+  orgBody:"Churches, legal-aid clinics, unions, student groups: run a know-your-rights night with printed packs and a facilitator guide. Invoice-friendly. No member data collected — nothing to collect.",
+  orgCta:"Get packs for your group",
+  orgPoints:["Bulk printed packs in English and Spanish, ready to hand out","A facilitator guide for running practice sessions in a room","Your organization's name on the packet — the endorsement that makes people trust it"],
+  howEyebrow:"Build the cards", howTitle:"Four steps to your glovebox cards.",
+  howSub:"No account. No download. Ready in the time it takes to fill a tank of gas.",
+  steps:[
+    {title:"Pick your state",desc:"Texas, Georgia and New York have their own statutes cited line by line. Every other state gets the federal rights that apply everywhere — marked so you know the difference."},
+    {title:"Add you and your documents",desc:"Photos of your license and insurance get printed inside the window card — the officer sees them without you reaching for anything."},
+    {title:"Get your lifelines",desc:"Verified channels for your state — with honest labels, because a number that doesn't answer is worse than no number. They print on your wallet card too."},
+    {title:"Print your cards",desc:"Six cards — 1–4 live in the car; 5–6 stay at home. Print on regular paper; the window card works best in a clear sleeve."}
+  ],
+  whatEyebrow:"What's included", whatTitle:"What's actually on your cards",
+  whatNote:"Keep carrying a general rights card too — this doesn't replace one. Amparo adds what most general cards aren't built to include:",
+  packItems:[
+    {label:"Cited to your state's actual statute",desc:"Transp. Code, O.C.G.A., or VTL sections you can look up yourself — not just constitutional wording. Formal attorney sign-off is still in progress, state by state."},
+    {label:"Your state's real hotlines",desc:"211, a legal-aid directory QR code, and immigration hotlines matched to TX/GA/NY specifically."},
+    {label:"A traffic-stop script + incident log",desc:"A 7-step stop script, a get-their-info script, and a 24-hour incident log — built for the driver's seat."},
+    {label:"What to do if it goes wrong",desc:"Your state's actual legal deadline to file a claim, how to keep bodycam/dashcam footage from being deleted, and exactly who to file a complaint with."},
+    {label:"Personalized to you",desc:"Your name, a backup emergency contact, and documents already printed onto the cards."},
+    {label:"A family emergency plan",desc:"Who picks up your kids, where documents are kept, a script for parents if you get the call, plus consulate numbers."}
+  ],
+  priceLine:"Free. No card, no account required. One optional $3.99 script pack exists inside the Arena — that's the whole business model. No surprise paywall.",
+  privacyEyebrow:"Privacy", privacyTitle:"Nothing leaves your phone unless you say so.",
+  privacyBody:"Amparo works with no account at all, and that is the default. If you choose to create one to save your cards across devices, it stores only your cards' text — state, names, phone numbers, ZIP — on our server. Your document photos and your practice history are never uploaded, with or without an account: there is nowhere on the server to put them.",
+  privacyChips:["Photos stay on your device","Practice history stays on device","No account required","Attorney review in progress"],
+  bilingualEyebrow:"Bilingual", bilingualTitle:"Every scenario, every page — in English and Spanish.",
+  bilingualBody:"Flip the switch at the top of this page. Every scenario in the Practice Arena, every step of the card builder, and every word you're meant to say — spoken and printed — work the same way in Spanish.",
+  stateEyebrow:"State coverage", stateTitle:"Works in all 50 states.",
+  stateMapAria:"Map of the United States. All fifty states are covered by the federal rights on every card; Texas, Georgia and New York additionally carry statute-level citations.",
+  stateLegendAll:"All 50 states — federal rights", stateLegendCited:"Statute-level citations",
+  stateSub:"Your federal rights apply everywhere, and every card carries them. Texas, Georgia and New York add statute-level citations on top — more states on the way.",
+  stateNote:"Formal attorney sign-off per state is in progress — every rule already cites the exact statute so you can check it yourself.",
+  faqEyebrow:"FAQ", faqTitle:"Questions worth asking",
+  faq:[
+    {q:"What is the Practice Arena?",a:"A scenario trainer for a real traffic stop. An officer's lines play out loud, tone rising with each level, and you answer in your own voice. You're in control — pause or stop any time."},
+    {q:"Does practicing guarantee a safe stop?",a:"No. This is practice, not legal advice, and laws vary by state. Doing your part lowers risk — it can't remove it."},
+    {q:"Is this legal advice?",a:"Amparo provides general legal information, not legal advice. Every rule is cited to the exact state statute so you can check it yourself; formal attorney sign-off per state is in progress."},
+    {q:"What does it cost?",a:"Free. No card, no subscription, and no account required — an account is optional, only for saving your cards across devices."},
+    {q:"What happens to my photos?",a:"These photos never leave your device — they go straight into your printout and nowhere else. They are never uploaded and never emailed."},
+    {q:"Do I need an account?",a:"Works without an account, always. An optional free account saves these cards' text (state, names, numbers, ZIP) so a lost or wiped phone doesn't mean starting over. Document photos and practice history never leave this device."},
+    {q:"Is it really bilingual?",a:"Yes — every scenario, every card, every screen, and the printed cards themselves switch fully between English and Spanish. Use the toggle at the top of this page."}
+  ],
+  footerDisclaimer:"Amparo provides general legal information, not legal advice. Every rule is cited to the exact state statute so you can check it yourself; formal attorney sign-off per state is in progress. Phone numbers verified July 16, 2026.",
+  footerCopyright:"© 2026 Amparo · Pilot edition · General legal information, not legal advice · Every rule cited to state statute · Attorney sign-off in progress · Numbers verified 7/16/2026",
+  finalTitle:"Practice the stop before it happens.", finalSub:"Free scenario practice, and free bilingual cards — both ready before you need them.", finalBtn:"Practice a stop"
+};
+const ES = {
+  navPractice:"Practicar", navRehearse:"Ensayar", navAid:"Buscar ayuda", navHow:"Crear las tarjetas", navWhat:"Qué incluye", navPrivacy:"Privacidad", navFaq:"Preguntas", navCta:"Practicar una parada",
+  scenNotBuilt:"Aún no disponible",
+  heroEyebrow:"Know your rights · Conoce tus derechos",
+  heroTitle:"Conocer tus derechos no basta. Practícalos.",
+  heroSub:"Un recurso bilingüe gratuito para conductores. Practica en voz alta escenarios de encuentros con la policía, y luego imprime seis tarjetas creadas a partir de las leyes de tu propio estado — tu licencia y seguro, las reglas donde manejas, qué decir y cómo comunicarte con un abogado que conteste tu llamada.",
+  heroCta:"Empezar a practicar", heroCtaReturn:"Seguir practicando", heroSecondary:"Solo imprimir las tarjetas",
+  trustLine:"Gratis. Todo se queda en este teléfono, salvo que elijas guardar tus tarjetas en una cuenta gratuita opcional. Las fotos y el historial de práctica nunca se suben.",
+  arenaEyebrow:"Arena de Práctica", arenaTitle:"Ahora ensáyalo.",
+  arenaSub:"Las tarjetas van en tu guantera. Esto tiene que estar en tu cabeza. Haz un escenario en voz alta, con frases del oficial habladas y tu propia voz respondiendo — dos minutos cada uno.",
+  arenaScenarios:[
+    {live:true,statusLabel:"En vivo",title:"Parada de tráfico",desc:"Seis situaciones, de calma a estilo felonía, a punta de pistola. El tono del oficial sube a medida que avanzas."},
+    {live:true,statusLabel:"En vivo",title:"Retén",desc:"Un retén fijo de la Patrulla Fronteriza — no es una parada de tráfico. Reglas distintas, preguntas distintas. Aplica en los 50 estados."},
+    {live:false,statusLabel:"Próximamente",title:"En tu puerta",desc:"La policía en tu puerta es un encuentro distinto, con reglas distintas, y merece su propio ensayo. No está aquí todavía porque cada frase del oficial y cada respuesta que marcamos como correcta tiene que revisarla un abogado primero — y porque un toque en la puerta muchas veces es una llamada por violencia doméstica, lo que cambia qué consejo es seguro. Preferimos publicarlo tarde que publicarlo mal."}
+  ],
+  arenaChips:["Frases del oficial habladas","Responde con toque, voz o texto","La presión sube como en la vida real","Rachas e insignias","Modo suave — sin reloj ni latido","También escenarios para pasajeros"],
+  arenaSafety:"Esto es práctica, no asesoría legal, y las leyes varían por estado. Hacer tu parte reduce el riesgo — no puede eliminarlo. Tú tienes el control: pausa o detente cuando quieras.",
+  arenaCta:"Practicar una parada completa — 2 minutos", arenaLink:"¿Por qué la práctica no puede hacer una parada 100% segura? →",
+  demoTitle:"Parada de tráfico rutinaria", demoMoodCalm:"Calmada", demoMoodTense:"Tensa",
+  demoScene:"Le detienen al anochecer. El oficial se acerca.",
+  demoStartNote:"Sin micrófono, sin cuenta — responde tocando.", demoStartLabel:"Prueba una demo de 60 segundos",
+  demoOfficerLabel:"Oficial", demoNextLabel:"Siguiente", demoResultsLabel:"Ver resultado",
+  demoDoneTitle:"¡Escenario completado!", demoDoneNote:"La Arena completa tiene 24 escenarios con frases habladas, respuestas por voz, rachas e insignias.",
+  demoRestartLabel:"Repetir", demoDoneCta:"Abrir la Arena completa",
+  demoCaption:"Demo en vivo — uno de 24 escenarios, en revisión legal. La Arena real habla sus frases en voz alta.",
+  demoStateNote:"Práctica, no asesoría legal. Las reglas varían por estado — algunos exigen responder ciertas preguntas. Tus tarjetas llevan las reglas de tu estado.",
+  printerLine:"¿Sin impresora? Todo funciona en pantalla — imprime después en una biblioteca o con alguien de confianza.",
+  offlineLine:"Carga una vez y funciona sin señal — hecho para datos prepagados y zonas sin cobertura.",
+  shareEyebrow:"Envíalo a alguien", shareTitle:"Quienes más lo necesitan no lo van a buscar.",
+  shareBody:"Envíaselo a alguien que quieres — antes de que lo necesite. Un enlace, en su idioma.",
+  shareWhatsApp:"Compartir por WhatsApp", shareSms:"Compartir por mensaje",
+  shareMsg:"Practica una parada de tráfico antes de que pase — gratis, bilingüe, nada sale de tu teléfono. https://www.amparohq.com",
+  orgEyebrow:"Amparo para organizaciones",
+  orgTitle:"Pon tu nombre en él. Eso es lo que lo hace llegar.",
+  orgBody:"Iglesias, clínicas de ayuda legal, sindicatos, grupos estudiantiles: organiza una noche de conoce-tus-derechos con paquetes impresos y una guía para facilitadores. Con factura. No se recolectan datos de miembros — no hay nada que recolectar.",
+  orgCta:"Paquetes para tu grupo",
+  orgPoints:["Paquetes impresos al por mayor en inglés y español, listos para repartir","Una guía para facilitar sesiones de práctica en grupo","El nombre de tu organización en las tarjetas — el respaldo que genera confianza"],
+  howEyebrow:"Crear las tarjetas", howTitle:"Cuatro pasos hasta tus tarjetas para la guantera.",
+  howSub:"Sin cuenta. Sin descargas. Listo en el tiempo que toma llenar el tanque.",
+  steps:[
+    {title:"Elige tu estado",desc:"Texas, Georgia y Nueva York tienen sus propias leyes citadas línea por línea. Los demás estados reciben los derechos federales que aplican en todas partes — marcados para que sepas la diferencia."},
+    {title:"Agrega tus datos y documentos",desc:"Las fotos de tu licencia y seguro se imprimen dentro de la tarjeta de ventana — el oficial las ve sin que tengas que buscar nada."},
+    {title:"Conoce tus líneas de ayuda",desc:"Canales verificados de tu estado — con etiquetas honestas, porque un número que no contesta es peor que ningún número. También se imprimen en tu tarjeta de cartera."},
+    {title:"Imprime tus tarjetas",desc:"Seis tarjetas — las 1–4 van en el carro; la 5–6 se quedan en casa. Imprime en papel normal; la tarjeta de ventana funciona mejor en una funda transparente."}
+  ],
+  whatEyebrow:"Qué incluye", whatTitle:"Qué llevan realmente tus tarjetas",
+  whatNote:"Sigue llevando una tarjeta de derechos general también — esto no la reemplaza. Amparo agrega lo que la mayoría de las tarjetas generales no incluyen:",
+  packItems:[
+    {label:"Cita la ley exacta de tu estado",desc:"Artículos del Código de Transporte, O.C.G.A. o VTL que puedes verificar tú mismo — no solo texto constitucional. La revisión formal por abogado sigue en curso, estado por estado."},
+    {label:"Las líneas reales de tu estado",desc:"211, un código QR al directorio de ayuda legal, y líneas de inmigración específicas para TX/GA/NY."},
+    {label:"Guion para la parada + registro de incidente",desc:"Un guion de 7 pasos, un guion para pedir los datos del oficial, y un registro de incidente de 24 horas — hecho para el asiento del conductor."},
+    {label:"Qué hacer si algo sale mal",desc:"El plazo legal real de tu estado para presentar un reclamo, cómo evitar que borren el video de la cámara corporal o del tablero, y con quién presentar una queja exactamente."},
+    {label:"Personalizado para ti",desc:"Tu nombre, un contacto de emergencia de respaldo y documentos ya impresos en las tarjetas."},
+    {label:"Un plan familiar de emergencia",desc:"Quién recoge a tus hijos, dónde están los documentos, un guion para los padres si reciben la llamada, y números de consulados."}
+  ],
+  priceLine:"Gratis. Sin tarjeta, sin cuenta obligatoria. Existe un paquete de guiones opcional de $3.99 dentro de la Arena — ese es todo el modelo de negocio. Sin muros de pago sorpresa.",
+  privacyEyebrow:"Privacidad", privacyTitle:"Nada sale de tu teléfono, salvo que tú lo decidas.",
+  privacyBody:"Amparo funciona sin ninguna cuenta, y así es por defecto. Si eliges crear una para guardar tus tarjetas entre dispositivos, solo se guarda el texto de tus tarjetas — estado, nombres, teléfonos, código postal — en nuestro servidor. Tus fotos de documentos y tu historial de práctica nunca se suben, con cuenta o sin ella: no hay dónde guardarlos en el servidor.",
+  privacyChips:["Tus fotos quedan en tu dispositivo","El historial de práctica queda en tu dispositivo","Sin cuenta obligatoria","Revisión de abogado en curso"],
+  bilingualEyebrow:"Bilingüe", bilingualTitle:"Cada escenario, cada página — en inglés y español.",
+  bilingualBody:"Cambia el interruptor en la parte superior de esta página. Cada escenario de la Arena de Práctica, cada paso del creador de paquetes y cada palabra que debes decir — hablada e impresa — funciona igual en español.",
+  stateEyebrow:"Cobertura por estado", stateTitle:"Funciona en los 50 estados.",
+  stateMapAria:"Mapa de Estados Unidos. Los cincuenta estados están cubiertos por los derechos federales de cada tarjeta; Texas, Georgia y Nueva York incluyen además citas a nivel de ley estatal.",
+  stateLegendAll:"Los 50 estados — derechos federales", stateLegendCited:"Citas a nivel de ley estatal",
+  stateSub:"Tus derechos federales aplican en todas partes, y cada tarjeta los incluye. Texas, Georgia y Nueva York agregan citas a nivel de ley estatal — más estados en camino.",
+  stateNote:"La revisión formal por abogado de cada estado está en curso — cada regla ya cita el artículo exacto para que lo verifiques tú mismo.",
+  faqEyebrow:"Preguntas", faqTitle:"Preguntas que vale la pena hacer",
+  faq:[
+    {q:"¿Qué es la Arena de Práctica?",a:"Un entrenador de escenarios para una parada de tráfico real. Las frases del oficial se reproducen en voz alta, con un tono que sube en cada nivel, y tú respondes con tu propia voz. Tú tienes el control — pausa o detente cuando quieras."},
+    {q:"¿Practicar garantiza una parada segura?",a:"No. Esto es práctica, no asesoría legal, y las leyes varían por estado. Hacer tu parte reduce el riesgo — no puede eliminarlo."},
+    {q:"¿Esto es asesoría legal?",a:"Amparo ofrece información legal general, no asesoría legal. Cada regla cita el artículo exacto de la ley estatal para que usted mismo lo verifique; la revisión formal por un abogado en cada estado está en curso."},
+    {q:"¿Cuánto cuesta?",a:"Gratis. Sin tarjeta, sin suscripción y sin cuenta obligatoria — la cuenta es opcional, solo para guardar tus tarjetas entre dispositivos."},
+    {q:"¿Qué pasa con mis fotos?",a:"Estas fotos nunca salen de tu dispositivo — van directo a tu impresión y a ningún otro lugar. Nunca se suben ni se envían por correo."},
+    {q:"¿Necesito una cuenta?",a:"Funciona sin cuenta, siempre. Una cuenta gratuita opcional guarda el texto de estas tarjetas (estado, nombres, números, código postal) para que perder el teléfono no signifique empezar de cero. Las fotos y el historial de práctica nunca salen de este dispositivo."},
+    {q:"¿De verdad es bilingüe?",a:"Sí — cada escenario, cada tarjeta, cada pantalla y las tarjetas impresas cambian completamente entre inglés y español. Usa el interruptor en la parte superior de esta página."}
+  ],
+  footerDisclaimer:"Amparo ofrece información legal general, no asesoría legal. Cada regla cita el artículo exacto de la ley estatal para que usted mismo lo verifique; la revisión formal por un abogado en cada estado está en curso. Números verificados el 16 de julio de 2026.",
+  footerCopyright:"© 2026 Amparo · Edición piloto · Información legal general, no asesoría legal · Cada regla citada a la ley estatal · Revisión por abogado en curso · Números verificados 16/7/2026",
+  finalTitle:"Practica la parada antes de que pase.", finalSub:"Práctica de escenarios gratis, y tarjetas bilingües gratis — ambos listos antes de que los necesites.", finalBtn:"Practicar una parada"
+};
+
+/* Verbatim from arena/index.html:725-744 — in attorney review, do not rewrite. */
+const DEMO_TURNS = [
+  {o:{en:"Good evening. License and registration, please.",es:"Buenas noches. Licencia y registración, por favor."},c:[
+    {t:{en:"“My documents are in the glovebox — reaching for them now.”",es:"«Mis documentos están en la guantera — voy a alcanzarlos.»"},p:1,f:{en:"Announcing movement keeps hands accounted for.",es:"Anunciar el movimiento mantiene las manos a la vista."}}]},
+  {o:{en:"Do you know why I stopped you?",es:"¿Sabe por qué lo detuve?"},c:[
+    {t:{en:"“I'd rather not guess, officer.”",es:"«Prefiero no adivinar, oficial.»"},p:1,f:{en:"A guess can be used as an admission.",es:"Una suposición puede usarse como admisión."}},
+    {t:{en:"“Probably the speed… sorry, I was rushing.”",es:"«Quizás la velocidad… perdón, iba con prisa.»"},p:-1,branch:true,f:{en:"That's an admission — and now they'll dig. Watch what happens.",es:"Eso es una admisión — y ahora van a indagar. Vea lo que pasa."}}]},
+  {o:{en:"Where are you coming from tonight?",es:"¿De dónde viene esta noche?"},c:[
+    {t:{en:"“I choose to remain silent.”",es:"«Elijo guardar silencio.»"},p:1,f:{en:"One calm sentence. You owe no itinerary.",es:"Una frase con calma. No debe un itinerario."}},
+    {t:{en:"Explain your whole evening",es:"Explicar toda su noche"},p:0,f:{en:"Not illegal — but every detail can be probed.",es:"No es ilegal — pero cada detalle puede ser explorado."}}]},
+  {o:{en:"Mind if I take a quick look in the car?",es:"¿Le importa si echo un vistazo al carro?"},c:[
+    {t:{en:"“I do not consent to a search.”",es:"«No doy consentimiento a un registro.»"},p:1,f:{en:"Protects you in court even if they search anyway.",es:"Le protege en corte aunque registren de todos modos."}},
+    {t:{en:"“Go ahead, I have nothing to hide.”",es:"«Adelante, no tengo nada que esconder.»"},p:-1,f:{en:"Consent waives your strongest 4th Amendment protection.",es:"El consentimiento renuncia a su mayor protección de la 4ª Enmienda."}}]},
+  {o:{en:"Alright. Wait here.",es:"Bien. Espere aquí."},c:[
+    {t:{en:"When they return: “Am I free to go?”",es:"Cuando regresen: «¿Soy libre de irme?»"},p:1,f:{en:"If yes — leave calmly. If no, you're detained: stay silent.",es:"Si dicen sí — váyase con calma. Si no, está detenido: silencio."}}]}
+];
+const DEMO_BRANCH = {o:{en:"Speeding, huh. So how fast do you think you were going?",es:"Con prisa, ¿eh? ¿Y qué tan rápido cree que iba?"},c:[
+  {t:{en:"Recover: “I choose to remain silent.”",es:"Recuperarse: «Elijo guardar silencio.»"},p:1,f:{en:"Good recovery — you can invoke silence at ANY point, even after talking.",es:"Buena recuperación — puede invocar el silencio en CUALQUIER momento, incluso después de hablar."}},
+  {t:{en:"“Maybe 10 over? I really am sorry…”",es:"«Quizás 10 de más. De verdad lo siento…»"},p:-1,f:{en:"A number seals the admission. The apology doesn't offset it.",es:"Un número sella la admisión. La disculpa no la compensa."}}]};
+
+/* ===== state ===== */
+let lang = (navigator.language||'').toLowerCase().startsWith('es') ? 'es' : 'en';
+let openFaq = 0;
+let returning = false;
+let demo = {on:false, t:0, branch:false, picked:-1, heat:12, score:0, scored:0, done:false};
+try { if (localStorage.getItem('amparo_demo_played')) returning = true; } catch(e){}
+
+function t(){ return lang === 'es' ? ES : EN; }
+
+function setLang(l){
+  lang = l;
+  document.getElementById('langEN').classList.toggle('on', l==='en');
+  document.getElementById('langES').classList.toggle('on', l==='es');
+  try{ document.documentElement.lang = l; }catch(e){}
+  render();
+  if (window.renderCine) renderCine(l);
+}
+
+function demoStart(){
+  demo.on = true;
+  try{ localStorage.setItem('amparo_demo_played','1'); }catch(e){}
+  render();
+}
+function currentTurn(){ return demo.branch ? DEMO_BRANCH : DEMO_TURNS[Math.min(demo.t, DEMO_TURNS.length-1)]; }
+function demoPick(i){
+  if (demo.picked >= 0) return;
+  const ch = currentTurn().c[i];
+  demo.heat = Math.max(6, Math.min(100, demo.heat + (ch.p===1?-4:ch.p===0?14:26)));
+  demo.picked = i;
+  demo.score += (ch.p===1?1:0);
+  demo.scored += 1;
+  render();
+}
+function demoNext(){
+  const ch = currentTurn().c[demo.picked];
+  if (!demo.branch && ch && ch.branch){ demo.branch=true; demo.picked=-1; render(); return; }
+  const nt = demo.t + 1;
+  if (nt >= DEMO_TURNS.length){ demo.done = true; }
+  else { demo.branch=false; demo.t=nt; demo.picked=-1; }
+  render();
+}
+function demoRestart(){ demo = {on:true,t:0,branch:false,picked:-1,heat:12,score:0,scored:0,done:false}; render(); }
+function toggleFaq(i){ openFaq = (openFaq===i ? -1 : i); render(); }
+
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+
+/* ---- scenario card scroll effect ----
+   render() rewrites #app's innerHTML on every language toggle and FAQ click, so
+   a second ScrollCraft.mount() over this section would be left holding element
+   references that no longer exist. Driven here instead: a one-shot clip-path
+   wipe on entry (IntersectionObserver) plus a continuous parallax of the image
+   inside its own frame (rAF, transform only). Re-armed after each render. */
+var scenIo = null, scenRaf = null, scenRevealed = false, scenOnScroll = null;
+function armScenCards(){
+  var cards = document.querySelectorAll('#arena .scen-card');
+  if (!cards.length) return;
+  if (scenIo) scenIo.disconnect();
+
+  if ('IntersectionObserver' in window) {
+    scenIo = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        e.target.classList.add('is-in');
+        // Once seen, later re-renders emit the cards already revealed, so a
+        // language toggle mid-page doesn't replay every card animation.
+        scenRevealed = true;
+        scenIo.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.15 });
+    cards.forEach(function(c){ scenIo.observe(c); });
+  } else {
+    cards.forEach(function(c){ c.classList.add('is-in'); });
+    scenRevealed = true;
+  }
+
+  // Backstop: if the observer somehow never fires (odd viewport maths, a
+  // browser quirk), the cards must not stay at opacity 0 forever. Anything
+  // still unrevealed after 1.5s is shown outright.
+  setTimeout(function(){
+    document.querySelectorAll('#arena .scen-card:not(.is-in)').forEach(function(c){
+      c.classList.add('is-in');
+    });
+  }, 1500);
+
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var imgs = document.querySelectorAll('#arena .scen-media img');
+  if (!imgs.length) return;
+
+  function paint(){
+    var vh = window.innerHeight;
+    for (var i = 0; i < imgs.length; i++){
+      var frame = imgs[i].parentElement;
+      var r = frame.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > vh) continue;   // offscreen: don't touch it
+      // -0.5 .. 0.5 as the card crosses the viewport. The frame hides 6% of the
+      // image top and bottom, so ±10px never exposes an edge.
+      var p = (r.top + r.height / 2 - vh / 2) / vh;
+      imgs[i].style.transform = 'translate3d(0,' + (p * -10).toFixed(2) + 'px,0)';
+    }
+  }
+  // Driven by scroll, coalesced into one frame, instead of a rAF loop spinning
+  // for the life of the page: the earlier version kept requesting frames even
+  // with the section miles offscreen. Listener is rebound per render() and the
+  // previous one removed, so repeated renders can't stack handlers.
+  if (scenOnScroll){
+    window.removeEventListener('scroll', scenOnScroll);
+    window.removeEventListener('resize', scenOnScroll);
+  }
+  var ticking = false;
+  scenOnScroll = function(){
+    if (ticking) return;
+    ticking = true;
+    scenRaf = requestAnimationFrame(function(){ paint(); ticking = false; });
+  };
+  window.addEventListener('scroll', scenOnScroll, { passive: true });
+  window.addEventListener('resize', scenOnScroll, { passive: true });
+  paint();   // set the resting offsets immediately, don't wait for a scroll
+}
+
+function renderNav(c){
+  // One source of truth for both the bar and the sheet. Two hand-maintained
+  // lists is how a link gets added to the desktop nav and silently never
+  // appears on phones.
+  const items = [
+    ['#arena',        c.navPractice],
+    ['/new/rehearse.html', c.navRehearse],
+    ['/new/aid.html',      c.navAid],
+    ['#how',          c.navHow],
+    ['#what',         c.navWhat],
+    ['#privacy',      c.navPrivacy],
+    ['#faq',          c.navFaq]
+  ];
+  const html = items.map(function(it){
+    return '<a href="'+it[0]+'">'+esc(it[1])+'</a>';
+  }).join('');
+  document.getElementById('navLinks').innerHTML = html;
+
+  const sheet = document.getElementById('navSheetLinks');
+  if (sheet){
+    sheet.innerHTML = html;
+    // Stagger is applied per link rather than with nth-child rules so the
+    // count can change without anyone remembering to update the CSS.
+    Array.prototype.forEach.call(sheet.children, function(a, i){
+      a.style.transitionDelay = (60 + i * 34) + 'ms';
+    });
+  }
+  const sheetCta = document.getElementById('navSheetCta');
+  if (sheetCta && c.navCta) sheetCta.textContent = c.navCta;
+}
+
+/* ===== mobile nav sheet =====
+   Focus is trapped while open, Escape closes, the page behind is locked, and
+   focus returns to the trigger on close. A nav you can tab out of into an
+   invisible page is not reachable for a keyboard or screen-reader user, which
+   is the same failure the missing hamburger caused for everyone else. */
+(function(){
+  const burger = document.getElementById('navBurger');
+  const sheet  = document.getElementById('navSheet');
+  const scrim  = document.getElementById('navScrim');
+  const closeB = document.getElementById('navClose');
+  if (!burger || !sheet || !scrim) return;
+
+  let open = false, lastFocus = null, scrollY = 0;
+
+  function focusables(){
+    return sheet.querySelectorAll('a[href], button:not([disabled])');
+  }
+
+  // visibility:hidden already removes the panel from the tab order in every
+  // engine that matters, but inert also blocks pointer and AT access on the
+  // browsers that support it, and costs nothing on the ones that don't.
+  function setInert(v){
+    if ('inert' in sheet) sheet.inert = v;
+  }
+  setInert(true);
+
+  function setOpen(next){
+    if (next === open) return;
+    open = next;
+    burger.setAttribute('aria-expanded', String(open));
+
+    if (open){
+      lastFocus = document.activeElement;
+      scrollY = window.scrollY;
+      setInert(false);
+      sheet.classList.add('is-open'); scrim.classList.add('is-open');
+      // position:fixed rather than overflow:hidden -- iOS Safari ignores
+      // overflow:hidden on body and scrolls the page behind the sheet anyway.
+      document.body.style.position = 'fixed';
+      document.body.style.top = (-scrollY) + 'px';
+      document.body.style.width = '100%';
+      const f = focusables()[0];
+      if (f) f.focus();
+    } else {
+      sheet.classList.remove('is-open'); scrim.classList.remove('is-open');
+      setInert(true);
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      window.scrollTo(0, scrollY);
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+  }
+
+  burger.addEventListener('click', function(){ setOpen(!open); });
+  scrim.addEventListener('click', function(){ setOpen(false); });
+  if (closeB) closeB.addEventListener('click', function(){ setOpen(false); });
+
+  // Any navigation closes it, including same-page hash links, which otherwise
+  // scroll the page underneath a sheet that is still covering it.
+  sheet.addEventListener('click', function(e){
+    if (e.target.closest('a')) setOpen(false);
+  });
+
+  document.addEventListener('keydown', function(e){
+    if (!open) return;
+    if (e.key === 'Escape'){ setOpen(false); return; }
+    if (e.key !== 'Tab') return;
+    const f = focusables();
+    if (!f.length) return;
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+  });
+
+  // Returning to desktop width with the sheet open would otherwise leave the
+  // body locked at position:fixed with no visible way to release it.
+  window.addEventListener('resize', function(){
+    if (open && window.innerWidth > 900) setOpen(false);
+  });
+})();
+
+function renderDemoPhone(c){
+  const dTurn = currentTurn();
+  const heatColor = demo.heat > 60 ? '#e07a5f' : '#E8B84B';
+  const mood = demo.heat > 60 ? c.demoMoodTense : c.demoMoodCalm;
+  let body = '';
+  if (!demo.on){
+    body = '<div class="demo-idle">'+
+      '<p class="demo-scene">'+esc(c.demoScene)+'</p>'+
+      '<p class="demo-note">'+esc(c.demoStartNote)+'</p>'+
+      '<button class="btn btn-gold" onclick="demoStart()">'+esc(c.demoStartLabel)+' →</button>'+
+      '</div>';
+  } else if (!demo.done){
+    const isLast = !demo.branch && demo.t === DEMO_TURNS.length-1;
+    let choicesHtml = dTurn.c.map((ch,i)=>{
+      let cls = 'choice';
+      let disabled = '';
+      if (demo.picked >= 0){
+        disabled = 'disabled';
+        if (demo.picked === i) cls += ch.p===1?' good':ch.p===0?' warn':' bad';
+        else cls += ' dim';
+      }
+      return '<button class="'+cls+'" '+disabled+' onclick="demoPick('+i+')">'+esc(ch.t[lang])+'</button>';
+    }).join('');
+    let feedbackHtml = '';
+    if (demo.picked >= 0){
+      const picked = dTurn.c[demo.picked];
+      const fkind = picked.p===1?'good':picked.p===0?'warn':'bad';
+      feedbackHtml = '<div class="feedback '+fkind+'">'+esc(picked.f[lang])+'</div>'+
+        '<button class="btn-next" onclick="demoNext()">'+esc(isLast?c.demoResultsLabel:c.demoNextLabel)+' →</button>';
+    }
+    body = '<div class="officer-row"><div class="officer-label">'+esc(c.demoOfficerLabel)+'</div>'+
+      '<div class="officer-line">'+esc(dTurn.o[lang])+'</div></div>'+
+      '<div class="choices">'+choicesHtml+'</div>'+feedbackHtml;
+  } else {
+    body = '<div class="demo-done">'+
+      '<div class="demo-done-title">'+esc(c.demoDoneTitle)+'</div>'+
+      '<div class="score-pill">'+(lang==='en'?'Safe answers: ':'Respuestas seguras: ')+demo.score+(lang==='en'?' of ':' de ')+demo.scored+'</div>'+
+      '<p class="demo-done-note">'+esc(c.demoDoneNote)+'</p>'+
+      '<a class="done-cta" href="https://www.amparohq.com/arena" target="_blank" rel="noopener">'+esc(c.demoDoneCta)+' →</a>'+
+      '<button class="restart-link" onclick="demoRestart()">'+esc(c.demoRestartLabel)+'</button>'+
+      '</div>';
+  }
+  const dots = DEMO_TURNS.map((_,i)=>{
+    const cur = i===demo.t && !demo.done;
+    const doneDot = i<demo.t || demo.done;
+    return '<div class="dot" style="background:'+(cur?'#F3D48A':doneDot?'rgba(243,212,138,.55)':'rgba(255,255,255,.22)')+'"></div>';
+  }).join('');
+
+  return '<div class="demo-wrap"><div class="demo-glow" aria-hidden="true"></div>'+
+    '<div class="demo-inner"><div class="phone"><div class="screen">'+
+    '<div class="screen-head"><span class="screen-title">'+esc(c.demoTitle)+'</span><span class="mood">'+esc(mood)+'</span></div>'+
+    '<div class="heat-track"><div class="heat-fill" style="width:'+demo.heat+'%;background:'+heatColor+'"></div></div>'+
+    body+
+    '<div class="dots">'+dots+'</div>'+
+    '</div></div>'+
+    '<p class="demo-caption">'+esc(c.demoCaption)+'</p>'+
+    '<p class="demo-state-note">'+esc(c.demoStateNote)+'</p>'+
+    '</div></div>';
+}
+
+function render(){
+  const c = t();
+  renderNav(c);
+
+  const heroCtaLabel = returning ? c.heroCtaReturn : c.heroCta;
+  const shareWaUrl = 'https://wa.me/?text='+encodeURIComponent(c.shareMsg);
+  const shareSmsUrl = 'sms:?&body='+encodeURIComponent(c.shareMsg);
+
+  // Keyed by index, NOT stored on the EN/ES scenario objects: an asset path is
+  // not copy, and duplicating it per locale is how the two arrays drift.
+  // Index 2 ("At your door") is intentionally imageless — see .scen-media--empty.
+  const SCEN_MEDIA = ['/new/assets/card1-stop.webp', '/new/assets/card2-checkpoint.webp', null];
+  const scenariosHtml = c.arenaScenarios.map(function(s, i){
+    const src = SCEN_MEDIA[i];
+    // alt="" is correct here: the <h3> immediately below names the scenario, so
+    // describing the photo again is redundant screen-reader noise.
+    const media = src
+      ? '<div class="scen-media"><img src="'+src+'" alt="" loading="lazy" width="900" height="506"></div>'
+      // aria-hidden stays: the badge and <h3> below already tell a screen
+      // reader this scenario is coming soon, so the label is a visual cue for
+      // sighted users who would otherwise read the panel as a broken image.
+      : '<div class="scen-media scen-media--empty" aria-hidden="true" data-label="'+esc(c.scenNotBuilt)+'"></div>';
+    return '<div class="scen-card'+(scenRevealed ? ' is-in' : '')+'">'+media+
+      '<span class="badge '+(s.live?'badge-live':'badge-soon')+'">'+esc(s.statusLabel)+'</span>'+
+      '<h3>'+esc(s.title)+'</h3><p>'+esc(s.desc)+'</p></div>';
+  }).join('');
+  const chipsHtml = c.arenaChips.map(ch=>'<span class="chip">'+esc(ch)+'</span>').join('');
+  // A real <ol>: these four are a sequence, so the numbering is information and
+  // belongs in the markup rather than being painted on with a .step-num div.
+  // Counter comes from CSS, so the number can never disagree with the order.
+  const stepsHtml = c.steps.map(s=>
+    '<li class="how-step"><div class="how-body"><h3>'+esc(s.title)+'</h3><p>'+esc(s.desc)+'</p></div></li>').join('');
+  const itemsHtml = c.packItems.map(it=>
+    '<div class="item"><div class="dot-mark"></div><div><h3>'+esc(it.label)+'</h3><p>'+esc(it.desc)+'</p></div></div>').join('');
+  const privacyChipsHtml = c.privacyChips.map(ch=>'<span class="chip chip-dark">'+esc(ch)+'</span>').join('');
+  const orgPointsHtml = c.orgPoints.map(pt=>'<div class="pt"><div class="dot-mark"></div><p>'+esc(pt)+'</p></div>').join('');
+  const faqHtml = c.faq.map((item,i)=>{
+    const open = openFaq === i;
+    return '<div class="faq-item"><button class="faq-q" onclick="toggleFaq('+i+')">'+
+      '<span>'+esc(item.q)+'</span><span class="faq-icon'+(open?' open':'')+'">+</span></button>'+
+      (open ? '<p class="faq-a">'+esc(item.a)+'</p>' : '')+
+      '</div>';
+  }).join('');
+
+  document.getElementById('app').innerHTML =
+    '<section class="hero">'+
+      '<div class="hero-eyebrow">'+esc(c.heroEyebrow)+'</div>'+
+      '<h2 class="hero-h">'+esc(c.heroTitle)+'</h2>'+
+      '<p class="hero-sub">'+esc(c.heroSub)+'</p>'+
+      /* Hero CTAs restored. They were removed when the top of the page was
+         purely the cinematic run and the first ask lived in #arena; the hero now
+         states the thesis in words, so it needs somewhere to send you. The two
+         asks are the two real ways in: rehearse, or skip straight to printing.
+         The arrow is markup, not copy, so it never reaches a translator. */
+      '<div class="hero-ctas">'+
+        '<a class="btn btn-navy" href="/arena/">'+esc(heroCtaLabel)+'</a>'+
+        '<a class="btn btn-outline" href="/pack">'+esc(c.heroSecondary)+'<span class="cta-arrow" aria-hidden="true">→</span></a>'+
+      '</div>'+
+      '<p class="trust">'+esc(c.trustLine)+'</p>'+
+    '</section>'+
+
+    renderDemoPhone(c)+
+
+    '<section id="arena" class="section-tight wrap">'+
+      '<div class="center-head"><div class="eyebrow">'+esc(c.arenaEyebrow)+'</div><h2 class="h2">'+esc(c.arenaTitle)+'</h2><p class="sub">'+esc(c.arenaSub)+'</p></div>'+
+      '<div class="grid-cards">'+scenariosHtml+'</div>'+
+      '<div class="chips">'+chipsHtml+'</div>'+
+      '<div class="center-cta"><p>'+esc(c.arenaSafety)+'</p><div class="row">'+
+        '<a class="btn btn-arena" href="https://www.amparohq.com/arena" target="_blank" rel="noopener">'+esc(c.arenaCta)+' →</a>'+
+        '<a class="btn btn-ghost" style="padding:0" href="https://www.amparohq.com/about" target="_blank" rel="noopener">'+esc(c.arenaLink)+'</a>'+
+      '</div></div>'+
+    '</section>'+
+
+    '<section id="how" class="section-tight wrap">'+
+      '<div class="center-head"><div class="eyebrow">'+esc(c.howEyebrow)+'</div><h2 class="h2">'+esc(c.howTitle)+'</h2><p class="sub">'+esc(c.howSub)+'</p></div>'+
+      '<ol class="how-steps">'+stepsHtml+'</ol>'+
+    '</section>'+
+
+    '<section class="section-tight wrap"><div class="pack-visual"><div class="ph">printed cards — window card + documents</div></div></section>'+
+
+    '<section id="what" class="section-tight wrap">'+
+      '<div class="center-head" style="margin-bottom:56px"><div class="eyebrow">'+esc(c.whatEyebrow)+'</div><h2 class="h2">'+esc(c.whatTitle)+'</h2><p class="sub">'+esc(c.whatNote)+'</p></div>'+
+      '<div class="items">'+itemsHtml+'</div>'+
+      '<div style="text-align:center;margin-top:56px;display:flex;flex-direction:column;align-items:center;gap:14px">'+
+        '<span class="price-pill">'+esc(c.priceLine)+'</span><span class="printer-line">'+esc(c.printerLine)+'</span>'+
+      '</div>'+
+    '</section>'+
+
+    '<section id="privacy" class="privacy"><div class="privacy-inner">'+
+      '<div class="eyebrow">'+esc(c.privacyEyebrow)+'</div><h2 class="h2">'+esc(c.privacyTitle)+'</h2>'+
+      '<p class="privacy-body">'+esc(c.privacyBody)+'</p>'+
+      '<div class="chips">'+privacyChipsHtml+'</div>'+
+      '<p class="offline-line">'+esc(c.offlineLine)+'</p>'+
+    '</div></section>'+
+
+    '<section id="bilingual" class="wrap bilingual">'+
+      '<div class="bl-toggle"><div class="pair"><span class="'+(lang==='en'?'on':'')+'">EN</span><span class="'+(lang==='es'?'on':'')+'">ES</span></div></div>'+
+      '<div><div class="eyebrow">'+esc(c.bilingualEyebrow)+'</div><h2 class="h2" style="font-size:clamp(28px,4vw,40px)">'+esc(c.bilingualTitle)+'</h2><p class="sub" style="font-size:16.5px">'+esc(c.bilingualBody)+'</p></div>'+
+    '</section>'+
+
+    '<section id="states" class="section-tight wrap">'+
+      '<div class="center-head"><div class="eyebrow">'+esc(c.stateEyebrow)+'</div><h2 class="h2">'+esc(c.stateTitle)+'</h2><p class="sub" style="margin-bottom:8px">'+esc(c.stateSub)+'</p><p style="font-size:14px;color:var(--body);margin:0">'+esc(c.stateNote)+'</p></div>'+
+      statesMapHtml(c)+
+    '</section>'+
+
+    '<section id="share" class="section-tight share">'+
+      '<div class="eyebrow">'+esc(c.shareEyebrow)+'</div><h2 class="h2" style="font-size:clamp(28px,4vw,40px)">'+esc(c.shareTitle)+'</h2>'+
+      '<p class="sub" style="max-width:560px;margin:0 auto 28px">'+esc(c.shareBody)+'</p>'+
+      '<div class="row">'+
+        '<a class="btn-share-wa" href="'+shareWaUrl+'" target="_blank" rel="noopener">'+esc(c.shareWhatsApp)+'</a>'+
+        '<a class="btn-share-sms" href="'+shareSmsUrl+'">'+esc(c.shareSms)+'</a>'+
+      '</div>'+
+    '</section>'+
+
+    '<section id="orgs" class="section-tight wrap"><div class="orgs-card">'+
+      '<div><div class="eyebrow">'+esc(c.orgEyebrow)+'</div><h2>'+esc(c.orgTitle)+'</h2><p class="body">'+esc(c.orgBody)+'</p>'+
+      '<a class="btn btn-navcta" style="font-size:14.5px;padding:13px 24px" href="https://www.amparohq.com/orgs" target="_blank" rel="noopener">'+esc(c.orgCta)+' →</a></div>'+
+      '<div class="orgpoints">'+orgPointsHtml+'</div>'+
+    '</div></section>'+
+
+    '<section id="faq" class="section-tight faq-wrap">'+
+      '<div class="faq-head"><div class="eyebrow">'+esc(c.faqEyebrow)+'</div><h2 class="h2" style="font-size:clamp(32px,4.5vw,44px)">'+esc(c.faqTitle)+'</h2></div>'+
+      '<div>'+faqHtml+'</div>'+
+    '</section>'+
+
+    '<section class="final-cta"><h2>'+esc(c.finalTitle)+'</h2><p>'+esc(c.finalSub)+'</p>'+
+      '<a class="btn btn-hero" href="https://www.amparohq.com/arena" target="_blank" rel="noopener">'+esc(c.finalBtn)+' →</a>'+
+    '</section>'+
+
+    '<footer><div class="foot-top">'+
+      '<div class="foot-brand"><svg viewBox="0 0 120 120" width="26" height="26"><circle cx="60" cy="72" r="28" fill="none" stroke="#E8B84B" stroke-width="12"/><rect x="48" y="56" width="24" height="32" rx="4" fill="#1B2A4A"/><path d="M12 62 L60 18 L108 62" fill="none" stroke="#1B2A4A" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/></svg><b>Amparo</b></div>'+
+      '<div class="foot-links"><a href="#arena">'+esc(c.navPractice)+'</a><a href="#how">'+esc(c.navHow)+'</a><a href="#what">'+esc(c.navWhat)+'</a><a href="#privacy">'+esc(c.navPrivacy)+'</a><a href="#faq">'+esc(c.navFaq)+'</a></div>'+
+    '</div>'+
+    '<p class="disclaimer">'+esc(c.footerDisclaimer)+'</p>'+
+    '<p class="copyright">'+esc(c.footerCopyright)+'</p>'+
+    '</footer>';
+
+  armScenCards();   // #app was just replaced — re-observe the new card nodes
+}
+
+document.getElementById('langEN').classList.toggle('on', lang==='en');
+document.getElementById('langES').classList.toggle('on', lang==='es');
+render();
+</script>
+
+<!-- Cinematic scroll intro: separate script/engine load so a failure here
+     (e.g. the engine file 404s) can never break the render() above it —
+     the homepage still works with the intro simply absent. -->
+<script src="/scroll-intro/scrollcraft.js?v=2026-09-02a"></script>
+<script>
+(function(){
+  /* ---- frame manifest ----------------------------------------------------
+     Flip USE_STICKMAN_FRAMES to true once scrollcraft/builds/amparo-arena-intro/
+     generate-cards.sh has produced the six frames. Until then both slots of
+     each pair point at the existing photograph, so the page renders correctly
+     (the crossfade is simply a no-op) instead of showing six broken images. */
+  var USE_STICKMAN_FRAMES = true;
+  var FRAMES = USE_STICKMAN_FRAMES
+    ? [['/new/assets/c1-start.webp','/new/assets/c1-end.webp'],
+       ['/new/assets/c2-start.webp','/new/assets/c2-end.webp'],
+       ['/new/assets/c3-start.webp','/new/assets/c3-end.webp']]
+    : [['/new/assets/act1-hands.webp','/new/assets/act1-hands.webp'],
+       ['/new/assets/act2-mirror.webp','/new/assets/act2-mirror.webp'],
+       ['/new/assets/act3-card.webp','/new/assets/act3-card.webp']];
+  FRAMES.forEach(function(pair, i){
+    var a = document.getElementById('f'+(i+1)+'a');
+    var b = document.getElementById('f'+(i+1)+'b');
+    if (a) a.src = pair[0];
+    if (b) b.src = pair[1];
+  });
+
+  var CINE = {
+    en: { label:'Amparo', h1:'Lights in the mirror.', sub1:"Every driver has felt this exact half-second.",
+          h2:"It isn't the badge that makes you forget your rights.", sub2:"It's your own mind, blank, mid-sentence.",
+          h3:'The words come without thinking.', sub3:'Because you practiced them first.',
+          line:['I','choose','to','remain','silent.','I','want','a','lawyer.'] },
+    es: { label:'Amparo', h1:'Luces en el espejo.', sub1:'Todo conductor ha sentido este medio segundo exacto.',
+          h2:'No es la placa lo que le hace olvidar sus derechos.', sub2:'Es su propia mente, en blanco, a media frase.',
+          h3:'Las palabras salen sin pensar.', sub3:'Porque las practicó primero.',
+          line:['Elijo','guardar','silencio.','Quiero','un','abogado.'] }
+  };
+
+  function set(id, text){ var el = document.getElementById(id); if (el) el.textContent = text; }
+
+  // A `let lang` in the page's own top-level script does not attach to
+  // `window` (confirmed the same way on the live site's index.html), so
+  // the current language is read off the toggle's .on class instead of a
+  // cross-script variable — decoupled from how the main script happens to
+  // store it, and correct on first paint before setLang() ever runs.
+  var curLang = 'en';
+  function detectLang(){
+    var es = document.getElementById('langES');
+    return (es && es.classList.contains('on')) ? 'es' : 'en';
+  }
+  window.renderCine = function(l){
+    curLang = l || detectLang();
+    var c = CINE[curLang === 'es' ? 'es' : 'en'];
+    set('cineLabel1', c.label); set('cineH1', c.h1); set('cineSub1', c.sub1);
+    set('cineH2', c.h2); set('cineSub2', c.sub2);
+    set('cineH3', c.h3); set('cineSub3', c.sub3);
+  };
+  renderCine();
+
+  // Nav takes its material from what's under it (see nav.nav-dark in CSS).
+  // Runs whether or not the scroll engine mounts — it's page chrome, not part
+  // of the intro's enhancement.
+  (function navMaterial(){
+    var nav = document.querySelector('nav');
+    var intro = document.getElementById('cineIntro');
+    if (!nav || !intro || !('IntersectionObserver' in window)) return;
+    // Shrink the root's top edge by the nav's own height: the intro "intersects"
+    // exactly while it is still passing behind the bar.
+    var h = Math.round(nav.getBoundingClientRect().height) || 72;
+    new IntersectionObserver(function(entries){
+      nav.classList.toggle('nav-dark', entries[0].isIntersecting);
+    }, { rootMargin: '-' + h + 'px 0px 0px 0px', threshold: 0 }).observe(intro);
+  })();
+
+  var mounted = false;
+  function mountCine(){
+    if (mounted) return;
+    var intro = document.getElementById('cineIntro');
+    if (!intro) return;
+    if (!window.ScrollCraft){
+      // Loud, not silent. The old silent bail left the page rendering three
+      // stacked headlines on one screen with no clue why.
+      console.warn('[amparo] scrollcraft engine unavailable — cinematic intro ' +
+        'staying in its static CSS fallback (3 full-height panels, no pinning).');
+      return;
+    }
+    mounted = true;
+    // Hand layout control over BEFORE mounting: the engine checks that each
+    // stage computes position:sticky during mount(), and the base-state rule
+    // (#cineIntro [data-sc-stage]{position:relative}) outranks .sc-stage until
+    // .cine-live is present — mounting first produced a "will not pin" warning
+    // on every act even though it worked a frame later. Rolled back if the
+    // engine throws, so a hard failure still lands in the static fallback.
+    intro.classList.add('cine-live');
+    try {
+      ScrollCraft.mount(intro);
+    } catch (err) {
+      intro.classList.remove('cine-live');
+      mounted = false;
+      console.warn('[amparo] scrollcraft mount failed — cinematic intro staying ' +
+        'in its static CSS fallback.', err);
+      return;
+    }
+
+    // Signature move — "The Line": accumulates the real Arena line
+    // ("those nine words", see arena/index.html) word by word, tied to
+    // summed scroll progress across the 3 acts above. Ported unchanged
+    // from index.html's own scroll intro.
+    var acts = ['cineAct1','cineAct2','cineAct3'].map(function(id){ return document.getElementById(id); });
+    var bar = document.getElementById('cine-line');
+    var out = document.getElementById('cineLineWords');
+    if (!bar || !out) return;
+    var lastN = -1;
+    function tick(){
+      var words = CINE[curLang === 'es' ? 'es' : 'en'].line;
+      var sum = 0;
+      for (var i = 0; i < acts.length; i++){
+        var el = acts[i]; if (!el) continue;
+        sum += parseFloat(el.style.getPropertyValue('--sc-p')) || 0;
+      }
+      var best = sum / acts.length;
+      var n = Math.max(0, Math.min(words.length, Math.round(best * words.length)));
+      if (n !== lastN || lastN === -1){ out.textContent = words.slice(0, n).join(' '); lastN = n; }
+      bar.classList.toggle('cl-done', best >= 0.995);
+    }
+    // Driven by scroll, not by a permanent rAF loop. --sc-p only changes when the
+    // page scrolls, so a self-perpetuating loop repainted nothing 60 times a
+    // second for as long as the tab stayed open -- the page never reached render
+    // idle, which costs battery on a phone and is exactly the kind of background
+    // churn that makes scrolling stutter. rAF-coalesced so a burst of scroll
+    // events still does at most one update per frame.
+    var queued = false;
+    function onScroll(){
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(function(){ queued = false; tick(); });
+    }
+    addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', onScroll, { passive: true });
+    tick();
+  }
+  // scrollcraft.js is a plain (non-async) script tag directly above this one,
+  // so if it loaded at all it is already defined — waiting for window.load was
+  // a pointless extra failure path. The engine re-splits kinetic lines on
+  // document.fonts.ready itself, and act heights are viewport-based, so there
+  // is nothing here that needs images to have finished.
+  mountCine();
+})();
+</script>
+</body>
+</html>

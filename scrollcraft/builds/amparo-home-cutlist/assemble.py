@@ -12,7 +12,11 @@ import io, os, sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
 PAGE = os.path.join(ROOT, 'new', 'index.html')
-src = io.open(PAGE, encoding='utf-8').read()
+# Assemble from a frozen copy of the pre-build page, never from the working
+# file: once the build is committed, the working file IS the build, and its
+# markers are gone. source.html is `git show <pre-build>:new/index.html`.
+SRC = os.path.join(os.path.dirname(__file__), 'source.html')
+src = io.open(SRC, encoding='utf-8').read()
 L = src.split('\n')
 
 def idx(marker, start=0, exact=False):

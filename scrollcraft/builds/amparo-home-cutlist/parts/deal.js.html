@@ -53,7 +53,7 @@
     }
     // the harness reads this instead of guessing what a fixed layer painted
     deal.setAttribute('data-sc-verify-state', 'p:' + p.toFixed(2) + '|fanned:' + fanned + '|dealt:' + dealt.length);
-    if (p >= 0.995 && mode === 'open') deal.setAttribute('data-sc-verify-hold', 'true'); else deal.removeAttribute('data-sc-verify-hold');
+    if (p >= 0.995) deal.setAttribute('data-sc-verify-hold', 'true'); else deal.removeAttribute('data-sc-verify-hold');
   }
   function tick(){
     raf = null;
