@@ -132,6 +132,14 @@ body.mode-on .mode.on{display:flex}
    the top bar 50px past a 375px viewport. */
 .right{min-width:0}
 .right .stateSel,.stateSel{min-width:0;max-width:100%}
+
+/* The select sits on a dark bar, so its text is cream -- but <option> inherits
+   that colour into the native popup, which the OS paints WHITE on Windows and
+   Android. Result: the state list was cream-on-white, invisible until the
+   hover highlight happened to land on a row. The popup is a native surface, so
+   it needs its own explicit pair rather than the bar's colours. */
+select#stateSel option{color:#1B2A4A;background:#FFFFFF}
+select#stateSel option:checked{font-weight:800}
 </style>
 </head>
 <body>
@@ -210,7 +218,7 @@ body.mode-on .mode.on{display:flex}
       ],
       stressBtn:'Stress Mode', stressSub:'The three phrases, huge',
       windowBtn:'Show at the window', windowSub:'Both languages, for the glass',
-      exit:'Exit', stressLabel:'Say these', windowLabel:'Hold this up',
+      exit:'Exit', pickState:'Pick a state', stressLabel:'Say these', windowLabel:'Hold this up',
       verified:'<b>{s}</b> — your state\\u2019s own rules are cited to statute in your pack.',
       pending:'<b>{s}</b> — this state\\u2019s own rules aren\\u2019t verified in Amparo yet. Everything shown here is federal and applies everywhere.',
       none:'Pick your state to see whether its own rules are verified yet. Everything shown here is federal and applies everywhere.',
@@ -230,7 +238,7 @@ body.mode-on .mode.on{display:flex}
       ],
       stressBtn:'Modo Estrés', stressSub:'Las tres frases, enormes',
       windowBtn:'Mostrar en la ventana', windowSub:'Los dos idiomas, para el vidrio',
-      exit:'Salir', stressLabel:'Diga esto', windowLabel:'Muestre esto',
+      exit:'Salir', pickState:'Elige un estado', stressLabel:'Diga esto', windowLabel:'Muestre esto',
       verified:'<b>{s}</b> — las reglas propias de su estado están citadas a la ley en su paquete.',
       pending:'<b>{s}</b> — las reglas propias de este estado aún no están verificadas en Amparo. Todo lo que se muestra aquí es federal y aplica en todas partes.',
       none:'Elija su estado para ver si sus reglas ya están verificadas. Todo lo que se muestra aquí es federal y aplica en todas partes.',
@@ -259,8 +267,11 @@ body.mode-on .mode.on{display:flex}
 
     var sel = document.getElementById('stateSel');
     var names = D.US_STATE_NAMES;
-    if (sel.options.length !== Object.keys(names).length + 1){
-      sel.innerHTML = '<option value="">—</option>' + Object.keys(names)
+    // Rebuild when the language changes too, not only when the count changes --
+    // otherwise the placeholder keeps whichever language it was first built in.
+    if (sel.options.length !== Object.keys(names).length + 1 || sel.dataset.lang !== lang){
+      sel.dataset.lang = lang;
+      sel.innerHTML = '<option value="">' + t.pickState + '</option>' + Object.keys(names)
         .sort(function(a,b){ return names[a].localeCompare(names[b]); })
         .map(function(k){ return '<option value="'+k+'">'+names[k]+'</option>'; }).join('');
     }

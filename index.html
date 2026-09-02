@@ -3218,9 +3218,15 @@ function restore(){
     if(s.printedEdition) printedEdition=s.printedEdition;
     if(s.printFeedbackGiven) printFeedbackGiven=true;
     if(s.usageFeedbackGiven) usageFeedbackGiven=true;
-    /* returning users get a resume chip on the landing instead of silently
-       starting over (UX-research find: revisit landed on step 0, lost) */
-    if(s.step>=1&&s.step<=5&&s.state) window.__resumeStep=s.step;
+    /* Returning users land ON their saved step, not on the welcome screen.
+       The earlier fix for "revisit landed on step 0, lost" was a resume chip on
+       the landing, which still made someone who already has a pack read a
+       first-visit pitch and then click to get back to their own work. Someone
+       arriving from the QR on a printed card is by definition not a first-time
+       visitor. The welcome screen still exists and is still what a genuinely new
+       visitor sees; __resumeStep stays set so that if anything sends us back to
+       step 0 the chip is still there. */
+    if(s.step>=1&&s.step<=5&&s.state){ window.__resumeStep=s.step; step=s.step; }
     if((s.lang==='en'||s.lang==='es') && s.lang!==lang){ // whitelist — any other value would brick every render until site data is cleared
       lang=s.lang;
       try{document.documentElement.lang=lang;}catch(e){} // keeps screen readers speaking the right language on resumed sessions
