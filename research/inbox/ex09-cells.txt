@@ -1,0 +1,36 @@
+SD | License (driver ID) | VERIFIED SDCL §32-12-39 -- must display driver license on demand of judge, magistrate, peace officer or DPS inspector; petty offense [court-production/officer-office cure under §32-12-40]
+SD | Sign citation | VERIFIED SDCL §32-33-2 -- release on written promise to appear; refusal means taken before magistrate; breaking a given promise is a Class 2 misdemeanor
+SD | Recording own stop | VERIFIED §23A-35A-20 -- one-party consent; offense reaches only a person who is NOT a sender or receiver of the communication
+SD | Officer condition (marked/uniform) | VERIFIED §32-33-18 -- uniform AND badge AND marked vehicle, all three conjunctive
+SD | Impersonation | VERIFIED §22-40-16 -- result-gated: act "whereby another person is injured or defrauded"
+SD | Stop-and-ID | VERIFIED §22-40-1 -- full ch. 22-40 catchline index read; no identify-duty section found in the chapter (Category D, false-personation only)
+SD | Duty to inform (firearm) | LIKELY §23-7-55 / §23-7-8.8 -- photo-ID carriage is a permit validity condition, not an officer-facing duty; no duty-to-inform located
+TN | License (driver ID) | VERIFIED T.C.A. §55-50-351 -- must display license upon demand; violation is a Class C misdemeanor
+TN | Sign citation | VERIFIED T.C.A. §55-10-207 -- signing required to accept citation in lieu of arrest; disapplied by §55-10-119 (mandatory detention if no license AND no financial responsibility, conjunctive reading)
+TN | Duty to inform (firearm) | VERIFIED §39-17-1351(n)(1) -- enhanced-permit holder must display permit on demand [scope as to permitless carry UNVERIFIED]
+TN | Officer condition (marked/uniform) | VERIFIED §55-10-308 -- marked-vehicle requirement, but scoped to municipal agencies enforcing rules of the road on interstate highways
+TN | Stop-and-ID | VERIFIED §39-16-611 -- Category D: officer "may ask" for name; false-name offense only; refusal clause was struck by Senate amendment before enactment (introduced bill differed from enacted law)
+TN | Checkpoint authority | UNVERIFIED §55-10-413(f) -- the cite circulating in practitioner pages does not match current text; that section is now fees/ignition interlock
+TX | License (driver ID) | VERIFIED Transp. Code §521.025 -- "display"; officers/courts often treat showing through glass as refusal
+TX | Sign citation | VERIFIED §543.005/§543.004(a)(2)/§543.009(b) -- signing a written promise secures release; driver may instead demand immediate magistrate appearance; violating a given promise is a separate misdemeanor
+TX | Duty to inform (firearm) | VERIFIED -- penalty for failing to inform was repealed; Texas is now permitless-carry, no proactive duty remains
+TX | Officer condition (marked/uniform) | VERIFIED §545.421(b) -- officer must be in uniform, display badge, and vehicle marked, but this conditions the eluding OFFENSE, not the stop itself
+TX | Impersonation | VERIFIED Transp. Code §720.001 -- badge required for sheriff/constable/deputy sheriff/deputy constable only, not municipal or state police
+TX | Stop-and-ID | VERIFIED Penal Code §38.02(a) -- Category C: duty to give name/address/DOB attaches only on lawful arrest, not mere detention
+TX | Recording own stop | VERIFIED Penal Code §16.02 -- one-party consent wiretap statute, party/prior-consent exemption
+TX | Checkpoint authority | UNVERIFIED -- the "DPS may establish a checkpoint program" language traces to bill analysis (SB1700, 82R), not enacted code
+UT | License (driver ID) | UNVERIFIED §77-7-18(1)/§77-7-20(1) -- citation issued and delivered/given to individual; no signature requirement found in either section, though not fully ruled out elsewhere in code
+UT | Sign citation | UNVERIFIED §77-7-18(1)/§77-7-20(1) -- delivery/handing over the citation, not signature; "no signature required" remains unconfirmed
+UT | Officer condition (marked/uniform) | VERIFIED §41-6a-210(1)(a)/§41-6a-209(1) -- strong null: fleeing offense has no uniform/badge/marking element; neighboring section attaches "uniformed" to school crossing guard but not to peace officer
+UT | Stop-and-ID | VERIFIED §76-8-301.5 -- Category A: failure to disclose name/DOB during a lawful §77-7-15 stop is a class B misdemeanor; demand must relate to stop circumstances and self-incrimination is an internal defense (corrected from earlier Category B miscoding)
+UT | Detention cap | VERIFIED §77-7-15 -- Terry stop-authority codification with zero temporal language; should not be scored as a time limit
+UT | Checkpoint authority | VERIFIED §77-23-103/§77-23-104 -- administrative traffic checkpoint requires magistrate approval, written plan, signage, advance notice
+UT | Recording own stop | VERIFIED §77-23a-4(7)(a) -- one-party consent, fetched and anchor-confirmed, federal-model party/prior-consent exemption
+VT | Sign citation | VERIFIED 4 V.S.A. §1105(a) -- officer or State's Attorney signs the complaint, not the defendant; two copies given to defendant; traffic violations are civil, penalty capped at $1,000
+VT | Stop-and-ID | VERIFIED 23 V.S.A. §1012 -- Category C: duty to give name/address (and owner info) attaches to operating or being in charge of a vehicle; fine up to $1,250 for refusal, plus separate $250 civil penalty
+VT | Passenger ID | VERIFIED 23 V.S.A. §1012 -- reads on "operating or in charge of" / "the operator" only; does not reach passengers (third state confirming this term-of-art distinction)
+VT | Officer condition (marked/uniform) | VERIFIED 23 V.S.A. §1133 -- disjunctive: identifying insignia OR a law enforcement vehicle with siren and flashing blue lamp; not a uniform requirement
+VT | Checkpoint authority | VERIFIED 23 V.S.A. §1220 -- formerly "Enforcement; sobriety checkpoints," repealed in 2021; de facto ban confirmed from repeal notice
+VT | Recording own stop | VERIFIED -- no general wiretap statute located; 13 V.S.A. §2605 (voyeurism) is a documented wrong-statute trap, not the recording law
+VT | Duty to inform (firearm) | LIKELY Title 13 ch. 85 (§§4001-4084) -- full text read, no duty and no inverse provision; Vermont has no carry-permit scheme for such a duty to attach to
+VT | Impersonation | LIKELY -- listed among nineteen states whose impersonation statute is not gated on benefit or injury/defraud; no specific VT section number quoted in this pass
