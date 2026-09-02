@@ -4360,7 +4360,7 @@ document.addEventListener('keydown',e=>{
      (from a saved preference or first-visit browser-language detection), so the
      copy picked here matches what the visitor already sees everywhere else on
      first paint. -->
-<script src="scroll-intro/scrollcraft.js"></script>
+<script src="scroll-intro/scrollcraft.js?v=2026-09-02a"></script>
 <script>
 (function(){
   var COPY={
@@ -4403,9 +4403,21 @@ document.addEventListener('keydown',e=>{
     var n=Math.max(0,Math.min(words.length,Math.round(best*words.length)));
     if(n!==lastN){ out.textContent=words.slice(0,n).join(' '); lastN=n; }
     bar.classList.toggle('si-done',best>=0.995);
-    requestAnimationFrame(tick);
   }
-  requestAnimationFrame(tick);
+  // Scroll-driven, not a permanent rAF loop. --sc-p only moves when the page
+  // scrolls, so re-scheduling every frame kept the document out of render idle
+  // for the whole session -- battery on a phone, and frames taken from the very
+  // animation this drives. rAF-coalesced, so a scroll burst still updates once
+  // per frame.
+  var queued=false;
+  function onScroll(){
+    if(queued) return;
+    queued=true;
+    requestAnimationFrame(function(){ queued=false; tick(); });
+  }
+  addEventListener('scroll',onScroll,{passive:true});
+  addEventListener('resize',onScroll,{passive:true});
+  tick();
 })();
 </script>
 </body>

@@ -940,13 +940,31 @@
         var max = Math.max(document.body.scrollHeight - vh, 1);
         progressBar.style.transform = 'scaleX(' + clamp01(y / max).toFixed(4) + ')';
       }
+
+      // read() is the only thing that moves a playhead target, so it is also the
+      // only place the seek loop ever needs restarting.
+      wakeTick();
     }
 
     // ---- video seek loop --------------------------------------------------
     // Split from read() on purpose: seeking is asynchronous and rate-limited by
     // the decoder, while read() must stay cheap enough to run on every scroll
     // event. The lerp here is also what turns a jittery wheel into a glide.
+    // The loop suspends itself once every playhead has arrived and wakes on the
+    // next read(). Left running unconditionally it re-scheduled itself sixty
+    // times a second for the life of the page -- including on pages that have no
+    // clips at all -- so the document never reached render idle. That is a
+    // measurable battery cost on a phone and it competes for the very frames the
+    // scroll animation needs.
+    var tickOn = false;
+    function wakeTick() {
+      if (tickOn || !playheads.length) return;
+      tickOn = true;
+      requestAnimationFrame(tick);
+    }
+
     function tick() {
+      var busy = false;
       // Deadband. A phone decoder cannot service a seek every frame, so asking
       // for one costs more than it shows; 20ms of clip is under a frame of
       // footage anyway.
@@ -960,6 +978,7 @@
         // the page through this very guard, so a seek stuck past 700ms is
         // re-issued rather than waited on forever.
         if (V.el.seeking) {
+          busy = true;
           var nw = performance.now();
           if (!V.stuckAt) V.stuckAt = nw;
           else if (nw - V.stuckAt > 700) {
@@ -971,12 +990,14 @@
         V.stuckAt = 0;
         // An offscreen clip that has already arrived stops costing anything.
         if (!V.live && Math.abs(V.cur - V.target) < 0.002) continue;
+        busy = true;
         V.cur += (V.target - V.cur) * (reduce ? 1 : V.lerp);
         var dur = V.el.duration || 1;
         var t = clamp(V.cur, 0, 0.999) * dur;
         if (Math.abs(V.el.currentTime - t) > eps) { try { V.el.currentTime = t; } catch (e) {} }
       }
-      requestAnimationFrame(tick);
+      tickOn = busy;
+      if (busy) requestAnimationFrame(tick);
     }
 
     // iOS will not paint a muted video that has never been handed a user
@@ -1085,26 +1106,52 @@
           spots[s].style.setProperty('--sc-mx', clamp01((e.clientX - sr.left) / sr.width).toFixed(3));
           spots[s].style.setProperty('--sc-my', clamp01((e.clientY - sr.top) / sr.height).toFixed(3));
         }
+        wakePointer();
       }, { passive: true });
 
-      (function pointerTick() {
+      // Runs only while something is still travelling toward its target. The
+      // lerp converges but never exactly arrives, so "settled" is a distance
+      // test, and on the settling frame each element is written once at its
+      // resting value before the loop stops -- otherwise it would freeze a
+      // fraction of a degree short. Previously this re-scheduled itself forever
+      // and rewrote every magnet transform on every frame even when the pointer
+      // had not moved for minutes.
+      var pointerOn = false;
+      function pointerTick() {
+        var moving = false;
         // Interpolate toward the target rather than tracking the pointer
         // directly. Direct tracking reads as artificial because it carries no
         // momentum; the lerp gives it weight.
         for (var i = 0; i < tilts.length; i++) {
           var T = tilts[i];
-          T.x += (T.tx - T.x) * 0.09; T.y += (T.ty - T.y) * 0.09;
-          if (Math.abs(T.x) > 0.001 || Math.abs(T.y) > 0.001) {
-            T.el.style.transform = 'perspective(1100px) rotateX(' + T.x.toFixed(3) + 'deg) rotateY(' + T.y.toFixed(3) + 'deg)';
+          if (Math.abs(T.tx - T.x) < 0.0005 && Math.abs(T.ty - T.y) < 0.0005) {
+            if (T.x !== T.tx || T.y !== T.ty) { T.x = T.tx; T.y = T.ty; moving = true; }
+            else continue;
+          } else {
+            T.x += (T.tx - T.x) * 0.09; T.y += (T.ty - T.y) * 0.09;
+            moving = true;
           }
+          T.el.style.transform = 'perspective(1100px) rotateX(' + T.x.toFixed(3) + 'deg) rotateY(' + T.y.toFixed(3) + 'deg)';
         }
         for (var m = 0; m < magnets.length; m++) {
           var M = magnets[m];
-          M.x += (M.tx - M.x) * 0.12; M.y += (M.ty - M.y) * 0.12;
+          if (Math.abs(M.tx - M.x) < 0.01 && Math.abs(M.ty - M.y) < 0.01) {
+            if (M.x !== M.tx || M.y !== M.ty) { M.x = M.tx; M.y = M.ty; moving = true; }
+            else continue;
+          } else {
+            M.x += (M.tx - M.x) * 0.12; M.y += (M.ty - M.y) * 0.12;
+            moving = true;
+          }
           M.el.style.transform = 'translate3d(' + M.x.toFixed(2) + 'px,' + M.y.toFixed(2) + 'px,0)';
         }
+        pointerOn = moving;
+        if (moving) requestAnimationFrame(pointerTick);
+      }
+      function wakePointer() {
+        if (pointerOn) return;
+        pointerOn = true;
         requestAnimationFrame(pointerTick);
-      })();
+      }
     }
 
     // ---- wiring -----------------------------------------------------------
@@ -1151,7 +1198,7 @@
 
     layout();
     initPointer();
-    requestAnimationFrame(tick);
+    wakeTick();
     document.documentElement.classList.add('sc-ready');
 
     var api = { layout: layout, read: read, acts: acts, worlds: worlds, clips: playheads, lerp: LERP };

@@ -1302,7 +1302,6 @@ function renderArena(){
     if(!A.gentle){
       const baseT=(A.lvl===3?5:7)+(A.pressure?-1:0)+Math.max(-3,Math.min(3,window.__clockBonus||0));
       let t=Math.max(3,baseT); const cc=document.getElementById('clockChip');
-      const overlayOpen=()=>window.__paused||document.querySelector('.modalBg.on')||document.getElementById('introBg').style.display==='flex';
       const tick=()=>{if(overlayOpen()){return;} cc.textContent='⏱ '+Math.max(0,t)+'s'; cc.style.color=t<=3?CL_HOT():'#a87f1f'; cc.style.borderColor=t<=3?(isDark()?'#7a4a4a':'#e3b6b6'):(isDark()?'#24304b':'#e5e0d4'); if(t<=3&&t>=0)sfx('tick'); if(t--<0){clearInterval(window.__pressT);window.__clockBonus=(window.__clockBonus||0)-1;answer(A.lang==='en'?'(froze — said nothing)':'(se congeló — no dijo nada)',-1,A.lang==='en'?'Freezing is the default under stress — that\u2019s why we practice. Say the line out loud this time.':'Congelarse es lo normal bajo estrés — por eso practicamos. Diga la línea en voz alta esta vez.',0);}};
       tick(); window.__pressT=setInterval(tick,1000);
     } else {const cc=document.getElementById('clockChip');cc.textContent='🕊️';cc.style.color=CL_OK();}
@@ -1393,6 +1392,9 @@ function sfx(kind){try{if(A.sound===false)return;AC=AC||new (window.AudioContext
 }catch(e){}}
 /* steadiness needle + heartbeat */
 let needleRAF=null, needleT0=performance.now();
+// Shared by the countdown clock and the steadiness needle: nothing behind a
+// modal is being looked at, so nothing behind one should be animating.
+function overlayOpen(){return window.__paused||document.querySelector('.modalBg.on')||document.getElementById('introBg').style.display==='flex';}
 function lvlPeriod(){const base=[1.7,1.25,.9,.65][A.lvl]??1.25;const f=Math.min(1.15,Math.max(.55,72/(window.__BPM||72)));return (A.pressure?base*.7:base)*f*1000;}
 function lvlZone(){const w=[38,30,22,16][A.lvl]??30;return A.pressure?w*.8:w;}
 function needlePos(per){per=per||lvlPeriod();const ph=((performance.now()-needleT0)%per)/per;return (Math.sin(ph*Math.PI*2)*.5+.5)*100;}
@@ -1408,7 +1410,33 @@ function startNeedle(){cancelAnimationFrame(needleRAF);
       z.style.boxShadow=inZ?'0 0 0 2px '+CL_OK():'none';
       st.textContent=inZ?T('steadyNow'):T('steadyWait');
       st.style.color=inZ?CL_OK():(isDark()?'#a9b7d4':'#8a8375');}
+    // A backgrounded tab still ran this every frame. The needle's position is
+    // derived from performance.now(), not accumulated per frame, so dropping out
+    // and resuming later lands exactly where it would have been -- no drift, and
+    // no cost while nobody is looking.
+    if(document.hidden||overlayOpen()){needleRAF=null;watchNeedle();return;}
     needleRAF=requestAnimationFrame(loop);};loop();}
+// While the needle is suppressed, something has to notice when it may run again.
+// A DOM observer cannot see window.__paused, and hooking the dismiss click fired
+// before the overlay had actually closed -- which left the needle frozen for the
+// whole drill. A 4Hz watchdog catches every path, and 4 timeouts a second is
+// nothing next to the 60 frames a second it replaces. It only runs while the
+// needle is meant to be live and is currently suppressed.
+var needleWatch=null;
+function needleWanted(){
+  var area=document.getElementById('respArea');
+  return !!area&&!area.classList.contains('hiddenEl');
+}
+function resumeNeedle(){
+  if(needleRAF!==null||document.hidden||overlayOpen()||!needleWanted())return;
+  clearInterval(needleWatch); needleWatch=null;
+  startNeedle();
+}
+function watchNeedle(){
+  if(needleWatch||!needleWanted())return;
+  needleWatch=setInterval(resumeNeedle,250);
+}
+document.addEventListener('visibilitychange',resumeNeedle);
 function steadyCheck(){return Math.abs(needlePos()-50)<=lvlZone()/2;}
 /* tension drone — fades in when BPM climbs */
 let TEN=null;

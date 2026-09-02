@@ -1175,7 +1175,7 @@ render();
 <!-- Cinematic scroll intro: separate script/engine load so a failure here
      (e.g. the engine file 404s) can never break the render() above it —
      the homepage still works with the intro simply absent. -->
-<script src="../scroll-intro/scrollcraft.js"></script>
+<script src="../scroll-intro/scrollcraft.js?v=2026-09-02a"></script>
 <script>
 (function(){
   /* ---- frame manifest ----------------------------------------------------
@@ -1295,9 +1295,22 @@ render();
       var n = Math.max(0, Math.min(words.length, Math.round(best * words.length)));
       if (n !== lastN || lastN === -1){ out.textContent = words.slice(0, n).join(' '); lastN = n; }
       bar.classList.toggle('cl-done', best >= 0.995);
-      requestAnimationFrame(tick);
     }
-    requestAnimationFrame(tick);
+    // Driven by scroll, not by a permanent rAF loop. --sc-p only changes when the
+    // page scrolls, so a self-perpetuating loop repainted nothing 60 times a
+    // second for as long as the tab stayed open -- the page never reached render
+    // idle, which costs battery on a phone and is exactly the kind of background
+    // churn that makes scrolling stutter. rAF-coalesced so a burst of scroll
+    // events still does at most one update per frame.
+    var queued = false;
+    function onScroll(){
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(function(){ queued = false; tick(); });
+    }
+    addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', onScroll, { passive: true });
+    tick();
   }
   // scrollcraft.js is a plain (non-async) script tag directly above this one,
   // so if it loaded at all it is already defined — waiting for window.load was
