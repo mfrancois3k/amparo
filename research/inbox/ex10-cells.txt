@@ -1,0 +1,37 @@
+VA | License (driver ID) | VERIFIED VA §46.2-104 -- driver must write name in officer's presence if required for identification
+VA | Duty to inform (firearm) | VERIFIED VA §18.2-308.01(A) -- display permit + photo ID on demand, not proactive
+VA | Recording own stop | VERIFIED VA §19.2-62 -- one-party consent, not a crime to record own stop as a party
+VA | Officer condition (marked/uniform) | VERIFIED VA §46.2-103 -- stop authority itself requires officer in uniform or displaying badge/sign of authority
+VA | Checkpoint authority | VERIFIED VA §46.2-103 -- general stop-authority section also bars motorcycle-only checkpoints
+VA | Stop-and-ID | VERIFIED VA §19.2-82.1 -- no duty to answer; only falsely identifying self after lawful detention is a Class 1 misdemeanor
+VA | Detention cap | null (VA §19.2-83 REPEALED 1994; the widely-cited 30-minute cap no longer exists, do not cite)
+VA | Pretext / secondary-offense | VERIFIED VA §46.2-1052(P) window tint; §46.2-1003(C) defective/unsafe equipment; §46.2-1013(B) tail lights/plate light; §46.2-1054(B) objects on mirror; §46.2-1094(F) seat belt; §46.2-646 expired registration sticker (grace period); §46.2-1157 expired inspection sticker; §4.1-1302 cannabis odor -- no stop for these violations + evidence inadmissible even with consent (Tier 0, exclusion survives consent)
+WA | Officer condition (marked/uniform) | VERIFIED WA RCW 46.08.065 -- fleet-marking mandate with law-enforcement/undercover exceptions, not a bar on stopping/arresting/citing
+WA | Checkpoint authority | VERIFIED WA RCW 46.64.060/.070 -- checkpoint-relevant authority buried in a catchline with no checkpoint word
+WA | Duty to inform (firearm) | VERIFIED WA RCW 9.41.050(1)(b) -- licensee must display concealed pistol license on demand to any police officer
+WA | Passenger ID | VERIFIED WA RCW 46.61.021(3) -- any person requested to identify during a traffic-infraction investigation has duty to identify and give address, reaches non-drivers
+WA | Stop-and-ID | VERIFIED WA RCW 46.61.021(1) -- any person requested/signaled to stop for a traffic infraction has duty to stop
+WA | Impersonation | VERIFIED WA RCW 9A.60.047(1)(a) -- residual impersonation offense, claims to be a peace officer, sits beneath first-degree offense
+WA | Passenger ID | VERIFIED WA RCW 46.61.020 -- name/address duty limited to person "operating or in charge of" vehicle, excludes passengers (contrast with §46.61.021(3))
+WA | Detention cap | VERIFIED WA RCW 46.64.015 -- detention no longer than reasonably necessary to issue and serve a citation and notice
+WV | Duty to inform (firearm) | null (WV bodies of §§61-7-3,-4,-6,-7,-11a,-14,-17 read; no carry/display clause found despite catchline; 12 sections unread; official host 403s)
+WV | Stop-and-ID | VERIFIED WV §61-5-17(c) -- no duty to answer; knowingly/willfully making a materially false statement to obstruct an investigation is a misdemeanor
+WV | Officer condition (marked/uniform) | null (WV §61-5-17 vehicle-fleeing subsections e-j trigger on "clear visual or audible signal" only, no uniform/marked-vehicle condition)
+WV | Impersonation | VERIFIED WV §61-5-27a(e) -- impersonation statute located and verified
+WV | Passenger ID | null (WV §17C-19-2 reaches a non-driving owner riding in the vehicle but only reallocates liability for the driver's offense; not an identification duty; rejected as a passenger-ID hit)
+WV | Lit-place / safe stop | VERIFIED WV §61-5-17(l) -- excludes a reasonable attempt to reach a safe, surveillable place from the definition of "flee/fleeing/flight" itself; strongest posture found, an element carve-out not a mere defense
+WV | Checkpoint authority | host-blocked (code.wvlegislature.gov 403s fetch tool and browser; wvlegislature.gov redirects into it; only a Justia article-listing read, flagged "sobriety checkpoint" language as tracing to Carte v. Cline syllabus, not verified statutory text)
+WI | Duty to inform (firearm) | VERIFIED WI §175.60(2g)(c) -- licensee carrying concealed weapon must display license document and photo ID on request by an officer; two documents required
+WI | Recording own stop | VERIFIED WI §968.31(2)(a) -- one-party consent, anchor-confirmed, federal-model party/prior-consent exemption
+WI | Stop-and-ID | VERIFIED WI §968.24 -- officer must identify self as law enforcement before demanding name/address on reasonable suspicion (Terry stop codification)
+WI | Officer condition (marked/uniform) | VERIFIED WI §968.24 -- same section's officer-identification clause independently confirms the officer-condition entry
+WI | Detention cap | VERIFIED WI §968.24 -- bare-reasonable category, "reasonable period of time" with no fixed duration
+WI | Checkpoint authority | VERIFIED WI §349.02(2) -- bars stopping or inspecting a vehicle solely to determine compliance absent reasonable cause, described as a "de facto checkpoint ban"
+WY | Officer condition (marked/uniform) | VERIFIED WY §31-5-225(a) -- eluding offense conditioned conjunctively on officer in uniform AND badge displayed AND vehicle appropriately marked
+WY | Duty to inform (firearm) | VERIFIED WY W.S. §6-8-104(b) -- permittee must display permit and ID upon request of any peace officer
+WY | Checkpoint authority | VERIFIED WY §7-17-102 -- fugitive-roadblock authority to apprehend wanted persons, distinct from sobriety checkpoints; AG opinions read it as excluding sobriety checkpoints
+WY | Impersonation | VERIFIED WY §6-3-606 -- single sentence, misdemeanor only, gated on intent to compel action or inaction against the person's will
+DC | Recording own stop | VERIFIED DC §23-542(b) -- one-party consent, anchor-confirmed, federal-model exemption
+DC | Impersonation | VERIFIED DC §22-1404 -- impersonation statute located and verified
+DC | Officer condition (marked/uniform) | VERIFIED DC §50-2201.05b(c)(2) -- factor in an affirmative defense (reasonable belief safety at risk): whether vehicle was clearly marked or officer in uniform/badge
+DC | Lit-place / safe stop | VERIFIED DC §50-2201.05b(c)(4) -- factor in an affirmative defense, not permission: whether defendant stopped at first available reasonably lighted or populated area
