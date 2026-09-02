@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Amparo · Practice the stop before it happens.</title>
+<meta name="description" content="Amparo rehearses a police stop with you until the words come without thinking.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231B2A4A'/></svg>">
+<link rel="stylesheet" href="scrollcraft.css">
+<style>
+  :root {
+    --sc-canvas:     #1B2A4A;
+    --sc-surface:    #121e38;
+    --sc-ink:        #FAF6EE;
+    --sc-ink-soft:   #A9B4CC;
+    --sc-accent:     #E8B84B;
+    --sc-accent-ink: #1B2A4A;
+    --sc-font-display: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+    --sc-font-text:    -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+  }
+
+  /* -------- act 1: recognition -------- */
+  .sc-copy--center .sc-label { display:block; margin-bottom:var(--sc-3); }
+  .sc-copy--center .sc-lede { margin-inline:auto; margin-top:var(--sc-5); }
+  /* scrollcraft.css's own <860px query resets `.sc-copy{inset-inline:...}` for
+     ALL copy variants (it only anticipates lead/trail becoming full-width on
+     mobile), which clobbers --center's `left:50%` and left-anchors the hero
+     text off-centre below 860px. Reinstate centering after it, at the same
+     breakpoint. */
+  @media (max-width: 860px) {
+    .sc-copy--center { inset-inline: auto; left: 50%; max-width: min(90vw, 32rem); }
+  }
+
+  /* -------- act 2: tension (flow) -------- */
+  .tension-wrap { max-width: 46rem; }
+  .tension-rule { height:2px; background:var(--sc-accent); margin-top:var(--sc-7); width:100%; }
+
+  /* -------- act 3: turn / peak -------- */
+  .peak-line { transform: scale(calc(1 + var(--sc-p, 0) * 0.05)); will-change: transform; }
+  @media (prefers-reduced-motion: reduce) { .peak-line { transform:none; } }
+
+  /* -------- signature move: "The Line" -------- */
+  .sc-line-bar {
+    position: fixed; left:0; right:0; bottom:0; z-index: var(--sc-z-chrome);
+    display:flex; align-items:center; min-height: 2.8rem;
+    padding: var(--sc-3) var(--sc-gutter);
+    font-family: var(--sc-font-mono, var(--sc-font-text));
+    font-size: var(--sc-t-sm);
+    letter-spacing: var(--sc-track-wide);
+    color: var(--sc-accent);
+    background: color-mix(in oklab, var(--sc-canvas) 82%, transparent);
+    border-top: 1px solid var(--sc-hairline-strong);
+    backdrop-filter: blur(6px);
+    opacity: 1; transition: opacity var(--sc-d-slow) var(--sc-ease-out);
+    pointer-events: none;
+  }
+  .sc-line-bar--done { opacity: 0; }
+  .sc-line-bar__quote { color: var(--sc-ink-soft); margin-right: var(--sc-2); }
+</style>
+</head>
+<body>
+
+<span data-sc-progress></span>
+<div class="sc-grain" aria-hidden="true"></div>
+
+<main>
+
+  <!-- ACT 1 · Recognition — pin + kinetic, greet cue (hero) -->
+  <section id="scAct1" data-sc-act="pin" data-sc-span="1.9" data-sc-drift="#1B2A4A">
+    <div data-sc-stage>
+      <div class="sc-copy sc-copy--center" data-sc-cue="0 0.8 0">
+        <span class="sc-label">Amparo</span>
+        <h1 class="sc-display sc-display--xl" data-sc-kinetic="lines">Lights in the mirror.</h1>
+        <p class="sc-lede">Every driver has felt this exact half-second.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACT 2 · Tension — flow + reveal wipe (not pinned: a different act family) -->
+  <section id="scAct2" class="sc-section" data-sc-act="flow" data-sc-drift="#121e38">
+    <div class="sc-wrap">
+      <div class="tension-wrap sc-stack" data-sc-in data-sc-stagger="70">
+        <h2 class="sc-display sc-display--lg">It isn't the badge that makes you forget your rights.</h2>
+        <p class="sc-body">It's your own mind, blank, mid-sentence.</p>
+      </div>
+      <div class="tension-wrap tension-rule" data-sc-reveal="left" data-sc-reveal-at="0.05 0.6" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- ACT 3 · Turn (the peak) — pin, largest span, scale from --sc-p, holding close cue -->
+  <section id="scAct3" data-sc-act="pin" data-sc-span="2.6" data-sc-drift="#1B2A4A">
+    <div data-sc-stage>
+      <div class="sc-copy sc-copy--center" data-sc-cue="0.05">
+        <h2 class="sc-display sc-display--xl peak-line" data-sc-kinetic="lines">The words come without thinking.</h2>
+        <p class="sc-lede">Because you practiced them first.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Signature move: "The Line" — a fixed caption that accumulates, word by
+     word, tied to scroll position across all 3 acts above (not to time, not
+     to a kit kinetic stagger), the actual line Amparo's arena rehearses —
+     what arena/index.html itself calls "those nine words". Reading real
+     scroll progress off each act's own --sc-p (written by the engine on the
+     act element every frame), not a bespoke scroll listener duplicating the
+     engine's math. -->
+<div id="scLine" class="sc-line-bar" aria-hidden="true">
+  <span class="sc-line-bar__quote">"</span><span id="scLineWords"></span>
+</div>
+
+<script src="scrollcraft.js"></script>
+<script>
+  ScrollCraft.mount(document.body);
+
+  (function () {
+    var acts = ['scAct1', 'scAct2', 'scAct3'].map(function (id) { return document.getElementById(id); });
+    var words = ['I', 'choose', 'to', 'remain', 'silent.', 'I', 'want', 'a', 'lawyer.'];
+    var out = document.getElementById('scLineWords');
+    var bar = document.getElementById('scLine');
+    if (!out || !bar) return;
+    var lastN = -1;
+    function tick() {
+      // Each act's own --sc-p is already 0 before that act is reached and
+      // clamped to 1 once fully passed, so summing (not index-weighting) the
+      // three gives a monotonic 0..1 across the whole intro: act 1 alone can
+      // only carry the reader to 1/3, act 2 to 2/3, act 3 to the full line.
+      var sum = 0;
+      for (var i = 0; i < acts.length; i++) {
+        var el = acts[i];
+        if (!el) continue;
+        sum += parseFloat(el.style.getPropertyValue('--sc-p')) || 0;
+      }
+      var best = sum / acts.length;
+      var n = Math.max(0, Math.min(words.length, Math.round(best * words.length)));
+      if (n !== lastN) { out.textContent = words.slice(0, n).join(' '); lastN = n; }
+      bar.classList.toggle('sc-line-bar--done', best >= 0.995);
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  })();
+</script>
+</body>
+</html>

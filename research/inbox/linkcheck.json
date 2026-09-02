@@ -1,0 +1,22 @@
+[
+ {
+  "page": "app-src/index.html",
+  "link": "/src/main.tsx",
+  "resolved": "src\\main.tsx"
+ },
+ {
+  "page": "app-src/index.html",
+  "link": "/favicon.svg",
+  "resolved": "favicon.svg"
+ },
+ {
+  "page": "arena/index.html",
+  "link": "../img/scene-",
+  "resolved": "img\\scene-"
+ },
+ {
+  "page": "new/index.html",
+  "link": "arena/",
+  "resolved": "new\\arena"
+ }
+]

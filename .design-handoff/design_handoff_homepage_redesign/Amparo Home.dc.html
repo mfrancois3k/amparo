@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Helvetica,Arial,sans-serif;background:#FAF6EE;color:#22293A;-webkit-font-smoothing:antialiased}
+  html{scroll-behavior:smooth}
+  a{color:#1B2A4A}
+  a:hover{color:#a87f1f}
+  ::selection{background:#F3D48A}
+</style>
+<script src="./image-slot.js"></script>
+</helmet>
+
+<div id="top" style="width:100%;overflow-x:hidden;background:#FAF6EE">
+
+  <nav style="position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px clamp(20px,6vw,64px);background:rgba(250,246,238,0.86);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid #e5e0d4;flex-wrap:wrap">
+    <a href="#top" style="display:flex;align-items:center;gap:10px;text-decoration:none;flex:none">
+      <svg viewBox="0 0 120 120" width="32" height="32"><circle cx="60" cy="72" r="28" fill="none" stroke="#E8B84B" stroke-width="12"></circle><rect x="48" y="56" width="24" height="32" rx="4" fill="#1B2A4A"></rect><path d="M12 62 L60 18 L108 62" fill="none" stroke="#1B2A4A" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span style="font-weight:800;font-size:19px;color:#1B2A4A;letter-spacing:-0.3px">Amparo</span>
+    </a>
+    <div style="display:flex;align-items:center;gap:clamp(14px,3vw,28px);flex-wrap:wrap">
+      <a href="#arena" style="font-size:14.5px;font-weight:600;color:#1B2A4A;text-decoration:none;white-space:nowrap">{{ navPractice }}</a>
+      <a href="#how" style="font-size:14.5px;font-weight:600;color:#1B2A4A;text-decoration:none;white-space:nowrap">{{ navHow }}</a>
+      <a href="#what" style="font-size:14.5px;font-weight:600;color:#1B2A4A;text-decoration:none;white-space:nowrap">{{ navWhat }}</a>
+      <a href="#privacy" style="font-size:14.5px;font-weight:600;color:#1B2A4A;text-decoration:none;white-space:nowrap">{{ navPrivacy }}</a>
+      <a href="#faq" style="font-size:14.5px;font-weight:600;color:#1B2A4A;text-decoration:none;white-space:nowrap">{{ navFaq }}</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px;flex:none">
+      <div style="display:flex;border:1.5px solid #1B2A4A;border-radius:99px;overflow:hidden">
+        <button onClick="{{ setLangEn }}" style="{{ enBtnStyle }}">EN</button>
+        <button onClick="{{ setLangEs }}" style="{{ esBtnStyle }}">ES</button>
+      </div>
+      <a href="https://www.amparohq.com/arena" target="_blank" rel="noopener" style="text-decoration:none;background:#1B2A4A;color:#fff;font-size:14px;font-weight:800;padding:10px 18px;border-radius:99px;white-space:nowrap" style-hover="background:#121e38">{{ navCta }}</a>
+    </div>
+  </nav>
+
+  <section style="max-width:900px;margin:0 auto;padding:clamp(150px,20vw,200px) clamp(24px,6vw,64px) 40px;text-align:center">
+    <div style="display:inline-block;padding:7px 16px;border-radius:99px;background:#F3D48A;color:#6b4d0d;font-size:12.5px;font-weight:800;letter-spacing:.6px;margin-bottom:28px">{{ heroEyebrow }}</div>
+    <h1 style="font-size:clamp(42px,7vw,76px);font-weight:800;color:#1B2A4A;letter-spacing:-0.02em;line-height:1.05;margin:0 0 24px">{{ heroTitle }}</h1>
+    <p style="font-size:clamp(18px,2.2vw,22px);color:#64707D;line-height:1.55;max-width:660px;margin:0 auto 36px">{{ heroSub }}</p>
+    <div style="display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;margin-bottom:22px">
+      <a href="https://www.amparohq.com/arena" target="_blank" rel="noopener" style="text-decoration:none;background:#1B2A4A;color:#fff;font-size:16.5px;font-weight:800;padding:16px 30px;border-radius:99px;box-shadow:0 10px 28px rgba(27,42,74,.28)" style-hover="transform:translateY(-2px);box-shadow:0 14px 34px rgba(27,42,74,.34)">{{ heroCtaLive }} →</a>
+      <a href="https://www.amparohq.com/" target="_blank" rel="noopener" style="text-decoration:none;color:#1B2A4A;font-size:15.5px;font-weight:700;padding:16px 8px" style-hover="color:#a87f1f">{{ heroSecondary }}</a>
+    </div>
+    <p style="font-size:13.5px;color:#64707D;max-width:520px;margin:0 auto">{{ trustLine }}</p>
+  </section>
+
+  <section style="max-width:1180px;margin:0 auto;padding:20px clamp(24px,6vw,64px) clamp(70px,9vw,120px);position:relative">
+    <div style="position:absolute;top:10%;left:50%;width:520px;height:520px;margin-left:-260px;border-radius:50%;background:radial-gradient(circle,rgba(232,184,75,.35),transparent 70%);filter:blur(30px);z-index:0"></div>
+    <div style="position:relative;z-index:1;max-width:400px;margin:0 auto">
+      <div style="background:#0f1c33;border-radius:44px;padding:12px;box-shadow:0 40px 90px rgba(27,42,74,.35)">
+        <div style="background:#1d3557;border-radius:34px;overflow:hidden;display:flex;flex-direction:column;min-height:560px">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:18px 20px 12px">
+            <span style="font-size:11px;font-weight:800;letter-spacing:1.2px;color:#F3D48A;text-transform:uppercase">{{ demoTitle }}</span>
+            <span style="font-size:10.5px;font-weight:800;letter-spacing:.8px;color:#c9d4e8;text-transform:uppercase;border:1px solid rgba(255,255,255,.28);padding:4px 10px;border-radius:99px">{{ demoMood }}</span>
+          </div>
+          <div style="padding:0 20px 6px"><div style="height:4px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden"><div style="{{ demoHeatStyle }}"></div></div></div>
+          <sc-if value="{{ demoIdle }}" hint-placeholder-val="{{ true }}">
+            <div style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:28px 26px;gap:16px">
+              <p style="font-size:16px;color:#e8eef7;line-height:1.55;font-weight:600;margin:0">{{ demoScene }}</p>
+              <p style="font-size:12.5px;color:#9fb0cd;margin:0">{{ demoStartNote }}</p>
+              <button onClick="{{ onDemoStart }}" style="margin-top:8px;padding:14px 26px;border-radius:99px;background:#E8B84B;color:#1B2A4A;font-weight:800;font-size:15px;border:0;cursor:pointer;font-family:inherit" style-hover="transform:translateY(-1px)">{{ demoStartLabel }} →</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ demoActive }}" hint-placeholder-val="{{ false }}">
+            <div style="flex:1;display:flex;flex-direction:column;padding-bottom:6px">
+              <div style="margin:10px 20px 0">
+                <div style="font-size:10px;font-weight:800;letter-spacing:1.2px;color:#9fb0cd;text-transform:uppercase;margin-bottom:6px">{{ demoOfficerLabel }}</div>
+                <div style="padding:14px 16px;border-radius:4px 16px 16px 16px;background:rgba(9,17,34,.6);color:#f2f6ff;font-size:15px;line-height:1.5;font-weight:600">{{ demoOfficer }}</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px;margin:16px 20px 0">
+                <sc-for list="{{ demoChoices }}" as="ch" hint-placeholder-count="2">
+                  <button onClick="{{ ch.onPick }}" style="{{ ch.style }}">{{ ch.text }}</button>
+                </sc-for>
+              </div>
+              <sc-if value="{{ demoShowFeedback }}" hint-placeholder-val="{{ false }}">
+                <div style="{{ demoFeedbackStyle }}">{{ demoFeedbackText }}</div>
+                <button onClick="{{ onDemoNext }}" style="margin:14px 20px 4px;padding:12px;border-radius:99px;background:#E8B84B;color:#1B2A4A;font-weight:800;font-size:14px;border:0;cursor:pointer;font-family:inherit">{{ demoNextBtnLabel }} →</button>
+              </sc-if>
+            </div>
+          </sc-if>
+          <sc-if value="{{ demoDone }}" hint-placeholder-val="{{ false }}">
+            <div style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:28px 26px;gap:10px">
+              <div style="font-size:22px;font-weight:800;color:#fff">{{ demoDoneTitle }}</div>
+              <div style="display:inline-block;padding:8px 18px;border-radius:99px;background:rgba(243,212,138,.16);border:1px solid rgba(243,212,138,.5);color:#F3D48A;font-size:14px;font-weight:800">{{ demoScoreLine }}</div>
+              <p style="font-size:13.5px;color:#c9d4e8;line-height:1.6;margin:6px 0 12px">{{ demoDoneNote }}</p>
+              <a href="https://www.amparohq.com/arena" target="_blank" rel="noopener" style="text-decoration:none;background:#E8B84B;color:#1B2A4A;font-size:14.5px;font-weight:800;padding:13px 24px;border-radius:99px">{{ demoDoneCta }} →</a>
+              <button onClick="{{ onDemoRestart }}" style="background:none;border:0;color:#9fb0cd;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:underline">{{ demoRestartLabel }}</button>
+            </div>
+          </sc-if>
+          <div style="display:flex;justify-content:center;gap:6px;padding:12px 0 18px">
+            <sc-for list="{{ demoDots }}" as="d" hint-placeholder-count="5">
+              <div style="{{ d.style }}"></div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+      <p style="text-align:center;font-size:12.5px;color:#64707D;margin:18px auto 0;max-width:360px">{{ demoCaption }}</p>
+      <p style="text-align:center;font-size:12px;color:#8a93a0;margin:8px auto 0;max-width:360px">{{ demoStateNote }}</p>
+    </div>
+  </section>
+
+  <section id="arena" style="max-width:1180px;margin:0 auto;padding:0 clamp(24px,6vw,64px) clamp(90px,11vw,150px)">
+    <div style="text-align:center;max-width:680px;margin:0 auto 56px">
+      <div style="font-size:12.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:#6b4d0d;margin-bottom:12px">{{ arenaEyebrow }}</div>
+      <h2 style="font-size:clamp(32px,4.5vw,48px);font-weight:800;color:#1B2A4A;letter-spacing:-0.01em;margin:0 0 14px">{{ arenaTitle }}</h2>
+      <p style="font-size:17px;color:#64707D;line-height:1.6;margin:0">{{ arenaSub }}</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-bottom:40px">
+      <sc-for list="{{ arenaScenarios }}" as="scen" hint-placeholder-count="3">
+        <div style="background:#fff;border-radius:22px;padding:28px 26px;border:1px solid #e5e0d4;box-shadow:0 16px 40px rgba(27,42,74,.08)">
+          <span style="{{ scen.badgeStyle }}">{{ scen.statusLabel }}</span>
+          <h3 style="font-size:19px;font-weight:800;color:#1B2A4A;margin:16px 0 8px">{{ scen.title }}</h3>
+          <p style="font-size:14.5px;color:#64707D;line-height:1.6;margin:0">{{ scen.desc }}</p>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:32px">
+      <sc-for list="{{ arenaChips }}" as="chip" hint-placeholder-count="4">
+        <span style="padding:9px 16px;border-radius:99px;background:#f4efe1;border:1px solid #e5e0d4;color:#1B2A4A;font-size:13.5px;font-weight:700">{{ chip }}</span>
+      </sc-for>
+    </div>
+
+    <div style="text-align:center">
+      <p style="font-size:14px;color:#64707D;line-height:1.6;max-width:560px;margin:0 auto 28px">{{ arenaSafety }}</p>
+      <div style="display:flex;gap:18px;justify-content:center;align-items:center;flex-wrap:wrap">
+        <a href="https://www.amparohq.com/arena" target="_blank" rel="noopener" style="text-decoration:none;background:#1B2A4A;color:#fff;font-size:16px;font-weight:800;padding:15px 28px;border-radius:99px;box-shadow:0 10px 28px rgba(27,42,74,.24)" style-hover="transform:translateY(-2px)">{{ arenaCta }} →</a>
+        <a href="https://www.amparohq.com/about" target="_blank" rel="noopener" style="text-decoration:none;color:#1B2A4A;font-size:14.5px;font-weight:700" style-hover="color:#a87f1f">{{ arenaLink }}</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="how" style="max-width:1180px;margin:0 auto;padding:0 clamp(24px,6vw,64px) clamp(90px,11vw,150px)">
+    <div style="text-align:center;max-width:680px;margin:0 auto 64px">
+      <div style="font-size:12.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:#6b4d0d;margin-bottom:12px">{{ howEyebrow }}</div>
+      <h2 style="font-size:clamp(32px,4.5vw,48px);font-weight:800;color:#1B2A4A;letter-spacing:-0.01em;margin:0 0 14px">{{ howTitle }}</h2>
+      <p style="font-size:17px;color:#64707D;margin:0">{{ howSub }}</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:48px 40px">
+      <sc-for list="{{ steps }}" as="step" hint-placeholder-count="4">
+        <div>
+          <div style="font-size:15px;font-weight:800;color:#E8B84B;letter-spacing:.5px;margin-bottom:14px">{{ step.num }}</div>
+          <h3 style="font-size:20px;font-weight:800;color:#1B2A4A;margin:0 0 10px">{{ step.title }}</h3>
+          <p style="font-size:15px;color:#64707D;line-height:1.6;margin:0">{{ step.desc }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width:1180px;margin:0 auto;padding:0 clamp(24px,6vw,64px) clamp(70px,9vw,120px)">
+    <div style="max-width:760px;margin:0 auto;border-radius:28px;overflow:hidden;box-shadow:0 30px 70px rgba(27,42,74,.16);border:1px solid rgba(27,42,74,.08)">
+      <sc-if value="{{ showVisual }}" hint-placeholder-val="{{ true }}">
+        <image-slot id="pack-visual" style="width:100%;height:clamp(260px,36vw,420px)" shape="rect" placeholder="printed pack — window card + documents"></image-slot>
+      </sc-if>
+    </div>
+  </section>
+
+  <section id="what" style="max-width:1180px;margin:0 auto;padding:0 clamp(24px,6vw,64px) clamp(90px,11vw,150px)">
+    <div style="text-align:center;max-width:680px;margin:0 auto 20px">
+      <div style="font-size:12.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:#6b4d0d;margin-bottom:12px">{{ whatEyebrow }}</div>
+      <h2 style="font-size:clamp(32px,4.5vw,48px);font-weight:800;color:#1B2A4A;letter-spacing:-0.01em;margin:0 0 14px">{{ whatTitle }}</h2>
+      <p style="font-size:17px;color:#64707D;margin:0 0 56px">{{ whatNote }}</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:44px 40px">
+      <sc-for list="{{ packItems }}" as="item" hint-placeholder-count="6">
+        <div style="display:flex;gap:14px">
+          <div style="flex:none;width:8px;height:8px;border-radius:50%;background:#E8B84B;margin-top:9px"></div>
+          <div>
+            <h3 style="font-size:17px;font-weight:800;color:#1B2A4A;margin:0 0 6px">{{ item.label }}</h3>
+            <p style="font-size:14.5px;color:#64707D;line-height:1.6;margin:0">{{ item.desc }}</p>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="text-align:center;margin-top:56px;display:flex;flex-direction:column;align-items:center;gap:14px">
+      <span style="display:inline-block;padding:12px 22px;border-radius:99px;background:#fdf6e3;border:1.5px solid #E8B84B;color:#6b4d0d;font-size:14.5px;font-weight:700;max-width:640px">{{ priceLine }}</span>
+      <span style="font-size:13px;color:#64707D;max-width:560px">{{ printerLine }}</span>
+    </div>
+  </section>
+
+  <section id="privacy" style="background:#121e38;padding:clamp(90px,11vw,150px) clamp(24px,6vw,64px)">
+    <div style="max-width:760px;margin:0 auto;text-align:center">
+      <div style="font-size:12.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:#F3D48A;margin-bottom:16px">{{ privacyEyebrow }}</div>
+      <h2 style="font-size:clamp(32px,4.5vw,48px);font-weight:800;color:#fff;letter-spacing:-0.01em;margin:0 0 24px">{{ privacyTitle }}</h2>
+      <p style="font-size:18px;color:#c3cbdb;line-height:1.65;margin:0 0 40px">{{ privacyBody }}</p>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px">
+        <sc-for list="{{ privacyChips }}" as="chip" hint-placeholder-count="4">
+          <span style="padding:9px 16px;border-radius:99px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#e8eef7;font-size:13.5px;font-weight:700">{{ chip }}</span>
+        </sc-for>
+      </div>
+      <p style="font-size:14px;color:#9fb0cd;margin:28px 0 0">{{ offlineLine }}</p>
+    </div>
+  </section>
+
+  <section id="bilingual" style="max-width:1180px;margin:0 auto;padding:clamp(90px,11vw,150px) clamp(24px,6vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:56px;align-items:center">
+    <div style="display:flex;justify-content:center">
+      <div style="display:flex;border:2px solid #1B2A4A;border-radius:99px;overflow:hidden;font-weight:800">
+        <div style="{{ bilingualEnStyle }}">EN</div>
+        <div style="{{ bilingualEsStyle }}">ES</div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:12.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:#6b4d0d;margin-bottom:12px">{{ bilingualEyebrow }}</div>
+      <h2 style="font-size:clamp(28px,4vw,40px);font-weight:800;color:#1B2A4A;letter-spacing:-0.01em;margin:0 0 16px">{{ bilingualTitle }}</h2>
+      <p style="font-size:16.5px;color:#64707D;line-height:1.65;margin:0">{{ bilingualBody }}</p>
+    </div>
+  </section>
+
+  <section id="states" style="max-width:1180px;margin:0 auto;padding:0 clamp(24px,6vw,64px) clamp(90px,11vw,150px)">
+    <div style="text-align:center;max-width:680px;margin:0 auto 48px">
+      <div style="font-size:12.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:#6b4d0d;margin-bottom:12px">{{ stateEyebrow }}</div>
+      <h2 style="font-size:clamp(32px,4.5vw,48px);font-weight:800;color:#1B2A4A;letter-spacing:-0.01em;margin:0 0 14px">{{ stateTitle }}</h2>
+      <p style="font-size:17px;color:#64707D;margin:0 0 8px">{{ stateSub }}</p>
+      <p style="font-size:14px;color:#64707D;margin:0">{{ stateNote }}</p>
+    </div>
+    <div style="border-radius:24px;overflow:hidden;box-shadow:0 24px 60px rgba(27,42,74,.14);border:1px solid #e5e0d4;max-width:920px;margin:0 auto">
+      <image-slot id="state-map" style="width:100%;height:clamp(260px,32vw,420px)" shape="rect" placeholder="US map — TX / GA / NY highlighted"></image-slot>
+    </div>
+  </section>
+
+  <section id="share" style="max-width:760px;margin:0 auto;padding:0 clamp(24px,6vw,64px) clamp(90px,11vw,150px);text-align:center">
+    <div style="font-size:12.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:#6b4d0d;margin-bottom:12px">{{ shareEyebrow }}</div>
+    <h2 style="font-size:clamp(28px,4vw,40px);font-weight:800;color:#1B2A4A;letter-spacing:-0.01em;margin:0 0 14px">{{ shareTitle }}</h2>
+    <p style="font-size:16px;color:#64707D;line-height:1.6;max-width:560px;margin:0 auto 28px">{{ shareBody }}</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="{{ shareWhatsAppUrl }}" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:99px;background:#1B2A4A;color:#fff;font-size:14.5px;font-weight:800" style-hover="background:#121e38">{{ shareWhatsApp }}</a>
+      <a href="{{ shareSmsUrl }}" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:99px;border:1.5px solid #1B2A4A;color:#1B2A4A;font-size:14.5px;font-weight:800" style-hover="background:#f4efe1">{{ shareSms }}</a>
+    </div>
+  </section>
+
+  <section id="orgs" style="max-width:1180px;margin:0 auto;padding:0 clamp(24px,6vw,64px) clamp(90px,11vw,150px)">
+    <div style="background:#fff;border:1px solid #e5e0d4;border-radius:28px;padding:clamp(36px,5vw,56px);box-shadow:0 24px 60px rgba(27,42,74,.1);display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;align-items:center">
+      <div>
+        <div style="font-size:12.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:#6b4d0d;margin-bottom:12px">{{ orgEyebrow }}</div>
+        <h2 style="font-size:clamp(26px,3.5vw,36px);font-weight:800;color:#1B2A4A;letter-spacing:-0.01em;margin:0 0 14px">{{ orgTitle }}</h2>
+        <p style="font-size:15.5px;color:#64707D;line-height:1.65;margin:0 0 22px">{{ orgBody }}</p>
+        <a href="https://www.amparohq.com/orgs" target="_blank" rel="noopener" style="text-decoration:none;display:inline-block;background:#1B2A4A;color:#fff;font-size:14.5px;font-weight:800;padding:13px 24px;border-radius:99px" style-hover="background:#121e38">{{ orgCta }} →</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <sc-for list="{{ orgPoints }}" as="pt" hint-placeholder-count="3">
+          <div style="display:flex;gap:12px;align-items:baseline">
+            <div style="flex:none;width:7px;height:7px;border-radius:50%;background:#E8B84B"></div>
+            <p style="font-size:14.5px;color:#22293A;line-height:1.55;margin:0">{{ pt }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" style="max-width:760px;margin:0 auto;padding:0 clamp(24px,6vw,64px) clamp(90px,11vw,150px)">
+    <div style="text-align:center;margin-bottom:48px">
+      <div style="font-size:12.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:#6b4d0d;margin-bottom:12px">{{ faqEyebrow }}</div>
+      <h2 style="font-size:clamp(32px,4.5vw,44px);font-weight:800;color:#1B2A4A;letter-spacing:-0.01em;margin:0">{{ faqTitle }}</h2>
+    </div>
+    <div>
+      <sc-for list="{{ faq }}" as="item" hint-placeholder-count="7">
+        <div style="border-top:1px solid #e5e0d4;padding:22px 0">
+          <button onClick="{{ item.toggle }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;background:none;border:0;padding:0;cursor:pointer;text-align:left;font-family:inherit">
+            <span style="font-size:18px;font-weight:700;color:#1B2A4A">{{ item.q }}</span>
+            <span style="{{ item.iconStyle }}">+</span>
+          </button>
+          <sc-if value="{{ item.open }}" hint-placeholder-val="{{ false }}">
+            <p style="font-size:15.5px;color:#64707D;line-height:1.65;margin:16px 0 0;max-width:640px">{{ item.a }}</p>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="background:#E8B84B;padding:clamp(70px,9vw,110px) clamp(24px,6vw,64px);text-align:center">
+    <h2 style="font-size:clamp(28px,4.5vw,44px);font-weight:800;color:#1B2A4A;letter-spacing:-0.01em;margin:0 0 12px">{{ finalTitle }}</h2>
+    <p style="font-size:17px;color:#6b4d0d;margin:0 0 30px">{{ finalSub }}</p>
+    <a href="https://www.amparohq.com/arena" target="_blank" rel="noopener" style="text-decoration:none;background:#1B2A4A;color:#fff;font-size:16.5px;font-weight:800;padding:16px 32px;border-radius:99px;box-shadow:0 10px 28px rgba(27,42,74,.3)" style-hover="transform:translateY(-2px)">{{ finalBtn }} →</a>
+  </section>
+
+  <footer style="max-width:1180px;margin:0 auto;padding:56px clamp(24px,6vw,64px) 60px">
+    <div style="display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between;padding-bottom:36px;border-bottom:1px solid #e5e0d4">
+      <div style="display:flex;align-items:center;gap:10px">
+        <svg viewBox="0 0 120 120" width="26" height="26"><circle cx="60" cy="72" r="28" fill="none" stroke="#E8B84B" stroke-width="12"></circle><rect x="48" y="56" width="24" height="32" rx="4" fill="#1B2A4A"></rect><path d="M12 62 L60 18 L108 62" fill="none" stroke="#1B2A4A" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <span style="font-weight:800;font-size:16px;color:#1B2A4A">Amparo</span>
+      </div>
+      <div style="display:flex;gap:28px;flex-wrap:wrap">
+        <a href="#arena" style="font-size:14px;font-weight:600;color:#1B2A4A;text-decoration:none;white-space:nowrap">{{ navPractice }}</a>
+        <a href="#how" style="font-size:14px;font-weight:600;color:#1B2A4A;text-decoration:none;white-space:nowrap">{{ navHow }}</a>
+        <a href="#what" style="font-size:14px;font-weight:600;color:#1B2A4A;text-decoration:none;white-space:nowrap">{{ navWhat }}</a>
+        <a href="#privacy" style="font-size:14px;font-weight:600;color:#1B2A4A;text-decoration:none;white-space:nowrap">{{ navPrivacy }}</a>
+        <a href="#faq" style="font-size:14px;font-weight:600;color:#1B2A4A;text-decoration:none;white-space:nowrap">{{ navFaq }}</a>
+      </div>
+    </div>
+    <p style="font-size:12.5px;color:#64707D;line-height:1.6;margin:24px 0 12px;max-width:720px">{{ footerDisclaimer }}</p>
+    <p style="font-size:12px;color:#8a93a0;margin:0">{{ footerCopyright }}</p>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultLanguage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;en&quot;,&quot;options&quot;:[&quot;en&quot;,&quot;es&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Behavior&quot;},&quot;showHeroVisual&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;},&quot;faqLayout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;accordion&quot;,&quot;options&quot;:[&quot;accordion&quot;,&quot;expanded&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
+
+const EN = {
+  navPractice: "Practice", navHow: "Build the pack", navWhat: "What's included", navPrivacy: "Privacy", navFaq: "FAQ", navCta: "Practice a stop",
+  heroEyebrow: "Know your rights · Conoce tus derechos",
+  heroTitle: "Practice the stop before it happens.",
+  heroSub: "A free scenario trainer for a real traffic stop — an officer's lines play out loud, and you answer in your own voice while the pressure rises. Then a bilingual pack for your glovebox: your documents, your state's rules, and every word to say.",
+  heroCta: "Practice a stop", heroSecondary: "Build my pack instead",
+  trustLine: "Free. Everything stays on this phone unless you choose to save your pack to an optional free account. Photos and practice history never upload.",
+  arenaEyebrow: "Practice Arena", arenaTitle: "Now rehearse it.",
+  arenaSub: "The pack goes in your glovebox. This has to go in your head. Run a scenario out loud, with spoken officer lines and your own voice talking back — two minutes each.",
+  arenaScenarios: [
+    { live: true, statusLabel: "Live", title: "Traffic stop", desc: "Six situations, calm to felony-style, at gunpoint. The officer's tone escalates as you go." },
+    { live: true, statusLabel: "Live", title: "Checkpoint", desc: "A fixed Border Patrol checkpoint — not a traffic stop. Different rules, different questions. Applies in all 50 states." },
+    { live: false, statusLabel: "Coming soon", title: "At your door", desc: "Police at your door is a different encounter with different rules, and it deserves its own rehearsal. It isn't here yet because every officer line and every answer we mark correct has to be checked by a lawyer first — and because a knock at the door is often a domestic-violence call, which changes what safe advice even looks like. We'd rather ship it late than ship it wrong." }
+  ],
+  arenaChips: ["Spoken officer lines", "Answer by tap, voice, or text", "Pressure rises like the real thing", "Streaks & badges", "Gentle mode — no clock or heartbeat", "Passengers get scenarios too"],
+  arenaSafety: "This is practice, not legal advice, and laws vary by state. Doing your part lowers risk — it can't remove it. You're in control: pause or stop anytime.",
+  arenaCta: "Practice a full stop — 2 minutes", arenaLink: "Why can't practice make a stop 100% safe? →",
+  demoTitle: "Routine Traffic Stop", demoMoodCalm: "Calm", demoMoodTense: "Tense",
+  demoScene: "You're pulled over at dusk. Officer is approaching.",
+  demoStartNote: "No mic, no account — answer by tapping.", demoStartLabel: "Try a 60-second demo",
+  demoOfficerLabel: "Officer", demoNextLabel: "Next", demoResultsLabel: "See how you did",
+  demoDoneTitle: "Scenario complete", demoDoneNote: "The full Arena runs 24 scenarios with spoken lines, voice answers, streaks and badges.",
+  demoRestartLabel: "Run it again", demoDoneCta: "Open the full Arena",
+  demoCaption: "Live demo — one of 24 scenarios, in legal review. The real Arena speaks its lines out loud.",
+  demoStateNote: "Practice, not legal advice. Rules differ by state — a few require answering certain questions. Your pack carries your state's rules.",
+  heroCtaReturn: "Continue where you left off",
+  printerLine: "No printer? Everything works on-screen — print later at a library or a friend's.",
+  offlineLine: "Loads once, then works with no signal — built for prepaid data and dead zones.",
+  shareEyebrow: "Send it to someone", shareTitle: "The people who need this most won't search for it.",
+  shareBody: "Send it to someone you love — before they need it. One link, in their language.",
+  shareWhatsApp: "Share on WhatsApp", shareSms: "Share by text",
+  shareMsg: "Practice a traffic stop before it happens — free, bilingual, nothing leaves your phone. https://www.amparohq.com",
+  orgEyebrow: "Amparo for organizations",
+  orgTitle: "Put your name on it. That's what makes it travel.",
+  orgBody: "Churches, legal-aid clinics, unions, student groups: run a know-your-rights night with printed packs and a facilitator guide. Invoice-friendly. No member data collected — nothing to collect.",
+  orgCta: "Get packs for your group",
+  orgPoints: ["Bulk printed packs in English and Spanish, ready to hand out", "A facilitator guide for running practice sessions in a room", "Your organization's name on the packet — the endorsement that makes people trust it"],
+  howEyebrow: "Build the pack", howTitle: "Four steps, one glovebox pack.",
+  howSub: "No account. No download. Ready in the time it takes to fill a tank of gas.",
+  steps: [
+    { title: "Pick your state", desc: "Texas, Georgia and New York have their own statutes cited line by line. Every other state gets the federal rights that apply everywhere — marked so you know the difference." },
+    { title: "Add you and your documents", desc: "Photos of your license and insurance get printed inside the window card — the officer sees them without you reaching for anything." },
+    { title: "Get your lifelines", desc: "Verified channels for your state — with honest labels, because a number that doesn't answer is worse than no number. They print on your wallet card too." },
+    { title: "Print your pack", desc: "Six pages — 1–4 live in the car; 5–6 stay at home. Print on regular paper; the window card works best in a clear sleeve." }
+  ],
+  whatEyebrow: "What's included", whatTitle: "What's actually in your pack",
+  whatNote: "Keep carrying a general rights card too — this doesn't replace one. Amparo adds what most general cards aren't built to include:",
+  packItems: [
+    { label: "Cited to your state's actual statute", desc: "Transp. Code, O.C.G.A., or VTL sections you can look up yourself — not just constitutional wording. Formal attorney sign-off is still in progress, state by state." },
+    { label: "Your state's real hotlines", desc: "211, a legal-aid directory QR code, and immigration hotlines matched to TX/GA/NY specifically." },
+    { label: "A traffic-stop script + incident log", desc: "A 7-step stop script, a get-their-info script, and a 24-hour incident log — built for the driver's seat." },
+    { label: "What to do if it goes wrong", desc: "Your state's actual legal deadline to file a claim, how to keep bodycam/dashcam footage from being deleted, and exactly who to file a complaint with." },
+    { label: "Personalized to you", desc: "Your name, a backup emergency contact, and documents already printed into the pack." },
+    { label: "A family emergency plan", desc: "Who picks up your kids, where documents are kept, a script for parents if you get the call, plus consulate numbers." }
+  ],
+  priceLine: "Free. No card, no account required. One optional $3.99 script pack exists inside the Arena — that's the whole business model. No surprise paywall.",
+  privacyEyebrow: "Privacy", privacyTitle: "Nothing leaves your phone unless you say so.",
+  privacyBody: "Amparo works with no account at all, and that is the default. If you choose to create one to save your pack across devices, it stores only your pack's text — state, names, phone numbers, ZIP — on our server. Your document photos and your practice history are never uploaded, with or without an account: there is nowhere on the server to put them.",
+  privacyChips: ["Photos stay on your device", "Practice history stays on device", "No account required", "Attorney review in progress"],
+  bilingualEyebrow: "Bilingual", bilingualTitle: "Every scenario, every page — in English and Spanish.",
+  bilingualBody: "Flip the switch at the top of this page. Every scenario in the Practice Arena, every step of the pack builder, and every word you're meant to say — spoken and printed — work the same way in Spanish.",
+  stateEyebrow: "State coverage", stateTitle: "Works in all 50 states.",
+  stateSub: "Your federal rights apply everywhere, and every pack carries them. Texas, Georgia and New York add statute-level citations on top — more states on the way.",
+  stateNote: "Formal attorney sign-off per state is in progress — every rule already cites the exact statute so you can check it yourself.",
+  faqEyebrow: "FAQ", faqTitle: "Questions worth asking",
+  faq: [
+    { q: "What is the Practice Arena?", a: "A scenario trainer for a real traffic stop. An officer's lines play out loud, tone rising with each level, and you answer in your own voice. You're in control — pause or stop any time." },
+    { q: "Does practicing guarantee a safe stop?", a: "No. This is practice, not legal advice, and laws vary by state. Doing your part lowers risk — it can't remove it." },
+    { q: "Is this legal advice?", a: "Amparo provides general legal information, not legal advice. Every rule is cited to the exact state statute so you can check it yourself; formal attorney sign-off per state is in progress." },
+    { q: "What does it cost?", a: "Free. No card, no subscription, and no account required — an account is optional, only for saving your pack across devices." },
+    { q: "What happens to my photos?", a: "These photos never leave your device — they go straight into your printout and nowhere else. They are never uploaded and never emailed." },
+    { q: "Do I need an account?", a: "Works without an account, always. An optional free account saves this pack's text (state, names, numbers, ZIP) so a lost or wiped phone doesn't mean starting over. Document photos and practice history never leave this device." },
+    { q: "Is it really bilingual?", a: "Yes — every scenario, every card, every screen, and the printed pack itself switch fully between English and Spanish. Use the toggle at the top of this page." }
+  ],
+  footerDisclaimer: "Amparo provides general legal information, not legal advice. Every rule is cited to the exact state statute so you can check it yourself; formal attorney sign-off per state is in progress. Phone numbers verified July 16, 2026.",
+  footerCopyright: "© 2026 Amparo · Pilot edition · General legal information, not legal advice · Every rule cited to state statute · Attorney sign-off in progress · Numbers verified 7/16/2026",
+  finalTitle: "Practice the stop before it happens.", finalSub: "Free scenario practice, and a free bilingual pack — both ready before you need them.", finalBtn: "Practice a stop"
+};
+
+const ES = {
+  navPractice: "Practicar", navHow: "Crear el paquete", navWhat: "Qué incluye", navPrivacy: "Privacidad", navFaq: "Preguntas", navCta: "Practicar una parada",
+  heroEyebrow: "Know your rights · Conoce tus derechos",
+  heroTitle: "Practica la parada antes de que pase.",
+  heroSub: "Un entrenador de escenarios gratuito para una parada de tráfico real — las frases del oficial se reproducen en voz alta, y tú respondes con tu propia voz mientras sube la presión. Después, un paquete bilingüe para tu guantera: tus documentos, las reglas de tu estado y cada palabra que debes decir.",
+  heroCta: "Practicar una parada", heroSecondary: "Mejor crear mi paquete",
+  trustLine: "Gratis. Todo se queda en este teléfono, salvo que elijas guardar tu paquete en una cuenta gratuita opcional. Las fotos y el historial de práctica nunca se suben.",
+  arenaEyebrow: "Arena de Práctica", arenaTitle: "Ahora ensáyalo.",
+  arenaSub: "El paquete va en tu guantera. Esto tiene que estar en tu cabeza. Haz un escenario en voz alta, con frases del oficial habladas y tu propia voz respondiendo — dos minutos cada uno.",
+  arenaScenarios: [
+    { live: true, statusLabel: "En vivo", title: "Parada de tráfico", desc: "Seis situaciones, de calma a estilo felonía, a punta de pistola. El tono del oficial sube a medida que avanzas." },
+    { live: true, statusLabel: "En vivo", title: "Retén", desc: "Un retén fijo de la Patrulla Fronteriza — no es una parada de tráfico. Reglas distintas, preguntas distintas. Aplica en los 50 estados." },
+    { live: false, statusLabel: "Próximamente", title: "En tu puerta", desc: "La policía en tu puerta es un encuentro distinto, con reglas distintas, y merece su propio ensayo. No está aquí todavía porque cada frase del oficial y cada respuesta que marcamos como correcta tiene que revisarla un abogado primero — y porque un toque en la puerta muchas veces es una llamada por violencia doméstica, lo que cambia qué consejo es seguro. Preferimos publicarlo tarde que publicarlo mal." }
+  ],
+  arenaChips: ["Frases del oficial habladas", "Responde con toque, voz o texto", "La presión sube como en la vida real", "Rachas e insignias", "Modo suave — sin reloj ni latido", "También escenarios para pasajeros"],
+  arenaSafety: "Esto es práctica, no asesoría legal, y las leyes varían por estado. Hacer tu parte reduce el riesgo — no puede eliminarlo. Tú tienes el control: pausa o detente cuando quieras.",
+  arenaCta: "Practicar una parada completa — 2 minutos", arenaLink: "¿Por qué la práctica no puede hacer una parada 100% segura? →",
+  demoTitle: "Parada de tráfico rutinaria", demoMoodCalm: "Calmada", demoMoodTense: "Tensa",
+  demoScene: "Le detienen al anochecer. El oficial se acerca.",
+  demoStartNote: "Sin micrófono, sin cuenta — responde tocando.", demoStartLabel: "Prueba una demo de 60 segundos",
+  demoOfficerLabel: "Oficial", demoNextLabel: "Siguiente", demoResultsLabel: "Ver resultado",
+  demoDoneTitle: "¡Escenario completado!", demoDoneNote: "La Arena completa tiene 24 escenarios con frases habladas, respuestas por voz, rachas e insignias.",
+  demoRestartLabel: "Repetir", demoDoneCta: "Abrir la Arena completa",
+  demoCaption: "Demo en vivo — uno de 24 escenarios, en revisión legal. La Arena real habla sus frases en voz alta.",
+  demoStateNote: "Práctica, no asesoría legal. Las reglas varían por estado — algunos exigen responder ciertas preguntas. Tu paquete lleva las reglas de tu estado.",
+  heroCtaReturn: "Continúa donde quedaste",
+  printerLine: "¿Sin impresora? Todo funciona en pantalla — imprime después en una biblioteca o con alguien de confianza.",
+  offlineLine: "Carga una vez y funciona sin señal — hecho para datos prepagados y zonas sin cobertura.",
+  shareEyebrow: "Envíalo a alguien", shareTitle: "Quienes más lo necesitan no lo van a buscar.",
+  shareBody: "Envíaselo a alguien que quieres — antes de que lo necesite. Un enlace, en su idioma.",
+  shareWhatsApp: "Compartir por WhatsApp", shareSms: "Compartir por mensaje",
+  shareMsg: "Practica una parada de tráfico antes de que pase — gratis, bilingüe, nada sale de tu teléfono. https://www.amparohq.com",
+  orgEyebrow: "Amparo para organizaciones",
+  orgTitle: "Pon tu nombre en él. Eso es lo que lo hace llegar.",
+  orgBody: "Iglesias, clínicas de ayuda legal, sindicatos, grupos estudiantiles: organiza una noche de conoce-tus-derechos con paquetes impresos y una guía para facilitadores. Con factura. No se recolectan datos de miembros — no hay nada que recolectar.",
+  orgCta: "Paquetes para tu grupo",
+  orgPoints: ["Paquetes impresos al por mayor en inglés y español, listos para repartir", "Una guía para facilitar sesiones de práctica en grupo", "El nombre de tu organización en el paquete — el respaldo que genera confianza"],
+  howEyebrow: "Crear el paquete", howTitle: "Cuatro pasos, un paquete para la guantera.",
+  howSub: "Sin cuenta. Sin descargas. Listo en el tiempo que toma llenar el tanque.",
+  steps: [
+    { title: "Elige tu estado", desc: "Texas, Georgia y Nueva York tienen sus propias leyes citadas línea por línea. Los demás estados reciben los derechos federales que aplican en todas partes — marcados para que sepas la diferencia." },
+    { title: "Agrega tus datos y documentos", desc: "Las fotos de tu licencia y seguro se imprimen dentro de la tarjeta de ventana — el oficial las ve sin que tengas que buscar nada." },
+    { title: "Conoce tus líneas de ayuda", desc: "Canales verificados de tu estado — con etiquetas honestas, porque un número que no contesta es peor que ningún número. También se imprimen en tu tarjeta de cartera." },
+    { title: "Imprime tu paquete", desc: "Seis páginas — las 1–4 van en el carro; la 5–6 se quedan en casa. Imprime en papel normal; la tarjeta de ventana funciona mejor en una funda transparente." }
+  ],
+  whatEyebrow: "Qué incluye", whatTitle: "Qué incluye realmente tu paquete",
+  whatNote: "Sigue llevando una tarjeta de derechos general también — esto no la reemplaza. Amparo agrega lo que la mayoría de las tarjetas generales no incluyen:",
+  packItems: [
+    { label: "Cita la ley exacta de tu estado", desc: "Artículos del Código de Transporte, O.C.G.A. o VTL que puedes verificar tú mismo — no solo texto constitucional. La revisión formal por abogado sigue en curso, estado por estado." },
+    { label: "Las líneas reales de tu estado", desc: "211, un código QR al directorio de ayuda legal, y líneas de inmigración específicas para TX/GA/NY." },
+    { label: "Guion para la parada + registro de incidente", desc: "Un guion de 7 pasos, un guion para pedir los datos del oficial, y un registro de incidente de 24 horas — hecho para el asiento del conductor." },
+    { label: "Qué hacer si algo sale mal", desc: "El plazo legal real de tu estado para presentar un reclamo, cómo evitar que borren el video de la cámara corporal o del tablero, y con quién presentar una queja exactamente." },
+    { label: "Personalizado para ti", desc: "Tu nombre, un contacto de emergencia de respaldo y documentos ya impresos en el paquete." },
+    { label: "Un plan familiar de emergencia", desc: "Quién recoge a tus hijos, dónde están los documentos, un guion para los padres si reciben la llamada, y números de consulados." }
+  ],
+  priceLine: "Gratis. Sin tarjeta, sin cuenta obligatoria. Existe un paquete de guiones opcional de $3.99 dentro de la Arena — ese es todo el modelo de negocio. Sin muros de pago sorpresa.",
+  privacyEyebrow: "Privacidad", privacyTitle: "Nada sale de tu teléfono, salvo que tú lo decidas.",
+  privacyBody: "Amparo funciona sin ninguna cuenta, y así es por defecto. Si eliges crear una para guardar tu paquete entre dispositivos, solo se guarda el texto de tu paquete — estado, nombres, teléfonos, código postal — en nuestro servidor. Tus fotos de documentos y tu historial de práctica nunca se suben, con cuenta o sin ella: no hay dónde guardarlos en el servidor.",
+  privacyChips: ["Tus fotos quedan en tu dispositivo", "El historial de práctica queda en tu dispositivo", "Sin cuenta obligatoria", "Revisión de abogado en curso"],
+  bilingualEyebrow: "Bilingüe", bilingualTitle: "Cada escenario, cada página — en inglés y español.",
+  bilingualBody: "Cambia el interruptor en la parte superior de esta página. Cada escenario de la Arena de Práctica, cada paso del creador de paquetes y cada palabra que debes decir — hablada e impresa — funciona igual en español.",
+  stateEyebrow: "Cobertura por estado", stateTitle: "Funciona en los 50 estados.",
+  stateSub: "Tus derechos federales aplican en todas partes, y cada paquete los incluye. Texas, Georgia y Nueva York agregan citas a nivel de ley estatal — más estados en camino.",
+  stateNote: "La revisión formal por abogado de cada estado está en curso — cada regla ya cita el artículo exacto para que lo verifiques tú mismo.",
+  faqEyebrow: "Preguntas", faqTitle: "Preguntas que vale la pena hacer",
+  faq: [
+    { q: "¿Qué es la Arena de Práctica?", a: "Un entrenador de escenarios para una parada de tráfico real. Las frases del oficial se reproducen en voz alta, con un tono que sube en cada nivel, y tú respondes con tu propia voz. Tú tienes el control — pausa o detente cuando quieras." },
+    { q: "¿Practicar garantiza una parada segura?", a: "No. Esto es práctica, no asesoría legal, y las leyes varían por estado. Hacer tu parte reduce el riesgo — no puede eliminarlo." },
+    { q: "¿Esto es asesoría legal?", a: "Amparo ofrece información legal general, no asesoría legal. Cada regla cita el artículo exacto de la ley estatal para que usted mismo lo verifique; la revisión formal por un abogado en cada estado está en curso." },
+    { q: "¿Cuánto cuesta?", a: "Gratis. Sin tarjeta, sin suscripción y sin cuenta obligatoria — la cuenta es opcional, solo para guardar tu paquete entre dispositivos." },
+    { q: "¿Qué pasa con mis fotos?", a: "Estas fotos nunca salen de tu dispositivo — van directo a tu impresión y a ningún otro lugar. Nunca se suben ni se envían por correo." },
+    { q: "¿Necesito una cuenta?", a: "Funciona sin cuenta, siempre. Una cuenta gratuita opcional guarda el texto de este paquete (estado, nombres, números, código postal) para que perder el teléfono no signifique empezar de cero. Las fotos y el historial de práctica nunca salen de este dispositivo." },
+    { q: "¿De verdad es bilingüe?", a: "Sí — cada escenario, cada tarjeta, cada pantalla y el paquete impreso cambian completamente entre inglés y español. Usa el interruptor en la parte superior de esta página." }
+  ],
+  footerDisclaimer: "Amparo ofrece información legal general, no asesoría legal. Cada regla cita el artículo exacto de la ley estatal para que usted mismo lo verifique; la revisión formal por un abogado en cada estado está en curso. Números verificados el 16 de julio de 2026.",
+  footerCopyright: "© 2026 Amparo · Edición piloto · Información legal general, no asesoría legal · Cada regla citada a la ley estatal · Revisión por abogado en curso · Números verificados 16/7/2026",
+  finalTitle: "Practica la parada antes de que pase.", finalSub: "Práctica de escenarios gratis, y un paquete bilingüe gratis — ambos listos antes de que los necesites.", finalBtn: "Practicar una parada"
+};
+
+const DEMO_TURNS = [
+  { o: { en: "Good evening. License and registration, please.", es: "Buenas noches. Licencia y registración, por favor." }, c: [
+    { t: { en: "“My documents are in the glovebox — reaching for them now.”", es: "«Mis documentos están en la guantera — voy a alcanzarlos.»" }, p: 1, f: { en: "Announcing movement keeps hands accounted for.", es: "Anunciar el movimiento mantiene las manos a la vista." } } ] },
+  { o: { en: "Do you know why I stopped you?", es: "¿Sabe por qué lo detuve?" }, c: [
+    { t: { en: "“I'd rather not guess, officer.”", es: "«Prefiero no adivinar, oficial.»" }, p: 1, f: { en: "A guess can be used as an admission.", es: "Una suposición puede usarse como admisión." } },
+    { t: { en: "“Probably the speed… sorry, I was rushing.”", es: "«Quizás la velocidad… perdón, iba con prisa.»" }, p: -1, branch: true, f: { en: "That's an admission — and now they'll dig. Watch what happens.", es: "Eso es una admisión — y ahora van a indagar. Vea lo que pasa." } } ] },
+  { o: { en: "Where are you coming from tonight?", es: "¿De dónde viene esta noche?" }, c: [
+    { t: { en: "“I choose to remain silent.”", es: "«Elijo guardar silencio.»" }, p: 1, f: { en: "One calm sentence. You owe no itinerary.", es: "Una frase con calma. No debe un itinerario." } },
+    { t: { en: "Explain your whole evening", es: "Explicar toda su noche" }, p: 0, f: { en: "Not illegal — but every detail can be probed.", es: "No es ilegal — pero cada detalle puede ser explorado." } } ] },
+  { o: { en: "Mind if I take a quick look in the car?", es: "¿Le importa si echo un vistazo al carro?" }, c: [
+    { t: { en: "“I do not consent to a search.”", es: "«No doy consentimiento a un registro.»" }, p: 1, f: { en: "Protects you in court even if they search anyway.", es: "Le protege en corte aunque registren de todos modos." } },
+    { t: { en: "“Go ahead, I have nothing to hide.”", es: "«Adelante, no tengo nada que esconder.»" }, p: -1, f: { en: "Consent waives your strongest 4th Amendment protection.", es: "El consentimiento renuncia a su mayor protección de la 4ª Enmienda." } } ] },
+  { o: { en: "Alright. Wait here.", es: "Bien. Espere aquí." }, c: [
+    { t: { en: "When they return: “Am I free to go?”", es: "Cuando regresen: «¿Soy libre de irme?»" }, p: 1, f: { en: "If yes — leave calmly. If no, you're detained: stay silent.", es: "Si dicen sí — váyase con calma. Si no, está detenido: silencio." } } ] }
+];
+const DEMO_BRANCH = { o: { en: "Speeding, huh. So how fast do you think you were going?", es: "Con prisa, ¿eh? ¿Y qué tan rápido cree que iba?" }, c: [
+  { t: { en: "Recover: “I choose to remain silent.”", es: "Recuperarse: «Elijo guardar silencio.»" }, p: 1, f: { en: "Good recovery — you can invoke silence at ANY point, even after talking.", es: "Buena recuperación — puede invocar el silencio en CUALQUIER momento, incluso después de hablar." } },
+  { t: { en: "“Maybe 10 over? I really am sorry…”", es: "«Quizás 10 de más. De verdad lo siento…»" }, p: -1, f: { en: "A number seals the admission. The apology doesn't offset it.", es: "Un número sella la admisión. La disculpa no la compensa." } } ] };
+
+class Component extends DCLogic {
+  state = { lang: null, openFaq: 0, returning: false, demo: { on: false, t: 0, branch: false, picked: -1, heat: 12, score: 0, scored: 0, done: false } };
+
+  componentDidMount() {
+    try {
+      if (localStorage.getItem("amparo_demo_played")) this.setState({ returning: true });
+    } catch (e) {}
+  }
+
+  demoSet(patch) { this.setState(s => ({ demo: { ...s.demo, ...patch } })); }
+  demoPick(i) {
+    const s = this.state.demo; if (s.picked >= 0) return;
+    const turn = s.branch ? DEMO_BRANCH : DEMO_TURNS[s.t]; const ch = turn.c[i];
+    const heat = Math.max(6, Math.min(100, s.heat + (ch.p === 1 ? -4 : ch.p === 0 ? 14 : 26)));
+    this.demoSet({ picked: i, heat, score: s.score + (ch.p === 1 ? 1 : 0), scored: s.scored + 1 });
+  }
+  demoNext() {
+    const s = this.state.demo;
+    const turn = s.branch ? DEMO_BRANCH : DEMO_TURNS[s.t]; const ch = turn.c[s.picked];
+    if (!s.branch && ch && ch.branch) { this.demoSet({ branch: true, picked: -1 }); return; }
+    const nt = s.t + 1;
+    if (nt >= DEMO_TURNS.length) this.demoSet({ done: true });
+    else this.demoSet({ branch: false, t: nt, picked: -1 });
+  }
+  demoRestart() { this.setState({ demo: { on: true, t: 0, branch: false, picked: -1, heat: 12, score: 0, scored: 0, done: false } }); }
+  demoStart() {
+    this.demoSet({ on: true });
+    try { localStorage.setItem("amparo_demo_played", "1"); } catch (e) {}
+  }
+
+  renderVals() {
+    const lang = this.state.lang || (this.props.defaultLanguage === "es" ? "es" : "en");
+    const c = lang === "es" ? ES : EN;
+    const isEn = lang === "en";
+    const baseBtn = "padding:6px 14px;border:0;background:transparent;color:#1B2A4A;cursor:pointer;font-weight:800;font-size:13px;transition:background .2s,color .2s;font-family:inherit;";
+    const activeBtn = "background:#1B2A4A;color:#fff;";
+    const faqLayout = this.props.faqLayout || "accordion";
+    const faq = c.faq.map((f, i) => {
+      const open = faqLayout === "expanded" || this.state.openFaq === i;
+      return {
+        ...f, open,
+        toggle: () => this.setState(s => ({ openFaq: s.openFaq === i ? -1 : i })),
+        iconStyle: "flex:none;width:24px;height:24px;border-radius:50%;background:#f4efe1;color:#1B2A4A;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;transition:transform .25s;transform:rotate(" + (open ? "45deg" : "0deg") + ")"
+      };
+    });
+    const steps = c.steps.map((s, i) => ({ ...s, num: String(i + 1).padStart(2, "0") }));
+    const liveBadge = "display:inline-block;padding:5px 12px;border-radius:99px;background:#F3D48A;color:#6b4d0d;font-size:11.5px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap";
+    const soonBadge = "display:inline-block;padding:5px 12px;border-radius:99px;background:#f4efe1;color:#8a93a0;font-size:11.5px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap";
+    const arenaScenarios = c.arenaScenarios.map(s => ({ ...s, badgeStyle: s.live ? liveBadge : soonBadge }));
+    const dm = this.state.demo;
+    const dTurn = dm.branch ? DEMO_BRANCH : DEMO_TURNS[Math.min(dm.t, DEMO_TURNS.length - 1)];
+    const chBase = "text-align:left;font-family:inherit;cursor:pointer;border-radius:14px;padding:13px 15px;font-size:14px;font-weight:600;line-height:1.45;border:1.5px solid rgba(27,42,74,.15);background:rgba(255,255,255,.95);color:#1B2A4A;transition:opacity .2s,border-color .2s;";
+    const demoChoices = dTurn.c.map((ch, i) => {
+      let st = chBase;
+      if (dm.picked >= 0) {
+        st += "pointer-events:none;";
+        st += dm.picked === i ? (ch.p === 1 ? "border-color:#2e9e68;border-width:2px;" : ch.p === 0 ? "border-color:#d9a62c;border-width:2px;" : "border-color:#d05b47;border-width:2px;") : "opacity:.4;";
+      }
+      return { text: ch.t[lang], onPick: () => this.demoPick(i), style: st };
+    });
+    const picked = dm.picked >= 0 ? dTurn.c[dm.picked] : null;
+    const fkind = picked ? picked.p : 0;
+    const demoFeedbackStyle = "margin:14px 20px 0;padding:12px 14px;border-radius:12px;font-size:13px;line-height:1.5;font-weight:600;" + (fkind === 1 ? "background:#e6f4ec;color:#1e6b43;" : fkind === 0 ? "background:#fdf6e3;color:#8a6512;" : "background:#fdecea;color:#a13527;");
+    const isLast = !dm.branch && dm.t === DEMO_TURNS.length - 1;
+    const demoDots = DEMO_TURNS.map((_, i) => {
+      const cur = i === dm.t && !dm.done;
+      const doneDot = i < dm.t || dm.done;
+      return { style: "width:7px;height:7px;border-radius:50%;background:" + (cur ? "#F3D48A" : doneDot ? "rgba(243,212,138,.55)" : "rgba(255,255,255,.22)") };
+    });
+    const demoScoreLine = (lang === "en" ? "Safe answers: " : "Respuestas seguras: ") + dm.score + (lang === "en" ? " of " : " de ") + dm.scored;
+    return {
+      ...c, faq, steps, arenaScenarios,
+      demoIdle: !dm.on, demoActive: dm.on && !dm.done, demoDone: dm.done,
+      demoOfficer: dTurn.o[lang], demoChoices,
+      demoShowFeedback: dm.picked >= 0, demoFeedbackText: picked ? picked.f[lang] : "", demoFeedbackStyle,
+      demoNextBtnLabel: isLast ? c.demoResultsLabel : c.demoNextLabel,
+      demoDots, demoScoreLine,
+      demoHeatStyle: "height:100%;border-radius:99px;transition:width .5s;width:" + dm.heat + "%;background:" + (dm.heat > 60 ? "#e07a5f" : "#E8B84B"),
+      demoMood: dm.heat > 60 ? c.demoMoodTense : c.demoMoodCalm,
+      onDemoStart: () => this.demoStart(),
+      heroCtaLive: this.state.returning ? c.heroCtaReturn : c.heroCta,
+      shareWhatsAppUrl: "https://wa.me/?text=" + encodeURIComponent(c.shareMsg),
+      shareSmsUrl: "sms:?&body=" + encodeURIComponent(c.shareMsg),
+      onDemoNext: () => this.demoNext(),
+      onDemoRestart: () => this.demoRestart(),
+      setLangEn: () => this.setState({ lang: "en" }),
+      setLangEs: () => this.setState({ lang: "es" }),
+      enBtnStyle: baseBtn + (isEn ? activeBtn : ""),
+      esBtnStyle: baseBtn + (!isEn ? activeBtn : ""),
+      bilingualEnStyle: "padding:14px 26px;font-size:15px;" + (isEn ? "background:#1B2A4A;color:#fff;" : "color:#1B2A4A;"),
+      bilingualEsStyle: "padding:14px 26px;font-size:15px;" + (!isEn ? "background:#1B2A4A;color:#fff;" : "color:#1B2A4A;"),
+      showVisual: this.props.showHeroVisual ?? true
+    };
+  }
+}
+
+</script>
+</body>
+</html>

@@ -1346,6 +1346,61 @@
 })();
 function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) return; if(window.posthog&&posthog.capture) posthog.capture(ev,props||{}); }catch(e){} }
 </script>
+
+<!-- ============ SCROLL INTRO (scrollcraft) ============
+     A short scroll-driven prelude above the welcome card, built with the
+     scrollcraft engine (scroll-intro/scrollcraft.{css,js} — vendored as-is,
+     never hand-edited; theme with tokens only, see scroll-intro/BRIEF.md in
+     the source repo for the design brief). scrollcraft.css's own global reset
+     restyles <body> (background/color/font/line-height) for a page that owns
+     its whole document; this page does not, so those declarations are
+     restored to Amparo's real values right after the stylesheet loads. -->
+<link rel="stylesheet" href="scroll-intro/scrollcraft.css">
+<style>
+  :root{
+    --sc-canvas:#1B2A4A; --sc-surface:#121e38; --sc-ink:#FAF6EE; --sc-ink-soft:#A9B4CC;
+    --sc-accent:#E8B84B; --sc-accent-ink:#1B2A4A;
+    --sc-font-display:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    --sc-font-text:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+  }
+  /* Background is deliberately NOT restored here: scrollcraft's drift device
+     paints the page ground by writing --sc-canvas onto <body> as the visitor
+     scrolls #scIntro, going navy-to-navy across its 3 acts. #appRoot below
+     gets its own explicit cream background instead, so the wizard is back on
+     Amparo's real ground the instant the intro ends, regardless of whatever
+     --sc-canvas last resolved to. */
+  body{color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;font-size:16px;line-height:1.55;letter-spacing:normal}
+  #appRoot{background:var(--cream);position:relative;z-index:1}
+  /* `color` is inherited as a computed value, so restoring body's own --ink
+     above (for #appRoot's benefit) does not re-ink text under #scIntro just
+     because --sc-ink resolves differently there — same trap taste.md warns
+     about for any section that inverts a ground mid-page. .sc-display (h1/h2)
+     sets no color of its own, unlike .sc-lede/.sc-label, so it fell back to
+     inheritance — and lost to Amparo's own global `h1{color:var(--navy)}` /
+     `h2{...}` (line ~142), since a rule that directly targets an element
+     always wins over an inherited value regardless of that rule's own
+     specificity. Targeting the elements directly, not just the ancestor,
+     is what actually beats it. */
+  #scIntro{color:var(--sc-ink)}
+  #scIntro h1, #scIntro h2{color:var(--sc-ink)}
+  #scIntro .sc-copy--center .sc-label{display:block;margin-bottom:var(--sc-3)}
+  #scIntro .sc-copy--center .sc-lede{margin-inline:auto;margin-top:var(--sc-5)}
+  @media (max-width:860px){ #scIntro .sc-copy--center{inset-inline:auto;left:50%;max-width:min(90vw,32rem)} }
+  #scIntro .si-tension{max-width:46rem}
+  #scIntro .si-rule{height:2px;background:var(--sc-accent);margin-top:var(--sc-7);width:100%}
+  #scIntro .si-peak{transform:scale(calc(1 + var(--sc-p,0) * 0.05));will-change:transform}
+  @media (prefers-reduced-motion:reduce){ #scIntro .si-peak{transform:none} }
+  #scLine{
+    position:fixed;left:0;right:0;bottom:0;z-index:var(--sc-z-chrome);
+    display:flex;align-items:center;min-height:2.8rem;padding:var(--sc-3) var(--sc-gutter);
+    font-family:var(--sc-font-mono,var(--sc-font-text));font-size:var(--sc-t-sm);letter-spacing:var(--sc-track-wide);
+    color:var(--sc-accent);background:color-mix(in oklab, var(--sc-canvas) 82%, transparent);
+    border-top:1px solid var(--sc-hairline-strong);backdrop-filter:blur(6px);
+    opacity:1;transition:opacity var(--sc-d-slow) var(--sc-ease-out);pointer-events:none;
+  }
+  #scLine.si-done{opacity:0}
+  #scLine .si-quote{color:var(--sc-ink-soft);margin-right:var(--sc-2)}
+</style>
 </head>
 <body>
 
@@ -1354,6 +1409,61 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
   <svg class="slogo" viewBox="0 0 120 120" fill="none" id="logoBig" role="img" aria-label="Amparo logo"></svg>
   <div class="sname" id="snameEl" aria-label="Amparo">Amparo</div>
   <div class="stag">Know your rights · Conoce tus derechos</div>
+</div>
+
+<!-- ============ SCROLL INTRO ============
+     Copy is picked once, from document.documentElement.lang, by the mount
+     script at the end of body (after restore() has settled the saved/
+     detected language — see scroll-intro/BRIEF.md). It does not hot-swap on
+     a later EN/ES toggle: the kinetic headline split below mutates the DOM
+     once at mount, and re-splitting on a live language change needs a full
+     teardown the engine doesn't expose. A visitor who switches language
+     after scrolling past this section keeps seeing it in whichever language
+     it mounted in — every other string on the page still swaps normally. -->
+<div id="scIntro">
+  <span data-sc-progress></span>
+  <div class="sc-grain" aria-hidden="true"></div>
+  <!-- Not <main>: #appRoot below is the page's real content landmark. A
+       second <main> here would shadow it for a11y tooling and anything that
+       greps the page for its main content (confirmed: it did, during
+       verification — get_page_text returned only this section's copy). -->
+  <div>
+    <section id="scAct1" data-sc-act="pin" data-sc-span="1.9" data-sc-drift="#1B2A4A">
+      <div data-sc-stage>
+        <div class="sc-copy sc-copy--center">
+          <span class="sc-label" id="siLabel">Amparo</span>
+          <!-- data-sc-cue lives on the SAME element as data-sc-kinetic: the
+               engine reads both off one node (it splits q.el, the cue
+               element, never a descendant), so a cue on a wrapper with
+               kinetic on a child inside it — the shape the skill's own
+               template.html shows — never actually splits. Confirmed by
+               reading scrollcraft.js's cue/splitText pass, not assumed. -->
+          <h1 class="sc-display sc-display--xl" data-sc-kinetic="lines" data-sc-cue="0 0.8 0" id="siH1">Lights in the mirror.</h1>
+          <p class="sc-lede" id="siLede1">Every driver has felt this exact half-second.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="scAct2" class="sc-section" data-sc-act="flow" data-sc-drift="#121e38">
+      <div class="sc-wrap">
+        <div class="si-tension sc-stack" data-sc-in data-sc-stagger="70">
+          <h2 class="sc-display sc-display--lg" id="siH2">It isn't the badge that makes you forget your rights.</h2>
+          <p class="sc-body" id="siBody2">It's your own mind, blank, mid-sentence.</p>
+        </div>
+        <div class="si-tension si-rule" data-sc-reveal="left" data-sc-reveal-at="0.05 0.6" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section id="scAct3" data-sc-act="pin" data-sc-span="2.6" data-sc-drift="#1B2A4A">
+      <div data-sc-stage>
+        <div class="sc-copy sc-copy--center">
+          <h2 class="sc-display sc-display--xl si-peak" data-sc-kinetic="lines" data-sc-cue="0.05" id="siH3">The words come without thinking.</h2>
+          <p class="sc-lede" id="siLede3">Because you practiced them first.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div id="scLine" aria-hidden="true"><span class="si-quote">&ldquo;</span><span id="scLineWords"></span></div>
 </div>
 
 <div class="app" id="appRoot">
@@ -1379,14 +1489,14 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
        Deliberately separate from the attorney-review line below: "sources
        checked" and "a person read this" are different claims. -->
   <p class="lawcheck" id="lawCheck" style="display:none"></p>
-  <p class="reachus"><button type="button" class="linklike" id="fbBtn" onclick="ph('sr_feedback_opened',{lang:lang});openFeedback()"></button></p>
+  <p class="reachus"><button type="button" class="linklike" id="fbBtn" onclick="ph('sr_feedback_opened',{lang:lang});openFeedback()">Something wrong, or something missing? Tell us.</button></p>
   <p class="disclaimer" data-i="disclaimer">Amparo provides general legal information, not legal advice. Every rule is cited to the exact state statute so you can check it yourself; formal attorney sign-off per state is in progress. Phone numbers verified July 16, 2026.</p>
 </div>
 
 
 <div id="docOverlay" role="dialog" aria-modal="true" aria-label="The truth we can't practice away / La verdad que no se puede ensayar">
   <div class="ab-card">
-    <div class="ab-top"><div class="ab-title"></div><button class="ab-x" onclick="closeDoc()"></button></div>
+    <div class="ab-top"><div class="ab-title"></div><button class="ab-x" onclick="closeDoc()" aria-label="Close"></button></div>
     <div class="ab-body"></div>
   </div>
 </div>
@@ -1422,7 +1532,7 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
 
 <div id="aboutOverlay" role="dialog" aria-modal="true" aria-label="About Amparo / Acerca de Amparo">
   <div class="ab-card">
-    <div class="ab-top"><div class="ab-title"></div><button class="ab-x" onclick="closeAbout()"></button></div>
+    <div class="ab-top"><div class="ab-title"></div><button class="ab-x" onclick="closeAbout()" aria-label="Close"></button></div>
     <div class="ab-body"></div>
   </div>
 </div>
@@ -1447,7 +1557,7 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
      (AirDrop, Signal, anything installed) is still one tap away. -->
 <div id="shareOverlay" role="dialog" aria-modal="true" aria-label="Share Amparo / Comparte Amparo">
   <div class="ab-card sh-card">
-    <div class="ab-top"><div class="ab-title"></div><button class="ab-x" onclick="shareClose()"></button></div>
+    <div class="ab-top"><div class="ab-title"></div><button class="ab-x" onclick="shareClose()" aria-label="Close"></button></div>
     <div class="ab-body" id="shareBody"></div>
   </div>
 </div>
@@ -2922,7 +3032,17 @@ function render(){
   }else{
     if(window.SRMotion) SRMotion.screenIn();
     if(window.SRMotion&&SRMotion.pop&&step===0) SRMotion.pop('#screen .trust-chip',.25);
-    window.scrollTo({top:0});
+    /* Step 0 (the welcome card) sits below the new scroll-intro (#scIntro),
+       so a plain scrollTo(0) here would drag a visitor already mid-wizard
+       back up through it on every single step change. Only the welcome card
+       itself scrolls to the true top; every other step scrolls to the top of
+       the wizard (#appRoot), which is where it always used to land visually
+       before #scIntro existed. */
+    if(step===0){ window.scrollTo({top:0}); }
+    else{
+      var _appTop=document.getElementById('appRoot');
+      if(_appTop) _appTop.scrollIntoView({block:'start'}); else window.scrollTo({top:0});
+    }
   }
 }
 
@@ -3643,7 +3763,7 @@ function buildPrint(){
               <div class="es">${lang==='es'?r.en:r.es}</div></div>
             </div>`).join('')}
           ${QR[data.state]
-            ? `<div class="qrbox"><img src="${QR[data.state]}" width="52" height="52" style="border-radius:6px;display:block"><div style="font-size:9.5px;color:#6b7280;line-height:1.4">${lang==='es'?('Escanee para el directorio gratuito de ayuda legal de su estado: '+QR_URL[data.state]):('Scan for your state\'s free legal-aid directory: '+QR_URL[data.state])}</div></div>`
+            ? `<div class="qrbox"><img alt="QR code linking to the official state statute" src="${QR[data.state]}" width="52" height="52" style="border-radius:6px;display:block"><div style="font-size:9.5px;color:#6b7280;line-height:1.4">${lang==='es'?('Escanee para el directorio gratuito de ayuda legal de su estado: '+QR_URL[data.state]):('Scan for your state\'s free legal-aid directory: '+QR_URL[data.state])}</div></div>`
             /* No state QR yet: point at the national directory. Falling back to
                another state's QR would send, say, a California driver to New
                York legal aid — worse than showing no code at all. */
@@ -4234,6 +4354,59 @@ document.addEventListener('keydown',e=>{
   if(e.shiftKey&&document.activeElement===first){ e.preventDefault(); last.focus(); }
   else if(!e.shiftKey&&document.activeElement===last){ e.preventDefault(); first.focus(); }
 });
+</script>
+
+<!-- Mounted last, after restore() above has settled document.documentElement.lang
+     (from a saved preference or first-visit browser-language detection), so the
+     copy picked here matches what the visitor already sees everywhere else on
+     first paint. -->
+<script src="scroll-intro/scrollcraft.js"></script>
+<script>
+(function(){
+  var COPY={
+    en:{label:'Amparo', h1:'Lights in the mirror.', lede1:'Every driver has felt this exact half-second.',
+        h2:"It isn't the badge that makes you forget your rights.", body2:"It's your own mind, blank, mid-sentence.",
+        h3:'The words come without thinking.', lede3:'Because you practiced them first.',
+        line:['I','choose','to','remain','silent.','I','want','a','lawyer.']},
+    es:{label:'Amparo', h1:'Luces en el espejo.', lede1:'Todo conductor ha sentido este medio segundo exacto.',
+        h2:'No es la placa lo que le hace olvidar sus derechos.', body2:'Es su propia mente, en blanco, a media frase.',
+        h3:'Las palabras salen sin pensar.', lede3:'Porque las practicó primero.',
+        line:['Elijo','guardar','silencio.','Quiero','un','abogado.']}
+  };
+  var lang=document.documentElement.lang==='es'?'es':'en';
+  var c=COPY[lang];
+  var set=function(id,text){ var el=document.getElementById(id); if(el) el.textContent=text; };
+  set('siLabel',c.label); set('siH1',c.h1); set('siLede1',c.lede1);
+  set('siH2',c.h2); set('siBody2',c.body2); set('siH3',c.h3); set('siLede3',c.lede3);
+
+  ScrollCraft.mount(document.getElementById('scIntro'));
+
+  // Signature move — "The Line": a fixed caption that accumulates, word by
+  // word, the actual line Amparo's own arena rehearses (arena/index.html
+  // calls it "those nine words"), tied to real scroll position across all 3
+  // acts above rather than to time or a kit kinetic stagger. Reads --sc-p —
+  // written by the engine on each act element every frame — instead of
+  // duplicating the engine's own scroll math.
+  var acts=['scAct1','scAct2','scAct3'].map(function(id){ return document.getElementById(id); });
+  var words=c.line;
+  var out=document.getElementById('scLineWords');
+  var bar=document.getElementById('scLine');
+  if(!out||!bar) return;
+  var lastN=-1;
+  function tick(){
+    var sum=0;
+    for(var i=0;i<acts.length;i++){
+      var el=acts[i]; if(!el) continue;
+      sum+=parseFloat(el.style.getPropertyValue('--sc-p'))||0;
+    }
+    var best=sum/acts.length;
+    var n=Math.max(0,Math.min(words.length,Math.round(best*words.length)));
+    if(n!==lastN){ out.textContent=words.slice(0,n).join(' '); lastN=n; }
+    bar.classList.toggle('si-done',best>=0.995);
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
 </script>
 </body>
 </html>
