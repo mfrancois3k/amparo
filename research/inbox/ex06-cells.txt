@@ -1,0 +1,39 @@
+MT | Stop-and-ID | VERIFIED §46-5-401(2) -- officer may "request" name/address of any stopped person, "demand" driver's license only from the driver
+MT | License (driver ID) | VERIFIED §46-5-401(2)(a) -- officer may demand the driver's license after a lawful stop
+MT | Recording own stop | VERIFIED §45-8-213(1)(c),(2)(a)(i) -- wiretap reaches only hidden recording; carve-out for recording public officials/police in official duty, one-party warning permits recording
+MT | Passenger ID | null (PASS 29 -- MT §46-5-401 "occupant" language re-read; it widens stop authority, not a passenger duty; no identify obligation on occupant)
+MT | Officer condition (marked/uniform) | VERIFIED §46-5-401(2)(a) -- officer shall promptly inform person of reason for stop, with two named exceptions
+MT | Duty to inform (firearm) | null MEDIUM-HIGH (PASS 21 -- Title 45 ch.8 pt.3 full index read, §§45-8-316/-321 full-texted, no inform duty found; several sections repealed by 2021 permitless-carry law, pre-repeal text not checked)
+MT | Detention cap | LIKELY §46-5-403 -- "Duration of stop" anchored to abstract "purpose of the stop", weaker anchor than task-listed states
+MT | Checkpoint authority | VERIFIED §46-5-502, §46-5-510 -- sobriety-checkpoint prong requires written plan, supervisory pre-approval, site drawing, and 48-hour advance notice to major media outlets; also authorizes fugitive roadblocks §46-5-502(1)(a)
+NE | Sign citation | VERIFIED §29-427 -- failing to furnish satisfactory ID sits in same exception list as refusing to sign; both cost release/custody
+NE | Ticket vs arrest | VERIFIED §29-427 -- refusal (ID or signature) removes eligibility for citation-release, Category "costs release, bond, or custody"
+NE | Duty to inform (firearm) | VERIFIED §28-1202.04(2) -- proactive duty, must immediately inform peace officer OR emergency services personnel of concealed handgun; only state extending duty to paramedics/firefighters
+NE | Officer condition (marked/uniform) | VERIFIED §60-683(4) -- officer's power to require driver to stop and exhibit license is conditioned on being "in uniform"
+NE | License (driver ID) | VERIFIED §60-683(4) -- officer in uniform may require driver to stop and exhibit operator's license
+NE | Stop-and-ID | VERIFIED §29-829 -- RETRACTION of earlier Category-A claim: officer may demand name/address/explanation, but word "refus" never appears; no penalty for silence, Category B
+NE | Checkpoint authority | null (PASS 34 -- §60-683(4) is buried-in-general-stop pattern like MI §257.715, but lacks the systematic-program limb, so it is a null rather than checkpoint authority)
+NE | Consent to search | VERIFIED §20-504 -- Tier 3, reported-datum only: officer records that a search occurred, does not distinguish consent searches, no driver-facing rule
+NE | Recording own stop | VERIFIED §86-290(b) -- party/prior-consent exception to eavesdropping statute (federal-model wiretap exemption)
+NV | Recording own stop | VERIFIED NRS 200.650 -- prohibits only "surreptitiously" recording a "private" conversation; two limiters stacked, open recording of own stop outside statute
+NV | Sign citation | VERIFIED §484A.630 -- if person refuses to accept a civil-infraction citation, officer's signed copy constitutes proof of service; refusal changes nothing
+NV | Officer condition (marked/uniform) | VERIFIED NRS 484B.550 -- eluding offense reaches a driver who flees "a peace officer in a readily identifiable vehicle"; condition on the offense, not a roadside right
+NV | Passenger ID | null MODERATE-HIGH (PASS 23 -- NRS 484B and 483 indexes read plus five occupant-conduct sections fetched and rejected, no passenger-ID duty found)
+NV | Impersonation | VERIFIED NRS §199.430 -- result-gated ("whereby another is injured or defrauded"), gross misdemeanor, no vehicle-specific aggravated form, no separate police-impersonation section
+NV | Detention cap | VERIFIED §171.123(4) -- 60-minute hard ceiling plus a geographic limit (must not extend beyond immediate vicinity of the stop)
+NV | Stop-and-ID | VERIFIED §171.123(3) -- detained person must identify self but "may not be compelled to answer any other inquiry"; identity-only compulsion limiter
+NV | Checkpoint authority | VERIFIED §484B.007, §484B.570, §484B.573 -- no sobriety-checkpoint authority in NRS 484B chapter; occupant identification permitted only under the fugitive-roadblock provision (§484B.573)
+NH | Recording own stop | VERIFIED RSA 570-A:1(II) -- oral communication covered only if speaker had "reasonable expectation" of privacy under justifying circumstances; a uniformed officer on a public road does not clear that bar
+NH | Duty to inform (firearm) | null HIGH (full text of RSA ch.159 §§159:1-159:27 read; only "notify" hit was §159:6-b, an address-change provision, not a stop duty; six other firearm chapters 159-A through 159-F not full-texted)
+NH | Officer condition (marked/uniform) | VERIFIED RSA §265:4, I(c) -- duty to stop is conditioned on officer being in uniform, conspicuously displaying a badge, or using authorized emergency signals
+NH | Stop-and-ID | VERIFIED RSA §265:4, I(a)-(b) -- Category D: criminalizes giving a false name/DOB/address that would hinder identification, but no penalty for mere silence; duty limited to person "driving or in charge of a vehicle"
+NH | Passenger ID | null (RSA §265:4's "driving or in charge of a vehicle" formula is a driver-limiting term of art that excludes passengers, same construction as MA and WA)
+NH | Checkpoint authority | VERIFIED RSA §265:1-a -- strictest checkpoint regime found: no sobriety checkpoint may be established without petitioning superior court for a prior judicial authorization order
+NH | Consent to search | VERIFIED RSA 595-A:10 -- full procedural regime (Tier 1): officer must expressly advise of right to refuse, that refusal is not basis for suspicion/arrest/further detention, must cease questioning on refusal, consent must be documented by signed form or recording; breach makes evidence inadmissible [remedy: exclusion of all evidence obtained]
+NJ | Recording own stop | VERIFIED §2A:156A-4(d) -- lawful for a person "not acting under color of law" to intercept where a party to the communication or one party consented, unless for a criminal/tortious purpose
+NJ | Duty to inform (firearm) | VERIFIED §2C:58-4.4(b) -- proactive duty, must disclose handgun carried or stored in vehicle and display permit; violation of disclosure is a crime of the fourth degree [remedy: criminal charge for nondisclosure]
+NJ | License (driver ID) | VERIFIED §39:3-29 -- driver-ID/license-display column, closed at 51/51 coverage
+NJ | Ticket vs arrest | VERIFIED §39:5-25 -- officer may, instead of arresting, serve a summons upon the offender
+NJ | Officer condition (marked/uniform) | null MEDIUM-HIGH (§2C:29-2 eluding read -- signal only, no officer/vehicle condition; §39:4-57, §39:5-25, §39:3-85.6 also read; "NJ bars unmarked-car stops" traces only to unenacted bills A2310/A225/A2301/A343)
+NJ | Stop-and-ID | VERIFIED §2C:29-3(b)(4) -- Category D: hindering own apprehension by giving false information; silence appears nowhere in the section
+NJ | Consent to search | UNVERIFIED (protection is case law only -- State v. Carty (2002) plus AG Directive 2005-1 require independent reasonable suspicion before a consent search; not codified in N.J.S.A.)
