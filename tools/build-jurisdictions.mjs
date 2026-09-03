@@ -178,7 +178,10 @@ export async function run({ root = ROOT, check = false } = {}) {
   for (const [key, rel] of Object.entries(ARTIFACTS)) {
     const abs = path.join(root, rel)
     const current = await readFile(abs, 'utf8').catch(() => null)
-    if (current === files[key]) continue
+    /* Compare line-ending-agnostic: on Windows with core.autocrlf, git hands
+       the working copy back with CRLF after a checkout or rebase, which is
+       not staleness. .gitattributes pins these files to LF too. */
+    if (current !== null && current.replace(/\r\n/g, '\n') === files[key]) continue
     stale.push(rel)
     if (!check) {
       await mkdir(path.dirname(abs), { recursive: true })

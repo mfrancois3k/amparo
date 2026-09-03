@@ -3,6 +3,13 @@ import { httpAction } from './_generated/server'
 import { internal } from './_generated/api'
 import { planFromEvent } from './lib/plan.ts'
 import { PRODUCTS } from './lib/products.ts'
+import { clientKey, LIMITS } from './lib/rateLimit.ts'
+
+/* Per-client fixed window on the two public endpoints that spend money or
+ * call Stripe (lib/rateLimit.ts). A denied request writes nothing and says
+ * only "too many requests". */
+const TOO_MANY = (cors: Record<string, string>) =>
+  new Response(JSON.stringify({ error: 'too many requests' }), { status: 429, headers: { ...cors, 'Content-Type': 'application/json', 'Retry-After': '3600' } })
 
 /* Stripe webhook — fulfillment is recorded ONLY from Stripe's signed event,
  * never from the client's success redirect. Signature verification needs the
@@ -61,6 +68,8 @@ http.route({
   path: '/checkout',
   method: 'POST',
   handler: httpAction(async (ctx, request) => {
+    const allowed = await ctx.runMutation(internal.rateLimit.hit, { key: clientKey(request.headers.get('x-forwarded-for'), 'checkout'), ...LIMITS.checkout })
+    if (!allowed) return TOO_MANY(CORS)
     let product = ''
     let state: string | undefined
     let lang: string | undefined
@@ -82,14 +91,16 @@ http.route({
       })
     } catch (e) {
       const msg = e instanceof Error ? e.message : 'error'
-      const status = msg.includes('not configured')
-        ? 503
+      /* The status carries the meaning; the body never echoes the thrown
+         message, which for a Stripe failure can describe our configuration. */
+      const [status, error] = msg.includes('not configured')
+        ? [503, 'payments not configured']
         : msg.includes('Unknown product')
-          ? 400
+          ? [400, 'unknown product']
           : msg.includes('not available yet')
-            ? 409 // priced but held — see PRODUCTS.held in stripe.ts
-            : 500
-      return new Response(JSON.stringify({ error: msg }), {
+            ? [409, 'not available yet'] // priced but held — see PRODUCTS.held in lib/products.ts
+            : [500, 'checkout failed']
+      return new Response(JSON.stringify({ error }), {
         status,
         headers: { ...CORS, 'Content-Type': 'application/json' },
       })
@@ -113,6 +124,8 @@ http.route({
   path: '/redeem',
   method: 'POST',
   handler: httpAction(async (ctx, request) => {
+    const allowed = await ctx.runMutation(internal.rateLimit.hit, { key: clientKey(request.headers.get('x-forwarded-for'), 'redeem'), ...LIMITS.redeem })
+    if (!allowed) return TOO_MANY(CORS)
     let sessionId = ''
     try {
       sessionId = String(((await request.json()) as { sessionId?: string }).sessionId ?? '')

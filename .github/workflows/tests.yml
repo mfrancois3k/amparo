@@ -1,0 +1,43 @@
+name: tests
+
+# Every guard in this repo used to run only on the laptop. The daily
+# law-watch bot commits straight to main, and a stale generated page or a
+# regressed money path would ship without anyone noticing. This runs the
+# same commands the local `npm test` and the guard scripts run, on every
+# push and pull request, with no secrets and no network beyond npm.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      # Unit suites: node --test, native TS type stripping, zero dependencies.
+      - name: npm test
+        run: npm test
+
+      # Regex guards over the shipped files (fulfilment path, deep links).
+      - name: fulfilment and arena guards
+        run: |
+          node tools/test-fulfilment.mjs
+          node tools/test-arena-deeplink.mjs
+
+      # Generated artifacts must match their generators.
+      - name: generated data is current
+        run: node tools/build-jurisdictions.mjs --check
+
+      # The Convex functions type-check against the committed _generated bindings.
+      - name: convex typecheck
+        working-directory: app-src
+        run: |
+          npm ci --ignore-scripts
+          npx tsc -p convex/tsconfig.json --noEmit

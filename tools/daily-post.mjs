@@ -92,7 +92,7 @@ const CTA = {
 };
 
 async function buildPool() {
-  const src = await readFile(path.join(ROOT, 'index.html'), 'utf8');
+  const src = await readFile(path.join(ROOT, 'pack.html'), 'utf8');
   const STATES = extractLiteral(src, 'STATES', '{', '}');
   const BASE = { en: extractLiteral(src, 'BASE_RULES_EN', '[', ']'), es: extractLiteral(src, 'BASE_RULES_ES', '[', ']') };
   const pool = [];

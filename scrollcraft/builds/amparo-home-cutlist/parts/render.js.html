@@ -32,7 +32,7 @@ function encounterHtml(e, L){
 function render(){
   const c = t();
   renderNav(c);
-  const dt = document.getElementById('dealTrigger'); if (dt) dt.querySelector('.t').textContent = c.dealTrigger;
+  const dt = document.getElementById('dealTrigger'); if (dt) { dt.querySelector('.t').textContent = c.dealTrigger; dt.setAttribute('aria-label', c.dealTrigger); } // the .t span is hidden on narrow screens, so the name lives on the button too
   const nc = document.getElementById('navCta'); if (nc && c.navCta) nc.textContent = c.navCta;
   const heroCtaLabel = returning ? c.heroCtaReturn : c.heroCta;
   const shareWaUrl = 'https://wa.me/?text='+encodeURIComponent(c.shareMsg);

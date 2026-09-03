@@ -36,7 +36,7 @@ test('emphasis follows the postures that change what you do; LIKELY becomes a fl
 
 test('Spanish view is Spanish', () => {
   const v = hudFor('FL', 'es', bank)
-  assert.match(v.lines.find((l) => l.id === 'sign')!.text, /Firma la multa/)
+  assert.match(v.lines.find((l) => l.id === 'sign')!.text, /Firme la multa/)
   assert.match(v.notice, /Florida/)
   assert.doesNotMatch(v.lines.map((l) => l.text).join(' '), /Sign the ticket/)
 })
@@ -59,7 +59,7 @@ test('every state renders in both languages with no holes', () => {
     for (const lang of ['en', 'es'] as const) {
       const v = hudFor(code, lang, bank)
       assert.ok(v.lines.length >= 8, `${code} ${lang}`)
-      assert.match(v.notice, new RegExp(bank.states[code].name), code)
+      assert.match(v.notice, new RegExp(lang === 'es' ? (bank.states[code].nameEs ?? bank.states[code].name) : bank.states[code].name), code)
       for (const l of v.lines) assert.doesNotMatch(l.text, /undefined|\{|—/, `${code}/${l.id}`)
     }
   }

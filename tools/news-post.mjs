@@ -317,7 +317,7 @@ export function render(post, lang, timely, law) {
 }
 
 async function lawFor(post, lang) {
-  const src = await readFile(path.join(ROOT, 'index.html'), 'utf8');
+  const src = await readFile(path.join(ROOT, 'pack.html'), 'utf8');
   if (post.law.src === 'BASE') {
     const arr = extractLiteral(src, lang === 'es' ? 'BASE_RULES_ES' : 'BASE_RULES_EN', '[', ']');
     const rule = arr[post.law.i];

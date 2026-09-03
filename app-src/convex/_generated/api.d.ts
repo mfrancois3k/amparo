@@ -17,9 +17,11 @@ import type * as lib_plan from "../lib/plan.js";
 import type * as lib_products from "../lib/products.js";
 import type * as lib_providers from "../lib/providers.js";
 import type * as lib_queue from "../lib/queue.js";
+import type * as lib_rateLimit from "../lib/rateLimit.js";
 import type * as orders from "../orders.js";
 import type * as packs from "../packs.js";
 import type * as purchases from "../purchases.js";
+import type * as rateLimit from "../rateLimit.js";
 import type * as stripe from "../stripe.js";
 
 import type {
@@ -38,9 +40,11 @@ declare const fullApi: ApiFromModules<{
   "lib/products": typeof lib_products;
   "lib/providers": typeof lib_providers;
   "lib/queue": typeof lib_queue;
+  "lib/rateLimit": typeof lib_rateLimit;
   orders: typeof orders;
   packs: typeof packs;
   purchases: typeof purchases;
+  rateLimit: typeof rateLimit;
   stripe: typeof stripe;
 }>;
 

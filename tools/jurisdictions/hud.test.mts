@@ -2,7 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import { parseMatrix } from './parse.mjs'
-import { compileAll, compileState, LINE_IDS } from './hud.mjs'
+import { compileAll, compileState, LINE_IDS, UNCITED_OK } from './hud.mjs'
 
 const md = await readFile(new URL('../../research/state-matrix.md', import.meta.url), 'utf8')
 const parsed = parseMatrix(md)
@@ -113,7 +113,7 @@ test('firearm: five postures plus unassessed; hands rule in OH and AL', () => {
   assert.match(line('AZ', 'firearm').en, /must be true/i)
   assert.match(line('GA', 'firearm').en, /can't detain/i)
   assert.match(line('TX', 'firearm').en, /no statute here/i)
-  assert.match(line('CA', 'firearm').en, /not yet researched/i)
+  assert.match(line('CA', 'firearm').en, /not yet verified/i)
   assert.match(line('AK', 'firearm').en, /secure/i)
 })
 
@@ -169,6 +169,36 @@ test('ui strings and the federal baseline ship inside hud.json, bilingual, unive
   }
   // the federal silence line is byte-identical to a state with no speech overlay
   assert.equal(hud.federal[0].en, line('TX', 'silence').en)
+})
+
+test('a state-specific claim always carries a cite; uncited postures are only the universal or verified-absence kinds', () => {
+  every((s) => {
+    for (const l of s.lines) {
+      if (l.cite) continue
+      assert.ok(UNCITED_OK.includes(l.posture), `${s.code}/${l.id} posture ${l.posture} printed without a cite`)
+      if (l.posture === 'none') assert.ok(l.verdict !== 'UNASSESSED' && l.verdict !== 'HOST_BLOCKED', `${s.code} firearm none on an unassessed cell`)
+    }
+  })
+  // findings groups without a verified cell fall back to "not yet verified"
+  for (const code of ['AR', 'MN', 'NV', 'CA', 'DC', 'IA']) assert.equal(line(code, 'firearm').posture, 'unverified', code)
+  assert.equal(line('CO', 'unmarked').posture, 'universal')
+  assert.equal(line('NY', 'unmarked').cite, null)
+  assert.equal(line('RI', 'sign').posture, 'unstated')
+})
+
+test('Spanish is formal (usted) and state names are Spanish where they differ', () => {
+  every((s) => {
+    for (const l of s.lines) assert.doesNotMatch(l.es, /(puedes|debes|tienes|mantén|detente|firma la|acepta la|di:|elige|tu estado|tus )/i, `${s.code}/${l.id}: ${l.es}`)
+    assert.doesNotMatch(l_es(s), /\d+ (days?|years?|months?)/i, `${s.code} footage ES carries English units`)
+  })
+  assert.match(line('FL', 'sign').es, /Firme la multa/)
+  assert.match(S.NY.notice.es, /Nueva York/)
+  assert.match(S.NC.notice.es, /Carolina del Norte/)
+  assert.equal(S.NY.nameEs, 'Nueva York')
+  assert.equal(S.TX.nameEs, 'Texas')
+  assert.match(hud.ui.panicButton.es, /parando/)
+  assert.doesNotMatch(hud.ui.panicButton.es, /detuvieron/)
+  function l_es(s) { return s.lines.map((l) => l.es).join(' ') }
 })
 
 test('compileState refuses an unknown code', () => {

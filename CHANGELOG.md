@@ -6,6 +6,76 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.28.0 — 2026-09-03
+
+v2.28.0 — "Fifty-one states in the product, and a till that cannot double-charge"
+
+The research had 51 jurisdictions verified against statute text; the product
+showed three. This release compiles the matrix into data every surface reads,
+and builds the paid ladder end to end without selling anything the review gate
+has not cleared.
+
+- **Jurisdiction data layer.** `research/state-matrix.md` (51 × 19 cells) is
+  parsed and compiled by `tools/build-jurisdictions.mjs` into
+  `data/jurisdictions.json` (+ JSON Schema) and `data/hud.json`: about nine
+  bilingual "Panic HUD" lines per state, every cite from a verified cell.
+  Guardrails are data with tests: cannabis-odor protections (13 states, not the
+  brief's 11: MD and VA are statutory Tier 0), citation-signing postures (FL
+  crime, MD/WV arrest trigger, VA release), lying-vs-silence (15 statutes; OH/AZ/UT
+  refusal limits), five remedy tiers, passenger exceptions, unmarked-car and
+  safe-stop as court defences only. `review.attorney` is false on all 51; every
+  render carries the provisional notice. The Alabama matrix row was misaligned
+  and is realigned without changing a finding.
+- **Payments (Convex).** Price table in `convex/lib/products.ts`: `master`
+  $9.99, `armor` $19.99 (physical), `script` kept, `deep` held. Webhook is
+  idempotent on the Stripe event id in one transactional mutation; duplicates
+  answer 200. Physical products collect a US address at Checkout; it is read
+  from the session at dispatch and never stored or logged. `orders` queue with
+  scheduler backoff (30s doubling to 6h, 8 tries), Lob and Gelato adapters as
+  pure request builders. `PAYMENTS_LIVE` stays false.
+- **Armor card** (`convex/lib/armorCard.ts`, `tools/render-armor-card.mjs`):
+  state law prints only for an attorney-reviewed state; otherwise the federal
+  lines, the verified lifelines and the notice. Same gate as `held`, per state.
+- **Panic HUD** in `/app`: "Pulled over now" on every screen, `?panic=1&state=XX`,
+  30px lines on black, bank in a lazy chunk.
+- **Arena**: "Your state" panel (collapsed by default on phones), micro-win
+  badge, pricing ladder, master/armor entitlements supersede the script pack.
+- **Routes**: `/rehearse` → Arena, `/aid` → aid page (indexable); CTAs
+  "Enter The Arena" / "Need real-world help?"; sitemap +2.
+- **Review fixes**: dispatch whitelisted the order fields (a raw Convex doc
+  would have broken every outcome write); `CHECKOUT_URL` hoisted above the
+  redeem IIFE (pre-existing temporal dead zone: `/redeem` was never called).
+- **Grand audit (Lighthouse mobile + three parallel audits, 2026-09-03)**:
+  tests now run in CI (`.github/workflows/tests.yml`); Arena fonts 404'd under
+  the `/rehearse` rewrite (paths made root-absolute); dark-mode ladder was
+  cream-on-cream; gold labels and fine print under 4.5:1; aid page heading
+  order; homepage `#deal` ARIA; the law-watch bot now regenerates the pages
+  that print its date; generated JSON pinned to LF. Reports:
+  `notebook/amparo-blindspot-audit-2026-09-03.md`,
+  `notebook/amparo-focus-group-26-grand-audit.md`,
+  `notebook/amparo-content-audit-2026-09-03.md`, synthesis in
+  `notebook/amparo-grand-audit-2026-09-03.md`.
+- **Second wave, from the audit reports**: research notes, backend source and
+  agent config were served on the domain (`/research/RESEARCH-STATUS.md`,
+  `/app-src/convex/http.ts`, `/.mcp.json`); `.vercelignore` now excludes them
+  (no secret was exposed: `.mcp.json` holds an env placeholder). The Arena's
+  officer audio 404'd under `/rehearse` (relative path; root-absolute now).
+  The root service worker overwrote the pack's offline copy with whichever page
+  was visited last; only `/pack` is stored now. `/checkout` and `/redeem` are
+  rate-limited per client (10/h, 60/h) and no longer echo Stripe's error text.
+  Lob receives the 4x6 postcard documents, not the bare 3.5x2 face; dead
+  orders are logged and listed by `orders.listDead`. The HUD compiler prints no
+  state-specific sentence without a citation (28 lines fell back to universal
+  or "not yet verified" wording); Spanish moved to usted, Spanish state names,
+  "Me está parando la policía" replaces a label that read as "they arrested
+  me", footage retention units translated. State pages carry one two-tier
+  sentence with a link into the Arena for the 48 unverified states, render the
+  law-watch flag (GA §40-5-29 under review since 2026-09-02), and `/about` and
+  `/how-we-verify` describe the real four-tier standard and the four-source
+  watch list. `/pack` in the sitemap, OG tags on `/` and `/rehearse`, cache
+  headers on hashed assets, the pack's analytics comment corrected (a masked
+  two-screen replay exists), and the daily post bot repointed to `pack.html`.
+
 ## v2.27.0 — 2026-08-28
 
 v2.27.0 — "One practice surface, and a road that actually leads to it"

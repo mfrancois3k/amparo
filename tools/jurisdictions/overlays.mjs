@@ -62,13 +62,13 @@ export const cannabisOdor = Object.freeze({
   MD: {
     kind: 'statute', cite: 'Crim. Proc. §1-211', remedyTier: 0,
     en: 'Cannabis smell alone cannot justify a stop or search here, and evidence from one is thrown out even if you consented.',
-    es: 'El olor a cannabis por sí solo no justifica una parada ni un registro aquí, y esa evidencia se excluye aunque hayas consentido.',
+    es: 'El olor a cannabis por sí solo no justifica una parada ni un registro aquí, y esa evidencia se excluye aunque haya consentido.',
     caveat: 'Exclusion explicit and survives consent (§1-211(c)).',
   },
   VA: {
     kind: 'statute', cite: '§4.1-1302', remedyTier: 0,
     en: 'Cannabis smell alone cannot justify a stop or search here; evidence from one is inadmissible even with consent.',
-    es: 'El olor a cannabis por sí solo no justifica una parada ni un registro aquí; esa evidencia es inadmisible aunque consientas.',
+    es: 'El olor a cannabis por sí solo no justifica una parada ni un registro aquí; esa evidencia es inadmisible aunque consienta.',
     caveat: 'Tier 0, exclusion survives consent.',
   },
   MN: {

@@ -57,7 +57,7 @@ h2{font-size:1.05rem;font-weight:800;letter-spacing:.04em;text-transform:upperca
 /* Emergency strip sits first — someone in crisis should not scroll. */
 .now{background:#fdf3f1;border:1px solid #e6c3ba;border-left:5px solid #b4442f;border-radius:12px;
   padding:16px 18px;margin-bottom:26px}
-.now h3{margin:0 0 6px;font-size:15px;font-weight:800;color:#8f2f1e}
+.now h2.nowH{margin:0 0 6px;font-size:15px;font-weight:800;color:#8f2f1e;letter-spacing:0;text-transform:none} /* was an h3 under no h2: heading order (Lighthouse 2026-09-03) */
 .now p{margin:0;font-size:14.5px;color:#6d3529;line-height:1.5}
 .now a{color:#8f2f1e;font-weight:700}
 
@@ -82,7 +82,7 @@ h2{font-size:1.05rem;font-weight:800;letter-spacing:.04em;text-transform:upperca
 
 .fallback{background:var(--gold-tint);border:1px solid #e3d7b8;border-radius:12px;padding:14px 16px;
   font-size:14.5px;color:#5c4a1e;margin-bottom:16px;line-height:1.5}
-.foot{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-size:12.5px;color:#7a838d;line-height:1.6}
+.foot{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-size:12.5px;color:#5f6872;line-height:1.6} /* was #7a838d: 3.6:1 on cream */
 </style>
 </head>
 <body>
@@ -102,7 +102,7 @@ h2{font-size:1.05rem;font-weight:800;letter-spacing:.04em;text-transform:upperca
   <p class="lede" id="tLede"></p>
 
   <div class="now">
-    <h3 id="tNowH"></h3>
+    <h2 id="tNowH" class="nowH"></h2>
     <p id="tNowP"></p>
   </div>
 

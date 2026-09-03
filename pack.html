@@ -25,7 +25,7 @@
 <meta property="og:title" content="Amparo — Get pulled over with a plan.">
 <meta property="og:description" content="A free bilingual traffic-stop pack: window card, your documents, your state's rules, and exactly what to say. Print it. Keep it in the car.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://www.amparohq.com/">
+<meta property="og:url" content="https://www.amparohq.com/pack">>
 <meta property="og:image" content="https://www.amparohq.com/og.png">
 <meta property="og:image:width" content="1500">
 <meta property="og:image:height" content="790">
@@ -1231,8 +1231,10 @@
    hotline was tapped" so usage can be proven to reviewers and partners.
    Event names and their params (state, language, which lifeline) DO leave
    the device — that's the whole point of this file. What never leaves:
-   autocapture, session recording, and any name/contact/photo/document the
-   user enters — those stay local, full stop. No durable identity either
+   autocapture and any name/contact/photo/document the user enters — those
+   stay local, full stop. Session replay runs ONLY on the first two screens
+   (landing, state picker), every input masked, and stops for good the moment
+   step 2 opens; see srReplayGuard(). No durable identity either
    (person_profiles:'identified_only' below, zero identify() calls anywhere
    in this file). Loads only on http(s), never when opened as a local file. */
 (function(){

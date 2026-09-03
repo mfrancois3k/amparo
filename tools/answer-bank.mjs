@@ -162,7 +162,7 @@ export function buildReply(entry, lang, law) {
 
 if (process.argv.includes('--selftest')) {
   const c = []; const ok = (v, m) => c.push([v, m]);
-  const src = await readFile(path.join(ROOT, 'index.html'), 'utf8');
+  const src = await readFile(path.join(ROOT, 'pack.html'), 'utf8');
 
   ok(ENTRIES.length >= 10, `bank has ${ENTRIES.length} entries`);
   ok(new Set(ENTRIES.map(e => e.id)).size === ENTRIES.length, 'ids are unique');
@@ -194,7 +194,7 @@ if (process.argv.includes('--selftest')) {
 
 const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
 if (isMain) {
-  const src = await readFile(path.join(ROOT, 'index.html'), 'utf8');
+  const src = await readFile(path.join(ROOT, 'pack.html'), 'utf8');
   const out = [];
   for (const e of ENTRIES) {
     const row = { id: e.id, drill: e.drill, state: e.state || null, match: e.match, q: e.q, replies: {} };

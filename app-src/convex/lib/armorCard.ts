@@ -21,6 +21,7 @@ export type HudLine = { id: string; posture: string; cite: string | null; verdic
 export type HudState = {
   code: string
   name: string
+  nameEs?: string
   review: { primaryText: boolean; attorney: boolean; attorneyReviewedBy?: unknown }
   notice: { en: string; es: string }
   remedyTier: number | null
@@ -93,7 +94,7 @@ function front(lang: Lang, name?: string): string {
 
 function back(hud: HudFile, code: string, lang: Lang, lifelines: Lifeline[]): string {
   const st = stateOf(hud, code)
-  const title = st ? st.name : FEDERAL_ONLY[lang]
+  const title = st ? (lang === 'es' ? (st.nameEs ?? st.name) : st.name) : FEDERAL_ONLY[lang]
   const practice = `amparohq.com/rehearse${st ? `?state=${st.code}` : ''}`
   const ll = lifelines.slice(0, 3).map((l) => `<div class="ll"><b>${esc(l.n)}</b> <span>${esc(l.p)}</span></div>`).join('')
   const help = ll ? `<div class="row"><span class="lb">${esc(HELP[lang])}</span></div>${ll}` : ''

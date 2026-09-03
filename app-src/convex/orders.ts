@@ -50,6 +50,13 @@ export const listOpen = internalQuery({
   },
 })
 
+/** Paid, undeliverable, waiting on a person: refund, address fix, or a manual
+ * print. Run from the Convex dashboard; nothing retries these automatically. */
+export const listDead = internalQuery({
+  args: {},
+  handler: (ctx) => ctx.db.query('orders').withIndex('by_status', (q) => q.eq('status', 'dead')).collect(),
+})
+
 export const applyOutcome = internalMutation({
   args: {
     orderId: v.id('orders'),

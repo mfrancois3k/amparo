@@ -1,0 +1,5 @@
+
+# Generated JSON is written with LF by the build scripts; keep git from
+# handing it back as CRLF on Windows, which made --check report false staleness.
+data/*.json text eol=lf
+app-src/src/content/hud*.json text eol=lf

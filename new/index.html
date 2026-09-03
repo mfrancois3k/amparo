@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Amparo — Know your rights is not enough. Practice them.</title>
 <meta name="description" content="A free bilingual resource for drivers. Practice police encounter scenarios out loud, then print six cards built from your own state's laws — what to say, and how to reach a lawyer who takes your call.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Amparo — Know your rights is not enough. Practice them.">
+<meta property="og:description" content="A free bilingual resource for drivers. Practice police encounter scenarios out loud, then print six cards built from your own state's laws — what to say, and how to reach a lawyer who takes your call.">
+<meta property="og:url" content="https://www.amparohq.com/">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="es_US">
+<meta name="twitter:card" content="summary">
 <link rel="canonical" href="https://www.amparohq.com/">
 <!--
   NOT LIVE. This is the practice-first homepage redesign, built from the
@@ -364,7 +371,7 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
       <button type="button" id="langEN" onclick="setLang('en')" aria-pressed="true">EN</button>
       <button type="button" id="langES" onclick="setLang('es')" aria-pressed="false">ES</button>
     </div>
-    <button type="button" class="btn btn-deal" id="dealTrigger" aria-controls="deal" aria-expanded="false"><span class="n" aria-hidden="true">6</span><span class="t">Your six cards</span></button>
+    <button type="button" class="btn btn-deal" id="dealTrigger" aria-controls="deal" aria-expanded="false" aria-label="Your six cards"><span class="n" aria-hidden="true">6</span><span class="t">Your six cards</span></button>
     <a class="btn btn-navcta" id="navCta" href="/rehearse">Enter The Arena</a>
     <button type="button" class="navburger" id="navBurger" aria-label="Open menu" aria-controls="navSheet" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
@@ -387,7 +394,7 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
 
 <span data-sc-progress></span>
 <div class="sc-grain" aria-hidden="true"></div>
-<div id="deal" aria-label="Your six cards">
+<div id="deal" role="region" aria-label="Your six cards">
   <div class="deal-bg" aria-hidden="true"></div>
   <div class="hand" id="hand"></div>
   <div class="deal-ui"><span class="hint" id="dealHint"></span><button type="button" id="dealClose">Close</button></div>
@@ -445,9 +452,9 @@ const EN = {
   demoScene:"You're pulled over at dusk. Officer is approaching.",
   demoStartNote:"No mic, no account — answer by tapping.", demoStartLabel:"Try a 60-second demo",
   demoOfficerLabel:"Officer", demoNextLabel:"Next", demoResultsLabel:"See how you did",
-  demoDoneTitle:"Scenario complete", demoDoneNote:"The full Arena runs 24 scenarios with spoken lines, voice answers, streaks and badges.",
+  demoDoneTitle:"Scenario complete", demoDoneNote:"The full Arena runs 21 scenario levels with spoken lines, voice answers, streaks and badges.",
   demoRestartLabel:"Run it again", demoDoneCta:"Open the full Arena",
-  demoCaption:"Live demo — one of 24 scenarios, in legal review. The real Arena speaks its lines out loud.",
+  demoCaption:"Live demo — one of 21 scenario levels, in legal review. The real Arena speaks its lines out loud.",
   demoStateNote:"Practice, not legal advice. Rules differ by state — a few require answering certain questions. Your cards carry your state's rules.",
   printerLine:"No printer? Everything works on-screen — print later at a library or a friend's.",
   offlineLine:"Loads once, then works with no signal — built for prepaid data and dead zones.",
@@ -478,7 +485,7 @@ const EN = {
     {label:"Personalized to you",desc:"Your name, a backup emergency contact, and documents already printed onto the cards."},
     {label:"A family emergency plan",desc:"Who picks up your kids, where documents are kept, a script for parents if you get the call, plus consulate numbers."}
   ],
-  priceLine:"Free. No card, no account required. Inside the Arena there is one optional Master Script ($9.99) and a mailed laminated card ($19.99): that is the whole business model. No surprise paywall.",
+  priceLine:"Free. No card, no account required. The only paid items, a $9.99 Master Script and a $19.99 mailed card, sit in preview inside the Arena until attorney review is complete: that is the whole business model. No surprise paywall.",
   privacyEyebrow:"Privacy", privacyTitle:"Nothing leaves your phone unless you say so.",
   privacyBody:"Amparo works with no account at all, and that is the default. If you choose to create one to save your cards across devices, it stores only your cards' text — state, names, phone numbers, ZIP — on our server. Your document photos and your practice history are never uploaded, with or without an account: there is nowhere on the server to put them.",
   privacyChips:["Photos stay on your device","Practice history stays on device","No account required","Attorney review in progress"],
@@ -559,9 +566,9 @@ const ES = {
   demoScene:"Le detienen al anochecer. El oficial se acerca.",
   demoStartNote:"Sin micrófono, sin cuenta — responde tocando.", demoStartLabel:"Prueba una demo de 60 segundos",
   demoOfficerLabel:"Oficial", demoNextLabel:"Siguiente", demoResultsLabel:"Ver resultado",
-  demoDoneTitle:"¡Escenario completado!", demoDoneNote:"La Arena completa tiene 24 escenarios con frases habladas, respuestas por voz, rachas e insignias.",
+  demoDoneTitle:"¡Escenario completado!", demoDoneNote:"La Arena completa tiene 21 niveles de escenario con frases habladas, respuestas por voz, rachas e insignias.",
   demoRestartLabel:"Repetir", demoDoneCta:"Abrir la Arena completa",
-  demoCaption:"Demo en vivo — uno de 24 escenarios, en revisión legal. La Arena real habla sus frases en voz alta.",
+  demoCaption:"Demo en vivo — uno de 21 niveles de escenario, en revisión legal. La Arena real habla sus frases en voz alta.",
   demoStateNote:"Práctica, no asesoría legal. Las reglas varían por estado — algunos exigen responder ciertas preguntas. Tus tarjetas llevan las reglas de tu estado.",
   printerLine:"¿Sin impresora? Todo funciona en pantalla — imprime después en una biblioteca o con alguien de confianza.",
   offlineLine:"Carga una vez y funciona sin señal — hecho para datos prepagados y zonas sin cobertura.",
@@ -592,7 +599,7 @@ const ES = {
     {label:"Personalizado para ti",desc:"Tu nombre, un contacto de emergencia de respaldo y documentos ya impresos en las tarjetas."},
     {label:"Un plan familiar de emergencia",desc:"Quién recoge a tus hijos, dónde están los documentos, un guion para los padres si reciben la llamada, y números de consulados."}
   ],
-  priceLine:"Gratis. Sin tarjeta, sin cuenta obligatoria. Dentro de la Arena hay un Guion Maestro opcional ($9.99) y una tarjeta laminada por correo ($19.99): ese es todo el modelo de negocio. Sin muros de pago sorpresa.",
+  priceLine:"Gratis. Sin tarjeta, sin cuenta obligatoria. Lo único de pago, un Guion Maestro de $9.99 y una tarjeta por correo de $19.99, está en vista previa dentro de la Arena hasta que termine la revisión por abogado: ese es todo el modelo de negocio. Sin muros de pago sorpresa.",
   privacyEyebrow:"Privacidad", privacyTitle:"Nada sale de tu teléfono, salvo que tú lo decidas.",
   privacyBody:"Amparo funciona sin ninguna cuenta, y así es por defecto. Si eliges crear una para guardar tus tarjetas entre dispositivos, solo se guarda el texto de tus tarjetas — estado, nombres, teléfonos, código postal — en nuestro servidor. Tus fotos de documentos y tu historial de práctica nunca se suben, con cuenta o sin ella: no hay dónde guardarlos en el servidor.",
   privacyChips:["Tus fotos quedan en tu dispositivo","El historial de práctica queda en tu dispositivo","Sin cuenta obligatoria","Revisión de abogado en curso"],
@@ -870,7 +877,7 @@ function encounterHtml(e, L){
 function render(){
   const c = t();
   renderNav(c);
-  const dt = document.getElementById('dealTrigger'); if (dt) dt.querySelector('.t').textContent = c.dealTrigger;
+  const dt = document.getElementById('dealTrigger'); if (dt) { dt.querySelector('.t').textContent = c.dealTrigger; dt.setAttribute('aria-label', c.dealTrigger); } // the .t span is hidden on narrow screens, so the name lives on the button too
   const nc = document.getElementById('navCta'); if (nc && c.navCta) nc.textContent = c.navCta;
   const heroCtaLabel = returning ? c.heroCtaReturn : c.heroCta;
   const shareWaUrl = 'https://wa.me/?text='+encodeURIComponent(c.shareMsg);

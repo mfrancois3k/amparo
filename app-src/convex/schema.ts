@@ -55,6 +55,14 @@ export default defineSchema({
    * a log. A buyer's home address next to a "know your rights at a police
    * stop" purchase is exactly the join this user base cannot afford to have
    * sitting in a database, so there is no column for it. */
+  /* Per-client fixed windows for the public endpoints (lib/rateLimit.ts). A
+   * key, a window start and a count; nothing about the request itself. */
+  rateLimits: defineTable({
+    key: v.string(),
+    windowStart: v.number(),
+    count: v.number(),
+  }).index('by_key', ['key']),
+
   stripeEvents: defineTable({
     eventId: v.string(),
     type: v.string(),

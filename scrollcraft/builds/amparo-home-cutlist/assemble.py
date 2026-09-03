@@ -77,6 +77,24 @@ data = swap(data, [
      'priceLine:"Gratis. Sin tarjeta, sin cuenta obligatoria. Dentro de la Arena hay un Guion Maestro opcional ($9.99) y una tarjeta laminada por correo ($19.99): ese es todo el modelo de negocio. Sin muros de pago sorpresa."'),
 ])
 
+# Truth pass, 2026-09-03 content audit: the paid items are in preview until
+# attorney review (arena PAYMENTS_LIVE=false), and the Arena runs 21 live
+# levels, not 24 (TOTAL in arena/index.html counts the non-held situations).
+data = swap(data, [
+    ('priceLine:"Free. No card, no account required. Inside the Arena there is one optional Master Script ($9.99) and a mailed laminated card ($19.99): that is the whole business model. No surprise paywall."',
+     'priceLine:"Free. No card, no account required. The only paid items, a $9.99 Master Script and a $19.99 mailed card, sit in preview inside the Arena until attorney review is complete: that is the whole business model. No surprise paywall."'),
+    ('priceLine:"Gratis. Sin tarjeta, sin cuenta obligatoria. Dentro de la Arena hay un Guion Maestro opcional ($9.99) y una tarjeta laminada por correo ($19.99): ese es todo el modelo de negocio. Sin muros de pago sorpresa."',
+     'priceLine:"Gratis. Sin tarjeta, sin cuenta obligatoria. Lo único de pago, un Guion Maestro de $9.99 y una tarjeta por correo de $19.99, está en vista previa dentro de la Arena hasta que termine la revisión por abogado: ese es todo el modelo de negocio. Sin muros de pago sorpresa."'),
+    ('The full Arena runs 24 scenarios with spoken lines, voice answers, streaks and badges.',
+     'The full Arena runs 21 scenario levels with spoken lines, voice answers, streaks and badges.'),
+    ('Live demo — one of 24 scenarios, in legal review. The real Arena speaks its lines out loud.',
+     'Live demo — one of 21 scenario levels, in legal review. The real Arena speaks its lines out loud.'),
+    ('La Arena completa tiene 24 escenarios con frases habladas, respuestas por voz, rachas e insignias.',
+     'La Arena completa tiene 21 niveles de escenario con frases habladas, respuestas por voz, rachas e insignias.'),
+    ('Demo en vivo — uno de 24 escenarios, en revisión legal. La Arena real habla sus frases en voz alta.',
+     'Demo en vivo — uno de 21 niveles de escenario, en revisión legal. La Arena real habla sus frases en voz alta.'),
+])
+
 EN_ADD = u'''
   heroSub:"A free bilingual tool for police encounters: traffic stops, checkpoints, a knock at your door. Practice the words out loud, then print six cards built from your state's laws, plus a verified lifeline to a lawyer who takes your call.",
   cut1:"Lights in the mirror.", cut1s:"Every driver has felt this exact half-second.",
@@ -167,6 +185,24 @@ data = inject(data, 'ES', ES_ADD)
 HERE = os.path.dirname(__file__)
 def part(name):
     return io.open(os.path.join(HERE, 'parts', name), encoding='utf-8').read()
+
+# Open Graph for the homepage (content audit 2026-09-03: none on /). Title and
+# description are read from the head so they cannot drift from it. No image
+# yet: og/ holds only the generated state and about images; a homepage card
+# is a render-og.mjs job.
+import re as _re
+_t = _re.search(r'<title>([^<]*)</title>', head).group(1)
+_d = _re.search(r'<meta name="description" content="([^"]*)"', head).group(1)
+_og = ('<meta property="og:type" content="website">\n'
+       '<meta property="og:title" content="' + _t + '">\n'
+       '<meta property="og:description" content="' + _d + '">\n'
+       '<meta property="og:url" content="https://www.amparohq.com/">\n'
+       '<meta property="og:locale" content="en_US">\n'
+       '<meta property="og:locale:alternate" content="es_US">\n'
+       '<meta name="twitter:card" content="summary">\n')
+_canon = '<link rel="canonical" href="https://www.amparohq.com/">'
+assert head.count(_canon) == 1, 'canonical moved'
+head = head.replace(_canon, _og + _canon)
 
 out = (head + '\n' + part('style.html') + '\n</head>\n<body>\n' + part('nav.html') + '\n'
        + part('deal-markup.html') + '\n' + data + '\n' + rnav + '\n' + part('render.js.html')

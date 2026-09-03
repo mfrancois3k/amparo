@@ -962,6 +962,14 @@ with explicit ink. Tone atmosphere (v2.12.1) re-tuned for dark ground.
 | Lifeline phone number under 44px tap floor; 6 overlays closed with no fade (3 already had one) | v2.26.2 |
 | FG25 caught v2.26.2's own regression: 2 overlays visible at once in practice onboarding | v2.26.3 |
 | `.ll-dot` 44px miss, overlay safe-area insets, live reduced-motion listener | v2.26.3 |
+| Step 5 becomes Thank You page; in-page practice engine deleted; Arena is the only practice surface | v2.27.0 |
+| Cutlist homepage at `/` (pack moved to `pack.html`), scrubbed motion, six-card deal | v2.27.0 window |
+| Jurisdiction data layer (`data/jurisdictions.json`, `data/hud.json`, 51 states, guardrail tests) | v2.28.0 |
+| Stripe event-id idempotency, `orders` fulfilment queue, Lob/Gelato adapters, Master $9.99 / Armor $19.99 | v2.28.0 |
+| Panic HUD in `/app`, Arena state panel + ladder + micro-win, Armor card generator | v2.28.0 |
+| `/rehearse` and `/aid` routes, "Enter The Arena" CTAs, sitemap +2 | v2.28.0 |
+| Grand audit fixes: CI tests workflow, Arena fonts under `/rehearse`, phone-collapsed state panel, dark-mode ladder, contrast, aid heading order, homepage ARIA | v2.28.0 |
+| Audit second wave: internals off the domain, Arena audio under `/rehearse`, SW offline fix, rate limits, HUD cite rule + usted, state-page review flag, verify/about truth pass | v2.28.0 |
 
 To restore any version exactly:
 ```bash

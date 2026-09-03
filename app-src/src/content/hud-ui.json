@@ -3,7 +3,7 @@
  "ui": {
   "panicButton": {
    "en": "Pulled over now",
-   "es": "Me detuvieron ahora"
+   "es": "Me está parando la policía"
   },
   "title": {
    "en": "Right now",
@@ -15,11 +15,11 @@
   },
   "yourState": {
    "en": "Your state",
-   "es": "Tu estado"
+   "es": "Su estado"
   },
   "pickState": {
    "en": "Pick a state",
-   "es": "Elige un estado"
+   "es": "Elija un estado"
   },
   "federalOnly": {
    "en": "Federal baseline, any state",
@@ -27,7 +27,7 @@
   },
   "federalNotice": {
    "en": "Pick your state for state-specific lines. Education, not legal advice.",
-   "es": "Elige tu estado para ver las líneas de tu estado. Educación, no asesoría legal."
+   "es": "Elija su estado para ver las líneas de su estado. Educación, no asesoría legal."
   },
   "likely": {
    "en": "reported, not verified",

@@ -19,3 +19,23 @@ wargames/
 # Same family — the wargame system's ledger and grading rubric, at repo root.
 LEDGER.md
 SUCCESS.md
+
+# 2026-09-03 blind-spot audit: research notes, backend source, agent config and
+# build folders were all served 200 on the domain (/research/RESEARCH-STATUS.md,
+# /app-src/convex/http.ts, /.mcp.json, /.claude/launch.json, 72 MB of
+# scrollcraft builds). None is site content. Served surfaces stay: pack.html,
+# new/, arena/, app/, rights/, derechos/, about/, acerca/, how-we-verify/,
+# como-verificamos/, img/, audio/, cards/, og/, data/, brand assets the pages link.
+.claude/
+.agents/
+.focus-group/
+.github/
+.mcp.json
+app-src/
+research/
+tools/
+scrollcraft/
+docs/
+growth/
+node_modules/
+*.md

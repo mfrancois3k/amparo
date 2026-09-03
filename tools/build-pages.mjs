@@ -62,6 +62,10 @@ const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname).replac
    rewrite to new/index.html could not fire while a physical index.html
    existed). The STATES / BASE_RULES_* literals it extracts live there now. */
 const SRC = path.join(ROOT, 'pack.html');
+/* Spanish state names and the per-state review flags come from the generated
+   hud bank, the same source the Arena and the Panic HUD read. */
+const HUD = JSON.parse(await readFile(path.join(ROOT, 'data', 'hud.json'), 'utf8'));
+const nameEsOf = (ab, name) => HUD.states[ab]?.nameEs ?? name;
 const CHECK = process.argv.includes('--check');
 const ORIGIN = 'https://www.amparohq.com';
 
@@ -186,7 +190,7 @@ async function build() {
   const files = new Map();
   /* The two product routes are rewrites (vercel.json), not generated pages:
      /rehearse serves the Arena, /aid the legal-help directory. */
-  const indexable = [`${ORIGIN}/`, `${ORIGIN}/rehearse`, `${ORIGIN}/aid`];
+  const indexable = [`${ORIGIN}/`, `${ORIGIN}/pack`, `${ORIGIN}/rehearse`, `${ORIGIN}/aid`];
   /* Only pages worth subscribing to: real content, English only — a bilingual
      feed of the same page twice reads as duplication to an aggregator. */
   const feedEntries = [];
@@ -239,9 +243,17 @@ async function build() {
          stops after the first screen must still leave knowing what we have
          not checked — burying it below seven rules would be technically
          present and practically hidden. */
+      const nameEs = nameEsOf(ab, name);
       const gap = isVerified ? '' : (lang === 'en'
-        ? `<div class="note"><b>We have not verified ${esc(name)}'s own rules yet.</b> Everything below is federal law and applies everywhere. What changes state by state — whether you must give your name, whether refusing to sign a ticket can get you arrested, whether you may record without telling the officer — is not shown for ${esc(name)}, because we will not print a rule we have not checked against that state's statutes. Three states are done so far: Texas, Georgia and New York.</div>`
-        : `<div class="note"><b>Todavía no hemos verificado las reglas propias de ${esc(name)}.</b> Todo lo siguiente es ley federal y aplica en todas partes. Lo que cambia según el estado — si debe dar su nombre, si negarse a firmar una multa puede llevar a un arresto, si puede grabar sin avisarle al oficial — no se muestra para ${esc(name)}, porque no publicamos una regla que no hemos verificado con las leyes de ese estado. Tres estados están listos: Texas, Georgia y Nueva York.</div>`);
+        ? `<div class="note"><b>${esc(name)}'s own rules are checked against the statute text, not yet reviewed by a ${esc(name)}-licensed attorney.</b> Everything below is federal law and applies everywhere. ${esc(name)}'s state-specific lines (what you must show, whether refusing to sign a ticket can get you arrested, what a firearm changes) are in the Arena, each cited to the statute: <a href="/rehearse?state=${ab}">open ${esc(name)} in the Arena</a>. Education, not legal advice.</div>`
+        : `<div class="note"><b>Las reglas propias de ${esc(nameEs)} están cotejadas con el texto de la ley, aún sin revisión de un abogado con licencia en ${esc(nameEs)}.</b> Todo lo siguiente es ley federal y aplica en todas partes. Las líneas específicas de ${esc(nameEs)} (qué debe mostrar, si negarse a firmar una multa puede llevarlo al arresto, qué cambia un arma) están en la Arena, cada una con su cita: <a href="/rehearse?state=${ab}">abrir ${esc(nameEs)} en la Arena</a>. Educación, no asesoría legal.</div>`);
+      /* law-status.json flags a state whose source page changed. Until
+         2026-09-03 only pack.html rendered it; the state page printed the
+         rule as fact under a reassuring "last checked" footer. */
+      const flags = (status.needsReview || []).filter(r => r.state === ab);
+      const flag = !flags.length ? '' : (lang === 'en'
+        ? `<div class="note"><b>Under review:</b> the source page behind ${flags.map(r => esc(r.cite)).join(', ')} changed on ${esc(status.lastAttempt || checked)} and a person is re-reading it. Treat that rule as unconfirmed until this notice clears.</div>`
+        : `<div class="note"><b>En revisión:</b> la página fuente de ${flags.map(r => esc(r.cite)).join(', ')} cambió el ${esc(status.lastAttempt || checked)} y una persona la está releyendo. Considere esa regla como no confirmada hasta que desaparezca este aviso.</div>`);
 
       const help = (() => {
         const list = aid || (isVerified ? null : NATIONAL);
@@ -261,7 +273,7 @@ async function build() {
         altHref: `${ORIGIN}/${other}/${ab.toLowerCase()}/`, altLang: lang === 'en' ? 'es' : 'en',
         h1: lang === 'en' ? `Your rights at a traffic stop in ${name}` : `Sus derechos en una parada de tráfico en ${name}`,
         intro,
-        blocks: gap + rulesList(rules) + help + appLink(`${base}_${ab.toLowerCase()}`, lang === 'en' ? 'Build your free pack' : 'Cree su paquete gratis'),
+        blocks: flag + gap + rulesList(rules) + help + appLink(`${base}_${ab.toLowerCase()}`, lang === 'en' ? 'Build your free pack' : 'Cree su paquete gratis'),
         jsonld: faq(rules, lang, title), footerNote: foot(lang)
       }));
       if (!noindex) indexable.push(url);
@@ -356,7 +368,7 @@ async function build() {
 <li><b>It does not claim</b> nationwide coverage. Three states are verified. Every other state page shows the federal rules that apply everywhere and says plainly what has not been checked.</li>
 </ul>
 <h2>What it costs</h2>
-<p>Nothing. There is no paid product.</p>` : `
+<p>Nothing to read, practice or print. Two paid items exist inside the Arena, a $9.99 Master Script and a $19.99 mailed card, and both stay in preview, with no card charged, until an attorney has reviewed the content they carry.</p>` : `
 <h2>Por qué existe</h2>
 <p><em>Amparo</em> significa refugio, y en derecho, una protección constitucional. Una parada de tráfico es una conversación corta y de mucha presión donde saber una sola frase cambia el resultado — y las personas con más probabilidad de ser detenidas son las que menos suelen tener el número de un abogado en el teléfono. El paquete es gratis porque cobrar por él anularía el propósito.</p>
 <h2>Quién lo hace</h2>
@@ -368,7 +380,7 @@ async function build() {
 <li><b>No afirma</b> cobertura nacional. Tres estados están verificados. Las demás páginas muestran las reglas federales y dicen claramente qué no se ha verificado.</li>
 </ul>
 <h2>Cuánto cuesta</h2>
-<p>Nada. No hay producto de pago.</p>`,
+<p>Nada por leer, practicar o imprimir. Dentro de la Arena existen dos artículos de pago, un Guion Maestro de $9.99 y una tarjeta por correo de $19.99, y ambos siguen en vista previa, sin cobro alguno, hasta que un abogado revise el contenido que llevan.</p>`,
       footerNote: foot(lang)
     }));
     indexable.push(`${ORIGIN}/${aboutSlug}/`);
@@ -387,28 +399,30 @@ async function build() {
       blocks: lang === 'en' ? `
 <h2>Three confidence levels</h2>
 <ul>
-<li><b>Verified</b> — quoted from an official legislature site or primary statute text. Only this level is ever published as a state rule.</li>
-<li><b>Likely</b> — the section number is corroborated by multiple independent secondary sources, but the raw statute text has not been fetched. Never published.</li>
+<li><b>Verified</b> — quoted from an official legislature site or primary statute text. The three verified states' rules on these pages are this level.</li>
+<li><b>Checked</b> — the statute text was read and cited, then paraphrased into one plain sentence for the Arena's state panel and the Panic HUD, for all 51 jurisdictions. Every such line carries its citation and the provisional notice, and no sentence is printed as state-specific without a citation behind it. Not attorney-reviewed.</li>
+<li><b>Likely</b> — the section number is corroborated by multiple independent secondary sources, but the raw statute text has not been fetched. Never published as a rule; the one Arena line that rests on such a reading carries a visible “reported, not verified” flag.</li>
 <li><b>Unverified</b> — not established. Never published in any form.</li>
 </ul>
 <h2>Why so few states</h2>
 <p>Three states — Texas, Georgia and New York — are published. Careful sourcing contradicted the widely-copied list of “stop and identify” states on four of the first ten states researched. That is the argument against generating state content quickly: the fast version would have been wrong in four places, and a driver would have been holding it at the window.</p>
 <h2>The daily source check</h2>
-<p>A scheduled job re-fetches every primary statute page behind a published rule and compares it to a stored hash. A change means a person has to re-read it. <b>It does not verify that the law is correct — no script can.</b> “Sources checked” and “reviewed by a person” are different claims, and this site keeps them separate on purpose.</p>
+<p>A scheduled job re-fetches the four primary statute pages behind the pack’s cited rules and compares them to a stored hash. The 230 sections cited on the Arena and Panic HUD lines are not yet on that watch list; putting them there needs a source URL per section, which the research matrix does not carry today. A change means a person has to re-read it. <b>It does not verify that the law is correct — no script can.</b> “Sources checked” and “reviewed by a person” are different claims, and this site keeps them separate on purpose.</p>
 <h2>What has not been done yet</h2>
 <div class="note"><b>No attorney has signed off on the current edition.</b> Amparo’s own standard is that a rule should also be reviewed by an attorney licensed in that state, tied to the specific edition reviewed. That has not happened yet — so no attorney badge appears anywhere on this site, and nothing here should be read as attorney-reviewed. Every published rule is quoted from primary statute text, which is a real standard, but it is a different and weaker one. Saying so is more useful to you than the alternative.</div>
 <h2>Found something wrong?</h2>
 <p>Write to <a href="mailto:${esc(REV.contact)}">${esc(REV.contact)}</a> with the state and the rule. Corrections are the highest-priority work here.</p>` : `
 <h2>Tres niveles de confianza</h2>
 <ul>
-<li><b>Verificado</b> — citado de un sitio oficial de la legislatura o del texto primario de la ley. Solo este nivel se publica como regla estatal.</li>
-<li><b>Probable</b> — el número de sección está corroborado por varias fuentes secundarias independientes, pero no se obtuvo el texto original. Nunca se publica.</li>
+<li><b>Verificado</b> — citado de un sitio oficial de la legislatura o del texto primario de la ley. Las reglas de los tres estados verificados en estas páginas son de este nivel.</li>
+<li><b>Cotejado</b> — se leyó y citó el texto de la ley y se resumió en una sola frase para el panel de estado de la Arena y el Panic HUD, en las 51 jurisdicciones. Cada línea lleva su cita y el aviso provisional, y ninguna frase se publica como específica de un estado sin una cita detrás. Sin revisión de abogado.</li>
+<li><b>Probable</b> — el número de sección está corroborado por varias fuentes secundarias independientes, pero no se obtuvo el texto original. Nunca se publica como regla; la única línea de la Arena que descansa en una lectura así lleva la marca visible «reportado, no verificado».</li>
 <li><b>No verificado</b> — no establecido. Nunca se publica de ninguna forma.</li>
 </ul>
 <h2>Por qué tan pocos estados</h2>
 <p>Tres estados — Texas, Georgia y Nueva York — están publicados. Una investigación cuidadosa contradijo la lista más copiada de estados con leyes de “identifíquese” en cuatro de los primeros diez estados investigados. Ese es el argumento contra generar contenido estatal rápido: la versión rápida habría estado equivocada en cuatro lugares, y un conductor la habría tenido en la mano en la ventana.</p>
 <h2>La comprobación diaria de fuentes</h2>
-<p>Un proceso programado vuelve a descargar cada página de ley primaria detrás de una regla publicada y la compara con un hash guardado. Un cambio significa que una persona debe volver a leerla. <b>No verifica que la ley sea correcta — ningún script puede hacerlo.</b> “Fuentes comprobadas” y “revisado por una persona” son afirmaciones distintas, y este sitio las mantiene separadas a propósito.</p>
+<p>Un proceso programado vuelve a descargar las cuatro páginas de ley primaria detrás de las reglas citadas del paquete y las compara con un hash guardado. Las 230 secciones citadas en las líneas de la Arena y del Panic HUD aún no están en esa lista de vigilancia; incluirlas requiere una URL de fuente por sección, que la matriz de investigación hoy no tiene. Un cambio significa que una persona debe volver a leerla. <b>No verifica que la ley sea correcta — ningún script puede hacerlo.</b> “Fuentes comprobadas” y “revisado por una persona” son afirmaciones distintas, y este sitio las mantiene separadas a propósito.</p>
 <h2>Lo que aún no se ha hecho</h2>
 <div class="note"><b>Ningún abogado ha aprobado la edición actual.</b> El estándar de Amparo es que una regla también sea revisada por un abogado con licencia en ese estado, ligada a la edición específica revisada. Eso todavía no ha ocurrido — así que no aparece ninguna insignia de abogado en este sitio, y nada aquí debe leerse como revisado por un abogado. Cada regla publicada está citada del texto primario de la ley, que es un estándar real, pero distinto y más débil. Decirlo le sirve más a usted que lo contrario.</div>
 <h2>¿Encontró un error?</h2>
@@ -481,7 +495,8 @@ if (CHECK) {
     if (p.endsWith('sitemap.xml')) continue;   // lastmod moves daily
     let cur = null;
     try { cur = await readFile(p, 'utf8'); } catch {}
-    if (cur !== content) { console.error(`stale: ${path.relative(ROOT, p)}`); stale++; }
+    // line-ending agnostic: git on Windows may hand the file back with CRLF, which is not staleness
+    if (cur === null || cur.replace(/\r\n/g, '\n') !== content) { console.error(`stale: ${path.relative(ROOT, p)}`); stale++; }
   }
   console.log(stale ? `${stale} generated page(s) out of date — run: node tools/build-pages.mjs` : `all ${files.size - 1} generated pages current`);
   process.exit(stale ? 1 : 0);

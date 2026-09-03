@@ -39,11 +39,18 @@ jobs:
           echo "changed=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
           exit 0
 
+      # The generated state pages print law-status.json's lastChecked date in
+      # their footer. Until 2026-09-03 this job moved the date and left the 111
+      # pages stale every day (tools/build-pages.mjs --check flagged all of
+      # them). Regenerate here so the footer and the status agree.
+      - name: Regenerate the pages that print the check date
+        run: node tools/build-pages.mjs
+
       - name: Commit the refreshed status
         run: |
           git config user.name  "amparo-law-watch"
           git config user.email "actions@github.com"
-          git add law-status.json
+          git add law-status.json rights derechos about acerca how-we-verify como-verificamos feed.xml sitemap.xml
           # Only lastChecked moves on a quiet day; skip the commit if truly nothing differs.
           git diff --staged --quiet && echo "no change to commit" && exit 0
           git commit -m "chore: daily statute source check ($(date -u +%Y-%m-%d))"

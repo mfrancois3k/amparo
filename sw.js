@@ -73,9 +73,16 @@ self.addEventListener('fetch', e => {
   // only the offline fallback. (The old cache-first behavior is why updates
   // didn't appear.)
   if (e.request.mode === 'navigate') {
+    /* Only the pack page is the offline artifact. Until 2026-09-03 every
+       navigation (/, /aid, /rights/...) overwrote CORE, so one visit to the
+       homepage after building a pack replaced the pack's offline copy with a
+       page whose CSS and JS were never cached (blind-spot audit, "offline is
+       last-page-wins"). The fallback still answers any offline navigation
+       with the pack: it is the one thing here that works without a network. */
+    const isPack = u.pathname === '/pack' || u.pathname === '/pack/' || u.pathname === '/pack.html';
     e.respondWith(
       fetch(e.request).then(res => {
-        if (res && res.ok) { const clone = res.clone(); caches.open(C).then(c => c.put(CORE, clone)); }
+        if (res && res.ok && isPack) { const clone = res.clone(); caches.open(C).then(c => c.put(CORE, clone)); }
         return res;
       }).catch(() => caches.match(CORE))
     );

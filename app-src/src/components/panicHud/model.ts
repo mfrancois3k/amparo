@@ -8,6 +8,7 @@ export type HudLine = { id: string; posture: string; cite: string | null; verdic
 export type HudState = {
   code: string
   name: string
+  nameEs?: string
   review: { primaryText: boolean; attorney: boolean; attorneyReviewedBy: unknown }
   notice: { en: string; es: string }
   remedyTier: number | null
@@ -70,7 +71,7 @@ export function hudFor(code: string | null | undefined, lang: Lang, bank: HudBan
   const lines = ORDER.map((id) => byId.get(id)).filter((l): l is HudLine => !!l).map((l) => toView(l, lang))
   return {
     stateCode: st.code,
-    stateName: st.name,
+    stateName: lang === 'es' ? (st.nameEs ?? st.name) : st.name,
     provisional: !st.review.attorney,
     reviewed: st.review.attorney,
     notice: st.notice[lang],

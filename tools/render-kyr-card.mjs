@@ -221,7 +221,7 @@ if (isMain && process.argv.includes('--selftest')) {
     ok(arenaText.includes(l.es), `ES line verbatim in arena: ${l.es.slice(0, 44)}`);
   }
 
-  const root = await readFile(path.join(ROOT, 'index.html'), 'utf8');
+  const root = await readFile(path.join(ROOT, 'pack.html'), 'utf8');
   ok(root.includes('Berghuis v. Thompkins, 560 U.S. 370') && root.includes('Salinas v. Texas, 570 U.S. 178'),
     'the citation on the card is one the site already publishes');
 

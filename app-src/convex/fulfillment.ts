@@ -6,7 +6,7 @@ import type { Id } from './_generated/dataModel'
 import Stripe from 'stripe'
 import { runDispatch, type DispatchDeps } from './lib/dispatch.ts'
 import type { ShipTo } from './lib/providers.ts'
-import { armorCardHtml, type HudFile } from './lib/armorCard.ts'
+import { armorPostcardHtml, type HudFile } from './lib/armorCard.ts'
 import hud from '../src/content/hud.json'
 import { STATE_LEGAL_AID, BASE_LIFELINES } from '../src/content/states.json'
 
@@ -72,7 +72,10 @@ function depsFromEnv(): DispatchDeps {
       const session = await stripe.checkout.sessions.retrieve(sessionId)
       return shippingFrom(session)
     },
-    renderCard: ({ code, lang, side }) => armorCardHtml({ code, lang, side, hud: HUD, lifelines: code === 'US' ? BASE.slice(0, 3) : lifelinesFor(code) }),
+    /* Lob prints a 4x6 postcard from full HTML documents sized 6.25 x 4.25 in;
+       the bare 3.5 x 2 in face would render as a small card on a blank sheet
+       with no address zone reserved (blind-spot audit, 2026-09-03). */
+    renderCard: ({ code, lang, side }) => armorPostcardHtml({ code, lang, side, hud: HUD, lifelines: code === 'US' ? BASE.slice(0, 3) : lifelinesFor(code) }),
     send: async (req) => {
       const r = await fetch(req.url, { method: req.method, headers: req.headers, body: JSON.stringify(req.body) })
       let json: unknown = null
@@ -97,6 +100,12 @@ export const dispatch = internalAction({
     )
     await ctx.runMutation(internal.orders.applyOutcome, { orderId, patch: { ...res.order, provider: res.provider } })
     if (res.scheduleInMs !== null) await ctx.scheduler.runAfter(res.scheduleInMs, internal.fulfillment.dispatch, { orderId })
+    /* A dead order is a paid customer who receives nothing. Nothing here can
+       email yet, so this is the one place it is logged (Convex dashboard log
+       stream and alerts); orders.listDead is the operator's queue. The line
+       carries the order id and the provider's short message only, never a
+       name or address. */
+    if (res.order.status === 'dead') console.error(`fulfilment dead: order ${orderId} (${res.provider}): ${res.order.lastError ?? 'no detail'}`)
   },
 })
 
