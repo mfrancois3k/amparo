@@ -30,7 +30,7 @@ test('provisional education: no state is attorney-reviewed and every state carri
 })
 
 test('every state has the eight core lines, bilingual, no em dashes, no template holes', () => {
-  const core = ['silence', 'documents', 'passenger', 'sign', 'search', 'firearm', 'recording', 'unmarked']
+  const core = ['safety', 'silence', 'documents', 'passenger', 'sign', 'search', 'firearm', 'recording', 'unmarked']
   every((s) => {
     const ids = s.lines.map((l) => l.id)
     for (const id of core) assert.ok(ids.includes(id), `${s.code} missing ${id}`)
@@ -161,14 +161,15 @@ test('ui strings and the federal baseline ship inside hud.json, bilingual, unive
     assert.doesNotMatch(v.en + v.es, /—/, k)
   }
   assert.match(hud.ui.panicButton.en, /pulled over/i)
-  assert.deepEqual(hud.federal.map((l) => l.id), ['silence', 'documents', 'search', 'passenger', 'unmarked'])
+  assert.deepEqual(hud.federal.map((l) => l.id), ['safety', 'silence', 'documents', 'search', 'passenger', 'unmarked'])
   for (const l of hud.federal) {
     assert.equal(l.posture, 'universal', l.id)
     assert.equal(l.cite, null, l.id)
     assert.ok(l.en.length > 20 && l.es.length > 20, l.id)
   }
   // the federal silence line is byte-identical to a state with no speech overlay
-  assert.equal(hud.federal[0].en, line('TX', 'silence').en)
+  assert.equal(hud.federal[1].en, line('TX', 'silence').en)
+  every((s) => assert.equal(s.lines[0].id, 'safety', s.code))
 })
 
 test('a state-specific claim always carries a cite; uncited postures are only the universal or verified-absence kinds', () => {

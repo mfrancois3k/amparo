@@ -3,7 +3,7 @@
  * content/hud.json (generated); the view model is model.ts.
  *
  * Lazy chunk: this is where the whole state bank lives. */
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ui, federal, states } from '../../content/hud.json'
 import { hudFor, stateFromSearch, type HudBank, type Lang } from './model'
 import './panicHud.css'
@@ -18,7 +18,10 @@ interface PanicHudProps {
 }
 
 export function PanicHud({ lang, stateCode, onClose }: PanicHudProps) {
-  const view = hudFor(stateFromSearch(window.location.search, bank) ?? stateCode, lang, bank)
+  /* No state yet: the federal baseline shows at once and a picker sits under
+     the title, so the moment of need never waits on the setup flow. */
+  const [picked, setPicked] = useState<string | null>(null)
+  const view = hudFor(picked ?? stateFromSearch(window.location.search, bank) ?? stateCode, lang, bank)
   const rootRef = useRef<HTMLDivElement>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
   const pushedRef = useRef(false)
@@ -82,6 +85,16 @@ export function PanicHud({ lang, stateCode, onClose }: PanicHudProps) {
           <div>
             <p className="panic-hud__kicker">{t.title[lang]}</p>
             <h2 id="panic-title">{view.stateName ?? t.federalOnly[lang]}</h2>
+            <span className="panic-hud__chip">{view.reviewed ? t.reviewed[lang] : t.provisional[lang]}</span>
+            {view.stateCode === null ? (
+              <select className="panic-hud__select" aria-label={t.yourState[lang]} value="" onChange={(e) => setPicked(e.target.value || null)}>
+                <option value="">{t.pickState[lang]}</option>
+                {Object.values(bank.states)
+                  .map((s) => ({ code: s.code, name: lang === 'es' ? (s.nameEs ?? s.name) : s.name }))
+                  .sort((a, b) => a.name.localeCompare(b.name))
+                  .map((s) => <option key={s.code} value={s.code}>{s.name}</option>)}
+              </select>
+            ) : null}
           </div>
           <button ref={closeRef} type="button" className="panic-hud__close" onClick={close}>{t.close[lang]}</button>
         </header>

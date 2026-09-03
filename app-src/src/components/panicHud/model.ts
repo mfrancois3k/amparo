@@ -29,7 +29,7 @@ export type HudView = {
 }
 
 /** Panic order: what to say first, then what changes by state. */
-const ORDER = ['silence', 'documents', 'search', 'sign', 'passenger', 'firearm', 'recording', 'unmarked', 'reason', 'footage']
+const ORDER = ['safety', 'silence', 'documents', 'search', 'sign', 'passenger', 'firearm', 'recording', 'unmarked', 'reason', 'footage']
 
 /** Postures where the state differs from the national default in a way that
  * changes what you do on the shoulder. Rendered with the gold rule. */

@@ -1083,6 +1083,7 @@
    "properties": {
     "id": {
      "enum": [
+      "safety",
       "silence",
       "documents",
       "passenger",

@@ -23,7 +23,15 @@ import {
   passengerException, unmarked, safeStop, reasonForStop,
 } from './overlays.mjs'
 
-export const LINE_IDS = Object.freeze(['silence', 'documents', 'passenger', 'sign', 'search', 'firearm', 'recording', 'unmarked', 'reason', 'footage'])
+export const LINE_IDS = Object.freeze(['safety', 'silence', 'documents', 'passenger', 'sign', 'search', 'firearm', 'recording', 'unmarked', 'reason', 'footage'])
+
+/** The opener the focus group asked for: what to do with the car and the
+ * hands before any word. Universal practice, not law; it prints first. */
+const SAFETY = Object.freeze({
+  id: 'safety', posture: 'universal', cite: null, verdict: 'UNASSESSED',
+  en: 'Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.',
+  es: 'Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche.',
+})
 
 /** Postures that are allowed to print without a cite, and why:
  *  universal / unverified / unstated say nothing state-specific;
@@ -314,7 +322,7 @@ export function compileState(state) {
   if (!ALL_CODES.includes(code)) throw new Error(`compileState: unknown jurisdiction ${code}`)
   const review = ATTORNEY_REVIEW[code]
   const lines = [
-    silenceLine(code, cells), documentsLine(cells), passengerLine(code, cells), signLine(code, cells),
+    { ...SAFETY }, silenceLine(code, cells), documentsLine(cells), passengerLine(code, cells), signLine(code, cells),
     searchLine(code, cells), firearmLine(code, cells), recordingLine(cells), unmarkedLine(code, cells),
     reasonLine(code, cells), footageLine(cells),
   ].filter(Boolean)
@@ -348,7 +356,7 @@ export const UI = Object.freeze({
  * is picked (and printed on the Armor card's back for unreviewed states). */
 const BLANK = Object.fromEntries(COLUMNS.map((c) => [c.key, { verdict: 'UNASSESSED', cite: null, value: '', tags: {}, raw: '' }]))
 export function federalLines() {
-  return [silenceLine('US', BLANK), documentsLine(BLANK), searchLine('US', BLANK), passengerLine('US', BLANK), unmarkedLine('US', BLANK)]
+  return [{ ...SAFETY }, silenceLine('US', BLANK), documentsLine(BLANK), searchLine('US', BLANK), passengerLine('US', BLANK), unmarkedLine('US', BLANK)]
 }
 
 export function compileAll(parsed) {

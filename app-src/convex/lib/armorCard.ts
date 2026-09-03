@@ -45,10 +45,10 @@ export const FEDERAL_LINES = [
 const TITLE = { en: 'What to say at a traffic stop', es: 'Qué decir en una parada de tráfico' }
 const FOOT = { en: 'amparohq.com · Not legal advice', es: 'amparohq.com · No es asesoría legal' }
 const CARRIED = { en: 'Carried by', es: 'Portada por' }
-const YOUR_STATE = { en: 'Your state', es: 'Tu estado' }
+const YOUR_STATE = { en: 'Your state', es: 'Su estado' }
 const FEDERAL_ONLY = { en: 'Federal baseline, any state', es: 'Base federal, cualquier estado' }
 const HELP = { en: 'Real help', es: 'Ayuda real' }
-const PRACTICE = { en: 'Practice it', es: 'Practica' }
+const PRACTICE = { en: 'Practice it', es: 'Practique' }
 const REVIEWED = { en: 'Reviewed for this state', es: 'Revisado para este estado' }
 const STATE_LINE_IDS = ['silence', 'sign', 'search', 'passenger', 'firearm']
 

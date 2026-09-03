@@ -42,6 +42,17 @@ Legal posture and content
 - Accessibility: contrast on gold labels and fine print, dark-mode ladder, aid heading order, homepage ARIA; state panel collapsed by default on phones (it buried the drills 3 screens down).
 - SEO: `/pack` in the sitemap, OG tags on `/` and `/rehearse`, canonical on `/rehearse`, cache headers on hashed assets.
 
+## Focus group 26 (ran last), and what changed because of it
+
+Its five ranked items, verified against source, and the same-day response:
+1. **The Panic HUD was unreachable** (only in the `/app` preview build, no link anywhere; opened on "stay silent" with no safety opener, no state picker). Response: a full-screen panic view inside the Arena's state panel ("Full screen" / "Pantalla completa", also `?panic=1`), a universal safety opener as the first line everywhere (`safety` in hud.json), a state picker and a provisional chip inside the HUD itself.
+2. **Two "your state" variables never met** (`flowState`, FIPS, drives labels and gate; `A.state`, postal, drives the panel). Response: one written precedence rule in the panel script (`?state` > `A.state` > `sr_save` > `flowState`), and the winner is written back to both, with the FIPS map derived from the two name tables rather than a third list.
+3. **Every exit from the Arena opened the marketing homepage** (four `href="../"` after the route swap). Response: `/pack`, plus a "Need real-world help?" link to `/aid` in the sidebar.
+4. **Paid artifacts oversold**: a no-state checkout shipped a federal-only card; the Armor note implied a reprint that has no path. Response: the Armor option is disabled until a state is picked; the note now says cards printed after a state's review carry its lines. The homepage price line already says "preview until attorney review". Open: one language per card; the name "Physical Armor"; see the "laminated" decision.
+5. **Small dishonesties**: "You survived Hard Mode" unearnable on the level named Hard (fixed: Hard level or pressure replay), "scenarios" for levels (fixed), `<html lang>` never switched (fixed), untranslated select label (fixed), six new Spanish strings and the card in tú (fixed: usted). Open: modal dialog semantics in the Arena.
+
+Its blind-spot questions, still the owner's: what is in the hand at second zero, card or phone (BS-1); which Spanish, decided by whom, now that usted is the rule everywhere (BS-4).
+
 ## Open, ranked by leverage
 
 1. **Law-watch coverage (L).** 4 sources watched; 230 sections cited on HUD lines. The matrix carries no source URLs, so a generated watchlist needs a new column. Until then `/how-we-verify` says so plainly.

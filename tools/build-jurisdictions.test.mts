@@ -62,7 +62,7 @@ test('artifacts are deterministic and the app copy is byte-identical', () => {
   assert.equal(files.hud, files.hudApp)
   assert.deepEqual(renderArtifacts(buildAll(md)), files)
   assert.ok(files.jurisdictions.length < 500_000, `jurisdictions.json ${files.jurisdictions.length} bytes`)
-  assert.ok(files.hud.length < 200_000, `hud.json ${files.hud.length} bytes`)
+  assert.ok(files.hud.length < 260_000, `hud.json ${files.hud.length} bytes`) // lazy chunk in the app; the entry never carries it
 })
 
 test('run(): writes stale files, then reports nothing stale, and --check is honest', async () => {

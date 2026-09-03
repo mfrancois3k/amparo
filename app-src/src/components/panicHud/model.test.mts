@@ -5,11 +5,11 @@ import { hudFor, stateFromSearch, isKnownState, type HudBank } from './model.ts'
 
 const bank = JSON.parse(await readFile(new URL('../../content/hud.json', import.meta.url), 'utf8')) as HudBank
 
-test('Texas: nine lines in panic order, provisional, notice names the state', () => {
+test('Texas: ten lines in panic order, safety first, provisional, notice names the state', () => {
   const v = hudFor('TX', 'en', bank)
   assert.equal(v.stateCode, 'TX')
   assert.equal(v.stateName, 'Texas')
-  assert.deepEqual(v.lines.map((l) => l.id), ['silence', 'documents', 'search', 'sign', 'passenger', 'firearm', 'recording', 'unmarked', 'footage'])
+  assert.deepEqual(v.lines.map((l) => l.id), ['safety', 'silence', 'documents', 'search', 'sign', 'passenger', 'firearm', 'recording', 'unmarked', 'footage'])
   assert.equal(v.provisional, true)
   assert.equal(v.reviewed, false)
   assert.match(v.notice, /Texas/)
@@ -45,8 +45,8 @@ test('no state, an unknown state, or a lowercase code gives the federal baseline
   for (const code of [null, undefined, 'ZZ', 'tx', '', 'Texas']) {
     const v = hudFor(code, 'en', bank)
     assert.equal(v.stateCode, null, String(code))
-    assert.equal(v.lines.length, 5, String(code))
-    assert.deepEqual(v.lines.map((l) => l.id), ['silence', 'documents', 'search', 'passenger', 'unmarked'])
+    assert.equal(v.lines.length, 6, String(code))
+    assert.deepEqual(v.lines.map((l) => l.id), ['safety', 'silence', 'documents', 'search', 'passenger', 'unmarked'])
     assert.ok(v.lines.every((l) => l.cite === null && !l.emphasis))
     assert.equal(v.provisional, true)
     assert.equal(v.notice, bank.ui.federalNotice.en)
@@ -58,7 +58,7 @@ test('every state renders in both languages with no holes', () => {
   for (const code of Object.keys(bank.states)) {
     for (const lang of ['en', 'es'] as const) {
       const v = hudFor(code, lang, bank)
-      assert.ok(v.lines.length >= 8, `${code} ${lang}`)
+      assert.ok(v.lines.length >= 9, `${code} ${lang}`)
       assert.match(v.notice, new RegExp(lang === 'es' ? (bank.states[code].nameEs ?? bank.states[code].name) : bank.states[code].name), code)
       for (const l of v.lines) assert.doesNotMatch(l.text, /undefined|\{|—/, `${code}/${l.id}`)
     }

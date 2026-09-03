@@ -45,6 +45,14 @@
  },
  "federal": [
   {
+   "id": "safety",
+   "posture": "universal",
+   "cite": null,
+   "verdict": "UNASSESSED",
+   "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+   "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+  },
+  {
    "id": "silence",
    "posture": "universal",
    "cite": null,
@@ -101,6 +109,14 @@
    },
    "remedyTier": null,
    "lines": [
+    {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
     {
      "id": "silence",
      "posture": "universal",
@@ -183,6 +199,14 @@
    "remedyTier": null,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "universal",
      "cite": null,
@@ -263,6 +287,14 @@
    },
    "remedyTier": null,
    "lines": [
+    {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
     {
      "id": "silence",
      "posture": "universal",
@@ -345,6 +377,14 @@
    "remedyTier": null,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "refusal_offense_limited",
      "cite": "A.R.S. §13-2412",
@@ -425,6 +465,14 @@
    },
    "remedyTier": null,
    "lines": [
+    {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
     {
      "id": "silence",
      "posture": "lying_is_crime",
@@ -523,6 +571,14 @@
    "remedyTier": 2,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "universal",
      "cite": null,
@@ -603,6 +659,14 @@
    },
    "remedyTier": 1,
    "lines": [
+    {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
     {
      "id": "silence",
      "posture": "universal",
@@ -685,6 +749,14 @@
    "remedyTier": null,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "universal",
      "cite": null,
@@ -766,6 +838,14 @@
    "remedyTier": null,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "universal",
      "cite": null,
@@ -846,6 +926,14 @@
    },
    "remedyTier": null,
    "lines": [
+    {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
     {
      "id": "silence",
      "posture": "universal",
@@ -936,6 +1024,14 @@
    "remedyTier": null,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "universal",
      "cite": null,
@@ -1025,6 +1121,14 @@
    "remedyTier": null,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "universal",
      "cite": null,
@@ -1105,6 +1209,14 @@
    },
    "remedyTier": null,
    "lines": [
+    {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
     {
      "id": "silence",
      "posture": "lying_is_crime",
@@ -1187,6 +1299,14 @@
    "remedyTier": null,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "universal",
      "cite": null,
@@ -1267,6 +1387,14 @@
    },
    "remedyTier": null,
    "lines": [
+    {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
     {
      "id": "silence",
      "posture": "universal",
@@ -1357,6 +1485,14 @@
    "remedyTier": null,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "universal",
      "cite": null,
@@ -1446,6 +1582,14 @@
    "remedyTier": null,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "universal",
      "cite": null,
@@ -1526,6 +1670,14 @@
    },
    "remedyTier": null,
    "lines": [
+    {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
     {
      "id": "silence",
      "posture": "lying_is_crime",
@@ -1608,6 +1760,14 @@
    "remedyTier": null,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "universal",
      "cite": null,
@@ -1689,6 +1849,14 @@
    "remedyTier": null,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "lying_is_crime",
      "cite": "M.G.L. c.90 §25",
@@ -1769,6 +1937,14 @@
    },
    "remedyTier": 0,
    "lines": [
+    {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
     {
      "id": "silence",
      "posture": "universal",
@@ -1859,6 +2035,14 @@
    "remedyTier": null,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "universal",
      "cite": null,
@@ -1939,6 +2123,14 @@
    },
    "remedyTier": null,
    "lines": [
+    {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
     {
      "id": "silence",
      "posture": "decline_preserved",
@@ -2028,6 +2220,14 @@
    },
    "remedyTier": null,
    "lines": [
+    {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
     {
      "id": "silence",
      "posture": "universal",
@@ -2126,6 +2326,14 @@
    "remedyTier": null,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "lying_is_crime",
      "cite": "RSMo §575.120",
@@ -2206,6 +2414,14 @@
    },
    "remedyTier": null,
    "lines": [
+    {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
     {
      "id": "silence",
      "posture": "universal",
@@ -2288,6 +2504,14 @@
    "remedyTier": null,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "universal",
      "cite": null,
@@ -2368,6 +2592,14 @@
    },
    "remedyTier": null,
    "lines": [
+    {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
     {
      "id": "silence",
      "posture": "universal",
@@ -2450,6 +2682,14 @@
    "remedyTier": null,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "universal",
      "cite": null,
@@ -2530,6 +2770,14 @@
    },
    "remedyTier": null,
    "lines": [
+    {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
     {
      "id": "silence",
      "posture": "universal",
@@ -2612,6 +2860,14 @@
    "remedyTier": 1,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "lying_is_crime",
      "cite": "RSA §265:4 I(b)",
@@ -2692,6 +2948,14 @@
    },
    "remedyTier": null,
    "lines": [
+    {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
     {
      "id": "silence",
      "posture": "lying_is_crime",
@@ -2782,6 +3046,14 @@
    "remedyTier": null,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "lying_is_crime",
      "cite": "NMSA §30-22-3",
@@ -2871,6 +3143,14 @@
    "remedyTier": null,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "universal",
      "cite": null,
@@ -2951,6 +3231,14 @@
    },
    "remedyTier": null,
    "lines": [
+    {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
     {
      "id": "silence",
      "posture": "universal",
@@ -3033,6 +3321,14 @@
    "remedyTier": null,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "refusal_offense_limited",
      "cite": "R.C. §2921.29",
@@ -3113,6 +3409,14 @@
    },
    "remedyTier": null,
    "lines": [
+    {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
     {
      "id": "silence",
      "posture": "universal",
@@ -3195,6 +3499,14 @@
    "remedyTier": null,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "lying_is_crime",
      "cite": "ORS §162.385",
@@ -3276,6 +3588,14 @@
    "remedyTier": null,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "lying_is_crime",
      "cite": "18 Pa.C.S. §4914",
@@ -3356,6 +3676,14 @@
    },
    "remedyTier": 1,
    "lines": [
+    {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
     {
      "id": "silence",
      "posture": "universal",
@@ -3446,6 +3774,14 @@
    "remedyTier": null,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "universal",
      "cite": null,
@@ -3526,6 +3862,14 @@
    },
    "remedyTier": null,
    "lines": [
+    {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
     {
      "id": "silence",
      "posture": "lying_is_crime",
@@ -3608,6 +3952,14 @@
    "remedyTier": null,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "lying_is_crime",
      "cite": "T.C.A. §39-16-611",
@@ -3688,6 +4040,14 @@
    },
    "remedyTier": null,
    "lines": [
+    {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
     {
      "id": "silence",
      "posture": "universal",
@@ -3778,6 +4138,14 @@
    "remedyTier": null,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "refusal_offense_limited",
      "cite": "Utah Code §76-8-301.5",
@@ -3858,6 +4226,14 @@
    },
    "remedyTier": 0,
    "lines": [
+    {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
     {
      "id": "silence",
      "posture": "lying_is_crime",
@@ -3940,6 +4316,14 @@
    "remedyTier": null,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "universal",
      "cite": null,
@@ -4021,6 +4405,14 @@
    "remedyTier": null,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "universal",
      "cite": null,
@@ -4101,6 +4493,14 @@
    },
    "remedyTier": null,
    "lines": [
+    {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
     {
      "id": "silence",
      "posture": "universal",
@@ -4191,6 +4591,14 @@
    "remedyTier": 4,
    "lines": [
     {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
+    {
      "id": "silence",
      "posture": "lying_is_crime",
      "cite": "W. Va. Code §61-5-17(c)",
@@ -4271,6 +4679,14 @@
    },
    "remedyTier": null,
    "lines": [
+    {
+     "id": "safety",
+     "posture": "universal",
+     "cite": null,
+     "verdict": "UNASSESSED",
+     "en": "Pull over where it is safe. Engine off, window down, hands on the wheel, interior light on at night.",
+     "es": "Deténgase donde sea seguro. Motor apagado, ventana abajo, manos en el volante, luz interior encendida de noche."
+    },
     {
      "id": "silence",
      "posture": "universal",
