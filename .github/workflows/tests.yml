@@ -35,9 +35,35 @@ jobs:
       - name: generated data is current
         run: node tools/build-jurisdictions.mjs --check
 
+      # sw-routing-check.mjs proves /rehearse and /arena/ get their own offline
+      # cache key instead of silently serving the pack (or /app) when offline —
+      # exactly the class of regression this workflow exists to catch, and
+      # until now it ran only on a laptop, never in CI.
+      - name: service-worker routing
+        run: node tools/sw-routing-check.mjs
+
+      - name: app-src install
+        working-directory: app-src
+        run: npm ci --ignore-scripts
+
       # The Convex functions type-check against the committed _generated bindings.
       - name: convex typecheck
         working-directory: app-src
+        run: npx tsc -p convex/tsconfig.json --noEmit
+
+      # app-src's own build was broken silently for a week (eb82570 to
+      # 2026-09-04) because nothing ran it outside a laptop. `check` covers
+      # content extraction, localStorage migrations and service-worker
+      # routing for /app; `build` is the production bundle the site actually
+      # ships from /app. Both run here now so that never happens again.
+      - name: app-src check + build
+        working-directory: app-src
         run: |
-          npm ci --ignore-scripts
-          npx tsc -p convex/tsconfig.json --noEmit
+          npm run check
+          npm run build
+
+      - name: app-src lint + typecheck
+        working-directory: app-src
+        run: |
+          npx oxlint
+          npx tsc -b

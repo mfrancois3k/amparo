@@ -33,6 +33,21 @@ test('matchedSources: only cites with a sidecar URL+anchor become entries; alrea
   assert.equal(again.length, 0, 'an id already in law-watch.json must never be re-emitted (would clobber a hand-set hash)')
 })
 
+test('matchedSources: ids are collision-resistant across different cites in the same state, even ones that share a long common prefix', () => {
+  const longPrefix = 'Some State Code Title Chapter Section Subsection Detail '
+  const hud2 = { states: { AA: { lines: [
+    { id: 'a', cite: `${longPrefix}Part One` },
+    { id: 'b', cite: `${longPrefix}Part Two` },
+  ] } } }
+  const sidecar = {
+    [`${longPrefix}Part One`]: { url: 'https://example.gov/one', anchor: 'one' },
+    [`${longPrefix}Part Two`]: { url: 'https://example.gov/two', anchor: 'two' },
+  }
+  const out = matchedSources(hud2, sidecar, new Set())
+  assert.equal(out.length, 2, 'both cites must be emitted')
+  assert.notEqual(out[0].id, out[1].id, 'a 40-char slug truncation must not collapse two distinct cites into one id')
+})
+
 test('gaps: every uncovered cite, grouped by state, with every line that shows it', () => {
   const g = gaps(hud, { 'Fla. Stat. §318.14(3)': { url: 'u', anchor: 'a' } })
   assert.deepEqual([...g.keys()].sort(), ['GA', 'TX'])

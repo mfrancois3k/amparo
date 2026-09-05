@@ -219,7 +219,15 @@ export async function run({ root = ROOT, check = false } = {}) {
   const arenaPath = path.join(root, 'arena', 'index.html')
   const arenaCurrent = await readFile(arenaPath, 'utf8')
   const arenaNext = patchArenaInline(arenaCurrent, built.hud)
-  if (arenaCurrent.replace(/\r\n/g, '\n') !== arenaNext) {
+  /* patchArenaInline's before/after are sliced straight out of arenaCurrent,
+   * so arenaNext inherits whatever line endings the file already has (unlike
+   * the ARTIFACTS loop above, whose `files[key]` is always freshly built and
+   * therefore always LF-only) — comparing one normalised side against one
+   * not-normalised side made this always look stale on Windows, where a
+   * hand-edit through a tool that CRLF-normalises on write is routine.
+   * Normalise both sides the same way instead. */
+  const norm = (s) => s.replace(/\r\n/g, '\n')
+  if (norm(arenaCurrent) !== norm(arenaNext)) {
     stale.push('arena/index.html')
     if (!check) await writeFile(arenaPath, arenaNext, 'utf8')
   }

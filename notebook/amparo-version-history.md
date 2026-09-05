@@ -972,6 +972,7 @@ with explicit ink. Tone atmosphere (v2.12.1) re-tuned for dark ground.
 | Audit second wave: internals off the domain, Arena audio under `/rehearse`, SW offline fix, rate limits, HUD cite rule + usted, state-page review flag, verify/about truth pass | v2.28.0 |
 | Extractor repaired (FROZEN + pinned hashes, us-paths sandbox); /app practice engine deleted, step 5 is Thank You; `hub_title` print bug | v2.28.1 |
 | Arena offline (inline hud data + own SW cache key, fixes /rehearse serving the pack offline); law-watch coverage pipeline (sidecar + gap report, 0/184 seeded) | v2.29.0 |
+| Review fixes: app-src build wired into CI, law-watch --sync failure isolation, source-id collisions, panic-view timer pause, dead badge branch, "(Provisional)" wording, CRLF false-stale bug | v2.29.1 |
 
 To restore any version exactly:
 ```bash

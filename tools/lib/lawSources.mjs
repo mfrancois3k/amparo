@@ -33,19 +33,33 @@ export function hudCites(hud) {
 export function matchedSources(hud, sidecar, existingIds) {
   const cites = hudCites(hud)
   const out = []
+  const seenThisRun = new Set()
   for (const [cite, uses] of cites) {
     const entry = sidecar[cite]
     if (!entry?.url || !entry?.anchor) continue
     const state = uses[0].state
-    const id = `hud-${state.toLowerCase()}-${slug(cite)}`
-    if (existingIds.has(id)) continue
+    const id = idFor(state, cite)
+    /* Two different cites can share a truncated slug (real today: 7 of 184
+     * cites collide at 40 chars) — checked against BOTH what is already in
+     * law-watch.json and what this same run has already emitted, since a
+     * silent id collision would make the second real source look
+     * "already present" via existingIds.has(id) and get dropped, never
+     * watched, with no error. */
+    if (existingIds.has(id) || seenThisRun.has(id)) continue
+    seenThisRun.add(id)
     out.push({ id, state, cite, url: entry.url, anchor: entry.anchor })
   }
   return out
 }
 
-function slug(cite) {
-  return cite.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40)
+/** State + a hash of the full cite, not a truncated slug of it: two cites
+ * that only differ after character 40 of their slugified form (real today,
+ * 7 of 184) must not collide. Deterministic, so a re-run always derives the
+ * same id for the same cite and existingIds-dedup keeps working. */
+function idFor(state, cite) {
+  let h = 0
+  for (let i = 0; i < cite.length; i++) h = (Math.imul(31, h) + cite.charCodeAt(i)) | 0
+  return `hud-${state.toLowerCase()}-${(h >>> 0).toString(36)}`
 }
 
 /** Every HUD cite with no sidecar entry, grouped by state, for a human

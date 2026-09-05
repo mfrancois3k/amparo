@@ -100,7 +100,7 @@ test('patchArenaInline: splices valid, parseable, matching JSON between the mark
   const out = patchArenaInline(html, built.hud)
   assert.ok(out.startsWith('before<script>/* AMPARO_HUD_INLINE:START'))
   assert.ok(out.endsWith('AMPARO_HUD_INLINE:END */</script>after'))
-  const m = /window\.__AMPARO_HUD__=(.*);\n\/\* AMPARO_HUD_INLINE:END/s.exec(out)
+  const m = /window\.__AMPARO_HUD__=(.*);\r?\n\/\* AMPARO_HUD_INLINE:END/s.exec(out)
   assert.ok(m, 'inline assignment not found')
   assert.deepEqual(JSON.parse(m[1]), built.hud)
 })
@@ -116,9 +116,26 @@ test('patchArenaInline: a missing marker fails loud, not silently', () => {
   assert.throws(() => patchArenaInline('<script>no markers here</script>', built.hud), /markers not found/)
 })
 
+test('run(): a CRLF-normalised arena/index.html (a Windows tool routinely does this) is not falsely reported stale', async () => {
+  const dir = await mkdtemp(path.join(os.tmpdir(), 'amparo-jur-crlf-'))
+  try {
+    await mkdir(path.join(dir, 'research'), { recursive: true })
+    await mkdir(path.join(dir, 'arena'), { recursive: true })
+    await writeFile(path.join(dir, 'research', 'state-matrix.md'), md)
+    const crlf = '<script>/* AMPARO_HUD_INLINE:START */\r\nwindow.__AMPARO_HUD__=null;\r\n/* AMPARO_HUD_INLINE:END */</script>\r\n<p>rest of the page\r\n</p>\r\n'
+    await writeFile(path.join(dir, 'arena', 'index.html'), crlf)
+    const first = await run({ root: dir })
+    assert.ok(first.includes('arena/index.html'), 'first run must still populate the marker')
+    const second = await run({ root: dir })
+    assert.ok(!second.includes('arena/index.html'), 'a second run over the same file must reach a fixed point, not report stale forever')
+  } finally {
+    await rm(dir, { recursive: true, force: true })
+  }
+})
+
 test('committed arena/index.html carries the current inline hud, byte-identical to data/hud.json', () => {
   const html = readFileSync(new URL('../arena/index.html', import.meta.url), 'utf8')
-  const m = /window\.__AMPARO_HUD__=(.*);\n\/\* AMPARO_HUD_INLINE:END/s.exec(html)
+  const m = /window\.__AMPARO_HUD__=(.*);\r?\n\/\* AMPARO_HUD_INLINE:END/s.exec(html)
   assert.ok(m, 'arena/index.html has no inline hud block')
   assert.deepEqual(JSON.parse(m[1]), built.hud)
 })

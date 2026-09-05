@@ -51,9 +51,19 @@ jobs:
       # watch list and refresh the gap report either way. No-ops safely when
       # nothing changed — see tools/law-sources.mjs.
       - name: Sync verified law sources and refresh the coverage gap report
+        # A malformed research/law-sources.json (a bad hand-edit) throws before
+        # any write, so nothing corrupts — but GitHub's default `bash -e` would
+        # let that crash skip the Commit step below entirely, silently
+        # discarding the day's real law-status.json update along with it. This
+        # step's own failure must never take down the one this workflow exists
+        # for, so its exit code is swallowed here, the same way the source
+        # check below swallows a `changed` exit for the same reason.
         run: |
+          set +e
           node tools/law-sources.mjs --sync
           node tools/law-sources.mjs --gaps
+          if [ $? -ne 0 ]; then echo "::warning::tools/law-sources.mjs failed; continuing without it today"; fi
+          exit 0
 
       - name: Commit the refreshed status
         run: |

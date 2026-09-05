@@ -6,6 +6,62 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.29.1 — 2026-09-04
+
+v2.29.1 — "The reviews caught what shipping alone couldn't"
+
+Fixes from three parallel reviews of v2.29.0 (focus group 27, module design
+review in `wargames/35-offline-lawwatch-modules.md`, blind-spot audit in
+`notebook/amparo-blindspot-audit-2026-09-04.md`) — run the same day, not left
+as chips.
+
+- **app-src's own build now runs in CI.** `npm run build` sat silently broken
+  for a week (eb82570 to 2026-09-03) because nothing but a laptop ever ran it.
+  `.github/workflows/tests.yml` now runs `tools/sw-routing-check.mjs`,
+  `app-src`'s own `npm run check` + `npm run build`, `oxlint`, and `tsc -b` on
+  every push — the exact gap that let that regression sit undetected.
+- **The daily law-watch `--sync` step can no longer take down the whole day's
+  commit.** It had no failure isolation: a malformed hand-edit to
+  `research/law-sources.json` would throw and, under GitHub's default
+  `bash -e`, skip the downstream commit entirely — silently dropping that
+  day's real `law-status.json` update along with it, the same failure shape a
+  different workflow had before. Now isolated the same way the source check
+  already is.
+- **`tools/lib/lawSources.mjs`'s source ids are collision-resistant.** The
+  40-character slug truncation already collides for 7 of the 184 cited
+  sections; a real second source would have silently vanished (treated as
+  "already watched" and dropped, no error). Ids now derive from a hash of the
+  full cite string, not a truncated slug of it.
+- **Arena**: the full-screen panic view didn't pause the per-line countdown
+  or the tension needle (it was missing the class `overlayOpen()` checks for)
+  — opening the safety reference mid-drill could auto-fail the very turn it
+  was meant to help with. A dead code path in yesterday's "Hard Mode" badge
+  logic removed (`isSwanLvl` hides the whole badge in exactly the cases that
+  branch could fire, so it never did). "(Checked)" reworded to "(Provisional)"
+  — it read as active, ongoing monitoring; the gap report shipped the same
+  day says 0 of 184 cited sections are.
+- Dead CSS (`app-src/src/styles/practice.css`, orphaned by v2.28.1's engine
+  deletion) removed.
+- Fixed a real Windows-only tooling bug found while chasing a false test
+  failure: comparing a CRLF-normalised string against a not-normalised one in
+  `tools/build-jurisdictions.mjs`'s arena-staleness check always mismatched
+  whenever the file had any CRLF, regardless of actual content — any editor
+  or tool that touches `arena/index.html` on Windows could have made
+  `--check` cry wolf forever. Both sides now normalise the same way; a
+  regression test proves a second run reaches a fixed point.
+
+Not fixed, flagged instead: the swan-gate (`isSwanLvl`) treats every
+situation's LAST level as "already gone wrong, unscored," but for `traffic`
+the actual cuffs/loudspeaker content and the hardest-difficulty level are not
+the same level — flagged three times now (wargames/29, /30, /31, /35) without
+being resolved; it needs a content-by-content classification pass across all
+six situations, not a rushed same-day fix. Also flagged, not decided: no
+branch protection on `main` (a repository setting, not a code change); Arena
+fonts are cache-first forever with no content hash to bust them if one is
+ever swapped.
+
+Tests 90 (was 88).
+
 ## v2.29.0 — 2026-09-04
 
 v2.29.0 — "Arena works with no signal, and the watch list stops pretending to be done"
