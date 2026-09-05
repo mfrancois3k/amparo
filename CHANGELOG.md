@@ -6,6 +6,54 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.29.0 — 2026-09-04
+
+v2.29.0 — "Arena works with no signal, and the watch list stops pretending to be done"
+
+Two of the grand audit's open items, built rather than just tracked.
+
+- **Arena offline.** The state panel and the full-screen panic view used to
+  fetch `/data/hud.json` at runtime and hide themselves on failure — exactly
+  the wrong moment to fail quiet, since it is the roadside scenario the
+  feature exists for. `tools/build-jurisdictions.mjs` now also splices the
+  compiled bank inline into `arena/index.html` between two markers
+  (`AMPARO_HUD_INLINE:START/END`), so the panel renders from that inline copy
+  the instant the page parses — no network required, not even on the very
+  first load. The runtime fetch still runs after, as a background refresh.
+  Separately, `sw.js` no longer skips every `/arena/*` request outright: a
+  visit to `/arena/` or `/rehearse` (the same content via the Vercel rewrite)
+  now gets its own offline artifact (`ARENA_CORE`, a cache key distinct from
+  the pack's `CORE`), and Arena audio/fonts are cache-first like the rest of
+  the site's immutable assets. Until today `/rehearse` fell through to the
+  generic branch and, offline, would have silently served the **pack**
+  instead of the Arena — the exact "wrong app" bug the `/app` guard exists to
+  prevent, just not yet extended past `/app` and the literal `/arena` path.
+  Verified live in a real browser: full offline reload of `/arena/?state=FL`
+  serves the cached shell and the panel renders Florida's lines with zero
+  network activity. `tools/sw-routing-check.mjs` now asserts the key
+  separation directly (a fetch-event harness against the real `sw.js`, not a
+  mock of it), and `tools/build-jurisdictions.test.mts` proves the inline
+  splice round-trips and matches `data/hud.json` byte-for-byte.
+- **Law-watch coverage, honestly scoped.** The daily check watches 4 sources;
+  `data/hud.json` cites 184 distinct statute sections, none of them watched,
+  and `research/state-matrix.md` carries citations but never URLs (confirmed:
+  zero `http`s in the file). Rather than guess URLs from a pattern — the
+  research ledger's own method log shows the FindLaw slug that works for most
+  states 404s for two of them — this ships the pipeline and is honest about
+  the gap: `research/law-sources.json` is a per-cite verified-URL sidecar,
+  seeded with zero entries (populating it is the same kind of per-section
+  research pass that built the matrix, not a same-day task);
+  `tools/law-sources.mjs --gaps` writes `research/law-watch-gaps.md`, a
+  184-cite checklist grouped by state; `--sync` appends any newly-verified
+  sidecar entries into `research/law-watch.json` additively, never touching
+  the 4 existing hand-verified sources (a different, older citation surface —
+  the original 3-state pack content, not the HUD compiler's output) or their
+  stored hash baselines. The daily workflow now runs both and commits the
+  result; `npm test` fails if the committed gap report drifts from
+  `data/hud.json`, the same staleness guard the rest of the pipeline uses.
+
+Tests 88 (was 80), all green; guards 29/29, 16/16, sw-routing 22/22.
+
 ## v2.28.1 — 2026-09-04
 
 v2.28.1 — "The app builds again, and stops shipping a drill nobody reviewed"

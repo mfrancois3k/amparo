@@ -11,7 +11,7 @@
     "typescript": "^7.0.2"
   },
   "scripts": {
-    "test": "node --test tools/jurisdictions/*.test.mts tools/*.test.mts app-src/convex/lib/*.test.mts app-src/src/**/*.test.mts",
+    "test": "node --test tools/jurisdictions/*.test.mts tools/lib/*.test.mts tools/*.test.mts app-src/convex/lib/*.test.mts app-src/src/**/*.test.mts",
     "build:jurisdictions": "node tools/build-jurisdictions.mjs",
     "check:jurisdictions": "node tools/build-jurisdictions.mjs --check"
   }

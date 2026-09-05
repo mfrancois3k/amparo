@@ -1,9 +1,10 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFile, mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises'
+import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import os from 'node:os'
-import { buildAll, renderArtifacts, run, ARTIFACTS } from './build-jurisdictions.mjs'
+import { buildAll, renderArtifacts, run, ARTIFACTS, patchArenaInline } from './build-jurisdictions.mjs'
 
 const md = await readFile(new URL('../research/state-matrix.md', import.meta.url), 'utf8')
 const built = buildAll(md)
@@ -69,14 +70,22 @@ test('run(): writes stale files, then reports nothing stale, and --check is hone
   const dir = await mkdtemp(path.join(os.tmpdir(), 'amparo-jur-'))
   try {
     await mkdir(path.join(dir, 'research'), { recursive: true })
+    await mkdir(path.join(dir, 'arena'), { recursive: true })
     await writeFile(path.join(dir, 'research', 'state-matrix.md'), md)
+    // A minimal arena/index.html carrying only the marker pair run() splices.
+    await writeFile(path.join(dir, 'arena', 'index.html'),
+      '<script>/* AMPARO_HUD_INLINE:START */\nwindow.__AMPARO_HUD__=null;\n/* AMPARO_HUD_INLINE:END */</script>')
     const first = await run({ root: dir })
-    assert.deepEqual(first.sort(), Object.values(ARTIFACTS).sort())
+    assert.deepEqual(first.sort(), [...Object.values(ARTIFACTS), 'arena/index.html'].sort())
     assert.deepEqual(await run({ root: dir }), [])
     assert.deepEqual(await run({ root: dir, check: true }), [])
     await writeFile(path.join(dir, ARTIFACTS.hud), '{}\n')
     assert.deepEqual(await run({ root: dir, check: true }), [ARTIFACTS.hud])
     assert.equal(await readFile(path.join(dir, ARTIFACTS.hud), 'utf8'), '{}\n', '--check must not write')
+    // arena/index.html staleness is caught the same way.
+    await writeFile(path.join(dir, 'arena', 'index.html'),
+      '<script>/* AMPARO_HUD_INLINE:START */\nwindow.__AMPARO_HUD__=null;\n/* AMPARO_HUD_INLINE:END */</script>')
+    assert.deepEqual(await run({ root: dir, check: true }), [ARTIFACTS.hud, 'arena/index.html'])
   } finally {
     await rm(dir, { recursive: true, force: true })
   }
@@ -84,4 +93,32 @@ test('run(): writes stale files, then reports nothing stale, and --check is hone
 
 test('committed artifacts are current', async () => {
   assert.deepEqual(await run({ check: true }), [])
+})
+
+test('patchArenaInline: splices valid, parseable, matching JSON between the markers, touches nothing else', () => {
+  const html = 'before<script>/* AMPARO_HUD_INLINE:START old */\nwindow.__AMPARO_HUD__=null;\n/* AMPARO_HUD_INLINE:END */</script>after'
+  const out = patchArenaInline(html, built.hud)
+  assert.ok(out.startsWith('before<script>/* AMPARO_HUD_INLINE:START'))
+  assert.ok(out.endsWith('AMPARO_HUD_INLINE:END */</script>after'))
+  const m = /window\.__AMPARO_HUD__=(.*);\n\/\* AMPARO_HUD_INLINE:END/s.exec(out)
+  assert.ok(m, 'inline assignment not found')
+  assert.deepEqual(JSON.parse(m[1]), built.hud)
+})
+
+test('patchArenaInline: idempotent, and re-splicing over its own prior output is a no-op', () => {
+  const html = 'x<script>/* AMPARO_HUD_INLINE:START */\nwindow.__AMPARO_HUD__=null;\n/* AMPARO_HUD_INLINE:END */</script>y'
+  const once = patchArenaInline(html, built.hud)
+  const twice = patchArenaInline(once, built.hud)
+  assert.equal(once, twice)
+})
+
+test('patchArenaInline: a missing marker fails loud, not silently', () => {
+  assert.throws(() => patchArenaInline('<script>no markers here</script>', built.hud), /markers not found/)
+})
+
+test('committed arena/index.html carries the current inline hud, byte-identical to data/hud.json', () => {
+  const html = readFileSync(new URL('../arena/index.html', import.meta.url), 'utf8')
+  const m = /window\.__AMPARO_HUD__=(.*);\n\/\* AMPARO_HUD_INLINE:END/s.exec(html)
+  assert.ok(m, 'arena/index.html has no inline hud block')
+  assert.deepEqual(JSON.parse(m[1]), built.hud)
 })

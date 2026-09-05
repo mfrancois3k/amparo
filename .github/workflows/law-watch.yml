@@ -46,11 +46,20 @@ jobs:
       - name: Regenerate the pages that print the check date
         run: node tools/build-pages.mjs
 
+      # research/law-sources.json (a human-maintained, per-cite verified-URL
+      # sidecar) may have grown since yesterday; fold anything new into the
+      # watch list and refresh the gap report either way. No-ops safely when
+      # nothing changed — see tools/law-sources.mjs.
+      - name: Sync verified law sources and refresh the coverage gap report
+        run: |
+          node tools/law-sources.mjs --sync
+          node tools/law-sources.mjs --gaps
+
       - name: Commit the refreshed status
         run: |
           git config user.name  "amparo-law-watch"
           git config user.email "actions@github.com"
-          git add law-status.json rights derechos about acerca how-we-verify como-verificamos feed.xml sitemap.xml
+          git add law-status.json rights derechos about acerca how-we-verify como-verificamos feed.xml sitemap.xml research/law-watch.json research/law-watch-gaps.md
           # Only lastChecked moves on a quiet day; skip the commit if truly nothing differs.
           git diff --staged --quiet && echo "no change to commit" && exit 0
           git commit -m "chore: daily statute source check ($(date -u +%Y-%m-%d))"

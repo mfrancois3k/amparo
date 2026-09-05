@@ -27,6 +27,11 @@ const swPath = join(dirname(fileURLToPath(import.meta.url)), '..', 'sw.js');
 const handlers = {};
 const deleted = [];
 let cacheKeys = [];
+/* Every cache.put(key, ...) call, across the life of the sandbox — read by the
+   ARENA_CORE/CORE separation test below via keyOf(), which normalises both a
+   bare string key (CORE, ARENA_CORE) and a Request-like object to one string. */
+const puts = [];
+const keyOf = k => (typeof k === 'string' ? k : k?.url ?? String(k));
 
 const sandbox = {
   URL, console,
@@ -37,7 +42,7 @@ const sandbox = {
     clients: { claim: async () => {} }
   },
   caches: {
-    open: async () => ({ add: async () => {}, put: async () => {}, match: async () => undefined }),
+    open: async () => ({ add: async () => {}, put: async (k) => { puts.push(keyOf(k)); }, match: async () => undefined }),
     match: async () => undefined,
     keys: async () => cacheKeys,
     delete: async k => { deleted.push(k); return true; }
@@ -58,6 +63,16 @@ function handled(url, mode = 'no-cors') {
   return took;
 }
 
+/** Fire a navigate FetchEvent and await whatever sw.js hands respondWith,
+ * returning every cache key written during that one request. */
+async function navigated(url) {
+  const before = puts.length;
+  let p;
+  handlers.fetch({ request: { method: 'GET', url, mode: 'navigate' }, respondWith: (promise) => { p = promise; } });
+  await p;
+  return puts.slice(before);
+}
+
 const cases = [
   // [url, mode, shouldBeHandled, why]
   [`${ORIGIN}/app/`,             'navigate', false, '/app navigation must pass through — else it overwrites the root shell under CORE'],
@@ -70,7 +85,13 @@ const cases = [
   [`${ORIGIN}/index.html`,          'no-cors', true, 'everything else still network-with-cache-fallback'],
   // Not-/app lookalikes must NOT be skipped.
   [`${ORIGIN}/apple-touch-icon.png`, 'no-cors', true, '/app prefix match must not swallow /apple-*'],
-  [`${ORIGIN}/application.js`,       'no-cors', true, '/app prefix match must not swallow /application*']
+  [`${ORIGIN}/application.js`,       'no-cors', true, '/app prefix match must not swallow /application*'],
+  // Arena and its /rehearse rewrite: no longer skipped outright (2026-09-04) —
+  // both now get their own offline handling, asserted separately below.
+  [`${ORIGIN}/arena/`,               'navigate', true, '/arena navigation is handled (its own cache key, asserted below)'],
+  [`${ORIGIN}/rehearse`,             'navigate', true, '/rehearse (the Arena rewrite) must be handled the same way as /arena/'],
+  [`${ORIGIN}/arena/audio/en/x.mp3`, 'no-cors',  true, 'Arena audio is cache-first now, same as root audio'],
+  [`${ORIGIN}/arena/fonts/f0.woff2`, 'no-cors',  true, 'Arena fonts are cache-first now'],
 ];
 
 let failures = 0;
@@ -92,14 +113,45 @@ handlers.fetch({
   }
 });
 
+/* The bug this whole feature exists to prevent: until 2026-09-04, /rehearse
+   was not excluded by the /arena prefix check, so it fell into the generic
+   navigate branch and, offline, would have been silently handed the PACK's
+   cached page — the exact "wrong app" failure the /app guard above prevents,
+   just not yet extended past /app and the literal /arena path. Assert the
+   two are written to genuinely distinct keys, not just "handled=true". */
+{
+  const rehearseWrites = await navigated(`${ORIGIN}/rehearse`);
+  const arenaWrites = await navigated(`${ORIGIN}/arena/`);
+  const packWrites = await navigated(`${ORIGIN}/pack`);
+  const homeWrites = await navigated(`${ORIGIN}/`);
+  if (!rehearseWrites.some(k => k.includes('arena-offline'))) {
+    failures++; console.error(`FAIL /rehearse must write to the Arena's own offline key, wrote: ${JSON.stringify(rehearseWrites)}`);
+  }
+  if (rehearseWrites.some(k => k === './' || k.endsWith('amparohq.com/'))) {
+    failures++; console.error(`FAIL /rehearse must NOT write to CORE (the pack's key): ${JSON.stringify(rehearseWrites)}`);
+  }
+  if (!arenaWrites.some(k => k.includes('arena-offline'))) {
+    failures++; console.error(`FAIL /arena/ must write to the Arena's own offline key, wrote: ${JSON.stringify(arenaWrites)}`);
+  }
+  if (!packWrites.some(k => k === './' || k.endsWith('amparohq.com/'))) {
+    failures++; console.error(`FAIL /pack must still write to CORE, wrote: ${JSON.stringify(packWrites)}`);
+  }
+  if (homeWrites.some(k => k.includes('arena-offline'))) {
+    failures++; console.error(`FAIL / must never write to the Arena's offline key: ${JSON.stringify(homeWrites)}`);
+  }
+  if (homeWrites.length) {
+    failures++; console.error(`FAIL / (not the pack) must not write ANY cache entry, wrote: ${JSON.stringify(homeWrites)}`);
+  }
+}
+
 // activate: prune old amparo shells, never foreign caches.
-cacheKeys = ['amparo-v3', 'amparo-v2', 'amparo-v1', 'workbox-precache-v2-https://www.amparohq.com/app/'];
+cacheKeys = ['amparo-v4', 'amparo-v3', 'amparo-v2', 'amparo-v1', 'workbox-precache-v2-https://www.amparohq.com/app/'];
 const waits = [];
 await handlers.activate({ waitUntil: p => waits.push(p) });
 await Promise.all(waits);
 
 try {
-  assert.deepEqual(deleted.sort(), ['amparo-v1', 'amparo-v2'],
+  assert.deepEqual(deleted.sort(), ['amparo-v1', 'amparo-v2', 'amparo-v3'],
     'activate must delete only stale amparo-* caches');
 } catch (err) {
   failures++;
@@ -107,6 +159,6 @@ try {
 }
 
 console.log(failures === 0
-  ? `sw-routing-check: PASS (${cases.length + 2} assertions)`
+  ? `sw-routing-check: PASS (${cases.length + 8} assertions)`
   : `sw-routing-check: ${failures} FAILED`);
 process.exit(failures === 0 ? 0 : 1);

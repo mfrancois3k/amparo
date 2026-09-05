@@ -1,0 +1,27 @@
+{
+ "_comment": [
+  "Sidecar for tools/law-sources.mjs, keyed by the EXACT cite string as it",
+  "appears on a data/hud.json line (e.g. \"Fla. Stat. §318.14(3)\"). Each entry",
+  "is one statute source that has been individually verified: fetched, read,",
+  "confirmed CURRENT (never a year-pinned snapshot), and confirmed to contain",
+  "the anchor text below.",
+  "",
+  "This file is DIFFERENT from research/law-watch.json's own 4 hand-verified",
+  "sources, which watch the original 3-state pack.html citations (a separate,",
+  "older citation surface) and are never touched by tools/law-sources.mjs.",
+  "",
+  "As of 2026-09-04 this file is seeded with ZERO entries. data/hud.json cites",
+  "230 distinct sections across 51 states; none has a verified source URL on",
+  "record (research/state-matrix.md carries citations, never URLs — confirmed",
+  "by grep). Populating this file is the same kind of per-section research",
+  "pass that built the matrix itself (research/archive/state-law-matrix-ledger.md",
+  "documents the method: codes.findlaw.com defeats most IP bans, but its URL",
+  "slug must be verified per state — two states 404'd on the pattern that",
+  "worked everywhere else). It is not a same-day task; run",
+  "`node tools/law-sources.mjs --gaps` for the current checklist.",
+  "",
+  "Add an entry only after actually fetching the URL and confirming the anchor",
+  "text is present in the response — never from a URL pattern alone."
+ ],
+ "sources": {}
+}
