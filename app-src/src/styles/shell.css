@@ -79,3 +79,8 @@ h1{font-size:26px;color:var(--navy);letter-spacing:-.4px;margin-bottom:8px;line-
 .reachus{text-align:center;margin:10px 0 0}
 .linklike{background:none;border:0;padding:6px 4px;font:inherit;font-size:13px;font-weight:700;color:var(--navy,#1B2A4A);text-decoration:underline;text-underline-offset:3px;cursor:pointer;min-height:44px}
 .linklike:hover{color:#a87f1f}
+
+/* thank-you chips ---------------------------------------------------------- */
+.ty-chips{display:flex;flex-direction:column;gap:8px;margin-top:14px;list-style:none;padding:0}    /* :162 */
+.ty-chip{font-size:13.5px;font-weight:700;color:var(--muted);background:#f6f4ee;border:1.5px solid var(--line);border-radius:12px;padding:10px 13px}  /* :163 */
+.ty-chip.ok{background:#eef7f0;border-color:#bcd8c2;color:#1d4a2c}                                 /* :164 */

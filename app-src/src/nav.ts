@@ -14,7 +14,7 @@
  */
 import { STEP_SLUG } from './content/ui.json'
 
-export type RouteName = 'welcome' | 'state' | 'you' | 'lifelines' | 'print' | 'practice'
+export type RouteName = 'welcome' | 'state' | 'you' | 'lifelines' | 'print' | 'thankyou'
 export type Route = { name: RouteName }
 
 /** Index into root's canonical step list, so the stepper stays in sync with root's numbering. */

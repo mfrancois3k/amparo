@@ -70,13 +70,32 @@ const GROUPS = {
   // interpolation), the other two are plain objects of SVG strings.
   'icons.json':      ['LOGO', 'ICONS', 'PLACE_ICONS'],
   'map.json':        ['US_PATHS', 'SM_LBL', 'SM_BOX'],
-  'prep.json':       ['PREP_STEPS'],
-  'practice.json':   [
-    'PRACTICE', 'PRX_LEVELS', 'PRX_LEVEL_IDS', 'PRX_DOOR_IDS', 'PRX_UNSCORED', 'PRX_DO',
-    'PRX_TONE', 'PRX_VAR', 'PRX_CURVE', 'PRX_OPT', 'PRX_CITES', 'PRX_SIGN', 'PRX_DIVERGE',
-    'PRX_HARD', 'PRX_CHK', 'PRX_WAIT', 'PRX_NOSTOP', 'PRX_DOOR', 'PRX_CRISIS'
-  ],
 };
+/* FROZEN: names the source page no longer declares.
+   Commit eb82570 ("step 5 becomes Thank You page; practice consolidates into
+   the Arena") deleted the in-page practice engine, so PRACTICE, the PRX_*
+   banks, PREP_STEPS, CARRY_F and the two module flags have no live upstream:
+   the Arena has its own deck under different names, and /app still ships the
+   old one. Since 2026-09-03 this tool exited 1 on all 23, which took
+   `npm run build` in app-src down with it.
+
+   PRACTICE, the PRX_* banks and PREP_STEPS are gone from /app too, along
+   with the duplicate drill engine that read them (2026-09-04): the Arena is
+   the only practice surface, exactly as on the page. What remains frozen is
+   the handful of names /app still ships and the page no longer declares. They
+   are PINNED: the committed JSON is the source of truth now, and its hash is
+   recorded in tools/frozen-content.sha256.json. Hand-editing a frozen bank
+   fails --verify; changing one on purpose means running --freeze, which shows
+   up in the diff as a manifest change. That is the same visible-consent rule
+   an EDITION bump gives the live banks, which is the whole point of this tool.
+
+   To un-freeze a name, declare it again in pack.html and delete it here. */
+const FROZEN = {
+  FINAL_SCENARIOS_ENABLED: 'eb82570', DOOR_MODULE_ENABLED: 'eb82570', CARRY_F: 'eb82570',
+};
+const FROZEN_MANIFEST = join(ROOT, 'tools', 'frozen-content.sha256.json');
+const FREEZE = process.argv.includes('--freeze');
+
 // T is split into two files, one per language — the largest single bank.
 const I18N = 'T';
 
@@ -151,7 +170,7 @@ function sliceStatement(name) {
   return { start, text: html.slice(start, end) };
 }
 
-const wanted = [...new Set([I18N, ...Object.values(GROUPS).flat()])];
+const wanted = [...new Set([I18N, ...Object.values(GROUPS).flat()])].filter(n => !(n in FROZEN));
 const slices = [];
 let missing = [];
 for (const name of wanted) {
@@ -167,7 +186,8 @@ missing = missing.filter(name => {
   return !slices.some(s => re.test(s.text));
 });
 if (missing.length) {
-  console.error(`extract: could not locate in index.html: ${missing.join(', ')}`);
+  console.error(`extract: could not locate in pack.html: ${missing.join(', ')}`);
+  console.error('If the page no longer declares them, add them to FROZEN above and run --freeze.');
   process.exit(1);
 }
 
@@ -206,10 +226,23 @@ const program = [...byStart.values()].sort((a, b) => a.start - b.start).map(s =>
 
 let evaluated;
 try {
+  /* `const US_PATHS = window.AmparoPaths || {}` since the geometry moved into
+     /us-paths.js, which pack.html loads with a <script src>. Without that
+     global the slice evaluates to {} at exit 0 and the printed map loses every
+     state; the sandbox therefore gets the real file, evaluated the same
+     mechanical way. Asserted, not assumed: a renamed global fails loudly. */
+  const pathsFile = join(ROOT, 'us-paths.js');
+  const sandbox = Object.create(null);
+  sandbox.window = sandbox;
+  vm.runInNewContext(readFileSync(pathsFile, 'utf8'), sandbox, { filename: 'us-paths.js', timeout: 10000 });
+  if (!sandbox.AmparoPaths || Object.keys(sandbox.AmparoPaths).length < 51) {
+    console.error(`extract: us-paths.js did not define window.AmparoPaths with 51 jurisdictions (got ${Object.keys(sandbox.AmparoPaths || {}).length}).`);
+    process.exit(1);
+  }
   evaluated = vm.runInNewContext(
     `${program}\n;({ ${wanted.join(', ')} })`,
-    Object.create(null),
-    { filename: 'index.html:extracted', timeout: 10000 }
+    sandbox,
+    { filename: 'pack.html:extracted', timeout: 10000 }
   );
 } catch (err) {
   console.error(`extract: evaluating the sliced statements failed — ${err.message}`);
@@ -240,9 +273,24 @@ function plain(v) {
   return v;
 }
 
+/* A frozen name's value comes from the committed JSON, not from the page. */
+function frozenValue(file, name) {
+  const path = join(OUT, file);
+  if (!existsSync(path)) {
+    console.error(`extract: ${file} is frozen (${FROZEN[name]}) but missing from disk — restore it from git.`);
+    process.exit(1);
+  }
+  const current = JSON.parse(readFileSync(path, 'utf8'));
+  if (!(name in current)) {
+    console.error(`extract: ${name} is frozen (${FROZEN[name]}) but absent from ${file} — restore it from git.`);
+    process.exit(1);
+  }
+  return current[name];
+}
+
 const files = {};
 for (const [file, names] of Object.entries(GROUPS)) {
-  files[file] = Object.fromEntries(names.map(n => [n, plain(evaluated[n])]));
+  files[file] = Object.fromEntries(names.map(n => [n, n in FROZEN ? frozenValue(file, n) : plain(evaluated[n])]));
 }
 files['t.en.json'] = plain(evaluated[I18N].en);
 files['t.es.json'] = plain(evaluated[I18N].es);
@@ -276,6 +324,35 @@ files['meta.json'].CITED = Object.keys(evaluated.STATES).filter(k => !evaluated.
     if (onlyPaths.length) console.error(`  in US_PATHS but not SM_BOX: ${onlyPaths.join(', ')}`);
     if (onlyBoxes.length) console.error(`  in SM_BOX but not US_PATHS: ${onlyBoxes.join(', ')}`);
     console.error('  Regenerate SM_BOX: render the map, then read getBBox() off every .sm-st.');
+    process.exit(1);
+  }
+}
+
+/* The frozen banks have no upstream to re-derive them from, so their integrity
+   is the recorded hash. Checked on every run, not only --verify. */
+{
+  const digest = name => {
+    const [file] = Object.entries(GROUPS).find(([, names]) => names.includes(name));
+    return createHash('sha256').update(JSON.stringify(files[file][name])).digest('hex');
+  };
+  const actual = Object.fromEntries(Object.keys(FROZEN).sort().map(n => [n, digest(n)]));
+  if (FREEZE) {
+    writeFileSync(FROZEN_MANIFEST, JSON.stringify(actual, null, 2) + '\n');
+    console.log(`extract --freeze: pinned ${Object.keys(actual).length} frozen banks in ${FROZEN_MANIFEST}`);
+    process.exit(0);
+  }
+  if (!existsSync(FROZEN_MANIFEST)) {
+    console.error(`extract: ${FROZEN_MANIFEST} is missing. Run: node tools/extract-app-content.mjs --freeze`);
+    process.exit(1);
+  }
+  const pinned = JSON.parse(readFileSync(FROZEN_MANIFEST, 'utf8'));
+  const drift = Object.keys(actual).filter(n => pinned[n] !== actual[n]);
+  const gone = Object.keys(pinned).filter(n => !(n in actual));
+  if (drift.length || gone.length) {
+    console.error('extract: a frozen content bank changed with no source page to justify it.');
+    for (const n of drift) console.error(`  ${n}: pinned ${String(pinned[n]).slice(0, 12)}… now ${actual[n].slice(0, 12)}…`);
+    for (const n of gone) console.error(`  ${n}: pinned but no longer produced`);
+    console.error('  If the change is intended, re-pin it: node tools/extract-app-content.mjs --freeze');
     process.exit(1);
   }
 }
@@ -325,19 +402,33 @@ const render = obj => JSON.stringify(obj, null, 2) + '\n';
    inside a <script>, so `&` and `<` are already literal there; an `&amp;` inside
    a value is CONTENT that gets rendered later (e.g. "Civ. Prac. &amp; Rem.
    Code"). Decoding entities here turned a correct string into a false miss. */
-const htmlDecoded = html
+/* The corpus the presence check searches is every file the page actually
+   ships its content in: pack.html plus /us-paths.js, which carries the map
+   geometry since it moved out of the page. */
+const verbatimSrc = html + '\\n' + readFileSync(join(ROOT, 'us-paths.js'), 'utf8');
+const htmlDecoded = verbatimSrc
   .replace(/\\u([0-9a-fA-F]{4})/g, (_, h) => String.fromCharCode(parseInt(h, 16)))
   .replace(/\\n/g, '\n').replace(/\\t/g, '\t').replace(/\\r/g, '\r')
   .replace(/\\"/g, '"').replace(/\\'/g, "'")
   .replace(/\\\\/g, '\\');
 
-let strChecked = 0, strVerbatim = 0;
+let strChecked = 0, strVerbatim = 0, strFrozen = 0;
 const notFound = [];
+/* Frozen banks are excluded from the presence check, not from the report: the
+   page no longer declares them (see FROZEN), so "is this string in the page"
+   has no meaningful answer for them. Their integrity is the pinned hash
+   above, which is a strictly stronger check than substring presence. */
+const FROZEN_AT = /^[^.]+\.json\.([A-Za-z_$][\w$]*)/;   // "ui.json.CARRY_F[0][0]" -> CARRY_F
+const frozenPath = path => {
+  const m = FROZEN_AT.exec(path);
+  return !!(m && m[1] in FROZEN);
+};
 (function walk(v, path) {
+  if (path && frozenPath(path)) { if (typeof v === 'string' && v.trim()) strFrozen++; return; }
   if (typeof v === 'string') {
     if (!v.trim()) return;            // empty-by-design values (e.g. `amend:""`)
     strChecked++;
-    if (html.includes(v)) { strVerbatim++; return; }
+    if (verbatimSrc.includes(v)) { strVerbatim++; return; }
     if (htmlDecoded.includes(v)) return;   // present, spelled with escapes/entities
     notFound.push([path, v]);
     return;
@@ -346,7 +437,7 @@ const notFound = [];
   else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) walk(x, path ? `${path}.${k}` : k);
 })(files, '');
 if (notFound.length) {
-  console.error(`extract: ${notFound.length} extracted string(s) are NOT present in index.html — refusing to write.`);
+  console.error(`extract: ${notFound.length} extracted string(s) are NOT present in pack.html — refusing to write.`);
   notFound.slice(0, 5).forEach(([p, v]) => console.error(`  ${p}: ${JSON.stringify(v.slice(0, 70))}`));
   process.exit(1);
 }

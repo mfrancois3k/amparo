@@ -99,7 +99,9 @@ export function PrintPack({ t, lang, code, you, docs }: Props) {
             </div>
           ))}
         </div>
-        <h1>{t.hub_title}</h1>
+        {/* pr_title, not hub_title: root's v2.27.0 sweep found page 1 printing
+            "Now rehearse it." instead of the intended headline. Same fix here. */}
+        <h1>{t.pr_title}</h1>
         {t.pr_es ? <div className="es-sub">{t.pr_es}</div> : null}
         {t.steps.map((s, i) => (
           <div className="step-row" key={i}>

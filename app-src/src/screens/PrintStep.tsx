@@ -12,7 +12,7 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import type { Bank } from '../i18n'
 import { useLang } from '../i18n'
-import { readApp } from '../services/storage'
+import { readApp, writeApp } from '../services/storage'
 import { PrintPack } from '../components/PrintPack'
 import { DocsOverlay } from '../components/DocsOverlay'
 import { PackZoomOverlay } from '../components/PackZoomOverlay'
@@ -31,7 +31,9 @@ export function PrintStep({ t, state, onBack, onNext }: Props) {
   const [info] = useState<YouInfo>(() => readApp<YouInfo>('you', EMPTY_INFO))
   const [docs, setDocs] = useState<Docs>(() => readApp<Docs>('docs', {}))
   const [papersOpen, setPapersOpen] = useState(false)
-  const [printed, setPrinted] = useState(false)
+  /* Root persists hasPrinted in sr_save and step 5 reads it for its chip.
+     /app keeps its own namespaced copy rather than writing root's key. */
+  const [printed, setPrinted] = useState(() => readApp<boolean>('printed', false))
   const [helpOpen, setHelpOpen] = useState(false)
   const [zoomPage, setZoomPage] = useState<number | null>(null)
   const [saveOpen, setSaveOpen] = useState(false)
@@ -44,7 +46,7 @@ export function PrintStep({ t, state, onBack, onNext }: Props) {
         : t.d_st_some.replace('{n}', String(docsCount))
 
   useEffect(() => {
-    const onAfterPrint = () => setPrinted(true)
+    const onAfterPrint = () => { setPrinted(true); writeApp('printed', true) }
     window.addEventListener('afterprint', onAfterPrint)
     return () => window.removeEventListener('afterprint', onAfterPrint)
   }, [])
