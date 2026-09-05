@@ -6,6 +6,33 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.28.1 — 2026-09-04
+
+v2.28.1 — "The app builds again, and stops shipping a drill nobody reviewed"
+
+- **`npm run build` in app-src worked again for the first time since eb82570.**
+  The content extractor exited 1 hunting 23 constants the page stopped
+  declaring when the practice engine moved into the Arena. Names /app still
+  ships are now FROZEN and pinned by sha256 in
+  `tools/frozen-content.sha256.json`: hand-editing one fails `--verify`,
+  changing one on purpose needs `--freeze` and shows in the diff.
+- **A silent defect found in the same pass**: `US_PATHS` moved into
+  `/us-paths.js` and reads `window.AmparoPaths`, which the extractor's sandbox
+  did not provide. That extracts `{}` at exit 0 and prints a map with no
+  states. The sandbox now evaluates the real file and asserts 51 jurisdictions;
+  the verbatim check searches it too.
+- **Root's v2.27.0 consolidation, finished in /app.** Step 5 is a Thank You
+  screen (root's three chips: state, printed, documents; CTA into the Arena),
+  and the duplicate engine is deleted: PracticeStep, PracticeHub/Beat/Debrief,
+  practiceEngine, usePracticeAudio, practice.json, prep.json,
+  practice-engine-check. /app had been carrying 194 bank strings for a screen
+  root deleted in August.
+- **`PrintPack` printed `hub_title`** ("Now rehearse it.") instead of
+  `pr_title` — the latent bug root fixed in v2.27.0, never carried across.
+- Entry bundle 96.20 to 84.22 kB gzip; the 58 kB drill chunk is gone.
+  app-src `npm run check` passes end to end (verify:content, storage 14,
+  sw-routing 12).
+
 ## v2.28.0 — 2026-09-03
 
 v2.28.0 — "Fifty-one states in the product, and a till that cannot double-charge"

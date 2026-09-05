@@ -970,6 +970,7 @@ with explicit ink. Tone atmosphere (v2.12.1) re-tuned for dark ground.
 | `/rehearse` and `/aid` routes, "Enter The Arena" CTAs, sitemap +2 | v2.28.0 |
 | Grand audit fixes: CI tests workflow, Arena fonts under `/rehearse`, phone-collapsed state panel, dark-mode ladder, contrast, aid heading order, homepage ARIA | v2.28.0 |
 | Audit second wave: internals off the domain, Arena audio under `/rehearse`, SW offline fix, rate limits, HUD cite rule + usted, state-page review flag, verify/about truth pass | v2.28.0 |
+| Extractor repaired (FROZEN + pinned hashes, us-paths sandbox); /app practice engine deleted, step 5 is Thank You; `hub_title` print bug | v2.28.1 |
 
 To restore any version exactly:
 ```bash

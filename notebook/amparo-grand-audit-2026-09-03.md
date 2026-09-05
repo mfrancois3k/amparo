@@ -53,6 +53,33 @@ Its five ranked items, verified against source, and the same-day response:
 
 Its blind-spot questions, still the owner's: what is in the hand at second zero, card or phone (BS-1); which Spanish, decided by whom, now that usted is the rule everywhere (BS-4).
 
+## Closed 2026-09-04: the app build, and the consolidation it was hiding
+
+`npm run build` in app-src had been failing since eb82570; the audit listed it
+as item 9. Repairing it turned out to be the thread that pulled the rest:
+
+- The extractor looked for 23 constants the page stopped declaring when the
+  practice engine moved into the Arena. Those that /app still needs are now
+  FROZEN and pinned by sha256 (`tools/frozen-content.sha256.json`), so they
+  cannot be hand-edited silently; changing one on purpose needs `--freeze`,
+  which shows in the diff.
+- A second, quieter defect surfaced in the same pass: `US_PATHS` had moved
+  into `/us-paths.js` and reads `window.AmparoPaths`, which the sandbox did
+  not provide. Left alone, that extracts `{}` at exit 0 and ships a printed
+  map with no states. The sandbox now evaluates the real file and asserts 51
+  jurisdictions.
+- With the tool working it reported the real drift: /app's content bank still
+  carried 194 strings for the deleted engine, and /app still shipped that
+  engine. Root's v2.27.0 consolidation is now finished in /app too: step 5 is
+  the Thank You screen with root's own three chips and the CTA into the Arena;
+  PracticeStep, the three practice screens, practiceEngine, usePracticeAudio,
+  practice.json and prep.json are gone.
+- `PrintPack` printed `hub_title` ("Now rehearse it.") instead of `pr_title`:
+  the same latent bug root fixed in v2.27.0 and /app never inherited.
+
+Entry bundle 96.20 to 84.22 kB gzip, the 58 kB drill chunk gone, and
+`npm run check` passes end to end for the first time since August.
+
 ## Open, ranked by leverage
 
 1. **Law-watch coverage (L).** 4 sources watched; 230 sections cited on HUD lines. The matrix carries no source URLs, so a generated watchlist needs a new column. Until then `/how-we-verify` says so plainly.
