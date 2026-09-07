@@ -947,12 +947,639 @@
       "guidelines": {
         "notFetchedYet": true
       }
+    },
+    {
+      "domain": "niemanreports.org",
+      "url": "https://niemanreports.org/the-enduring-ambition-of-the-civil-rights-cold-case-project/",
+      "title": "The Enduring Ambition of the Civil Rights Cold Case Project - Nieman Reports",
+      "niche": "civil rights",
+      "operator": "write for us",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "dailyutahchronicle.com",
+      "url": "https://dailyutahchronicle.com/2021/06/08/cushman-civil-rights-education/",
+      "title": "Cushman: Everyone Needs Proper Civil Rights Education – The Daily Utah Chronicle",
+      "niche": "civil rights",
+      "operator": "write for us",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "journals.ala.org",
+      "url": "https://journals.ala.org/index.php/rusq/issue/download/533/289",
+      "title": "Reference & User Services Quarterly Winter 2015 Volume 55, Number 2 ISSN 1094-9054 The Journal of The Reference and User Serv...",
+      "niche": "civil rights",
+      "operator": "write for us",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "sites.temple.edu",
+      "url": "https://sites.temple.edu/pcrs/",
+      "title": "Temple Political and Civil Rights Law Society",
+      "niche": "civil rights",
+      "operator": "write for us",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "tomhull.com",
+      "url": "https://www.tomhull.com/ocston/notebook/1909.php",
+      "title": "September 2019 Notebook",
+      "niche": "civil rights",
+      "operator": "write for us",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "nursingclio.org",
+      "url": "https://nursingclio.org/Topics/civil-rights-movement/",
+      "title": "Civil Rights Movement – Nursing Clio",
+      "niche": "civil rights",
+      "operator": "write for us",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "feministing.com",
+      "url": "https://feministing.com/2016/04/27/chart-of-the-day-civil-rights-protests-have-never-been-palatable-to-white-people/",
+      "title": "Chart of the Day: Civil rights protests have never been palatable to white people",
+      "niche": "civil rights",
+      "operator": "write for us",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "converge.org.nz",
+      "url": "https://www.converge.org.nz/watchdog/29/12.htm",
+      "title": "Organiser",
+      "niche": "civil rights",
+      "operator": "write for us",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "parseFailed": true
+      }
+    },
+    {
+      "domain": "nfb.org",
+      "url": "https://nfb.org/images/nfb/publications/bm/bm19/bm1902/bm1902.htm",
+      "title": "Complete February Braille Monitor",
+      "niche": "civil rights",
+      "operator": "write for us",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "parseFailed": true
+      }
+    },
+    {
+      "domain": "teenvogue.com",
+      "url": "https://www.teenvogue.com/story/mlk-in-the-north-jeanne-theoharis",
+      "title": "MLK in the North: The Civil Rights Leader Understood That Racism and Segregation Were National Problems | Teen Vogue",
+      "niche": "civil rights",
+      "operator": "write for us",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "greatgameindia.com",
+      "url": "https://greatgameindia.com/conspiracy-split-iran/",
+      "title": "Conspiracy To Split Up Iran, Foment Terrorism And Civil War Failed: FM - GreatGameInternational",
+      "niche": "civil rights",
+      "operator": "write for us",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "juliabuckley.blogspot.com",
+      "url": "https://juliabuckley.blogspot.com/2007/04/lev-raphael-on-identity-mystery-writing.html",
+      "title": "Mysterious Musings: Lev Raphael on Identity, Social Commentary, Civil Rights, Jesus, and Keith Carradine",
+      "niche": "civil rights",
+      "operator": "write for us",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": true,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "shareok.org",
+      "url": "https://shareok.org/server/api/core/bitstreams/722b2007-85d2-4c0c-b3ca-44464b18c7d7/content",
+      "title": "Sustaining Professional Growth with a Side-to-Side Pedagogy: A Qualitative Case Study of the National Writing Project Focused on",
+      "niche": "civil rights",
+      "operator": "write for us",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "deliberatelyconsidered.com",
+      "url": "https://www.deliberatelyconsidered.com/2011/02/the-more-things-change-the-more-they-stay-the-same/index.html",
+      "title": "The More Things Change the More They Stay the Same « Jeffrey C. Goldfarb's Deliberately Considered",
+      "niche": "civil rights",
+      "operator": "write for us",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "slashdot.org",
+      "url": "https://slashdot.org/story/06/10/22/215238/wikipedias-100-million-dream",
+      "title": "Wikipedia's $100 Million Dream - Slashdot",
+      "niche": "civil rights",
+      "operator": "write for us",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "parseFailed": true
+      }
+    },
+    {
+      "domain": "brooklynrail.org",
+      "url": "https://brooklynrail.org/2015/07/criticspage/an-anecdotal-footnote/",
+      "title": "An Anecdotal Footnote - The Brooklyn Rail",
+      "niche": "civil rights",
+      "operator": "write for us",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "constant-content.com",
+      "url": "https://www.constant-content.com/about/privacy.htm",
+      "title": "Privacy Policy - Constant-Content.com",
+      "niche": "civil rights",
+      "operator": "write for us",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "aaihs.org",
+      "url": "https://www.aaihs.org/blog-announcements-welcome-to-the-new-contributors/",
+      "title": "Blog Announcements: Welcome to the New Contributors! - AAIHS",
+      "niche": "civil rights",
+      "operator": "write for us",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "peterlang.com",
+      "url": "https://www.peterlang.com/document/1296882",
+      "title": "Twentieth Century Frontierswoman",
+      "niche": "civil rights",
+      "operator": "write for us",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": true,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "ncte.org",
+      "url": "https://ncte.org/resources/journals/english-journal/english-journal-article-may-2022/",
+      "title": "English Journal Article May 2022 - National Council of Teachers of English",
+      "niche": "civil rights",
+      "operator": "write for us",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": true,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "fundsforwriters.com",
+      "url": "https://fundsforwriters.com/markets/",
+      "title": "Markets | FundsforWriters",
+      "niche": "civil rights",
+      "operator": "write for us",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "wordCount": "000 words",
+        "links": "unstated",
+        "paid": true,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "literaryladiesguide.com",
+      "url": "https://www.literaryladiesguide.com/literary-musings/wish-list-literary-ladies-guide-writing-life/",
+      "title": "Literary Ladies Guide's Wish List",
+      "niche": "civil rights",
+      "operator": "write for us",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "parseFailed": true
+      }
+    },
+    {
+      "domain": "thecanary.co",
+      "url": "https://www.thecanary.co/editorial/2023/06/01/australias-de-facto-sas-war-crimes-trial-has-lessons-for-the-uk/",
+      "title": "Australian SAS war crimes cases can tell us about our own",
+      "niche": "civil rights",
+      "operator": "write for us",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "americanheritage.com",
+      "url": "https://www.americanheritage.com/womens-revolution-time-inc",
+      "title": "The Women's Revolution at Time, Inc. (June 2020, Volume 65, Issue 3)",
+      "niche": "civil rights",
+      "operator": "write for us",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": true,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "hyper-info.com",
+      "url": "https://www.hyper-info.com/pages/articles/understanding-editorial-guidelines.html",
+      "title": "Understanding Editorial Guidelines. | hyper-info.com",
+      "niche": "know your rights",
+      "operator": "editorial guidelines",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "wordCount": "000 words",
+        "links": "bio-only",
+        "paid": true,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "blog.camera.org",
+      "url": "https://blog.camera.org/2005/07/terror-strikes-london-bbc-forgets-editorial-guidelines/",
+      "title": "Terror Strikes London; BBC Forgets Editorial Guidelines - CAMERA Snapshots",
+      "niche": "know your rights",
+      "operator": "editorial guidelines",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "shareaholic.com",
+      "url": "https://www.shareaholic.com/blog/editorial-guidelines/",
+      "title": "How to Make Editorial Guidelines for Your Blog | The Content Marketing Blog – Shareaholic",
+      "niche": "know your rights",
+      "operator": "editorial guidelines",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "comparethemarket.com",
+      "url": "https://www.comparethemarket.com/travel-insurance/content/delayed-or-cancelled-flights/",
+      "title": "Delayed or cancelled flights – know your rights | Compare the Market",
+      "niche": "know your rights",
+      "operator": "editorial guidelines",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "oxford.indymedia.org.uk",
+      "url": "https://oxford.indymedia.org.uk/static/editorial.html",
+      "title": "UK Indymedia | Oxford Indymedia Editorial Guidelines",
+      "niche": "know your rights",
+      "operator": "editorial guidelines",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "diff.wikimedia.org",
+      "url": "https://diff.wikimedia.org/editorial-guidelines/",
+      "title": "Editorial Guidelines – Diff",
+      "niche": "know your rights",
+      "operator": "editorial guidelines",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "brand.uconn.edu",
+      "url": "https://brand.uconn.edu/resources-tools/editorial-guidelines/",
+      "title": "Editorial Guidelines | Brand Standards",
+      "niche": "know your rights",
+      "operator": "editorial guidelines",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "medialens.org",
+      "url": "https://www.medialens.org/23_fg_75_lc/viewtopic_t2845.html",
+      "title": "Media Lens :: View topic - To BBC: unreporting of the West Bank",
+      "niche": "know your rights",
+      "operator": "editorial guidelines",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "wiki.openrightsgroup.org",
+      "url": "https://wiki.openrightsgroup.org/wiki/Orgzine",
+      "title": "Orgzine - ORG Wiki",
+      "niche": "know your rights",
+      "operator": "editorial guidelines",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "feather-insurance.com",
+      "url": "https://feather-insurance.com/about-us/editorial-standards",
+      "title": "Our Editorial Guidelines | Feather",
+      "niche": "know your rights",
+      "operator": "editorial guidelines",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "timeout.com",
+      "url": "https://www.timeout.com/about/editorial-guidelines",
+      "title": "Time Out Editorial Guidelines",
+      "niche": "know your rights",
+      "operator": "editorial guidelines",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "defirate.com",
+      "url": "https://defirate.com/editorial-guidelines/",
+      "title": "Editorial Guidelines at DeFi Rate",
+      "niche": "know your rights",
+      "operator": "editorial guidelines",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "pixel77.com",
+      "url": "https://pixel77.com/wordpress-plugins-successfully-managing-editorial-team/",
+      "title": "Know WordPress Plug-ins for Managing an Editorial Team",
+      "niche": "know your rights",
+      "operator": "editorial guidelines",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "fmwriters.com",
+      "url": "https://fmwriters.com/Visionback/Vision42/rejectionteacher.htm",
+      "title": "Rejection is Your Teacher",
+      "niche": "know your rights",
+      "operator": "editorial guidelines",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "community.globalvoices.org",
+      "url": "https://community.globalvoices.org/guide/advox-guides/gv-advox-guidelines/",
+      "title": "Advox Editorial Guidelines · Global Voices Community Blog",
+      "niche": "know your rights",
+      "operator": "editorial guidelines",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "science.fas.harvard.edu",
+      "url": "https://science.fas.harvard.edu/sites/g/files/omnuum7191/files/division-of-science/files/making_the_right_moves.pdf",
+      "title": "Making the Right Moves",
+      "niche": "know your rights",
+      "operator": "editorial guidelines",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "jipitec.eu",
+      "url": "https://www.jipitec.eu/jipitec/issue/download/55/78",
+      "title": "2| 2025 Volume 16 (2025) Issue 2 ISSN 2190-3387",
+      "niche": "know your rights",
+      "operator": "editorial guidelines",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "harekrsna.com",
+      "url": "https://www.harekrsna.com/sun/editorials/06-11/editorials7414.htm",
+      "title": "The Sampradaya Sun - Independent Vaisnava News - Editorial Stories - June 2011",
+      "niche": "know your rights",
+      "operator": "editorial guidelines",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "independent.ie",
+      "url": "https://www.independent.ie/farming/schemes/the-farmers-charter-know-your-rights-if-you-get-a-farm-inspection/42394313.html",
+      "title": "The Farmers’ Charter: Know your rights if you get a farm inspection | Irish Independent",
+      "niche": "know your rights",
+      "operator": "editorial guidelines",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "akdart.com",
+      "url": "https://www.akdart.com/lib137.html",
+      "title": "Media bias in Hillary Clinton's favor",
+      "niche": "know your rights",
+      "operator": "editorial guidelines",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "ibtimes.co.uk",
+      "url": "https://www.ibtimes.co.uk/reporters/stephanie-cruz",
+      "title": "Stephanie Cruz",
+      "niche": "know your rights",
+      "operator": "editorial guidelines",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "newciv.org",
+      "url": "https://www.newciv.org/nl/newslog.php/_v194/__show_log/_p33/",
+      "title": "Geral W. Sosbee",
+      "niche": "know your rights",
+      "operator": "editorial guidelines",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "businessnewsdaily.com",
+      "url": "https://www.businessnewsdaily.com/10041-manage-chronic-illness-at-work.html",
+      "title": "How to Manage Your Chronic Illness at Work",
+      "niche": "know your rights",
+      "operator": "editorial guidelines",
+      "found": "2026-09-07",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
     }
   ],
   "republishers": [],
   "placements": [],
-  "cursor": 10,
+  "cursor": 20,
   "_readme": "Wargame 32 B1/B2. A LIST, not an outreach system — nothing here contacts anyone. Add landed placements to \"placements\" as {title,url,date} and the republisher crawl starts tracking who copied them. Search is DuckDuckGo HTML, no API key.",
-  "generated": "2026-08-24",
+  "generated": "2026-09-07",
   "errors": []
 }
