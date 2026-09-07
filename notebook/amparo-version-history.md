@@ -973,6 +973,7 @@ with explicit ink. Tone atmosphere (v2.12.1) re-tuned for dark ground.
 | Extractor repaired (FROZEN + pinned hashes, us-paths sandbox); /app practice engine deleted, step 5 is Thank You; `hub_title` print bug | v2.28.1 |
 | Arena offline (inline hud data + own SW cache key, fixes /rehearse serving the pack offline); law-watch coverage pipeline (sidecar + gap report, 0/184 seeded) | v2.29.0 |
 | Review fixes: app-src build wired into CI, law-watch --sync failure isolation, source-id collisions, panic-view timer pause, dead badge branch, "(Provisional)" wording, CRLF false-stale bug | v2.29.1 |
+| Scroll intro removed from `/pack` — its act-3 entry left a full blank screen, and it pushed the first question ~450vh down; session replays showed visitors stalling there and leaving | v2.29.2 |
 
 To restore any version exactly:
 ```bash

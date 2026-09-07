@@ -6,6 +6,39 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.29.2 — 2026-09-06
+
+v2.29.2 — "The prelude was the exit"
+
+PostHog session replays on `/pack` all end the same way: the visitor reads the
+scroll intro's opening screens, the copy fades out around 00:24 into a
+full-screen navy blank, they sit still for 50+ seconds, the last line flickers
+back once near 01:16, and the session ends without a single wizard field being
+touched. Removed the scroll intro from `/pack`.
+
+Two mechanisms, both from the same feature, found by reading the source rather
+than guessing:
+
+- **The blank screen is act 3's entry.** `#scAct3` is a pinned act with
+  `data-sc-span="2.6"`, so the engine gives it 260vh of height and pins a
+  sticky stage inside it. Its progress `p` is
+  `(scrollY - act.top) / (act.height - vh)`, which is 0 for the entire viewport
+  before `scrollY` reaches `act.top` — and its cue starts at `0.05`, so the
+  headline's opacity is 0 across that whole stretch. One full screen of navy
+  with nothing on it and no skip control, with the first wizard question still
+  roughly 450vh below.
+- **Returning visitors were scrolled into the middle of it.** `restore()` runs
+  before `ScrollCraft.mount()`. `render()` fired
+  `#appRoot.scrollIntoView({block:'start'})` against the pre-mount layout, then
+  `mount()` inflated the intro by ~450vh underneath that in-flight smooth
+  scroll (`html{scroll-behavior:smooth}`), landing the visitor somewhere inside
+  the prelude instead of on their saved step.
+
+The homepage (`new/index.html`) still runs the full 13-act scrollcraft
+experience and links to `/pack` three times. `/pack` is the tool; it now opens
+on the tool. `render()`'s step-change scroll goes back to a plain
+`scrollTo({top:0})`, since `#appRoot` is the first thing in the document again.
+
 ## v2.29.1 — 2026-09-04
 
 v2.29.1 — "The reviews caught what shipping alone couldn't"
