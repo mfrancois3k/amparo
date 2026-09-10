@@ -6,6 +6,27 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.29.3 — 2026-09-09
+
+v2.29.3 — "The picker gets a dropdown"
+
+The first replay after v2.29.2 went live showed the next stall: a visitor on
+the state picker moved the pointer across the map and left without tapping.
+The map is a discovery surface — good for people who think in geography, not
+an obvious control for someone in a hurry on a phone.
+
+A native `<select>` now sits directly under "Which state do you drive in?",
+above the map. Cited states (TX, GA, NY) lead their own group so they are two
+taps away everywhere; the rest follow alphabetically under "Federal rights".
+Choosing from it fires the same `pickState()` a map tap fires, so the chosen
+state pops navy on the map (`smSel`), the caption names it, and the plate
+retracts to the confirmed chip exactly as before. A map tap syncs the dropdown
+back, and "Not your state?" brings both back together. `sr_state_selected`
+now carries `via: 'select' | 'map'` so the two doors can be compared.
+
+Two new i18n strings (`s_pick`, `s_pick_aria`), EN and ES; the content
+extractor was re-run so `/app`'s `t.*.json` stays verbatim.
+
 ## v2.29.2 — 2026-09-06
 
 v2.29.2 — "The prelude was the exit"
@@ -38,6 +59,18 @@ The homepage (`new/index.html`) still runs the full 13-act scrollcraft
 experience and links to `/pack` three times. `/pack` is the tool; it now opens
 on the tool. `render()`'s step-change scroll goes back to a plain
 `scrollTo({top:0})`, since `#appRoot` is the first thing in the document again.
+
+**Follow-up landed with the same push (`c83b24f`, untagged):** PostHog existed
+only on `pack.html`. `/` (`new/index.html`), `/rehearse` (`arena/index.html`)
+and `/aid` (`new/aid.html`) had no SDK at all, so the funnel's first three
+steps never produced a pageview — any "users exit on the homepage" read could
+not have come from PostHog. Added the identical proxied-host init to all three;
+replay stays off on each (the Arena takes microphone input). Also repaired two
+dead nav anchors on the homepage: `#how` ("Build the cards") and `#what`
+pointed at ids that exist nowhere in the document, and `#how` was the only
+nav-level route to `/pack`. Now `/pack` and `#deal-act`. And a
+`<link rel="preload">` for the first plate, which `render()` injects as a
+template string so the preload scanner never saw it.
 
 ## v2.29.1 — 2026-09-04
 

@@ -229,6 +229,18 @@
   .state-grid:not(.collapsed){display:none}
   .state-search{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;font-size:15px;margin-top:14px;background:var(--white);color:var(--ink)}
   .state-search:focus{outline:none;border-color:var(--navy)}
+  /* v2.29.3: a native <select> directly under the question. Replay showed a
+     visitor mousing across the map and leaving without a tap — the map is a
+     discovery surface, not an obvious control. A dropdown is the one picker
+     every phone user already knows. Picking here fires the SAME pickState()
+     the map tiles fire, so the chosen state pops navy on the map (smSel) and
+     the plate retracts to the confirmed chip exactly as a tap would. */
+  .state-select{width:100%;padding:13px 40px 13px 14px;border:1.5px solid var(--navy);border-radius:12px;font-size:16px;font-weight:700;
+    margin:12px 0 2px;background:var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%231B2A4A' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 14px center;
+    color:var(--ink);appearance:none;-webkit-appearance:none;cursor:pointer;min-height:48px}
+  .state-select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(232,184,75,.35)}
+  .state-select:invalid{color:var(--muted);font-weight:600}
+  .state-select option{color:var(--ink);font-weight:600}
   .state-pri-label,.state-rest-label{grid-column:1/-1;font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin:2px 0 -2px}
   .state-rest-label{margin-top:18px}
   .state-btn.nomatch{display:none}
@@ -1601,7 +1613,7 @@ const T = {
     ab_contact:"Contact",
     s_title:"Which state do you drive in?", s_sub:"Texas, Georgia and New York have their own statutes cited line by line. Every other state gets the federal rights that apply everywhere — marked so you know the difference.",
     s_soon:"Every state gets the rights that hold everywhere — protections from the U.S. Constitution, verified once for all 50 states. States get their own cited statutes added as each one is checked individually; yours isn’t cited yet, so this pack shows the federal floor only — not a guess at your state’s rules.",
-    s_search:"Search your state…", s_pri_label:"Fully cited", s_rest_label:"Federal rights ✓", s_nomatch:"No state matches that search.",
+    s_search:"Search your state…", s_pick:"Choose your state", s_pick_aria:"Choose the state you drive in", s_pri_label:"Fully cited", s_rest_label:"Federal rights ✓", s_nomatch:"No state matches that search.",
     s_change:"Not your state? Choose again", s_fastpath:"Skip ahead — just show me the printable script",
     sm_hint:"Tap your state on the map — or search below", sm_aria:"United States map — pick your state",
     fin_link:"⏰ Can't finish now? Remind me tomorrow",
@@ -1830,7 +1842,7 @@ const T = {
     ab_contact:"Contacto",
     s_title:"¿En qué estado manejas?", s_sub:"Texas, Georgia y Nueva York tienen sus propias leyes citadas línea por línea. Los demás estados reciben los derechos federales que aplican en todas partes — marcados para que sepas la diferencia.",
     s_soon:"Cada estado recibe los derechos que valen en todas partes — protecciones de la Constitución de EE.UU., verificadas una sola vez para los 50 estados. Cada estado recibe sus propias leyes citadas al verificarse individualmente; el tuyo aún no está citado, así que este paquete muestra solo el mínimo federal — no una suposición sobre las reglas de tu estado.",
-    s_search:"Busca tu estado…", s_pri_label:"Con leyes citadas", s_rest_label:"Derechos federales ✓", s_nomatch:"Ningún estado coincide con esa búsqueda.",
+    s_search:"Busca tu estado…", s_pick:"Elige tu estado", s_pick_aria:"Elige el estado donde manejas", s_pri_label:"Con leyes citadas", s_rest_label:"Derechos federales ✓", s_nomatch:"Ningún estado coincide con esa búsqueda.",
     s_change:"¿No es tu estado? Elige otra vez", s_fastpath:"Adelantar — solo muéstrame el guion para imprimir",
     sm_hint:"Toca tu estado en el mapa — o busca abajo", sm_aria:"Mapa de Estados Unidos — elige tu estado",
     fin_link:"⏰ ¿No puedes terminar ahora? Recuérdamelo mañana",
@@ -2698,6 +2710,17 @@ function render(){
       <button class="back" aria-label="${_t.a11y_back}" onclick="goM(0)">← ${_t.a11y_back}</button>${practiceJump()}
       ${eyebrow()}
       <h2 class="scr-h">${_t.s_title}</h2><p class="sub">${_t.s_sub}</p>
+      <!-- Dropdown first, map second (v2.29.3). Cited states lead their own
+           group so TX/GA/NY are two taps away on every phone; `required` +
+           the disabled placeholder is what makes :invalid style the empty
+           state muted without JS. -->
+      <select id="stateSelect" class="state-select" required aria-label="${_t.s_pick_aria}" onchange="stateSelectPick(this)" ${_collapsed?'hidden':''}>
+        <option value="" ${data.state?'':'selected'} disabled>${_t.s_pick}</option>
+        ${(()=>{ const keys=Object.keys(STATES).sort((a,b)=>STATES[a].name.localeCompare(STATES[b].name));
+          const opt=k=>`<option value="${k}" ${data.state===k?'selected':''}>${STATES[k].name} (${k})</option>`;
+          return `<optgroup label="${_t.s_pri_label}">${keys.filter(k=>!STATES[k].pending).map(opt).join('')}</optgroup>`+
+                 `<optgroup label="${_t.s_rest_label}">${keys.filter(k=>STATES[k].pending).map(opt).join('')}</optgroup>`; })()}
+      </select>
       <!-- The map is a second door to the same 51 pickState() targets, not a
            replacement: the alphabetical grid below stays for everyone who
            thinks in names, not geography — and search auto-dims both. -->
@@ -3295,8 +3318,18 @@ function stateSearchEnter(){
    confirm bar. Direct follow-up feedback: that wasn't it — the ask is for the
    grid to RETRACT down to the picked state once it's found, so Continue is the
    very next thing on the screen. Implemented below as collapseStateGrid(). */
-function pickState(k){
+/* Dropdown path (v2.29.3). Same destination as a map tap; the only extra
+   work is putting the pointer-caption on the picked state so the map answers
+   the dropdown visibly before it retracts. */
+function stateSelectPick(sel){
+  const k=sel&&sel.value; if(!k||!STATES[k]) return;
+  smCap(k);
+  pickState(k,'select');
+}
+function pickState(k,via){
   if(data.state===k) return; // re-tapping the same tile should not re-fire animations
+  /* Keep the dropdown honest whichever door was used. */
+  const sel=document.getElementById('stateSelect'); if(sel&&sel.value!==k) sel.value=k;
   const grid=document.getElementById('stateGrid');
   const prev=grid&&grid.querySelector('.state-btn.sel');
   if(prev) prev.classList.remove('sel');
@@ -3310,7 +3343,7 @@ function pickState(k){
   const bottomNext=document.getElementById('stateBottomNext');
   if(bottomNext) bottomNext.disabled=false;
   collapseStateGrid();
-  ph('sr_state_selected',{state:k,lang:lang});
+  ph('sr_state_selected',{state:k,lang:lang,via:via||'map'});
 }
 /* The DOM mutation, kept separate from the animation so the exact same state
    change is reachable three ways: animated via GSAP, instant when GSAP is
@@ -3480,6 +3513,7 @@ function setStateCollapsed(on){
   const smap=document.getElementById('stateMap'); if(smap) smap.hidden=on; // map retracts with the grid — the confirmed chip is the whole story once picked
   if(!on) smPlaceLabels(); // first reveal after a resumed (collapsed) render still needs its label pass
   if(search) search.hidden=on;
+  const sel=document.getElementById('stateSelect'); if(sel) sel.hidden=on; // retracts with the map; "Not your state?" brings it back
   if(soon) soon.hidden=on;
   if(changeLink) changeLink.hidden=!on;
 }

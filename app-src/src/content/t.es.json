@@ -111,6 +111,8 @@
   "s_sub": "Texas, Georgia y Nueva York tienen sus propias leyes citadas línea por línea. Los demás estados reciben los derechos federales que aplican en todas partes — marcados para que sepas la diferencia.",
   "s_soon": "Cada estado recibe los derechos que valen en todas partes — protecciones de la Constitución de EE.UU., verificadas una sola vez para los 50 estados. Cada estado recibe sus propias leyes citadas al verificarse individualmente; el tuyo aún no está citado, así que este paquete muestra solo el mínimo federal — no una suposición sobre las reglas de tu estado.",
   "s_search": "Busca tu estado…",
+  "s_pick": "Elige tu estado",
+  "s_pick_aria": "Elige el estado donde manejas",
   "s_pri_label": "Con leyes citadas",
   "s_rest_label": "Derechos federales ✓",
   "s_nomatch": "Ningún estado coincide con esa búsqueda.",

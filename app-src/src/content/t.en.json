@@ -111,6 +111,8 @@
   "s_sub": "Texas, Georgia and New York have their own statutes cited line by line. Every other state gets the federal rights that apply everywhere — marked so you know the difference.",
   "s_soon": "Every state gets the rights that hold everywhere — protections from the U.S. Constitution, verified once for all 50 states. States get their own cited statutes added as each one is checked individually; yours isn’t cited yet, so this pack shows the federal floor only — not a guess at your state’s rules.",
   "s_search": "Search your state…",
+  "s_pick": "Choose your state",
+  "s_pick_aria": "Choose the state you drive in",
   "s_pri_label": "Fully cited",
   "s_rest_label": "Federal rights ✓",
   "s_nomatch": "No state matches that search.",
