@@ -34,6 +34,44 @@
       worse than this demo, this page is a bait-and-switch.
 -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='72' r='28' fill='none' stroke='%23E8B84B' stroke-width='12'/%3E%3Crect x='48' y='56' width='24' height='32' rx='4' fill='%231B2A4A'/%3E%3Cpath d='M12 62 L60 18 L108 62' fill='none' stroke='%231B2A4A' stroke-width='13' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<!-- LCP preload. The first cut's plate (act2-mirror.webp) is the largest
+     contentful paint on every viewport, but it is injected by render() as a
+     template string, so the preload scanner never sees it in the parsed HTML
+     and the fetch does not start until the page's JS has run. Declaring it
+     here moves discovery back to first byte. Must stay in sync with the
+     clipPlate('kb-mirror', ...) call in render(). -->
+<link rel="preload" as="image" href="/new/assets/act2-mirror.webp" fetchpriority="high">
+<!-- Analytics. This page shipped with NO PostHog at all — /pack had it, the
+     homepage never did, so every "/" visit was invisible and the funnel into
+     /rehearse and /pack could not be measured from its own first step.
+     Config is deliberately identical to pack.html's: same proxied host, same
+     privacy posture. Replay stays OFF here — pack.html scopes it to two
+     screens via srReplayGuard(); this page has no equivalent scoping and a
+     14-cut scroll narrative is not what replay budget should be spent on. -->
+<script>
+(function(){
+  if(!/^https?:/.test(location.protocol)) return;
+  try{
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once unregister opt_in_capturing opt_out_capturing".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    /* Same managed reverse proxy as pack.html — same-site so ad/tracker
+       blockers do not strip it. ph.amparohq.com is already in both script-src
+       and connect-src in vercel.json, so this needs no CSP change. */
+    var PH_HOST='https://ph.amparohq.com';
+    posthog.init('phc_y5LzPeRZJpRMFYEt7EZgeCewBoBDWC3GvW5fBFveMf6K',{
+      api_host:PH_HOST,
+      ui_host:'https://us.posthog.com',
+      defaults:'2026-05-30',
+      autocapture:false,
+      capture_pageview:true,
+      disable_session_recording:true,
+      disable_surveys:true,
+      capture_dead_clicks:false,
+      session_recording:{maskAllInputs:true,maskTextInputs:true},
+      person_profiles:'identified_only'
+    });
+  }catch(e){}
+})();
+</script>
 <!-- scrollcraft engine CSS for the cinematic intro below. Linked BEFORE this
      page's own <style>: scrollcraft.css sets an un-scoped body{background,
      color,font-family...} for a page that owns its whole document (this one
@@ -735,12 +773,18 @@ function renderNav(c){
   // One source of truth for both the bar and the sheet. Two hand-maintained
   // lists is how a link gets added to the desktop nav and silently never
   // appears on phones.
+  /* Every href here must resolve. Two of these were dead anchors until
+     v2.29.3: '#how' and '#what' pointed at ids that exist nowhere in this
+     document, so "Build the cards" — the only nav-level route to /pack —
+     jumped nowhere. /pack was otherwise unreachable until the closing
+     section, ~14 cuts down. The bar is fixed, so pointing navHow at /pack
+     puts a route to the printable cards on screen at every scroll depth. */
   const items = [
     ['#arena',        c.navPractice],
     ['/new/rehearse.html', c.navRehearse],
     ['/aid',      c.navAid],
-    ['#how',          c.navHow],
-    ['#what',         c.navWhat],
+    ['/pack',         c.navHow],
+    ['#deal-act',     c.navWhat],
     ['#privacy',      c.navPrivacy],
     ['#faq',          c.navFaq]
   ];
