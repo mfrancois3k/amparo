@@ -13,27 +13,7 @@
      Replay is OFF and should stay off here: this screen takes microphone
      input and shows the user's own spoken answers. That is exactly the
      content the two-screen scoping on /pack exists to keep out of replay. -->
-<script>
-(function(){
-  if(!/^https?:/.test(location.protocol)) return;
-  try{
-    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once unregister opt_in_capturing opt_out_capturing".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-    var PH_HOST='https://ph.amparohq.com';
-    posthog.init('phc_y5LzPeRZJpRMFYEt7EZgeCewBoBDWC3GvW5fBFveMf6K',{
-      api_host:PH_HOST,
-      ui_host:'https://us.posthog.com',
-      defaults:'2026-05-30',
-      autocapture:false,
-      capture_pageview:true,
-      disable_session_recording:true,
-      disable_surveys:true,
-      capture_dead_clicks:false,
-      session_recording:{maskAllInputs:true,maskTextInputs:true},
-      person_profiles:'identified_only'
-    });
-  }catch(e){}
-})();
-</script>
+<!-- Analytics disabled: the Arena privacy promise is no analytics. See notebook/ux-verification-2026-09-13.md. -->
 <style>/* vietnamese */
 @font-face {
   font-family: 'Public Sans';
@@ -307,6 +287,23 @@
   .pkBreak{break-before:page}
   .pkCard{break-inside:avoid}
 }
+
+.gentle-mode .hb,.gentle-mode .respT+div{display:none!important}
+.practice-setup .wrap,.practice-setup .stateBar,.practice-setup #resumeBar{display:none!important}
+.first-practice .wrap{grid-template-columns:minmax(0,760px);justify-content:center}
+.first-practice .wrap>div:first-child,.first-practice #lvlTabs,.first-practice #sitProgWrap,.first-practice #hud,.first-practice .respT+div,.first-practice .arena>.statsRow .stat:not(:last-child),.first-practice .crumbs,.practice-setup .crumbs{display:none!important}
+.first-practice .arena>.statsRow{grid-template-columns:1fr}.first-practice #sceneImg{display:none!important}
+#quickSetup{max-width:700px;margin:32px auto;padding:28px;background:#fff;border:1px solid #d4cfc3;border-radius:18px;color:#1B2A4A}
+#quickSetup h1{font-size:32px;line-height:1.15;margin:0 0 16px}#quickSetup label{display:block;font-size:18px;font-weight:700;margin:24px 0 8px}
+#quickSetup select{width:100%;min-height:48px;padding:12px;font:inherit;background:#fff;color:#1B2A4A;border:1px solid #8793a5;border-radius:8px}
+#quickSetup p{line-height:1.6}#quickStart{margin-top:22px}#quickError{color:#9d2727;font-weight:700}
+.quick-lang{display:flex;gap:10px}.quick-lang button,#changePractice{min-height:44px;padding:8px 16px;border:1px solid #9ca6b5;border-radius:8px;background:#fff;color:#1B2A4A;cursor:pointer;font:inherit}
+#changePractice{display:block;margin:18px auto}.practice-setup #changePractice{display:none}
+.resp{font-size:17px;min-height:56px}.bO{font-size:19px;line-height:1.5}.fb{font-size:16px;line-height:1.6}.wrap>*{min-width:0}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #a17416;outline-offset:3px}
+.modalBg{overflow-y:auto;padding:20px}.modal{max-height:calc(100dvh - 40px);overflow:auto}
+@media(max-width:600px){#quickSetup{margin:18px 14px;padding:20px}#quickSetup h1{font-size:28px}.top{flex-wrap:wrap;gap:8px}.arena{min-width:0}.bO{font-size:17px}.wrap{padding:0 14px}.freeRow button{min-height:44px}}
+
 </style>
 <style>
   *{box-sizing:border-box;}
@@ -609,7 +606,7 @@
   <a href="/pack" data-i18n="change">⚙ change</a>
 </div>
 <div id="resumeBar" class="hiddenEl" style="max-width:1160px;margin:14px auto -6px;padding:0 20px;"><button id="resumeBtn" style="display:block;width:100%;border:1.5px solid #1B2A4A;background:#1B2A4A;color:#FAF6EE;border-radius:12px;padding:13px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;">Continue where you left off</button></div>
-<div class="wrap">
+<main class="wrap" id="practiceMain" tabindex="-1">
   <div>
     <div id="setupGate" class="hiddenEl" style="border:1.5px solid #E8B84B;background:#fffaf0;border-radius:14px;padding:14px 16px;margin-bottom:14px;font-size:13.5px;line-height:1.5;color:#5b4a15;font-weight:600;">⚠️ <span data-i18n="gate">You haven't finished the 2-minute setup — your scripts aren't tuned to your state yet.</span> <a href="/pack" data-i18n="gateL">Finish setup →</a></div>
     <div style="border:1.5px solid #e5e0d4;background:#fff;border-radius:14px;padding:14px 16px;margin-bottom:12px;">
@@ -625,7 +622,7 @@
       </div>
     </div>
     <div class="sideT" data-i18n="yourSit">YOUR SITUATION</div>
-    <input id="scenSearch" placeholder="Search (traffic stop, passenger…)" style="width:100%;background:#fff;border:1.5px solid #e5e0d4;border-radius:999px;padding:11px 16px;font-size:13px;color:#1B2A4A;font-family:inherit;font-weight:600;margin-bottom:12px;">
+    <input aria-label="Search scenarios / Buscar situaciones" id="scenSearch" placeholder="Search (traffic stop, passenger…)" style="width:100%;background:#fff;border:1.5px solid #e5e0d4;border-radius:999px;padding:11px 16px;font-size:13px;color:#1B2A4A;font-family:inherit;font-weight:600;margin-bottom:12px;">
     <div id="scenList"></div>
     <div class="statsRow" style="grid-template-columns:1fr 1fr;">
       <div class="stat"><b id="streakN">0</b><small data-i18n="streak">DAY STREAK</small></div>
@@ -671,7 +668,7 @@
       <div class="hb" style="margin-top:0;font-size:12px;gap:5px;color:#8a8375;"><span class="ht" id="hbHeart" style="font-size:13px;">❤️</span><span id="bpmN">72</span><small style="color:#a89f8d;letter-spacing:.06em;">BPM</small></div>
       <div id="clockChip" style="font-size:12.5px;font-weight:800;color:#a87f1f;text-align:center;">⏱ —</div>
     </div>
-    <div class="chat" id="chat"></div>
+    <div class="chat" id="chat" role="log" aria-live="polite"></div>
     <div id="respArea">
       <p class="respT" data-i18n="yourResp">YOUR RESPONSE:</p>
       <div style="margin:0 0 12px;">
@@ -680,7 +677,7 @@
       </div>
       <div class="respRow" id="respRow"></div>
       <div class="freeRow">
-        <input id="free" data-i18n-ph="freePh" placeholder="…or speak/type your answer">
+        <input aria-label="Your response / Su respuesta" id="free" data-i18n-ph="freePh" placeholder="…or speak/type your answer">
         <button class="mic" id="micBtn" title="Speak">🎙</button>
         <button class="mic" id="echoBtn" title="Record & hear yourself / Grábese y escúchese">🎧</button>
         <button class="sub" id="subBtn" data-i18n="submit">SUBMIT</button>
@@ -693,7 +690,7 @@
     </div>
     <p class="fine" data-i18n="fine">General legal information, not legal advice. Your practice stays on this device — the Arena itself has no account and uploads nothing. Officer lines are pre-recorded audio served with this site; voice INPUT uses your browser's speech engine and is never recorded by Amparo.</p>
   </div>
-</div>
+</main>
 <div class="orgs"><a href="#" id="aboutLink" data-i18n="aboutL">About &amp; sources</a> · <a href="#" id="orgsLink" data-i18n="orgsL">Amparo for Organizations →</a> · <a href="#" id="privLink" data-i18n="privL">Privacy</a> · <a href="#" id="fbLink" data-i18n="fbReach">Send feedback</a> · <a href="mailto:hello@amparohq.com">hello@amparohq.com</a> · <a href="#" id="wipeLink" data-i18n="wipeL">Wipe my data</a><br><span style="font-size:12px;" data-i18n="founderA">Built by Michael Francois. Free forever — your practice never leaves this device.</span></div>
 <div id="printCard"></div>
 <div class="modalBg" id="safeBg">
@@ -1260,6 +1257,10 @@ let A={lang:'en',sit:'traffic',lvl:0,turn:0,pts:0,hist:[],done:{},streak:{last:'
 try{const s=JSON.parse(localStorage.getItem(LSA)); if(s&&typeof s==='object')A={...A,...s,turn:0,pts:0,hist:[],pressure:false};}catch(e){}
 if(!A.sit||!SIT.find(x=>x.id===A.sit)){A.sit='traffic';A.lvl=0;}
 if(!A.done)A.done={};
+let firstSetup=Object.keys(A.done).length===0||location.hash==='#organizations';
+if(firstSetup && A.gentle===undefined)A.gentle=true;
+const requestedLanguage=new URLSearchParams(location.search).get('lang');
+if(requestedLanguage==='en'||requestedLanguage==='es')A.lang=requestedLanguage;
 if(typeof A.lvl!=='number'||A.lvl<0||A.lvl>3)A.lvl=0;
 const HELD_SITS={door:1}; // held for attorney + DV-clinician review, same gate root keeps on its door module (DOOR_MODULE_ENABLED=false)
 /* ?sit=trap[&lvl=1] — deep link straight into one drill.
@@ -1387,6 +1388,7 @@ function renderTabs(){
    escape them (audit 2026-08-18 M2, session-only self-XSS otherwise) */
 function escT(x){const d=document.createElement('div');d.textContent=x;return d.innerHTML;}
 function renderArena(){
+  if(firstSetup)return;
   /* blindspot -02 H3: navigating away mid-retry left answering=true forever
      (soft-lock); a pending good-path commit timeout could also fire into the
      next run. Every render starts from a clean answer state. */
@@ -1407,7 +1409,7 @@ function renderArena(){
   updateHeart();
   const s=cur(), L=A.lang, mainMax=s.turns.filter(t=>!t.branch).length;
   if(A.turn===0&&A.hist.length===0&&!A.safeSeen&&!window.__safeOK&&A.seenTut&&['traffic','pass','trap','last30','step','chk'].includes(curSit().id)){document.getElementById('safeBg').classList.add('on');}
-  if(!A.asked&&A.seenTut){document.getElementById('supBg').classList.add('on');A.asked=true;saveA();}
+  if(!A.asked&&A.seenTut&&(A.safeSeen||window.__safeOK)){document.getElementById('supBg').classList.add('on');A.asked=true;saveA();}
   const _sb=document.getElementById('supBanner');
   if(_sb){_sb.classList.toggle('hiddenEl',!A.sup);if(A.sup)document.getElementById('supBannerTxt').textContent=T('supOn');}
   let scLine=s.scene[L]+(flowState?(CITED.includes(flowState)?' · '+(L==='en'?ST_NAMES[flowState]+' statutes cited in your pack.':'Leyes de '+ST_NAMES[flowState]+' citadas en su paquete.'):' · '+(L==='en'?'Federal core rights apply in '+ST_NAMES[flowState]+'.':'Derechos federales fundamentales aplican en '+ST_NAMES[flowState]+'.')):'');
@@ -1631,7 +1633,7 @@ function answer(text,p,f,good,nx){
   if(steady){A.steadyRun=(A.steadyRun||0)+1;}
   window.__clockBonus=Math.max(-3,Math.min(3,(window.__clockBonus||0)+(steady&&p>0?1:(!steady?-1:0))));
   if(p>0&&!steady&&(A.lvl>=1||A.pressure)){p=0;f+=' · '+T('shakyCost');}
-  f+=' · '+(steady?T('steadyHit'):T('steadyMiss'))+' · '+acc+'%';
+  if(!A.gentle)f+=' · '+(steady?T('steadyHit'):T('steadyMiss'))+' · '+acc+'%';
   const wc=text.trim().split(/\s+/).filter(Boolean).length;
   if(wc>12) f+=' · '+UI[A.lang].econ(wc);
   if(p<1&&!good) A.heat=Math.min(3,(A.heat||0)+1); // good-flagged neutrals and coached beats don't add heat (wargames/30 #2)
@@ -1647,7 +1649,12 @@ function answer(text,p,f,good,nx){
   saveA(); renderArena();
   if(A.turn===-1||A.turn>=s.turns.length){A.turn=-1; finish();}
   };
-  if(p<1){
+  if(document.body.classList.contains('first-practice')){
+    const panel=document.createElement('div');panel.id='retryWrap';panel.className='fb';
+    const explanation=document.createElement('p');explanation.textContent=f;panel.appendChild(explanation);
+    const nextButton=document.createElement('button');nextButton.className='buy';nextButton.textContent=A.lang==='es'?'Continuar escenario':'Continue Scenario';nextButton.onclick=commit;panel.appendChild(nextButton);
+    document.getElementById('respRow').replaceChildren(panel);nextButton.focus();
+  } else if(p<1){
     const gc=(cur().turns[A.turn].c.find(c=>c.g)||{}).t;
     const strong=gc?gc[A.lang]:'';
     document.getElementById('chat').insertAdjacentHTML('beforeend','<div id="retryWrap" style="align-self:stretch;border:1.5px solid #E8B84B;background:#fffaf0;border-radius:12px;padding:12px 14px;">'+(strong?'<div style="font-size:10px;font-weight:800;letter-spacing:.1em;color:#a87f1f;">'+T('sayAgain')+'</div><div style="font-size:14.5px;font-weight:700;color:#1B2A4A;margin:6px 0 8px;">'+strong+'</div>':'')+'<div style="display:flex;gap:8px;flex-wrap:wrap;"><input id="sayIn" style="flex:1 1 180px;min-height:44px;border:1.5px solid #e5e0d4;border-radius:10px;padding:10px 12px;font-size:13.5px;font-family:inherit;color:#1B2A4A;"><button id="sayGo" style="min-height:44px;border:1.5px solid #1B2A4A;background:#1B2A4A;color:#FAF6EE;border-radius:10px;padding:0 16px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;">'+T('sayBtn')+'</button><button id="retryGo" style="min-height:44px;border:1.5px solid #E8B84B;background:#fffdf8;color:#a87f1f;border-radius:999px;padding:0 16px;font-size:12.5px;font-weight:800;cursor:pointer;font-family:inherit;">'+T('retryL')+'</button></div></div>');
@@ -1669,14 +1676,15 @@ function finish(){
   A.week.n++;
   clearInterval(window.__pressT);
   stopTension();
-  saveA(); renderSide();
+  saveA(); renderSide(); renderTabs();
+  document.body.classList.remove("first-practice");
   const swan=isSwanLvl(A.sit,A.lvl);
   if(base===max&&!swan){sfx('win');confetti();}
   /* root's rule, ported fully this time: no score, no fanfare, no upsell on
      the levels where the stop has already gone wrong (wargames/30 #1). The
      debrief (recap + weakest moment) is the entire payload. */
   document.querySelector('#modal .mRing').style.display=swan?'none':'';
-  document.getElementById('mPath').style.display=swan?'none':'';
+  document.getElementById('mPath').style.display=(swan||A.gentle)?'none':'';
   document.querySelector('#modal .mList').style.display=swan?'none':'';
   document.getElementById('buyScript').style.display=swan?'none':'';
   document.querySelector('#modal .deep').style.display=swan?'none':'';
@@ -1733,7 +1741,7 @@ document.getElementById('mAgain').onclick=()=>{
 };
 document.getElementById('mPressure').onclick=()=>{
   document.getElementById('modal').classList.remove('on');
-  A.pressure=true;A.turn=0;A.pts=0;A.hist=[];saveA();renderArena();
+  A.gentle=false;renderGentle();A.pressure=true;A.turn=0;A.pts=0;A.hist=[];saveA();renderArena();
 };
 /* ---------- free text + voice ---------- */
 function submitFree(text){
@@ -1791,7 +1799,7 @@ document.getElementById('micBtn').onclick=()=>{
   const mb=document.getElementById('micBtn'); mb.classList.add('live');
   r.onresult=e=>{const t=e.results[0][0].transcript; document.getElementById('free').value=t; submitFree(t);};
   r.onend=()=>mb.classList.remove('live');
-  r.onerror=()=>mb.classList.remove('live');
+  r.onerror=()=>{mb.classList.remove('live');alert(A.lang==='es'?'No se pudo usar el micrófono. Puede elegir una respuesta o escribirla abajo.':'The microphone is unavailable or permission was denied. Choose a response or type it below.');};
   r.start();
 };
 /* ---- record & hear yourself (ported from the pack builder's retired step-5
@@ -2114,8 +2122,8 @@ document.getElementById('tutTry').onclick=()=>{
 };
 document.getElementById('tutDone').onclick=()=>{A.seenTut=true;saveA();cancelAnimationFrame(window.__tutRAF);document.getElementById('tutBg').classList.remove('on');sfx('win');};
 document.getElementById('helpBtn').onclick=()=>openTut(1);
-if(!A.seenIntro){document.getElementById('introBg').style.display='flex';}
-else if(!A.seenTut){openTut(1);}
+if(!firstSetup&&!A.seenIntro){document.getElementById('introBg').style.display='flex';}
+else if(!firstSetup&&!A.seenTut){openTut(1);}
 document.getElementById('introGo').onclick=()=>{A.seenIntro=true;saveA();document.getElementById('introBg').style.display='none';if(!A.seenTut)openTut(1);else sfx('good');};
 /* settings dropdown + pause + pre-drill safety */
 document.getElementById('settingsBtn').onclick=e=>{e.stopPropagation();document.getElementById('settingsMenu').classList.toggle('hiddenEl');};
@@ -2124,8 +2132,8 @@ window.__paused=false;
 document.getElementById('clockChip').style.cursor='pointer';
 document.getElementById('clockChip').title='Pause / resume';
 document.getElementById('clockChip').onclick=()=>{window.__paused=!window.__paused;if(window.__paused)document.getElementById('clockChip').textContent='⏸';};
-document.getElementById('safeGo').onclick=()=>{window.__safeOK=true;document.getElementById('safeBg').classList.remove('on');};
-document.getElementById('safeSkip').onclick=()=>{A.safeSeen=true;saveA();window.__safeOK=true;document.getElementById('safeBg').classList.remove('on');};
+document.getElementById('safeGo').onclick=()=>{window.__safeOK=true;document.getElementById('safeBg').classList.remove('on');renderArena();};
+document.getElementById('safeSkip').onclick=()=>{A.safeSeen=true;saveA();window.__safeOK=true;document.getElementById('safeBg').classList.remove('on');renderArena();};
 /* about, dark mode, creator handle */
 document.getElementById('aboutLink').onclick=e=>{e.preventDefault();document.getElementById('aboutBg').classList.add('on');};
 document.getElementById('aboutClose').onclick=()=>document.getElementById('aboutBg').classList.remove('on');
@@ -2134,7 +2142,7 @@ document.getElementById('darkBtn').onclick=()=>{A.dark=!A.dark;saveA();applyDark
 applyDark();
 document.getElementById('shareCard').addEventListener('contextmenu',e=>{e.preventDefault();const h=prompt(A.lang==='en'?'Add your @handle to the card (creators):':'Agregue su @usuario a la tarjeta (creadores):',A.handle||'');if(h!==null){A.handle=h.trim();saveA();}});
 /* gentle mode + supervision gate + crisis footer + print card */
-function renderGentle(){document.getElementById('gentleBtn').style.background=A.gentle?'#f0f6ef':'#fff';document.getElementById('gentleBtn').style.borderColor=A.gentle?'#bcd6bd':'#e5e0d4';}
+function renderGentle(){document.body.classList.toggle('gentle-mode',!!A.gentle);document.getElementById('gentleBtn').style.background=A.gentle?'#f0f6ef':'#fff';document.getElementById('gentleBtn').style.borderColor=A.gentle?'#bcd6bd':'#e5e0d4';}
 document.getElementById('gentleBtn').onclick=()=>{A.gentle=!A.gentle;saveA();renderGentle();if(A.gentle){stopTension();clearInterval(window.__pressT);}alert(T(A.gentle?'gentleOn':'gentleOff'));renderArena();};
 renderGentle();
 document.getElementById('supYes').onclick=()=>{A.sup=true;A.asked=true;saveA();document.getElementById('supBg').classList.remove('on');renderArena();};
@@ -2336,5 +2344,98 @@ window.__AMPARO_HUD__={"version":1,"sourceHash":"065588fd43f0717c0a35b7dd6e2d478
   if(!noInline&&new URLSearchParams(location.search).get('panic')==='1') openPanic();
 })();
 </script>
-</body>
+<script>
+/* Setup and progressive disclosure around the existing, unchanged scenario bank. */
+(() => {
+  const setup = document.createElement('section');
+  setup.id = 'quickSetup';
+  setup.setAttribute('aria-label', 'Practice setup / Preparar la práctica');
+  document.getElementById('practiceMain').before(setup);
+  const change = document.createElement('button');
+  change.id = 'changePractice';
+  setup.after(change);
+  const copy = {
+    en: {
+      title: 'Start with one situation.', intro: 'Choose your state, then rehearse at your own pace. About 2 minutes. No account required.',
+      state: '1. Where are you practicing?', pick: 'Choose your state', situation: '2. What do you want to practice?',
+      start: 'Start Practice', gentle: 'Gentle mode: no countdown or heartbeat. You can change this in Settings.',
+      disclaimer: 'General legal information, not legal advice. Independent attorney review pending.',
+      sources: 'Sources & Methodology', privacy: 'Privacy', change: 'Choose another situation',
+      error: 'Choose a state and a situation to start.', another: 'Practice another scenario', more: 'More practice tools',
+    },
+    es: {
+      title: 'Empiece con una situación.', intro: 'Elija su estado y ensaye a su ritmo. Unos 2 minutos. Sin cuenta.',
+      state: '1. ¿Dónde está practicando?', pick: 'Elija su estado', situation: '2. ¿Qué quiere practicar?',
+      start: 'Empezar práctica', gentle: 'Modo tranquilo: sin cuenta regresiva ni latidos. Puede cambiarlo en Ajustes.',
+      disclaimer: 'Información legal general, no asesoría legal. Revisión independiente por abogados pendiente.',
+      sources: 'Fuentes y metodología', privacy: 'Privacidad', change: 'Elegir otra situación',
+      error: 'Elija un estado y una situación para empezar.', another: 'Practicar otra situación', more: 'Más herramientas de práctica',
+    }
+  };
+  function draw() {
+    const c = copy[A.lang];
+    document.documentElement.lang = A.lang;
+    change.textContent = c.change;
+    if (!firstSetup) { setup.hidden = true; return; }
+    setup.hidden = false;
+    document.body.classList.add('practice-setup');
+    const states = window.__AMPARO_HUD__.states;
+    setup.innerHTML = '<div class="quick-lang"><button type="button" data-lang="en" aria-pressed="'+(A.lang==='en')+'">English</button><button type="button" data-lang="es" aria-pressed="'+(A.lang==='es')+'">Español</button></div>'+
+      '<h1 tabindex="-1">'+c.title+'</h1><p>'+c.intro+'</p><form id="quickForm">'+
+      '<label for="quickState">'+c.state+'</label><select id="quickState" required><option value="">'+c.pick+'</option>'+
+      Object.values(states).sort((a,b)=>a.name.localeCompare(b.name)).map(s=>'<option value="'+s.code+'" '+(s.code===A.state?'selected':'')+'>'+escT(A.lang==='es'?s.nameEs:s.name)+'</option>').join('')+'</select>'+
+      '<label for="quickSituation">'+c.situation+'</label><select id="quickSituation" required>'+
+      SIT.filter(s=>!HELD_SITS[s.id]).map(s=>'<option value="'+s.id+'" '+(s.id===A.sit?'selected':'')+'>'+escT(s.title[A.lang])+'</option>').join('')+'</select>'+
+      '<p>'+c.gentle+'</p><button class="buy" id="quickStart" type="submit">'+c.start+'</button><p id="quickError" role="alert"></p></form>'+
+      '<p>'+c.disclaimer+'</p><p><a href="#" id="quickSources">'+c.sources+'</a> · <a href="#" id="quickPrivacy">'+c.privacy+'</a></p>';
+    setup.querySelectorAll('[data-lang]').forEach(b=>b.onclick=()=>{A.lang=b.dataset.lang;saveA();applyLang();draw();});
+    setup.querySelector('#quickSources').onclick=e=>{e.preventDefault();document.getElementById('aboutLink').click();};
+    setup.querySelector('#quickPrivacy').onclick=e=>{e.preventDefault();document.getElementById('privLink').click();};
+    setup.querySelector('#quickForm').onsubmit=e=>{
+      e.preventDefault();
+      const state=setup.querySelector('#quickState').value, sit=setup.querySelector('#quickSituation').value;
+      if(!states[state]||!SIT.some(s=>s.id===sit&&!HELD_SITS[s.id])){setup.querySelector('#quickError').textContent=c.error;return;}
+      const stateSelect=document.getElementById('stateSel');
+      stateSelect.value=state;stateSelect.onchange();
+      A.sit=sit;A.lvl=0;A.turn=0;A.pts=0;A.hist=[];A.seenIntro=true;A.seenTut=true;
+      if(!Object.keys(A.done).length)A.gentle=true;
+      saveA();firstSetup=false;setup.hidden=true;
+      document.body.classList.remove('practice-setup');
+      document.body.classList.toggle('first-practice',!Object.keys(A.done).length);
+      applyLang();renderGentle();
+      document.getElementById('practiceMain').focus();
+    };
+  }
+  change.onclick=()=>{
+    firstSetup=true;stopVoice();stopTension();clearInterval(window.__pressT);cancelAnimationFrame(needleRAF);
+    draw();setup.querySelector('h1').focus();
+  };
+  // Keep language changes through existing Settings synchronized with this entry.
+  const originalLanguage=applyLang;
+  applyLang=function(){originalLanguage();draw();};
+  draw();
+
+  // Make the useful next step first in the completion dialog; preserve every tool.
+  const completion=document.querySelector('#modal .modal');
+  const again=document.getElementById('mAgain');
+  completion.querySelector('h2').after(again);
+  again.classList.remove('ghostB');again.classList.add('buy');
+  // Dialog keyboard support also covers existing privacy, safety and settings dialogs.
+  let active=null, previous=null;
+  const visibleDialog=()=>Array.from(document.querySelectorAll('.modalBg')).reverse().find(x=>x.classList.contains('on')||x.style.display==='flex');
+  new MutationObserver(()=>{
+    const next=visibleDialog()||null;if(next===active)return;
+    if(next){if(!active)previous=document.activeElement;active=next;const panel=next.querySelector('.modal');if(panel){panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');const heading=panel.querySelector('h2');if(heading){heading.id=heading.id||next.id+'Title';panel.setAttribute('aria-labelledby',heading.id);}panel.tabIndex=-1;panel.focus();}}
+    else{active=null;if(previous?.isConnected)previous.focus();}
+  }).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class','style']});
+  document.addEventListener('keydown',e=>{
+    if(!active)return;
+    const controls=Array.from(active.querySelectorAll('button,a[href],input,select,[tabindex="0"]')).filter(x=>!x.disabled&&x.getClientRects().length);
+    if(e.key==='Tab'&&controls.length){const i=controls.indexOf(document.activeElement);if(e.shiftKey&&(i<=0)){e.preventDefault();controls.at(-1).focus();}else if(!e.shiftKey&&(i===controls.length-1||i<0)){e.preventDefault();controls[0].focus();}}
+    if(e.key==='Escape'){const close=active.querySelector('#aboutClose,#privClose,#orgsClose,#payCancel');if(close){e.preventDefault();close.click();}}
+  });
+  if(location.hash==='#organizations')document.getElementById('orgsLink').click();
+})();
+
+</script></body>
 </html>

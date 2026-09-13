@@ -6,6 +6,28 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## 2026-09-13 — First-practice UX
+
+Homepage now explains rehearsal immediately, provides a concrete bilingual
+practice CTA, trust and review-status copy, and three how-it-works steps.
+Arena first visits use state → situation → Start Practice, default Gentle Mode,
+and response → explanation → Continue Scenario. Existing safety and supervision
+notices remain. Advanced tools appear after completion. No scenario/legal bank
+was rewritten. Arena analytics disabled to honor its existing no-analytics copy.
+Keyboard dialog handling, focus outlines, labels and responsive layout improved.
+See notebook/ux-verification-2026-09-13.md for verification and limits.
+
+## v2.29.4 — 2026-09-13 — /pack boot freeze resolved
+
+Removed the backticks around required in the state-selector HTML comment inside
+the boot script template literal. Preserves v2.29.2's scroll-intro removal and
+v2.29.3's state dropdown. Released as commit beb6756, annotated tag v2.29.4.
+All three executable inline pack scripts parse; content extractor and verifier
+pass. Production browser verification: splash dismissed, wizard rendered,
+dropdown and map displayed, Texas selection accepted and Continue enabled.
+The dropdown is above the map, matching the restored v2.29.3 implementation.
+The three untracked ship-*.cmd helpers were removed after normal git push worked.
+
 ## v2.29.3 — 2026-09-09
 
 v2.29.3 — "The picker gets a dropdown"
