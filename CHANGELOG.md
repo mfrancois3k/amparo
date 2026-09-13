@@ -23,6 +23,17 @@ and language remounts. Browser checks covered all three scenes, EN/ES, keyboard
 focus, and seven widths from 320 to 1440 px without horizontal overflow.
 Reference history, model provenance, and rebuilding scripts are in notebook/.
 
+## v2.29.8 — 2026-09-13 — Org packages marked pre-launch (fulfillment not set up)
+
+Michael confirmed printed-pack fulfillment does not exist and the only intended
+paid items are the $9.99 Master Script and $19.99 mailed card. So the org page's
+$149/$499 printed-pack packages no longer read as orderable-today: added a
+"Pre-launch" badge + "not yet available to order" line, changed the CTA from
+"Request information & bulk pricing" to "Register interest & get notified," and
+rewrote the honest-status note — free practice + free printable pack available to
+any org today, printed packs pre-launch and not for sale, nothing charged. EN+ES.
+The $9.99/$19.99 items untouched (already honestly gated in preview).
+
 ## v2.29.7 — 2026-09-13 — Dedicated /organizations B2B page (EN + ES)
 
 Built a standalone organizations page from the existing Arena org copy — no new

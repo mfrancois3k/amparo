@@ -8,6 +8,11 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.29.8 — 2026-09-13 — Org packages marked pre-launch (fulfillment not set up)
+
+Fulfillment confirmed not to exist; only paid items are $9.99 + $19.99. Org
+$149/$499 packages reframed as pre-launch/register-interest, not orderable. EN+ES.
+
 ## v2.29.7 — 2026-09-13 — Dedicated /organizations B2B page (EN + ES)
 
 New /organizations + /organizaciones pages built from the existing Arena org
