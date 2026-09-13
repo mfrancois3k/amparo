@@ -23,6 +23,24 @@ and language remounts. Browser checks covered all three scenes, EN/ES, keyboard
 focus, and seven widths from 320 to 1440 px without horizontal overflow.
 Reference history, model provenance, and rebuilding scripts are in notebook/.
 
+## v2.29.9 — 2026-09-13 — Blindspot-loop fixes: sitemap, pressure meter, org deliverables
+
+From the FG-28 + blindspot + module audit loop:
+- Sitemap: the org pages were being regenerated away by tools/build-pages.mjs
+  every cron run (v2.29.7's manual entries didn't survive). Added them to the
+  generator's indexable list so they persist. privacy/ + privacidad/ deliberately
+  NOT added — they are untracked WIP, not deployed, would 404 in the sitemap.
+- Arena pressure meter: v2.29.6 relabeled only the caption; the live meter still
+  showed ❤️ + a pulsing 72–165 number and read as a heart-rate monitor. Swapped
+  the heart for ⚡ and added role="img" aria-label "Simulated practice pressure,
+  not a real heart rate." Engine (__BPM) unchanged.
+- /organizations: the "what organizations receive" list named a facilitator
+  guide, slide deck and projector mode that don't exist yet. Retitled "What the
+  printed-pack packages will include (Planned)." EN + ES.
+- Also fixed in place (but NOT committed — untracked WIP owned elsewhere): the
+  privacy/ + privacidad/ pages falsely said "analytics and session recording are
+  disabled"; rewritten to describe the real masked/scoped PostHog usage.
+
 ## v2.29.8 — 2026-09-13 — Org packages marked pre-launch (fulfillment not set up)
 
 Michael confirmed printed-pack fulfillment does not exist and the only intended

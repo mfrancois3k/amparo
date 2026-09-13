@@ -8,6 +8,12 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.29.9 — 2026-09-13 — Blindspot-loop fixes: sitemap, pressure meter, org deliverables
+
+Sitemap generator now keeps the org pages (cron was dropping them); Arena live
+pressure meter de-biometricized (❤️→⚡ + aria, not just the caption); org "receive"
+list retitled Planned (deliverables don't exist yet). EN+ES.
+
 ## v2.29.8 — 2026-09-13 — Org packages marked pre-launch (fulfillment not set up)
 
 Fulfillment confirmed not to exist; only paid items are $9.99 + $19.99. Org

@@ -478,6 +478,11 @@ ${rssItems}
 </rss>
 `);
 
+  /* Hand-written pages (not generated above) that should still be in the sitemap.
+     Kept here so the daily cron regen does not silently drop them. Only tracked,
+     deployed pages belong here — privacy/ + privacidad/ are added when they ship. */
+  indexable.push(`${ORIGIN}/organizations/`, `${ORIGIN}/organizaciones/`);
+
   files.set(path.join(ROOT, 'sitemap.xml'),
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
     indexable.map(u => `  <url>\n    <loc>${u}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${u === ORIGIN + '/' ? 'weekly' : 'monthly'}</changefreq>\n    <priority>${u === ORIGIN + '/' ? '1.0' : '0.8'}</priority>\n  </url>`).join('\n') +

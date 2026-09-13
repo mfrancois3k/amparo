@@ -373,12 +373,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.amparohq.com/privacy/</loc>
-    <lastmod>2026-09-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://www.amparohq.com/about/</loc>
     <lastmod>2026-09-13</lastmod>
     <changefreq>monthly</changefreq>
@@ -391,12 +385,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.amparohq.com/privacidad/</loc>
-    <lastmod>2026-09-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://www.amparohq.com/acerca/</loc>
     <lastmod>2026-09-13</lastmod>
     <changefreq>monthly</changefreq>
@@ -404,6 +392,18 @@
   </url>
   <url>
     <loc>https://www.amparohq.com/como-verificamos/</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.amparohq.com/organizations/</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.amparohq.com/organizaciones/</loc>
     <lastmod>2026-09-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
