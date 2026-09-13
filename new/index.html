@@ -406,6 +406,8 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
 
 </style>
 
+<link rel="stylesheet" href="/new/encounter-stage.css">
+<script defer src="/new/encounter-stage.js"></script>
 </head>
 <body>
 <nav class="bar" aria-label="Main navigation">
@@ -926,6 +928,7 @@ function encounterHtml(e, L){
   '</div>';
 }
 function render(){
+  window.AmparoEncounter?.dispose();
   const c = t();
   document.getElementById('langEN').setAttribute('aria-pressed',lang==='en');
   document.getElementById('langES').setAttribute('aria-pressed',lang==='es');
@@ -948,34 +951,20 @@ function render(){
   const lifelinesHtml = c.lawyerExamples.map(x=>'<li><span class="st">'+esc(x.state)+'</span><span class="nm">'+esc(x.name)+'</span><span class="wh">'+esc(x.what)+'</span></li>').join('');
 
   document.getElementById('app').innerHTML =
-    '<section class="quick-hero" id="top"><div class="quick-inner">'+
-      '<div class="eyebrow">'+(L==='es'?'PRÁCTICA GRATUITA · ENGLISH + ESPAÑOL':'FREE SCENARIO PRACTICE · ENGLISH + ESPAÑOL')+'</div>'+
-      '<h1>'+esc(c.heroTitle)+'</h1><p class="quick-sub">'+(L==='es'?'Ensaye encuentros de tráfico para recordar las palabras con más facilidad bajo presión.':'Rehearse traffic encounters so the words are easier to remember under pressure.')+'</p>'+
-      '<div class="hero-ctas"><a class="btn btn-gold" href="/rehearse?lang='+L+'">'+esc(heroCtaLabel)+'</a><a class="btn btn-line" href="#how">'+(L==='es'?'Cómo funciona':'See how it works')+'</a></div>'+
-      '<p class="trust">'+(L==='es'?'Unos 2 minutos. Sin cuenta. Progreso guardado en este dispositivo.':'About 2 minutes. No account required. Progress saved on this device.')+'</p>'+
-      '<p class="quick-legal">'+(L==='es'?'Información legal general, no asesoría legal. Revisión independiente por abogados pendiente.':'General legal information, not legal advice. Independent attorney review pending.')+' <a href="/about">'+(L==='es'?'Fuentes y metodología':'Sources &amp; Methodology')+'</a> · <a href="#privacy">'+esc(c.navPrivacy)+'</a></p></div></section>'+
+    '<section class="encounter-experience" id="top" aria-labelledby="encounterTitle" data-language="'+L+'"><div class="encounter-copy">'+
+      '<p class="encounter-kicker">'+(L==='es'?'PRÁCTICA GRATUITA · ENGLISH + ESPAÑOL':'FREE SCENARIO PRACTICE · ENGLISH + ESPAÑOL')+'</p>'+
+      '<h1 id="encounterTitle">'+esc(c.heroTitle)+'</h1><p>'+(L==='es'?'Ensaye encuentros de tráfico para recordar las palabras con más facilidad bajo presión.':'Rehearse traffic encounters so the words are easier to remember under pressure.')+'</p>'+
+      '<a class="btn btn-gold" href="/rehearse?lang='+L+'">'+esc(heroCtaLabel)+'</a>'+
+      '<p class="encounter-note">'+(L==='es'?'Unos 2 minutos. Sin cuenta.':'About 2 minutes. No account required.')+' <a href="#how">'+(L==='es'?'Cómo funciona':'See how it works')+'</a></p>'+
+      '<p class="encounter-note">'+(L==='es'?'Información legal general, no asesoría legal. Revisión independiente por abogados pendiente.':'General legal information, not legal advice. Independent attorney review pending.')+' <a href="/about">'+(L==='es'?'Fuentes y metodología':'Sources &amp; Methodology')+'</a> · <a href="#privacy">'+esc(c.navPrivacy)+'</a></p></div>'+
+      '<div class="encounter-view" id="arena"><div class="encounter-canvas" role="img" aria-label="'+(L==='es'?'Escenas tridimensionales de encuentros en la carretera, en casa y junto a una ventanilla.':'Three-dimensional miniatures of encounters on the road, at home, and at a car window.')+'"></div>'+
+      '<img class="encounter-poster" src="/new/assets/amparo-encounters-poster.webp" alt="" fetchpriority="high">'+
+      '<div class="encounter-badge">'+(L==='es'?'Prepárese para el momento':'Prepare for the moment')+'</div><button class="encounter-pause" type="button">'+(L==='es'?'Pausar movimiento':'Pause motion')+'</button>'+
+      '<div class="encounter-status" role="status"></div><div class="encounter-caption"><span class="encounter-number">01 / 03</span><strong class="encounter-label">'+(L==='es'?'En la carretera':'On the road')+'</strong><p class="encounter-description">'+(L==='es'?'Se encienden las luces. Practique antes de necesitar las palabras.':'The lights come on. Practice before you need the words.')+'</p></div>'+
+      '<div class="encounter-controls" role="group" aria-label="'+(L==='es'?'Explorar escenas':'Explore scenes')+'">'+
+      (L==='es'?['En la carretera','En casa','La ventanilla']:['On the road','At home','The window']).map((x,i)=>'<button type="button" data-encounter="'+i+'" aria-pressed="'+(i===0)+'"><span>0'+(i+1)+'</span>'+x+'</button>').join('')+'</div></div></section>'+
     '<section class="quick-info" id="how"><div class="quick-inner"><h2>'+(L==='es'?'Leer es el primer paso. Practicar ayuda a recordar.':'Reading is a start. Practice helps you remember.')+'</h2><p>'+(L==='es'?'Durante un encuentro estresante puede ser difícil recordar lo que leyó. Ensaye a su ritmo antes de necesitar las palabras.':'During a stressful encounter, it can be hard to recall what you read. Rehearse at your own pace before you need the words.')+'</p><ol class="quick-steps">'+
       (L==='es'?['Elija su estado y situación.','Practique una respuesta.','Repita hasta que las palabras le resulten familiares.']:['Choose your state and situation.','Practice your response.','Repeat until the words feel familiar.']).map(x=>'<li>'+x+'</li>').join('')+'</ol></div></section>'+
-    /* 3 · encounter: traffic stop, the hands as a frame sequence */
-    '<section class="cut cut--lead" id="arena" data-sc-act="flow" style="--h:1;background:#0B1426">'+
-      '<div class="plate plate--seq"><img class="sc-stage__poster" src="/new/assets/act1-hands.webp" width="1000" height="1778" alt="" loading="lazy"><canvas data-sc-sequence="/new/assets/motion/hands/f-{ii}.webp:30:1" aria-hidden="true"></canvas></div>'+
-      '<div class="scrim-lead" aria-hidden="true"></div>'+
-      '<div class="copy-panel"><div class="copy-glass" aria-hidden="true"></div><div class="copy"><h2 data-sc-cue="0 1 0.3 0" data-sc-kinetic="lines">'+esc(E[0].feel)+'</h2>'+
-        '<div data-sc-cue="0.1 1 0.3 0">'+encounterHtml(E[0],L)+'</div></div></div>'+
-    '</section>'+
-    /* 4 · encounter: checkpoint, a still, wiped in */
-    '<section class="cut cut--trail" data-sc-act="flow" style="--h:0.9;background:#16223A">'+
-      '<figure class="plate" data-sc-reveal="left" data-sc-reveal-at="0.02 0.4"><img src="/new/assets/card2-checkpoint.webp" width="900" height="500" alt="" loading="lazy"></figure>'+
-      '<div class="scrim-trail" aria-hidden="true"></div>'+
-      '<div class="copy-panel"><div class="copy-glass" aria-hidden="true"></div><div class="copy"><h2 data-sc-cue="0 1 0.3 0">'+esc(E[1].feel)+'</h2>'+
-        '<div data-sc-cue="0.1 1 0.3 0">'+encounterHtml(E[1],L)+'</div></div></div>'+
-    '</section>'+
-    /* 5 · encounter: at your door. No photograph exists for this yet, so the
-          words carry it, which is the product's whole thesis anyway. */
-    '<section class="cut cut--lead cut--door" data-sc-act="flow" style="--h:0.9;background:#070E1C">'+
-      '<div class="copy"><h2 data-sc-cue="0 1 0.3 0" data-sc-kinetic="lines">'+esc(E[2].feel)+'</h2>'+
-        '<div data-sc-cue="0.1 1 0.3 0">'+encounterHtml(E[2],L)+'</div></div>'+
-    '</section>'+
     /* 6 · what to say: the five rights lines over the card in hand, scrubbed.
           Quiet by design: this is the breath before the deal. */
     '<section class="cut cut--lead" id="say" data-sc-act="flow" style="--h:1.1;background:#0B1426">'+
@@ -1028,6 +1017,7 @@ function render(){
         '<p class="disc">'+esc(c.footerDisclaimer)+'</p><span>'+esc(c.footerCopyright)+'</span></footer></div>'+
     '</section>';
 
+  window.AmparoEncounter?.mount();
   // the deck faces, in the current language
   const hand = document.getElementById('hand');
   hand.innerHTML = c.dealCards.slice(0,5).map((k,i)=>faceHtml(k,'',' data-i="'+i+'"')).join('') +

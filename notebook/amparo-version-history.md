@@ -1009,3 +1009,21 @@ To restore any version exactly:
 git checkout v2.2.0 -- .        # restore files at that tag, keep history
 git reset --hard v2.2.0         # discard everything after that tag
 ```
+
+
+## 2026-09-13 — Higgsfield clay encounter homepage
+
+Recovered the six clay reference frames from the September 1 homepage and
+rebuilt their traffic, doorstep, and window concepts as three editable 3D
+miniatures in Higgsfield 3D Jutsu. The homepage presents the 1.71 MB model with
+slow camera motion, a subtle flashlight animation, bilingual scene controls,
+pause, reduced-motion support, and a still-image fallback. The practice CTA
+remains ordinary HTML; doorstep practice remains under review. Replaced the
+three intervening photographic encounter sections with this opening stage.
+
+Same-origin Three.js bundle loads only when the stage approaches view. Rendering
+pauses offscreen or in hidden tabs, and GPU resources are released on rerender.
+Six lifecycle tests cover reduced motion, pause, async disposal, context loss,
+and language remounts. Browser checks covered all three scenes, EN/ES, keyboard
+focus, and seven widths from 320 to 1440 px without horizontal overflow.
+Reference history, model provenance, and rebuilding scripts are in notebook/.
