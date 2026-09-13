@@ -8,6 +8,11 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.29.5 — 2026-09-13 — Homepage privacy copy matches analytics
+
+Homepage privacy section now discloses anonymous usage counts (matching /pack)
+and scopes the on-device claim to "your words and photos." Copy-only, EN + ES.
+
 ## 2026-09-13 — First-practice UX
 
 Homepage now explains rehearsal immediately, provides a concrete bilingual

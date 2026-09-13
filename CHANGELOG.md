@@ -6,6 +6,14 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.29.5 — 2026-09-13 — Homepage privacy copy matches analytics
+
+The homepage fired an anonymous PostHog pageview but its privacy section never
+disclosed analytics and claimed "Nothing leaves your phone" absolutely. Added
+the same anonymous-count disclosure /pack already carries, and scoped the
+headline/chip to "your words and photos," which is literally true. Arena (no
+analytics) and /pack (already discloses) unchanged. EN + ES. No behavior change.
+
 ## 2026-09-13 — First-practice UX
 
 Homepage now explains rehearsal immediately, provides a concrete bilingual
