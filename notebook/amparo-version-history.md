@@ -8,6 +8,12 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.29.6 — 2026-09-13 — Honest coverage headline + simulated-pressure relabel
+
+Homepage coverage headline no longer says "Works in all 50 states" (now
+"Federal rights everywhere. Three states cited to statute."); Arena's simulated
+❤️ value relabeled from "BPM/heart rate" to a pressure meter. Accuracy, EN + ES.
+
 ## v2.29.5 — 2026-09-13 — Homepage privacy copy matches analytics
 
 Homepage privacy section now discloses anonymous usage counts (matching /pack)

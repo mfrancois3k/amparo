@@ -23,6 +23,18 @@ and language remounts. Browser checks covered all three scenes, EN/ES, keyboard
 focus, and seven widths from 320 to 1440 px without horizontal overflow.
 Reference history, model provenance, and rebuilding scripts are in notebook/.
 
+## v2.29.6 — 2026-09-13 — Honest coverage headline + simulated-pressure relabel
+
+Two accuracy fixes from the product/trust audit, no redesign, no feature change:
+- Homepage state-coverage headline "Works in all 50 states" overclaimed against
+  /about ("does not claim nationwide coverage; three states verified"). Changed
+  to "Federal rights everywhere. Three states cited to statute." EN + ES. The
+  subtext was already accurate.
+- Arena displayed a computed value (window.__BPM = 72 + level·15 + pressure) as
+  "❤️ BPM / heart rate" — a biometric claim the app can't measure. Relabeled the
+  HUD and tutorial as a simulated pressure meter ("not your real heart rate"),
+  EN + ES. Gameplay mechanic unchanged. New i18n key pressLbl.
+
 ## v2.29.5 — 2026-09-13 — Homepage privacy copy matches analytics
 
 The homepage fired an anonymous PostHog pageview but its privacy section never
