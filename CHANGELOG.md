@@ -23,6 +23,20 @@ and language remounts. Browser checks covered all three scenes, EN/ES, keyboard
 focus, and seven widths from 320 to 1440 px without horizontal overflow.
 Reference history, model provenance, and rebuilding scripts are in notebook/.
 
+## v2.29.7 — 2026-09-13 — Dedicated /organizations B2B page (EN + ES)
+
+Built a standalone organizations page from the existing Arena org copy — no new
+claims, same email/invoice path, no fake checkout. /organizations (EN) +
+/organizaciones (ES), mirroring the /about + /acerca static-page pattern
+(shared palette, hreflang cross-linked, served natively by Vercel). Headline
+"Bring Amparo practice to your community"; who-it's-for; 3-step "what
+participants do"; what-orgs-receive; the three real packages (Starter $149,
+Chapter $499, Enterprise custom); a prefilled mailto lead capture
+(name/org/email/size/state/interest) to orgs@amparohq.com; honest-status note
+that printed-pack orders are arranged by email before anything is charged.
+Homepage "For organizations" nav + share CTA now point here (language-aware),
+and both URLs added to sitemap.xml. No backend/CRM added.
+
 ## v2.29.6 — 2026-09-13 — Honest coverage headline + simulated-pressure relabel
 
 Two accuracy fixes from the product/trust audit, no redesign, no feature change:

@@ -8,6 +8,12 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.29.7 — 2026-09-13 — Dedicated /organizations B2B page (EN + ES)
+
+New /organizations + /organizaciones pages built from the existing Arena org
+copy (Starter $149 / Chapter $499 / Enterprise), email/invoice lead capture, no
+fake checkout. Homepage org links repointed here; sitemap updated.
+
 ## v2.29.6 — 2026-09-13 — Honest coverage headline + simulated-pressure relabel
 
 Homepage coverage headline no longer says "Works in all 50 states" (now

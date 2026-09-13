@@ -795,7 +795,7 @@ function renderNav(c){
     ['/rehearse', c.navPractice],
     ['#how', lang==='es'?'Cómo funciona':'How it works'],
     ['/about', lang==='es'?'Fuentes':'Sources'],
-    ['/rehearse#organizations', lang==='es'?'Organizaciones':'For organizations']
+    [lang==='es'?'/organizaciones':'/organizations', lang==='es'?'Organizaciones':'For organizations']
   ];
   const html = items.map(function(it){
     return '<a href="'+it[0]+'">'+esc(it[1])+'</a>';
@@ -1005,7 +1005,7 @@ function render(){
     /* 12 · give one away */
     '<section class="cut cut--lead" id="share" data-sc-act="flow" style="--h:0.6;background:#0B1426">'+
       '<div class="copy" data-sc-in data-sc-stagger="50"><h2>'+esc(c.cut12)+'</h2><p>'+esc(c.shareBody)+'</p>'+
-        '<div class="share-row"><a class="btn btn-line" href="'+shareWaUrl+'" target="_blank" rel="noopener">'+esc(c.shareWhatsApp)+'</a><a class="btn btn-line" href="'+shareSmsUrl+'">'+esc(c.shareSms)+'</a><a class="btn btn-line" href="/rehearse#organizations" target="_blank" rel="noopener">'+esc(c.orgCta)+'</a></div></div>'+
+        '<div class="share-row"><a class="btn btn-line" href="'+shareWaUrl+'" target="_blank" rel="noopener">'+esc(c.shareWhatsApp)+'</a><a class="btn btn-line" href="'+shareSmsUrl+'">'+esc(c.shareSms)+'</a><a class="btn btn-line" href="'+(lang==='es'?'/organizaciones':'/organizations')+'" rel="noopener">'+esc(c.orgCta)+'</a></div></div>'+
     '</section>'+
     /* faq: information, compressed */
     '<section class="faq" id="faq"><div class="faq-in"><h2>'+esc(c.faqTitle)+'</h2><div>'+faqHtml+'</div></div></section>'+
