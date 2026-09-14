@@ -23,6 +23,13 @@ and language remounts. Browser checks covered all three scenes, EN/ES, keyboard
 focus, and seven widths from 320 to 1440 px without horizontal overflow.
 Reference history, model provenance, and rebuilding scripts are in notebook/.
 
+## v2.29.12 — 2026-09-13 — Homepage coverage: "cited" → "verified"
+
+Homepage said "Three states cited to statute," but per the /how-we-verify
+taxonomy all 51 jurisdictions carry cited statute lines while only three (TX, GA,
+NY) are verified. Changed to "Three states verified to statute," aligning the
+homepage with /about ("three states are verified") and the verify page. EN + ES.
+
 ## v2.29.11 — 2026-09-13 — Privacy pages: real analytics description; loop reports
 
 The /privacy + /privacidad pages (built in a parallel session) said "Marketing
