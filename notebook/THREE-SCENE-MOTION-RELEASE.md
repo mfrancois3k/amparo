@@ -18,3 +18,12 @@ GSAP owns scroll progress; CSS sticky owns the stage. Native document scroll, ex
 
 ## Verification
 126 full-suite tests pass;18 focus on mapping, reverse boundaries, 3-scene bilingual markup, readiness gates, media failure, reduced motion, Save-Data, cancellation, cache bounds and teardown. Inline scripts parse and static prerender matches. Browser inspected all3actual scenes and chapter transitions at1280×720 and1440×900, Spanish portrait390×844 and320×844, and motion-off fallback. At320px, CTA bottom697px and chapter controls top752.5px, no horizontal overflow. Returning from chapter3 to1 yields progress0.100 and scene0. No runtime errors captured. This is a browser and code review, not physical-device or screen-reader certification.
+
+## Motion correction — September 13
+User clarified that scenes move but their movement is too subtle. Read both supplied desktop skill bundles; animated-website copies are identical. The additional bundle contains motion-spec guidance, not a reference film. Retained the existing authorized Higgsfield clips and frame assets.
+
+Three camera paths now move the footage inside fixed masks: traffic scale 1.00 to 1.34 with a leftward track; doorway 1.34 to 1.04 pulling back; preparedness 1.06 to 1.40 with a diagonal move toward the cards. Mobile uses 65% of this extra travel to protect portrait framing. These are composited camera moves over existing footage, not newly generated 3D geometry.
+
+A monotonic sine remap slows footage around each chapter midpoint while advancing faster through entry/exit. Time-based 110ms exponential follow-through settles exactly and stops requesting animation frames. Motion-off, reduced motion, hidden tabs, loading cancellation and reverse navigation remain covered. No new payload or extraction needed.
+
+Validation: 133 tests pass, including 25 motion tests. Chapter navigation calculates current page geometry to avoid stale destinations after resize. Static prerender check passes. Desktop camera composition and mobile framing inspected in browser.

@@ -47,30 +47,30 @@ class Element{
 async function flush(){for(let i=0;i<18;i++)await Promise.resolve();}
 function lifecycle({reduced=false,saveData=false,manifestFails=false,holdFrames=false,frameFails=false}={}){
  const root=new Element(),hero=new Element(),visual=new Element(),button=new Element(),fill=new Element(),label=new Element(),copy=new Element(),skip=new Element(),how=new Element();
- copy.scrollHeight=600;hero.offsetHeight=836;hero.getBoundingClientRect=()=>({width:1200,height:836});root.getBoundingClientRect=()=>({top:64});
+ copy.scrollHeight=600;hero.offsetHeight=836;hero.getBoundingClientRect=()=>({width:1200,height:836});root.getBoundingClientRect=()=>({top:64,height:3036});
  const canvases=[new Element(),new Element(),new Element()];canvases.forEach(c=>{c.draws=[];c.getContext=()=>({setTransform(){},drawImage:bitmap=>c.draws.push(bitmap.url)});});
- const shots=canvases.map(canvas=>{const shot=new Element();shot.querySelector=()=>canvas;return shot;});
+ const shots=canvases.map(canvas=>{const shot=new Element(),poster=new Element();shot.querySelector=s=>s==='canvas'?canvas:poster;shot.querySelectorAll=()=>[poster,canvas];return shot;});
  const layers=[0,1,2].map(()=>{const layer=new Element();layer.lines=[new Element(),new Element()];layer.ink=new Element();layer.intro=new Element();layer.caption=new Element();layer.querySelectorAll=()=>layer.lines;layer.querySelector=s=>s==='.cine-ink'?layer.ink:s==='.cine-intro'?layer.intro:layer.caption;return layer;});
  const chapters=[new Element(),new Element(),new Element()];
  root.querySelector=s=>({'.cine-hero':hero,'.cine-visual':visual,'.cine-pause':button,'.cine-timeline-fill':fill,'.cine-frame-label':label,'.cine-hero-copy':copy})[s];
  root.querySelectorAll=s=>s==='.cine-shot'?shots:s==='[data-cine-beat]'?layers:s==='[data-chapter]'?chapters:[skip];
  const document=new Element();document.documentElement={lang:'en'};document.querySelector=()=>root;document.getElementById=()=>how;
  const window=new Element(),connection=new Element(),reduce=new Element(),mobile=new Element();connection.saveData=saveData;reduce.matches=reduced;mobile.matches=false;
- const requests=[],bitmaps=[],triggers=[],frames=new Map(),held=[];let serial=0;
+ const requests=[],bitmaps=[],triggers=[],frames=new Map(),held=[];let serial=0,now=0;
  const gsap={registerPlugin(){},set:(el,props)=>{el.style.transform='translateY('+props.yPercent+'%)';}};
  const ScrollTrigger={create:config=>{const trigger={config,isActive:true,progress:0,start:0,end:2200,killed:false,refresh(){config.onRefresh(this);},kill(){this.killed=true;}};triggers.push(trigger);return trigger;}};
  const createImageBitmap=async blob=>{const bitmap={url:blob.url,width:1024,height:580,closed:false,close(){this.closed=true;}};bitmaps.push(bitmap);return bitmap;};
- Object.assign(window,{gsap,ScrollTrigger,createImageBitmap,scrollTo(){}});
+ Object.assign(window,{gsap,ScrollTrigger,createImageBitmap,scrollY:0,scrolls:[],scrollTo(options){this.scrolls.push(options);}});
  const manifest={scenes:[121,61,61].map((count,i)=>({count,desktop:`/scene${i}/desktop-`,mobile:`/scene${i}/mobile-`}))};
  const fetch=(url,options)=>{
   requests.push({url,options});if(url.endsWith('manifest.json'))return Promise.resolve({ok:!manifestFails,json:async()=>manifest});
   const response={ok:!frameFails,blob:async()=>({url})};if(holdFrames)return new Promise(resolve=>held.push(()=>resolve(response)));return Promise.resolve(response);
  };
- const context={window,document,navigator:{connection},gsap,ScrollTrigger,createImageBitmap,fetch,AbortController,innerHeight:900,devicePixelRatio:1,
+ const context={window,document,navigator:{connection},gsap,ScrollTrigger,createImageBitmap,fetch,AbortController,innerHeight:900,devicePixelRatio:1,performance:{now:()=>now},
   matchMedia:q=>q.includes('reduced')?reduce:mobile,requestAnimationFrame:callback=>{const id=++serial;frames.set(id,callback);return id;},cancelAnimationFrame:id=>frames.delete(id)};
  vm.runInNewContext(read('cinema-motion.js'),context);
- return {root,window,document,connection,reduce,mobile,button,skip,how,layers,canvases,requests,bitmaps,triggers,frames,
-  async cycle(count=1){for(let i=0;i<count;i++){await flush();const batch=[...frames.values()];frames.clear();batch.forEach(fn=>fn());}await flush();},
+ return {root,window,document,connection,reduce,mobile,button,skip,how,chapters,layers,canvases,requests,bitmaps,triggers,frames,
+  async cycle(count=1){for(let i=0;i<count;i++){await flush();now+=1000/60;const batch=[...frames.values()];frames.clear();batch.forEach(fn=>fn(now));}await flush();},
   progress(p){const t=triggers.at(-1);t.progress=p;t.config.onUpdate(t);},resolveFrames(){held.splice(0).forEach(fn=>fn());},dispose(){window.AmparoCinemaMotion.dispose();}};
 }
 for(const constraint of [{reduced:true},{saveData:true}])test(`${Object.keys(constraint)[0]} avoids all manifest/frame requests and pinning`,async()=>{
@@ -86,7 +86,7 @@ test('pin waits for first-frame readiness and native skip still focuses the foll
 });
 test('forward and backward ScrollTrigger updates select the correct clip and masked headline',async()=>{
  const h=lifecycle();await h.cycle(2);
- for(const [p,scene] of [[.5,1],[.85,2],[.2,0]]){h.progress(p);await h.cycle(3);assert.equal(h.root.dataset.scene,String(scene));assert.equal(h.layers[scene].attrs['aria-hidden'],'false');assert.ok(h.canvases[scene].draws.some(url=>url.startsWith('/scene'+scene+'/')));}
+ for(const [p,scene] of [[.5,1],[.85,2],[.2,0]]){h.progress(p);await h.cycle(90);assert.equal(h.root.dataset.scene,String(scene));assert.equal(h.layers[scene].attrs['aria-hidden'],'false');assert.ok(h.canvases[scene].draws.some(url=>url.startsWith('/scene'+scene+'/')));}
  h.dispose();
 });
 test('motion off kills pinning, releases decoded frames, and does not fetch while disabled',async()=>{
@@ -95,9 +95,58 @@ test('motion off kills pinning, releases decoded frames, and does not fetch whil
  h.document.emit('visibilitychange');await h.cycle();assert.equal(h.requests.length,requests);h.dispose();
 });
 test('rendition resize aborts old frame generation and reloads current scene without duplicating ScrollTrigger',async()=>{
- const h=lifecycle();await h.cycle(2);h.progress(.5);await h.cycle(2);const old=h.requests.filter(r=>!r.url.endsWith('manifest.json'));
+ const h=lifecycle();await h.cycle(2);h.progress(.5);await h.cycle(90);const old=h.requests.filter(r=>!r.url.endsWith('manifest.json'));
  h.mobile.matches=true;h.window.emit('resize');await h.cycle(3);assert.ok(old.every(r=>r.options.signal.aborted));assert.equal(h.triggers.length,1);
  assert.ok(h.canvases[1].draws.some(url=>url.startsWith('/scene1/mobile-')));h.dispose();
+});
+
+test('dwell timing stays monotonic, preserves endpoints and is reversible',()=>{
+ const {dwellAt,frameAt}=math();near(dwellAt(-1),0);near(dwellAt(0),0);near(dwellAt(1),1);near(dwellAt(2),1);
+ const values=Array.from({length:101},(_,i)=>dwellAt(i/100));values.slice(1).forEach((v,i)=>assert.ok(v>values[i]));
+ assert.ok(dwellAt(.25)>.25);assert.ok(dwellAt(.75)<.75);assert.ok(dwellAt(.55)-dwellAt(.45)<.1);
+ const forward=values.map(p=>frameAt(p,121)),reverse=values.slice().reverse().map(p=>frameAt(p,121));assert.deepEqual(forward,reverse.reverse());
+});
+
+test('scene camera paths have distinct directions and gentler mobile cropping',()=>{
+ const {cameraAt}=math();const first=[0,1,2].map(i=>cameraAt(0,i)),last=[0,1,2].map(i=>cameraAt(1,i));
+ assert.ok(last[0].scale-first[0].scale>.3);assert.ok(last[1].scale-first[1].scale<-.25);assert.ok(last[2].scale-first[2].scale>.3);
+ for(let scene=0;scene<3;scene++)for(const t of [0,.25,.5,.75,1]){
+  const d=cameraAt(t,scene),m=cameraAt(t,scene,true);assert.ok(d.scale>=1&&m.scale>=1);assert.ok(Math.abs(m.scale-1)<=Math.abs(d.scale-1)+1e-9);assert.ok(Math.abs(m.x)<=Math.abs(d.x)+1e-9);assert.ok(Math.abs(m.y)<=Math.abs(d.y)+1e-9);
+ }
+ for(const property of ['scale','x','y']){near(cameraAt(-1,0)[property],first[0][property]);near(cameraAt(2,0)[property],last[0][property]);}
+});
+
+test('progress settling is bounded, time-based and reverses without overshoot',()=>{
+ const {settleAt}=math();near(settleAt(0,1,0),0);near(settleAt(0,1,-1),0);near(settleAt(0,1,10000),settleAt(0,1,64));
+ near(settleAt(settleAt(0,1,16),1,16),settleAt(0,1,32));
+ let p=0;for(let i=0;i<5;i++){const next=settleAt(p,1,16);assert.ok(next>p&&next<1);p=next;}
+ for(let i=0;i<100;i++){const next=settleAt(p,0,16);assert.ok(next<=p&&next>=0);p=next;}near(p,0);
+});
+
+test('smoothed scrolling converges after reversal and leaves no perpetual RAF or fetch loop',async()=>{
+ const h=lifecycle();await h.cycle(20);h.progress(.9);await h.cycle(3);h.progress(.1);await h.cycle(140);
+ assert.equal(h.root.dataset.scene,'0');near(Number(h.root.dataset.progress),.1);assert.equal(h.frames.size,0);
+ const requests=h.requests.length;await h.cycle(30);assert.equal(h.requests.length,requests);assert.equal(h.frames.size,0);h.dispose();
+});
+
+test('enabling reduced motion during settling cancels motion and frame fetching',async()=>{
+ const h=lifecycle();await h.cycle(20);h.progress(.85);await h.cycle(2);h.reduce.matches=true;h.reduce.emit('change');await h.cycle(10);
+ assert.equal(h.root.classes.has('is-scroll'),false);assert.ok(h.triggers.every(t=>t.killed));assert.equal(h.frames.size,0);assert.ok(h.bitmaps.every(b=>b.closed));
+ const requests=h.requests.length;await h.cycle(30);assert.equal(h.requests.length,requests);h.dispose();
+});
+
+test('hidden documents suspend settling and resume toward the current target when visible',async()=>{
+ const h=lifecycle();await h.cycle(20);h.progress(.85);await h.cycle(2);h.document.hidden=true;h.document.emit('visibilitychange');await h.cycle(20);
+ assert.equal(h.frames.size,0);const requests=h.requests.length;await h.cycle(20);assert.equal(h.requests.length,requests);
+ h.document.hidden=false;h.document.emit('visibilitychange');await h.cycle(140);near(Number(h.root.dataset.progress),.85);assert.equal(h.root.dataset.scene,'2');assert.equal(h.frames.size,0);h.dispose();
+});
+
+test('chapter navigation uses current root geometry after resize instead of stale trigger coordinates',async()=>{
+ const h=lifecycle();await h.cycle(20);h.triggers[0].start=10000;h.triggers[0].end=20000;
+ h.window.scrollY=500;h.root.getBoundingClientRect=()=>({top:-436,height:2600});h.mobile.matches=true;h.window.emit('resize');await h.cycle(3);
+ h.chapters[2].emit('click');const destination=h.window.scrolls.at(-1);near(destination.top,(2600-900+64)*(2/3+.1));assert.equal(destination.behavior,'smooth');
+ h.root.getBoundingClientRect=()=>({top:-436,height:400});h.chapters[0].emit('click');near(h.window.scrolls.at(-1).top,0);
+ h.button.emit('click');const calls=h.window.scrolls.length;h.chapters[2].emit('click');assert.equal(h.window.scrolls.length,calls);h.dispose();
 });
 test('decoded cache stays bounded across chapter jumps and frees all frames on disposal',async()=>{
  const h=lifecycle();await h.cycle(8);for(const p of [.12,.5,.85,.4,.1]){h.progress(p);await h.cycle(8);assert.ok(h.bitmaps.filter(b=>!b.closed).length<=30);}
