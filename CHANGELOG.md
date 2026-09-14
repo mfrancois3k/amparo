@@ -23,6 +23,15 @@ and language remounts. Browser checks covered all three scenes, EN/ES, keyboard
 focus, and seven widths from 320 to 1440 px without horizontal overflow.
 Reference history, model provenance, and rebuilding scripts are in notebook/.
 
+## v2.29.11 — 2026-09-13 — Privacy pages: real analytics description; loop reports
+
+The /privacy + /privacidad pages (built in a parallel session) said "Marketing
+analytics and session recording are disabled" — false: PostHog runs on / /pack
+/aid and the pack builder records its first two screens (masked). Rewritten to
+describe the real masked, scoped, no-ad-tracker analytics, matching the homepage
+and /pack disclosures. EN + ES. Also commits the FG-28, module-design and
+blindspot audit reports that drove this loop.
+
 ## v2.29.10 — 2026-09-13 — Citation count, /aid disclosure, coverage denominator
 
 Three more accuracy fixes from the FG-28 audit:

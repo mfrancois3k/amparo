@@ -8,6 +8,12 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.29.11 — 2026-09-13 — Privacy pages: real analytics description; loop reports
+
+/privacy + /privacidad falsely said analytics/recording disabled; rewritten to
+the true masked/scoped PostHog description (EN+ES). FG-28/module/blindspot loop
+reports committed.
+
 ## v2.29.10 — 2026-09-13 — Citation count, /aid disclosure, coverage denominator
 
 how-we-verify "230 sections cited" was wrong — real 184, now computed from
