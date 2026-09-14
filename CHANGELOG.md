@@ -23,6 +23,18 @@ and language remounts. Browser checks covered all three scenes, EN/ES, keyboard
 focus, and seven widths from 320 to 1440 px without horizontal overflow.
 Reference history, model provenance, and rebuilding scripts are in notebook/.
 
+## v2.29.10 — 2026-09-13 — Citation count, /aid disclosure, coverage denominator
+
+Three more accuracy fixes from the FG-28 audit:
+- how-we-verify overstated its own honesty metric: "230 sections cited" — the
+  real unique count in data/hud.json is 184. Made it computed from the data
+  (HUD_CITE_COUNT) so it can never drift again. EN + ES.
+- /aid ran PostHog with no on-page privacy disclosure while every other analytics
+  page discloses. Added an anonymous-usage line to the footer. EN + ES.
+- Homepage map legend said "All 50 states" while /how-we-verify counts "51
+  jurisdictions" and the map itself includes DC. Changed to "Every state and DC."
+  EN + ES.
+
 ## v2.29.9 — 2026-09-13 — Blindspot-loop fixes: sitemap, pressure meter, org deliverables
 
 From the FG-28 + blindspot + module audit loop:

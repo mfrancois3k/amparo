@@ -65,6 +65,9 @@ const SRC = path.join(ROOT, 'pack.html');
 /* Spanish state names and the per-state review flags come from the generated
    hud bank, the same source the Arena and the Panic HUD read. */
 const HUD = JSON.parse(await readFile(path.join(ROOT, 'data', 'hud.json'), 'utf8'));
+/* Unique cited statute sections behind the Arena + Panic HUD lines, computed from
+   the data so the how-we-verify count never drifts (was hardcoded "230", real 184). */
+const HUD_CITE_COUNT = (() => { const s = new Set(); (function walk(o){ if (Array.isArray(o)) o.forEach(walk); else if (o && typeof o === 'object') { if (o.cite && String(o.cite).trim()) s.add(String(o.cite).trim()); Object.values(o).forEach(walk); } })(HUD); return s.size; })();
 const nameEsOf = (ab, name) => HUD.states[ab]?.nameEs ?? name;
 const CHECK = process.argv.includes('--check');
 const ORIGIN = 'https://www.amparohq.com';
@@ -446,7 +449,7 @@ async function build() {
 <h2>Why so few states</h2>
 <p>Three source-verified pack editions — Texas, Georgia and New York — are published. Careful sourcing contradicted the widely-copied list of “stop and identify” states on four of the first ten states researched. That is the argument against generating state content quickly: the fast version would have been wrong in four places, and a driver would have been holding it at the window.</p>
 <h2>The daily source check</h2>
-<p>A scheduled job re-fetches the four primary statute pages behind the pack’s cited rules and compares them to a stored hash. The 230 sections cited on the Arena and Panic HUD lines are not yet on that watch list; putting them there needs a source URL per section, which the research matrix does not carry today. A change means a person has to re-read it. <b>It does not verify that the law is correct — no script can.</b> “Sources checked” and “reviewed by a person” are different claims, and this site keeps them separate on purpose.</p>
+<p>A scheduled job re-fetches the four primary statute pages behind the pack’s cited rules and compares them to a stored hash. The ${HUD_CITE_COUNT} sections cited on the Arena and Panic HUD lines are not yet on that watch list; putting them there needs a source URL per section, which the research matrix does not carry today. A change means a person has to re-read it. <b>It does not verify that the law is correct — no script can.</b> “Sources checked” and “reviewed by a person” are different claims, and this site keeps them separate on purpose.</p>
 <h2>What has not been done yet</h2>
 <div class="note"><b>No attorney has signed off on the current edition.</b> Amparo’s own standard is that a rule should also be reviewed by an attorney licensed in that state, tied to the specific edition reviewed. That has not happened yet — so no attorney badge appears anywhere on this site, and nothing here should be read as attorney-reviewed. Source quotations and provisional summaries follow the source standards above; neither constitutes professional legal review. Saying so is more useful to you than the alternative.</div>
 <h2>Future professional review records</h2>
@@ -463,7 +466,7 @@ async function build() {
 <h2>Por qué tan pocos estados</h2>
 <p>Se publican tres ediciones del paquete verificadas contra fuentes: Texas, Georgia y Nueva York. Una investigación cuidadosa contradijo la lista más copiada de estados con leyes de “identifíquese” en cuatro de los primeros diez estados investigados. Ese es el argumento contra generar contenido estatal rápido: la versión rápida habría estado equivocada en cuatro lugares, y un conductor la habría tenido en la mano en la ventana.</p>
 <h2>La comprobación diaria de fuentes</h2>
-<p>Un proceso programado vuelve a descargar las cuatro páginas de ley primaria detrás de las reglas citadas del paquete y las compara con un hash guardado. Las 230 secciones citadas en las líneas de la Arena y del Panic HUD aún no están en esa lista de vigilancia; incluirlas requiere una URL de fuente por sección, que la matriz de investigación hoy no tiene. Un cambio significa que una persona debe volver a leerla. <b>No verifica que la ley sea correcta — ningún script puede hacerlo.</b> “Fuentes comprobadas” y “revisado por una persona” son afirmaciones distintas, y este sitio las mantiene separadas a propósito.</p>
+<p>Un proceso programado vuelve a descargar las cuatro páginas de ley primaria detrás de las reglas citadas del paquete y las compara con un hash guardado. Las ${HUD_CITE_COUNT} secciones citadas en las líneas de la Arena y del Panic HUD aún no están en esa lista de vigilancia; incluirlas requiere una URL de fuente por sección, que la matriz de investigación hoy no tiene. Un cambio significa que una persona debe volver a leerla. <b>No verifica que la ley sea correcta — ningún script puede hacerlo.</b> “Fuentes comprobadas” y “revisado por una persona” son afirmaciones distintas, y este sitio las mantiene separadas a propósito.</p>
 <h2>Lo que aún no se ha hecho</h2>
 <div class="note"><b>Ningún abogado ha aprobado la edición actual.</b> El estándar de Amparo es que una regla también sea revisada por un abogado con licencia en ese estado, ligada a la edición específica revisada. Eso todavía no ha ocurrido — así que no aparece ninguna insignia de abogado en este sitio, y nada aquí debe leerse como revisado por un abogado. Las citas textuales y los resúmenes provisionales siguen los estándares de fuentes anteriores; ninguno equivale a revisión jurídica profesional. Decirlo le sirve más a usted que lo contrario.</div>
 <h2>Futuros registros de revisión profesional</h2>

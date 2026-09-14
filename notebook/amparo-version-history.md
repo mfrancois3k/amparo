@@ -8,6 +8,12 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.29.10 — 2026-09-13 — Citation count, /aid disclosure, coverage denominator
+
+how-we-verify "230 sections cited" was wrong — real 184, now computed from
+hud.json; /aid gained an anonymous-usage disclosure; homepage legend "All 50
+states" → "Every state and DC" to match the 51-jurisdiction framing. EN+ES.
+
 ## v2.29.9 — 2026-09-13 — Blindspot-loop fixes: sitemap, pressure meter, org deliverables
 
 Sitemap generator now keeps the org pages (cron was dropping them); Arena live
