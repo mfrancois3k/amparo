@@ -1,0 +1,72 @@
+/* Three-scene direction: light, threshold, preparation. Motion affects the film, not the CTA. */
+.cine-scroll.is-scroll{height:560svh}
+.cine-scroll .cine-hero{height:calc(100svh - 64px);min-height:730px;max-height:none}
+.cine-scroll.is-scroll .cine-hero{min-height:0}
+.cine-scroll .cine-visual{inset:0;height:100%;background:#050b12;clip-path:inset(0 6% 0 6% round 10px)}
+.cine-shot{position:absolute;inset:0;overflow:hidden}
+.cine-shot:not([data-shot="0"]){visibility:hidden}
+.cine-shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:66% center}
+.cine-shot[data-shot="1"] img{object-position:50% center}.cine-shot[data-shot="2"] img{object-position:62% center}
+.cine-canvas{position:absolute;inset:0;opacity:0;width:100%;height:100%}
+.cine-scroll .cine-hero:after{background:linear-gradient(90deg,#050d16ee 0%,#050d16ae 33%,#050d1635 63%,transparent 83%),linear-gradient(0deg,#050d16f5,transparent 38%)}
+.cine-scroll .cine-hero-copy{padding:65px clamp(24px,6vw,100px) 160px;margin:auto;width:100%}
+.cine-scroll .cine-eyebrow{margin:0 0 25px;font-size:10px;max-width:48ch}
+.cine-beats{min-height:290px;max-width:580px}
+.cine-chapter-caption{font-family:inherit;font-size:10px!important;letter-spacing:.16em;text-transform:uppercase;color:#bac4c9;margin:0 0 20px!important}
+.cine-scroll .cine-beats h1,.cine-scroll .cine-beats h2{font-size:clamp(58px,7vw,108px);font-weight:400;line-height:.99;letter-spacing:-.065em;max-width:none;margin:0 0 23px}
+.cine-line-mask{display:block;overflow:hidden;padding-bottom:.10em;margin-bottom:-.07em}
+.cine-line{display:block;position:relative;transform-origin:0 50%;will-change:transform}
+.cine-emphasis{color:#dfc89c;font-style:italic}
+.cine-outline{position:absolute;inset:0;color:transparent;-webkit-text-stroke:1px #dfc89c;opacity:.42}
+.cine-ink{display:block;clip-path:inset(0);position:relative}
+.cine-scroll .cine-intro{max-width:34ch;font-size:15px;line-height:1.6;margin:0 0 10px}
+.cine-fixed-action{margin-top:20px}
+.cine-scroll .cine-small{margin-top:10px!important}
+.cine-scroll .cine-foot{display:block;bottom:18px;padding-top:0;border:0}
+.cine-progress-meta{display:flex;justify-content:space-between;gap:20px;margin-bottom:14px}
+.cine-scroll .cine-foot p{max-width:none;font-size:10px}
+.cine-scroll .cine-timeline{max-width:none;width:100%;height:1px}
+.cine-chapter-nav{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding-top:5px}
+.cine-chapter-nav button{font:inherit;font-size:11px;text-align:left;color:#9ca8b0;min-height:44px;background:none;border:0;cursor:pointer;border-radius:0;padding:8px 0;letter-spacing:.03em}
+.cine-chapter-nav button span{color:var(--sand);margin-right:14px;font-size:10px}
+.cine-chapter-nav button[aria-current=true]{color:var(--paper)}
+.cine-chapter-nav button:active{color:var(--sand)}
+.cine-static-scenes{background:#07121c}
+.cine-static-scenes article{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:8%;padding:55px clamp(24px,6vw,100px);border-top:1px solid #ffffff18}
+.cine-static-scenes img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:8px}
+.cine-static-scenes h2{font-size:clamp(38px,4vw,60px);line-height:1.05;margin:0 0 22px}
+.cine-static-scenes p{font-size:14px;color:#bec6ca;max-width:38ch}
+.is-scroll .cine-static-scenes{display:none}
+.cine-scroll:not(.is-scroll) .cine-chapter-nav{display:none}
+@media(max-width:1000px) and (min-width:701px){.cine-scroll .cine-beats h1,.cine-scroll .cine-beats h2{font-size:72px}.cine-beats{max-width:500px}}
+@media(max-width:700px){
+ .cine-scroll.is-scroll{height:520svh}
+ .cine-scroll .cine-hero{min-height:830px}
+ .cine-scroll .cine-hero:after{background:linear-gradient(0deg,#07121c 0%,#07121cf0 31%,#07121c99 60%,#07121c12 85%)}
+ .cine-scroll .cine-visual{clip-path:inset(0 3% round 8px)}
+ .cine-shot img{object-position:73% center}
+ .cine-scroll .cine-hero-copy{padding:250px 24px 147px;margin:0}
+ .cine-scroll.is-scroll .cine-hero-copy{padding-top:90px}
+ .cine-scroll .cine-eyebrow{font-size:8px;letter-spacing:.16em;line-height:1.5;max-width:36ch;margin-bottom:16px}
+ .cine-beats{min-height:260px}
+ .cine-chapter-caption{font-size:9px!important;margin-bottom:16px!important}
+ .cine-scroll .cine-beats h1,.cine-scroll .cine-beats h2{font-size:clamp(46px,12vw,66px);line-height:1.02;letter-spacing:-.065em;margin-bottom:20px}
+ .cine-scroll .cine-intro{font-size:13px;line-height:1.6;max-width:34ch}
+ .cine-fixed-action{margin-top:12px}.cine-scroll .cine-small{font-size:10px}
+ .cine-scroll .cine-action{font-size:12px;gap:18px;min-height:50px;padding:12px 18px}
+ .cine-scroll .cine-foot{bottom:14px;left:24px;right:24px}
+ .cine-progress-meta{margin-bottom:10px}.cine-chapter-nav{gap:8px}.cine-chapter-nav button{font-size:9px;line-height:1.5}.cine-chapter-nav button span{display:block;margin:0;font-size:9px}
+ .cine-film-controls{top:12px}.cine-film-controls a,.cine-film-controls .cine-pause{font-size:10px}
+ .cine-static-scenes article{grid-template-columns:1fr;gap:26px;padding:35px 24px}.cine-static-scenes h2{font-size:42px}
+}
+@media(max-height:650px){.cine-scroll .cine-hero{height:auto;min-height:730px}.cine-scroll .cine-hero-copy{padding-top:150px}.cine-beats{min-height:290px}}
+@media(prefers-reduced-motion:reduce){.cine-scroll .cine-visual{clip-path:none}.cine-line{will-change:auto}.cine-outline{display:none}}
+/* Keep the whole composition inside shorter desktop viewports. */
+@media(min-width:701px){.cine-scroll .cine-hero-copy{padding-top:35px;padding-bottom:130px}.cine-scroll .cine-beats h1,.cine-scroll .cine-beats h2{font-size:clamp(56px,6vw,90px)}}
+@media(max-width:700px){.cine-scroll.is-measuring .cine-hero-copy{padding-top:90px}}
+
+.cine-scroll:not(.is-scroll) .cine-film-controls{top:88px}.cine-outline{opacity:.8}
+
+
+.cine-scroll{margin-top:64px}.cine-scroll:not(.is-scroll) .cine-film-controls{top:24px}
+

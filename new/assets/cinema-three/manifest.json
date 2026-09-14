@@ -1,0 +1,43 @@
+{
+  "scenes": [
+    {
+      "id": "traffic",
+      "count": 121,
+      "width": 1024,
+      "height": 580,
+      "mobileWidth": 480,
+      "mobileHeight": 854,
+      "duration": 10.042,
+      "desktop": "/new/assets/cinema-scroll/desktop/frame-",
+      "mobile": "/new/assets/cinema-three/traffic/mobile/frame-",
+      "poster": "/new/assets/cinema-traffic-hero.webp",
+      "mobileFocal": 0.72
+    },
+    {
+      "id": "door",
+      "count": 61,
+      "width": 1024,
+      "height": 580,
+      "mobileWidth": 480,
+      "mobileHeight": 854,
+      "duration": 5.042,
+      "desktop": "/new/assets/cinema-three/door/desktop/frame-",
+      "mobile": "/new/assets/cinema-three/door/mobile/frame-",
+      "poster": "/new/assets/cinema-doorstep.webp",
+      "mobileFocal": 0.24
+    },
+    {
+      "id": "ready",
+      "count": 61,
+      "width": 1024,
+      "height": 580,
+      "mobileWidth": 480,
+      "mobileHeight": 854,
+      "duration": 5.042,
+      "desktop": "/new/assets/cinema-three/ready/desktop/frame-",
+      "mobile": "/new/assets/cinema-three/ready/mobile/frame-",
+      "poster": "/new/assets/cinema-three/ready-poster.webp",
+      "mobileFocal": 0.65
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "door": {
+    "model": "seedance_2_5",
+    "mode": "omni_reference",
+    "duration": 5,
+    "resolution": "720p",
+    "generate_audio": false,
+    "aspect_ratio": "16:9",
+    "medias": [
+      {
+        "role": "start_image",
+        "value": "e53cc4f7-0b00-4f6f-b0f8-9c4d8d62e46e"
+      }
+    ],
+    "prompt": "Five-second continuous cinematic shot from this EXACT approved mature clay house cutaway image. The dramatic focus is the CLOSED FRONT DOOR separating officer outside LEFT from calm resident inside RIGHT. Camera performs a deliberate 8 percent forward dolly toward the closed door and slightly right, with clear dimensional parallax across foreground threshold, doorframe, warm room, rain-dark porch. BOTH ADULTS stay on their original sides the ENTIRE time. Door remains completely closed and stationary: NEVER opens, no handle movement. Officer remains calm outside with plain paper held at waist, resident remains calm inside with hands together. No gestures or walking. Warm amber interior lantern and cool navy rainy porch stay steady, rain outside softly moves, cinematic depth of field and tactile clay/knit/plaster textures. Premium feature-film camera move, not a miniature toy or static slide. Do not change architecture, faces, hands, clothes or character anatomy. No added characters, weapons, text, captions, speech, logos, flashing lights or sound. Smooth meaningful closed-door-boundary scene for scroll-driven narrative, one take no cut."
+  },
+  "readyImage": {
+    "model": "gpt_image_2_5",
+    "quality": "high",
+    "resolution": "2k",
+    "aspect_ratio": "16:9",
+    "count": 1,
+    "medias": [
+      {
+        "role": "image",
+        "value": "72a9cf9c-6778-47d9-ab8a-21e258ec6550"
+      },
+      {
+        "role": "image",
+        "value": "e53cc4f7-0b00-4f6f-b0f8-9c4d8d62e46e"
+      }
+    ],
+    "prompt": "Create the THIRD shot of this sophisticated cinematic matte-clay film for Amparo civil-rights preparedness. A completely DIFFERENT scene: intimate premium still life on a walnut entryway table inside a calm home at evening. A neatly folded plain warm-ivory pocket card with absolutely blank surfaces lies next to a realistic set of everyday brass car keys on a dark navy leather key fob, and a simple smartphone face-down with no logos. Small closed cream envelope under the folded card, fine paper fibers and tactile softly sculpted clay objects, subtle handmade feature-film aesthetic matching supplied references. No people or hands at all: still life only, adult sophisticated realistic object proportions, never toy/chibi style. Beautiful warm amber table-lamp glow from offscreen right, deep desaturated navy shadows, soft rainy blue window bokeh in the background. Camera low close angle 35mm with strong foreground-middle-background depth, shallow cinematic focus on folded paper and keys. Composition objects centered-right, left third quiet shadow available for overlay copy later. Suggest thoughtful practical readiness and peace of mind through careful arrangement; no police, no badges, no weapons, no money, no alarm. No printed or legible text anywhere, no legal claims on card, no labels, no brand marks, no watermarks. Detailed luxurious editorial cinematography, natural rich texture, restrained film grain, serious cinematic world consistent with reference scenes."
+  },
+  "readyVideo": {
+    "model": "seedance_2_5",
+    "mode": "omni_reference",
+    "duration": 5,
+    "resolution": "720p",
+    "generate_audio": false,
+    "aspect_ratio": "16:9",
+    "medias": [
+      {
+        "role": "start_image",
+        "value": "8b2f06c8-9526-4853-b846-f1d45b5f99b7"
+      }
+    ],
+    "prompt": "Five second single premium cinematic camera move through this exact prepared-home still life. Objects remain perfectly stationary: the completely BLANK ivory folded card, matching blank envelope, brass keys, navy key fob and face-down phone must retain their exact shape/material/placement. No hands or people enter. Camera makes a smooth deliberate 8 percent low right-to-left lateral dolly arc and gently pushes 5 percent closer toward the card and keys, producing strong real parallax against the rainy blue window and amber lamp behind. Keep the key ring and entire blank folded card in frame throughout. Start with this reference composition. Warm lamp steady, subtle distant rain on window moves, soft cinematic focus shifts gently from keys toward blank card halfway through without making either unreadably soft. Calm confident prepared-home conclusion, tactile mature feature-film clay realism, deep navy shadow and warm amber light. One continuous take, no cuts, no strobing, no new objects, no text or logos generated anywhere, no printed marks on blank card, no speech or sound. Deliberate beautiful camera depth motion suited to reversible scroll control."
+  }
+}
