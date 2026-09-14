@@ -1,6 +1,6 @@
 {
   "pilotBanner": "Free. Everything stays on this phone unless you choose to save your pack to an optional free account. Photos never upload.",
-  "disclaimer": "Amparo provides general legal information, not legal advice. Every rule is cited to the exact state statute so you can check it yourself; formal attorney sign-off per state is in progress. Phone numbers verified July 16, 2026.",
+  "disclaimer": "Amparo provides general legal information, not legal advice. Federal references and state-specific research are identified where available; coverage varies. Independent attorney review is pending. Check the verification page for scope and review status.",
   "stepLabels": [
     "State",
     "You",
@@ -10,7 +10,7 @@
   ],
   "stepWord": "Step",
   "ty_title": "Your pack is ready. Thank you.",
-  "ty_sub": "Everything below stays on this phone. One thing left — make the words automatic.",
+  "ty_sub": "Your pack is saved on this device. An optional account can also save its text online. Next, practice the words.",
   "ty_chip_state": "rules cited",
   "ty_chip_state_fed": "Federal rights that apply everywhere",
   "ty_chip_print": "Pack printed",
@@ -26,7 +26,7 @@
   "w_b1": "Rehearse out loud, before you ever need it",
   "w_b2": "Your state's rules and legal lifelines",
   "w_b3": "A printed pack for the glovebox",
-  "w_b4": "Nothing you enter leaves your phone",
+  "w_b4": "Saved on this device; optional accounts can save pack text online",
   "w_btn": "Build my pack",
   "w_lifelines_shortcut": "Just need a lawyer or hotline number? →",
   "pageTitle": "Amparo — Know your rights at every traffic stop.",
@@ -102,10 +102,10 @@
   "ab_founder_note": "I built Amparo for anyone, of any minority, anywhere, who has ever feared that a routine stop could cost them their life. You deserve at least this: the knowledge, rehearsed and ready, so you have a fighting chance to make it home.<br><br>Do your part — stay calm, keep your hands visible, record what happens. If you do everything right and it still goes wrong, that record is yours: proof of how you carried yourself, so the truth can protect you and hold others accountable.<br><br>Whoever you are, reading this: I thought of you when I made this. I pray this never happens to you. But if it does, I hope you're armed with the right knowledge to move forward with your life.",
   "ab_founder_sign": "— Michael Francois, founder of Amparo",
   "ab_review_h": "Legal review",
-  "ab_review_pending": "Every rule in Amparo is cited to the exact state statute or code section — check the number yourself, anytime. We're also having each state's content formally reviewed and signed off by a licensed attorney in that state before public launch. Until a state shows a green “Attorney-reviewed” badge, treat it as well-sourced general information, not legal advice.",
+  "ab_review_pending": "Federal reference material and state-specific research are different. State citations are provided where available; coverage is not uniform nationwide. Independent attorney review is pending. A source citation is not attorney approval. Check How We Verify for the current scope and review status.",
   "ab_state_pending": "attorney sign-off in progress — rules already cited to statute",
   "ab_privacy_h": "Your privacy",
-  "ab_privacy": "Amparo works with no account at all, and that is the default. If you choose to create one to save your pack across devices, it stores only your pack's text — state, names, phone numbers, ZIP — on our server, and that record could be handed over if we were legally compelled. You can delete it at any time from the same screen. Your document photos and your practice history are never uploaded, with or without an account: there is nowhere on the server to put them. We count anonymous events (like how many packs get printed, and in which state) to prove the tool is used — never who you are, never what you typed, never your photos. If you send us feedback, what you write reaches us, plus your name and email only if you fill them in. We never sell or share anything with any agency, including immigration authorities.",
+  "ab_privacy": "Amparo works with no account at all, and that is the default. If you choose to create one to save your pack across devices, it stores only your pack's text — state, names, phone numbers, ZIP — on our server, and that record could be handed over if we were legally compelled. You can delete it at any time from the same screen. Your document photos and your practice history are never uploaded, with or without an account: there is nowhere on the server to put them. Marketing analytics and session recording are disabled. Technical errors may be reported to Sentry; reports are configured to exclude form contents and URL query strings. If you send us feedback, what you write reaches us, plus your name and email only if you fill them in. We do not sell your data. Server records may be disclosed when legally required.",
   "ab_contact": "Contact",
   "s_title": "Which state do you drive in?",
   "s_sub": "Texas, Georgia and New York have their own statutes cited line by line. Every other state gets the federal rights that apply everywhere — marked so you know the difference.",
@@ -422,5 +422,5 @@
   "wl_head": "AMPARO · WALLET CARD",
   "wl_cut": "✂ Cut along the dotted line, fold, keep in your wallet",
   "lifelines_print": "YOUR LIFELINES — verified 7/16/2026",
-  "footer": "© 2026 Amparo · Pilot edition · General legal information, not legal advice · Every rule cited to state statute · Attorney sign-off in progress · Numbers verified 7/16/2026"
+  "footer": "© 2026 Amparo · Pilot edition · General legal information, not legal advice · Coverage varies by jurisdiction · Independent attorney review pending"
 }

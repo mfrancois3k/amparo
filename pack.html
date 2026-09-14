@@ -25,7 +25,7 @@
 <meta property="og:title" content="Amparo — Get pulled over with a plan.">
 <meta property="og:description" content="A free bilingual traffic-stop pack: window card, your documents, your state's rules, and exactly what to say. Print it. Keep it in the car.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://www.amparohq.com/pack">>
+<meta property="og:url" content="https://www.amparohq.com/pack">
 <meta property="og:image" content="https://www.amparohq.com/og.png">
 <meta property="og:image:width" content="1500">
 <meta property="og:image:height" content="790">
@@ -1238,127 +1238,7 @@
 })();
 </script>
 <script>
-/* ============ ANALYTICS — anonymous event counts only ============
-   Counts events like "a pack was printed in TX (Spanish)" or "this named
-   hotline was tapped" so usage can be proven to reviewers and partners.
-   Event names and their params (state, language, which lifeline) DO leave
-   the device — that's the whole point of this file. What never leaves:
-   autocapture and any name/contact/photo/document the user enters — those
-   stay local, full stop. Session replay runs ONLY on the first two screens
-   (landing, state picker), every input masked, and stops for good the moment
-   step 2 opens; see srReplayGuard(). No durable identity either
-   (person_profiles:'identified_only' below, zero identify() calls anywhere
-   in this file). Loads only on http(s), never when opened as a local file. */
-(function(){
-  if(!/^https?:/.test(location.protocol)) return;
-  try{
-    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once unregister opt_in_capturing opt_out_capturing".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-    /* PH_HOST — routed through the managed reverse proxy at ph.amparohq.com.
-       Verified 2026-07-30: proxy status 'valid' via the PostHog API, and
-       /static/array.js resolves 200 through it before this was flipped.
-       Proxying analytics same-site helps it survive ad/tracker blockers that
-       would otherwise strip a bare *.posthog.com request. Revert to
-       'https://us.i.posthog.com' if the ph subdomain's DNS/cert ever lapses. */
-    var PH_HOST='https://ph.amparohq.com';
-    posthog.init('phc_y5LzPeRZJpRMFYEt7EZgeCewBoBDWC3GvW5fBFveMf6K',{
-      api_host:PH_HOST,
-      ui_host:'https://us.posthog.com',  // keeps replay/session links pointing at PostHog when proxied
-      defaults:'2026-05-30',
-      /* These five are load-bearing for privacy and are deliberately kept even
-         though the vendor snippet omits them. Without disable_session_recording
-         replay auto-starts on EVERY screen — including emergency contacts —
-         which defeats srReplayGuard()'s two-screen scoping. */
-      autocapture:false,
-      capture_pageview:true,
-      disable_session_recording:true,
-      disable_surveys:true,   // nothing remotely-injectable belongs in a rehearsal, and this drops ~98KB
-      capture_dead_clicks:false,
-      /* Replay is re-enabled for steps 0-1 only by srReplayGuard(). That scoping was
-         written when step 1 was 51 buttons and nothing on either screen was typeable.
-         v2.5.0 added a search input to step 1, so "un-recordable by structure" stopped
-         being true and nothing was masking it. Masking is now pinned here rather than
-         left to whatever the runtime-fetched SDK happens to default to. */
-      session_recording:{maskAllInputs:true,maskTextInputs:true},
-      person_profiles:'identified_only'
-    });
-    /* Campaign attribution, first-touch. Every organic channel Amparo will use
-       (generated state pages, RSS, a Facebook page, a trade-press byline) is
-       worthless if we can't tell which one sent someone who then printed a
-       pack. The FIRST source that ever brought this browser here is the one
-       that gets credit, even when they return later by typing the url — which
-       is the normal path, because the pack is a "come back and finish it"
-       product. The two blocks below are the how, and both are load-bearing.
-
-       Deliberately NOT a Meta Pixel. PostHog is already loaded, already proxied
-       same-site, already covered by the CSP's connect-src, and already carries
-       the privacy posture v2.26.1 rewrote to be true. A Pixel would need
-       connect.facebook.net added to BOTH script-src and connect-src in
-       vercel.json, plus a privacy-page rewrite to match. Not worth it for a
-       channel we aren't paying for.
-
-       What's stored is campaign parameters WE put in our own urls, plus the
-       click id Facebook appends. They describe the link, not the person — no
-       document data, no contacts, nothing that survives the "could this
-       identify someone" test. Registered as super-properties, so all 53
-       existing ph() events inherit them and nothing below this line changed. */
-    try{
-      /* The ft_ prefix is NOT cosmetic — it is the whole reason this works.
-         utm_* and fbclid are reserved names in PostHog. Measured here against
-         _calculate_event_properties() with the SDK live: registering
-         first-touch under those exact names read back correctly from
-         get_property() but shipped the CURRENT url's value in the outgoing
-         payload instead. It looks wired up and silently isn't — the worst
-         failure shape there is, because the debug call agrees with you.
-         Renaming the keys makes the values survive to send time; that was the
-         only change needed, and it was verified both ways.
-
-         Last-touch is deliberately not duplicated here: every event already
-         carries $current_url with the live query string, so the arrival link
-         is recoverable in PostHog without storing it twice. ft_* answers the
-         one question $current_url can't — which campaign FIRST brought this
-         browser here, asked later, after they came back direct to finish the
-         pack. */
-      var _qs=new URLSearchParams(location.search), _attr={}, _n=0;
-      [['utm_source','ft_source'],['utm_medium','ft_medium'],['utm_campaign','ft_campaign'],
-       ['utm_content','ft_content'],['utm_term','ft_term'],['src','ft_src'],
-       ['ref','ft_ref'],['fbclid','ft_fbclid']]
-        .forEach(function(p){ var v=_qs.get(p[0]); if(v){ _attr[p[1]]=v.slice(0,120); _n++; } });
-      /* The guard is localStorage, not posthog.get_property, and not
-         register_once. Two separate reasons, both load-bearing:
-
-         1. register_once is per-KEY. A later paid click would inject its
-            fbclid into a visit whose utm_source is still the original organic
-            one — a record that reads as "organic visit carrying a Facebook
-            click id", which is worse than no attribution because it looks
-            real. First touch has to land or not land as one unit.
-         2. get_property can't be the guard: the PostHog bootstrap stub only
-            proxies "init capture register register_once unregister
-            opt_in_capturing opt_out_capturing". get_property isn't in that
-            list, so calling it here — before the real SDK finishes loading —
-            throws, and this whole block is inside a try that would swallow it
-            silently. A guard that silently fails open is not a guard.
-
-         So: one sentinel key, checked synchronously, set atomically. Only
-         claim first-touch when there IS a touch — registering a bare "direct"
-         on every cold load would burn the slot before a real campaign link
-         ever arrives, and that is the one thing this can never undo. */
-      var _stored=localStorage.getItem('amparo_ft');
-      if(posthog.register){
-        if(_stored){
-          /* Re-register every load rather than trusting PostHog to still hold
-             it. Its persistence can be cleared independently of ours (cookie
-             expiry, partial storage clear), and if that happened while the
-             sentinel survived, a one-shot guard would block the re-write and
-             lose the attribution permanently. Re-registering is idempotent. */
-          posthog.register(JSON.parse(_stored));
-        } else if(_n){
-          posthog.register(_attr);
-          localStorage.setItem('amparo_ft', JSON.stringify(_attr));
-        }
-      }
-    }catch(e){}
-  }catch(e){}
-})();
+/* Marketing analytics disabled. Existing event callers remain safe no-ops. */
 function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) return; if(window.posthog&&posthog.capture) posthog.capture(ev,props||{}); }catch(e){} }
 </script>
 
@@ -1405,7 +1285,7 @@ function ph(ev,props){ try{ if(window.isDemoActive&&window.isDemoActive()) retur
        checked" and "a person read this" are different claims. -->
   <p class="lawcheck" id="lawCheck" style="display:none"></p>
   <p class="reachus"><button type="button" class="linklike" id="fbBtn" onclick="ph('sr_feedback_opened',{lang:lang});openFeedback()">Something wrong, or something missing? Tell us.</button></p>
-  <p class="disclaimer" data-i="disclaimer">Amparo provides general legal information, not legal advice. Every rule is cited to the exact state statute so you can check it yourself; formal attorney sign-off per state is in progress. Phone numbers verified July 16, 2026.</p>
+  <p class="disclaimer" data-i="disclaimer">Amparo provides general legal information, not legal advice. Federal references and state-specific research are identified where available; coverage varies. Independent attorney review is pending. Check the verification page for scope and review status.</p>
 </div>
 
 
@@ -1532,11 +1412,11 @@ document.querySelectorAll('.logoSm').forEach(e=>e.innerHTML=LOGO);
 const T = {
   en: {
     pilotBanner:"Free. Everything stays on this phone unless you choose to save your pack to an optional free account. Photos never upload.",
-    disclaimer:"Amparo provides general legal information, not legal advice. Every rule is cited to the exact state statute so you can check it yourself; formal attorney sign-off per state is in progress. Phone numbers verified July 16, 2026.",
+    disclaimer:"Amparo provides general legal information, not legal advice. Federal references and state-specific research are identified where available; coverage varies. Independent attorney review is pending. Check the verification page for scope and review status.",
     stepLabels:["State","You","Lifelines","Print","Thank you"],
     stepWord:"Step",
     ty_title:"Your pack is ready. Thank you.",
-    ty_sub:"Everything below stays on this phone. One thing left — make the words automatic.",
+    ty_sub:"Your pack is saved on this device. An optional account can also save its text online. Next, practice the words.",
     ty_chip_state:"rules cited", ty_chip_state_fed:"Federal rights that apply everywhere",
     ty_chip_print:"Pack printed", ty_chip_print_no:"Pack not printed yet — you can print anytime",
     ty_chip_docs:"Documents added", ty_chip_docs_no:"Documents — optional, none added",
@@ -1546,7 +1426,7 @@ const T = {
     nav_practice:"🎙 Practice →",
     w_title:"Practice the stop before it happens.",
     w_sub:"Amparo rehearses a police stop with you — out loud, with a real officer's lines — until the words come without thinking. Then it builds a pack for your glovebox, so they're there even if your mind goes blank.",
-    w_b1:"Rehearse out loud, before you ever need it", w_b2:"Your state's rules and legal lifelines", w_b3:"A printed pack for the glovebox", w_b4:"Nothing you enter leaves your phone",
+    w_b1:"Rehearse out loud, before you ever need it", w_b2:"Your state's rules and legal lifelines", w_b3:"A printed pack for the glovebox", w_b4:"Saved on this device; optional accounts can save pack text online",
     w_btn:"Build my pack",
     w_lifelines_shortcut:"Just need a lawyer or hotline number? →",
     /* document.title appeared nowhere in the JS, so a Spanish user's tab, bookmark,
@@ -1606,10 +1486,10 @@ const T = {
     ab_founder_note:"I built Amparo for anyone, of any minority, anywhere, who has ever feared that a routine stop could cost them their life. You deserve at least this: the knowledge, rehearsed and ready, so you have a fighting chance to make it home.<br><br>Do your part \u2014 stay calm, keep your hands visible, record what happens. If you do everything right and it still goes wrong, that record is yours: proof of how you carried yourself, so the truth can protect you and hold others accountable.<br><br>Whoever you are, reading this: I thought of you when I made this. I pray this never happens to you. But if it does, I hope you're armed with the right knowledge to move forward with your life.",
     ab_founder_sign:"\u2014 Michael Francois, founder of Amparo",
     ab_review_h:"Legal review",
-    ab_review_pending:"Every rule in Amparo is cited to the exact state statute or code section \u2014 check the number yourself, anytime. We're also having each state's content formally reviewed and signed off by a licensed attorney in that state before public launch. Until a state shows a green \u201cAttorney-reviewed\u201d badge, treat it as well-sourced general information, not legal advice.",
+    ab_review_pending:"Federal reference material and state-specific research are different. State citations are provided where available; coverage is not uniform nationwide. Independent attorney review is pending. A source citation is not attorney approval. Check How We Verify for the current scope and review status.",
     ab_state_pending:"attorney sign-off in progress \u2014 rules already cited to statute",
     ab_privacy_h:"Your privacy",
-    ab_privacy:"Amparo works with no account at all, and that is the default. If you choose to create one to save your pack across devices, it stores only your pack\'s text \u2014 state, names, phone numbers, ZIP \u2014 on our server, and that record could be handed over if we were legally compelled. You can delete it at any time from the same screen. Your document photos and your practice history are never uploaded, with or without an account: there is nowhere on the server to put them. We count anonymous events (like how many packs get printed, and in which state) to prove the tool is used \u2014 never who you are, never what you typed, never your photos. If you send us feedback, what you write reaches us, plus your name and email only if you fill them in. We never sell or share anything with any agency, including immigration authorities.",
+    ab_privacy:"Amparo works with no account at all, and that is the default. If you choose to create one to save your pack across devices, it stores only your pack\'s text \u2014 state, names, phone numbers, ZIP \u2014 on our server, and that record could be handed over if we were legally compelled. You can delete it at any time from the same screen. Your document photos and your practice history are never uploaded, with or without an account: there is nowhere on the server to put them. Marketing analytics and session recording are disabled. Technical errors may be reported to Sentry; reports are configured to exclude form contents and URL query strings. If you send us feedback, what you write reaches us, plus your name and email only if you fill them in. We do not sell your data. Server records may be disclosed when legally required.",
     ab_contact:"Contact",
     s_title:"Which state do you drive in?", s_sub:"Texas, Georgia and New York have their own statutes cited line by line. Every other state gets the federal rights that apply everywhere — marked so you know the difference.",
     s_soon:"Every state gets the rights that hold everywhere — protections from the U.S. Constitution, verified once for all 50 states. States get their own cited statutes added as each one is checked individually; yours isn’t cited yet, so this pack shows the federal floor only — not a guess at your state’s rules.",
@@ -1769,15 +1649,15 @@ const T = {
     ],
     wl_head:"AMPARO · WALLET CARD", wl_cut:"✂ Cut along the dotted line, fold, keep in your wallet",
     lifelines_print:"YOUR LIFELINES — verified 7/16/2026",
-    footer:"© 2026 Amparo · Pilot edition · General legal information, not legal advice · Every rule cited to state statute · Attorney sign-off in progress · Numbers verified 7/16/2026"
+    footer:"© 2026 Amparo · Pilot edition · General legal information, not legal advice · Coverage varies by jurisdiction · Independent attorney review pending"
   },
   es: {
     pilotBanner:"Gratis. Todo se queda en este teléfono, salvo que elija guardar su paquete en una cuenta gratuita opcional. Las fotos nunca se suben.",
-    disclaimer:"Amparo ofrece información legal general, no asesoría legal. Cada regla cita el artículo exacto de la ley estatal para que usted mismo lo verifique; la revisión formal por un abogado en cada estado está en curso. Números verificados el 16 de julio de 2026.",
+    disclaimer:"Amparo ofrece información legal general, no asesoría legal. Las referencias federales y la investigación estatal se identifican donde están disponibles; la cobertura varía. La revisión independiente por abogados está pendiente. Consulte el alcance y estado de revisión en la página de verificación.",
     stepLabels:["Estado","Tú","Líneas","Imprimir","Gracias"],
     stepWord:"Paso",
     ty_title:"Su paquete está listo. Gracias.",
-    ty_sub:"Todo lo de abajo queda en este teléfono. Falta una cosa — que las palabras salgan solas.",
+    ty_sub:"Su paquete está guardado en este dispositivo. Una cuenta opcional también puede guardar su texto en línea. Después, practique las palabras.",
     ty_chip_state:"reglas citadas", ty_chip_state_fed:"Derechos federales que aplican en todas partes",
     ty_chip_print:"Paquete impreso", ty_chip_print_no:"Paquete aún sin imprimir — puede imprimirlo cuando quiera",
     ty_chip_docs:"Documentos agregados", ty_chip_docs_no:"Documentos — opcional, sin agregar",
@@ -1787,7 +1667,7 @@ const T = {
     nav_practice:"🎙 Práctica →",
     w_title:"Practica la parada antes de que ocurra.",
     w_sub:"Amparo ensaya una parada policial contigo — en voz alta, con las frases reales de un oficial — hasta que las palabras salgan sin pensar. Después arma un paquete para tu guantera, para que estén ahí aunque te quedes en blanco.",
-    w_b1:"Ensaya en voz alta, antes de necesitarlo", w_b2:"Las reglas y líneas de ayuda de tu estado", w_b3:"Un paquete impreso para la guantera", w_b4:"Nada de lo que escribes sale de tu teléfono",
+    w_b1:"Ensaya en voz alta, antes de necesitarlo", w_b2:"Las reglas y líneas de ayuda de tu estado", w_b3:"Un paquete impreso para la guantera", w_b4:"Guardado en este dispositivo; una cuenta opcional puede guardar el texto del paquete en línea",
     w_btn:"Crear mi paquete",
     w_lifelines_shortcut:"¿Solo necesitas un abogado o una línea de ayuda? →",
     pageTitle:"Amparo — Conoce tus derechos en cada parada de tráfico.",
@@ -1835,10 +1715,10 @@ const T = {
     ab_founder_note:"Construí Amparo para cualquier persona, de cualquier minoría, en cualquier lugar, que alguna vez haya temido que una parada de tráfico le costara la vida. Merece al menos esto: el conocimiento, ensayado y listo, para tener una oportunidad de llegar a casa.<br><br>Haga su parte — mantenga la calma, mantenga sus manos a la vista, grabe lo que pasa. Si hace todo bien y aun así sale mal, ese registro es suyo: prueba de cómo se comportó, para que la verdad lo proteja y haga responsables a otros.<br><br>Quienquiera que sea, leyendo esto: pensé en usted al hacer esto. Rezo para que esto nunca le pase. Pero si pasa, espero que esté armado con el conocimiento correcto para seguir adelante con su vida.",
     ab_founder_sign:"— Michael Francois, fundador de Amparo",
     ab_review_h:"Revisi\u00f3n legal",
-    ab_review_pending:"Cada regla en Amparo cita el art\u00edculo exacto del c\u00f3digo estatal \u2014 puedes verificar el n\u00famero t\u00fa mismo, cuando quieras. Adem\u00e1s, el contenido de cada estado est\u00e1 siendo revisado y aprobado formalmente por un abogado con licencia en ese estado antes del lanzamiento p\u00fablico. Hasta que un estado muestre la insignia verde \u201cRevisado por abogado\u201d, tr\u00e1talo como informaci\u00f3n general bien documentada, no asesor\u00eda legal.",
+    ab_review_pending:"La información federal de referencia y la investigación estatal son diferentes. Se incluyen citas estatales donde están disponibles; la cobertura no es uniforme en todo el país. La revisión independiente por abogados está pendiente. Una cita no equivale a aprobación por un abogado. Consulte Cómo verificamos para conocer el alcance y estado actuales.",
     ab_state_pending:"revisi\u00f3n de abogado en curso \u2014 reglas ya citadas a la ley",
     ab_privacy_h:"Tu privacidad",
-    ab_privacy:"Amparo funciona sin ninguna cuenta, y así es por defecto. Si eliges crear una para guardar tu paquete entre dispositivos, solo se guarda el texto de tu paquete \u2014 estado, nombres, teléfonos, código postal \u2014 en nuestro servidor, y ese registro podría entregarse si nos obligaran legalmente. Puedes borrarlo cuando quieras desde la misma pantalla. Tus fotos de documentos y tu historial de práctica nunca se suben, con cuenta o sin ella: no hay dónde guardarlos en el servidor. Contamos eventos anónimos (como cuántos paquetes se imprimen y en qué estado) para demostrar que la herramienta se usa \u2014 nunca quién eres, nunca lo que escribiste, nunca tus fotos. Si nos envías comentarios, llega lo que escribes, más tu nombre y correo solo si los pones. Nunca vendemos ni compartimos nada con ninguna agencia, incluidas las autoridades de inmigración.",
+    ab_privacy:"Amparo funciona sin ninguna cuenta, y así es por defecto. Si eliges crear una para guardar tu paquete entre dispositivos, solo se guarda el texto de tu paquete \u2014 estado, nombres, teléfonos, código postal \u2014 en nuestro servidor, y ese registro podría entregarse si nos obligaran legalmente. Puedes borrarlo cuando quieras desde la misma pantalla. Tus fotos de documentos y tu historial de práctica nunca se suben, con cuenta o sin ella: no hay dónde guardarlos en el servidor. Los análisis de marketing y las grabaciones de sesión están desactivados. Los errores técnicos pueden enviarse a Sentry; los informes se configuran para excluir formularios y parámetros de la URL. Si nos envías comentarios, llega lo que escribes, más tu nombre y correo solo si los pones. No vendemos sus datos. Los registros del servidor pueden divulgarse por obligación legal.",
     ab_contact:"Contacto",
     s_title:"¿En qué estado manejas?", s_sub:"Texas, Georgia y Nueva York tienen sus propias leyes citadas línea por línea. Los demás estados reciben los derechos federales que aplican en todas partes — marcados para que sepas la diferencia.",
     s_soon:"Cada estado recibe los derechos que valen en todas partes — protecciones de la Constitución de EE.UU., verificadas una sola vez para los 50 estados. Cada estado recibe sus propias leyes citadas al verificarse individualmente; el tuyo aún no está citado, así que este paquete muestra solo el mínimo federal — no una suposición sobre las reglas de tu estado.",
@@ -1996,7 +1876,7 @@ const T = {
     ],
     wl_head:"AMPARO · TARJETA DE CARTERA", wl_cut:"✂ Corte por la línea punteada, doble, guarde en su cartera",
     lifelines_print:"SUS LÍNEAS DE AYUDA — verificadas 16/7/2026",
-    footer:"© 2026 Amparo · Edición piloto · Información legal general, no asesoría legal · Cada regla citada a la ley estatal · Revisión por abogado en curso · Números verificados 16/7/2026"
+    footer:"© 2026 Amparo · Edición piloto · Información legal general, no asesoría legal · La cobertura varía según la jurisdicción · Revisión independiente por abogados pendiente"
   }
 };
 
@@ -3717,7 +3597,7 @@ function buildPrint(){
         <h3>${st.name} — ${lang==='es'?'reglas de su estado':'your state\'s rules'}</h3>
         <ul>${rules.map(r=>`<li>${r}</li>`).join('')}</ul>
       </div>
-      <div class="vetting">${isReviewed(data.state)?`<b style="color:#2f8f5b">✓ ${lang==='es'?'REVISADO POR ABOGADO':'ATTORNEY-REVIEWED'}</b><br>${reviewLine(data.state)}`:`<b>${lang==='es'?'EDICIÓN PILOTO':'PILOT EDITION'}</b><br>${lang==='es'?'Cada regla cita la ley estatal exacta — verifíquela cuando quiera. Revisión final por abogados en curso. Información general, no asesoría legal.':'Every rule is cited to the exact state statute — verify it anytime. Formal attorney sign-off is in progress. General information, not legal advice.'}`}</div>
+      <div class="vetting">${isReviewed(data.state)?`<b style="color:#2f8f5b">✓ ${lang==='es'?'REVISADO POR ABOGADO':'ATTORNEY-REVIEWED'}</b><br>${reviewLine(data.state)}`:`<b>${lang==='es'?'EDICIÓN PILOTO':'PILOT EDITION'}</b><br>${lang==='es'?'Se incluyen referencias federales e investigación estatal donde están disponibles. La cobertura varía. La revisión independiente por abogados está pendiente. Información general, no asesoría legal.':'Federal references and state research are provided where available. Coverage varies. Independent attorney review is pending. General information, not legal advice.'}`}</div>
     </div>
     ${foot()}
   </div>

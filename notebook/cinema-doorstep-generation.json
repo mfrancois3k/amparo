@@ -1,0 +1,18 @@
+{
+  "model": "gpt_image_2_5",
+  "quality": "high",
+  "resolution": "2k",
+  "aspect_ratio": "16:9",
+  "count": 1,
+  "medias": [
+    {
+      "role": "image",
+      "value": "https://www.amparohq.com/new/assets/c2-start.webp"
+    },
+    {
+      "role": "image",
+      "value": "72a9cf9c-6778-47d9-ab8a-21e258ec6550"
+    }
+  ],
+  "prompt": "Create a premium cinematic clay stop-motion movie frame for Amparo's civil-rights education website, consistent in material, mood and production quality with the second reference car interior. First reference provides the HOUSE THRESHOLD encounter concept only. A sophisticated wide nighttime architectural cutaway of a real modest home, eye-level oblique cinematic camera, NOT isometric toy base or dollhouse. One mature adult officer in textured desaturated navy uniform stands OUTSIDE on the porch LEFT, holding a plain folded ivory sheet at waist height. One mature tan clay adult resident in a dark textured knit sweater stands INSIDE to the RIGHT, separated from the officer by a clearly CLOSED solid navy front door in its intact doorframe. Use a film-set cutaway front wall to show the resident inside while the actual front door remains completely closed and clearly separates outside and inside. Warm cream plaster walls and amber wall lantern inside, gentle cool blue light on officer and damp porch outside. Restrained brass hardware and realistic wood threshold, tactile masonry, soft rain-darkened step. Serious but calm posture, normal adult human proportions with elongated subtle clay heads and sculpted face planes, not short chibi toys, not round faceless dolls. Strong cinematic depth, 35mm lens, quiet warm/cool balance, beautiful shadow detail, matte clay skin and richly textured fabric, natural hands, subtle film grain, sophisticated feature-film look. Focus on the physical closed-door boundary and two calm adults on opposite sides. No additional officers, no display base, no floating architecture, no guns/weapons, no threats or aggressive gestures, no text, no writing on paper, no speech bubbles, no subtitles, no logos, no legal claims. Widescreen landscape composition, architectural geometry and lighting carefully believable."
+}

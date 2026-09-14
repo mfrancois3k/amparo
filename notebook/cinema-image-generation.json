@@ -1,0 +1,14 @@
+{
+  "model": "gpt_image_2_5",
+  "quality": "high",
+  "resolution": "2k",
+  "aspect_ratio": "16:9",
+  "count": 1,
+  "medias": [
+    {
+      "role": "image",
+      "value": "https://www.amparohq.com/new/assets/c3-end.webp"
+    }
+  ],
+  "prompt": "Create a premium cinematic film still for the homepage of Amparo, a calm practical civil-rights education website. Use the reference image ONLY for its sophisticated handmade matte-clay human characters, night encounter mood and authentic car-interior concept. Reconstruct a completely new wide cinematic composition in 16:9. Camera inside the front passenger side of a civilian sedan at night looking diagonally across toward the driver and open driver-side window. Entire scene subject is composed in the RIGHT 58 percent: tan clay adult driver with realistic adult body proportions in plain charcoal knit shirt, head and shoulders in side profile, BOTH anatomically correct hands calmly resting visibly on the steering wheel, blue-uniformed adult officer outside the window in the upper right. Officer has no weapon and a small flashlight aimed safely DOWN, no direct beam at viewer. Grounded serious human scale, delicate sculpted facial planes, not doll-like or chibi, subtle matte clay surface. Accurate realistic cabin architecture, tactile leather dashboard stitching, dark window pillars, slight glass reflections, wet night atmosphere outside. Warm restrained amber dashboard and cabin rim light shapes the driver's hands and cheek; soft slate-blue moonlight shapes the uniform and car window. Very small distant red and blue bokeh, no police lights on the civilian car. LEFT 42 percent intentionally very dark navy negative space consisting of defocused cabin shadow, rich smooth black-blue falloff without objects or highlights, ready for large ivory editorial typography later. Sophisticated cinematic contrast, restrained highlights, muted rich palette, shallow cinematic depth of field, 35mm lens, subtle film grain, award-winning stop-motion feature film frame, immersive close composition, beautiful volumetric depth. No miniature display base, no isometric view, no toy diorama, no spherical blank heads, no exaggerated anger, no gun, no weapon, no threatening gesture, no text, no subtitles, no captions, no speech bubbles, no logos, no legal words. Finish as a detailed atmospheric widescreen movie still."
+}

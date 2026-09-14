@@ -3,10 +3,12 @@ import { action, internalAction } from './_generated/server'
 import { v } from 'convex/values'
 import Stripe from 'stripe'
 
-/* Real Stripe Checkout. Requires two Convex env vars the OPERATOR sets (never
+/* Real Stripe Checkout. Requires Convex env vars the OPERATOR sets (never
  * committed):
  *   npx convex env set STRIPE_SECRET_KEY sk_live_...
  *   npx convex env set SITE_URL https://amparohq.com
+ * PAYMENTS_LIVE must also be exactly 'true' after explicit launch approval,
+ * legal and fulfillment readiness, and final pricing. Its default is closed.
  * Until STRIPE_SECRET_KEY exists this action throws and the UI keeps its
  * honest "preview" checkout — no fake success paths.
  *
@@ -33,6 +35,7 @@ function checkoutExtras(p: (typeof PRODUCTS)[string], state?: string, lang?: str
 export const createCheckout = action({
   args: { product: v.string(), state: v.optional(v.string()), lang: v.optional(v.string()) },
   handler: async (ctx, { product, state, lang }) => {
+    if (process.env.PAYMENTS_LIVE !== 'true') throw new Error('Payments not configured for launch')
     const identity = await ctx.auth.getUserIdentity()
     if (!identity) throw new Error('Sign in to purchase')
     const p = PRODUCTS[product]
@@ -72,6 +75,7 @@ export const createCheckout = action({
 export const guestCheckout = internalAction({
   args: { product: v.string(), state: v.optional(v.string()), lang: v.optional(v.string()) },
   handler: async (_ctx, { product, state, lang }) => {
+    if (process.env.PAYMENTS_LIVE !== 'true') throw new Error('Payments not configured for launch')
     const p = PRODUCTS[product]
     if (!p) throw new Error('Unknown product')
     if (p.held) throw new Error('not available yet')

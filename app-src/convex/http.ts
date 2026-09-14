@@ -68,6 +68,10 @@ http.route({
   path: '/checkout',
   method: 'POST',
   handler: httpAction(async (ctx, request) => {
+    // Stripe configuration alone is not authorization to open sales.
+    if (process.env.PAYMENTS_LIVE !== 'true') return new Response(JSON.stringify({ error: 'payments not available yet' }), {
+      status: 503, headers: { ...CORS, 'Content-Type': 'application/json' },
+    })
     const allowed = await ctx.runMutation(internal.rateLimit.hit, { key: clientKey(request.headers.get('x-forwarded-for'), 'checkout'), ...LIMITS.checkout })
     if (!allowed) return TOO_MANY(CORS)
     let product = ''

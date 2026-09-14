@@ -1,0 +1,15 @@
+{
+  "model": "seedance_2_5",
+  "mode": "omni_reference",
+  "duration": 5,
+  "resolution": "720p",
+  "generate_audio": false,
+  "aspect_ratio": "16:9",
+  "medias": [
+    {
+      "role": "start_image",
+      "value": "72a9cf9c-6778-47d9-ab8a-21e258ec6550"
+    }
+  ],
+  "prompt": "Animate this exact cinematic clay scene as an extremely restrained living movie still for an educational website hero. Preserve every character, anatomy, both hands in precisely the same safe position on the wheel, uniform, cabin architecture, frame crop, and dark navy negative space occupying left 42%. Camera makes a nearly imperceptible slow 2% cinematic push toward the driver/window with very subtle true depth parallax, absolutely no cuts, no shaking, no orbit. Driver remains still and calm with hands on wheel, officer stays outside the window. Only delicate rain droplets move on the far glass and faint atmospheric dust in the flashlight cone drifts slowly. Flashlight remains pointed downward and does NOT swing. Red/blue distant bokeh remains steady and very dim; no flashing/strobing. Keep amber dashboard light and soft blue night light unchanged. No talking, no mouth movement, no gestures, no weapons, no new objects, no text, no captions, no logos, no sound. Premium stop-motion-film realism, cinematic matte clay surfaces, all proportions and composition match the reference. Maintain stable illumination and calm mood over five seconds."
+}

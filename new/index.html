@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Amparo — Know what to say before you need to say it.</title>
-<meta name="description" content="Free bilingual traffic-stop practice. Rehearse responses at your own pace, with no account required. General legal information, not legal advice.">
+<title>Amparo — Free bilingual traffic-stop practice</title>
+<meta name="description" content="Know what to say before you need to say it. Free English and Spanish traffic-stop practice, transparent sources, and optional preparedness materials.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Amparo — Know what to say before you need to say it.">
 <meta property="og:description" content="Free bilingual traffic-stop practice. Rehearse responses at your own pace, with no account required. General legal information, not legal advice.">
@@ -12,67 +12,10 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="es_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta property="og:image" content="https://www.amparohq.com/og/about.png">
+<meta property="og:image" content="https://www.amparohq.com/new/assets/cinema-traffic-hero.webp">
 <link rel="canonical" href="https://www.amparohq.com/">
-<!--
-  NOT LIVE. This is the practice-first homepage redesign, built from the
-  approved mockup (design_handoff_homepage_redesign/) at a new path per that
-  handoff's own P0: "ship at /new or behind a flag, not a one-commit
-  overwrite of index.html." /../index.html (the pack builder) is untouched.
-
-  P0 STILL OPEN before this replaces the live homepage — see
-  ../.design-handoff/design_handoff_homepage_redesign/Expert\ Panel\ Review.dc.html:
-    - Attorney review of the demo script below (DEMO_TURNS/DEMO_BRANCH).
-      It grades specific answers — that is closer to legal advice than the
-      printed pack ever was, and it is not reviewed yet. The "in legal
-      review" caption under the phone is load-bearing copy, not filler —
-      do not remove it before that review happens.
-    - State-blind script: the demo teaches "remain silent" as universally
-      correct. A few states impose duties (e.g. stop-and-ID) where that is
-      not safe advice verbatim. demoStateNote below already carries the
-      caveat from the handoff; that is a stopgap, not the fix.
-    - Demo↔Arena parity: if arena/index.html's real first 60 seconds feels
-      worse than this demo, this page is a bait-and-switch.
--->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='72' r='28' fill='none' stroke='%23E8B84B' stroke-width='12'/%3E%3Crect x='48' y='56' width='24' height='32' rx='4' fill='%231B2A4A'/%3E%3Cpath d='M12 62 L60 18 L108 62' fill='none' stroke='%231B2A4A' stroke-width='13' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<!-- LCP preload. The first cut's plate (act2-mirror.webp) is the largest
-     contentful paint on every viewport, but it is injected by render() as a
-     template string, so the preload scanner never sees it in the parsed HTML
-     and the fetch does not start until the page's JS has run. Declaring it
-     here moves discovery back to first byte. Must stay in sync with the
-     clipPlate('kb-mirror', ...) call in render(). -->
-
-<!-- Analytics. This page shipped with NO PostHog at all — /pack had it, the
-     homepage never did, so every "/" visit was invisible and the funnel into
-     /rehearse and /pack could not be measured from its own first step.
-     Config is deliberately identical to pack.html's: same proxied host, same
-     privacy posture. Replay stays OFF here — pack.html scopes it to two
-     screens via srReplayGuard(); this page has no equivalent scoping and a
-     14-cut scroll narrative is not what replay budget should be spent on. -->
-<script>
-(function(){
-  if(!/^https?:/.test(location.protocol)) return;
-  try{
-    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once unregister opt_in_capturing opt_out_capturing".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-    /* Same managed reverse proxy as pack.html — same-site so ad/tracker
-       blockers do not strip it. ph.amparohq.com is already in both script-src
-       and connect-src in vercel.json, so this needs no CSP change. */
-    var PH_HOST='https://ph.amparohq.com';
-    posthog.init('phc_y5LzPeRZJpRMFYEt7EZgeCewBoBDWC3GvW5fBFveMf6K',{
-      api_host:PH_HOST,
-      ui_host:'https://us.posthog.com',
-      defaults:'2026-05-30',
-      autocapture:false,
-      capture_pageview:true,
-      disable_session_recording:true,
-      disable_surveys:true,
-      capture_dead_clicks:false,
-      session_recording:{maskAllInputs:true,maskTextInputs:true},
-      person_profiles:'identified_only'
-    });
-  }catch(e){}
-})();
-</script>
+<!-- No marketing analytics on this page. -->
 <!-- scrollcraft engine CSS for the cinematic intro below. Linked BEFORE this
      page's own <style>: scrollcraft.css sets an un-scoped body{background,
      color,font-family...} for a page that owns its whole document (this one
@@ -406,10 +349,12 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
 
 </style>
 
-<link rel="stylesheet" href="/new/encounter-stage.css">
-<script defer src="/new/encounter-stage.js"></script>
+<link rel="stylesheet" href="/new/cinema.css">
+<link rel="preload" as="image" href="/new/assets/cinema-traffic-hero.webp">
+<script defer src="/new/cinema-motion.js"></script>
 </head>
 <body>
+<a class="skip-home" href="#app">Skip to content</a>
 <nav class="bar" aria-label="Main navigation">
   <a class="brand" href="/" aria-label="Amparo home">
     <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="72" r="28" fill="none" stroke="#E8B84B" stroke-width="12"/><rect x="48" y="56" width="24" height="32" rx="4" fill="#FAF6EE"/><path d="M12 62 L60 18 L108 62" fill="none" stroke="#FAF6EE" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -449,9 +394,9 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
   <div class="hand" id="hand"></div>
   <div class="deal-ui"><span class="hint" id="dealHint"></span><button type="button" id="dealClose">Close</button></div>
 </div>
-<main id="app"></main>
+<main id="app" tabindex="-1"><div class="cinema-page"><section class="cine-hero" id="top" aria-labelledby="cineTitle"><div class="cine-visual"><img src="/new/assets/cinema-traffic-hero.webp" width="1910" height="1080" alt="" fetchpriority="high"><video muted playsinline preload="none" aria-hidden="true" tabindex="-1" data-cine-video="/new/assets/cinema-traffic-hero.mp4"></video></div><button class="cine-pause" type="button" hidden aria-label="Pause the scene">Pause scene</button><div class="cine-hero-copy"><p class="cine-eyebrow">Free practice. Real-world preparedness.</p><h1 id="cineTitle">Know what<br>to <em>say.</em></h1><p class="cine-intro">Before the moment comes, make the words familiar. Free, bilingual practice for traffic encounters.</p><a class="cine-action" href="/rehearse?lang=en">Practice a Traffic Stop</a><p class="cine-small">About 2 minutes · No account required</p><p class="cine-small"><a href="/how-we-verify/">Attorney review pending</a></p></div><div class="cine-foot"><p><b>01 / 02</b>A moment worth preparing for.</p><a href="#how">Discover Amparo <span aria-hidden="true">↓</span></a></div></section><div class="cine-proofbar"><span>Free to practice</span><span>English + Español</span><a href="/how-we-verify/">Attorney review pending ↗</a><a href="/privacy/">Your privacy, explained ↗</a></div><section class="cine-section" id="how"><p class="cine-eyebrow">01 / A little preparation</p><div class="cine-section-head"><h2 class="cine-heading">Reading is a start.<br>Practice makes it familiar.</h2><p>Amparo is a practice tool, not a law firm. Rehearse a conversation at your own pace, with room to pause, try again, and learn.</p></div><div class="cine-steps"><article class="cine-step"><span>01</span><h3>Choose your moment.</h3><p>Select your state and a situation. Start with Gentle Mode and a pace that feels comfortable.</p></article><article class="cine-step"><span>02</span><h3>Find your words.</h3><p>Read or listen to a prompt, then practice a response. No performance. No audience.</p></article><article class="cine-step"><span>03</span><h3>Make it familiar.</h3><p>See the explanation and continue. Repeat a scenario whenever you want.</p></article></div></section><section class="cine-story" id="arena"><div class="cine-story-inner"><div class="cine-story-image"><img src="/new/assets/cinema-doorstep.webp" width="1600" height="905" alt="Clay scene: a closed door separates the resident inside from the officer outside." loading="lazy"><span class="cine-scene-label">02 / 02</span></div><div class="cine-story-copy"><p class="cine-eyebrow">02 / Before the knock</p><h2>Preparation belongs<br>in everyday life.</h2><p>On the road. At a window. At your door. Some conversations are easier to approach when you have had time to prepare. Start with a moment you can practice today.</p><a class="cine-link" href="/rehearse?lang=en">Start with a traffic stop</a><p class="cine-small">Doorstep practice is still under review. Traffic practice is available now.</p></div></div></section><section class="cine-section cine-trust" id="privacy"><div class="cine-trust-intro"><p class="cine-eyebrow">03 / Trust, made visible</p><h2 class="cine-heading">You should be able<br>to check our work.</h2><p>Knowing who built the tool is one part. Knowing where the information comes from—and what still needs review—is another.</p><a class="cine-link" href="/how-we-verify/">How we verify</a></div><div class="cine-trust-rows"><article><span>01</span><div><h3>Sources you can follow.</h3><p>Federal and state information is tied to identified sources. Research, source checks, and attorney review are separate steps.</p></div></article><article><span>02</span><div><h3>Review status, stated plainly.</h3><p>Independent attorney review is pending. Amparo provides general information, not legal advice or a guarantee of a safe outcome.</p></div></article><article><span>03</span><div><h3>Your practice, on your device.</h3><p>Practice progress and settings stay in this browser. Optional accounts, speech services, and error reporting are explained in our privacy summary.</p><a class="cine-link" href="/privacy/">Your privacy, explained</a></div></article></div></section><section class="cine-section cine-edition" id="states"><div><h2>Federal foundations.<br>State-specific detail.</h2><p>Texas, Georgia, and New York have additional statute citations in the card editions. Other coverage and review status vary. Source-cited does not mean attorney-reviewed.</p><a class="cine-link" href="/how-we-verify/">Understand the coverage</a></div><div class="cine-state-tags"><a href="/rights/tx/">Texas ↗</a><a href="/rights/ga/">Georgia ↗</a><a href="/rights/ny/">New York ↗</a></div></section><section class="cine-carry" id="deal-act" data-manual-deck="true"><div class="cine-section"><p class="cine-eyebrow">04 / Keep it within reach</p><div class="cine-section-head"><h2 class="cine-heading">Practice is free.<br>Preparedness can travel.</h2><p>Learn and rehearse without paying. Optional physical materials are about convenience and distribution—not access to your rights.</p></div><div class="cine-carry-grid"><article class="cine-carry-item"><span class="cine-tag">Available now · Free</span><h3>Print it. Keep it close.</h3><p>Build your bilingual cards and print them yourself. Add the details you want to have within reach.</p><a class="cine-link" href="/pack?lang=en">Build free cards</a><br><button class="cine-card-open" type="button" onclick="Deal.open()">Explore the six cards</button></article><article class="cine-carry-item"><span class="cine-tag">Physical product · Prelaunch</span><h3>A place in your glovebox.</h3><p>Explore the proposed Amparo Ready Kit. Physical format, contents, and availability still need confirmation. Checkout is not open.</p><a class="cine-link" href="/ready-kit?lang=en">Preview the Ready Kit</a></article></div></div></section><section class="cine-section cine-community" id="organizations"><div><p class="cine-eyebrow">05 / Prepared together</p><h2>Bring the practice<br>to your community.</h2><p>For the people who help other people prepare. Explore proposed community packages and tell us what your group needs.</p><a class="cine-link" href="/organizations?lang=en">For organizations</a></div><ul class="cine-community-types"><li>Community groups &amp; nonprofits<span>01</span></li><li>Schools &amp; driving programs<span>02</span></li><li>Libraries &amp; workshop hosts<span>03</span></li></ul></section><section class="cine-section cine-faq" id="faq"><h2 class="cine-heading">A few things worth knowing.</h2><details><summary>Is practice really free?</summary><p>Yes. Core practice, English and Spanish, basic printable cards, and legal-aid links are free. Physical products and organization services are optional and currently at prelaunch or inquiry stage.</p></details><details><summary>Is this legal advice?</summary><p>No. Amparo is a practice and information tool, not a law firm. Independent attorney review is pending. Laws and circumstances differ; consult a qualified lawyer for advice about your situation.</p></details><details><summary>What happens to my voice?</summary><p>Amparo does not save a voice recording. If you choose speech recognition, your browser or device provider may process audio. You can use the non-voice practice options.</p></details><details><summary>What is stored?</summary><p>Practice progress and settings are stored in this browser. Optional card accounts store card text you choose to save. Error reports are used for diagnostics. Read the privacy summary for the details.</p></details><details><summary>Can my organization use Amparo?</summary><p>Groups can explore the proposed packages and request information. Pricing, physical materials, facilitation, and availability must be confirmed before any order.</p></details><details><summary>Does practice guarantee a safe encounter?</summary><p>No. Rehearsal can help make words familiar, but cannot control another person’s behavior or guarantee safety or a legal outcome.</p></details></section><section class="cine-close" id="join"><h2>The moment to practice<br>is <em>before.</em></h2><p>A few quiet minutes now. Words that feel more familiar later.</p><a class="cine-action" href="/rehearse?lang=en">Practice a Traffic Stop</a></section><footer class="cine-footer"><div class="cine-footer-top"><a href="/" class="cine-wordmark">Amparo.</a><div class="cine-footer-links"><a href="/about/">About</a><a href="/how-we-verify/">How we verify</a><a href="/privacy/">Privacy</a><a href="/organizations?lang=en">Organizations</a><a href="/aid?lang=en">Legal aid</a></div></div><p>General legal information, not legal advice. Independent attorney review pending. No guarantee of safety or legal outcomes. Amparo is not a law firm.</p><p>© 2026 Amparo · Preparedness, within reach.</p></footer></div></main>
 
-<script src="/us-paths.js?v=2026-09-02a"></script>
+<script src="/new/cinema-content.js"></script>
 
 <script>
 
@@ -729,8 +674,12 @@ const DEMO_BRANCH = {o:{en:"Speeding, huh. So how fast do you think you were goi
   {t:{en:"Recover: “I choose to remain silent.”",es:"Recuperarse: «Elijo guardar silencio.»"},p:1,f:{en:"Good recovery — you can invoke silence at ANY point, even after talking.",es:"Buena recuperación — puede invocar el silencio en CUALQUIER momento, incluso después de hablar."}},
   {t:{en:"“Maybe 10 over? I really am sorry…”",es:"«Quizás 10 de más. De verdad lo siento…»"},p:-1,f:{en:"A number seals the admission. The apology doesn't offset it.",es:"Un número sella la admisión. La disculpa no la compensa."}}]};
 
+EN.cinema = window.AmparoCinemaContent.en;
+ES.cinema = window.AmparoCinemaContent.es;
+
 /* ===== state ===== */
-let lang = (navigator.language||'').toLowerCase().startsWith('es') ? 'es' : 'en';
+let lang = new URLSearchParams(location.search).get('lang') === 'es' ? 'es' : new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : (navigator.language||'').toLowerCase().startsWith('es') ? 'es' : 'en';
+document.documentElement.lang = lang;
 let openFaq = 0;
 let returning = false;
 let demo = {on:false, t:0, branch:false, picked:-1, heat:12, score:0, scored:0, done:false};
@@ -794,8 +743,8 @@ function renderNav(c){
   const items = [
     ['/rehearse', c.navPractice],
     ['#how', lang==='es'?'Cómo funciona':'How it works'],
-    ['/about', lang==='es'?'Fuentes':'Sources'],
-    [lang==='es'?'/organizaciones':'/organizations', lang==='es'?'Organizaciones':'For organizations']
+    [lang==='es'?'/como-verificamos/':'/how-we-verify/', lang==='es'?'Fuentes':'Sources'],
+    ['/organizations?lang='+lang, lang==='es'?'Organizaciones':'For organizations']
   ];
   const html = items.map(function(it){
     return '<a href="'+it[0]+'">'+esc(it[1])+'</a>';
@@ -928,12 +877,12 @@ function encounterHtml(e, L){
   '</div>';
 }
 function render(){
-  window.AmparoEncounter?.dispose();
+  window.AmparoCinemaMotion?.dispose();
   const c = t();
   document.getElementById('langEN').setAttribute('aria-pressed',lang==='en');
   document.getElementById('langES').setAttribute('aria-pressed',lang==='es');
   renderNav(c);
-  document.querySelectorAll('nav a[href="/rehearse"],#navSheet a[href="/rehearse"]').forEach(a=>a.href='/rehearse?lang='+lang);
+  document.querySelectorAll('nav a[href^="/rehearse"],#navSheet a[href^="/rehearse"]').forEach(a=>a.href='/rehearse?lang='+lang);
   const dt = document.getElementById('dealTrigger'); if (dt) { dt.querySelector('.t').textContent = c.dealTrigger; dt.setAttribute('aria-label', c.dealTrigger); } // the .t span is hidden on narrow screens, so the name lives on the button too
   const nc = document.getElementById('navCta'); if (nc && c.navCta) nc.textContent = c.navCta;
   const heroCtaLabel = returning ? c.heroCtaReturn : c.heroCta;
@@ -950,74 +899,9 @@ function render(){
   const rightsHtml = c.whatToSayRights.map((r,i)=>'<li>'+esc(r)+(c.whatToSayAmend&&c.whatToSayAmend[i]?'<small>'+esc(c.whatToSayAmend[i])+'</small>':'')+'</li>').join('');
   const lifelinesHtml = c.lawyerExamples.map(x=>'<li><span class="st">'+esc(x.state)+'</span><span class="nm">'+esc(x.name)+'</span><span class="wh">'+esc(x.what)+'</span></li>').join('');
 
-  document.getElementById('app').innerHTML =
-    '<section class="encounter-experience" id="top" aria-labelledby="encounterTitle" data-language="'+L+'"><div class="encounter-copy">'+
-      '<p class="encounter-kicker">'+(L==='es'?'PRÁCTICA GRATUITA · ENGLISH + ESPAÑOL':'FREE SCENARIO PRACTICE · ENGLISH + ESPAÑOL')+'</p>'+
-      '<h1 id="encounterTitle">'+esc(c.heroTitle)+'</h1><p>'+(L==='es'?'Ensaye encuentros de tráfico para recordar las palabras con más facilidad bajo presión.':'Rehearse traffic encounters so the words are easier to remember under pressure.')+'</p>'+
-      '<a class="btn btn-gold" href="/rehearse?lang='+L+'">'+esc(heroCtaLabel)+'</a>'+
-      '<p class="encounter-note">'+(L==='es'?'Unos 2 minutos. Sin cuenta.':'About 2 minutes. No account required.')+' <a href="#how">'+(L==='es'?'Cómo funciona':'See how it works')+'</a></p>'+
-      '<p class="encounter-note">'+(L==='es'?'Información legal general, no asesoría legal. Revisión independiente por abogados pendiente.':'General legal information, not legal advice. Independent attorney review pending.')+' <a href="/about">'+(L==='es'?'Fuentes y metodología':'Sources &amp; Methodology')+'</a> · <a href="#privacy">'+esc(c.navPrivacy)+'</a></p></div>'+
-      '<div class="encounter-view" id="arena"><div class="encounter-canvas" role="img" aria-label="'+(L==='es'?'Escenas tridimensionales de encuentros en la carretera, en casa y junto a una ventanilla.':'Three-dimensional miniatures of encounters on the road, at home, and at a car window.')+'"></div>'+
-      '<img class="encounter-poster" src="/new/assets/amparo-encounters-poster.webp" alt="" fetchpriority="high">'+
-      '<div class="encounter-badge">'+(L==='es'?'Prepárese para el momento':'Prepare for the moment')+'</div><button class="encounter-pause" type="button">'+(L==='es'?'Pausar movimiento':'Pause motion')+'</button>'+
-      '<div class="encounter-status" role="status"></div><div class="encounter-caption"><span class="encounter-number">01 / 03</span><strong class="encounter-label">'+(L==='es'?'En la carretera':'On the road')+'</strong><p class="encounter-description">'+(L==='es'?'Se encienden las luces. Practique antes de necesitar las palabras.':'The lights come on. Practice before you need the words.')+'</p></div>'+
-      '<div class="encounter-controls" role="group" aria-label="'+(L==='es'?'Explorar escenas':'Explore scenes')+'">'+
-      (L==='es'?['En la carretera','En casa','La ventanilla']:['On the road','At home','The window']).map((x,i)=>'<button type="button" data-encounter="'+i+'" aria-pressed="'+(i===0)+'"><span>0'+(i+1)+'</span>'+x+'</button>').join('')+'</div></div></section>'+
-    '<section class="quick-info" id="how"><div class="quick-inner"><h2>'+(L==='es'?'Leer es el primer paso. Practicar ayuda a recordar.':'Reading is a start. Practice helps you remember.')+'</h2><p>'+(L==='es'?'Durante un encuentro estresante puede ser difícil recordar lo que leyó. Ensaye a su ritmo antes de necesitar las palabras.':'During a stressful encounter, it can be hard to recall what you read. Rehearse at your own pace before you need the words.')+'</p><ol class="quick-steps">'+
-      (L==='es'?['Elija su estado y situación.','Practique una respuesta.','Repita hasta que las palabras le resulten familiares.']:['Choose your state and situation.','Practice your response.','Repeat until the words feel familiar.']).map(x=>'<li>'+x+'</li>').join('')+'</ol></div></section>'+
-    /* 6 · what to say: the five rights lines over the card in hand, scrubbed.
-          Quiet by design: this is the breath before the deal. */
-    '<section class="cut cut--lead" id="say" data-sc-act="flow" style="--h:1.1;background:#0B1426">'+
-      clipPlate('kb-card','/new/assets/act3-card.webp',1000,1778,false)+
-      '<div class="scrim-lead" aria-hidden="true"></div>'+
-      '<div class="copy-panel"><div class="copy-glass" aria-hidden="true"></div><div class="copy"><h2 data-sc-cue="0 1 0.25 0" data-sc-kinetic="lines">'+esc(c.whatToSayHead)+'</h2>'+
-        '<ol class="say" data-sc-in data-sc-stagger="90">'+rightsHtml+'</ol>'+
-        '<p data-sc-cue="0.3 1 0.3 0">'+esc(c.whatToSayClose)+'</p></div></div>'+
-    '</section>'+
-    /* 7 · PEAK: the deal lives in the chrome; this is the plate it lands on */
-    '<section class="cut cut--top cut--top-trail" id="deal-act" data-sc-act="flow" style="--h:2;background:#070E1C">'+
-      '<div class="plate"><picture><source media="(max-width:700px)" srcset="/new/assets/glovebox-m.webp"><img src="/new/assets/glovebox.webp" width="1920" height="1067" alt="" loading="lazy"></picture></div>'+
-      '<div class="peak-panel"><div class="peak-glass" aria-hidden="true"></div><div class="copy"><h2 data-sc-cue="0 1 0 0">'+esc(c.cut7)+'</h2><p data-sc-cue="0 1 0 0">'+esc(c.cut7s)+'</p></div></div>'+
-    '</section>'+
-    /* 8 · the lawyer beat: card 3, with real channel names */
-    '<section class="cut cut--lead" id="lawyer" data-sc-act="flow" style="--h:1;background:#101B33">'+
-      '<div class="lawyer">'+
-        '<div class="copy"><div class="eyebrow" data-sc-cue="0 1 0 0">'+esc(c.dealCards[2].h)+' · 3 / 6</div><h2 data-sc-cue="0 1 0.3 0" data-sc-kinetic="lines">'+esc(c.lawyerHead)+'</h2><p data-sc-cue="0.08 1 0.3 0">'+esc(c.lawyerBody)+'</p><p class="trust" data-sc-cue="0.14 1 0.3 0">'+esc(c.lawyerHonesty)+'</p></div>'+
-        '<ul class="lifelines" data-sc-in data-sc-stagger="80">'+lifelinesHtml+'</ul>'+
-      '</div>'+
-    '</section>'+
-    /* 9 · where you drive */
-    '<section class="cut cut--map cut--lead" id="states" data-sc-act="flow" style="--h:1;background:#0B1426">'+
-      '<div class="map-stage"><figure class="map-fig">'+statesMapHtml(c)+'</figure></div>'+
-      '<div class="scrim-lead" aria-hidden="true"></div><div class="copy"><h2 data-sc-cue="0 1 0 0">'+esc(c.stateTitle)+'</h2><p data-sc-cue="0 1 0 0">'+esc(c.stateSub)+'</p></div>'+
-    '</section>'+
-    /* 10 · privacy */
-    '<section class="cut cut--centre" id="privacy" data-sc-act="flow" style="--h:0.7;background:#16223A">'+
-      '<div class="copy" data-sc-in data-sc-stagger="50"><div class="lock" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E8B84B" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>'+
-        '<h2>'+esc(c.cut10)+'</h2><p>'+esc(c.cut10s)+'</p></div>'+
-    '</section>'+
-    /* 11 · the other language, for one screen. lang attr flips so a screen
-          reader switches voice with it. */
-    '<section class="cut cut--centre cut--es" id="bilingual" data-sc-act="flow" lang="'+(L==='es'?'en':'es')+'" style="--h:0.7">'+
-      '<div class="copy"><div class="pair" aria-hidden="true" data-sc-cue="0 1 0 0"><span class="'+(L==='es'?'on':'')+'">ES</span><span class="'+(L==='en'?'on':'')+'">EN</span></div>'+
-        '<h2 data-sc-cue="0 1 0 0">'+esc(c.cut11)+'</h2><p data-sc-cue="0 1 0 0">'+esc(c.cut11s)+'</p></div>'+
-    '</section>'+
-    /* 12 · give one away */
-    '<section class="cut cut--lead" id="share" data-sc-act="flow" style="--h:0.6;background:#0B1426">'+
-      '<div class="copy" data-sc-in data-sc-stagger="50"><h2>'+esc(c.cut12)+'</h2><p>'+esc(c.shareBody)+'</p>'+
-        '<div class="share-row"><a class="btn btn-line" href="'+shareWaUrl+'" target="_blank" rel="noopener">'+esc(c.shareWhatsApp)+'</a><a class="btn btn-line" href="'+shareSmsUrl+'">'+esc(c.shareSms)+'</a><a class="btn btn-line" href="'+(lang==='es'?'/organizaciones':'/organizations')+'" rel="noopener">'+esc(c.orgCta)+'</a></div></div>'+
-    '</section>'+
-    /* faq: information, compressed */
-    '<section class="faq" id="faq"><div class="faq-in"><h2>'+esc(c.faqTitle)+'</h2><div>'+faqHtml+'</div></div></section>'+
-    /* 13 · the close, holds */
-    '<section class="cut cut--close" id="join" data-sc-act="flow" style="--h:1">'+
-      '<div class="copy" data-sc-cue="0.05"><h2>'+esc(c.closeTitle)+'</h2><p>'+esc(c.closeSub)+'</p>'+
-        '<div class="hero-ctas"><a class="btn btn-gold" href="/rehearse?lang='+L+'">'+esc(c.finalBtn)+'</a><a class="btn btn-line" href="/pack">'+esc(c.dealPrint)+'</a></div>'+
-        '<footer class="colophon"><a href="/pack">'+esc(c.navHow)+'</a><a href="#privacy">'+esc(c.navPrivacy)+'</a><a href="https://www.amparohq.com/about">'+esc(c.arenaLink||'About')+'</a><a href="/aid">'+esc(c.navAid)+'</a>'+
-        '<p class="disc">'+esc(c.footerDisclaimer)+'</p><span>'+esc(c.footerCopyright)+'</span></footer></div>'+
-    '</section>';
-
-  window.AmparoEncounter?.mount();
+  document.getElementById('app').innerHTML = window.amparoCinemaHTML(c,L);
+  window.AmparoCinemaMotion?.mount();
+  document.querySelector('.skip-home').textContent = L==='es'?'Saltar al contenido':'Skip to content';
   // the deck faces, in the current language
   const hand = document.getElementById('hand');
   hand.innerHTML = c.dealCards.slice(0,5).map((k,i)=>faceHtml(k,'',' data-i="'+i+'"')).join('') +
@@ -1033,7 +917,7 @@ render();
 </script>
 
 
-<script src="/scroll-intro/scrollcraft.js?v=2026-09-02b"></script>
+
 <script>
 /* ===================================================================
    The Deal. Six real cards in the chrome layer, fanned by PAGE scroll across
@@ -1048,7 +932,8 @@ render();
       trig = document.getElementById('dealTrigger'), closeBtn = document.getElementById('dealClose'),
       bg = deal.querySelector('.deal-bg'),
       act = null, reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var p = 0, target = 0, mode = 'scroll', dealt = [], raf = null, cards = [];
+  var p = 0, target = 0, mode = 'scroll', dealt = [], raf = null, cards = [], opener = null;
+  deal.inert = true;
   var FAN = [-26,-15.5,-5,5,15.5,26];               // degrees, left to right
   var ease = function(x){ return 1 - Math.pow(1 - x, 3); };
 
@@ -1060,7 +945,7 @@ render();
     paint();
   }
   function progressFromScroll(){
-    if (!act) return 0;
+    if (!act || act.dataset.manualDeck) return 0;
     var r = act.getBoundingClientRect(), vh = innerHeight;
     // 0 as the act's top reaches the fold, 1 once ~55% of it has passed, and
     // back to 0 as it leaves, so the deck folds away before the next cut
@@ -1101,14 +986,14 @@ render();
     p += d * (reduce ? 1 : 0.14); paint(); raf = requestAnimationFrame(tick);
   }
   function schedule(){ if (!raf) raf = requestAnimationFrame(tick); }
-  function open(){ mode = 'open'; target = 1; deal.classList.add('is-open'); trig.setAttribute('aria-expanded','true'); relayout(); schedule(); closeBtn.focus(); }
-  function close(){ if (mode !== 'open') return; target = 0; schedule(); trig.focus(); }
+  function open(){ opener = document.activeElement; deal.inert=false; deal.setAttribute('role','dialog'); deal.setAttribute('aria-modal','true'); document.getElementById('app').inert=true; document.querySelector('.bar').inert=true; mode = 'open'; target = 1; deal.classList.add('is-open'); trig.setAttribute('aria-expanded','true'); relayout(); schedule(); closeBtn.focus(); }
+  function close(){ if (mode !== 'open') return; target = 0; document.getElementById('app').inert=false; document.querySelector('.bar').inert=false; deal.inert=true; deal.removeAttribute('aria-modal'); deal.setAttribute('role','region'); schedule(); (opener || trig).focus(); }
   addEventListener('scroll', function(){ if (mode === 'scroll') schedule(); }, {passive:true});
   addEventListener('resize', function(){ schedule(); }, {passive:true});
   trig.addEventListener('click', function(){ mode === 'open' ? close() : open(); });
   closeBtn.addEventListener('click', close);
   bg.addEventListener('click', close);
-  addEventListener('keydown', function(e){ if (e.key === 'Escape' && mode === 'open') close(); });
+  addEventListener('keydown', function(e){ if (mode !== 'open') return; if (e.key === 'Escape') {close();return;} if(e.key === 'Tab'){var f=Array.from(deal.querySelectorAll('a[href],button:not([disabled])')).filter(el=>el.getClientRects().length);if(!f.length)return;var first=f[0],last=f[f.length-1];if(e.shiftKey && document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey && document.activeElement===last){e.preventDefault();first.focus();}} });
 
   /* flick: 1:1 tracking from where the card was grabbed, velocity history,
      project the release, commit past a threshold, else spring home */
@@ -1158,7 +1043,7 @@ render();
 
   /* mount the engine on the whole page: every cut is a flow act and publishes
      --sc-p, which is what the reveals and cues run from */
-  if (window.ScrollCraft) ScrollCraft.mount(document.body);
+
 })();
 </script>
 

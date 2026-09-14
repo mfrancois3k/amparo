@@ -192,6 +192,14 @@
     {
       "source": "/aid/",
       "destination": "/new/aid.html"
+    },
+    {
+      "source": "/ready-kit",
+      "destination": "/new/ready-kit.html"
+    },
+    {
+      "source": "/ready-kit/",
+      "destination": "/new/ready-kit.html"
     }
   ],
   "redirects": [
@@ -199,6 +207,41 @@
       "source": "/index.html",
       "destination": "/pack",
       "permanent": false
+    },
+    {
+      "source": "/new",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/new/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/new/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/new/organizations.html",
+      "destination": "/organizations",
+      "permanent": true
+    },
+    {
+      "source": "/new/ready-kit.html",
+      "destination": "/ready-kit",
+      "permanent": true
+    },
+    {
+      "source": "/organizaciones",
+      "destination": "/organizations?lang=es",
+      "permanent": true
+    },
+    {
+      "source": "/organizaciones/",
+      "destination": "/organizations?lang=es",
+      "permanent": true
     }
   ]
 }

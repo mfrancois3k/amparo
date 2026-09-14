@@ -1,6 +1,6 @@
 {
   "pilotBanner": "Gratis. Todo se queda en este teléfono, salvo que elija guardar su paquete en una cuenta gratuita opcional. Las fotos nunca se suben.",
-  "disclaimer": "Amparo ofrece información legal general, no asesoría legal. Cada regla cita el artículo exacto de la ley estatal para que usted mismo lo verifique; la revisión formal por un abogado en cada estado está en curso. Números verificados el 16 de julio de 2026.",
+  "disclaimer": "Amparo ofrece información legal general, no asesoría legal. Las referencias federales y la investigación estatal se identifican donde están disponibles; la cobertura varía. La revisión independiente por abogados está pendiente. Consulte el alcance y estado de revisión en la página de verificación.",
   "stepLabels": [
     "Estado",
     "Tú",
@@ -10,7 +10,7 @@
   ],
   "stepWord": "Paso",
   "ty_title": "Su paquete está listo. Gracias.",
-  "ty_sub": "Todo lo de abajo queda en este teléfono. Falta una cosa — que las palabras salgan solas.",
+  "ty_sub": "Su paquete está guardado en este dispositivo. Una cuenta opcional también puede guardar su texto en línea. Después, practique las palabras.",
   "ty_chip_state": "reglas citadas",
   "ty_chip_state_fed": "Derechos federales que aplican en todas partes",
   "ty_chip_print": "Paquete impreso",
@@ -26,7 +26,7 @@
   "w_b1": "Ensaya en voz alta, antes de necesitarlo",
   "w_b2": "Las reglas y líneas de ayuda de tu estado",
   "w_b3": "Un paquete impreso para la guantera",
-  "w_b4": "Nada de lo que escribes sale de tu teléfono",
+  "w_b4": "Guardado en este dispositivo; una cuenta opcional puede guardar el texto del paquete en línea",
   "w_btn": "Crear mi paquete",
   "w_lifelines_shortcut": "¿Solo necesitas un abogado o una línea de ayuda? →",
   "pageTitle": "Amparo — Conoce tus derechos en cada parada de tráfico.",
@@ -102,10 +102,10 @@
   "ab_founder_note": "Construí Amparo para cualquier persona, de cualquier minoría, en cualquier lugar, que alguna vez haya temido que una parada de tráfico le costara la vida. Merece al menos esto: el conocimiento, ensayado y listo, para tener una oportunidad de llegar a casa.<br><br>Haga su parte — mantenga la calma, mantenga sus manos a la vista, grabe lo que pasa. Si hace todo bien y aun así sale mal, ese registro es suyo: prueba de cómo se comportó, para que la verdad lo proteja y haga responsables a otros.<br><br>Quienquiera que sea, leyendo esto: pensé en usted al hacer esto. Rezo para que esto nunca le pase. Pero si pasa, espero que esté armado con el conocimiento correcto para seguir adelante con su vida.",
   "ab_founder_sign": "— Michael Francois, fundador de Amparo",
   "ab_review_h": "Revisión legal",
-  "ab_review_pending": "Cada regla en Amparo cita el artículo exacto del código estatal — puedes verificar el número tú mismo, cuando quieras. Además, el contenido de cada estado está siendo revisado y aprobado formalmente por un abogado con licencia en ese estado antes del lanzamiento público. Hasta que un estado muestre la insignia verde “Revisado por abogado”, trátalo como información general bien documentada, no asesoría legal.",
+  "ab_review_pending": "La información federal de referencia y la investigación estatal son diferentes. Se incluyen citas estatales donde están disponibles; la cobertura no es uniforme en todo el país. La revisión independiente por abogados está pendiente. Una cita no equivale a aprobación por un abogado. Consulte Cómo verificamos para conocer el alcance y estado actuales.",
   "ab_state_pending": "revisión de abogado en curso — reglas ya citadas a la ley",
   "ab_privacy_h": "Tu privacidad",
-  "ab_privacy": "Amparo funciona sin ninguna cuenta, y así es por defecto. Si eliges crear una para guardar tu paquete entre dispositivos, solo se guarda el texto de tu paquete — estado, nombres, teléfonos, código postal — en nuestro servidor, y ese registro podría entregarse si nos obligaran legalmente. Puedes borrarlo cuando quieras desde la misma pantalla. Tus fotos de documentos y tu historial de práctica nunca se suben, con cuenta o sin ella: no hay dónde guardarlos en el servidor. Contamos eventos anónimos (como cuántos paquetes se imprimen y en qué estado) para demostrar que la herramienta se usa — nunca quién eres, nunca lo que escribiste, nunca tus fotos. Si nos envías comentarios, llega lo que escribes, más tu nombre y correo solo si los pones. Nunca vendemos ni compartimos nada con ninguna agencia, incluidas las autoridades de inmigración.",
+  "ab_privacy": "Amparo funciona sin ninguna cuenta, y así es por defecto. Si eliges crear una para guardar tu paquete entre dispositivos, solo se guarda el texto de tu paquete — estado, nombres, teléfonos, código postal — en nuestro servidor, y ese registro podría entregarse si nos obligaran legalmente. Puedes borrarlo cuando quieras desde la misma pantalla. Tus fotos de documentos y tu historial de práctica nunca se suben, con cuenta o sin ella: no hay dónde guardarlos en el servidor. Los análisis de marketing y las grabaciones de sesión están desactivados. Los errores técnicos pueden enviarse a Sentry; los informes se configuran para excluir formularios y parámetros de la URL. Si nos envías comentarios, llega lo que escribes, más tu nombre y correo solo si los pones. No vendemos sus datos. Los registros del servidor pueden divulgarse por obligación legal.",
   "ab_contact": "Contacto",
   "s_title": "¿En qué estado manejas?",
   "s_sub": "Texas, Georgia y Nueva York tienen sus propias leyes citadas línea por línea. Los demás estados reciben los derechos federales que aplican en todas partes — marcados para que sepas la diferencia.",
@@ -422,5 +422,5 @@
   "wl_head": "AMPARO · TARJETA DE CARTERA",
   "wl_cut": "✂ Corte por la línea punteada, doble, guarde en su cartera",
   "lifelines_print": "SUS LÍNEAS DE AYUDA — verificadas 16/7/2026",
-  "footer": "© 2026 Amparo · Edición piloto · Información legal general, no asesoría legal · Cada regla citada a la ley estatal · Revisión por abogado en curso · Números verificados 16/7/2026"
+  "footer": "© 2026 Amparo · Edición piloto · Información legal general, no asesoría legal · La cobertura varía según la jurisdicción · Revisión independiente por abogados pendiente"
 }
