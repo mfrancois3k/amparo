@@ -2,10 +2,55 @@
   "queue": [],
   "handled": [],
   "_readme": "Questions a human should answer, in their own name. NOTHING here is posted automatically and nothing should be. Move an item to \"handled\" once you have replied. Threads describing an arrest or an open case are filtered out on purpose — those need a lawyer, not a drill.",
-  "generated": "2026-09-07",
-  "errors": [],
-  "cursor": 2,
+  "generated": "2026-09-14",
+  "errors": [
+    {
+      "sub": "immigration",
+      "error": "Reddit rate limit"
+    }
+  ],
+  "cursor": 4,
   "unanswerable": [
+    {
+      "title": "THIS ISN’T INSURANCE FRAUD?!?",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1wfw3og/this_isnt_insurance_fraud/",
+      "source": "r/AskLawyers"
+    },
+    {
+      "title": "Going to court for &quot;disobeying stop sign&quot; - best defense?",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1wfe2if/going_to_court_for_disobeying_stop_sign_best/",
+      "source": "r/AskLawyers"
+    },
+    {
+      "title": "My City in idaho is widening the road and going to eminent domain part of our property. This will potentially force my small business to close down as it takes out all of our parking. What can I do to protect myself or am I just forced to close the doors?",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1wet094/my_city_in_idaho_is_widening_the_road_and_going/",
+      "source": "r/AskLawyers"
+    },
+    {
+      "title": "No contact but I caused someone to run off the road. I am so stupid. Will anything happen to me?",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1w66b4u/no_contact_but_i_caused_someone_to_run_off_the/",
+      "source": "r/AskLawyers"
+    },
+    {
+      "title": "A window fell from the 3rd floor directly onto my head in Delhi — I wasn’t wearing a helmet because I was riding in my own street. What are my legal options?",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1vxz74a/a_window_fell_from_the_3rd_floor_directly_onto_my/",
+      "source": "r/AskLawyers"
+    },
+    {
+      "title": "Florida tenant — AC has been broken for 3 weeks, still no repair ETA. What are my options?",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1vxb2xf/florida_tenant_ac_has_been_broken_for_3_weeks/",
+      "source": "r/AskLawyers"
+    },
+    {
+      "title": "Do I have a case? A cosmetic product I purchased caused a partial retina detachment in my eye. [Tampa, FL]",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1vt2062/do_i_have_a_case_a_cosmetic_product_i_purchased/",
+      "source": "r/AskLawyers"
+    },
+    {
+      "title": "[FL] Childhood SA in 2006/2007. Parents withdrew charges, but perp is now a wealthy tech exec and I have the full police case file. Is a civil suit viable?",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1vr9t8i/fl_childhood_sa_in_20062007_parents_withdrew/",
+      "source": "r/AskLawyers"
+    },
     {
       "title": "[WY] Out-of-state driver cited for 48 in a 30, citation lists a road I never drove on, prosecutor won’t budge. Worth fighting from 1,000 miles away?",
       "url": "https://www.reddit.com/r/legaladvice/comments/1w8398h/wy_outofstate_driver_cited_for_48_in_a_30/",

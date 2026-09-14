@@ -1574,12 +1574,468 @@
       "guidelines": {
         "notFetchedYet": true
       }
+    },
+    {
+      "domain": "amren.com",
+      "url": "https://www.amren.com/videos/2023/09/how-did-you-see-the-light-on-race/",
+      "title": "How Did You See the Light on Race? - American Renaissance",
+      "niche": "public defender",
+      "operator": "write for us",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "wordCount": "500 words",
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "luke.substack.com",
+      "url": "https://luke.substack.com/p/a-lot-of-us-are-constantly-teetering",
+      "title": "A lot of us are constantly teetering on the brink of some deep, deep unhappiness",
+      "niche": "public defender",
+      "operator": "write for us",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "parseFailed": true
+      }
+    },
+    {
+      "domain": "theoregonway.substack.com",
+      "url": "https://theoregonway.substack.com/p/the-liftoff-who-will-be-oregons-next",
+      "title": "The Liftoff: Who will be Oregon's next congressperson?",
+      "niche": "public defender",
+      "operator": "write for us",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "parseFailed": true
+      }
+    },
+    {
+      "domain": "issforum.org",
+      "url": "https://issforum.org/ISSF/PDF/ISSF-Jervis-Tribute-1.pdf",
+      "title": "H-Diplo | ISSF Tribute to the Life, Scholarship, and Legacy of Robert Jervis: Part I issforum.org",
+      "niche": "public defender",
+      "operator": "write for us",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "dspace.sunyconnect.suny.edu",
+      "url": "https://dspace.sunyconnect.suny.edu/server/api/core/bitstreams/38723d95-800d-4d70-865e-a1a9d9c19905/content",
+      "title": "A Look Back on Bush's Ter m.: 38,228 Reasons Why He Must be Defea bed",
+      "niche": "public defender",
+      "operator": "write for us",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "pluralistic.net",
+      "url": "https://pluralistic.net/2025/10/31/losing-the-crypto-wars/",
+      "title": "Pluralistic: The internet was made for privacy (31 Oct 2025) – Pluralistic: Daily links from Cory Doctorow",
+      "niche": "public defender",
+      "operator": "write for us",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "eapoe.org",
+      "url": "https://www.eapoe.org/papers/misc1921/spm63c05.htm",
+      "title": "Edgar Allan Poe Society of Baltimore - Bookshelf - Poe's Literary Battles (S. P. Moss, 1963)",
+      "niche": "public defender",
+      "operator": "write for us",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "informationsecuritybuzz.com",
+      "url": "https://informationsecuritybuzz.com/defender-confidence-on-the-rise-in-a-maturing-uk-cyber-threat-landscape/",
+      "title": "Defender Confidence On The Rise In A Maturing UK Cyber Threat Landscape",
+      "niche": "public defender",
+      "operator": "write for us",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "parseFailed": true
+      }
+    },
+    {
+      "domain": "prolawguide.com",
+      "url": "https://www.prolawguide.com/blog/public-defender-for-dui-is-it-a-good-choice/",
+      "title": "Public Defender for DUI: Is It a Good Choice? - ProLawGuide",
+      "niche": "public defender",
+      "operator": "write for us",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "commons.lib.jmu.edu",
+      "url": "https://commons.lib.jmu.edu/cgi/viewcontent.cgi?article=1133&context=i20102019",
+      "title": ">> NOT A PRINT PERSON? >> EDITOR ASPIRATIONS? Apply for online editor. Apply for a life editor. Email breezeeditor@ Email bre...",
+      "niche": "public defender",
+      "operator": "write for us",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "parseFailed": true
+      }
+    },
+    {
+      "domain": "attorneyhelp.org",
+      "url": "https://www.attorneyhelp.org/guide/do-you-have-to-pay-for-a-public-defender-2493.shtml",
+      "title": "Do You Have to Pay for a Public Defender? - AttorneyHelp.org",
+      "niche": "public defender",
+      "operator": "write for us",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "en.uncyclopedia.co",
+      "url": "https://en.uncyclopedia.co/wiki/Forum%3AA_not-very-well-thought-out_solution_to_the_featured-template_CRISIS",
+      "title": "Forum:A not-very-well-thought-out solution to the featured-template CRISIS - Uncyclopedia, the content-free encyclopedia",
+      "niche": "public defender",
+      "operator": "write for us",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "search.opinionarchives.com",
+      "url": "https://search.opinionarchives.com/Summary/AmericanSpectator/V20I12P87-1.htm",
+      "title": "American Spectator American Spectator - Mencken's Letters",
+      "niche": "public defender",
+      "operator": "write for us",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "wordCount": "000 words",
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "southfloridapoetryjournal.com",
+      "url": "https://www.southfloridapoetryjournal.com/essays-2026-27.html",
+      "title": "Essays 2026-27 - SOUTH FLORIDA POETRY JOURNAL",
+      "niche": "public defender",
+      "operator": "write for us",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": true,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "counterpunch.org",
+      "url": "https://www.counterpunch.org/2023/07/28/roaming-charges-98/",
+      "title": "Roaming Charges: Fighting Our Real Enemies - CounterPunch.org",
+      "niche": "public defender",
+      "operator": "write for us",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": true,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "nationstates.net",
+      "url": "https://www.nationstates.net/page%3Ddispatch/id%3D2574396",
+      "title": "NationStates | Dispatch | The Social Reformer - Twentieth Edition - November 1st, 2024",
+      "niche": "public defender",
+      "operator": "write for us",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "journals.ed.ac.uk",
+      "url": "https://journals.ed.ac.uk/leviathan/issue/download/521/184",
+      "title": "Contents",
+      "niche": "public defender",
+      "operator": "write for us",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "rihs.us",
+      "url": "https://rihs.us/page/169/",
+      "title": "Roosevelt Island Historical Society",
+      "niche": "public defender",
+      "operator": "write for us",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "coha.org",
+      "url": "https://coha.org/message-from-the-board-and-friends-of-coha-on-the-passing-of-larry-birns/",
+      "title": "Message from the Board and Friends of COHA on the Passing of Larry Birns – COHA",
+      "niche": "public defender",
+      "operator": "write for us",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "rusi.org",
+      "url": "https://www.rusi.org/explore-our-research/publications/commentary/veteranka-supporting-ukraines-female-defenders",
+      "title": "Veteranka: Supporting Ukraine’s Female Defenders | Royal United Services Institute",
+      "niche": "public defender",
+      "operator": "write for us",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "expertinsurancereviews.com",
+      "url": "https://www.expertinsurancereviews.com/can-i-get-car-insurance-for-a-car-that-is-used-for-teaching-or-driver-education-purposes/",
+      "title": "Can I get car insurance for a car that is used for teaching or driver education purposes?",
+      "niche": "driver education",
+      "operator": "editorial guidelines",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": true,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "ca.indeed.com",
+      "url": "https://ca.indeed.com/hire/job-description/driver",
+      "title": "Driver Job Description [Updated 2026]",
+      "niche": "driver education",
+      "operator": "editorial guidelines",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": true,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "noagendashow.net",
+      "url": "https://www.noagendashow.net/listen/825/shownotes",
+      "title": "No Agenda 825 Shownotes",
+      "niche": "driver education",
+      "operator": "editorial guidelines",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "latinjournal.org",
+      "url": "https://latinjournal.org/index.php/gist/issue/download/163/100",
+      "title": "GiST Education and Learning Research Journal",
+      "niche": "driver education",
+      "operator": "editorial guidelines",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "papers.academic-conferences.org",
+      "url": "https://papers.academic-conferences.org/index.php/eccws/issue/download/7/8",
+      "title": "Proceedings of the 21st European Conference on Cyber Warfare and Security A Conference hosted by University of Chester UK 16-...",
+      "niche": "driver education",
+      "operator": "editorial guidelines",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "parseFailed": true
+      }
+    },
+    {
+      "domain": "progressive.com",
+      "url": "https://www.progressive.com/answers/defensive-driving-insurance-discount/",
+      "title": "How to Get a Defensive Driving Discount | Progressive",
+      "niche": "driver education",
+      "operator": "editorial guidelines",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "fulcrum.org",
+      "url": "https://www.fulcrum.org/downloads/6w924f32v",
+      "title": "ACCESSIBILITY &",
+      "niche": "driver education",
+      "operator": "editorial guidelines",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "era.ed.ac.uk",
+      "url": "https://era.ed.ac.uk/server/api/core/bitstreams/19b7c8a2-2565-4145-9971-71599c7b6828/content",
+      "title": "Abstract and Lay Summary",
+      "niche": "driver education",
+      "operator": "editorial guidelines",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "ojs.aut.ac.nz",
+      "url": "https://ojs.aut.ac.nz/pacific-journalism-review/issue/download/49/PJRv30%281%262%29",
+      "title": "GAZA, GENOCIDE AND MEDIA. WILL JOURNALISM SURVIVE ? Vol 30(1 & 2), July 2024 Founded at the University of Papua New Guinea, 1...",
+      "niche": "driver education",
+      "operator": "editorial guidelines",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "tweetingdonal.wordpress.com",
+      "url": "https://tweetingdonal.wordpress.com/2011/08/15/topgearantielectriccar/",
+      "title": "Crosspost: Top Gear’s electric car shows pour petrol over the BBC’s standards | updated 15 Aug 2011 – Echoes from a Pale Blue...",
+      "niche": "driver education",
+      "operator": "editorial guidelines",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "bitdegree.org",
+      "url": "https://www.bitdegree.org/crypto/news/crypto-heist-in-london-fake-uber-driver-steals-123000-from-us-tourist",
+      "title": "Fake Uber Driver Steals $123,000 in Crypto From US Tourist",
+      "niche": "driver education",
+      "operator": "editorial guidelines",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "internationaldriversassociation.com",
+      "url": "https://internationaldriversassociation.com/editorial-guidelines/",
+      "title": "Editorial Guidelines | IDA",
+      "niche": "driver education",
+      "operator": "editorial guidelines",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "iwpr.net",
+      "url": "https://iwpr.net/sites/default/files/download/publication/Moldova-The-Disinformation-Handbook.pdf",
+      "title": "the Disinformation Handbook",
+      "niche": "driver education",
+      "operator": "editorial guidelines",
+      "found": "2026-09-14",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
     }
   ],
   "republishers": [],
   "placements": [],
-  "cursor": 20,
+  "cursor": 30,
   "_readme": "Wargame 32 B1/B2. A LIST, not an outreach system — nothing here contacts anyone. Add landed placements to \"placements\" as {title,url,date} and the republisher crawl starts tracking who copied them. Search is DuckDuckGo HTML, no API key.",
-  "generated": "2026-09-07",
+  "generated": "2026-09-14",
   "errors": []
 }
