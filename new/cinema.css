@@ -62,3 +62,49 @@ nav{background:rgba(7,18,28,.93)!important;border-bottom:1px solid #ffffff18!imp
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.cine-visual video{display:none}.cine-action{transition:none}}
 
 .deal-ui button{min-height:44px}
+/* Scroll film: native document scrolling drives a reversible, pinned scene. */
+.cine-scroll{background:var(--film);color:var(--paper)}
+.cine-scroll.is-scroll{height:340svh;position:relative}
+.cine-scroll.is-scroll .cine-hero{position:sticky;top:64px;height:calc(100svh - 64px);min-height:0;max-height:none}
+.cine-canvas{position:absolute;inset:0;width:100%;height:100%;opacity:0;display:block}
+.cine-canvas.has-frame{opacity:1}
+.cine-film-controls{position:absolute;top:24px;right:clamp(24px,6vw,100px);display:flex;align-items:center;gap:18px;z-index:3}
+.cine-film-controls .cine-pause{position:static;min-height:44px;font-size:11px}
+.cine-film-controls a{color:var(--paper);font-size:11px;min-height:44px;display:flex;align-items:center;text-decoration:none}
+.cine-scroll .cine-hero-copy{padding-top:72px;padding-bottom:100px;position:relative}
+.cine-beats{position:relative;display:grid;max-width:670px;min-height:345px}
+[data-cine-beat]{grid-area:1/1;align-self:center;will-change:transform,opacity}
+[data-cine-beat]:not([data-cine-beat="0"]){opacity:0;visibility:hidden}
+.cine-beats h2{font-size:clamp(50px,5.6vw,86px);line-height:1.03;max-width:12ch;margin:0 0 25px;letter-spacing:-.055em}
+.cine-beats h2 em{color:#dec593;font-weight:400}
+.cine-fixed-action{position:relative;margin-top:15px}
+.cine-scroll .cine-foot{bottom:22px;padding-top:16px;gap:24px}
+.cine-timeline{height:2px;background:#ffffff30;flex:1;max-width:250px;overflow:hidden}
+.cine-timeline-fill{height:100%;width:100%;display:block;background:var(--sand);transform:scaleX(0);transform-origin:left}
+.cine-frame-label{color:var(--sand);font-size:11px;letter-spacing:.1em;min-width:52px}
+.cine-scroll:not(.is-scroll) .cine-scroll-hint,.cine-scroll:not(.is-scroll) .cine-timeline,.cine-scroll:not(.is-scroll) .cine-frame-label{display:none}
+.cine-scroll .cine-hero:after{background:linear-gradient(90deg,#050e17e8 0%,#050e17a8 38%,#050e1725 70%),linear-gradient(0deg,#07121cef,transparent 40%)}
+@media(max-width:1000px){.cine-beats{min-height:315px;max-width:550px}.cine-beats h1{font-size:70px}.cine-beats h2{font-size:62px}}
+@media(max-width:700px){
+ .cine-scroll.is-scroll{height:320svh}
+ .cine-scroll.is-scroll .cine-hero{display:flex;align-items:flex-end}
+ .cine-scroll .cine-visual{height:100%;inset:0}
+ .cine-scroll .cine-hero:after{background:linear-gradient(0deg,#07121c 0%,#07121ce8 27%,#07121c85 56%,#07121c0d 85%)}
+ .cine-scroll .cine-hero-copy{padding:0 24px 100px;margin:0;width:100%}
+ .cine-scroll .cine-eyebrow{margin-bottom:18px;max-width:29ch;line-height:1.6;font-size:9px}
+ .cine-beats{min-height:235px;max-width:100%}
+ .cine-beats h1,.cine-beats h2{font-size:clamp(42px,10.8vw,61px);line-height:1.03;margin-bottom:18px;max-width:12ch}
+ .cine-beats .cine-intro{font-size:14px;line-height:1.6;max-width:33ch;margin:0}
+ .cine-fixed-action{margin-top:16px}
+ .cine-scroll .cine-small{font-size:10px;margin-top:10px!important}
+ .cine-film-controls{top:14px;right:20px;gap:12px}
+ .cine-scroll .cine-foot{left:24px;right:24px;bottom:16px;gap:12px;padding-top:10px}
+ .cine-scroll .cine-foot p{max-width:24ch;font-size:10px}
+ .cine-timeline{max-width:90px}
+ .cine-frame-label{font-size:10px}
+ .cine-scroll:not(.is-scroll) .cine-hero-copy{padding-top:330px}
+}
+@media(max-height:650px){.cine-scroll.is-scroll{height:auto}.cine-scroll.is-scroll .cine-hero{position:relative;top:0;height:auto;min-height:740px}.cine-scroll .cine-hero-copy{padding-top:150px}.cine-scroll .cine-beats{min-height:280px}}
+@media(prefers-reduced-motion:reduce){.cine-scroll.is-scroll{height:auto}.cine-scroll.is-scroll .cine-hero{position:relative;top:0;height:auto;min-height:780px}.cine-canvas{display:none}[data-cine-beat]{will-change:auto}.cine-scroll .cine-hero-copy{transform:none!important}}
+@media(prefers-reduced-transparency:reduce),(prefers-contrast:more){.cine-film-controls .cine-pause{background:#07121c}.cine-scroll .cine-hero:after{background:linear-gradient(90deg,#07121cf5,#07121cc7 50%,#07121c30)}}
+@media(min-width:701px){.cine-scroll .cine-hero-copy{padding-top:60px;padding-bottom:95px}.cine-beats{min-height:300px}}

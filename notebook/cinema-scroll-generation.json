@@ -1,0 +1,15 @@
+{
+  "model": "seedance_2_5",
+  "mode": "omni_reference",
+  "duration": 10,
+  "resolution": "720p",
+  "generate_audio": false,
+  "aspect_ratio": "16:9",
+  "medias": [
+    {
+      "role": "start_image",
+      "value": "72a9cf9c-6778-47d9-ab8a-21e258ec6550"
+    }
+  ],
+  "prompt": "Create one continuous 10-second cinematic shot from this exact approved still for a premium scroll-driven homepage film. Preserve the same sophisticated matte-clay adult driver, same blue-uniform officer outside, same car geometry, same navy and warm amber lighting, SAME visible two hands resting on steering wheel. DELIBERATE VISIBLE CAMERA MOVEMENT: over the full shot perform a smooth slow physical dolly push approximately 10 percent closer toward the driver-side window and hands. Make real foreground/background depth parallax visible, not a static frame, not a simple digital crop. Start exactly with supplied frame. 0-3 seconds establish calm rainy roadside stop as camera begins push; 3-7 seconds officer gently leans a few centimeters closer to the open window with flashlight remaining angled DOWN toward the lower door/road, tiny believable uniform and shoulder movement; 7-10 seconds camera settles on the hands/wheel and officer beyond window. Keep the driver still, composed and dignified, both anatomically correct hands firmly in original wheel positions, no hand gestures or limb changes, no speaking. Strong but restrained cinematic storytelling: tension in camera depth, warm amber highlights, cool wet night atmosphere, softly drifting rain outside. Keep left 38-42 percent dark navy NEGATIVE SPACE throughout so large text can be independently overlaid later. Do not move subjects or highlights into this left copy area. Distant red and blue bokeh stays very dim and steady with NO FLASHING, no strobing. No weapons, no aggression, no new characters, no mouth motion, no on-screen text, no subtitles, no titles, no logos, no audio, no scene cuts or sudden zooms. Rich realistic tactile clay materials and filmic shallow depth of field. Stable predictable gradual motion suitable for advancing and reversing by scroll; a single continuous camera take."
+}
