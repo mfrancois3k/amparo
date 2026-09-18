@@ -1069,6 +1069,19 @@ SCEN.push(
   {o:{en:'You\u2019re free to go — IF you answer one question first.',es:'Es libre de irse — SI primero responde una pregunta.'},c:[
    {t:{en:'“Am I free to go?” — then leave calmly',es:'«¿Soy libre de irme?» — y salir con calma'},p:1,g:1,f:{en:'Freedom isn\u2019t conditional on answers. If free — go.',es:'La libertad no depende de respuestas. Si es libre — váyase.'}},
    {t:{en:'Answer it — one question can\u2019t hurt',es:'Responder — una pregunta no hace daño'},p:-1,g:0,f:{en:'One question becomes five. The exit was already yours.',es:'Una pregunta se vuelve cinco. La salida ya era suya.'}}]}]},
+ /* TODO_ATTORNEY + TODO_DV_CLINICIAN: door1-door4 below are drafted content,
+    not verified legal advice — same convention as the other TODO_ATTORNEY
+    blocks in this file. They are gated by HELD_SITS.door (search this file):
+    the sidebar shows them locked (🔒 + T('heldB')), clicking is a no-op alert,
+    they're excluded from TOTAL/progress, and the paid PDF pack path refuses
+    to touch 'door' content too (see the Deep Pack note further down).
+    So: not reachable through the UI by a real user today.
+    But the strings ARE shipped in this file's plaintext JS to every visitor
+    (view-source/devtools can read them) — gated-from-render is not the same
+    as gated-from-shipping. Treat this block as sensitive pending review, not
+    as already-safe because it's locked. Do not flip HELD_SITS.door to enabled
+    until attorney + DV-clinician review is actually confirmed done — check
+    with Michael, the "pending" state here has been ambiguous before. */
  {id:'door1',title:{en:'At your door — Calm',es:'En su puerta — Calmado'},scene:{en:'A knock at your door. An officer outside.',es:'Tocan a su puerta. Un oficial afuera.'},turns:[
   {o:{en:'Good morning. Mind if I come in and ask a few questions?',es:'Buenos días. ¿Puedo pasar y hacerle unas preguntas?'},c:[
    {t:{en:'“I don\u2019t consent to entry. We can talk through the door.”',es:'«No doy consentimiento a que entre. Podemos hablar a través de la puerta.»'},p:1,g:1,f:{en:'You never have to open your door without a judicial warrant.',es:'Nunca tiene que abrir su puerta sin una orden judicial.'}},
@@ -1268,7 +1281,7 @@ if(firstSetup && A.gentle===undefined)A.gentle=true;
 const requestedLanguage=new URLSearchParams(location.search).get('lang');
 if(requestedLanguage==='en'||requestedLanguage==='es')A.lang=requestedLanguage;
 if(typeof A.lvl!=='number'||A.lvl<0||A.lvl>3)A.lvl=0;
-const HELD_SITS={door:1}; // held for attorney + DV-clinician review, same gate root keeps on its door module (DOOR_MODULE_ENABLED=false)
+const HELD_SITS={door:1}; // held for attorney + DV-clinician review — see the TODO_ATTORNEY/TODO_DV_CLINICIAN block right above the door1-door4 definitions in SCEN for what "held" actually means here
 /* ?sit=trap[&lvl=1] — deep link straight into one drill.
    Every off-site link that says "practice the Admission Trap" used to land on
    the situation list and ask the reader to find it again, which is the worst
