@@ -8,6 +8,12 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.30.0 — 2026-09-18 — Scroll-reveal animation across the rights section
+
+Rights hub + all 52 state pages fade/lift in on scroll (hero stays static),
+guarded for reduced-motion, print, keyboard focus, and no-IntersectionObserver
+browsers. Added design-system/amparo/MASTER.md + UI UX Pro Max skill.
+
 ## v2.29.11 — 2026-09-13 — Privacy pages: real analytics description; loop reports
 
 /privacy + /privacidad falsely said analytics/recording disabled; rewritten to

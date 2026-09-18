@@ -6,6 +6,27 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.30.0 — 2026-09-18 — Scroll-reveal animation across the rights section
+
+Every section of the rights hub and all 52 state pages now fades and lifts in
+on scroll, except the hero (h1 + intro), which stays static. One-shot
+IntersectionObserver per section — no re-trigger scrolling back up.
+
+Guarded explicitly, not just visually: `prefers-reduced-motion` shows content
+instantly with no transition; `@media print` forces full visibility regardless
+of scroll state, since these pages are meant to be printed for the glovebox;
+`:focus-within` reveals a section before a keyboard user tabs into it;
+`.js` (and therefore all hiding) is only applied when `IntersectionObserver`
+actually exists, so older browsers see the content immediately instead of
+never.
+
+Also added: `framer-motion` in app-src (for the React app going forward), the
+UI UX Pro Max design-intelligence skill, and a locked design system at
+design-system/amparo/MASTER.md — future page work should generate against
+that system rather than drift per-component. The skill correctly classified
+this site as a low-motion, high-trust "Accessible & Ethical" pattern rather
+than a flashy marketing one.
+
 ## 2026-09-13 — Higgsfield clay encounter homepage
 
 Recovered the six clay reference frames from the September 1 homepage and
