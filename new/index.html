@@ -466,10 +466,14 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
 .rep-done h2{font-family:Georgia,serif;font-size:clamp(24px,6vw,34px);line-height:1.15;margin:0 0 8px}
 .rep-ring{display:flex;align-items:center;gap:10px;margin:10px 0 20px;font-size:14px;color:#c4cee0}
 .rep-ring svg{flex:none}
-.rep-done-cta{display:flex;flex-direction:column;gap:10px}
-.rep-done-cta a{display:block;text-align:center;text-decoration:none;min-height:52px;padding:15px 18px;border-radius:4px;font:700 16px/1 system-ui,sans-serif}
-.rep-done-cta .primary{background:#E8B84B;color:#0B1426}
-.rep-done-cta .secondary{background:transparent;color:#FAF6EE;border:1px solid #2f3f5e;font-weight:600}
+.rep-pick-q{font-family:Georgia,serif;font-size:19px;margin:6px 0 12px;color:#FAF6EE}
+.rep-pick{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rep-state{display:block;text-align:center;text-decoration:none;min-height:52px;padding:15px 10px;border-radius:4px;background:#111f38;color:#FAF6EE;border:1px solid #2f3f5e;font:700 16px/1.2 system-ui,sans-serif}
+.rep-state:hover{border-color:#E8B84B}
+.rep-state:focus-visible{outline:2px solid #E8B84B;outline-offset:2px}
+.rep-state--other{grid-column:1/-1;background:transparent;font-weight:600;color:#c4cee0}
+.rep-pick-note{font-size:12.5px;color:#8397b5;margin:12px 0 16px;line-height:1.5}
+.rep-build{display:block;text-align:center;text-decoration:none;color:#E8B84B;font:700 15px/1 system-ui,sans-serif;padding:12px}
 .rep-watch{display:block;text-align:center;margin:18px auto 0;color:#9fb0cc;font-size:14px;text-decoration:underline;text-underline-offset:3px}
 @media(min-width:600px){.rep-answers{gap:12px}}
 @media(prefers-reduced-motion:reduce){.rep-ans{transition:none}}
@@ -494,10 +498,15 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
     <div class="rep-done" data-rep-done hidden>
       <h2 data-rep="doneTitle">You've practiced the first 30 seconds of a stop.</h2>
       <div class="rep-ring"><svg width="30" height="30" viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15" fill="none" stroke="#2f3f5e" stroke-width="4"/><circle cx="18" cy="18" r="15" fill="none" stroke="#E8B84B" stroke-width="4" stroke-linecap="round" stroke-dasharray="94.2" stroke-dashoffset="78.5" transform="rotate(-90 18 18)"/></svg><span data-rep="ring">1 of 6 cards practiced</span></div>
-      <div class="rep-done-cta">
-        <a class="primary" href="/rehearse?lang=en" data-rep="doneFull">Keep practicing →</a>
-        <a class="secondary" href="/pack?lang=en" data-rep="doneBuild">Build my glovebox pack</a>
+      <p class="rep-pick-q" data-rep="pickQ">Which state do you drive in?</p>
+      <div class="rep-pick">
+        <a class="rep-state" data-state="TX" href="/rehearse?state=TX&lang=en">Texas</a>
+        <a class="rep-state" data-state="GA" href="/rehearse?state=GA&lang=en">Georgia</a>
+        <a class="rep-state" data-state="NY" href="/rehearse?state=NY&lang=en">New York</a>
+        <a class="rep-state rep-state--other" data-state="" href="/rehearse?lang=en" data-rep="pickOther">Other state</a>
       </div>
+      <p class="rep-pick-note" data-rep="pickNote">Texas, Georgia and New York have statute-cited cards. Every other state gets the federal rules that apply everywhere.</p>
+      <a class="rep-build" href="/pack?lang=en" data-rep="doneBuild">Build my glovebox pack →</a>
     </div>
     <a class="rep-watch" href="#top" data-rep="watch">Watch the story ↓</a>
   </div>
@@ -526,8 +535,8 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
       {id:'b',good:0,t:{en:'"Go ahead, I have nothing to hide."',es:'"Adelante, no tengo nada que esconder."'},fb:{en:'Consent waives your strongest 4th Amendment protection.',es:'El consentimiento renuncia a su mayor protección de la 4ª Enmienda.'}}]}
   ];
   var STR={
-    en:{setup:'An officer walks up and says:',prompt:'What do you say?',hint:'Say it out loud, then tap your answer.',reassure:'Free. No account. 2 minutes.',trust:'How we verify →',why:'Why this →',good:'Good',risk:'Risky',ok:'Consider',next:'Next →',done:'See how you did →',doneTitle:"You’ve practiced the first 30 seconds of a stop.",ring:'1 of 6 cards practiced',doneBuild:'Build my glovebox pack',doneFull:'Keep practicing →',watch:'Watch the story ↓',dots:'Line '},
-    es:{setup:'Un oficial se acerca y dice:',prompt:'¿Qué responde usted?',hint:'Dígalo en voz alta, luego toque su respuesta.',reassure:'Gratis. Sin cuenta. 2 minutos.',trust:'Cómo verificamos →',why:'Por qué →',good:'Bien',risk:'Arriesgado',ok:'A tener en cuenta',next:'Siguiente →',done:'Ver cómo le fue →',doneTitle:'Ha practicado los primeros 30 segundos de una parada.',ring:'1 de 6 tarjetas practicadas',doneBuild:'Crear mi paquete',doneFull:'Seguir practicando →',watch:'Ver la historia ↓',dots:'Frase '}
+    en:{setup:'An officer walks up and says:',prompt:'What do you say?',hint:'Say it out loud, then tap your answer.',reassure:'Free. No account. 2 minutes.',trust:'How we verify →',why:'Why this →',good:'Good',risk:'Risky',ok:'Consider',next:'Next →',done:'See how you did →',doneTitle:"You’ve practiced the first 30 seconds of a stop.",ring:'1 of 6 cards practiced',pickQ:'Which state do you drive in?',pickOther:'Other state',pickNote:'Texas, Georgia and New York have statute-cited cards. Every other state gets the federal rules that apply everywhere.',doneBuild:'Build my glovebox pack →',watch:'Watch the story ↓',dots:'Line '},
+    es:{setup:'Un oficial se acerca y dice:',prompt:'¿Qué responde usted?',hint:'Dígalo en voz alta, luego toque su respuesta.',reassure:'Gratis. Sin cuenta. 2 minutos.',trust:'Cómo verificamos →',why:'Por qué →',good:'Bien',risk:'Arriesgado',ok:'A tener en cuenta',next:'Siguiente →',done:'Ver cómo le fue →',doneTitle:'Ha practicado los primeros 30 segundos de una parada.',ring:'1 de 6 tarjetas practicadas',pickQ:'¿En qué estado maneja?',pickOther:'Otro estado',pickNote:'Texas, Georgia y Nueva York tienen tarjetas citadas a la ley. Cualquier otro estado recibe las reglas federales que aplican en todas partes.',doneBuild:'Crear mi paquete →',watch:'Ver la historia ↓',dots:'Frase '}
   };
   function getLang(){try{var u=new URLSearchParams(location.search).get('lang');if(u==='es'||u==='en')return u;var s=localStorage.getItem('amparo_lang');if(s==='es'||s==='en')return s;}catch(e){}return (document.documentElement.lang==='es')?'es':'en';}
   var lang=getLang(), i=0, firstTap=false;
@@ -544,8 +553,8 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
     var S=STR[lang];
     root.querySelectorAll('[data-rep]').forEach(function(el){var k=el.getAttribute('data-rep');if(S[k]!=null)el.textContent=S[k];});
     root.querySelectorAll('[data-rep-lang]').forEach(function(b){b.setAttribute('aria-pressed', b.getAttribute('data-rep-lang')===lang?'true':'false');});
+    root.querySelectorAll('.rep-state').forEach(function(a){var st=a.getAttribute('data-state'); a.setAttribute('href', st?('/rehearse?state='+st+'&lang='+lang):('/rehearse?lang='+lang));});
     var pick=root.querySelector('[data-rep="doneBuild"]'); if(pick)pick.setAttribute('href','/pack?lang='+lang);
-    var full=root.querySelector('[data-rep="doneFull"]'); if(full)full.setAttribute('href','/rehearse?lang='+lang);
   }
   function dots(){
     els.dots.innerHTML='';
@@ -600,6 +609,9 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
       setChrome(); if(els.done.hidden){ renderLine(); }
       try{if(window.setLang)setLang(lang);}catch(e){}
     });
+  });
+  root.querySelectorAll('.rep-state').forEach(function(a){
+    a.addEventListener('click',function(){var st=a.getAttribute('data-state');window.ph&&ph('state_selected_after_level',{state:st||'other',lang:lang});});
   });
   setChrome(); renderLine();
 })();

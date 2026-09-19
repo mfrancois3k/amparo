@@ -6,6 +6,17 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.32.0 — 2026-09-19 — State picker after the first practice (rebuild spec, sprint 4)
+
+The hero's level-done screen now carries the spec's state picker: "Which state do
+you drive in?" with Texas / Georgia / New York (the three statute-cited states) and
+"Other state" — three buttons, not a map and not a dropdown, and no one is blocked.
+Each choice deep-links into the Arena with the state set (/rehearse?state=XX&lang=),
+so practice continues state-aware instead of replaying the federal lines just
+played — this is the fix for the module/FG "handoff replays the same 3 lines"
+finding. "Other state" keeps the federal content; "Build my glovebox pack" is the
+secondary path. Fires state_selected_after_level {state,lang}. EN + ES.
+
 ## v2.31.3 — 2026-09-19 — Autocapture off; /pack + /aid analytics restored; privacy reconciled
 
 Applied the blindspot audit's analytics findings and reconciled the privacy copy:

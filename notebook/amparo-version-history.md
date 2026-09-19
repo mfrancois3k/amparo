@@ -8,6 +8,12 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.32.0 — 2026-09-19 — State picker after the first practice (rebuild spec, sprint 4)
+
+Hero level-done now shows a 3-button state picker (TX/GA/NY + Other), deep-linking
+into the Arena with ?state=XX so practice advances state-aware instead of replaying
+the hero's federal lines. Fires state_selected_after_level. EN+ES.
+
 ## v2.31.3 — 2026-09-19 — Autocapture off; /pack + /aid analytics restored; privacy reconciled
 
 Applied blindspot C1 (homepage autocapture→false) + H1 (restored PostHog on
