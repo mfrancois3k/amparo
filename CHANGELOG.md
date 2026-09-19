@@ -6,6 +6,20 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.32.2 — 2026-09-19 — Second blindspot audit fixes (no critical/high)
+
+The v2.32.1 blindspot audit found no critical or high defects; applied its
+mediums/lows:
+- M1: the homepage hero's sr_practice_level_done is the only production emitter
+  (Arena has no PostHog), so it was mislabelling 3-tap taps as full practice
+  completions. Added source:'home_hero' to disambiguate (name kept per spec).
+- M3: the language toggle now also guards on the "Welcome back" panel before
+  re-rendering the play view.
+- finish() now hides the "say it out loud" hint on the done screen; showPlayHidden
+  also hides the first-time reassurance line on the welcome screen.
+- Removed the dead .rep-play CSS left after the "Hear the line" button was cut.
+Audit report: notebook/amparo-blindspot-audit-2026-09-19-02.md.
+
 ## v2.32.1 — 2026-09-19 — Return loop: "Welcome back" for repeat visitors (rebuild spec, sprint 8)
 
 A returning visitor who already finished the first practice (saved in

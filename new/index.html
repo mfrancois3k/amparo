@@ -437,7 +437,6 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
 .rep-setup{font-size:14px;color:#9fb0cc;margin:0 0 6px}
 .rep-officer{font-family:Georgia,"Times New Roman",serif;font-size:clamp(23px,6.4vw,32px);line-height:1.2;margin:0 0 6px;color:#FAF6EE}
 .rep-officer .q{color:#E8B84B}
-.rep-play{display:inline-flex;align-items:center;gap:6px;background:transparent;border:0;color:#9fb0cc;font:600 13px/1 system-ui,sans-serif;cursor:pointer;padding:4px 0;margin-bottom:16px}
 .rep-prompt{font-size:15px;color:#c4cee0;margin:2px 0 4px;font-weight:600}
 .rep-hint{font-size:13px;color:#8397b5;margin:0 0 12px}
 .rep-answers{display:flex;flex-direction:column;gap:10px}
@@ -607,25 +606,25 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
     i++; renderLine(); els.officer.focus&&els.officer.setAttribute('tabindex','-1'); els.officer.focus&&els.officer.focus();
   });
   function finish(){
-    els.answers.parentNode.querySelectorAll('.rep-answers,.rep-fb,.rep-next,.rep-prompt,.rep-play').forEach(function(el){el&&(el.hidden=true);});
+    els.answers.parentNode.querySelectorAll('.rep-answers,.rep-fb,.rep-next,.rep-prompt,.rep-hint').forEach(function(el){el&&(el.hidden=true);});
     els.officer.hidden=true; root.querySelector('[data-rep="setup"]').hidden=true; els.dots.hidden=true;
     var d=els.done; d.hidden=false; d.setAttribute('tabindex','-1'); d.focus();
     try{localStorage.setItem('amparo_progress',JSON.stringify({l1:true,lang:lang,ts:Date.now()}));}catch(e){}
-    window.ph&&ph('sr_practice_level_done',{level:1,state:'federal',lang:lang});
+    window.ph&&ph('sr_practice_level_done',{level:1,state:'federal',lang:lang,source:'home_hero'});
     try{window.ScrollTrigger&&ScrollTrigger.refresh();}catch(e){}
   }
   root.querySelectorAll('[data-rep-lang]').forEach(function(b){
     b.addEventListener('click',function(){
       lang=b.getAttribute('data-rep-lang');
       try{localStorage.setItem('amparo_lang',lang);}catch(e){}
-      setChrome(); if(els.done.hidden){ renderLine(); }
+      setChrome(); if(els.done.hidden && els.welcome.hidden){ renderLine(); }
       try{if(window.setLang)setLang(lang);}catch(e){}
     });
   });
   root.querySelectorAll('.rep-state').forEach(function(a){
     a.addEventListener('click',function(){var st=a.getAttribute('data-state');window.ph&&ph('state_selected_after_level',{state:st||'other',lang:lang});});
   });
-  function showPlayHidden(h){ ['[data-rep="setup"]','.rep-officer','.rep-prompt','.rep-hint','.rep-answers','[data-rep-fb]','[data-rep-next]','.rep-dots'].forEach(function(s){var e=root.querySelector(s); if(e)e.hidden=h;}); }
+  function showPlayHidden(h){ ['[data-rep="setup"]','.rep-officer','.rep-prompt','.rep-hint','.rep-answers','[data-rep-fb]','[data-rep-next]','.rep-dots','.rep-foot'].forEach(function(s){var e=root.querySelector(s); if(e)e.hidden=h;}); }
   function showWelcome(){ showPlayHidden(true); if(els.welcome)els.welcome.hidden=false; }
   var _so=root.querySelector('[data-rep-startover]'); if(_so)_so.addEventListener('click',function(){ if(els.welcome)els.welcome.hidden=true; showPlayHidden(false); i=0; els.answers.removeAttribute('data-locked'); renderLine(); });
   setChrome();
