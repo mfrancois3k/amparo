@@ -2581,13 +2581,12 @@ function render(){
       ${window.__resumeStep?`<button class="btn" onclick="goM(${window.__resumeStep});window.__resumeStep=0">${_t.resume_btn}</button>`:''}
       <button class="btn gold" onclick="goM(1)">${_t.w_btn}</button>
       <button class="linkbtn" style="margin-top:6px" onclick="ph('sr_welcome_shortcut_clicked',{lang:lang});_wantLifelinesShortcut=true;goM(1)">${_t.w_lifelines_shortcut}</button>
-      <a class="btn ghost" href="/arena/" style="display:block;text-align:center;text-decoration:none"
-         onclick="ph('sr_arena_opened',{state:data.state,lang:lang,from:'welcome'})">${_t.w_try}</a>
       <div class="lawnote small">${_t.law_marker}</div>
-            <button class="linkbtn" onclick="viewSample()">👀 ${_t.w_sample}</button>
-      <button class="linkbtn" onclick="shareAmparo(this)">${_t.w_share}</button>
-      <button class="linkbtn" onclick="showAbout()">${_t.about_link}</button>
-      <button class="linkbtn" onclick="showDoc()">${_t.doc_link}</button>
+      <div class="w-foot" style="margin-top:16px;padding-top:12px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:5px;align-items:flex-start">
+        <button class="linkbtn" style="font-size:13px" onclick="viewSample()">${_t.w_sample}</button>
+        <button class="linkbtn" style="font-size:13px" onclick="showAbout()">${_t.about_link}</button>
+        <button class="linkbtn" style="font-size:13px" onclick="showDoc()">${_t.doc_link}</button>
+      </div>
     </div>`;
   }
 

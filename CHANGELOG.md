@@ -6,6 +6,16 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.32.3 — 2026-09-19 — Pack welcome screen decluttered (rebuild spec, sprint 5)
+
+The pack builder's welcome screen (step 0) had eight competing actions. Now: one
+primary "Build my pack" + the "Just need a lawyer or hotline number?" secondary
+link stay prominent; "Practice a full stop" is removed (practice is the homepage
+now); "Send this to someone" is removed from here (it already lives on the
+pack-built screen); and the remaining secondary links (sample pack, who's behind,
+why practice can't make a stop 100% safe) are grouped into a footer. Verified the
+pack still boots and renders. Shared EN/ES render.
+
 ## v2.32.2 — 2026-09-19 — Second blindspot audit fixes (no critical/high)
 
 The v2.32.1 blindspot audit found no critical or high defects; applied its
