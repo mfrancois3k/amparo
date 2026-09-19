@@ -6,6 +6,16 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.31.1 — 2026-09-19 — Privacy copy matches the restored homepage analytics
+
+v2.31.0 turned homepage autocapture ON, but /privacy + /privacidad still said
+"automatic event capture is off" and described pack-builder session recording
+that no longer runs (275ae3e disabled analytics on /pack, /rehearse and /aid).
+Rewrote the analytics clause in both languages to state the truth: the homepage
+runs PostHog with autocapture on and every text input masked, no ad trackers /
+GA / pixels, session recording off; and the pack builder, Practice Arena and
+Find-help page currently load no analytics at all.
+
 ## v2.31.0 — 2026-09-19 — First-run practice hero + analytics restored (rebuild spec, sprint 1)
 
 Sprint 1 of the first-run rebuild spec (2026-09-19): put practice first, and make

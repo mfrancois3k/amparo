@@ -8,6 +8,11 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.31.1 — 2026-09-19 — Privacy copy matches the restored homepage analytics
+
+/privacy + /privacidad now state the truth after v2.31.0: homepage PostHog with
+autocapture on + inputs masked; pack/arena/aid load no analytics. EN+ES.
+
 ## v2.31.0 — 2026-09-19 — First-run practice hero + analytics restored (rebuild spec, sprint 1)
 
 Practice-first playable hero added to the top of the homepage (officer line + real
