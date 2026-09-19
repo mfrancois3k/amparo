@@ -8,6 +8,12 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.31.3 — 2026-09-19 — Autocapture off; /pack + /aid analytics restored; privacy reconciled
+
+Applied blindspot C1 (homepage autocapture→false) + H1 (restored PostHog on
+/pack + /aid, autocapture:false, masked scoped replay). Privacy copy rewritten to
+the accurate multi-page state (EN+ES). Added "say it out loud" hero prompt.
+
 ## v2.31.2 — 2026-09-19 — Hero polish from the loop audits (FG-30, module-38, blindspot)
 
 Fixed false trust line ("statute"→"How we verify"), neutral answer mis-marked

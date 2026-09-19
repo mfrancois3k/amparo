@@ -6,6 +6,23 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.31.3 — 2026-09-19 — Autocapture off; /pack + /aid analytics restored; privacy reconciled
+
+Applied the blindspot audit's analytics findings and reconciled the privacy copy:
+- C1 — homepage autocapture true → FALSE. The hero already fires named events
+  (hero_answer_tapped etc.), so the funnel survives with a lighter privacy footprint.
+- H1 — restored PostHog on /pack and /aid. 275ae3e (the cinematic rebuild) had
+  removed the init but left srReplayGuard(), ph() and every event caller as
+  no-ops; this revives them. autocapture:false, pageview + named events, session
+  replay scoped to the pack builder's first two screens with inputs masked.
+- Privacy pages (/privacy + /privacidad) rewritten to the accurate multi-page
+  description: anonymous usage on homepage/pack/aid, autocapture off, replay only
+  on pack's first two screens masked, Arena none. EN + ES.
+- Added the "Say it out loud, then tap your answer" prompt to the hero (module-38;
+  the phrase is the Arena's existing tutorial instruction). EN + ES.
+Kept per spec: sr_practice_level_done name. Still TODO_ATTORNEY: the hands /
+announce-movement safety beat (needs new officer lines — not model-authored).
+
 ## v2.31.2 — 2026-09-19 — Hero polish from the loop audits (FG-30, module-38, blindspot)
 
 Honesty + accuracy + a11y fixes on the v2.31.0 hero, all confirmed across the
