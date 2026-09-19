@@ -6,6 +6,14 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.32.1 — 2026-09-19 — Return loop: "Welcome back" for repeat visitors (rebuild spec, sprint 8)
+
+A returning visitor who already finished the first practice (saved in
+amparo_progress on the device) now lands on a "Welcome back" panel with a
+"Continue practicing →" button into the Arena, instead of replaying the intro
+officer line. A "Practice the first stop again" link restarts the hero from line
+one. Everything stays on-device, no account. EN + ES.
+
 ## v2.32.0 — 2026-09-19 — State picker after the first practice (rebuild spec, sprint 4)
 
 The hero's level-done screen now carries the spec's state picker: "Which state do

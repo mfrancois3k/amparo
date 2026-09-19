@@ -474,6 +474,10 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
 .rep-state--other{grid-column:1/-1;background:transparent;font-weight:600;color:#c4cee0}
 .rep-pick-note{font-size:12.5px;color:#8397b5;margin:12px 0 16px;line-height:1.5}
 .rep-build{display:block;text-align:center;text-decoration:none;color:#E8B84B;font:700 15px/1 system-ui,sans-serif;padding:12px}
+.rep-welcome h2{font-family:Georgia,serif;font-size:clamp(24px,6vw,32px);margin:0 0 8px}
+.rep-welcome p{font-size:15px;color:#c4cee0;margin:0 0 18px;line-height:1.5}
+.rep-welcome-cta{display:block;text-align:center;text-decoration:none;min-height:52px;padding:15px;border-radius:4px;background:#E8B84B;color:#0B1426;font:700 16px/1 system-ui,sans-serif;margin-bottom:12px}
+.rep-startover{background:transparent;border:0;color:#9fb0cc;font:600 14px/1 system-ui,sans-serif;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:6px}
 .rep-watch{display:block;text-align:center;margin:18px auto 0;color:#9fb0cc;font-size:14px;text-decoration:underline;text-underline-offset:3px}
 @media(min-width:600px){.rep-answers{gap:12px}}
 @media(prefers-reduced-motion:reduce){.rep-ans{transition:none}}
@@ -493,6 +497,12 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
     <div class="rep-answers" data-rep-answers></div>
     <div class="rep-fb" data-rep-fb role="status" aria-live="polite" hidden></div>
     <button class="rep-next" type="button" data-rep-next hidden></button>
+    <div class="rep-welcome" data-rep-welcome hidden>
+      <h2 data-rep="welcomeTitle">Welcome back.</h2>
+      <p data-rep="welcomeBody">You've practiced the first 30 seconds of a stop. Keep going with a state-specific drill.</p>
+      <a class="rep-welcome-cta" href="/rehearse?lang=en" data-rep="welcomeCta">Continue practicing →</a>
+      <button type="button" class="rep-startover" data-rep-startover data-rep="startOver">Practice the first stop again</button>
+    </div>
     <div class="rep-dots" data-rep-dots aria-hidden="true"></div>
     <p class="rep-foot"><span data-rep="reassure">Free. No account. 2 minutes.</span> <a href="/how-we-verify/" data-rep="trust">How we verify →</a></p>
     <div class="rep-done" data-rep-done hidden>
@@ -535,8 +545,8 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
       {id:'b',good:0,t:{en:'"Go ahead, I have nothing to hide."',es:'"Adelante, no tengo nada que esconder."'},fb:{en:'Consent waives your strongest 4th Amendment protection.',es:'El consentimiento renuncia a su mayor protección de la 4ª Enmienda.'}}]}
   ];
   var STR={
-    en:{setup:'An officer walks up and says:',prompt:'What do you say?',hint:'Say it out loud, then tap your answer.',reassure:'Free. No account. 2 minutes.',trust:'How we verify →',why:'Why this →',good:'Good',risk:'Risky',ok:'Consider',next:'Next →',done:'See how you did →',doneTitle:"You’ve practiced the first 30 seconds of a stop.",ring:'1 of 6 cards practiced',pickQ:'Which state do you drive in?',pickOther:'Other state',pickNote:'Texas, Georgia and New York have statute-cited cards. Every other state gets the federal rules that apply everywhere.',doneBuild:'Build my glovebox pack →',watch:'Watch the story ↓',dots:'Line '},
-    es:{setup:'Un oficial se acerca y dice:',prompt:'¿Qué responde usted?',hint:'Dígalo en voz alta, luego toque su respuesta.',reassure:'Gratis. Sin cuenta. 2 minutos.',trust:'Cómo verificamos →',why:'Por qué →',good:'Bien',risk:'Arriesgado',ok:'A tener en cuenta',next:'Siguiente →',done:'Ver cómo le fue →',doneTitle:'Ha practicado los primeros 30 segundos de una parada.',ring:'1 de 6 tarjetas practicadas',pickQ:'¿En qué estado maneja?',pickOther:'Otro estado',pickNote:'Texas, Georgia y Nueva York tienen tarjetas citadas a la ley. Cualquier otro estado recibe las reglas federales que aplican en todas partes.',doneBuild:'Crear mi paquete →',watch:'Ver la historia ↓',dots:'Frase '}
+    en:{setup:'An officer walks up and says:',prompt:'What do you say?',hint:'Say it out loud, then tap your answer.',reassure:'Free. No account. 2 minutes.',trust:'How we verify →',why:'Why this →',good:'Good',risk:'Risky',ok:'Consider',next:'Next →',done:'See how you did →',doneTitle:"You’ve practiced the first 30 seconds of a stop.",ring:'1 of 6 cards practiced',pickQ:'Which state do you drive in?',pickOther:'Other state',pickNote:'Texas, Georgia and New York have statute-cited cards. Every other state gets the federal rules that apply everywhere.',doneBuild:'Build my glovebox pack →',welcomeTitle:'Welcome back.',welcomeBody:"You’ve already practiced the first 30 seconds of a stop. Keep going with a state-specific drill.",welcomeCta:'Continue practicing →',startOver:'Practice the first stop again',watch:'Watch the story ↓',dots:'Line '},
+    es:{setup:'Un oficial se acerca y dice:',prompt:'¿Qué responde usted?',hint:'Dígalo en voz alta, luego toque su respuesta.',reassure:'Gratis. Sin cuenta. 2 minutos.',trust:'Cómo verificamos →',why:'Por qué →',good:'Bien',risk:'Arriesgado',ok:'A tener en cuenta',next:'Siguiente →',done:'Ver cómo le fue →',doneTitle:'Ha practicado los primeros 30 segundos de una parada.',ring:'1 de 6 tarjetas practicadas',pickQ:'¿En qué estado maneja?',pickOther:'Otro estado',pickNote:'Texas, Georgia y Nueva York tienen tarjetas citadas a la ley. Cualquier otro estado recibe las reglas federales que aplican en todas partes.',doneBuild:'Crear mi paquete →',welcomeTitle:'Bienvenido de nuevo.',welcomeBody:'Ya practicó los primeros 30 segundos de una parada. Siga con un ejercicio de su estado.',welcomeCta:'Seguir practicando →',startOver:'Practicar la primera parada otra vez',watch:'Ver la historia ↓',dots:'Frase '}
   };
   function getLang(){try{var u=new URLSearchParams(location.search).get('lang');if(u==='es'||u==='en')return u;var s=localStorage.getItem('amparo_lang');if(s==='es'||s==='en')return s;}catch(e){}return (document.documentElement.lang==='es')?'es':'en';}
   var lang=getLang(), i=0, firstTap=false;
@@ -546,7 +556,8 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
     fb:root.querySelector('[data-rep-fb]'),
     next:root.querySelector('[data-rep-next]'),
     dots:root.querySelector('[data-rep-dots]'),
-    done:root.querySelector('[data-rep-done]')
+    done:root.querySelector('[data-rep-done]'),
+    welcome:root.querySelector('[data-rep-welcome]')
   };
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
   function setChrome(){
@@ -555,6 +566,7 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
     root.querySelectorAll('[data-rep-lang]').forEach(function(b){b.setAttribute('aria-pressed', b.getAttribute('data-rep-lang')===lang?'true':'false');});
     root.querySelectorAll('.rep-state').forEach(function(a){var st=a.getAttribute('data-state'); a.setAttribute('href', st?('/rehearse?state='+st+'&lang='+lang):('/rehearse?lang='+lang));});
     var pick=root.querySelector('[data-rep="doneBuild"]'); if(pick)pick.setAttribute('href','/pack?lang='+lang);
+    var wc=root.querySelector('[data-rep="welcomeCta"]'); if(wc)wc.setAttribute('href','/rehearse?lang='+lang);
   }
   function dots(){
     els.dots.innerHTML='';
@@ -613,7 +625,12 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
   root.querySelectorAll('.rep-state').forEach(function(a){
     a.addEventListener('click',function(){var st=a.getAttribute('data-state');window.ph&&ph('state_selected_after_level',{state:st||'other',lang:lang});});
   });
-  setChrome(); renderLine();
+  function showPlayHidden(h){ ['[data-rep="setup"]','.rep-officer','.rep-prompt','.rep-hint','.rep-answers','[data-rep-fb]','[data-rep-next]','.rep-dots'].forEach(function(s){var e=root.querySelector(s); if(e)e.hidden=h;}); }
+  function showWelcome(){ showPlayHidden(true); if(els.welcome)els.welcome.hidden=false; }
+  var _so=root.querySelector('[data-rep-startover]'); if(_so)_so.addEventListener('click',function(){ if(els.welcome)els.welcome.hidden=true; showPlayHidden(false); i=0; els.answers.removeAttribute('data-locked'); renderLine(); });
+  setChrome();
+  var _prog=null; try{_prog=JSON.parse(localStorage.getItem('amparo_progress')||'null');}catch(e){}
+  if(_prog&&_prog.l1){ showWelcome(); } else { renderLine(); }
 })();
 </script>
 

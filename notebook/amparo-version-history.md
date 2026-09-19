@@ -8,6 +8,12 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.32.1 — 2026-09-19 — Return loop: "Welcome back" for repeat visitors (rebuild spec, sprint 8)
+
+Returning visitors (amparo_progress.l1 saved) now see a "Welcome back" panel +
+"Continue practicing" into the Arena instead of the intro line; "Practice again"
+restarts the hero. On-device. EN+ES.
+
 ## v2.32.0 — 2026-09-19 — State picker after the first practice (rebuild spec, sprint 4)
 
 Hero level-done now shows a 3-button state picker (TX/GA/NY + Other), deep-linking
