@@ -6,6 +6,31 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.31.2 — 2026-09-19 — Hero polish from the loop audits (FG-30, module-38, blindspot)
+
+Honesty + accuracy + a11y fixes on the v2.31.0 hero, all confirmed across the
+three loop audits:
+- Trust line "Every line links to the statute" was false on federal-floor,
+  verified:false content → "How we verify →" (EN + ES).
+- The neutral answer ("Explain your whole evening", Arena p:0) was rendering as
+  red "Risky" → new neutral "Consider" tier (amber). Mis-teaching on the surface
+  built to teach.
+- The fixed nav bar (position:fixed, z70, 64px) overlapped the hero: two "Amparo"
+  marks and the EN/ES toggle was NOT clickable (bar caught the taps). Hero now
+  clears the bar (padding-top) and its duplicate brand is removed; the toggle is
+  the only language control on mobile, so it stays.
+- Hero feedback is now a screen-reader live region (role="status").
+- finish() calls ScrollTrigger.refresh() so the film's scroll pin doesn't drift.
+- Hero language toggle now drives the whole page (setLang), so the film below
+  follows the language instead of staying English.
+- Done screen simplified to one primary "Keep practicing" + "Build my glovebox
+  pack"; dropped the "Pick your state" CTA that jumped to a coverage teaser (the
+  real 3-button picker is a later sprint).
+- Removed dead "Hear the line" button and two false/stale analytics comments.
+Kept per spec (audits flagged, but spec is explicit): sr_practice_level_done name,
+the "1 of 6" ring. Still your calls: autocapture true-vs-false, /pack+/aid funnel
+restore, and the TODO_ATTORNEY safety-beat / "say it out loud" copy.
+
 ## v2.31.1 — 2026-09-19 — Privacy copy matches the restored homepage analytics
 
 v2.31.0 turned homepage autocapture ON, but /privacy + /privacidad still said

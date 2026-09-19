@@ -8,6 +8,13 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.31.2 — 2026-09-19 — Hero polish from the loop audits (FG-30, module-38, blindspot)
+
+Fixed false trust line ("statute"→"How we verify"), neutral answer mis-marked
+risky (new "Consider" tier), fixed-bar overlap that blocked the EN/ES toggle,
+feedback SR live region, ScrollTrigger.refresh in finish(), hero lang drives the
+whole page, simplified done CTAs, removed dead button + false comments. EN+ES.
+
 ## v2.31.1 — 2026-09-19 — Privacy copy matches the restored homepage analytics
 
 /privacy + /privacidad now state the truth after v2.31.0: homepage PostHog with

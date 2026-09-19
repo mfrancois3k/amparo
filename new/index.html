@@ -15,7 +15,6 @@
 <meta property="og:image" content="https://www.amparohq.com/new/assets/cinema-traffic-hero.webp">
 <link rel="canonical" href="https://www.amparohq.com/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='72' r='28' fill='none' stroke='%23E8B84B' stroke-width='12'/%3E%3Crect x='48' y='56' width='24' height='32' rx='4' fill='%231B2A4A'/%3E%3Cpath d='M12 62 L60 18 L108 62' fill='none' stroke='%231B2A4A' stroke-width='13' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<!-- No marketing analytics on this page. -->
 <!-- scrollcraft engine CSS for the cinematic intro below. Linked BEFORE this
      page's own <style>: scrollcraft.css sets an un-scoped body{background,
      color,font-family...} for a page that owns its whole document (this one
@@ -26,8 +25,8 @@
      armed when JS is actually alive to finish it. -->
 <script>document.documentElement.classList.add('js-anim');</script>
 <!-- Analytics. Restored after the cinematic rebuild (275ae3e) accidentally
-     dropped it, leaving "/" invisible. Config identical to pack.html's — same
-     proxied host, masked replay stays OFF here. autocapture is ON per the
+     dropped it, leaving "/" invisible. Same proxied host and masked posture the
+     site has used since v2.26; session replay stays off here. autocapture is ON per the
      first-run rebuild spec so hero taps and clicks are measurable. -->
 <script>
 (function(){
@@ -427,10 +426,10 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
 <style>
 /* First-run practice hero (rebuild spec §New hero). Dark tokens shared with the
    film below. Playable in place on a 369px phone with no scroll to first rep. */
-.rep{background:#0B1426;color:#FAF6EE;padding:22px 20px 30px;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;border-bottom:1px solid #1c2b47}
+.rep{background:#0B1426;color:#FAF6EE;padding:78px 20px 30px;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;border-bottom:1px solid #1c2b47}
 .rep-inner{max-width:560px;margin:0 auto}
 .rep [hidden]{display:none!important}
-.rep-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}
+.rep-top{display:flex;justify-content:flex-end;align-items:center;gap:12px;margin-bottom:20px}
 .rep-brand{font-family:Georgia,"Times New Roman",serif;font-size:22px;font-weight:700;letter-spacing:-.01em;color:#FAF6EE;text-decoration:none}
 .rep-lang{display:inline-flex;border:1px solid #2f3f5e;border-radius:999px;overflow:hidden}
 .rep-lang button{background:transparent;color:#c4cee0;border:0;font:600 13px/1 system-ui,sans-serif;padding:7px 12px;cursor:pointer}
@@ -448,9 +447,11 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
 .rep-ans[disabled]{cursor:default;opacity:.9}
 .rep-fb{margin:14px 0 0;padding:14px 16px;border-radius:4px;border:1px solid #2f3f5e;background:#0f1a30;font-size:15px;line-height:1.5}
 .rep-fb[hidden]{display:none}
-.rep-fb .tag{font:700 12px/1 system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;display:inline-block;margin-bottom:7px}
+.rep-fb .tag{font:700 12px/1 system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:7px}
 .rep-fb.good .tag{color:#7fd19a}
 .rep-fb.risk .tag{color:#e6a15a}
+.rep-fb.ok{border-color:#5a4e2a}
+.rep-fb.ok .tag{color:#e0c05a}
 .rep-fb a{color:#E8B84B}
 .rep-next{margin-top:14px;min-height:50px;background:#E8B84B;color:#0B1426;border:0;border-radius:4px;font:700 16px/1 system-ui,sans-serif;padding:15px 22px;cursor:pointer;width:100%}
 .rep-next[hidden]{display:none}
@@ -475,7 +476,6 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
 <section class="rep" id="first-rep" aria-label="Practice a traffic stop">
   <div class="rep-inner">
     <div class="rep-top">
-      <a class="rep-brand" href="/">Amparo</a>
       <div class="rep-lang" role="group" aria-label="Language / Idioma">
         <button type="button" data-rep-lang="en" aria-pressed="true">EN</button>
         <button type="button" data-rep-lang="es" aria-pressed="false">ES</button>
@@ -483,20 +483,18 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
     </div>
     <p class="rep-setup" data-rep="setup">An officer walks up and says:</p>
     <h1 class="rep-officer"><span class="q" data-rep="officer">"Do you know why I pulled you over?"</span></h1>
-    <button class="rep-play" type="button" data-rep-play hidden><span aria-hidden="true">▶</span> <span data-rep="playLabel">Hear the line</span></button>
     <p class="rep-prompt" data-rep="prompt">What do you say?</p>
     <div class="rep-answers" data-rep-answers></div>
-    <div class="rep-fb" data-rep-fb hidden></div>
+    <div class="rep-fb" data-rep-fb role="status" aria-live="polite" hidden></div>
     <button class="rep-next" type="button" data-rep-next hidden></button>
     <div class="rep-dots" data-rep-dots aria-hidden="true"></div>
-    <p class="rep-foot"><span data-rep="reassure">Free. No account. 2 minutes.</span> <a href="/how-we-verify/" data-rep="trust">Every line links to the statute.</a></p>
+    <p class="rep-foot"><span data-rep="reassure">Free. No account. 2 minutes.</span> <a href="/how-we-verify/" data-rep="trust">How we verify →</a></p>
     <div class="rep-done" data-rep-done hidden>
       <h2 data-rep="doneTitle">You've practiced the first 30 seconds of a stop.</h2>
       <div class="rep-ring"><svg width="30" height="30" viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15" fill="none" stroke="#2f3f5e" stroke-width="4"/><circle cx="18" cy="18" r="15" fill="none" stroke="#E8B84B" stroke-width="4" stroke-linecap="round" stroke-dasharray="94.2" stroke-dashoffset="78.5" transform="rotate(-90 18 18)"/></svg><span data-rep="ring">1 of 6 cards practiced</span></div>
       <div class="rep-done-cta">
-        <a class="primary" href="#states" data-rep="donePick">Pick your state</a>
-        <a class="secondary" href="/pack?lang=en" data-rep="doneBuild">Build my pack</a>
-        <a class="secondary" href="/rehearse?lang=en" data-rep="doneFull">Practice a full stop</a>
+        <a class="primary" href="/rehearse?lang=en" data-rep="doneFull">Keep practicing →</a>
+        <a class="secondary" href="/pack?lang=en" data-rep="doneBuild">Build my glovebox pack</a>
       </div>
     </div>
     <a class="rep-watch" href="#top" data-rep="watch">Watch the story ↓</a>
@@ -519,15 +517,15 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
     {officer:{en:'"Where are you coming from tonight?"',es:'"¿De dónde viene esta noche?"'},
      answers:[
       {id:'a',good:1,t:{en:'"I choose to remain silent."',es:'"Elijo guardar silencio."'},fb:{en:'One calm sentence. You owe no itinerary.',es:'Una frase con calma. No debe un itinerario.'}},
-      {id:'b',good:0,t:{en:'Explain your whole evening',es:'Explicar toda su noche'},fb:{en:'Not illegal — but every detail can be probed.',es:'No es ilegal — pero cada detalle puede ser explorado.'}}]},
+      {id:'b',good:0,neutral:1,t:{en:'Explain your whole evening',es:'Explicar toda su noche'},fb:{en:'Not illegal — but every detail can be probed.',es:'No es ilegal — pero cada detalle puede ser explorado.'}}]},
     {officer:{en:'"Mind if I take a quick look in the car?"',es:'"¿Le importa si echo un vistazo al carro?"'},
      answers:[
       {id:'a',good:1,t:{en:'"I do not consent to a search."',es:'"No doy consentimiento a un registro."'},fb:{en:'Protects you in court even if they search anyway.',es:'Le protege en corte aunque registren de todos modos.'}},
       {id:'b',good:0,t:{en:'"Go ahead, I have nothing to hide."',es:'"Adelante, no tengo nada que esconder."'},fb:{en:'Consent waives your strongest 4th Amendment protection.',es:'El consentimiento renuncia a su mayor protección de la 4ª Enmienda.'}}]}
   ];
   var STR={
-    en:{setup:'An officer walks up and says:',prompt:'What do you say?',reassure:'Free. No account. 2 minutes.',trust:'Every line links to the statute.',why:'Why this →',good:'Good',risk:'Risky',next:'Next →',done:'See how you did →',doneTitle:"You’ve practiced the first 30 seconds of a stop.",ring:'1 of 6 cards practiced',donePick:'Pick your state',doneBuild:'Build my pack',doneFull:'Practice a full stop',watch:'Watch the story ↓',dots:'Line '},
-    es:{setup:'Un oficial se acerca y dice:',prompt:'¿Qué responde usted?',reassure:'Gratis. Sin cuenta. 2 minutos.',trust:'Cada frase enlaza a la ley.',why:'Por qué →',good:'Bien',risk:'Arriesgado',next:'Siguiente →',done:'Ver cómo le fue →',doneTitle:'Ha practicado los primeros 30 segundos de una parada.',ring:'1 de 6 tarjetas practicadas',donePick:'Elija su estado',doneBuild:'Crear mi paquete',doneFull:'Practicar una parada completa',watch:'Ver la historia ↓',dots:'Frase '}
+    en:{setup:'An officer walks up and says:',prompt:'What do you say?',reassure:'Free. No account. 2 minutes.',trust:'How we verify →',why:'Why this →',good:'Good',risk:'Risky',ok:'Consider',next:'Next →',done:'See how you did →',doneTitle:"You’ve practiced the first 30 seconds of a stop.",ring:'1 of 6 cards practiced',doneBuild:'Build my glovebox pack',doneFull:'Keep practicing →',watch:'Watch the story ↓',dots:'Line '},
+    es:{setup:'Un oficial se acerca y dice:',prompt:'¿Qué responde usted?',reassure:'Gratis. Sin cuenta. 2 minutos.',trust:'Cómo verificamos →',why:'Por qué →',good:'Bien',risk:'Arriesgado',ok:'A tener en cuenta',next:'Siguiente →',done:'Ver cómo le fue →',doneTitle:'Ha practicado los primeros 30 segundos de una parada.',ring:'1 de 6 tarjetas practicadas',doneBuild:'Crear mi paquete',doneFull:'Seguir practicando →',watch:'Ver la historia ↓',dots:'Frase '}
   };
   function getLang(){try{var u=new URLSearchParams(location.search).get('lang');if(u==='es'||u==='en')return u;var s=localStorage.getItem('amparo_lang');if(s==='es'||s==='en')return s;}catch(e){}return (document.documentElement.lang==='es')?'es':'en';}
   var lang=getLang(), i=0, firstTap=false;
@@ -573,8 +571,9 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
     var S=STR[lang], aid=(i+1)+a.id;
     if(!firstTap){ firstTap=true; window.ph&&ph('hero_answer_tapped',{answer_id:aid,lang:lang}); }
     window.ph&&ph('practice_line_answered',{level:1,line:i+1,answer_id:aid,correct:!!a.good});
-    els.fb.className='rep-fb '+(a.good?'good':'risk');
-    els.fb.innerHTML='<span class="tag">'+esc(a.good?S.good:S.risk)+'</span>'+esc(a.fb[lang])+' <a href="/how-we-verify/">'+esc(S.why)+'</a>';
+    var tier=a.good?'good':(a.neutral?'ok':'risk'), tlabel=a.good?S.good:(a.neutral?S.ok:S.risk);
+    els.fb.className='rep-fb '+tier;
+    els.fb.innerHTML='<span class="tag">'+esc(tlabel)+'</span>'+esc(a.fb[lang])+' <a href="/how-we-verify/">'+esc(S.why)+'</a>';
     els.fb.hidden=false;
     els.next.textContent=(i>=L1.length-1)?S.done:S.next;
     els.next.hidden=false; els.next.focus();
@@ -590,12 +589,14 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
     var d=els.done; d.hidden=false; d.setAttribute('tabindex','-1'); d.focus();
     try{localStorage.setItem('amparo_progress',JSON.stringify({l1:true,lang:lang,ts:Date.now()}));}catch(e){}
     window.ph&&ph('sr_practice_level_done',{level:1,state:'federal',lang:lang});
+    try{window.ScrollTrigger&&ScrollTrigger.refresh();}catch(e){}
   }
   root.querySelectorAll('[data-rep-lang]').forEach(function(b){
     b.addEventListener('click',function(){
       lang=b.getAttribute('data-rep-lang');
       try{localStorage.setItem('amparo_lang',lang);}catch(e){}
       setChrome(); if(els.done.hidden){ renderLine(); }
+      try{if(window.setLang)setLang(lang);}catch(e){}
     });
   });
   setChrome(); renderLine();
