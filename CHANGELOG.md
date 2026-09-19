@@ -6,6 +6,28 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.31.0 — 2026-09-19 — First-run practice hero + analytics restored (rebuild spec, sprint 1)
+
+Sprint 1 of the first-run rebuild spec (2026-09-19): put practice first, and make
+it measurable.
+- Restored PostHog on the homepage. The v2.30.0 cinematic rebuild (275ae3e) had
+  accidentally dropped it, so "/" was invisible and the funnel could not be
+  measured from its own first step. Same proxied host and masked posture as
+  pack.html; session replay stays off here. autocapture is now ON per the spec,
+  plus a guarded ph() event helper.
+- New playable practice-first hero at the very top of the homepage, visible on a
+  369px phone without scrolling. The officer's admission-trap line, then real
+  level-1 answers taken verbatim from the Arena "routine" scenario (verified:false
+  until attorney review — no new legal wording authored). Tapping shows in-place
+  feedback (good/risky, one sentence, a source link) instantly; three lines lead
+  to a level-done screen with a progress ring and next-step CTAs. EN + ES toggle.
+- Fires the spec's events: hero_answer_tapped, practice_line_answered,
+  sr_practice_level_done. Saves local progress (amparo_progress).
+- The cinematic film is KEPT (Michael's call) directly below the hero and reachable
+  via "Watch the story", not demoted to a text link as the spec proposed.
+Notes: the real content ships two verified answers per line, not the mockup's
+three. /pack + /aid analytics still to be restored in a later sprint.
+
 ## v2.30.0 — 2026-09-18 — Scroll-reveal animation across the rights section
 
 Every section of the rights hub and all 52 state pages now fades and lifts in

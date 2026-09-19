@@ -8,6 +8,13 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.31.0 — 2026-09-19 — First-run practice hero + analytics restored (rebuild spec, sprint 1)
+
+Practice-first playable hero added to the top of the homepage (officer line + real
+level-1 answers, in-place feedback, level-done ring, EN+ES); PostHog restored with
+autocapture:true (the cinematic rebuild had dropped it). Film kept below. Fires
+hero_answer_tapped / practice_line_answered / sr_practice_level_done.
+
 ## v2.30.0 — 2026-09-18 — Scroll-reveal animation across the rights section
 
 Rights hub + all 52 state pages fade/lift in on scroll (hero stays static),
