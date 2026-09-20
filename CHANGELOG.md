@@ -6,6 +6,15 @@ git checkout v2.6.0 -- .        # restore files, keep history
 git reset --hard v2.6.0         # discard everything after
 ```
 
+## v2.32.4 — 2026-09-19 — Daily drill + share-after-win on the hero (rebuild spec, sprint 9)
+
+Return visitors now get a rotating daily 60-second drill inside the "Welcome
+back" panel: one officer line (rotated by day from the level-1 lines), a recall
+prompt, and a "Reveal the strong answer" button that shows the strong line and
+its reason. Fires daily_drill_done. The level-done screen gains a "Send this to
+someone" share using the phone's share sheet (clipboard fallback), firing
+share_tapped. EN + ES. Deferred: the add-to-homescreen prompt (PWA install nudge).
+
 ## v2.32.3 — 2026-09-19 — Pack welcome screen decluttered (rebuild spec, sprint 5)
 
 The pack builder's welcome screen (step 0) had eight competing actions. Now: one

@@ -473,10 +473,20 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
 .rep-state--other{grid-column:1/-1;background:transparent;font-weight:600;color:#c4cee0}
 .rep-pick-note{font-size:12.5px;color:#8397b5;margin:12px 0 16px;line-height:1.5}
 .rep-build{display:block;text-align:center;text-decoration:none;color:#E8B84B;font:700 15px/1 system-ui,sans-serif;padding:12px}
+.rep-share{display:block;width:100%;text-align:center;background:transparent;border:0;color:#9fb0cc;font:600 14px/1 system-ui,sans-serif;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:8px 10px}
 .rep-welcome h2{font-family:Georgia,serif;font-size:clamp(24px,6vw,32px);margin:0 0 8px}
 .rep-welcome p{font-size:15px;color:#c4cee0;margin:0 0 18px;line-height:1.5}
 .rep-welcome-cta{display:block;text-align:center;text-decoration:none;min-height:52px;padding:15px;border-radius:4px;background:#E8B84B;color:#0B1426;font:700 16px/1 system-ui,sans-serif;margin-bottom:12px}
 .rep-startover{background:transparent;border:0;color:#9fb0cc;font:600 14px/1 system-ui,sans-serif;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:6px}
+.rep-drill{margin:4px 0 20px;padding:16px;border:1px solid #2f3f5e;border-radius:6px;background:#0f1a30}
+.rep-drill-label{font:700 12px/1 system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#E8B84B;margin:0 0 8px}
+.rep-drill-officer{font-family:Georgia,serif;font-size:20px;color:#FAF6EE;margin:0 0 8px;line-height:1.25}
+.rep-drill-hint{font-size:13px;color:#8397b5;margin:0 0 12px}
+.rep-drill-reveal{min-height:46px;width:100%;background:#16223a;color:#FAF6EE;border:1px solid #2f3f5e;border-radius:4px;font:600 15px/1 system-ui,sans-serif;cursor:pointer;padding:12px}
+.rep-drill-reveal[hidden]{display:none}
+.rep-drill-ans[hidden]{display:none}
+.rep-drill-ans{font-size:15px;color:#c4cee0;line-height:1.5;margin-top:8px}
+.rep-drill-ans strong{color:#7fd19a;font-weight:700;display:block;margin-bottom:4px}
 .rep-watch{display:block;text-align:center;margin:18px auto 0;color:#9fb0cc;font-size:14px;text-decoration:underline;text-underline-offset:3px}
 @media(min-width:600px){.rep-answers{gap:12px}}
 @media(prefers-reduced-motion:reduce){.rep-ans{transition:none}}
@@ -499,6 +509,13 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
     <div class="rep-welcome" data-rep-welcome hidden>
       <h2 data-rep="welcomeTitle">Welcome back.</h2>
       <p data-rep="welcomeBody">You've practiced the first 30 seconds of a stop. Keep going with a state-specific drill.</p>
+      <div class="rep-drill">
+        <p class="rep-drill-label" data-rep="drillLabel">Today's quick drill</p>
+        <p class="rep-drill-officer" id="drillOfficer"></p>
+        <p class="rep-drill-hint" data-rep="drillHint">Say your answer out loud, then reveal the strong line.</p>
+        <button type="button" class="rep-drill-reveal" data-rep-drill-reveal data-rep="drillReveal">Reveal the strong answer</button>
+        <div class="rep-drill-ans" data-rep-drill-ans hidden></div>
+      </div>
       <a class="rep-welcome-cta" href="/rehearse?lang=en" data-rep="welcomeCta">Continue practicing →</a>
       <button type="button" class="rep-startover" data-rep-startover data-rep="startOver">Practice the first stop again</button>
     </div>
@@ -516,6 +533,7 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
       </div>
       <p class="rep-pick-note" data-rep="pickNote">Texas, Georgia and New York have statute-cited cards. Every other state gets the federal rules that apply everywhere.</p>
       <a class="rep-build" href="/pack?lang=en" data-rep="doneBuild">Build my glovebox pack →</a>
+      <button type="button" class="rep-share" data-rep-share data-rep="shareLine">Send this to someone →</button>
     </div>
     <a class="rep-watch" href="#top" data-rep="watch">Watch the story ↓</a>
   </div>
@@ -544,8 +562,8 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
       {id:'b',good:0,t:{en:'"Go ahead, I have nothing to hide."',es:'"Adelante, no tengo nada que esconder."'},fb:{en:'Consent waives your strongest 4th Amendment protection.',es:'El consentimiento renuncia a su mayor protección de la 4ª Enmienda.'}}]}
   ];
   var STR={
-    en:{setup:'An officer walks up and says:',prompt:'What do you say?',hint:'Say it out loud, then tap your answer.',reassure:'Free. No account. 2 minutes.',trust:'How we verify →',why:'Why this →',good:'Good',risk:'Risky',ok:'Consider',next:'Next →',done:'See how you did →',doneTitle:"You’ve practiced the first 30 seconds of a stop.",ring:'1 of 6 cards practiced',pickQ:'Which state do you drive in?',pickOther:'Other state',pickNote:'Texas, Georgia and New York have statute-cited cards. Every other state gets the federal rules that apply everywhere.',doneBuild:'Build my glovebox pack →',welcomeTitle:'Welcome back.',welcomeBody:"You’ve already practiced the first 30 seconds of a stop. Keep going with a state-specific drill.",welcomeCta:'Continue practicing →',startOver:'Practice the first stop again',watch:'Watch the story ↓',dots:'Line '},
-    es:{setup:'Un oficial se acerca y dice:',prompt:'¿Qué responde usted?',hint:'Dígalo en voz alta, luego toque su respuesta.',reassure:'Gratis. Sin cuenta. 2 minutos.',trust:'Cómo verificamos →',why:'Por qué →',good:'Bien',risk:'Arriesgado',ok:'A tener en cuenta',next:'Siguiente →',done:'Ver cómo le fue →',doneTitle:'Ha practicado los primeros 30 segundos de una parada.',ring:'1 de 6 tarjetas practicadas',pickQ:'¿En qué estado maneja?',pickOther:'Otro estado',pickNote:'Texas, Georgia y Nueva York tienen tarjetas citadas a la ley. Cualquier otro estado recibe las reglas federales que aplican en todas partes.',doneBuild:'Crear mi paquete →',welcomeTitle:'Bienvenido de nuevo.',welcomeBody:'Ya practicó los primeros 30 segundos de una parada. Siga con un ejercicio de su estado.',welcomeCta:'Seguir practicando →',startOver:'Practicar la primera parada otra vez',watch:'Ver la historia ↓',dots:'Frase '}
+    en:{setup:'An officer walks up and says:',prompt:'What do you say?',hint:'Say it out loud, then tap your answer.',reassure:'Free. No account. 2 minutes.',trust:'How we verify →',why:'Why this →',good:'Good',risk:'Risky',ok:'Consider',next:'Next →',done:'See how you did →',doneTitle:"You’ve practiced the first 30 seconds of a stop.",ring:'1 of 6 cards practiced',pickQ:'Which state do you drive in?',pickOther:'Other state',pickNote:'Texas, Georgia and New York have statute-cited cards. Every other state gets the federal rules that apply everywhere.',doneBuild:'Build my glovebox pack →',welcomeTitle:'Welcome back.',welcomeBody:"You’ve already practiced the first 30 seconds of a stop. Keep going with a state-specific drill.",welcomeCta:'Continue practicing →',startOver:'Practice the first stop again',drillLabel:'Today’s quick drill',drillHint:'Say your answer out loud, then reveal the strong line.',drillReveal:'Reveal the strong answer',shareLine:'Send this to someone →',watch:'Watch the story ↓',dots:'Line '},
+    es:{setup:'Un oficial se acerca y dice:',prompt:'¿Qué responde usted?',hint:'Dígalo en voz alta, luego toque su respuesta.',reassure:'Gratis. Sin cuenta. 2 minutos.',trust:'Cómo verificamos →',why:'Por qué →',good:'Bien',risk:'Arriesgado',ok:'A tener en cuenta',next:'Siguiente →',done:'Ver cómo le fue →',doneTitle:'Ha practicado los primeros 30 segundos de una parada.',ring:'1 de 6 tarjetas practicadas',pickQ:'¿En qué estado maneja?',pickOther:'Otro estado',pickNote:'Texas, Georgia y Nueva York tienen tarjetas citadas a la ley. Cualquier otro estado recibe las reglas federales que aplican en todas partes.',doneBuild:'Crear mi paquete →',welcomeTitle:'Bienvenido de nuevo.',welcomeBody:'Ya practicó los primeros 30 segundos de una parada. Siga con un ejercicio de su estado.',welcomeCta:'Seguir practicando →',startOver:'Practicar la primera parada otra vez',drillLabel:'Ejercicio rápido de hoy',drillHint:'Diga su respuesta en voz alta, luego revele la línea fuerte.',drillReveal:'Revelar la respuesta fuerte',shareLine:'Envíaselo a alguien →',watch:'Ver la historia ↓',dots:'Frase '}
   };
   function getLang(){try{var u=new URLSearchParams(location.search).get('lang');if(u==='es'||u==='en')return u;var s=localStorage.getItem('amparo_lang');if(s==='es'||s==='en')return s;}catch(e){}return (document.documentElement.lang==='es')?'es':'en';}
   var lang=getLang(), i=0, firstTap=false;
@@ -617,15 +635,29 @@ footer.colophon .disc{flex-basis:100%;max-width:70ch;line-height:1.5;text-wrap:p
     b.addEventListener('click',function(){
       lang=b.getAttribute('data-rep-lang');
       try{localStorage.setItem('amparo_lang',lang);}catch(e){}
-      setChrome(); if(els.done.hidden && els.welcome.hidden){ renderLine(); }
+      setChrome(); if(els.done.hidden && els.welcome.hidden){ renderLine(); } else if(!els.welcome.hidden){ setupDrill(); }
       try{if(window.setLang)setLang(lang);}catch(e){}
     });
   });
   root.querySelectorAll('.rep-state').forEach(function(a){
     a.addEventListener('click',function(){var st=a.getAttribute('data-state');window.ph&&ph('state_selected_after_level',{state:st||'other',lang:lang});});
   });
+  var _sh=root.querySelector('[data-rep-share]');
+  if(_sh)_sh.addEventListener('click',function(){
+    var msg=lang==='es'?'Practica una parada de tráfico antes de que ocurra — gratis y bilingüe. https://www.amparohq.com':'Practice a traffic stop before it happens — free and bilingual. https://www.amparohq.com';
+    window.ph&&ph('share_tapped',{screen:'home_done',lang:lang});
+    if(navigator.share){navigator.share({text:msg}).catch(function(){});}
+    else{try{navigator.clipboard.writeText(msg);}catch(e){}}
+  });
   function showPlayHidden(h){ ['[data-rep="setup"]','.rep-officer','.rep-prompt','.rep-hint','.rep-answers','[data-rep-fb]','[data-rep-next]','.rep-dots','.rep-foot'].forEach(function(s){var e=root.querySelector(s); if(e)e.hidden=h;}); }
-  function showWelcome(){ showPlayHidden(true); if(els.welcome)els.welcome.hidden=false; }
+  function setupDrill(){
+    var di=Math.floor(Date.now()/864e5)%L1.length, line=L1[di];
+    var oel=root.querySelector('#drillOfficer'); if(oel)oel.textContent=line.officer[lang];
+    var good=line.answers.filter(function(a){return a.good;})[0]||line.answers[0];
+    var rev=root.querySelector('[data-rep-drill-reveal]'), ans=root.querySelector('[data-rep-drill-ans]');
+    if(rev&&ans){ ans.hidden=true; ans.innerHTML=''; rev.hidden=false; rev.onclick=function(){ ans.innerHTML='<strong>'+esc(good.t[lang])+'</strong>'+esc(good.fb[lang]); ans.hidden=false; rev.hidden=true; window.ph&&ph('daily_drill_done',{day:di,lang:lang}); }; }
+  }
+  function showWelcome(){ showPlayHidden(true); if(els.welcome)els.welcome.hidden=false; setupDrill(); }
   var _so=root.querySelector('[data-rep-startover]'); if(_so)_so.addEventListener('click',function(){ if(els.welcome)els.welcome.hidden=true; showPlayHidden(false); i=0; els.answers.removeAttribute('data-locked'); renderLine(); });
   setChrome();
   var _prog=null; try{_prog=JSON.parse(localStorage.getItem('amparo_progress')||'null');}catch(e){}
