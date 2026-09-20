@@ -8,6 +8,23 @@ are the actual tag creation dates (`git for-each-ref`), not estimated.
 
 ---
 
+## v2.32.4 — 2026-09-19 — Daily drill + share-after-win on the hero (rebuild spec, sprint 9)
+
+Welcome-back panel now has a rotating daily 60-second drill (recall → reveal
+strong answer, daily_drill_done); level-done gains a share button (share_tapped).
+EN+ES. Add-to-homescreen deferred.
+
+## v2.32.3 — 2026-09-19 — Pack welcome screen decluttered (rebuild spec, sprint 5)
+
+Pack welcome reduced to one primary (Build my pack) + hotline link; Practice and
+Send-to-someone removed from here; sample/about/why-not-safe grouped in a footer.
+
+## v2.32.2 — 2026-09-19 — Second blindspot audit fixes (no critical/high)
+
+Applied the v2.32.1 audit's mediums/lows: source:'home_hero' tag on the hero's
+sr_practice_level_done, welcome-panel guard on the lang toggle, hide the hint on
+done + the reassurance line on welcome, removed dead .rep-play CSS.
+
 ## v2.32.1 — 2026-09-19 — Return loop: "Welcome back" for repeat visitors (rebuild spec, sprint 8)
 
 Returning visitors (amparo_progress.l1 saved) now see a "Welcome back" panel +
