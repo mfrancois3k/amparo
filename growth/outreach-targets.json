@@ -2030,12 +2030,210 @@
       "guidelines": {
         "notFetchedYet": true
       }
+    },
+    {
+      "domain": "coloradomedia.substack.com",
+      "url": "https://coloradomedia.substack.com/p/reimagining-the-public-square-whats",
+      "title": "Reimagining the public square: What's happening in Colorado's information ecosystem right now",
+      "niche": "latino community news",
+      "operator": "editorial guidelines",
+      "found": "2026-09-21",
+      "status": "new",
+      "guidelines": {
+        "parseFailed": true
+      }
+    },
+    {
+      "domain": "danielbmarkham.com",
+      "url": "https://danielbmarkham.com/the-review/2026-02-17-the-review-08",
+      "title": "2026-02-17-the-review-08",
+      "niche": "latino community news",
+      "operator": "editorial guidelines",
+      "found": "2026-09-21",
+      "status": "new",
+      "guidelines": {
+        "wordCount": "2000-3000 words",
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "radionewsweb.com",
+      "url": "https://www.radionewsweb.com/2005Q2Archive.html",
+      "title": "Archives",
+      "niche": "latino community news",
+      "operator": "editorial guidelines",
+      "found": "2026-09-21",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "datingnews.com",
+      "url": "https://www.datingnews.com/daters-pulse/best-dating-sites-for-latin-women/",
+      "title": "6 Best Dating Sites For Latin Women",
+      "niche": "latino community news",
+      "operator": "editorial guidelines",
+      "found": "2026-09-21",
+      "status": "new",
+      "guidelines": {
+        "parseFailed": true
+      }
+    },
+    {
+      "domain": "nlgja.org",
+      "url": "https://www.nlgja.org/blog/2024/07/2024curvewinners/",
+      "title": "Announcing the Recipients of the 2024 Curve Award for Emerging Journalists : NLGJA",
+      "niche": "latino community news",
+      "operator": "editorial guidelines",
+      "found": "2026-09-21",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "bmsg.org",
+      "url": "https://www.bmsg.org/resources/publications/elevating-latino-experiences-and-voices-in-news-about-racial-equity-findings-and-recommendations-for-more-complete-coverage/",
+      "title": "Berkeley Media Studies GroupElevating Latino experiences and voices in news about racial equity: Findings and recommendations...",
+      "niche": "latino community news",
+      "operator": "editorial guidelines",
+      "found": "2026-09-21",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "cardrates.com",
+      "url": "https://www.cardrates.com/news/pacoima-beautiful-donations-support-environmental-justice/",
+      "title": "How Donations Help Pacoima Beautiful Promote Environmental Justice In An Underserved Community",
+      "niche": "latino community news",
+      "operator": "editorial guidelines",
+      "found": "2026-09-21",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": true,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "publicmediaalliance.org",
+      "url": "https://www.publicmediaalliance.org/psm-weekly-15-21-february-2023/",
+      "title": "PSM Weekly | 15 - 21 February 2023 - Public Media Alliance",
+      "niche": "latino community news",
+      "operator": "editorial guidelines",
+      "found": "2026-09-21",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": true,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "adelphi.edu",
+      "url": "https://www.adelphi.edu/brand/messaging/editorial-guidelines/",
+      "title": "Editorial Guidelines | Brand Identity | Adelphi University",
+      "niche": "latino community news",
+      "operator": "editorial guidelines",
+      "found": "2026-09-21",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "freedomwithwriting.com",
+      "url": "https://www.freedomwithwriting.com/freedom/uncategorized/29-calls-for-pitches-directly-from-editors-2/",
+      "title": "29 Calls for Pitches Directly from Editors",
+      "niche": "latino community news",
+      "operator": "editorial guidelines",
+      "found": "2026-09-21",
+      "status": "new",
+      "guidelines": {
+        "wordCount": "000 words",
+        "links": "unstated",
+        "paid": true,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "politico.com",
+      "url": "https://www.politico.com/news/magazine/2024/11/29/radio-mambi-miami-maga-00190415",
+      "title": "Disinformation Transformed Miami Politics. This Radio Station Is One Reason Why. - POLITICO",
+      "niche": "latino community news",
+      "operator": "editorial guidelines",
+      "found": "2026-09-21",
+      "status": "new",
+      "guidelines": {
+        "parseFailed": true
+      }
+    },
+    {
+      "domain": "metatalk.metafilter.com",
+      "url": "https://metatalk.metafilter.com/archived.mefi/11/01/2006/",
+      "title": "November 2006 Archives | MetaTalk",
+      "niche": "latino community news",
+      "operator": "editorial guidelines",
+      "found": "2026-09-21",
+      "status": "new",
+      "guidelines": {
+        "parseFailed": true
+      }
+    },
+    {
+      "domain": "impact.disney.com",
+      "url": "https://impact.disney.com/app/uploads/2024/03/2023-SSI-Report-4.pdf",
+      "title": "Forward-Looking Statements",
+      "niche": "latino community news",
+      "operator": "editorial guidelines",
+      "found": "2026-09-21",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "reutersinstitute.politics.ox.ac.uk",
+      "url": "https://reutersinstitute.politics.ox.ac.uk/depth-and-breadth-how-news-organisations-navigate-trade-offs-around-building-trust-news",
+      "title": "Depth and breadth: How news organisations navigate trade-offs around building trust in news | Reuters Institute for the Study...",
+      "niche": "latino community news",
+      "operator": "editorial guidelines",
+      "found": "2026-09-21",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
     }
   ],
   "republishers": [],
   "placements": [],
-  "cursor": 30,
+  "cursor": 40,
   "_readme": "Wargame 32 B1/B2. A LIST, not an outreach system — nothing here contacts anyone. Add landed placements to \"placements\" as {title,url,date} and the republisher crawl starts tracking who copied them. Search is DuckDuckGo HTML, no API key.",
-  "generated": "2026-09-14",
+  "generated": "2026-09-21",
   "errors": []
 }
