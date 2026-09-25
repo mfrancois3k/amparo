@@ -299,6 +299,25 @@
 #quickSetup p{line-height:1.6}#quickStart{margin-top:22px}#quickError{color:#9d2727;font-weight:700}
 .quick-lang{display:flex;gap:10px}.quick-lang button,#changePractice{min-height:44px;padding:8px 16px;border:1px solid #9ca6b5;border-radius:8px;background:#fff;color:#1B2A4A;cursor:pointer;font:inherit}
 #changePractice{display:block;margin:18px auto}.practice-setup #changePractice{display:none}
+/* ---- Reel deep-link entry (feature/reel-deep-links) ---- */
+.reel-eyebrow{font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#8a6d1f;margin:0 0 10px}
+#quickSetup .reel-h1{font-size:clamp(1.6rem,6vw,2.4rem);line-height:1.12;margin:0 0 20px}
+#quickSetup .reel-h1 em{font-style:normal;color:#8a6d1f}
+.reel-card{display:flex;gap:14px;align-items:center;background:#f4f1e8;border:1.5px solid #E8B84B;border-radius:16px;padding:16px;margin:0 0 20px}
+.reel-card .ric{flex:none;width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px}
+.reel-card b{display:block;font-size:17px;line-height:1.3}
+.reel-card small{display:block;font-size:13.5px;color:#5c6675;margin-top:4px;line-height:1.45}
+.reel-chips{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.reel-chip{font-size:11.5px;font-weight:800;letter-spacing:.04em;padding:5px 11px;border-radius:999px;background:#1B2A4A;color:#E8B84B}
+.reel-chip.alt{background:#e9e2d2;color:#1B2A4A}
+#reelStart{margin:4px 0 6px}
+.reel-reassure{font-size:14px;color:#5c6675;margin:10px 0 4px}
+.reel-gentle{font-size:14px;background:#f0f6ef;border:1px solid #bcd6bd;border-radius:10px;padding:10px 14px;margin:10px 0 4px}
+.reel-steps{margin:18px 0;padding:0;list-style:none;counter-reset:rs;display:flex;flex-direction:column;gap:10px}
+.reel-steps li{counter-increment:rs;display:flex;gap:12px;align-items:flex-start;font-size:14.5px;line-height:1.5}
+.reel-steps li::before{content:counter(rs);flex:none;width:26px;height:26px;border-radius:50%;background:#1B2A4A;color:#FAF6EE;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+.reel-browse{display:inline-block;margin:6px 0 2px;font-weight:700;color:#1B2A4A}
+.reel-legal{font-size:12.5px;color:#8a8fa0;line-height:1.6;border-top:1px solid #e5e0d4;padding-top:14px;margin-top:16px}
 .resp{font-size:17px;min-height:56px}.bO{font-size:19px;line-height:1.5}.fb{font-size:16px;line-height:1.6}.wrap>*{min-width:0}
 button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #a17416;outline-offset:3px}
 .modalBg{overflow-y:auto;padding:20px}.modal{max-height:calc(100dvh - 40px);overflow:auto}
@@ -1328,6 +1347,43 @@ const CITED=['36','48','13'];
 /* TODO_ATTORNEY: unverified state lists — kept as data, never rendered (see note in renderArena). */
 const DUTY_INFORM=['02','05','17','26','27','31','37','39','40','45','48'];
 const STOP_ID=['01','04','05','08','10','12','13','16','17','18','20','21','22','29','30','31','32','33','34','36','38','39','44','48','49','51','55'];
+/* ?scenario=<id>&state=<postal|federal>[&src=<source>] — Reel deep links.
+   A viewer taps the CTA under a Reel and lands INSIDE the scenario: state and
+   situation preselected, one "Start the stop" button, no config maze.
+   Reel ids are aliases for REAL scenario keys in SIT — never invented:
+     traveling-not-driving -> traffic  (GA: "I'm not driving, I'm traveling")
+     documents-and-silence -> traffic  (NY: license/reg/insurance + silence)
+     traffic-stop-basics   -> traffic  (federal: the perfect-stop breakdown)
+   A raw SIT id is also accepted. Unknown ids fall through to the normal entry
+   (never a dead end or error screen). HELD_SITS stays gated: a deep link is
+   not a way around attorney/clinician review holds.
+   `state` accepts a 2-letter postal code (validated against HUD.states at boot
+   by the existing resolveState) or "federal" (no state preselected — the
+   constitutional floor applies everywhere).
+   `src` is attribution only. The Arena's privacy promise is no analytics, so
+   src is never logged or sent anywhere; src=instagram only defaults gentle
+   mode ON (a behavior default for mid-curiosity arrivals, not tracking). */
+const REEL_ALIAS={'traveling-not-driving':'traffic','documents-and-silence':'traffic','traffic-stop-basics':'traffic'};
+const REEL_MICRO={
+ 'traveling-not-driving':{en:'Hand over your license — calmly, the first time.',es:'Entregue su licencia con calma, a la primera.'},
+ 'documents-and-silence':{en:'Hand over your documents, then hold your silence.',es:'Entregue sus documentos y después guarde silencio.'},
+ 'traffic-stop-basics':{en:'Run the full stop, word by word.',es:'Ensaye la parada completa, palabra por palabra.'}
+};
+const REEL_STATE_NAMES={GA:{en:'Georgia',es:'Georgia'},NY:{en:'New York',es:'Nueva York'},TX:{en:'Texas',es:'Texas'}};
+let reelEntry=null;
+try{
+  const _q=new URLSearchParams(location.search);
+  const _sc=(_q.get('scenario')||'').toLowerCase().trim();
+  const _real=REEL_ALIAS[_sc]||_sc;
+  const _sit=SIT.find(x=>x.id===_real);
+  if(_sc&&_sit&&!HELD_SITS[_sit.id]){
+    const _st=(_q.get('state')||'').trim().toUpperCase();
+    const _postal=/^[A-Z]{2}$/.test(_st)?_st:null;
+    const _src=(_q.get('src')||'').toLowerCase().trim();
+    reelEntry={alias:_sc,sit:_sit.id,postal:_postal,federal:_st==='FEDERAL',src:_src};
+    if(_src==='instagram'&&A.gentle===undefined){A.gentle=true;saveA();}
+  }
+}catch(e){reelEntry=null;}
 const stKnown=ST_NAMES[flowState];
 document.getElementById('stateName').textContent=stKnown?stKnown+(CITED.includes(flowState)?' (Statute Law)':' (Federal rights)'):'NOT SET — tap change';
 if(!flowState) document.getElementById('setupGate').classList.remove('hiddenEl');
@@ -2387,10 +2443,89 @@ window.__AMPARO_HUD__={"version":1,"sourceHash":"065588fd43f0717c0a35b7dd6e2d478
       error: 'Elija un estado y una situación para empezar.', another: 'Practicar otra situación', more: 'Más herramientas de práctica',
     }
   };
+  /* Reel deep-link entry copy (feature/reel-deep-links). Fully bilingual —
+     Spanish strings must stay Spanish-only per the honesty rules. */
+  const reelCopy = {
+    en: {
+      eyebrow: 'You just watched the Reel',
+      h1: 'You watched the answer. Now find out if it\u2019s in <em>your</em> mouth.',
+      start: 'Start the stop \u2192',
+      reassure: 'Free. No account needed \u2014 progress stays in your browser.',
+      gentle: 'Gentle mode is on \u2014 no timer, no pressure. Change it anytime in Settings.',
+      s1: 'The officer speaks first.',
+      s2: 'You answer \u2014 out loud or by tapping.',
+      s3: 'See how you did, then run it again.',
+      browse: 'Browse all scenarios \u2192',
+      legal: 'General legal information, not legal advice. Independent attorney review pending. Rehearsal can help words feel familiar, but cannot guarantee safety or any outcome.',
+      secs: '~30 seconds',
+      federal: 'Federal',
+    },
+    es: {
+      eyebrow: 'Acaba de ver el Reel',
+      h1: 'Vio la respuesta. Ahora descubra si <em>usted</em> puede decirla.',
+      start: 'Empiece la parada \u2192',
+      reassure: 'Gratis. Sin cuenta \u2014 su progreso se queda en este navegador.',
+      gentle: 'El modo suave est\u00e1 activado \u2014 sin temporizador, sin presi\u00f3n. C\u00e1mbielo cuando quiera en Ajustes.',
+      s1: 'El oficial habla primero.',
+      s2: 'Usted responde \u2014 en voz alta o tocando la pantalla.',
+      s3: 'Vea c\u00f3mo le fue y rep\u00edtalo.',
+      browse: 'Ver todos los escenarios \u2192',
+      legal: 'Informaci\u00f3n legal general, no asesor\u00eda legal. Revisi\u00f3n independiente por abogados pendiente. Ensayar puede ayudar a que las palabras resulten familiares, pero no puede garantizar seguridad ni ning\u00fan resultado.',
+      secs: '~30 segundos',
+      federal: 'Federal',
+    }
+  };
+  /* Reel entry state: the scenario is preselected, one CTA starts it. */
+  function drawReel() {
+    const rc = reelCopy[A.lang] || reelCopy.en;
+    setup.hidden = false;
+    document.body.classList.add('practice-setup');
+    const sit = SIT.find(x => x.id === reelEntry.sit) || SIT[0];
+    const micro = (REEL_MICRO[reelEntry.alias] || {})[A.lang] || sit.desc[A.lang];
+    const stName = reelEntry.postal
+      ? ((REEL_STATE_NAMES[reelEntry.postal] || {})[A.lang] || reelEntry.postal)
+      : (reelEntry.federal ? rc.federal : null);
+    setup.innerHTML =
+      '<div class="quick-lang"><button type="button" data-lang="en" aria-pressed="'+(A.lang==='en')+'">English</button><button type="button" data-lang="es" aria-pressed="'+(A.lang==='es')+'">Espa\u00f1ol</button></div>'+
+      '<p class="reel-eyebrow">'+escT(rc.eyebrow)+'</p>'+
+      '<h1 class="reel-h1" tabindex="-1">'+rc.h1+'</h1>'+
+      '<div class="reel-card"><span class="ric" style="background:'+sit.bg+';">'+sit.icon+'</span><span style="flex:1;"><b>'+escT(sit.title[A.lang])+'</b><small>'+escT(micro)+'</small><span class="reel-chips">'+
+      (stName?'<span class="reel-chip">'+escT(stName)+'</span>':'')+
+      '<span class="reel-chip alt">'+escT(rc.secs)+'</span></span></span></div>'+
+      '<button class="buy" id="reelStart" type="button">'+escT(rc.start)+'</button>'+
+      '<p class="reel-reassure">'+escT(rc.reassure)+'</p>'+
+      (A.gentle?'<p class="reel-gentle">\uD83D\uDD4A\uFE0F '+escT(rc.gentle)+'</p>':'')+
+      '<ol class="reel-steps"><li>'+escT(rc.s1)+'</li><li>'+escT(rc.s2)+'</li><li>'+escT(rc.s3)+'</li></ol>'+
+      '<a href="#" class="reel-browse" id="reelBrowse">'+escT(rc.browse)+'</a>'+
+      '<p class="reel-legal">'+escT(rc.legal)+'</p>';
+    setup.querySelectorAll('[data-lang]').forEach(b=>b.onclick=()=>{A.lang=b.dataset.lang;saveA();applyLang();});
+    document.getElementById('reelStart').onclick=()=>{
+      /* Mirror the quick-setup submit: preselect state + situation, then drop
+         straight into the drill (renderArena starts A.sit/A.lvl immediately). */
+      if(reelEntry.postal){A.state=reelEntry.postal;saveA();}
+      const stateSelect=document.getElementById('stateSel');
+      if(reelEntry.postal&&stateSelect&&stateSelect.options.length>1){try{stateSelect.value=reelEntry.postal;stateSelect.onchange();}catch(e){}}
+      A.sit=reelEntry.sit;A.lvl=0;A.turn=0;A.pts=0;A.hist=[];A.seenIntro=true;A.seenTut=true;
+      if(!Object.keys(A.done).length&&A.gentle===undefined)A.gentle=true;
+      saveA();firstSetup=false;reelEntry=null;setup.hidden=true;
+      document.body.classList.remove('practice-setup');
+      document.body.classList.toggle('first-practice',!Object.keys(A.done).length);
+      applyLang();renderGentle();
+      document.getElementById('practiceMain').focus();
+    };
+    document.getElementById('reelBrowse').onclick=e=>{
+      e.preventDefault();
+      reelEntry=null; /* fall back to the normal entry — params stay in the URL but are ignored from here */
+      draw();
+      const h=setup.querySelector('h1'); if(h)h.focus();
+    };
+    const h=setup.querySelector('h1'); if(h)h.focus();
+  }
   function draw() {
     const c = copy[A.lang];
     document.documentElement.lang = A.lang;
     change.textContent = c.change;
+    if (reelEntry) { drawReel(); return; }
     if (!firstSetup) { setup.hidden = true; return; }
     setup.hidden = false;
     document.body.classList.add('practice-setup');
