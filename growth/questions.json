@@ -2,15 +2,35 @@
   "queue": [],
   "handled": [],
   "_readme": "Questions a human should answer, in their own name. NOTHING here is posted automatically and nothing should be. Move an item to \"handled\" once you have replied. Threads describing an arrest or an open case are filtered out on purpose — those need a lawyer, not a drill.",
-  "generated": "2026-09-21",
-  "errors": [
-    {
-      "sub": "legaladvicespanish",
-      "error": "Reddit rate limit"
-    }
-  ],
-  "cursor": 0,
+  "generated": "2026-09-28",
+  "errors": [],
+  "cursor": 2,
   "unanswerable": [
+    {
+      "title": "Did Franklin County IN commit an illegal Search?",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1wr29bh/did_franklin_county_in_commit_an_illegal_search/",
+      "source": "r/legaladvice"
+    },
+    {
+      "title": "[WY] Out-of-state driver cited for 48 in a 30, citation lists a road I never drove on, prosecutor won’t budge. Worth fighting from 1,000 miles away?",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1w8398h/wy_outofstate_driver_cited_for_48_in_a_30/",
+      "source": "r/legaladvice"
+    },
+    {
+      "title": "Is the other driver trying to scam me?",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1w6g1qb/is_the_other_driver_trying_to_scam_me/",
+      "source": "r/legaladvice"
+    },
+    {
+      "title": "Possible/definite misdemeanor?",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1w8iixr/possibledefinite_misdemeanor/",
+      "source": "r/legaladvice"
+    },
+    {
+      "title": "My boyfriend lives in NY but has a license in CT. He got pulled over and the cop threatened to tow his car until he gets an NY license is that legal?",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1w73mi9/my_boyfriend_lives_in_ny_but_has_a_license_in_ct/",
+      "source": "r/legaladvice"
+    },
     {
       "title": "THIS ISN’T INSURANCE FRAUD?!?",
       "url": "https://www.reddit.com/r/AskLawyers/comments/1wfw3og/this_isnt_insurance_fraud/",

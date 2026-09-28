@@ -2228,12 +2228,27 @@
         "paid": false,
         "forbidsAI": false
       }
+    },
+    {
+      "domain": "ctpublic.org",
+      "url": "https://www.ctpublic.org/2025-07-03/how-the-irish-band-kneecap-went-from-rising-hip-hop-group-to-global-lightning-rod",
+      "title": "How the Irish band Kneecap went from rising hip-hop group to global lightning rod | Connecticut Public",
+      "niche": "noticias latinas",
+      "operator": "editorial guidelines",
+      "found": "2026-09-28",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
     }
   ],
   "republishers": [],
   "placements": [],
-  "cursor": 40,
+  "cursor": 0,
   "_readme": "Wargame 32 B1/B2. A LIST, not an outreach system — nothing here contacts anyone. Add landed placements to \"placements\" as {title,url,date} and the republisher crawl starts tracking who copied them. Search is DuckDuckGo HTML, no API key.",
-  "generated": "2026-09-21",
+  "generated": "2026-09-28",
   "errors": []
 }
