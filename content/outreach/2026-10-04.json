@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-04",
+  "flipboard": {
+    "magazine": "Know Your Rights — Texas & New York",
+    "title": "Amparo — Sus derechos en una parada de tráfico en Texas",
+    "url": "https://www.amparohq.com/derechos/tx/?utm_source=flipboard&utm_medium=organic&utm_content=mag_tx_es",
+    "index": 1,
+    "total": 27
+  },
+  "digg": {
+    "title": "Sus derechos en una parada de tráfico en Texas",
+    "url": "https://www.amparohq.com/derechos/tx/?utm_source=digg&utm_medium=organic&utm_content=digg_tx_es",
+    "index": 1,
+    "total": 9
+  },
+  "reel": {
+    "due": true,
+    "id": "silence-aloud",
+    "misconception": {
+      "en": "People think going quiet is the same as using their right to remain silent.",
+      "es": "La gente cree que quedarse callado es lo mismo que usar el derecho a guardar silencio."
+    },
+    "line": {
+      "id": "silence",
+      "label": {
+        "en": "TO STAY SILENT — SAY IT",
+        "es": "PARA GUARDAR SILENCIO — DÍGALO"
+      },
+      "en": "“I choose to remain silent.”",
+      "es": "«Elijo guardar silencio.»"
+    },
+    "drill": "traffic",
+    "drillName": {
+      "en": "the Traffic Stop drill",
+      "es": "el ejercicio de Parada de Tráfico"
+    },
+    "index": 1,
+    "total": 3
+  }
+}
