@@ -2,10 +2,40 @@
   "queue": [],
   "handled": [],
   "_readme": "Questions a human should answer, in their own name. NOTHING here is posted automatically and nothing should be. Move an item to \"handled\" once you have replied. Threads describing an arrest or an open case are filtered out on purpose — those need a lawyer, not a drill.",
-  "generated": "2026-09-28",
-  "errors": [],
-  "cursor": 2,
+  "generated": "2026-10-05",
+  "errors": [
+    {
+      "sub": "immigration",
+      "error": "Reddit rate limit"
+    }
+  ],
+  "cursor": 4,
   "unanswerable": [
+    {
+      "title": "Am I going to lose my son?",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1wy6sjj/am_i_going_to_lose_my_son/",
+      "source": "r/AskLawyers"
+    },
+    {
+      "title": "Is this legal? What do I do?",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1wwx8z9/is_this_legal_what_do_i_do/",
+      "source": "r/AskLawyers"
+    },
+    {
+      "title": "THIS ISN’T INSURANCE FRAUD?!?",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1wfw3og/this_isnt_insurance_fraud/",
+      "source": "r/AskLawyers"
+    },
+    {
+      "title": "Going to court for &quot;disobeying stop sign&quot; - best defense?",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1wfe2if/going_to_court_for_disobeying_stop_sign_best/",
+      "source": "r/AskLawyers"
+    },
+    {
+      "title": "My City in idaho is widening the road and going to eminent domain part of our property. This will potentially force my small business to close down as it takes out all of our parking. What can I do to protect myself or am I just forced to close the doors?",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1wet094/my_city_in_idaho_is_widening_the_road_and_going/",
+      "source": "r/AskLawyers"
+    },
     {
       "title": "Did Franklin County IN commit an illegal Search?",
       "url": "https://www.reddit.com/r/legaladvice/comments/1wr29bh/did_franklin_county_in_commit_an_illegal_search/",

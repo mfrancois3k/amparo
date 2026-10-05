@@ -2243,12 +2243,417 @@
         "paid": false,
         "forbidsAI": false
       }
+    },
+    {
+      "domain": "sanoma.com",
+      "url": "https://www.sanoma.com/globalassets/nasdaq/sanoma-corporation-annual-report-2023/",
+      "title": "Annual Report 2023",
+      "niche": "immigrant rights",
+      "operator": "editorial guidelines",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "everycrsreport.com",
+      "url": "https://www.everycrsreport.com/reports/R41617.html",
+      "title": "Cuba: Issues for the 112th Congress - EveryCRSReport.com",
+      "niche": "immigrant rights",
+      "operator": "editorial guidelines",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": true,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "business.com",
+      "url": "https://www.business.com/articles/immigration-challenges-for-small-business/",
+      "title": "What to Know About Hiring Immigrant Workers",
+      "niche": "immigrant rights",
+      "operator": "editorial guidelines",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "bjmh.gold.ac.uk",
+      "url": "https://bjmh.gold.ac.uk/index.php/bjmh/issue/download/133/70",
+      "title": "British Journal for Military History",
+      "niche": "immigrant rights",
+      "operator": "editorial guidelines",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "omegalettercom.wordpress.com",
+      "url": "https://omegalettercom.wordpress.com/page/357/",
+      "title": "Omegaletter | What's this world coming to? | Page 357",
+      "niche": "immigrant rights",
+      "operator": "editorial guidelines",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "soylentnews.org",
+      "url": "https://soylentnews.org/faq.pl",
+      "title": "SoylentNews: FAQ",
+      "niche": "legal aid",
+      "operator": "submit a story",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "cvillenews.com",
+      "url": "https://cvillenews.com/2002/04/29/52-arrests-at-foxfield/",
+      "title": "52 Arrests at Foxfield « cvillenews.com",
+      "niche": "legal aid",
+      "operator": "submit a story",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": true,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "berkeleydailyplanet.com",
+      "url": "https://www.berkeleydailyplanet.com/issue/2007-09-25/full_text",
+      "title": "Full Text of All Articles The Berkeley Daily Planet",
+      "niche": "legal aid",
+      "operator": "submit a story",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "erbzine.com",
+      "url": "https://www.erbzine.com/mag0/0052.html",
+      "title": "ERBzine 0052: Articles by ERB",
+      "niche": "legal aid",
+      "operator": "submit a story",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "wordCount": "000 words",
+        "links": "unstated",
+        "paid": true,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "peakprosperity.com",
+      "url": "https://peakprosperity.com/dismantling-usaid-autonomous-armageddon/",
+      "title": "Dismantling USAID, Autonomous Armageddon! – Peak Prosperity",
+      "niche": "legal aid",
+      "operator": "submit a story",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": true,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "shimmerzine.com",
+      "url": "https://www.shimmerzine.com/blog/page/24/",
+      "title": "Blog | Shimmer | Speculative fiction for a miscreant world | Page 24",
+      "niche": "legal aid",
+      "operator": "submit a story",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "parseFailed": true
+      }
+    },
+    {
+      "domain": "news.unm.edu",
+      "url": "https://news.unm.edu/news/unm-school-of-law-professor-reappointed-to-board-for-legal-services-corporation",
+      "title": "UNM School of Law professor reappointed to board for Legal Services Corporation | UNM UCAM Newsroom",
+      "niche": "legal aid",
+      "operator": "submit a story",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "akashicbooks.com",
+      "url": "https://www.akashicbooks.com/the-rikers-island-bar-by-robert-knightly/",
+      "title": "\"The Rikers Island Bar,\" by Robert Knightly - Akashic Books",
+      "niche": "legal aid",
+      "operator": "submit a story",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "wordCount": "750 words",
+        "links": "unstated",
+        "paid": true,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "python.org",
+      "url": "https://www.python.org/psf/records/board/minutes/2011-12-19/",
+      "title": "Dec. 19, 2011 | PSF Meeting Minutes | Python.org",
+      "niche": "legal aid",
+      "operator": "submit a story",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": true,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "coldtype.net",
+      "url": "https://www.coldtype.net/Assets.04/Essays.04/TARGET.IRAQ.pdf",
+      "title": "TARGET IRAQ:",
+      "niche": "legal aid",
+      "operator": "submit a story",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "solutionsjournalism.org",
+      "url": "https://www.solutionsjournalism.org/what-you-can-do/awards",
+      "title": "Nominate Your Project for an Award | Solutions Journalism Network",
+      "niche": "legal aid",
+      "operator": "submit a story",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "twn.my",
+      "url": "https://www.twn.my/title/phainfo.htm",
+      "title": "People's Health Assembly 2000 - Invitation",
+      "niche": "legal aid",
+      "operator": "submit a story",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "says.com",
+      "url": "https://says.com/my/imho/womens-aid-organisation-says-law-to-make-stalking-a-crime-needs-improvement",
+      "title": "Women’s Aid Organisation Says Law To #MakeStalkingACrime Needs Further Improvements",
+      "niche": "legal aid",
+      "operator": "submit a story",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "meekcomic.com",
+      "url": "https://www.meekcomic.com/comic/5-45/",
+      "title": "The Meek | An epic adventure webcomic - 5.45",
+      "niche": "legal aid",
+      "operator": "submit a story",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "slingshotcollective.org",
+      "url": "https://slingshotcollective.org/1984/12/page/2/",
+      "title": "December 1984 – Page 2 – Slingshot",
+      "niche": "legal aid",
+      "operator": "submit a story",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "georgerrmartin.com",
+      "url": "https://georgerrmartin.com/notablog/2018/06/30/another-sadness-2/",
+      "title": "Another Sadness | Not a Blog",
+      "niche": "legal aid",
+      "operator": "submit a story",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": true,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "afterdinnerconversation.com",
+      "url": "https://www.afterdinnerconversation.com/podcast/tag/Jeremy",
+      "title": "Jeremy — Philosophy Ethics Discussions Podcast — After Dinner Conversation",
+      "niche": "legal aid",
+      "operator": "submit a story",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": true,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "angiesdesk.blogspot.com",
+      "url": "https://angiesdesk.blogspot.com/2015/",
+      "title": "Angie's Desk: 2015",
+      "niche": "legal aid",
+      "operator": "submit a story",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "parseFailed": true
+      }
+    },
+    {
+      "domain": "somethingisgoingtohappen.net",
+      "url": "https://somethingisgoingtohappen.net/page/28/",
+      "title": "SOMETHING IS GOING TO HAPPEN | The editor of EQMM and guests blog about suspense, short stories, and the mystery-fiction scen...",
+      "niche": "legal aid",
+      "operator": "submit a story",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "imaginaryplanet.net",
+      "url": "https://www.imaginaryplanet.net/weblogs/idiotprogrammer/",
+      "title": "Idiotprogrammer Weblog",
+      "niche": "legal aid",
+      "operator": "submit a story",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "becauseofthemwecan.com",
+      "url": "https://www.becauseofthemwecan.com/california-teen-goes-from-compton-to-harvard-to-oxford-as-a-rhodes-scholar/",
+      "title": "California Teen Goes From Compton To Harvard To Oxford As A Rhodes Scholar – Because of Them We Can",
+      "niche": "legal aid",
+      "operator": "submit a story",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "news.scranton.edu",
+      "url": "https://news.scranton.edu/articles/2019/09/index.shtml",
+      "title": "index | Royal News: August 19 2026",
+      "niche": "legal aid",
+      "operator": "submit a story",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
+    },
+    {
+      "domain": "toulousestreet.wordpress.com",
+      "url": "https://toulousestreet.wordpress.com/2011/12/",
+      "title": "December | 2011 | Odd Bits of Life in New Orleans",
+      "niche": "legal aid",
+      "operator": "submit a story",
+      "found": "2026-10-05",
+      "status": "new",
+      "guidelines": {
+        "notFetchedYet": true
+      }
     }
   ],
   "republishers": [],
   "placements": [],
-  "cursor": 0,
+  "cursor": 10,
   "_readme": "Wargame 32 B1/B2. A LIST, not an outreach system — nothing here contacts anyone. Add landed placements to \"placements\" as {title,url,date} and the republisher crawl starts tracking who copied them. Search is DuckDuckGo HTML, no API key.",
-  "generated": "2026-09-28",
+  "generated": "2026-10-05",
   "errors": []
 }
