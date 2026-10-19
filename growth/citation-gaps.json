@@ -1,8 +1,8 @@
 {
   "_readme": "Topic queue mined from Wikipedia {{Citation needed}} tags. READ-ONLY: nothing here may be used to edit Wikipedia. Every claim is a legal claim and needs primary-statute verification plus the state-law-matrix.md gate before it can become an Amparo page.",
-  "generated": "2026-10-12",
+  "generated": "2026-10-19",
   "keywords": 12,
-  "articlesScanned": 62,
+  "articlesScanned": 63,
   "found": 26,
   "errors": [],
   "gaps": [
@@ -121,6 +121,12 @@
       "url": "https://en.wikipedia.org/wiki/Terry_v._Ohio"
     },
     {
+      "title": "Stop-and-frisk in New York City",
+      "claim": "Giuliani (mayor 1994-2001) and Bratton presided over an expansion of the New York police department and a crackdown on low-level crimes, including fare evasion, public drinking, public urination, graffiti artists, and \"squeegee men\".",
+      "keyword": "terry stop",
+      "url": "https://en.wikipedia.org/wiki/Stop-and-frisk_in_New_York_City"
+    },
+    {
       "title": "Implied consent",
       "claim": "For a handheld field breath tester to be used as evidential breath testing, the device must be properly certified and calibrated, evidential procedures must be followed, and it may be necessary to administer an \"implied consent\" warning to the suspect prior to testing.",
       "keyword": "implied consent law",
@@ -155,12 +161,6 @@
       "claim": "If you do wish to say anything, what you say may be given in evidence.",
       "keyword": "right to remain silent",
       "url": "https://en.wikipedia.org/wiki/Right_to_silence"
-    },
-    {
-      "title": "Right to silence in England and Wales",
-      "claim": "Opponents claimed that innocent people may reasonably remain silent for many reasons, and that changing the law would introduce an element of compulsion and was in clear conflict with the existing core concepts of the presumption of innocence and the burden of proof.",
-      "keyword": "right to remain silent",
-      "url": "https://en.wikipedia.org/wiki/Right_to_silence_in_England_and_Wales"
     }
   ]
 }

@@ -2,15 +2,55 @@
   "queue": [],
   "handled": [],
   "_readme": "Questions a human should answer, in their own name. NOTHING here is posted automatically and nothing should be. Move an item to \"handled\" once you have replied. Threads describing an arrest or an open case are filtered out on purpose — those need a lawyer, not a drill.",
-  "generated": "2026-10-12",
+  "generated": "2026-10-19",
   "errors": [
     {
-      "sub": "legaladvicespanish",
+      "sub": "legaladvice",
       "error": "Reddit rate limit"
     }
   ],
-  "cursor": 0,
+  "cursor": 2,
   "unanswerable": [
+    {
+      "title": "Cop hit my car. What are my rights? - Ohio",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1x7w486/cop_hit_my_car_what_are_my_rights_ohio/",
+      "source": "r/legaladvice"
+    },
+    {
+      "title": "Multi-car freeway rear-end crash with vehicle stopped in lane. How is fault split here?",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1x6upaf/multicar_freeway_rearend_crash_with_vehicle/",
+      "source": "r/legaladvice"
+    },
+    {
+      "title": "First Speeding Ticket. Legal Advice? (Guess I posted it in the wrong advice Reddit..)",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1x6tjac/first_speeding_ticket_legal_advice_guess_i_posted/",
+      "source": "r/legaladvice"
+    },
+    {
+      "title": "Reopened Reckless Driving (91/65) in Rockingham County, VA — Going Pro Se with Medical Proof & Driver Course. Realistic chances?",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1x5n0x1/reopened_reckless_driving_9165_in_rockingham/",
+      "source": "r/legaladvice"
+    },
+    {
+      "title": "Do I need to worry about an 11-year-old unpaid traffic ticket in another state?",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1x0yf22/do_i_need_to_worry_about_an_11yearold_unpaid/",
+      "source": "r/legaladvice"
+    },
+    {
+      "title": "Do I need a lawyer for a first time drug and open container charge in Teton County, Idaho?",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1wze3c4/do_i_need_a_lawyer_for_a_first_time_drug_and_open/",
+      "source": "r/legaladvice"
+    },
+    {
+      "title": "Got a Reckless Driving charge for a low-speed rear-end crash in Manassas, VA — Officer said they'd help reduce it. What should I prepare for court?",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1wx1q3g/got_a_reckless_driving_charge_for_a_lowspeed/",
+      "source": "r/legaladvice"
+    },
+    {
+      "title": "Did Franklin County IN commit an illegal Search?",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1wr29bh/did_franklin_county_in_commit_an_illegal_search/",
+      "source": "r/legaladvice"
+    },
     {
       "title": "Am I going to lose my son?",
       "url": "https://www.reddit.com/r/AskLawyers/comments/1wy6sjj/am_i_going_to_lose_my_son/",
