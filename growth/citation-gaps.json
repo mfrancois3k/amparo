@@ -1,11 +1,29 @@
 {
   "_readme": "Topic queue mined from Wikipedia {{Citation needed}} tags. READ-ONLY: nothing here may be used to edit Wikipedia. Every claim is a legal claim and needs primary-statute verification plus the state-law-matrix.md gate before it can become an Amparo page.",
-  "generated": "2026-10-19",
+  "generated": "2026-10-26",
   "keywords": 12,
   "articlesScanned": 63,
-  "found": 26,
+  "found": 29,
   "errors": [],
   "gaps": [
+    {
+      "title": "School bus traffic stop laws",
+      "claim": "However, it is unclear whether having reported a decrease in passing violators is due to difficulty to report or better compliance by motorists.",
+      "keyword": "traffic stop",
+      "url": "https://en.wikipedia.org/wiki/School_bus_traffic_stop_laws"
+    },
+    {
+      "title": "School bus traffic stop laws",
+      "claim": "With this innovative technology they can identify and punish violators. ==Other countries outside North America == Traffic laws in other countries do not require vehicles to stop.",
+      "keyword": "traffic stop",
+      "url": "https://en.wikipedia.org/wiki/School_bus_traffic_stop_laws"
+    },
+    {
+      "title": "School bus traffic stop laws",
+      "claim": "In New Zealand, the New Zealand Transport Agency decided that the speed limit passing a stopped school bus should not be raised based on probabilities of pedestrian deaths if hit at different speeds, nor has it supported requiring fully stopping and waiting for school buses loading and unloading children as in the United States and Canada.",
+      "keyword": "traffic stop",
+      "url": "https://en.wikipedia.org/wiki/School_bus_traffic_stop_laws"
+    },
     {
       "title": "Miranda v. Arizona",
       "claim": "At issue was whether the Miranda warnings were actually compelled by the Constitution, or were rather merely measures enacted as a matter of judicial policy.",
@@ -17,42 +35,6 @@
       "claim": "He cited several cases demonstrating a majority of the then-current court, counting himself, and Justices Kennedy, O'Connor, and Thomas, as well as Rehnquist (who had just delivered a contrary opinion), \"[were] on record as believing that a violation of Miranda is not a violation of the Constitution.\"",
       "keyword": "Miranda warning",
       "url": "https://en.wikipedia.org/wiki/Miranda_v._Arizona"
-    },
-    {
-      "title": "Random checkpoint",
-      "claim": "Checkpoints are also often set near the exit points of public events where people have been drinking to prevent large numbers of drunk drivers from being released into traffic simultaneously from the event.",
-      "keyword": "police checkpoint",
-      "url": "https://en.wikipedia.org/wiki/Random_checkpoint"
-    },
-    {
-      "title": "Random checkpoint",
-      "claim": "There are various guidelines outlined by jurisdictional and international law for sobriety checkpoints;",
-      "keyword": "police checkpoint",
-      "url": "https://en.wikipedia.org/wiki/Random_checkpoint"
-    },
-    {
-      "title": "Random checkpoint",
-      "claim": "Law enforcement often posts or announces in advance that these checkpoints will occur and at what location.",
-      "keyword": "police checkpoint",
-      "url": "https://en.wikipedia.org/wiki/Random_checkpoint"
-    },
-    {
-      "title": "Random checkpoint",
-      "claim": "The machine used to perform a breath analysis is more sophisticated than the portable device that is used to administer a roadside RBT with the results of a breath analysis being used as evidence in court to prove a drunk driving charge.",
-      "keyword": "police checkpoint",
-      "url": "https://en.wikipedia.org/wiki/Random_checkpoint"
-    },
-    {
-      "title": "Random checkpoint",
-      "claim": "Trials of the program will be in Sydney's eastern suburbs.",
-      "keyword": "police checkpoint",
-      "url": "https://en.wikipedia.org/wiki/Random_checkpoint"
-    },
-    {
-      "title": "Random checkpoint",
-      "claim": "Trials of the program will be in Sydney's eastern suburbs. Drunk driving continues to be one of the main causes of road fatalities and injuries, responsible for 30 percent of road fatalities across Australia.",
-      "keyword": "police checkpoint",
-      "url": "https://en.wikipedia.org/wiki/Random_checkpoint"
     },
     {
       "title": "Checkpoint Charlie",
@@ -91,6 +73,42 @@
       "url": "https://en.wikipedia.org/wiki/Checkpoint_Charlie"
     },
     {
+      "title": "Random checkpoint",
+      "claim": "Checkpoints are also often set near the exit points of public events where people have been drinking to prevent large numbers of drunk drivers from being released into traffic simultaneously from the event.",
+      "keyword": "police checkpoint",
+      "url": "https://en.wikipedia.org/wiki/Random_checkpoint"
+    },
+    {
+      "title": "Random checkpoint",
+      "claim": "There are various guidelines outlined by jurisdictional and international law for sobriety checkpoints;",
+      "keyword": "police checkpoint",
+      "url": "https://en.wikipedia.org/wiki/Random_checkpoint"
+    },
+    {
+      "title": "Random checkpoint",
+      "claim": "Law enforcement often posts or announces in advance that these checkpoints will occur and at what location.",
+      "keyword": "police checkpoint",
+      "url": "https://en.wikipedia.org/wiki/Random_checkpoint"
+    },
+    {
+      "title": "Random checkpoint",
+      "claim": "The machine used to perform a breath analysis is more sophisticated than the portable device that is used to administer a roadside RBT with the results of a breath analysis being used as evidence in court to prove a drunk driving charge.",
+      "keyword": "police checkpoint",
+      "url": "https://en.wikipedia.org/wiki/Random_checkpoint"
+    },
+    {
+      "title": "Random checkpoint",
+      "claim": "Trials of the program will be in Sydney's eastern suburbs.",
+      "keyword": "police checkpoint",
+      "url": "https://en.wikipedia.org/wiki/Random_checkpoint"
+    },
+    {
+      "title": "Random checkpoint",
+      "claim": "Trials of the program will be in Sydney's eastern suburbs. Drunk driving continues to be one of the main causes of road fatalities and injuries, responsible for 30 percent of road fatalities across Australia.",
+      "keyword": "police checkpoint",
+      "url": "https://en.wikipedia.org/wiki/Random_checkpoint"
+    },
+    {
       "title": "Rusik",
       "claim": "His talent for sniffing out poached fish soon found him taking over the job of the police's canine team member. Rusik died in the line of duty in June 2003, when he was hit by a car during an inspection, immediately after searching a bus. He had apparently found smuggled sturgeon in the same car some time before, according to personnel at the police checkpoint.",
       "keyword": "police checkpoint",
@@ -119,12 +137,6 @@
       "claim": "To date, 24 states have passed such \"stop and identify\" laws.",
       "keyword": "terry stop",
       "url": "https://en.wikipedia.org/wiki/Terry_v._Ohio"
-    },
-    {
-      "title": "Stop-and-frisk in New York City",
-      "claim": "Giuliani (mayor 1994-2001) and Bratton presided over an expansion of the New York police department and a crackdown on low-level crimes, including fare evasion, public drinking, public urination, graffiti artists, and \"squeegee men\".",
-      "keyword": "terry stop",
-      "url": "https://en.wikipedia.org/wiki/Stop-and-frisk_in_New_York_City"
     },
     {
       "title": "Implied consent",
@@ -161,6 +173,12 @@
       "claim": "If you do wish to say anything, what you say may be given in evidence.",
       "keyword": "right to remain silent",
       "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence in England and Wales",
+      "claim": "Opponents claimed that innocent people may reasonably remain silent for many reasons, and that changing the law would introduce an element of compulsion and was in clear conflict with the existing core concepts of the presumption of innocence and the burden of proof.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence_in_England_and_Wales"
     }
   ]
 }

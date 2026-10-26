@@ -2,15 +2,45 @@
   "queue": [],
   "handled": [],
   "_readme": "Questions a human should answer, in their own name. NOTHING here is posted automatically and nothing should be. Move an item to \"handled\" once you have replied. Threads describing an arrest or an open case are filtered out on purpose — those need a lawyer, not a drill.",
-  "generated": "2026-10-19",
+  "generated": "2026-10-26",
   "errors": [
     {
-      "sub": "legaladvice",
+      "sub": "immigration",
       "error": "Reddit rate limit"
     }
   ],
-  "cursor": 2,
+  "cursor": 4,
   "unanswerable": [
+    {
+      "title": "How long do I have to wait at a stoplight before I can run it?",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1xfkke8/how_long_do_i_have_to_wait_at_a_stoplight_before/",
+      "source": "r/AskLawyers"
+    },
+    {
+      "title": "Identity stolen via traffic ticket?",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1xf3blg/identity_stolen_via_traffic_ticket/",
+      "source": "r/AskLawyers"
+    },
+    {
+      "title": "How long do I have to sit at a red light before I can legally run it?",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1xdudpc/how_long_do_i_have_to_sit_at_a_red_light_before_i/",
+      "source": "r/AskLawyers"
+    },
+    {
+      "title": "Lawyers of Reddit, can I get some advice? Located in Detroit",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1xc6e2d/lawyers_of_reddit_can_i_get_some_advice_located/",
+      "source": "r/AskLawyers"
+    },
+    {
+      "title": "Is it legal (for the U.S. government) to livestream an execution in the United States?",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1x15cxc/is_it_legal_for_the_us_government_to_livestream/",
+      "source": "r/AskLawyers"
+    },
+    {
+      "title": "School bus cam snapped a pic of a car directly in front of camera and my car is the only plate it could catch? Do I have a defense ?",
+      "url": "https://www.reddit.com/r/AskLawyers/comments/1wyqxgp/school_bus_cam_snapped_a_pic_of_a_car_directly_in/",
+      "source": "r/AskLawyers"
+    },
     {
       "title": "Cop hit my car. What are my rights? - Ohio",
       "url": "https://www.reddit.com/r/legaladvice/comments/1x7w486/cop_hit_my_car_what_are_my_rights_ohio/",

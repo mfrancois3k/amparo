@@ -3293,12 +3293,249 @@
       "guidelines": {
         "notFetchedYet": true
       }
+    },
+    {
+      "domain": "pressto.amu.edu.pl",
+      "url": "https://pressto.amu.edu.pl/index.php/strp/announcement/view/595",
+      "title": "Call for papers | Studia Rossica Posnaniensia",
+      "niche": "public defender",
+      "operator": "editorial guidelines",
+      "found": "2026-10-26",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "48hills.org",
+      "url": "https://48hills.org/2023/02/the-new-york-times-has-done-serious-damage-with-its-coverage-of-trans-people/",
+      "title": "The New York Times has done serious damage with its coverage of trans people - 48 hills",
+      "niche": "public defender",
+      "operator": "editorial guidelines",
+      "found": "2026-10-26",
+      "status": "new",
+      "guidelines": {
+        "wordCount": "000 words",
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "annaraccoon.com",
+      "url": "https://annaraccoon.com/2009/03/15/the-beeb-botnets-and-breaking-the-law/",
+      "title": "The Beeb, Botnets, and Breaking the law. – The Anna Raccoon Archives",
+      "niche": "public defender",
+      "operator": "editorial guidelines",
+      "found": "2026-10-26",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": true,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "judithcurry.com",
+      "url": "https://judithcurry.com/2014/03/25/trial-of-the-century/",
+      "title": "Trial of the century? - Climate Etc.",
+      "niche": "public defender",
+      "operator": "editorial guidelines",
+      "found": "2026-10-26",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": true,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "transcend.org",
+      "url": "https://www.transcend.org/tms/2021/01/new-york-times-declines-my-rebuttal-to-defamatory-op-ed-on-covid-vaccines/",
+      "title": "TRANSCEND MEDIA SERVICE » New York Times Declines My Rebuttal to Defamatory Op-Ed on COVID Vaccines",
+      "niche": "public defender",
+      "operator": "editorial guidelines",
+      "found": "2026-10-26",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "frankreport.com",
+      "url": "https://frankreport.com/corrupt-ct-family-court-6-gals-and-attorney-nusbaum-avoid-these-worst-of-predators",
+      "title": "Corrupt CT Family Court – 6 GALS and Attorney Nusbaum – Avoid These Worst of Predators | Frank Report | The Frank Report",
+      "niche": "public defender",
+      "operator": "editorial guidelines",
+      "found": "2026-10-26",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": true,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "creation.com",
+      "url": "https://creation.com/en/articles/noble-liar",
+      "title": "Biased broadcaster promotes a liberal agenda · Creation.com",
+      "niche": "public defender",
+      "operator": "editorial guidelines",
+      "found": "2026-10-26",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "cjr.org",
+      "url": "https://www.cjr.org/the_news_frontier/public_radio_and_the_freelance.php",
+      "title": "Public Radio and the Freelance Journalist - Columbia Journalism Review",
+      "niche": "public defender",
+      "operator": "editorial guidelines",
+      "found": "2026-10-26",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "amfirstbooks.com",
+      "url": "https://www.amfirstbooks.com/IntroPages/NonToolbarTopics/Censorship/Overview.html",
+      "title": "Censorship_Overview",
+      "niche": "public defender",
+      "operator": "editorial guidelines",
+      "found": "2026-10-26",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "chipublib.org",
+      "url": "https://www.chipublib.org/fa-path-press-archives/",
+      "title": "Path Press Archives | Chicago Public Library",
+      "niche": "public defender",
+      "operator": "editorial guidelines",
+      "found": "2026-10-26",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "mediasupport.org",
+      "url": "https://www.mediasupport.org/what-we-do/global-agenda/",
+      "title": "Global agenda",
+      "niche": "public defender",
+      "operator": "editorial guidelines",
+      "found": "2026-10-26",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "nicva.org",
+      "url": "https://www.nicva.org/article/playing-our-part-how-the-bbc-is-redefining-charity-appeals",
+      "title": "Playing Our Part: how the BBC is redefining charity appeals | NICVA",
+      "niche": "public defender",
+      "operator": "editorial guidelines",
+      "found": "2026-10-26",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "ecoi.net",
+      "url": "https://www.ecoi.net/en/document/2092414.html",
+      "title": "USDOS – US Department of State (Author): “2022 Report on International Religious Freedom: United Kingdom”, Document #2092414 ...",
+      "niche": "public defender",
+      "operator": "editorial guidelines",
+      "found": "2026-10-26",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": true,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "tracingwoodgrains.com",
+      "url": "https://www.tracingwoodgrains.com/p/reliable-sources-how-wikipedia-admin",
+      "title": "Reliable Sources: How Wikipedia Admin David Gerard Launders His Grudges Into the Public Record",
+      "niche": "public defender",
+      "operator": "editorial guidelines",
+      "found": "2026-10-26",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "meforum.org",
+      "url": "https://www.meforum.org/bbc-dhimmitude",
+      "title": "The BBC Broadcasts Its Own Dhimmitude - Middle East Forum",
+      "niche": "public defender",
+      "operator": "editorial guidelines",
+      "found": "2026-10-26",
+      "status": "new",
+      "guidelines": {
+        "parseFailed": true
+      }
+    },
+    {
+      "domain": "ezekiels.co.uk",
+      "url": "https://www.ezekiels.co.uk/eylan/blog/",
+      "title": "Blog - Ezekiels ConsultantsEzekiels Consultants | Eylan Ezekiel: Education:Environment:Equity",
+      "niche": "driver education",
+      "operator": "editorial guidelines",
+      "found": "2026-10-26",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
     }
   ],
   "republishers": [],
   "placements": [],
-  "cursor": 20,
+  "cursor": 30,
   "_readme": "Wargame 32 B1/B2. A LIST, not an outreach system — nothing here contacts anyone. Add landed placements to \"placements\" as {title,url,date} and the republisher crawl starts tracking who copied them. Search is DuckDuckGo HTML, no API key.",
-  "generated": "2026-10-19",
+  "generated": "2026-10-26",
   "errors": []
 }
