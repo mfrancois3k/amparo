@@ -3530,12 +3530,42 @@
         "paid": false,
         "forbidsAI": false
       }
+    },
+    {
+      "domain": "files.eric.ed.gov",
+      "url": "https://files.eric.ed.gov/fulltext/ED505511.pdf",
+      "title": "Research Library Issues RLI 263 April 2009 A Bimonthly Report from ARL, CNI, and SPARC",
+      "niche": "latino community news",
+      "operator": "editorial guidelines",
+      "found": "2026-11-02",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "ibtimes.com.au",
+      "url": "https://www.ibtimes.com.au/eva-longoria-tears-over-jeff-bezos-50m-charity-gift-shared-bin-laden-raid-admiral-1867156",
+      "title": "Eva Longoria Tears Up Over Jeff Bezos' $50M Charity Gift Shared With Bin Laden Raid Admiral",
+      "niche": "latino community news",
+      "operator": "editorial guidelines",
+      "found": "2026-11-02",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
     }
   ],
   "republishers": [],
   "placements": [],
-  "cursor": 30,
+  "cursor": 40,
   "_readme": "Wargame 32 B1/B2. A LIST, not an outreach system — nothing here contacts anyone. Add landed placements to \"placements\" as {title,url,date} and the republisher crawl starts tracking who copied them. Search is DuckDuckGo HTML, no API key.",
-  "generated": "2026-10-26",
+  "generated": "2026-11-02",
   "errors": []
 }
