@@ -2,15 +2,55 @@
   "queue": [],
   "handled": [],
   "_readme": "Questions a human should answer, in their own name. NOTHING here is posted automatically and nothing should be. Move an item to \"handled\" once you have replied. Threads describing an arrest or an open case are filtered out on purpose — those need a lawyer, not a drill.",
-  "generated": "2026-11-02",
+  "generated": "2026-11-09",
   "errors": [
     {
-      "sub": "legaladvicespanish",
+      "sub": "legaladvice",
       "error": "Reddit rate limit"
     }
   ],
-  "cursor": 0,
+  "cursor": 2,
   "unanswerable": [
+    {
+      "title": "Got rear-ended 3 days ago, other driver pressured me to not involve insurance & our vehicles were junkers, so I screwed up my legal & insurance accident reporting duties. Is there any possible way to make this right? Do I need a lawyer?",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1xr1v8m/got_rearended_3_days_ago_other_driver_pressured/",
+      "source": "r/legaladvice"
+    },
+    {
+      "title": "Florida lawyer entered a no contest plea without my approval. Should I ask for a refund?",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1xqarhq/florida_lawyer_entered_a_no_contest_plea_without/",
+      "source": "r/legaladvice"
+    },
+    {
+      "title": "I might’ve passed a school bus?",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1xoxup8/i_mightve_passed_a_school_bus/",
+      "source": "r/legaladvice"
+    },
+    {
+      "title": "(Florida) Hit a jaywalker, now they’re trying to sue. What do I do?",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1xgee07/florida_hit_a_jaywalker_now_theyre_trying_to_sue/",
+      "source": "r/legaladvice"
+    },
+    {
+      "title": "What can be done to fix this situation? The judge denied my ability to appeal with in forma pauperis",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1xeuco1/what_can_be_done_to_fix_this_situation_the_judge/",
+      "source": "r/legaladvice"
+    },
+    {
+      "title": "Multi-car freeway rear-end crash with vehicle stopped in lane. How is fault split here?",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1x6upaf/multicar_freeway_rearend_crash_with_vehicle/",
+      "source": "r/legaladvice"
+    },
+    {
+      "title": "First Speeding Ticket. Legal Advice? (Guess I posted it in the wrong advice Reddit..)",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1x6tjac/first_speeding_ticket_legal_advice_guess_i_posted/",
+      "source": "r/legaladvice"
+    },
+    {
+      "title": "Reopened Reckless Driving (91/65) in Rockingham County, VA — Going Pro Se with Medical Proof & Driver Course. Realistic chances?",
+      "url": "https://www.reddit.com/r/legaladvice/comments/1x5n0x1/reopened_reckless_driving_9165_in_rockingham/",
+      "source": "r/legaladvice"
+    },
     {
       "title": "How long do I have to wait at a stoplight before I can run it?",
       "url": "https://www.reddit.com/r/AskLawyers/comments/1xfkke8/how_long_do_i_have_to_wait_at_a_stoplight_before/",

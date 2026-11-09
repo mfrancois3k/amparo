@@ -1,9 +1,9 @@
 {
   "_readme": "Topic queue mined from Wikipedia {{Citation needed}} tags. READ-ONLY: nothing here may be used to edit Wikipedia. Every claim is a legal claim and needs primary-statute verification plus the state-law-matrix.md gate before it can become an Amparo page.",
-  "generated": "2026-11-02",
+  "generated": "2026-11-09",
   "keywords": 12,
-  "articlesScanned": 63,
-  "found": 25,
+  "articlesScanned": 62,
+  "found": 70,
   "errors": [],
   "gaps": [
     {
@@ -152,9 +152,279 @@
     },
     {
       "title": "Right to silence",
+      "claim": "With his decision that common law courts could issue writs of prohibition against such oaths and his arguments that such oaths were contrary to the common law (as found in his Reports and Institutes), Coke \"dealt the crucial blow to the oath ex officio and to the High Commission\". After the parliamentary revolutions of the late 17th century, according to some historical accounts, the right to silence became established in the law as a reaction to the excesses of the royal inquisitions in these courts.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "It was extended during the English Restoration (from 1660 on) to include \"an ordinary witness, and not merely the party charged\".",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "With limited access to legal counsel (often depending on the social status of the accused), a shifting standard of proof, and a system generally distrustful of silent defendants, a criminal accused who remained silent was often believed to be guilty and was sentenced.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "In England, the practice of judicial questioning of accused persons at trial (as distinct from questioning prior to trial), did not really disappear until well into the 18th century, but by the 19th century, the accused were not allowed to give evidence on oath even if they wanted to – also said to be a reaction to the inequities of the Star Chamber and High Commission.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "Australian police all wear chest cams as part of their standard issue, and turn them on with every interaction, so that they record and provide such evidence.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "The key American case of Bram v. United States paved the way for the right to be extended to pretrial questioning, and the practice of \"Miranda warnings\" became established in the US and elsewhere following the case of Miranda v. Arizona in 1966.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "The right does not apply to corporations (EPA v Caltex).",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "The right does not apply to corporations (EPA v Caltex). Within Australia, the right to silence derives from common law's Companion rule.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "Some investigations can strip the right, such as those undertaken by the Independent Commission Against Corruption.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "Would you like to speak to a lawyer?\" A more detailed version:",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "In New Brunswick and Ottawa, the warning is read in either English or French, and the officer is required to ask the person's language of preference before issuing the warning. In the rest of Canada, the Charter warning is read in Canadian English.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "The court did, however, acknowledge that repeated police questioning after a defendant has asserted their right to silence raises doubts regarding the admissibility of further evidence under the confessions rule, though that was not the finding in the case. Another Supreme Court case, R. v. Hodgson, clarified that the right to silence only applied to the state and could not be used to exclude confessions made to private actors.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "Spouses retain the right to assert privilege, and to refuse to answer questions about communications during the marriage.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "The signing of the International Covenant on Civil and Political Rights in 1998, also guarantees Chinese citizens the right against self-incrimination, however the treaty has not been ratified in China.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "These are the right to a lawyer; to be informed of the charge; to interpretation and translation for those who do not understand the language of the proceedings; the right to remain silent and to be brought promptly before a court following arrest.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "Among these rights are: the possibility of warning a relative or employer of the custody, that of asking to be examined by a physician, and that of discussing the case with a lawyer.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "A person against which suspicions lay cannot legally be interrogated by justice as an ordinary witness.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "This prohibition is extended to the suspect's spouse and members of his close family (this extension of the prohibition may be waived if both the prosecution and the defence counsel agree to the waiver).",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "Witnesses under indictment (or who are cited as suspects) cannot be heard under oath, and thus do not risk prosecution for perjury.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "In all cases, an attorney can be designated by the head of the bar if necessary.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "Suspects cannot be heard under oath. Before any interrogation begins a suspect, arrested or not, must be informed:",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "Suspects cannot be heard under oath. Before any interrogation begins a suspect, arrested or not, must be informed: * Of the crime for which he is charged * About his right to remain silent * About his right to consult an attorney before the interview * About his right to name any evidence in his favour Foreign suspects have the following additional rights:",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "Suspicious witnesses cannot be heard under oath.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "Thus, Germany may extradite persons to the UK. It also implies that changing the German laws towards those of the UK would not violate the German constitution.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "However, in Criminal Appeal 5121/98, Issaharov v. The Military Prosecutor, a court ruled that the defendant's confession, given without proper warning regarding the right of representation, was not considered as given with consent and free will, and was not accepted by the court.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "Upon arrest and before first interrogation of a person against whom any (official or unofficial) suspicion has been raised in a criminal case, such person must be warned of his or her right to remain silent, and that everything such person says may be used against that person in a criminal proceedings.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "Outside criminal proceedings right against self-incrimination is honoured as long-standing unwritten general principle of law in all quasi-criminal (such as administrative offence law) and public proceedings, which has been repeatedly upheld by legal precedent and case law.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "The rights are: to remain silent, the right to have an attorney, the right to have access to some files coming from the criminal dossier, and the right to make contact to an attorney.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "The Evidence Act 2006 explicitly prohibits the inference of guilt in a criminal proceeding from a defendant exercising their right to silence. At common law the leading case is Taylor v New Zealand Poultry Board where Justice Cooke held, \"The starting point ... [is], unless an Act of Parliament imposes or authorises the imposition of a duty to the contrary, every citizen has in general a right to refuse to answer questions from anyone, including an official.\" The obligation to caution arises when:",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "However, if the defendant decides not to testify, the judge may advise him that it may in certain circumstances be held against him(§93).",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "Supt.]] Dennis Siervo. According to the website of the Philippine National Police Regional Office 13, at Camp Rafael C Rodriguez in Butuan, failure to recite either the Miranda or anti-torture warnings above can result in \"dismissal of the case against the suspect and filing of administrative case for the arresting police [officer].\" === Republic of Ireland === In the Republic of Ireland, the Supreme Court held that the right was not only a common law right but also a constitutional right which might however be validly limited by legislation (O'Leary v AG [1995] 1 IR 254).",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "As the decision whether or not an answer to a particular question would lead to (self)incrimination is left to the discretion of the person being questioned, this clause allows to remain silent at any time.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "Additionally, the individual must be advised of the following rights:",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "The cantonal codes of procedure, which remain in force until 2011, generally contain similar provisions.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "This is commonly made by reading them out when announcing the decision on instituting criminal proceedings or arrest and then requiring a suspect or arrestee to sign the list of these rights.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "Further, there is no general duty to assist the police with their inquiries.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "There may be no conviction based wholly on silence. Where inferences may be drawn from silence, the court must direct the jury as to the limits to the inferences which may properly be drawn from silence. In respect of those questioned by the Serious Fraud Office, the right to silence has been reduced by virtue of Section 2 of the Criminal Justice Act 1987. The right has also been reduced for those accused of terrorist offences.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "Schedule 7 of the Terrorism Act 2000 has been used to convict people who have refused to disclose their password to customs.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "However, the warning about the possibility of anything the male suspect said being potentially used against him predates even that.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
       "claim": "If you do wish to say anything, what you say may be given in evidence.",
       "keyword": "right to remain silent",
       "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "This can be applied for failure to mention facts after a suspect has been charged with an offence.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "The ECHR addressed this issue in a limited context in Murray v UK (1996);",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "Previously, the right to silence, as with much of Scots criminal law, was held under common law.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "Do you understand?\" The only exception to this rule is that a person must state, upon being required to do so, their name, address, date of birth, place of birth (in such detail as a constable considers necessary or expedient for the purpose of establishing the person's identity), and nationality.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence",
+      "claim": "Failure to provide said details under section 13 is a criminal offence.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence"
+    },
+    {
+      "title": "Right to silence in England and Wales",
+      "claim": "Opponents claimed that innocent people may reasonably remain silent for many reasons, and that changing the law would introduce an element of compulsion and was in clear conflict with the existing core concepts of the presumption of innocence and the burden of proof.",
+      "keyword": "right to remain silent",
+      "url": "https://en.wikipedia.org/wiki/Right_to_silence_in_England_and_Wales"
     }
   ]
 }
