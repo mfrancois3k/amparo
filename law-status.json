@@ -1,12 +1,19 @@
 {
-  "lastChecked": "2026-11-14",
-  "lastAttempt": "2026-11-14",
+  "lastChecked": "2026-11-15",
+  "lastAttempt": "2026-11-15",
   "reachedSources": 3,
   "sourcesWatched": 4,
   "counts": {
-    "ok": 3,
+    "ok": 2,
+    "changed": 1,
     "unreachable": 1
   },
-  "needsReview": [],
+  "needsReview": [
+    {
+      "state": "TX",
+      "cite": "Tex. Transp. Code §543.005",
+      "why": "changed"
+    }
+  ],
   "note": "Automated source-change check only. This does not verify that the law is correct — that requires a person."
 }
