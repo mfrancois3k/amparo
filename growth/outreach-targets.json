@@ -3560,12 +3560,333 @@
         "paid": false,
         "forbidsAI": false
       }
+    },
+    {
+      "domain": "radioambulante.org",
+      "url": "https://radioambulante.org/en",
+      "title": "Radio Ambulante - Uniquely Latin American stories in Spanish",
+      "niche": "noticias latinas",
+      "operator": "contribute",
+      "found": "2026-11-16",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "newscaststudio.com",
+      "url": "https://www.newscaststudio.com/2026/10/08/telemundo-decision-2026-branding/",
+      "title": "Telemundo launches 'Decisión 2026' multiplatform midterm election coverage - NCS | NewscastStudio",
+      "niche": "noticias latinas",
+      "operator": "contribute",
+      "found": "2026-11-16",
+      "status": "new",
+      "guidelines": {
+        "parseFailed": true
+      }
+    },
+    {
+      "domain": "latinas.org",
+      "url": "https://www.latinas.org/prosperity/",
+      "title": "Economic Opportunity and Shared Prosperity – HOPE",
+      "niche": "noticias latinas",
+      "operator": "contribute",
+      "found": "2026-11-16",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "triple-c.at",
+      "url": "https://www.triple-c.at/index.php/tripleC/article/download/427/400",
+      "title": "\"#$%&'()$*&#+!,-%.!*/!0-)1!2!345!\"67&%$-#)5!&8!,-%.*/$!345&%9! -#'!:5/5-%)4!8&%!;%*$*)- Christian Fuchs and Vincent Mosco Upp...",
+      "niche": "noticias latinas",
+      "operator": "contribute",
+      "found": "2026-11-16",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "latintimes.com",
+      "url": "https://www.latintimes.com/latinas-black-girls-are-entering-puberty-earlier-age-compared-others-554670",
+      "title": "Latinas and Black girls are entering puberty at an earlier age compared to others",
+      "niche": "noticias latinas",
+      "operator": "contribute",
+      "found": "2026-11-16",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "letraslatinasblog.blogspot.com",
+      "url": "https://letraslatinasblog.blogspot.com/2009/12/las-noticias-de-guadalajara.html",
+      "title": "Letras Latinas Blog: Los pasos de nuestra literatura",
+      "niche": "noticias latinas",
+      "operator": "contribute",
+      "found": "2026-11-16",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "riviste.fupress.net",
+      "url": "https://riviste.fupress.net/index.php/iila/issue/download/180/143",
+      "title": "Quaderni Culturali IILA Las relaciones culturales entre Italia y América Latina entre los años 20 y 40 6/2024 del Siglo XX",
+      "niche": "noticias latinas",
+      "operator": "contribute",
+      "found": "2026-11-16",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "multiplex.videohall.com",
+      "url": "https://multiplex.videohall.com/presentations/1906.html",
+      "title": "Empowering the Next Generation of Latinas in STEAM careers",
+      "niche": "noticias latinas",
+      "operator": "contribute",
+      "found": "2026-11-16",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "somosprimos.com",
+      "url": "https://www.somosprimos.com/sp2004/spdec04/spdec04.htm",
+      "title": "Somos Primos",
+      "niche": "noticias latinas",
+      "operator": "contribute",
+      "found": "2026-11-16",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "repositori.upf.edu",
+      "url": "https://repositori.upf.edu/server/api/core/bitstreams/5a5e45da-1f3c-48df-9516-e25e9b379342/content",
+      "title": "Researching Youth Street Groups in Southern Europe",
+      "niche": "noticias latinas",
+      "operator": "contribute",
+      "found": "2026-11-16",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "texasedequity.blogspot.com",
+      "url": "https://texasedequity.blogspot.com/2023/04/number-of-latinas-in-higher-education.html",
+      "title": "Educational Equity, Politics & Policy in Texas: Number of Latinas in Higher Education Continues to Grow by Alyssa Gonzales | ...",
+      "niche": "noticias latinas",
+      "operator": "contribute",
+      "found": "2026-11-16",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "archaeopress.com",
+      "url": "https://www.archaeopress.com/Archaeopress/download/9781803274201",
+      "title": "ologyAr Access Archaeology s Archae ess Acces",
+      "niche": "noticias latinas",
+      "operator": "contribute",
+      "found": "2026-11-16",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "commons.stmarytx.edu",
+      "url": "https://commons.stmarytx.edu/cgi/viewcontent.cgi?article=1451&context=thescholar",
+      "title": "The Scholar: St. Mary's Law Review on Race and Social Justice",
+      "niche": "noticias latinas",
+      "operator": "contribute",
+      "found": "2026-11-16",
+      "status": "new",
+      "guidelines": {
+        "parseFailed": true
+      }
+    },
+    {
+      "domain": "resistenciabooks.com",
+      "url": "https://www.resistenciabooks.com/category/noticias/page/31",
+      "title": "Noticias | Red Salmon Arts | Page 31",
+      "niche": "noticias latinas",
+      "operator": "contribute",
+      "found": "2026-11-16",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "whijournal.com",
+      "url": "https://www.whijournal.com/article/S1049-3867%2821%2900026-8/fulltext",
+      "title": "Recommendations for Clinical Practice, Research, and Policy to Address the Effects of the COVID-19 Pandemic on Anxiety Sympto...",
+      "niche": "noticias latinas",
+      "operator": "contribute",
+      "found": "2026-11-16",
+      "status": "new",
+      "guidelines": {
+        "parseFailed": true
+      }
+    },
+    {
+      "domain": "lavoz.bard.edu",
+      "url": "https://lavoz.bard.edu/articles/index.php?id=1205543",
+      "title": "Bard College | La Voz | Article | Latinos, and Latinas, in Business",
+      "niche": "noticias latinas",
+      "operator": "contribute",
+      "found": "2026-11-16",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "schedules.ire.org",
+      "url": "https://schedules.ire.org/ire-2023/",
+      "title": "IRE 2023 conference schedule | June 22-25, 2023 | Orlando",
+      "niche": "noticias latinas",
+      "operator": "contribute",
+      "found": "2026-11-16",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "revista.psico.edu.uy",
+      "url": "https://revista.psico.edu.uy/index.php/revpsicologia/article/download/245/225/1357",
+      "title": "Engaging Latino families in transformative home technology pedagogy and practices Involucramiento de familias Latinas en prác...",
+      "niche": "noticias latinas",
+      "operator": "contribute",
+      "found": "2026-11-16",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "dicyt.com",
+      "url": "https://www.dicyt.com/news/indigenous-american-ancestry-may-be-associated-with-her2-positive-breast-cancer",
+      "title": "Indigenous American ancestry may be associated with HER2-positive breast cancer",
+      "niche": "noticias latinas",
+      "operator": "contribute",
+      "found": "2026-11-16",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "nhmc.org",
+      "url": "https://www.nhmc.org/nhmc-poll-finds-that-negative-media-portrayals-are-fueling-stereotypes-about-immigrants-and-latinos-2/",
+      "title": "NHMC Poll Finds That Negative Media Portrayals Are Fueling Stereotypes About Immigrants And Latinos - NHMC",
+      "niche": "noticias latinas",
+      "operator": "contribute",
+      "found": "2026-11-16",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "salud-america.org",
+      "url": "https://salud-america.org/author/despres/page/52/",
+      "title": "Cliff Despres, Author at Salud America - Page 52 of 74",
+      "niche": "noticias latinas",
+      "operator": "contribute",
+      "found": "2026-11-16",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "nhpr.org",
+      "url": "https://www.nhpr.org/nh-news/2026-08-10/american-red-cross-limiting-distribution-type-o-blood-shortage-nh",
+      "title": "The American Red Cross is limiting distribution of type O blood amid shortage | New Hampshire Public Radio",
+      "niche": "noticias latinas",
+      "operator": "contribute",
+      "found": "2026-11-16",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
     }
   ],
   "republishers": [],
   "placements": [],
-  "cursor": 40,
+  "cursor": 0,
   "_readme": "Wargame 32 B1/B2. A LIST, not an outreach system — nothing here contacts anyone. Add landed placements to \"placements\" as {title,url,date} and the republisher crawl starts tracking who copied them. Search is DuckDuckGo HTML, no API key.",
-  "generated": "2026-11-02",
+  "generated": "2026-11-16",
   "errors": []
 }
