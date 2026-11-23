@@ -3881,12 +3881,42 @@
         "paid": false,
         "forbidsAI": false
       }
+    },
+    {
+      "domain": "researchcommons.waikato.ac.nz",
+      "url": "https://researchcommons.waikato.ac.nz/server/api/core/bitstreams/a8239e60-e3fe-4afc-b66a-38e768c456f4/content",
+      "title": "Ethical Guidelines and Practices for Pakistani Television Journalists Reporting on Domestic Violence Paper presented to the I...",
+      "niche": "legal aid",
+      "operator": "editorial guidelines",
+      "found": "2026-11-23",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": false,
+        "forbidsAI": false
+      }
+    },
+    {
+      "domain": "themckinneylawgroup.com",
+      "url": "https://themckinneylawgroup.com/resources-for-single-moms-in-tampa-legal-aid-support-groups-and-childcare-options/",
+      "title": "Resources for Single Moms in Tampa: Legal Aid, Support Groups, and Childcare Options | The McKinney Law Group",
+      "niche": "legal aid",
+      "operator": "editorial guidelines",
+      "found": "2026-11-23",
+      "status": "new",
+      "guidelines": {
+        "wordCount": null,
+        "links": "unstated",
+        "paid": true,
+        "forbidsAI": false
+      }
     }
   ],
   "republishers": [],
   "placements": [],
-  "cursor": 0,
+  "cursor": 10,
   "_readme": "Wargame 32 B1/B2. A LIST, not an outreach system — nothing here contacts anyone. Add landed placements to \"placements\" as {title,url,date} and the republisher crawl starts tracking who copied them. Search is DuckDuckGo HTML, no API key.",
-  "generated": "2026-11-16",
+  "generated": "2026-11-23",
   "errors": []
 }

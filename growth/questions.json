@@ -2,18 +2,18 @@
   "queue": [],
   "handled": [],
   "_readme": "Questions a human should answer, in their own name. NOTHING here is posted automatically and nothing should be. Move an item to \"handled\" once you have replied. Threads describing an arrest or an open case are filtered out on purpose — those need a lawyer, not a drill.",
-  "generated": "2026-11-16",
+  "generated": "2026-11-23",
   "errors": [
     {
-      "sub": "AskLawyers",
-      "error": "Reddit HTTP 403"
+      "sub": "DACA",
+      "error": "Reddit HTTP 404"
     },
     {
-      "sub": "immigration",
+      "sub": "legaladvicespanish",
       "error": "Reddit rate limit"
     }
   ],
-  "cursor": 4,
+  "cursor": 0,
   "unanswerable": [
     {
       "title": "Got rear-ended 3 days ago, other driver pressured me to not involve insurance & our vehicles were junkers, so I screwed up my legal & insurance accident reporting duties. Is there any possible way to make this right? Do I need a lawyer?",
